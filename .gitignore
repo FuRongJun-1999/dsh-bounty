@@ -1,0 +1,7 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# 本地离线状态镜像（--state 演练用；不入仓）
+.tmp/

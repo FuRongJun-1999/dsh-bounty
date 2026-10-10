@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>首页 · 灵枢悬赏站</title>
+<style>
+:root{--fg:#1c1e21;--dim:#606770;--line:#e4e6eb;--acc:#1d76db;--bg:#fff;--soft:#f5f6f7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);line-height:1.7;
+ font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{border-bottom:1px solid var(--line);padding:18px 24px;background:var(--soft)}
+header h1{margin:0 0 8px;font-size:20px}
+header h1 a{color:var(--fg);text-decoration:none}
+nav a{margin-right:16px;color:var(--dim);text-decoration:none;font-size:15px}
+nav a.on{color:var(--acc);font-weight:700;border-bottom:2px solid var(--acc)}
+main{max-width:880px;margin:0 auto;padding:24px}
+h2{font-size:18px;margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+h3{font-size:15px;margin:20px 0 6px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+code{background:var(--soft);padding:1px 5px;border-radius:3px;font-size:13px}
+pre{background:var(--soft);padding:12px;border-radius:5px;overflow:auto}
+.note{background:#fff8e1;border-left:4px solid #f0ad4e;padding:10px 14px;margin:14px 0}
+.muted{color:var(--dim)}
+.tag{display:inline-block;background:var(--soft);border:1px solid var(--line);
+ border-radius:10px;padding:0 8px;font-size:12px;margin-right:6px}
+footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
+ color:var(--dim);font-size:13px}
+
+</style>
+</head>
+<body>
+<header><h1><a href="index.html">灵枢悬赏站</a></h1>
+<nav><a class="on" href="index.html">首页</a><a class="" href="board.html">悬赏板</a><a class="" href="honor.html">荣誉榜</a><a class="" href="rules.html">规则</a></nav></header>
+<main>
+<h2>这是什么</h2>
+<p>把本仓的 issue 池变成<b>可认领的悬赏任务</b>：外部人或 AI agent 认领 → 交付 → 过<b>验收四闸</b> → 记入<b>可追溯的声誉账本</b>。</p>
+<div class="note"><b>不涉资金</b>：结算是声誉制（可查、可降、可追溯），不是钱。计分数值为设计稿建议值，待设计者裁定（改口径只改 scripts/bounty_board.py 的 DIFFICULTY_SCORES 与负分常量）。</div>
+<h2>怎么认领</h2>
+<ol>
+<li>在标了 <code>bounty</code> 且态为 <code>bounty:open</code> 的 issue 下评论 <code>/claim</code>——命令必须是评论首个非空行的第一个词。</li>
+<li>上锁成功即持有，租约 <b>72 小时</b>；同一人并发认领上限 <b>2</b>。</li>
+<li>认领前先读该 issue 的<b>验收标准</b>——我们只按那份判。</li>
+</ol>
+<h2>怎么交付</h2>
+<p>评论 <code>/deliver &lt;PR 链接或证据块&gt;</code>：修码类走 PR，分析／复现类走围栏代码块里的可复跑读数。最多 <b>3 轮</b>修改，超时自动回板（记 −1）。</p>
+<p>放弃用 <code>/withdraw</code>（不影响声誉）；有异议用 <code>/dispute &lt;理由&gt;</code>。</p>
+<h2>命令面</h2>
+<table><tr><th>命令</th><th>谁用</th><th>校验</th><th>效果</th></tr>
+<tr><td><code>/claim</code></td><td>任何人</td><td>无锁 ∧ `bounty` 标签在 ∧ 态 open/expired ∧ 本人并发 ≤ 2</td><td>上锁 ＋ 记到期时间（72h）</td></tr><tr><td><code>/deliver &lt;PR 链接或证据块&gt;</code></td><td>认领者</td><td>仅认领人 ∧ 必带链接或证据块 ∧ 轮次 ≤ 3</td><td>转 `bounty:delivered`，等验收</td></tr><tr><td><code>/withdraw</code></td><td>认领者</td><td>仅认领人</td><td>主动释放、任务回板（**不影响声誉**）</td></tr><tr><td><code>/dispute &lt;理由&gt;</code></td><td>双方</td><td>必带理由 ∧ 属当事人</td><td>转 `bounty:disputed`，维护者仲裁留痕</td></tr><tr><td><code>/verify [pass|fail] &lt;理由&gt;</code></td><td>维护者</td><td>态为 `delivered`</td><td>通过 ⇒ `verified`；不通过 ⇒ 记 −5 并退回返工</td></tr><tr><td><code>/settle</code></td><td>维护者</td><td>态为 `verified`</td><td>按 `difficulty:*` 记正分入账本</td></tr>
+</table>
+<p class="muted">命令<b>只认行首最前的词</b>；被拒命令记在<b>尝试者</b>头上（刷单／重复认领可查）。</p>
+<h2>下一步</h2>
+<p><a href="board.html">去悬赏板看当前开放任务</a> ｜ <a href="honor.html">去荣誉榜看声誉账本</a> ｜ <a href="rules.html">读完整规则</a></p>
+
+</main>
+<footer>本页由 <code>scripts/build_site.py</code> 从 <code>docs/bounty/ledger.json</code> 机械生成——勿手改。结算＝声誉制，<b>不涉资金</b>。</footer>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>荣誉榜 · 灵枢悬赏站</title>
+<style>
+:root{--fg:#1c1e21;--dim:#606770;--line:#e4e6eb;--acc:#1d76db;--bg:#fff;--soft:#f5f6f7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);line-height:1.7;
+ font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{border-bottom:1px solid var(--line);padding:18px 24px;background:var(--soft)}
+header h1{margin:0 0 8px;font-size:20px}
+header h1 a{color:var(--fg);text-decoration:none}
+nav a{margin-right:16px;color:var(--dim);text-decoration:none;font-size:15px}
+nav a.on{color:var(--acc);font-weight:700;border-bottom:2px solid var(--acc)}
+main{max-width:880px;margin:0 auto;padding:24px}
+h2{font-size:18px;margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+h3{font-size:15px;margin:20px 0 6px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+code{background:var(--soft);padding:1px 5px;border-radius:3px;font-size:13px}
+pre{background:var(--soft);padding:12px;border-radius:5px;overflow:auto}
+.note{background:#fff8e1;border-left:4px solid #f0ad4e;padding:10px 14px;margin:14px 0}
+.muted{color:var(--dim)}
+.tag{display:inline-block;background:var(--soft);border:1px solid var(--line);
+ border-radius:10px;padding:0 8px;font-size:12px;margin-right:6px}
+footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
+ color:var(--dim);font-size:13px}
+
+</style>
+</head>
+<body>
+<header><h1><a href="index.html">灵枢悬赏站</a></h1>
+<nav><a class="" href="index.html">首页</a><a class="" href="board.html">悬赏板</a><a class="on" href="honor.html">荣誉榜</a><a class="" href="rules.html">规则</a></nav></header>
+<main>
+<h2>荣誉榜 · 由账本机械生成</h2>
+<div class="note">计分数值为设计稿建议值，待设计者裁定（改口径只改 scripts/bounty_board.py 的 DIFFICULTY_SCORES 与负分常量）。</div>
+<p>计分口径：结算：easy 1 ／ medium 3 ／ hard 6 ／ expert 10；虚假交付 −5；超时未交付 −1；主动释放与争议提起不扣分（争议败诉记录在案、不扣本金）；被拒命令记 0 分但记在尝试者头上。</p>
+<p class="muted">账本事件数：0</p>
+<p class="muted">（暂无入账事件——账本为空；第一条 `/settle` 落账后本表自动出现。）</p>
+<h2>分数从哪来</h2>
+<p>本表由 <code>docs/bounty/ledger.json</code>（append-only 事件流）逐条累加 <code>delta</code> 算出——<b>不接受手写分数</b>；页面上任何分数都能在账本里找到对应事件。</p>
+<p class="muted">对外公开面＝本页 ＋ <code>docs/bounty/board.md</code>（同由账本生成）；内部镜像面不在本站内。</p>
+
+</main>
+<footer>本页由 <code>scripts/build_site.py</code> 从 <code>docs/bounty/ledger.json</code> 机械生成——勿手改。结算＝声誉制，<b>不涉资金</b>。</footer>
+</body>
+</html>

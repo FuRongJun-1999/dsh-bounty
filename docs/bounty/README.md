@@ -107,6 +107,26 @@ delta = max(1, round_half_up(base × 2 / (round + 1)))     # round = 已发生�
 **旧事件不回改**（append-only）；第三方可对任意时间点按**两侧常量**分段复算。
 可复算入口：`bounty_board.rescore(events)`——逐条按事件自带 `formula` 重算并断言与 `delta` 一致。
 
+### 4.5 招标模式与落选分（v1.1 · 参考招投标法）
+
+打 `bounty:contest` 标签即开启**招标模式**（未打该标签时保持 `/claim` 独占租约，**向后兼容**）：
+
+| 招标环节 | 本站实现 |
+|---|---|
+| 招标公告 | 打 `bounty:contest` 的 issue；**评标标准＝发布模板的「验收标准」栏**（预先公开） |
+| 投标 | `/bid <PR 链接或证据块>`（**无需 `/claim`**，任何人可投） |
+| **一人一投** | 同一人二次投标 ⇒ 拒（`duplicate_bid`）——**不得二次报价** |
+| 投标截止 | issue 的到期时间（`due_at`）；**截止后不得投标或修改**（`bid_deadline_passed`） |
+| 废标 | 不带链接或证据块 ⇒ 拒（复用 `_check_payload`） |
+| 评标 | 验收四闸（第 ④ 闸是人审） |
+| 定标 | `/select <中标人> <理由>`（维护者）⇒ 中标者转 `bounty:delivered`、`holder=中标者`、`rounds=1`（首交付） |
+| **落标** | 定标时对**其余有效投标者**各记**落选分**：easy **0** ／ medium **1** ／ hard **2** ／ expert **4** |
+| 异议 | 定标后走既有 `/dispute`（记录在案、不扣本金） |
+
+- **落选分 0 分也写事件**：否则「投了但没中标」与「根本没投」在账本上同形，重标不可观测。
+- 落选事件 `action=lose`、`formula.kind=lost_bid`，可被 `rescore` **独立复算**。
+- **与 E 的关系**：中标者的交付照走 `/verify`（含 `partial p/t`）与 `/settle`，E 照常参与质量化。
+
 荣誉榜 `docs/bounty/board.md` 由账本机械生成（不手改）。计分口径真源＝`scripts/bounty_board.py`
 （`DIFFICULTY_SCORES` ／ `quality_delta` ／ `timeout_delta` ／ `invalid_delta`）；改口径只改那里。
 

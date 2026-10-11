@@ -97,7 +97,7 @@ from datetime import datetime, timedelta, timezone
 LABEL_GATE = "bounty"
 #: 态标签（人眼视图）；`bounty:expired` 在 MVP **不驻留**（超时直接回板 `open`，
 #: 只把 `expire` 事件与评论留在痕里）——见 README「超时回板」。
-STATE_LABELS = ("bounty:open", "bounty:claimed", "bounty:delivered",
+STATE_LABELS = ("bounty:open", "bounty:claimed", "bounty:contest", "bounty:delivered",
                 "bounty:verified", "bounty:settled", "bounty:expired",
                 "bounty:disputed")
 #: 难度标签 → 结算分（设计稿 §五「建议值，待裁」——改口径只改本表）。
@@ -105,6 +105,10 @@ DIFFICULTY_SCORES = {"difficulty:easy": 1, "difficulty:medium": 3,
                      "difficulty:hard": 6, "difficulty:expert": 10}
 #: 无难度标签时的兜底分（照 easy 记，并在事件理由里写明）。
 SCORE_DEFAULT = 1
+#: 落选分（招标模式：投标有效但未被采纳；0/1/2/4 按难度）——0 分也写事件，否则与「未投标」同形。
+LOSER_SCORES = {"difficulty:easy": 0, "difficulty:medium": 1,
+                "difficulty:hard": 2, "difficulty:expert": 4}
+
 #: 负分（设计稿 §五）：虚假交付 / 超时未交付。
 SCORE_FAKE_DELIVERY = -5
 SCORE_TIMEOUT = -1
@@ -156,6 +160,13 @@ def invalid_delta(base: int):
 
 
 # 生效条件：events 为账本事件列表时返回 (ok, bad)——逐条按事件自带 rule/formula 复算 delta 并断言一致。
+# 生效条件：difficulty 为完整标签串时返回落选 (delta, formula)——招标模式下投标有效但未被采纳者按难度记 0/1/2/4。
+def loser_delta(difficulty: str):
+    d = LOSER_SCORES.get(difficulty or "", 0)
+    return d, {"rule": SCORE_RULE, "kind": "lost_bid", "base": base_of(difficulty),
+               "difficulty": (difficulty or "").split(":", 1)[-1], "delta": d}
+
+
 def rescore(events):
     bad = []
     for ev in events or []:
@@ -172,6 +183,8 @@ def rescore(events):
             d = -2 * int(f.get("base") or 0)
         elif kind == "invalid":
             d = -int(f.get("base") or 0)
+        elif kind == "lost_bid":
+            d = LOSER_SCORES.get("difficulty:" + str(f.get("difficulty") or ""), 0)
         else:
             _e = (int(f.get("e_pass") or 0) / int(f["e_total"])) if f.get("e_total") else 1.0
             d = max(1, _round_half_up(int(f.get("base") or 0) * 2.0 * _e / (int(f.get("round") or 0) + 1)))
@@ -181,7 +194,7 @@ def rescore(events):
 
 
 #: 命令面（只认「行首第一个词」）。
-COMMANDS = ("/claim", "/deliver", "/withdraw", "/dispute", "/verify", "/settle")
+COMMANDS = ("/claim", "/deliver", "/bid", "/select", "/withdraw", "/dispute", "/verify", "/settle")
 #: 可认领态（设计稿 §三：`open`/`expired`——expired = 超时回板前一刻的可认领窗口）。
 CLAIMABLE_STATES = ("open", "expired")
 #: 可交付态（`delivered` 可再交付 = 返工轮）。
@@ -323,6 +336,8 @@ class IssueState:
     author: str | None = None
     #: 验收条目判定快照 (通过数, 总数)——E 的分母在此固定，随状态迁移继承；空元组 = 未计量（E≡1）。
     criteria: tuple = ()
+    #: 招标模式的投标人有序名单（一人一投；`/select` 定标后清空）。
+    bidders: tuple = ()
 
 
 @dataclass(frozen=True)
@@ -343,6 +358,8 @@ class Decision:
     comment: str = ""
     delta: int = 0
     event: dict = field(default_factory=dict)
+    #: 一次裁决可附带多条账本事件（如 `/select` 同时记多个落选分）——写入面须一并入账。
+    extra_events: tuple = ()
 
 
 def _seq(rec: dict) -> int:
@@ -382,7 +399,8 @@ def build_state(number, labels, comments, author=None) -> IssueState:
         holder=marker.get("holder") or None, due_at=marker.get("due_at") or None,
         rounds=int(marker.get("rounds") or 0), seq=_seq(marker),
         difficulty=difficulty, author=author,
-        criteria=tuple(marker.get("criteria") or ()))
+        criteria=tuple(marker.get("criteria") or ()),
+        bidders=tuple(marker.get("bidders") or ()))
 
 
 # 生效条件：labels 为标签可迭代、target 为裸态名时返回 (要加的标签, 要删的标签)——删光其余态标签，加目标态标签；target 为空串时只删不加。
@@ -501,7 +519,8 @@ def _decide(st, action, reason, now, actor, code, delta=0, formula=None) -> Deci
 # 生效条件：st 与迁移参数给定时返回通过裁决——态迁移、标签补丁、固定模板评论、账本事件（delta 按参数；*_holder 缺省同 holder，超时回板时二者分叉：标记不带持有者、事件记原持有者以便记负分）。
 def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
             bullets, marker_extra=None, delta=0, event_holder=None,
-            event_actor=None, formula=None, criteria=None) -> Decision:
+            event_actor=None, formula=None, criteria=None, bidders=None,
+            extra_events=()) -> Decision:
     """通过裁决的统一构造。"""
     add, remove = label_patch(st.labels, to_state)
     marker = {"state": to_state, "holder": holder, "due_at": due_at,
@@ -510,6 +529,9 @@ def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
     _cr = st.criteria if criteria is None else tuple(criteria)
     if len(_cr) == 2:
         marker["criteria"] = [int(_cr[0]), int(_cr[1])]
+    _bd = st.bidders if bidders is None else tuple(bidders)
+    if _bd:
+        marker["bidders"] = list(_bd)
     ev = {"ts": fmt_ts(now), "issue": st.number, "action": action.lstrip("/"),
           "actor": event_actor or actor, "from": st.state, "to": to_state,
           "holder": st.holder if event_holder is None else event_holder,
@@ -526,7 +548,7 @@ def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
                     labels_remove=remove,
                     comment=_comment(_TITLES.get(action.lstrip("/"), "状态已更新"),
                                      bullets, marker),
-                    delta=delta, event=ev)
+                    delta=delta, event=ev, extra_events=tuple(extra_events))
 
 
 # 生效条件：st 为 IssueState、cmd 为 COMMANDS 之一、actor 为非空登录名、now 为带时区 datetime、cfg 为 Config、active_claims 为 actor 当前并发认领数（不含本 issue）时返回一个 Decision——**纯逻辑，零 IO/零网络**；is_maintainer 只影响 /verify 与 /settle；pr_meta 只写进账本事件。
@@ -537,6 +559,10 @@ def handle_command(st: IssueState, cmd, payload, body, actor, now, cfg: Config,
         return _do_claim(st, actor, now, cfg, active_claims)
     if cmd == "/deliver":
         return _do_deliver(st, payload, body, actor, now, cfg, pr_meta)
+    if cmd == "/bid":
+        return _do_bid(st, payload, body, actor, now, cfg, pr_meta)
+    if cmd == "/select":
+        return _do_select(st, payload, actor, now, cfg, is_maintainer)
     if cmd == "/withdraw":
         return _do_withdraw(st, actor, now, cfg)
     if cmd == "/dispute":
@@ -566,6 +592,80 @@ def _do_claim(st, actor, now, cfg, active_claims):
     return _accept(st, "/claim", now, actor, "claimed", actor, due, 0,
                    f"@{actor} 认领，锁至 {due}", bullets)
 
+
+# 生效条件：st 为 IssueState、payload 为投标载荷、actor/now/cfg/pr_meta 齐全时返回裁决——校验依序
+# 「态为招标中 → 未过投标截止 → 带链接或证据块 → 本人未投过」；全过则登记投标人（态不变）。
+def _do_bid(st, payload, body, actor, now, cfg, pr_meta):
+    if st.state != "contest":
+        return _decide(st, "/bid",
+                       f"当前态 `bounty:{st.state}` 不接受投标（须为 `bounty:contest`："
+                       "发布时打该标签即开启招标模式）", now, actor, "state_not_bidding")
+    if st.due_at:
+        try:
+            if now >= parse_ts(st.due_at):
+                return _decide(st, "/bid",
+                               f"投标截止时间已过（{st.due_at}）——截止后不得投标或修改",
+                               now, actor, "bid_deadline_passed")
+        except ValueError:
+            pass
+    ok_pay, why_pay = _check_payload(payload, body)
+    if not ok_pay:
+        return _decide(st, "/bid", why_pay, now, actor, "payload_missing")
+    if actor in st.bidders:
+        return _decide(st, "/bid", f"@{actor} 已投过标——**一人一投**，不得二次报价",
+                       now, actor, "duplicate_bid")
+    show = (payload or "").strip()
+    show = show if len(show) <= 200 else show[:200] + "…"
+    bullets = [f"投标人：@{actor}", f"投标物：{show or '（见评论正文的证据块）'}",
+               f"本次为第 {len(st.bidders) + 1} 份投标",
+               "评标：验收四闸（① CI 全绿 ② 复现读数 ③ 守卫＋定点变异 ④ 维护者人审）",
+               "定标：维护者 `/select <中标人>`；落标者按难度记落选分"]
+    return _accept(st, "/bid", now, actor, "contest", st.holder, st.due_at,
+                   st.rounds, f"@{actor} 投标（第 {len(st.bidders) + 1} 份）", bullets,
+                   marker_extra={"pr": pr_meta} if pr_meta else None,
+                   bidders=st.bidders + (actor,))
+
+
+# 生效条件：st/actor/now/cfg 齐全且 is_maintainer 为真时返回裁决——非维护者拒；态非 contest 拒；无投标拒；
+# 载荷首词须为已投标登录名（可带 @）。通过则定标：中标者转 delivered（holder=中标者、rounds=1 首交付），
+# **其余有效投标者各记落选分**（0/1/2/4，按难度）为 extra_events（0 分也写事件——否则与「未投标」同形）。
+def _do_select(st, payload, actor, now, cfg, is_maintainer):
+    if not is_maintainer:
+        return _decide(st, "/select", "仅维护者可定标（人审闸）", now, actor, "not_maintainer")
+    if st.state != "contest":
+        return _decide(st, "/select", f"当前态 `bounty:{st.state}` 不在招标面",
+                       now, actor, "state_not_selecting")
+    if not st.bidders:
+        return _decide(st, "/select", "尚无投标——无标可定", now, actor, "no_bids")
+    text = (payload or "").strip()
+    head, _sep, rest = text.partition(" ")
+    winner = head.lstrip("@").strip()
+    if winner not in st.bidders:
+        _names = "、".join("@" + b for b in st.bidders)
+        return _decide(st, "/select", f"中标人须为已投标者之一（当前投标：{_names}）",
+                       now, actor, "winner_not_bidder")
+    reason = rest.strip() or "（未写理由）"
+    losers = tuple(b for b in st.bidders if b != winner)
+    extra = []
+    for _b in losers:
+        _ld, _lf = loser_delta(st.difficulty)
+        _ev = {"ts": fmt_ts(now), "issue": st.number, "action": "lose", "actor": _b,
+               "from": st.state, "to": st.state, "holder": _b,
+               "difficulty": st.difficulty.split(":", 1)[-1] if st.difficulty else "",
+               "delta": _ld,
+               "reason": f"投标未被采纳（中标：@{winner}）：{reason}",
+               "formula": _lf}
+        _ev["id"] = event_id(_ev)
+        extra.append(_ev)
+    _w, _wf = quality_delta(base_of(st.difficulty), 1)
+    _lz = f"（各记落选分：{'、'.join('@' + b for b in losers)}）" if losers else ""
+    bullets = [f"定标者：@{actor}", f"中标人：**@{winner}**", f"理由：{reason}",
+               f"投标共 {len(st.bidders)} 份；落标 {len(losers)} 份{_lz}",
+               f"中标者转 `bounty:delivered`：走验收四闸后 `/verify` → `/settle`"
+               f"（首交付 {_w} 分）"]
+    return _accept(st, "/select", now, actor, "delivered", winner, st.due_at, 1,
+                   f"定标：@{winner} 中标（{len(st.bidders)} 份投标）", bullets,
+                   extra_events=tuple(extra), bidders=())
 
 # 生效条件：st 为 IssueState、payload 为命令载荷、body 为整条评论正文、actor/now/cfg 齐全时返回裁决——校验依序「仅本人可交付 → 态可交付 → 带链接或证据块 → 轮次 ≤ max_rounds」；全过则转 delivered 并记 pr_meta（若交付链接指向本仓 PR）。
 def _do_deliver(st, payload, body, actor, now, cfg, pr_meta):
@@ -1168,7 +1268,8 @@ def store_apply(store, dec: Decision):
                            "from": dec.from_state, "to": dec.to_state,
                            "reason": dec.reason})
     before = len(store.get("ledger") or [])
-    store["ledger"] = append_events(store.get("ledger") or [], [dec.event])
+    store["ledger"] = append_events(store.get("ledger") or [],
+                                    [dec.event] + list(dec.extra_events))
     return len(store["ledger"]) > before
 
 

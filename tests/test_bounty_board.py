@@ -359,6 +359,54 @@ def group_lifecycle():
     _d27 = verify(mk_state(state="delivered", holder="alice"), payload="pass 全过")
     ok("G27 /verify pass → 清空 E 快照（E≡1）",
        _d27.ok and "criteria" not in _d27.comment, _d27.comment[-160:])
+    # ---- 招标模式（参考招投标法：投标 → 截止 → 定标 → 落标）----
+    _mkb = lambda **kw: bb.IssueState(number=101,
+        labels=("bounty", "bounty:" + kw.get("state", "contest"), kw.get("diff", "difficulty:hard")),
+        has_bounty=True, state=kw.get("state", "contest"), holder=kw.get("holder"),
+        due_at=kw.get("due"), rounds=kw.get("rounds", 0), seq=1,
+        difficulty=kw.get("diff", "difficulty:hard"), author="FuRongJun-1999",
+        bidders=kw.get("bidders", ()))
+    def _bd(st, cmd, payload, actor="alice", maint=False):
+        return bb.handle_command(st, cmd, payload, f"{cmd} {payload}", actor, NOW, CFG,
+                                 is_maintainer=maint)
+    _d28 = _bd(_mkb(), "/bid", "https://example.com/pull/1")
+    ok("G28 /bid 投标 → 态保持 contest 且标记带投标人 [alice]",
+       _d28.ok and _d28.to_state == "contest" and '"bidders":["alice"]' in _d28.comment,
+       _d28.comment[-150:])
+    _d29 = _bd(_mkb(bidders=("alice",)), "/bid", "https://example.com/pull/2")
+    ok("G29 一人一投：同一人二次投标 → 拒（duplicate_bid）",
+       _d29.ok is False and "一人一投" in _d29.reason, _d29.reason)
+    _d30 = _bd(_mkb(due="2020-01-01T00:00:00Z"), "/bid", "https://example.com/pull/3")
+    ok("G30 投标截止后 → 拒（bid_deadline_passed）",
+       _d30.ok is False and "截止时间已过" in _d30.reason, _d30.reason)
+    _d31 = _bd(_mkb(state="open"), "/bid", "https://example.com/pull/4")
+    ok("G31 非招标态 /bid → 拒（state_not_bidding）",
+       _d31.ok is False and "不接受投标" in _d31.reason, _d31.reason)
+    _d32 = _bd(_mkb(bidders=("alice", "bob", "carol")), "/select", "bob 读数最全",
+                actor="FuRongJun-1999", maint=True)
+    ok("G32 /select 定标 → 转 delivered、holder=中标者、rounds=1（首交付）",
+       _d32.ok and _d32.to_state == "delivered" and _d32.holder == "bob"
+       and _d32.rounds == 1, (_d32.to_state, _d32.holder, _d32.rounds))
+    ok("G33 落标者各一条落选事件：hard → 2 分（v0.4 表 0/1/2/4）",
+       len(_d32.extra_events) == 2
+       and {e["actor"] for e in _d32.extra_events} == {"alice", "carol"}
+       and all(e["delta"] == 2 for e in _d32.extra_events),
+       [(e["actor"], e["delta"]) for e in _d32.extra_events])
+    _d34 = _bd(_mkb(bidders=("alice", "bob"), diff="difficulty:easy"), "/select", "bob",
+                actor="FuRongJun-1999", maint=True)
+    ok("G34 0 分落选也写事件（easy → delta=0；否则与「未投标」同形）",
+       len(_d34.extra_events) == 1 and _d34.extra_events[0]["delta"] == 0,
+       [(e["actor"], e["delta"]) for e in _d34.extra_events])
+    _d35a = _bd(_mkb(bidders=("alice",)), "/select", "alice", actor="bob")
+    _d35b = _bd(_mkb(bidders=("alice",)), "/select", "dave", maint=True)
+    _d35c = _bd(_mkb(), "/select", "alice", maint=True)
+    ok("G35 定标越权/非投标人/无投标 → 三种皆拒",
+       _d35a.ok is False and "仅维护者" in _d35a.reason
+       and _d35b.ok is False and "须为已投标者之一" in _d35b.reason
+       and _d35c.ok is False and "尚无投标" in _d35c.reason,
+       (_d35a.reason[:20], _d35b.reason[:20], _d35c.reason[:20]))
+    _ok36, _bad36 = bb.rescore(list(_d32.extra_events) + list(_d34.extra_events))
+    ok("G36 落选分 rescore 一致（按难度表复算）", _ok36 and not _bad36, _bad36)
 
 
 # ================================================================ [G] 离线两模式自证
@@ -600,6 +648,27 @@ _MUTATIONS = (
     ("M18 rescore 忽略 E（复算链与结算口径分叉）",
      "            _e = (int(f.get(\"e_pass\") or 0) / int(f[\"e_total\"])) if f.get(\"e_total\") else 1.0",
      "            _e = 1.0  # MUT", {"G24"}),
+    ("M19 关一人一投判据（可重复投标刷名单）",
+     "    if actor in st.bidders:",
+     "    if False:  # MUT", {"G29"}),
+    ("M20 关投标截止判据（截止后可改标）",
+     "            if now >= parse_ts(st.due_at):",
+     "            if False:  # MUT", {"G30"}),
+    ("M21 关招标态判据（非招标也收标）",
+     "    if st.state != \"contest\":",
+     "    if False:  # MUT", {"G31"}),
+    ("M22 落选分恒 0（难度表失效）",
+     "    d = LOSER_SCORES.get(difficulty or \"\", 0)",
+     "    d = 0  # MUT", {"G33", "G36"}),
+    ("M23 不写 0 分落选事件（与未投标同形）",
+     "        extra.append(_ev)",
+     "        if _ld: extra.append(_ev)  # MUT", {"G34"}),
+    ("M24 定标不校验中标人（任选一人）",
+     "    if winner not in st.bidders:",
+     "    if False:  # MUT", {"G35"}),
+    ("M25 rescore 落选分恒 0",
+     "            d = LOSER_SCORES.get(\"difficulty:\" + str(f.get(\"difficulty\") or \"\"), 0)",
+     "            d = 0  # MUT", {"G36"}),
 )
 
 
@@ -633,7 +702,10 @@ _MUT_TARGETS = (("M0", "parse_command"), ("M1", "_check_claimable"),
                 ("M12", "sweep"), ("M13", "_accept"),
                 ("M14", "_round_half_up"), ("M15", "quality_delta"),
                 ("M16", "_accept"), ("M17", "_do_verify"),
-                ("M18", "rescore"))
+                ("M18", "rescore"), ("M19", "_do_bid"), ("M20", "_do_bid"),
+                ("M21", "_do_bid"), ("M22", "loser_delta"),
+                ("M23", "_do_select"), ("M24", "_do_select"),
+                ("M25", "rescore"))
 
 
 def _anchor_preflight():

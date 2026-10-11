@@ -467,7 +467,7 @@ def group_lifecycle():
     _BAN = {"amount", "money", "cny", "usd", "price", "rate", "weight", "budget",
             "fee", "quota", "fund", "payment"}
     ok("G43 价值向量：按「贡献者×项目」聚合、字段齐、"
-       "**且不含任何金额/汇率/权重字段**（规格 V2/V4）",
+       "**且不含任何金额字段**（规格 V2：资金发生在站外，本站只做评价）",
        _rows43["wasd"]["quality_E"] == 0.6 and _rows43["wasd"]["impact_grade"] == "A"
        and _rows43["cyd471"]["difficulty_base"] == 6
        and _rows43["bob"]["reputation_delta"] == 4 and not (_keys43 & _BAN),

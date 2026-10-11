@@ -325,6 +325,40 @@ def group_lifecycle():
     _ok2, _bad2 = bb.rescore([_tam])
     ok("G21 rescore 抓篡改：改 delta 必被点名（含事件 id）",
        (not _ok2) and bool(_bad2) and _bad2[0][0] == _dq.event.get("id"), _bad2)
+    # ---- E（验收条目通过率）：/verify partial p/t ⇒ 分母进标记快照并随态迁移继承 ----
+    _d22 = verify(mk_state(state="delivered", holder="alice", rounds=2,
+                          difficulty="difficulty:hard"), payload="partial 3/5 条目 c1/c2/c4 过")
+    ok("G22 /verify partial 3/5 → 转 verified 且标记带验收条目快照 [3,5]",
+       _d22.ok and _d22.to_state == "verified" and '"criteria":[3,5]' in _d22.comment,
+       _d22.comment[-160:])
+    _st23 = bb.IssueState(number=101, labels=("bounty", "bounty:verified", "difficulty:hard"),
+                          has_bounty=True, state="verified", holder="alice", rounds=2, seq=1,
+                          difficulty="difficulty:hard", author="FuRongJun-1999", criteria=(3, 5))
+    _d23 = settle(_st23)
+    ok("G23 E 进结算：hard base=6 × 2×(3/5) ÷ 2 = 3.6 → half_up 4",
+       _d23.ok and _d23.delta == 4
+       and (_d23.event.get("formula") or {}).get("e_total") == 5,
+       (_d23.delta, _d23.event.get("formula")))
+    _ok24, _bad24 = bb.rescore([_d23.event])
+    ok("G24 rescore 按 e_pass/e_total 复算一致", _ok24 and not _bad24, _bad24)
+    _st25 = mk_state(state="delivered", holder="alice")
+    _d25a = verify(_st25, payload="partial 5/3 越界")
+    _d25b = verify(_st25, payload="partial abc 非数")
+    ok("G25 partial 数值非法/不可解析 → 拒（criteria_malformed）",
+       _d25a.ok is False and "非法" in _d25a.reason
+       and _d25b.ok is False and "partial 须给" in _d25b.reason,
+       (_d25a.reason, _d25b.reason))
+    _st26 = bb.IssueState(number=101, labels=("bounty", "bounty:verified", "difficulty:medium"),
+                          has_bounty=True, state="verified", holder="alice", rounds=1, seq=2,
+                          difficulty="difficulty:medium", author="FuRongJun-1999", criteria=(1, 2))
+    _d26 = settle(_st26)
+    ok("G26 E 快照参与结算：medium base=3 × 2×(1/2) ÷ 1 = 3",
+       _d26.ok and _d26.delta == 3
+       and (_d26.event.get("formula") or {}).get("e_pass") == 1,
+       (_d26.delta, _d26.event.get("formula")))
+    _d27 = verify(mk_state(state="delivered", holder="alice"), payload="pass 全过")
+    ok("G27 /verify pass → 清空 E 快照（E≡1）",
+       _d27.ok and "criteria" not in _d27.comment, _d27.comment[-160:])
 
 
 # ================================================================ [G] 离线两模式自证
@@ -534,13 +568,13 @@ _MUTATIONS = (
      "    if _FENCE_RE.search(body or \"\"):",
      "    if False:  # MUT", {"F5"}),
     ("M8 关质量乘数（完成分恒 base）",
-     "    raw = base * 2.0 / (r + 1)",
-     "    raw = float(base)  # MUT", {"G7", "G16", "G19", "G20"}),
+     "    raw = base * 2.0 * _e / (r + 1)",
+     "    raw = float(base)  # MUT", {"G7", "G16", "G19", "G20", "G23", "G24"}),
     ("M9 去保底 max(1,·)",
      "    d = max(1, _round_half_up(raw))",
      "    d = _round_half_up(raw)  # MUT", {"G17"}),
     ("M10 /verify fail 又扣分（退回返工不放过）",
-     "                       delta=0)",
+     "                       delta=0, criteria=())",
      "                       delta=-5)  # MUT", {"G4"}),
     ("M11 轮次用尽不判无效（不记 −base）",
      "        _d, _f = invalid_delta(base_of(st.difficulty))",
@@ -550,10 +584,22 @@ _MUTATIONS = (
      "        _td, _tf = -1, None  # MUT", {"G9"}),
     ("M13 去 formula 快照（复算链断）",
      "    if formula is not None:",
-     "    if False:  # MUT", {"G7", "G19", "G20"}),
+     "    if False:  # MUT", {"G7", "G19", "G20", "G23", "G24", "G26"}),
     ("M14 舍入改内置 round（银行家）",
      "    return int(math.floor(x + 0.5))",
      "    return int(round(x))  # MUT", {"G18"}),
+    ("M15 关 E 乘数（E ≡ 1）",
+     "    raw = base * 2.0 * _e / (r + 1)",
+     "    raw = base * 2.0 / (r + 1)  # MUT", {"G23", "G24", "G26"}),
+    ("M16 不写验收条目快照（E 不可复算）",
+     "    if len(_cr) == 2:",
+     "    if False:  # MUT", {"G22"}),
+    ("M17 partial 不校验数值范围（越界放行）",
+     "        if _t <= 0 or _p < 0 or _p > _t:",
+     "        if False:  # MUT", {"G25"}),
+    ("M18 rescore 忽略 E（复算链与结算口径分叉）",
+     "            _e = (int(f.get(\"e_pass\") or 0) / int(f[\"e_total\"])) if f.get(\"e_total\") else 1.0",
+     "            _e = 1.0  # MUT", {"G24"}),
 )
 
 
@@ -585,7 +631,9 @@ _MUT_TARGETS = (("M0", "parse_command"), ("M1", "_check_claimable"),
                 ("M8", "quality_delta"), ("M9", "quality_delta"),
                 ("M10", "_do_verify"), ("M11", "_do_deliver"),
                 ("M12", "sweep"), ("M13", "_accept"),
-                ("M14", "_round_half_up"))
+                ("M14", "_round_half_up"), ("M15", "quality_delta"),
+                ("M16", "_accept"), ("M17", "_do_verify"),
+                ("M18", "rescore"))
 
 
 def _anchor_preflight():

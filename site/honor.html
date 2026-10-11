@@ -37,7 +37,7 @@ footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
 <main>
 <h2>荣誉榜 · 由账本机械生成</h2>
 <div class="note">计分口径已定（v1.0 质量化；依据《质量化计分标准与方式 v1.0》）；改口径只改 scripts/bounty_board.py 的 DIFFICULTY_SCORES 与 quality_delta ／ timeout_delta ／ invalid_delta。</div>
-<p>计分口径：完成分（质量化）：max(1, round_half_up(base × 2/(round+1)))——base = easy 1 ／ medium 3 ／ hard 6 ／ expert 10；round = 已发生返工次数（首交付 0），故首交付 2×、中性点（返工 1 次）1×、返工 2 次 2/3；扣分：超时未交付 −2×base ／ 轮次用尽判无效交付 −base（**退回返工不扣分**）；主动释放与争议提起不扣分（争议败诉记录在案、不扣本金）；被拒命令记 0 分但记在尝试者头上。本承载面不适用：验收条目通过率 E（无承载 ⇒ E≡1）、落选分（无竞标机制）。账本按 rule 分段生效：v0.1 旧事件用固定分（虚假交付 −5／超时 −1），v1.0 起用质量化。</p>
+<p>计分口径：完成分（质量化）：max(1, round_half_up(base × 2/(round+1)))——base = easy 1 ／ medium 3 ／ hard 6 ／ expert 10；round = 已发生返工次数（首交付 0），故首交付 2×、中性点（返工 1 次）1×、返工 2 次 2/3；扣分：超时未交付 −2×base ／ 轮次用尽判无效交付 −base（**退回返工不扣分**）；主动释放与争议提起不扣分（争议败诉记录在案、不扣本金）；被拒命令记 0 分但记在尝试者头上。E（验收条目通过率）：`/verify partial &lt;通过数&gt;/&lt;总数&gt;` 给出，分母进标记快照并随态迁移继承，未给则 E≡1。本承载面不适用：落选分（无竞标机制）。账本按 rule 分段生效：v0.1 旧事件用固定分（虚假交付 −5／超时 −1），v1.0 起用质量化。</p>
 <p class="muted">账本事件数：0</p>
 <p class="muted">（暂无入账事件——账本为空；第一条 `/settle` 落账后本表自动出现。）</p>
 <h2>分数从哪来</h2>

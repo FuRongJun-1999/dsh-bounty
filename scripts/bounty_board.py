@@ -126,13 +126,21 @@ def base_of(difficulty: str) -> int:
 
 # 生效条件：base 为正整数、rounds 为 1-based 交付次数时返回 (delta, formula)——round = max(0, rounds-1)；
 # delta = max(1, round_half_up(base*2/(round+1)))；formula 为可独立复算的快照。
-def quality_delta(base: int, rounds: int):
+def quality_delta(base: int, rounds: int, e_pass=None, e_total=None):
     r = max(0, int(rounds) - 1)
-    raw = base * 2.0 / (r + 1)
+    if e_total:
+        _p, _t = max(0, int(e_pass or 0)), int(e_total)
+        _e = max(0.0, min(1.0, _p / _t)) if _t else 1.0
+    else:
+        _p, _t, _e = None, None, 1.0
+    raw = base * 2.0 * _e / (r + 1)
     d = max(1, _round_half_up(raw))
-    return d, {"rule": SCORE_RULE, "kind": "complete", "base": int(base),
-               "rounds": int(rounds), "round": r, "num": 2, "den": r + 1,
-               "raw": round(raw, 6), "delta": d}
+    f = {"rule": SCORE_RULE, "kind": "complete", "base": int(base),
+         "rounds": int(rounds), "round": r, "num": 2, "den": r + 1,
+         "raw": round(raw, 6), "delta": d}
+    if _t:
+        f["e_pass"], f["e_total"] = _p, _t
+    return d, f
 
 
 # 生效条件：base 为正整数时返回超时未交付的 (delta, formula)——行为不一致 ⇒ -2base（v0.4 §一）。
@@ -165,7 +173,8 @@ def rescore(events):
         elif kind == "invalid":
             d = -int(f.get("base") or 0)
         else:
-            d = max(1, _round_half_up(int(f.get("base") or 0) * 2.0 / (int(f.get("round") or 0) + 1)))
+            _e = (int(f.get("e_pass") or 0) / int(f["e_total"])) if f.get("e_total") else 1.0
+            d = max(1, _round_half_up(int(f.get("base") or 0) * 2.0 * _e / (int(f.get("round") or 0) + 1)))
         if d != int(ev.get("delta") or 0):
             bad.append((ev.get("id"), "delta mismatch", ev.get("delta"), d))
     return (not bad), bad
@@ -312,6 +321,8 @@ class IssueState:
     seq: int = 0
     difficulty: str = ""
     author: str | None = None
+    #: 验收条目判定快照 (通过数, 总数)——E 的分母在此固定，随状态迁移继承；空元组 = 未计量（E≡1）。
+    criteria: tuple = ()
 
 
 @dataclass(frozen=True)
@@ -370,7 +381,8 @@ def build_state(number, labels, comments, author=None) -> IssueState:
         number=int(number), labels=labels, has_bounty=has_bounty, state=state or "",
         holder=marker.get("holder") or None, due_at=marker.get("due_at") or None,
         rounds=int(marker.get("rounds") or 0), seq=_seq(marker),
-        difficulty=difficulty, author=author)
+        difficulty=difficulty, author=author,
+        criteria=tuple(marker.get("criteria") or ()))
 
 
 # 生效条件：labels 为标签可迭代、target 为裸态名时返回 (要加的标签, 要删的标签)——删光其余态标签，加目标态标签；target 为空串时只删不加。
@@ -489,12 +501,15 @@ def _decide(st, action, reason, now, actor, code, delta=0, formula=None) -> Deci
 # 生效条件：st 与迁移参数给定时返回通过裁决——态迁移、标签补丁、固定模板评论、账本事件（delta 按参数；*_holder 缺省同 holder，超时回板时二者分叉：标记不带持有者、事件记原持有者以便记负分）。
 def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
             bullets, marker_extra=None, delta=0, event_holder=None,
-            event_actor=None, formula=None) -> Decision:
+            event_actor=None, formula=None, criteria=None) -> Decision:
     """通过裁决的统一构造。"""
     add, remove = label_patch(st.labels, to_state)
     marker = {"state": to_state, "holder": holder, "due_at": due_at,
               "rounds": rounds, "seq": st.seq + 1, "ts": fmt_ts(now),
               "actor": actor, "action": action.lstrip("/")}
+    _cr = st.criteria if criteria is None else tuple(criteria)
+    if len(_cr) == 2:
+        marker["criteria"] = [int(_cr[0]), int(_cr[1])]
     ev = {"ts": fmt_ts(now), "issue": st.number, "action": action.lstrip("/"),
           "actor": event_actor or actor, "from": st.state, "to": to_state,
           "holder": st.holder if event_holder is None else event_holder,
@@ -626,10 +641,29 @@ def _do_verify(st, payload, actor, now, cfg, is_maintainer):
                        now, actor, "state_not_verifiable")
     text = (payload or "").strip()
     head, _sep, rest = text.partition(" ")
-    if head.lower() in ("pass", "fail"):
+    if head.lower() in ("pass", "fail", "partial"):
         verdict, reason = head.lower(), rest.strip()
     else:
         verdict, reason = "pass", text
+    if verdict == "partial":
+        _tok, _sp, _rst = reason.partition(" ")
+        _num, _sl, _den = _tok.partition("/")
+        try:
+            _p, _t = int(_num), int(_den)
+        except ValueError:
+            return _decide(st, "/verify",
+                           "partial 须给「通过数/总数」，如 `/verify partial 3/5 <理由>`",
+                           now, actor, "criteria_malformed")
+        if _t <= 0 or _p < 0 or _p > _t:
+            return _decide(st, "/verify", f"partial 数值非法：{_p}/{_t}", now, actor,
+                           "criteria_malformed")
+        _bl = [f"裁决者：@{actor}",
+               f"判定：**部分通过**（验收条目 {_p}/{_t} ⇒ E = {_p}/{_t}）",
+               f"理由：{_rst.strip() or '（未写理由）'}",
+               "按 E 计入结算（`/settle`）"]
+        return _accept(st, "/verify", now, actor, "verified", st.holder, st.due_at,
+                       st.rounds, f"验收部分通过 {_p}/{_t}：{_rst.strip() or ''}",
+                       _bl, criteria=(_p, _t))
     if verdict == "fail":
         bullets = [f"裁决者：@{actor}",
                    "判定：**不通过**（**本轮不扣分**——退回返工只计轮次；",
@@ -639,12 +673,13 @@ def _do_verify(st, payload, actor, now, cfg, is_maintainer):
                    "轮）；如属不可调和争议请 `/dispute`"]
         return _accept(st, "/verify", now, actor, "claimed", st.holder, st.due_at,
                        st.rounds, f"验收不通过：{reason or '（未写理由）'}", bullets,
-                       delta=0)
+                       delta=0, criteria=())
     bullets = [f"裁决者：@{actor}", "判定：**通过**（四闸逐道可查）",
                f"理由：{reason or '（未写理由）'}",
                "待结算：维护者 `/settle` 按 `difficulty:*` 记入账本"]
     return _accept(st, "/verify", now, actor, "verified", st.holder, st.due_at,
-                   st.rounds, f"验收通过：{reason or '（未写理由）'}", bullets)
+                   st.rounds, f"验收通过：{reason or '（未写理由）'}", bullets,
+                   criteria=())
 
 
 # 生效条件：st/actor/now/cfg 齐全且 is_maintainer 为真时返回裁决——非维护者拒；态非 verified 拒；通过则转 settled 并按 difficulty:* 记正分（缺标签时按 SCORE_DEFAULT 记并在理由里写明）。
@@ -656,10 +691,13 @@ def _do_settle(st, actor, now, cfg, is_maintainer):
                        f"当前态 `bounty:{st.state}` 不可结算（须先过验收 "
                        "`bounty:verified`）", now, actor, "state_not_settleable")
     _base = base_of(st.difficulty)
-    score, formula = quality_delta(_base, st.rounds)
+    _cr = tuple(st.criteria or ())
+    _ep, _et = (int(_cr[0]), int(_cr[1])) if len(_cr) == 2 else (None, None)
+    score, formula = quality_delta(_base, st.rounds, e_pass=_ep, e_total=_et)
     diff = st.difficulty.split(":", 1)[-1] if st.difficulty else ""
-    note = (f"{diff}（base {_base}）" if diff
-            else f"无 difficulty 标签（按 base {_base} 记）")
+    _en = f"；E = {_ep}/{_et}" if _et else ""
+    note = (f"{diff}（base {_base}{_en}）" if diff
+            else f"无 difficulty 标签（按 base {_base}{_en} 记）")
     bullets = [f"结算者：@{actor}",
                f"入账：@{st.holder or '（无）'} **+{score} 分**（{note}）",
                "账本 append-only：`docs/bounty/ledger.json`"]

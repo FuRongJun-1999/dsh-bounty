@@ -444,6 +444,41 @@ def group_lifecycle():
                                 impact="A"), payload="pass 全过")
     ok("G42 impact 随状态迁移继承（verify 后的新标记仍带等级）",
        _d42.ok and '"impact":"A"' in _d42.comment, _d42.comment[-140:])
+    # ---- 价值向量出口（本站只做声誉分与价值评价；金额不进站）----
+    def _evv(**kw):
+        _e = {"ts": "2026-10-12T01:00:00Z", "action": "settle", "actor": "m", "delta": 0}
+        _e.update(kw); _e["id"] = bb.event_id(_e); return _e
+    _evs43 = [
+        _evv(issue=7, holder="cyd471", difficulty="hard", delta=6, impact="S",
+             formula={"rule": "v1.0", "kind": "complete", "base": 6, "rounds": 1,
+                      "round": 0, "den": 1, "delta": 6}),
+        _evv(issue=8, holder="wasd", difficulty="expert", delta=4, impact="A",
+             formula={"rule": "v1.0", "kind": "complete", "base": 10, "rounds": 2,
+                      "round": 1, "den": 2, "e_pass": 3, "e_total": 5, "delta": 4}),
+        _evv(issue=8, action="lose", holder="bob", actor="bob", difficulty="expert",
+             delta=4, formula={"rule": "v1.0", "kind": "lost_bid", "difficulty": "expert",
+                               "delta": 4}),
+    ]
+    _vv43 = bb.value_vector(_evs43, {7: {"project": "memory"}, 8: {"project": "memory"}})
+    _rows43 = {r["login"]: r for r in _vv43["vectors"]}
+    _keys43 = set()
+    for _r in _vv43["vectors"]:
+        _keys43 |= set(_r.keys())
+    _BAN = {"amount", "money", "cny", "usd", "price", "rate", "weight", "budget",
+            "fee", "quota", "fund", "payment"}
+    ok("G43 价值向量：按「贡献者×项目」聚合、字段齐、"
+       "**且不含任何金额/汇率/权重字段**（规格 V2/V4）",
+       _rows43["wasd"]["quality_E"] == 0.6 and _rows43["wasd"]["impact_grade"] == "A"
+       and _rows43["cyd471"]["difficulty_base"] == 6
+       and _rows43["bob"]["reputation_delta"] == 4 and not (_keys43 & _BAN),
+       (sorted(_keys43), _rows43.get("wasd")))
+    ok("G44 空账本 → 向量为空且不崩，注记保留",
+       bb.value_vector([], {})["vectors"] == []
+       and "金额不进站" in bb.value_vector([], {})["note"], "")
+    _vv45 = bb.value_vector(_evs43, {7: {"project": "memory"}, 8: {"project": "memory"}})
+    ok("G45 确定性：同账本两次导出逐字段相同；有 formula 的行 evidence_strength 为真",
+       _vv45 == _vv43 and _rows43["wasd"]["evidence_strength"] is True
+       and _rows43["cyd471"]["evidence_strength"] is True, _rows43["cyd471"])
 
 
 # ================================================================ [G] 离线两模式自证
@@ -718,6 +753,12 @@ _MUTATIONS = (
     ("M29 关价值评价的维护者闸（越权可评）",
      "    if not is_maintainer:",
      "    if False:  # MUT", {"G40"}),
+    ("M30 向价值向量注入金额字段（越界）",
+     "    out.sort(key=lambda r: (-r[\"reputation_delta\"], r[\"login\"], r[\"project\"]))",
+     "    out.sort(key=lambda r: (-r[\"reputation_delta\"], r[\"login\"], r[\"project\"]))" + chr(10) + "    for _r in out:" + chr(10) + "        _r[\"amount\"] = _r[\"reputation_delta\"]  # MUT", {"G43"}),
+    ("M31 关证据强度判据（formula 凭据不计）",
+     "        row[\"evidence_strength\"] = bool(row.pop(\"_f\"))",
+     "        row.pop(\"_f\", None)" + chr(10) + "        row[\"evidence_strength\"] = False  # MUT", {"G45"}),
 )
 
 
@@ -755,7 +796,8 @@ _MUT_TARGETS = (("M0", "parse_command"), ("M1", "_check_claimable"),
                 ("M21", "_do_bid"), ("M22", "loser_delta"),
                 ("M23", "_do_select"), ("M24", "_do_select"),
                 ("M25", "rescore"), ("M26", "_do_appraise"), ("M27", "_do_appraise"),
-                ("M28", "_accept"), ("M29", "_do_appraise"))
+                ("M28", "_accept"), ("M29", "_do_appraise"),
+                ("M30", "value_vector"), ("M31", "value_vector"))
 
 
 def _anchor_preflight():

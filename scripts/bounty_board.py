@@ -941,6 +941,63 @@ def score_board(events):
 
 
 # 生效条件：events 为账本事件列表时返回荣誉榜 markdown 全文（确定性：同一账本 ⇒ 逐字节同一文本）；空账本返回「暂无入账」形态；不写生成时刻（防生成件无谓翻滚）。
+#: 价值向量的返回注记——**硬边界**：本站不输出金额、汇率或权重（规格 V2/V4）。
+NOTE_NO_MONEY = ("本站只做声誉分与价值评价；金额不进站。两轴（难度 / 影响等级）分别记录，"
+                 "合成权重与资金换算属使用者侧。")
+
+
+# 生效条件：events 为账本事件列表、meta_by_issue 为 {issue号: {"project"|"impact"|"difficulty"}} 时，
+# 返回按「贡献者 × 项目」聚合的**价值向量**（纯函数、确定性）；**输出中不得出现任何金额/汇率/权重字段**。
+# 归属口径与 score_board 一致：被拒命令归 actor（尝试者），其余归 holder。
+def value_vector(events, meta_by_issue=None):
+    meta = meta_by_issue or {}
+    view = {}
+    for ev in events or []:
+        if ev.get("action") == "reject":
+            who = ev.get("actor") or ""
+        else:
+            who = ev.get("holder") or ev.get("actor") or ""
+        if not who:
+            continue
+        try:
+            ino = int(ev.get("issue") or 0)
+        except (TypeError, ValueError):
+            ino = 0
+        m = meta.get(ino) or {}
+        proj = m.get("project") or ev.get("project") or ""
+        row = view.setdefault((who, proj), {
+            "login": who, "project": proj, "reputation_delta": 0,
+            "difficulty": "", "impact": "", "criteria": None, "rounds": 0, "issues": [],
+            "_f": False})
+        row["reputation_delta"] += int(ev.get("delta") or 0)
+        if ev.get("difficulty"):
+            row["difficulty"] = ev["difficulty"]
+        if ev.get("impact"):
+            row["impact"] = ev["impact"]
+        f = ev.get("formula") or {}
+        if f:
+            row["_f"] = True
+        if f.get("e_total"):
+            row["criteria"] = [int(f.get("e_pass") or 0), int(f["e_total"])]
+        if f.get("kind") == "complete" and f.get("round") is not None:
+            row["rounds"] = int(f["round"])
+        if ino and ino not in row["issues"]:
+            row["issues"].append(ino)
+    out = []
+    for (who, proj), row in view.items():
+        row["difficulty_base"] = DIFFICULTY_SCORES.get("difficulty:" + (row["difficulty"] or ""),
+                                                       SCORE_DEFAULT)
+        cr = row.pop("criteria")
+        row["quality_E"] = (cr[0] / cr[1]) if cr and cr[1] else None
+        row["impact_grade"] = row.pop("impact")
+        #: 「有可复算的计分凭据（formula 快照）」——证据强度的人审判断由 `/appraise` 的必填依据承载，
+        #: 此处只表达**可从账本复算**这一可机械判定的部分。
+        row["evidence_strength"] = bool(row.pop("_f"))
+        row["issues"].sort()
+        out.append(row)
+    out.sort(key=lambda r: (-r["reputation_delta"], r["login"], r["project"]))
+    return {"vectors": out, "note": NOTE_NO_MONEY}
+
 def render_board(events) -> str:
     """账本 → 荣誉榜 markdown（`docs/bounty/board.md` 的生成器）。"""
     events = list(events or [])
@@ -1604,6 +1661,8 @@ def main(argv=None) -> int:
                     help="真模式：把本批事件写成 JSONL（供 workflow 落 artifact）")
     ap.add_argument("--board-out", default="",
                     help="从账本生成荣誉榜 markdown（写盘）")
+    ap.add_argument("--value-vector-out", default="",
+                    help="从账本导出**价值向量** JSON（本站只做声誉分与价值评价，不含金额）")
     args = ap.parse_args(argv)
 
     try:
@@ -1628,6 +1687,18 @@ def main(argv=None) -> int:
             with open(args.board_out, "w", encoding="utf-8", newline="\n") as fh:
                 fh.write(text)
             print(f"荣誉榜已生成：{args.board_out}（账本 {len(events)} 条事件）")
+            return 0
+
+        if args.value_vector_out:
+            events = load_ledger(args.ledger)
+            doc = value_vector(events)
+            parent = os.path.dirname(os.path.abspath(args.value_vector_out))
+            if parent:
+                os.makedirs(parent, exist_ok=True)
+            with open(args.value_vector_out, "w", encoding="utf-8", newline=chr(10)) as fh:
+                json.dump(doc, fh, ensure_ascii=False, indent=1, sort_keys=True)
+                fh.write(chr(10))
+            print(f"价值向量已导出：{args.value_vector_out}（{len(doc['vectors'])} 行；账本 {len(events)} 条事件）")
             return 0
 
         if args.state:

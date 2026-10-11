@@ -15,7 +15,7 @@
 页面里没有任何支付/钱包/链上概念，也没有任何资金字段可填。
 
 ★ 计分数值（easy 1 / medium 3 / hard 6 / expert 10；虚假交付 −5；超时 −1）在设计稿
-  里标着「**建议值，待裁**」——本站照实现，但每一处出现处都带 `NOTE_PENDING`
+  的口径（v1.0 质量化）——每一处出现分值/口径处都带 `NOTE_PENDING`
   标注（"数值待设计者裁"），不许写成已定。
 
 离线口径（**本站生成器恒不触网**）
@@ -64,13 +64,18 @@ DIFFICULTY_LABEL = {"difficulty:easy": "easy", "difficulty:medium": "medium",
                     "difficulty:hard": "hard", "difficulty:expert": "expert"}
 
 #: ★ 计分数值在设计稿里是「建议值，待裁」——出现分值的页面一律带这句。
-NOTE_PENDING = ("计分数值为设计稿建议值，待设计者裁定（改口径只改 "
-                "scripts/bounty_board.py 的 DIFFICULTY_SCORES 与负分常量）。")
+NOTE_PENDING = ("计分口径已定（v1.0 质量化；依据《质量化计分标准与方式 v1.0》）；"
+                "改口径只改 scripts/bounty_board.py 的 DIFFICULTY_SCORES 与 "
+                "quality_delta ／ timeout_delta ／ invalid_delta。")
 
 #: 计分口径说明（页面用；分数本身从账本 delta 求和，不手写）。
-SCORE_RULE = ("结算：easy 1 ／ medium 3 ／ hard 6 ／ expert 10；"
-              "虚假交付 −5；超时未交付 −1；主动释放与争议提起不扣分"
-              "（争议败诉记录在案、不扣本金）；被拒命令记 0 分但记在尝试者头上。")
+SCORE_RULE = ("完成分（质量化）：max(1, round_half_up(base × 2/(round+1)))——"
+              "base = easy 1 ／ medium 3 ／ hard 6 ／ expert 10；round = 已发生返工次数（首交付 0），"
+              "故首交付 2×、中性点（返工 1 次）1×、返工 2 次 2/3；"
+              "扣分：超时未交付 −2×base ／ 轮次用尽判无效交付 −base（**退回返工不扣分**）；"
+              "主动释放与争议提起不扣分（争议败诉记录在案、不扣本金）；被拒命令记 0 分但记在尝试者头上。"
+              "本承载面不适用：验收条目通过率 E（无承载 ⇒ E≡1）、落选分（无竞标机制）。"
+              "账本按 rule 分段生效：v0.1 旧事件用固定分（虚假交付 −5／超时 −1），v1.0 起用质量化。")
 
 #: 验收四闸（设计稿 §四；第 4 闸是**人审**，不得写成自动通过）。
 ACCEPTANCE_GATES = (
@@ -85,11 +90,11 @@ COMMAND_ROWS = (
     ("/claim", "任何人", "无锁 ∧ `bounty` 标签在 ∧ 态 open/expired ∧ 本人并发 ≤ 2",
      "上锁 ＋ 记到期时间（72h）"),
     ("/deliver <PR 链接或证据块>", "认领者", "仅认领人 ∧ 必带链接或证据块 ∧ 轮次 ≤ 3",
-     "转 `bounty:delivered`，等验收"),
+     "转 `bounty:delivered`，等验收；**轮次用尽 ⇒ 判无效交付**（转 `disputed`、记 −base）"),
     ("/withdraw", "认领者", "仅认领人", "主动释放、任务回板（**不影响声誉**）"),
     ("/dispute <理由>", "双方", "必带理由 ∧ 属当事人", "转 `bounty:disputed`，维护者仲裁留痕"),
     ("/verify [pass|fail] <理由>", "维护者", "态为 `delivered`",
-     "通过 ⇒ `verified`；不通过 ⇒ 记 −5 并退回返工"),
+     "通过 ⇒ `verified`；不通过 ⇒ **不扣分**、退回返工（轮次照计）"),
     ("/settle", "维护者", "态为 `verified`", "按 `difficulty:*` 记正分入账本"),
 )
 
@@ -103,7 +108,7 @@ def esc(text) -> str:
     return html.escape(str(text), quote=True)
 
 
-# 生效条件：flag 为真时返回 NOTE_PENDING（分值未裁的标注），为假时返回空串；页面凡出现分值处调用它。
+# 生效条件：flag 为真时返回 NOTE_PENDING（计分口径标注），为假时返回空串；页面凡出现分值/口径处调用它。
 def _note_pending(flag=True) -> str:
     """分值标注判据：未裁定前，凡出现分值的页面必须带「待裁」标注。"""
     if not flag:

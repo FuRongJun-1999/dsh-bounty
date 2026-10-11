@@ -36,7 +36,7 @@ footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
 <nav><a class="" href="index.html">首页</a><a class="on" href="board.html">悬赏板</a><a class="" href="honor.html">荣誉榜</a><a class="" href="rules.html">规则</a></nav></header>
 <main>
 <h2>悬赏板 · 当前开放任务</h2>
-<div class="note">计分数值为设计稿建议值，待设计者裁定（改口径只改 scripts/bounty_board.py 的 DIFFICULTY_SCORES 与负分常量）。</div>
+<div class="note">计分口径已定（v1.0 质量化；依据《质量化计分标准与方式 v1.0》）；改口径只改 scripts/bounty_board.py 的 DIFFICULTY_SCORES 与 quality_delta ／ timeout_delta ／ invalid_delta。</div>
 <p>下表<b>从账本推演</b>（每 issue 取最后一条事件为当前态），只列可认领（<code>open</code>／<code>expired</code>）者，按难度升序排。</p>
 <p class="muted">（当前没有可认领的悬赏——账本里没有 `open` 态的任务；维护者打 `bounty` 标签并发布后此处自动出现。）</p>
 <h2>怎么接</h2>

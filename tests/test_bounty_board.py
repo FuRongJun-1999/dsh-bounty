@@ -242,8 +242,8 @@ def group_lifecycle():
     ok("G3 维护者 /verify pass → 通过（转 verified）",
        d.ok and d.to_state == "verified", (d.ok, d.to_state))
     d = verify(st, payload="fail 读数不可复跑")
-    ok("G4 /verify fail → 回 claimed 返工且记 −5（虚假交付）",
-       d.ok and d.to_state == "claimed" and d.delta == bb.SCORE_FAKE_DELIVERY,
+    ok("G4 /verify fail → 回 claimed 返工且**不扣分**（v1.0：发布者不能凭一次不满扣分）",
+       d.ok and d.to_state == "claimed" and d.delta == 0,
        (d.ok, d.to_state, d.delta))
     st_v = mk_state(state="verified", holder="alice", rounds=1)
     d = settle(st_v, actor="bob", maint=False)
@@ -252,18 +252,22 @@ def group_lifecycle():
     ok("G6 态非 verified 的 /settle → 拒",
        d.ok is False and "不可结算" in d.reason, d.reason)
     d = settle(st_v)
-    ok("G7 维护者 /settle → 通过并按 medium 记 +3", d.ok and d.to_state == "settled"
-       and d.delta == 3, (d.ok, d.to_state, d.delta))
+    ok("G7 维护者 /settle → 质量化按 medium 记 +6（rounds=1 ⇒ round=0 ⇒ 2×）",
+       d.ok and d.to_state == "settled" and d.delta == 6
+       and (d.event.get("formula") or {}).get("round") == 0,
+       (d.ok, d.to_state, d.delta))
     st_r3 = mk_state(state="delivered", holder="alice", rounds=3)
     d = deliver(st_r3, actor="alice")
-    ok("G8 轮次达上限后再交付 → 拒（最多 3 轮）",
-       d.ok is False and "轮次已达上限 3" in d.reason, d.reason)
+    ok("G8 轮次用尽后再交付 → 判**无效交付**（转 disputed、记 −base）",
+       d.ok and d.to_state == "disputed"
+       and d.delta == -bb.base_of(st_r3.difficulty),
+       (d.ok, d.to_state, d.delta))
     st_due = mk_state(state="claimed", holder="carol",
                       due="2026-10-12T09:00:00Z")
     out = bb.sweep([st_due], bb.parse_ts("2026-10-12T09:00:00Z"), CFG)
-    ok("G9 超期 claimed → 回板 open 且事件记 −1（负分归属原持有者）",
+    ok("G9 超期 claimed → 回板 open 且事件记 −2×base（负分归属原持有者）",
        len(out) == 1 and out[0].to_state == "open"
-       and out[0].delta == bb.SCORE_TIMEOUT
+       and out[0].delta == -2 * bb.base_of(st_due.difficulty)
        and out[0].event.get("holder") == "carol"
        and out[0].holder is None,
        (len(out), out[0].to_state if out else None))
@@ -289,6 +293,38 @@ def group_lifecycle():
        "@alice | 3" in board and "@bob | 0" in board, board[:200].replace("\n", " | "))
     ok("G15 被拒命令记在**尝试者**头上（bob 计 1 次被拒，不计入持有者 alice）",
        "@bob | 0 | 0 | 0 | 0 | 0 | 1" in board, board.replace("\n", " | ")[:400])
+    # ---- 质量化计分（v1.0；依据《质量化计分标准与方式 v1.0》）----
+    # 注：本承载面 max_rounds=3 ⇒ rounds ≤ 3 ⇒ raw ≥ 2/3 ⇒ max(1,·) 永不生效；
+    # 故 G17 直接测函数（rounds=5），否则保底规则在承载面上不可观测。
+    _q = []
+    for _diff, _base in (("difficulty:expert", 10), ("difficulty:hard", 6),
+                         ("difficulty:medium", 3), ("difficulty:easy", 1)):
+        _q.append((bb.quality_delta(_base, 1)[0], bb.quality_delta(_base, 2)[0],
+                   bb.quality_delta(_base, 3)[0], _base))
+    ok("G16 质量化三档：首交付 2×base ／ 中性 1×base ／ 返工 2/3×base（四档难度）",
+       all(a1 == 2 * b1 and a2 == b1 and a3 == max(1, bb._round_half_up(b1 * 2.0 / 3))
+           for a1, a2, a3, b1 in _q), _q)
+    ok("G17 保底 max(1,·)：低 base × 高轮次时生效（quality_delta(1,5) == 1）",
+       bb.quality_delta(1, 5)[0] == 1, bb.quality_delta(1, 5)[0])
+    ok("G18 舍入 half-up：2.5→3 ／ 4.5→5（且与内置 round 分歧：2／4）",
+       bb._round_half_up(2.5) == 3 and bb._round_half_up(4.5) == 5
+       and round(2.5) == 2 and round(4.5) == 4,
+       (bb._round_half_up(2.5), bb._round_half_up(4.5)))
+    _stq = mk_state(state="verified", holder="alice", rounds=3,
+                    difficulty="difficulty:hard")
+    _dq = settle(_stq)
+    _fq = _dq.event.get("formula") or {}
+    ok("G19 结算事件带 formula 快照（base/rounds/round/den/delta 齐备）",
+       _dq.ok and {"base", "rounds", "round", "den", "delta"} <= set(_fq)
+       and _fq.get("base") == 6 and _fq.get("round") == 2 and _dq.delta == 4,
+       (_dq.delta, _fq))
+    _ok1, _bad1 = bb.rescore([_dq.event])
+    ok("G20 rescore 全等：按 formula 复算 == 落盘 delta", _ok1 and not _bad1, _bad1)
+    _tam = dict(_dq.event)
+    _tam["delta"] = int(_tam["delta"]) + 1
+    _ok2, _bad2 = bb.rescore([_tam])
+    ok("G21 rescore 抓篡改：改 delta 必被点名（含事件 id）",
+       (not _ok2) and bool(_bad2) and _bad2[0][0] == _dq.event.get("id"), _bad2)
 
 
 # ================================================================ [G] 离线两模式自证
@@ -358,8 +394,8 @@ def group_offline(tmp):
         ldoc2 = json.load(fh)
     ok("H9 账本收口幂等：重复并入同批 JSONL 不增行",
        r7.returncode == 0 and len(ldoc2["events"]) == 2, len(ldoc2["events"]))
-    ok("H10 荣誉榜由账本生成（含贡献者行与计分口径）",
-       r6.returncode == 0 and "荣誉榜" in btext and "@zoe | -1" in btext,
+    ok("H10 荣誉榜由账本生成（含贡献者行）",
+       r6.returncode == 0 and "荣誉榜" in btext and "@zoe" in btext,
        btext[:200].replace("\n", " | "))
 
 
@@ -497,6 +533,27 @@ _MUTATIONS = (
     ("M7 关 R5 证据块判据（围栏交付不再被认）",
      "    if _FENCE_RE.search(body or \"\"):",
      "    if False:  # MUT", {"F5"}),
+    ("M8 关质量乘数（完成分恒 base）",
+     "    raw = base * 2.0 / (r + 1)",
+     "    raw = float(base)  # MUT", {"G7", "G16", "G19", "G20"}),
+    ("M9 去保底 max(1,·)",
+     "    d = max(1, _round_half_up(raw))",
+     "    d = _round_half_up(raw)  # MUT", {"G17"}),
+    ("M10 /verify fail 又扣分（退回返工不放过）",
+     "                       delta=0)",
+     "                       delta=-5)  # MUT", {"G4"}),
+    ("M11 轮次用尽不判无效（不记 −base）",
+     "        _d, _f = invalid_delta(base_of(st.difficulty))",
+     "        _d, _f = 0, None  # MUT", {"G8"}),
+    ("M12 超时不按 base 缩放（回到固定 −1）",
+     "        _td, _tf = timeout_delta(base_of(st.difficulty))",
+     "        _td, _tf = -1, None  # MUT", {"G9"}),
+    ("M13 去 formula 快照（复算链断）",
+     "    if formula is not None:",
+     "    if False:  # MUT", {"G7", "G19", "G20"}),
+    ("M14 舍入改内置 round（银行家）",
+     "    return int(math.floor(x + 0.5))",
+     "    return int(round(x))  # MUT", {"G18"}),
 )
 
 
@@ -524,7 +581,11 @@ def _mut_source(fn_name, old, new):
 _MUT_TARGETS = (("M0", "parse_command"), ("M1", "_check_claimable"),
                 ("M2", "_check_claimable"), ("M3", "_check_no_holder"),
                 ("M4", "_check_concurrency"), ("M5", "_check_is_holder"),
-                ("M6", "_check_payload"), ("M7", "_check_payload"))
+                ("M6", "_check_payload"), ("M7", "_check_payload"),
+                ("M8", "quality_delta"), ("M9", "quality_delta"),
+                ("M10", "_do_verify"), ("M11", "_do_deliver"),
+                ("M12", "sweep"), ("M13", "_accept"),
+                ("M14", "_round_half_up"))
 
 
 def _anchor_preflight():

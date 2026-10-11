@@ -135,10 +135,10 @@ def group_mapping():
     html_text = bs.render_honor(evs)
     ok("J9 荣誉榜页含账本算出的分数与贡献者（@alice 与 13）",
        "@alice" in html_text and ">13<" in html_text, "")
-    ok("J10 荣誉榜页带「数值待裁」标注（设计稿 §五 建议值，未定）",
-       "待设计者裁定" in html_text, "")
-    ok("J11 规则页带「数值待裁」标注且人审闸未被写成自动通过",
-       "待设计者裁定" in bs.render_rules()
+    ok("J10 荣誉榜页带计分口径标注（v1.0 质量化，已裁定）",
+       "计分口径已定" in html_text, "")
+    ok("J11 规则页带计分口径标注且人审闸未被写成自动通过",
+       "计分口径已定" in bs.render_rules()
        and "不是自动通过" in bs.render_rules(), "")
     ok("J12 账本注入文本（登录名）进页面后被转义：原始标签不出现、转义形态出现",
        INJECT_LOGIN not in html_text
@@ -250,7 +250,7 @@ _MUTATIONS = (
     ("N2 关 HTML 转义（账本文本直出）",
      "    return html.escape(str(text), quote=True)",
      "    return str(text)  # MUT", {"J1", "J2", "J12"}),
-    ("N3 关「数值待裁」标注（写成已定）",
+    ("N3 关计分口径标注（页面不再声明口径）",
      "    if not flag:",
      "    if True:  # MUT", {"J10", "J11"}),
     ("N4 关难度序（改按号排）",

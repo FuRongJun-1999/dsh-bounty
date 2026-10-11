@@ -81,6 +81,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
 import re
 import sys
@@ -107,6 +108,68 @@ SCORE_DEFAULT = 1
 #: 负分（设计稿 §五）：虚假交付 / 超时未交付。
 SCORE_FAKE_DELIVERY = -5
 SCORE_TIMEOUT = -1
+
+# ---- 质量化计分（v1.0；依据《质量化计分标准与方式 v1.0》）------------------
+#: 计分口径版本：分段生效——旧事件标 v0.1（固定分），新事件标 v1.0（质量化）。
+SCORE_RULE = "v1.0"
+
+
+def _round_half_up(x: float) -> int:
+    """显式四舍五入（half-up）。**禁用内置 round**：银行家舍入会静默改分。"""
+    return int(math.floor(x + 0.5))
+
+
+# 生效条件：difficulty 为完整标签串（如 difficulty:hard）时返回其 base 分；不在表内（含 None/空串）回落 SCORE_DEFAULT。
+def base_of(difficulty: str) -> int:
+    return DIFFICULTY_SCORES.get(difficulty or "", SCORE_DEFAULT)
+
+
+# 生效条件：base 为正整数、rounds 为 1-based 交付次数时返回 (delta, formula)——round = max(0, rounds-1)；
+# delta = max(1, round_half_up(base*2/(round+1)))；formula 为可独立复算的快照。
+def quality_delta(base: int, rounds: int):
+    r = max(0, int(rounds) - 1)
+    raw = base * 2.0 / (r + 1)
+    d = max(1, _round_half_up(raw))
+    return d, {"rule": SCORE_RULE, "kind": "complete", "base": int(base),
+               "rounds": int(rounds), "round": r, "num": 2, "den": r + 1,
+               "raw": round(raw, 6), "delta": d}
+
+
+# 生效条件：base 为正整数时返回超时未交付的 (delta, formula)——行为不一致 ⇒ -2base（v0.4 §一）。
+def timeout_delta(base: int):
+    d = -2 * int(base)
+    return d, {"rule": SCORE_RULE, "kind": "timeout", "base": int(base), "mult": -2, "delta": d}
+
+
+# 生效条件：base 为正整数时返回无效交付（轮次用尽仍未通过）的 (delta, formula)——行为一致但质量不足 ⇒ -base。
+def invalid_delta(base: int):
+    d = -int(base)
+    return d, {"rule": SCORE_RULE, "kind": "invalid", "base": int(base), "mult": -1, "delta": d}
+
+
+# 生效条件：events 为账本事件列表时返回 (ok, bad)——逐条按事件自带 rule/formula 复算 delta 并断言一致。
+def rescore(events):
+    bad = []
+    for ev in events or []:
+        f = ev.get("formula")
+        if not f:
+            if int(ev.get("delta") or 0) != 0:
+                bad.append((ev.get("id"), "missing formula", ev.get("delta"), None))
+            continue
+        if f.get("rule") != SCORE_RULE:
+            bad.append((ev.get("id"), "unknown rule " + str(f.get("rule")), ev.get("delta"), None))
+            continue
+        kind = f.get("kind")
+        if kind == "timeout":
+            d = -2 * int(f.get("base") or 0)
+        elif kind == "invalid":
+            d = -int(f.get("base") or 0)
+        else:
+            d = max(1, _round_half_up(int(f.get("base") or 0) * 2.0 / (int(f.get("round") or 0) + 1)))
+        if d != int(ev.get("delta") or 0):
+            bad.append((ev.get("id"), "delta mismatch", ev.get("delta"), d))
+    return (not bad), bad
+
 
 #: 命令面（只认「行首第一个词」）。
 COMMANDS = ("/claim", "/deliver", "/withdraw", "/dispute", "/verify", "/settle")
@@ -144,7 +207,10 @@ LEDGER_SCHEMA = {
         "pr": "交付链接指向本仓 PR 时的元数据（号/标题/态/head sha）",
     },
     "计分": {"easy": 1, "medium": 3, "hard": 6, "expert": 10,
-             "虚假交付": SCORE_FAKE_DELIVERY, "超时未交付": SCORE_TIMEOUT},
+             "完成分": "max(1, round_half_up(base*2/(round+1)))（v1.0 质量化）",
+             "无效交付": "-base（轮次用尽）", "超时未交付": "-2base",
+             "v0.1 虚假交付（分段复算用）": SCORE_FAKE_DELIVERY,
+             "v0.1 超时未交付（分段复算用）": SCORE_TIMEOUT},
     "生成": "python -X utf8 scripts/bounty_board.py --ledger-append <events.jsonl>",
 }
 
@@ -404,12 +470,14 @@ _TITLES = {"claim": "认领成功", "deliver": "交付已登记", "withdraw": "�
            "expire": "超时回板"}
 
 
-def _decide(st, action, reason, now, actor, code) -> Decision:
-    """拒绝裁决的统一构造（态不变；事件 action=reject 留痕，delta=0）。"""
+def _decide(st, action, reason, now, actor, code, delta=0, formula=None) -> Decision:
+    """拒绝裁决的统一构造（态不变；事件 action=reject 留痕；delta 缺省 0，轮次用尽等情形可记负分）。"""
     ev = {"ts": fmt_ts(now), "issue": st.number, "action": "reject", "actor": actor,
           "from": st.state, "to": st.state, "holder": st.holder,
           "difficulty": st.difficulty.split(":", 1)[-1] if st.difficulty else "",
-          "delta": 0, "reason": f"{code}：{reason}"}
+          "delta": delta, "reason": f"{code}：{reason}"}
+    if formula is not None:
+        ev["formula"] = formula
     ev["id"] = event_id(ev)
     return Decision(ok=False, action=action, reason=reason, issue=st.number,
                     from_state=st.state, to_state=st.state, holder=st.holder,
@@ -421,7 +489,7 @@ def _decide(st, action, reason, now, actor, code) -> Decision:
 # 生效条件：st 与迁移参数给定时返回通过裁决——态迁移、标签补丁、固定模板评论、账本事件（delta 按参数；*_holder 缺省同 holder，超时回板时二者分叉：标记不带持有者、事件记原持有者以便记负分）。
 def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
             bullets, marker_extra=None, delta=0, event_holder=None,
-            event_actor=None) -> Decision:
+            event_actor=None, formula=None) -> Decision:
     """通过裁决的统一构造。"""
     add, remove = label_patch(st.labels, to_state)
     marker = {"state": to_state, "holder": holder, "due_at": due_at,
@@ -432,6 +500,8 @@ def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
           "holder": st.holder if event_holder is None else event_holder,
           "difficulty": st.difficulty.split(":", 1)[-1] if st.difficulty else "",
           "delta": delta, "reason": reason}
+    if formula is not None:
+        ev["formula"] = formula
     if marker_extra:
         ev.update({k: v for k, v in marker_extra.items() if k == "pr"})
     ev["id"] = event_id(ev)
@@ -496,10 +566,13 @@ def _do_deliver(st, payload, body, actor, now, cfg, pr_meta):
         return _decide(st, "/deliver", why_pay, now, actor, "payload_missing")
     rounds = st.rounds + 1
     if rounds > cfg.max_rounds:
-        return _decide(st, "/deliver",
-                       f"交付轮次已达上限 {cfg.max_rounds}（防作弊：最多 "
-                       f"{cfg.max_rounds} 轮修改）——请转 `/dispute` 交维护者仲裁",
-                       now, actor, "rounds_exceeded")
+        _d, _f = invalid_delta(base_of(st.difficulty))
+        _bl = [f"交付者：@{actor}",
+               f"第 {rounds} 轮交付超出上限 {cfg.max_rounds}——本 claim 判为**无效交付**（记 {_d} 分 = −base）",
+               "已转 `bounty:disputed`：由维护者仲裁并留痕"]
+        return _accept(st, "/deliver", now, actor, "disputed", st.holder, st.due_at,
+                       st.rounds, f"@{actor} 第 {rounds} 轮交付超出上限，判无效交付（{_d} 分）",
+                       _bl, delta=_d, formula=_f)
     shown = (payload or "").strip()
     show = shown if len(shown) <= 200 else shown[:200] + "…"
     bullets = [f"交付者：@{actor}", f"第 {rounds}/{cfg.max_rounds} 轮",
@@ -559,13 +632,14 @@ def _do_verify(st, payload, actor, now, cfg, is_maintainer):
         verdict, reason = "pass", text
     if verdict == "fail":
         bullets = [f"裁决者：@{actor}",
-                   f"判定：**不通过**（记 {SCORE_FAKE_DELIVERY} 分）",
+                   "判定：**不通过**（**本轮不扣分**——退回返工只计轮次；",
+                   "扣分只发生在轮次用尽被判无效交付时）",
                    f"理由：{reason or '（未写理由）'}",
                    f"已退回 `bounty:claimed` 返工（轮次照计，上限 {cfg.max_rounds} "
                    "轮）；如属不可调和争议请 `/dispute`"]
         return _accept(st, "/verify", now, actor, "claimed", st.holder, st.due_at,
                        st.rounds, f"验收不通过：{reason or '（未写理由）'}", bullets,
-                       delta=SCORE_FAKE_DELIVERY)
+                       delta=0)
     bullets = [f"裁决者：@{actor}", "判定：**通过**（四闸逐道可查）",
                f"理由：{reason or '（未写理由）'}",
                "待结算：维护者 `/settle` 按 `difficulty:*` 记入账本"]
@@ -581,14 +655,16 @@ def _do_settle(st, actor, now, cfg, is_maintainer):
         return _decide(st, "/settle",
                        f"当前态 `bounty:{st.state}` 不可结算（须先过验收 "
                        "`bounty:verified`）", now, actor, "state_not_settleable")
-    score = DIFFICULTY_SCORES.get(st.difficulty, SCORE_DEFAULT)
+    _base = base_of(st.difficulty)
+    score, formula = quality_delta(_base, st.rounds)
     diff = st.difficulty.split(":", 1)[-1] if st.difficulty else ""
-    note = f"{diff}" if diff else f"无 difficulty 标签（按 {SCORE_DEFAULT} 分记）"
+    note = (f"{diff}（base {_base}）" if diff
+            else f"无 difficulty 标签（按 base {_base} 记）")
     bullets = [f"结算者：@{actor}",
                f"入账：@{st.holder or '（无）'} **+{score} 分**（{note}）",
                "账本 append-only：`docs/bounty/ledger.json`"]
     return _accept(st, "/settle", now, actor, "settled", st.holder, st.due_at,
-                   st.rounds, f"结算 {score} 分（{note}）", bullets, delta=score)
+                   st.rounds, f"结算 {score} 分（{note}）", bullets, delta=score, formula=formula)
 
 
 # 生效条件：states 为 IssueState 可迭代、now 为带时区 datetime、cfg 为 Config 时返回 Decision 列表——逐条判「态为 claimed ∧ 有 due_at ∧ now ≥ due ⇒ 超时回板 open（记 SCORE_TIMEOUT，负分归属原持有者）」；未超期/无到期/非 claimed 一律不动。
@@ -609,13 +685,14 @@ def sweep(states, now: datetime, cfg: Config):
             waited = _age(now, st.due_at)
         except ValueError:
             waited = "未知"
+        _td, _tf = timeout_delta(base_of(st.difficulty))
         bullets = [f"原持有者：{held}",
                    f"到期时间：{st.due_at}（已超期 {waited}）",
-                   f"处置：自动回板 `bounty:open`（记 {SCORE_TIMEOUT} 分，"
+                   f"处置：自动回板 `bounty:open`（记 {_td} 分 = −2×base，"
                    "任何人可重新认领）"]
         out.append(_accept(st, "/expire", now, "schedule", "open", None, None, 0,
                            f"{held} 认领超时未交付，自动回板", bullets,
-                           delta=SCORE_TIMEOUT, event_holder=st.holder))
+                           delta=_td, event_holder=st.holder, formula=_tf))
     return out
 
 

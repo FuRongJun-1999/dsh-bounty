@@ -407,6 +407,43 @@ def group_lifecycle():
        (_d35a.reason[:20], _d35b.reason[:20], _d35c.reason[:20]))
     _ok36, _bad36 = bb.rescore(list(_d32.extra_events) + list(_d34.extra_events))
     ok("G36 落选分 rescore 一致（按难度表复算）", _ok36 and not _bad36, _bad36)
+    # ---- 价值评价（影响等级；可配置表 + 判定留痕 + 不参与计分）----
+    _stap = bb.IssueState(number=101, labels=("bounty", "bounty:delivered", "difficulty:hard"),
+                          has_bounty=True, state="delivered", holder="alice", rounds=1, seq=1,
+                          difficulty="difficulty:hard", author="FuRongJun-1999")
+    def _ap(payload, actor="FuRongJun-1999", maint=True, s=None):
+        return bb.handle_command(s or _stap, "/appraise", payload, "/appraise " + payload,
+                                 actor, NOW, CFG, is_maintainer=maint)
+    _d37 = _ap("A 检索核心链路，影响面大")
+    ok("G37 /appraise：态不变、标记与事件均带 impact、**delta 恒 0**（不参与计分）",
+       _d37.ok and _d37.to_state == "delivered" and '"impact":"A"' in _d37.comment
+       and _d37.event.get("impact") == "A" and _d37.delta == 0,
+       (_d37.to_state, _d37.delta, _d37.event.get("impact")))
+    _d38 = _ap("Z 随便")
+    ok("G38 未知等级 → 拒，且提示当前表（表可调）",
+       _d38.ok is False and "当前表" in _d38.reason, _d38.reason)
+    _d39 = _ap("S")
+    ok("G39 价值评价无依据 → 拒（否则不可追溯）",
+       _d39.ok is False and "必须带依据" in _d39.reason, _d39.reason)
+    _d40 = _ap("A 有依据", actor="bob", maint=False)
+    ok("G40 非维护者 /appraise → 拒（人审闸）",
+       _d40.ok is False and "仅维护者" in _d40.reason, _d40.reason)
+    _old_g, _old_c = bb.IMPACT_GRADES, bb.IMPACT_CRITERIA
+    try:
+        bb.IMPACT_GRADES = ("甲", "乙", "丙", "丁")
+        bb.IMPACT_CRITERIA = {"甲": "最高", "乙": "高", "丙": "中", "丁": "低"}
+        _ok41a = _ap("甲 换表后生效").ok
+        _ok41b = not _ap("S 旧等级").ok
+    finally:
+        bb.IMPACT_GRADES, bb.IMPACT_CRITERIA = _old_g, _old_c
+    ok("G41 **等级表可调**：换成甲乙丙丁后新等级生效、旧等级被拒、还原即恢复",
+       _ok41a and _ok41b and _ap("S 还原").ok, (_ok41a, _ok41b))
+    _d42 = verify(bb.IssueState(number=101, labels=("bounty", "bounty:delivered", "difficulty:hard"),
+                                has_bounty=True, state="delivered", holder="alice", rounds=1,
+                                seq=2, difficulty="difficulty:hard", author="FuRongJun-1999",
+                                impact="A"), payload="pass 全过")
+    ok("G42 impact 随状态迁移继承（verify 后的新标记仍带等级）",
+       _d42.ok and '"impact":"A"' in _d42.comment, _d42.comment[-140:])
 
 
 # ================================================================ [G] 离线两模式自证
@@ -669,6 +706,18 @@ _MUTATIONS = (
     ("M25 rescore 落选分恒 0",
      "            d = LOSER_SCORES.get(\"difficulty:\" + str(f.get(\"difficulty\") or \"\"), 0)",
      "            d = 0  # MUT", {"G36"}),
+    ("M26 关影响等级表校验（任意等级放行）",
+     "    if grade not in IMPACT_GRADES:",
+     "    if False:  # MUT", {"G38", "G41"}),
+    ("M27 关「评价必须带依据」（不可追溯）",
+     "    if not reason:",
+     "    if False:  # MUT", {"G39"}),
+    ("M28 不写影响等级快照（跨态丢失）",
+     "    if _im:" + chr(10) + '        marker["impact"] = _im',
+     "    if False:  # MUT" + chr(10) + '        marker["impact"] = _im', {"G37", "G42"}),
+    ("M29 关价值评价的维护者闸（越权可评）",
+     "    if not is_maintainer:",
+     "    if False:  # MUT", {"G40"}),
 )
 
 
@@ -705,7 +754,8 @@ _MUT_TARGETS = (("M0", "parse_command"), ("M1", "_check_claimable"),
                 ("M18", "rescore"), ("M19", "_do_bid"), ("M20", "_do_bid"),
                 ("M21", "_do_bid"), ("M22", "loser_delta"),
                 ("M23", "_do_select"), ("M24", "_do_select"),
-                ("M25", "rescore"))
+                ("M25", "rescore"), ("M26", "_do_appraise"), ("M27", "_do_appraise"),
+                ("M28", "_accept"), ("M29", "_do_appraise"))
 
 
 def _anchor_preflight():

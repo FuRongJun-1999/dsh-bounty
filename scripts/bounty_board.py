@@ -193,8 +193,20 @@ def rescore(events):
     return (not bad), bad
 
 
+#: 影响等级表——**可调**：名称、档数、判据都由此决定；改口径只改这里（与 DIFFICULTY_SCORES 同款「口径单点」）。
+#: 判级原则：**按「不做会怎样」判，不按「做了多难」判**——难度已由 base 表达，本表回答另一个问题。
+IMPACT_GRADES = ("S", "A", "B", "C", "D")
+IMPACT_CRITERIA = {
+    "S": "不可逆损失或安全破坏，且默认配置即可触发",
+    "A": "核心链路失效、语义错误，或量具失效（使评测结论不可信）",
+    "B": "新系统交付、未合入的提案，或需特定路径才可触发的缺陷",
+    "C": "文档、设计、优化建议",
+    "D": "未定级（证据不足或待复验）",
+}
+
 #: 命令面（只认「行首第一个词」）。
-COMMANDS = ("/claim", "/deliver", "/bid", "/select", "/withdraw", "/dispute", "/verify", "/settle")
+COMMANDS = ("/claim", "/deliver", "/bid", "/select", "/withdraw", "/dispute", "/verify",
+            "/settle", "/appraise")
 #: 可认领态（设计稿 §三：`open`/`expired`——expired = 超时回板前一刻的可认领窗口）。
 CLAIMABLE_STATES = ("open", "expired")
 #: 可交付态（`delivered` 可再交付 = 返工轮）。
@@ -231,6 +243,7 @@ LEDGER_SCHEMA = {
     "计分": {"easy": 1, "medium": 3, "hard": 6, "expert": 10,
              "完成分": "max(1, round_half_up(base*2/(round+1)))（v1.0 质量化）",
              "无效交付": "-base（轮次用尽）", "超时未交付": "-2base",
+             "影响等级（可调）": {g: IMPACT_CRITERIA[g] for g in IMPACT_GRADES},
              "v0.1 虚假交付（分段复算用）": SCORE_FAKE_DELIVERY,
              "v0.1 超时未交付（分段复算用）": SCORE_TIMEOUT},
     "生成": "python -X utf8 scripts/bounty_board.py --ledger-append <events.jsonl>",
@@ -338,6 +351,8 @@ class IssueState:
     criteria: tuple = ()
     #: 招标模式的投标人有序名单（一人一投；`/select` 定标后清空）。
     bidders: tuple = ()
+    #: 价值评价的影响等级（∈ IMPACT_GRADES；空串 = 未评价）。
+    impact: str = ""
 
 
 @dataclass(frozen=True)
@@ -400,7 +415,8 @@ def build_state(number, labels, comments, author=None) -> IssueState:
         rounds=int(marker.get("rounds") or 0), seq=_seq(marker),
         difficulty=difficulty, author=author,
         criteria=tuple(marker.get("criteria") or ()),
-        bidders=tuple(marker.get("bidders") or ()))
+        bidders=tuple(marker.get("bidders") or ()),
+        impact=marker.get("impact") or "")
 
 
 # 生效条件：labels 为标签可迭代、target 为裸态名时返回 (要加的标签, 要删的标签)——删光其余态标签，加目标态标签；target 为空串时只删不加。
@@ -520,7 +536,7 @@ def _decide(st, action, reason, now, actor, code, delta=0, formula=None) -> Deci
 def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
             bullets, marker_extra=None, delta=0, event_holder=None,
             event_actor=None, formula=None, criteria=None, bidders=None,
-            extra_events=()) -> Decision:
+            extra_events=(), impact=None) -> Decision:
     """通过裁决的统一构造。"""
     add, remove = label_patch(st.labels, to_state)
     marker = {"state": to_state, "holder": holder, "due_at": due_at,
@@ -532,6 +548,9 @@ def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
     _bd = st.bidders if bidders is None else tuple(bidders)
     if _bd:
         marker["bidders"] = list(_bd)
+    _im = st.impact if impact is None else (impact or "")
+    if _im:
+        marker["impact"] = _im
     ev = {"ts": fmt_ts(now), "issue": st.number, "action": action.lstrip("/"),
           "actor": event_actor or actor, "from": st.state, "to": to_state,
           "holder": st.holder if event_holder is None else event_holder,
@@ -539,6 +558,8 @@ def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
           "delta": delta, "reason": reason}
     if formula is not None:
         ev["formula"] = formula
+    if _im:
+        ev["impact"] = _im
     if marker_extra:
         ev.update({k: v for k, v in marker_extra.items() if k == "pr"})
     ev["id"] = event_id(ev)
@@ -563,6 +584,8 @@ def handle_command(st: IssueState, cmd, payload, body, actor, now, cfg: Config,
         return _do_bid(st, payload, body, actor, now, cfg, pr_meta)
     if cmd == "/select":
         return _do_select(st, payload, actor, now, cfg, is_maintainer)
+    if cmd == "/appraise":
+        return _do_appraise(st, payload, actor, now, cfg, is_maintainer)
     if cmd == "/withdraw":
         return _do_withdraw(st, actor, now, cfg)
     if cmd == "/dispute":
@@ -666,6 +689,32 @@ def _do_select(st, payload, actor, now, cfg, is_maintainer):
     return _accept(st, "/select", now, actor, "delivered", winner, st.due_at, 1,
                    f"定标：@{winner} 中标（{len(st.bidders)} 份投标）", bullets,
                    extra_events=tuple(extra), bidders=())
+
+# 生效条件：st/actor/now/cfg 齐全且 is_maintainer 为真时返回裁决——非维护者拒；载荷首词须 ∈ IMPACT_GRADES；**依据必填**
+# （否则价值评价不可追溯）。通过则记价值评价：态不变，等级进标记快照并随态迁移继承，事件带 impact 结构化字段。
+# 硬边界：等级**不与难度相乘、不换算任何金额**——两轴分别记录，合成属使用者侧（见《价值评价规格 v0.1》V2/V4）。
+def _do_appraise(st, payload, actor, now, cfg, is_maintainer):
+    if not is_maintainer:
+        return _decide(st, "/appraise", "仅维护者可作价值评价（人审闸）", now, actor,
+                       "not_maintainer")
+    text = (payload or "").strip()
+    head, _sep, rest = text.partition(" ")
+    grade = head.strip().upper()
+    if grade not in IMPACT_GRADES:
+        _tbl = " / ".join(IMPACT_GRADES)
+        return _decide(st, "/appraise",
+                       f"未知影响等级 {grade!r}——当前表：{_tbl}（等级表可调，改常量即生效）",
+                       now, actor, "unknown_impact_grade")
+    reason = rest.strip()
+    if not reason:
+        return _decide(st, "/appraise", "价值评价**必须带依据**（否则不可追溯）",
+                       now, actor, "reason_required")
+    bullets = [f"评价者：@{actor}", f"影响等级：**{grade}**",
+               f"判据：{IMPACT_CRITERIA.get(grade, '')}", f"依据：{reason}",
+               "注：等级**不与难度相乘**，也**不换算为任何金额**——两轴分别记录，合成属使用者侧。"]
+    return _accept(st, "/appraise", now, actor, st.state, st.holder, st.due_at,
+                   st.rounds, f"价值评价 {grade}：{reason[:60]}", bullets,
+                   impact=grade)
 
 # 生效条件：st 为 IssueState、payload 为命令载荷、body 为整条评论正文、actor/now/cfg 齐全时返回裁决——校验依序「仅本人可交付 → 态可交付 → 带链接或证据块 → 轮次 ≤ max_rounds」；全过则转 delivered 并记 pr_meta（若交付链接指向本仓 PR）。
 def _do_deliver(st, payload, body, actor, now, cfg, pr_meta):

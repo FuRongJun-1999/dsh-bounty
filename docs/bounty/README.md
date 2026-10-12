@@ -226,3 +226,17 @@ python -X utf8 tests/test_bounty_board.py --mutate
 - **`bounty:expired` 不驻留**、`disputed` 之后的状态复位（回 `delivered` / `claimed`）
   仍由维护者手改标签——两处口径待裁定后收口。
 - **争议败诉的负分**未实现（记录在案、不扣本金）。
+
+### 准入面（谁能设立悬赏）
+
+三道，**自外向内**：
+
+1. **模板不自动打标**：.github/ISSUE_TEMPLATE/bounty.yml 刻意不带 labels ——
+   GitHub 会把模板 labels 自动加到**任何**开 issue 的人身上（无需写权限），
+   而 bounty 是状态机准入闸，自动打标等于外部人可自授悬赏身份。标签一律**维护者手动打**。
+2. **标签闸**（_check_claimable）：bounty 标签必须在 —— 管「这条是不是悬赏」。
+3. **作者闸**（_check_admission）：issue 作者须 ∈ BOUNTY_MAINTAINERS —— 管「谁有权设立悬赏」。
+   作者取不到（None）时**不放行**（fail-closed）。
+
+**外部贡献申报**走 intake 命名空间（**不打** bounty）：它是**输入**，不是悬赏；
+维护者裁定后由维护者**另立**悬赏。外部内容永远不会出现在悬赏面上。

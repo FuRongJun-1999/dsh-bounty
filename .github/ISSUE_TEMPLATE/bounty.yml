@@ -1,7 +1,10 @@
 name: 灵枢悬赏
 description: 发布一条悬赏任务（发布方/维护者用；认领与规则见 docs/bounty/README.md）
 title: "[悬赏] "
-labels: ["bounty", "bounty:open"]
+# 刻意**不**自动打标签（fail-closed）：GitHub 会把模板 labels 自动加到**任何**开 issue 的人
+# 身上（无需写权限——对比同一张表里的 projects 键要求写权限，labels 无此限制）。而 bounty
+# 标签是状态机的**准入闸**（_check_claimable 要求 bounty 在），自动打标 = 外部人可自授悬赏身份。
+# 故标签一律由维护者手动打：bounty ＋ bounty:open ＋ difficulty:{easy|medium|hard|expert}。
 body:
   - type: markdown
     attributes:

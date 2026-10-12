@@ -809,7 +809,32 @@ def group_reviewers():
        mx["eligible"] is False and any("一次过闸" in x for x in mx["blockers"]),
        str(mx["blockers"]))
 
-_GROUPS = (group_parse, group_label_state, group_holder, group_concurrency,
+# --- 准入闸：悬赏只能由维护者发布（标签闸之外的第二道；作者是兜底）---
+def group_admission():
+    def _st(author, labels=("bounty", "bounty:open")):
+        return bb.build_state(1, labels, (), author=author)
+
+    d = claim(_st("FuRongJun-1999"))
+    ok("Z1 维护者发布的悬赏 → 外部人可认领", d.ok and d.to_state == "claimed", d.reason)
+
+    d = claim(_st("outsider"))
+    ok("Z2 外部人发布的 issue（带 bounty 标签）→ 拒（not_admitted）",
+       d.ok is False and "不在维护者名单内" in d.reason, d.reason)
+
+    d = claim(_st(None))
+    ok("Z3 作者未知（None）→ 拒（fail-closed，理由含「无法确认」）",
+       d.ok is False and "无法确认" in d.reason, d.reason)
+
+    d = claim(_st("outsider", ("bounty:open",)))
+    ok("Z4 准入闸先于标签闸（外部人发布 + 无 bounty 标签 → 理由为作者而非标签）",
+       d.ok is False and "不在维护者名单内" in d.reason and "没有" not in d.reason, d.reason)
+
+    d = claim(_st("FuRongJun-1999", ("bounty:open",)))
+    ok("Z5 维护者发布但无 bounty 标签 → 仍拒（标签闸独立生效）",
+       d.ok is False and "bounty" in d.reason and "不在维护者名单内" not in d.reason, d.reason)
+
+
+_GROUPS = (group_admission, group_parse, group_label_state, group_holder, group_concurrency,
            group_is_holder, group_payload, group_lifecycle, group_routing,
            group_reviewers)
 
@@ -995,7 +1020,8 @@ _MUT_TARGETS = (("M0", "parse_command"), ("M1", "_check_claimable"),
                 ("M34", "_do_settle"), ("M35", "_do_settle"),
                 ("M36", "_do_appraise"), ("M37", "roles_from_events"),
                 ("M38", "promotion_report"), ("M39", "promotion_report"),
-                ("M40", "promotion_report"))
+                ("M40", "promotion_report"),
+                ("M41", "_check_admission"), ("M42", "_check_admission"))
 
 
 def _anchor_preflight():

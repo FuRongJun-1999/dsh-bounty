@@ -634,7 +634,27 @@ def handle_command(st: IssueState, cmd, payload, body, actor, now, cfg: Config,
 
 
 # 生效条件：st 为 IssueState、actor/now/cfg 齐全、active_claims 为整数时返回裁决——三项校验（无持有者 / 标签与态 / 并发上限）依序短路；全过则上锁并记到期时间（now + claim_hours）。持有者判据在态判据**之前**：标记是权威记录，标签可能落后（现场形态：态标签仍为 open 而标记里已有持有者）。
+# 生效条件：st 为 IssueState、cfg 为 Config 时返回 (是否通过, 理由)——**准入闸**：issue 作者须 ∈ cfg.maintainers。
+# 与标签闸（_check_claimable）互补：标签闸管「这条是不是悬赏」，作者闸管「谁有权设立悬赏」。
+# 作者未取到（None）时**不放行**（fail-closed）——取不到作者即无法证明它由维护者发布。
+def _check_admission(st, cfg):
+    """R0：悬赏只能由维护者发布（纵深防御；标签是准入闸，作者是兜底）。"""
+    if cfg is None or not cfg.maintainers:
+        return True, ""
+    if not st.author:
+        return False, ("无法确认本 issue 的发布者——悬赏须由维护者发布"
+                       "（作者未取到时不放行，fail-closed）")
+    if st.author not in cfg.maintainers:
+        return False, (f"本 issue 由 @{st.author} 发布，不在维护者名单内——"
+                       "悬赏只能由维护者发布（bounty 标签是准入闸，作者是纵深防御）。"
+                       "外部贡献申报请走 intake 命名空间，由维护者裁定后另立悬赏。")
+    return True, ""
+
+
 def _do_claim(st, actor, now, cfg, active_claims):
+    ok_adm, why_adm = _check_admission(st, cfg)
+    if not ok_adm:
+        return _decide(st, "/claim", why_adm, now, actor, "not_admitted")
     ok_holder, why_holder = _check_no_holder(st)
     if not ok_holder:
         return _decide(st, "/claim", why_holder, now, actor, "holder_exists")
@@ -1413,6 +1433,7 @@ LABEL_SPECS = (
     ("difficulty:medium", "ededed", "悬赏难度：medium（3 分）"),
     ("difficulty:hard", "ededed", "悬赏难度：hard（6 分）"),
     ("difficulty:expert", "ededed", "悬赏难度：expert（10 分）"),
+    ("intake", "d1d5da", "外部贡献申报：**非悬赏**（维护者裁定后另立悬赏）"),
 )
 
 

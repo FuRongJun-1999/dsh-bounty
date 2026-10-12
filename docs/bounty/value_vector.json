@@ -1,0 +1,122 @@
+{
+ "note": "本站只做声誉分与价值评价；金额不进站。两轴（难度 / 影响等级）分别记录，合成权重与资金换算属使用者侧。",
+ "vectors": [
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    12,
+    24,
+    45
+   ],
+   "login": "LarryE135",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 22,
+   "rounds": 1
+  },
+  {
+   "difficulty": "expert",
+   "difficulty_base": 10,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    19,
+    35
+   ],
+   "login": "cyd471",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 20,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    13,
+    22
+   ],
+   "login": "STARDUSTLC666",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 16,
+   "rounds": 1
+  },
+  {
+   "difficulty": "expert",
+   "difficulty_base": 10,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    34,
+    44
+   ],
+   "login": "rinDBeans",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 16,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    36
+   ],
+   "login": "LarryE135",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    18
+   ],
+   "login": "qweqqxq11",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    43
+   ],
+   "login": "ybyz2",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    11
+   ],
+   "login": "acrot0",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 3,
+   "rounds": 1
+  }
+ ]
+}

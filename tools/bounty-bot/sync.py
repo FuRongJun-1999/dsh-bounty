@@ -111,11 +111,16 @@ def _pick(names, prefix):
 
 
 def issue_to_bounty(issue):
-    """GitHub issue -> 悬赏记录（给 db.replace_bounties 用）。"""
+    """GitHub issue -> 悬赏记录（给 db.replace_bounties 用）。
+
+    口径：**只要 issue 是 open，就一直算悬赏**——不按认领态（bounty:claimed /
+    delivered / ...）过滤，标签只用来取难度，不改入选与状态。
+    """
     names = _label_names(issue)
     difficulty = (_pick(names, "difficulty:") or "").lower() or None
-    state = _pick(names, "bounty:") or ("open" if issue.get("state") == "open" else "closed")
-    labels = [n for n in names if not n.startswith(("difficulty:", "bounty:"))]
+    # 状态只反映 issue 本身的开闭，不跟随 bounty:* 认领态
+    state = "open" if issue.get("state") == "open" else "closed"
+    labels = [n for n in names if not n.startswith("difficulty:")]
     body = (issue.get("body") or "").strip()
     summary = ""
     for ln in body.splitlines():
@@ -143,7 +148,11 @@ def issue_to_bounty(issue):
 
 
 def parse_bounty_issues(issues, include_closed=False):
-    """标题以「悬赏」开头的 issue -> 悬赏列表（默认只要 open）。"""
+    """标题以「悬赏」开头的 issue -> 悬赏列表（默认只要 open）。
+
+    入选只两条判据：① 标题以「悬赏」开头 ② issue 是 open（PR 不算）。
+    **不看认领态标签**——open 就一直挂在板上，直到 issue 被关闭。
+    """
     out = []
     for it in issues or ():
         if not isinstance(it, dict) or "pull_request" in it:
@@ -172,6 +181,7 @@ def sync_bounty(conn, cfg, force=False):
         per_page=int(bcfg.get("per_page", 100)),
         max_pages=int(bcfg.get("max_pages", 3)),
     )
+    # 只要 open + 标题带「悬赏」——认领态标签（bounty:claimed 等）不参与筛选
     matched = [i for i in issues if is_bounty_title(i.get("title"))]
     fp = json.dumps(sorted(
         [str(i.get("number")), str(i.get("updated_at")), str(i.get("state")),

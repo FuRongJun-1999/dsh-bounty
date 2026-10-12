@@ -192,17 +192,30 @@ def main():
         {"number": 70, "title": "[悬赏] 角色扮演游戏制作", "state": "open",
          "html_url": "https://github.com/o/r/issues/70", "updated_at": "2026-10-11T12:00:00Z",
          "body": "可运行 + 可测", "labels": [{"name": "difficulty:hard"}]},
+        # 已认领 / 已交付 / 招标中的 issue：**只要 open 就仍然算悬赏**
+        {"number": 66, "title": "悬赏 已被认领但仍开放", "state": "open",
+         "html_url": "https://github.com/o/r/issues/66", "updated_at": "2026-10-10T12:00:00Z",
+         "body": "在做了", "labels": [{"name": "difficulty:expert"},
+                                     {"name": "bounty:claimed"},
+                                     {"name": "bounty:contest"}]},
         {"number": 69, "title": "普通 issue 不该入选", "state": "open", "body": "x", "labels": []},
         {"number": 68, "title": "悬赏 已关闭的", "state": "closed", "body": "x", "labels": []},
         {"number": 67, "title": "悬赏 这是个 PR 混进来的", "state": "open",
          "pull_request": {"url": "x"}, "body": "x", "labels": []},
     ]
     got = sync_mod.parse_bounty_issues(raw_issues)
-    check("只取标题带「悬赏」的开放 issue", [b["no"] for b in got] == ["71", "70"],
+    check("只取标题带「悬赏」的开放 issue", [b["no"] for b in got] == ["71", "70", "66"],
           str([b["no"] for b in got]))
     b0 = got[0]
     check("难度取自 difficulty: 标签", b0["difficulty"] == "medium", str(b0["difficulty"]))
-    check("状态取自 bounty: 标签", b0["status"] == "open", str(b0["status"]))
+    # ★ 口径：open 就一直算悬赏——认领/招标标签不改入选、不改状态
+    b66 = [b for b in got if b["no"] == "66"][0]
+    check("已认领(bounty:claimed) 但仍 open => 仍算悬赏", b66["title"].startswith("已被认领"),
+          b66["title"])
+    check("状态不跟随 bounty:* 认领态（只反映 issue 开闭）", b66["status"] == "open",
+          b66["status"])
+    check("非难度标签被保留在 labels 里",
+          "bounty:claimed" in (b66["labels"] or []), str(b66["labels"]))
     check("标题已去前缀", b0["title"] == "灵枢生态宣传", b0["title"])
     check("摘要取正文首个非标题行", b0["note"] == "材料 + 渠道 + 触达读数", str(b0["note"]))
     check("url 指向 issue", b0["url"].endswith("/issues/71"), b0["url"])
@@ -215,9 +228,9 @@ def main():
     db.replace_bounties(conn, got)
     db.replace_bounties(conn, got)      # 重复整表替换（不应撞主键）
     bs = db.list_bounties(conn)
-    check("难度降序（hard 在前）", bs[0]["difficulty"] == "hard",
+    check("难度降序（expert 在前）", bs[0]["difficulty"] == "expert",
           str([b["difficulty"] for b in bs]))
-    check("重复入库不炸且不重复", len(bs) == 2, "n=%d" % len(bs))
+    check("重复入库不炸且不重复", len(bs) == 3, "n=%d" % len(bs))
     check("同一 bid 去重", db.replace_bounties(conn, [got[0], dict(got[0])]) == 1)
 
     print("== 7. 指令解析 ==")

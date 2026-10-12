@@ -54,9 +54,13 @@ OneBot v11 HTTP 接入（NapCat 反向调用），**纯 Python 标准库，零�
 入选判据（见 `sync.py::is_bounty_title`）：
 
 * 标题（去首尾空白后）以 `悬赏` 或 `[悬赏]` 开头，后接空白 / 冒号（半角全角）/ 破折号 / 顿号皆可；
-* **只要 `state=open`** 的 issue（`config.bounty.include_closed=true` 可纳入已关闭的）；
+* **只要 `state=open` 就一直算悬赏**（`config.bounty.include_closed=true` 可纳入已关闭的）；
 * **PR 不算**（`pull_request` 字段存在即剔除）；
 * 前缀会被剥掉，卡片上显示干净的标题。
+
+> ★ **不按认领态筛选。** `bounty:claimed` / `bounty:delivered` / `bounty:contest`
+> 之类的标签**既不使 issue 落选、也不改变卡片状态**——只要 issue 还开着，它就一直在板上；
+> issue 被关闭才从板上消失。`bounty:*` 标签只作为普通标签保留在 `labels` 字段里。
 
 字段映射（见 `sync.py::issue_to_bounty`）：
 
@@ -64,7 +68,7 @@ OneBot v11 HTTP 接入（NapCat 反向调用），**纯 Python 标准库，零�
 |---|---|
 | 标题 | issue 标题（去「悬赏」前缀） |
 | 难度 | 标签 `difficulty:{easy\|medium\|hard\|expert}`（决定排序与徽记） |
-| 状态 | 标签 `bounty:{open\|claimed\|delivered\|verified\|settled\|disputed}`，无则按 issue 开闭 |
+| 状态 | **issue 本身的开闭**（`open` => 悬赏中 / `closed` => 已结束），不跟随认领态标签 |
 | 编号 | issue 号（卡片上显示 `issue #NN`，点卡片直达认领页） |
 | 摘要 | 正文首个非空、非标题行（截断 120 字） |
 | 截止 | milestone 的 `due_on` |
@@ -75,8 +79,8 @@ OneBot v11 HTTP 接入（NapCat 反向调用），**纯 Python 标准库，零�
 "bounty": {
   "mode": "issues",       // 悬赏来源：标题带「悬赏」的 issue
   "enabled": true,
-  "labels": "",           // 可选：再限定标签，如 "bounty"
-  "include_closed": false,
+  "labels": "",           // 可选：给 issue 列表接口加标签过滤（不影响认领态判定）
+  "include_closed": false, // true 才把 closed 的也列出来
   "per_page": 100,        // 页过大时自动减半重试（api.github.com 会偶发半截响应）
   "max_pages": 3
 }

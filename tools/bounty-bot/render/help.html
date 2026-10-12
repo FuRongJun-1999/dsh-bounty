@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+body { color: #3a2416; }
+.stage { padding: 48px 48px 44px; }
+.frame {
+  position: relative; padding: 56px 54px 44px;
+  background-image: url('__ASSETS__/parchment_a.png');
+  background-size: cover; background-position: center;
+  border: 3px solid #6b4a2c;
+  outline: 2px solid var(--gold); outline-offset: -12px;
+  box-shadow: 0 14px 44px rgba(90,58,20,.35), inset 0 0 80px rgba(255,250,235,.4);
+}
+.frame::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,190,90,.22), transparent 55%);
+}
+.emblem { width: 140px; height: 140px; margin: 0 auto 8px; display: block; filter: drop-shadow(0 4px 8px rgba(0,0,0,.6)); }
+h1 { font-weight: 400; font-family: 'F-Title','S-Title',serif; font-size: 104px; text-align: center; letter-spacing: 6px; color: var(--gold-light);
+     text-shadow: 0 2px 0 #000, 0 0 24px rgba(201,162,39,.35); }
+.sub { text-align: center; font-size: 26px; color: #8a6d3f; letter-spacing: 5px; margin-top: 6px; }
+.cmd {
+  display: block;
+  padding: 24px 28px; margin-top: 20px;
+  background: rgba(255,250,238,.72);
+  border: 1px solid rgba(138,109,31,.4);
+  border-left: 5px solid #b08d3e;
+  box-shadow: inset 0 1px 0 rgba(255,220,140,.06);
+}
+
+
+.footer { margin-top: 32px; display: flex; align-items: center; justify-content: space-between; font-size: 22px; color: #8a6d3f; }
+.seal { width: 92px; height: 92px; filter: drop-shadow(0 3px 6px rgba(0,0,0,.6)); transform: rotate(-8deg); }
+</style></head>
+<body><div class="stage mat-parchment">
+  <div class="frame">
+    <img class="emblem" src="__ASSETS__/emblem_cut.png">
+    <h1 class="title-serif">冒险家协会</h1>
+    <div class="sub">— 委 托 须 知 —</div>
+    <div class="divider" style="margin: 24px 0 6px"></div>
+    <div id="cmds"></div>
+    <div class="footer">
+      <div>凭指令行事 · 声誉即赏金</div>
+      <img class="seal" src="__ASSETS__/seal_cut.png">
+    </div>
+  </div>
+</div>
+<script>
+/*__DATA__*/
+(function(){
+  var d = window.__DATA__ || {};
+  var host = document.getElementById('cmds');
+  (d.commands || []).forEach(function(c){
+    var el = document.createElement('div');
+    el.className = 'cmd';
+    el.innerHTML = '<div class="name"></div><div class="desc"></div>';
+    el.querySelector('.name').textContent = c.cmd;
+    el.querySelector('.desc').textContent = c.desc;
+    host.appendChild(el);
+  });
+  requestAnimationFrame(function(){
+    document.body.setAttribute('data-full-height', document.querySelector('.stage').scrollHeight);
+  });
+})();
+</script></body></html>

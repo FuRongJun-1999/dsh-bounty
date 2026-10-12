@@ -23,6 +23,9 @@
 | **每日贡献表生成器** | [`scripts/daily_table.py`](scripts/daily_table.py) | 从账本按**结算日**渲染贡献表（确定性；`--check` 自检） |
 | **每日贡献表守卫** | [`tests/test_daily_table.py`](tests/test_daily_table.py) | 15 条断言 ＋ 4 条定点变异（M1–M4） |
 | 每日贡献表 | [`docs/bounty/贡献表.md`](docs/bounty/贡献表.md) | 由账本机械生成（按结算日分节 ＋ 按人合计 ＋ 累计） |
+| **悬赏清单生成器** | [`scripts/bounty_list.py`](scripts/bounty_list.py) | 真源 `docs/bounty/悬赏.json` → 清单 `docs/bounty/悬赏清单.md`（纯 stdlib、确定性；`--check` 自检漂移） |
+| **悬赏清单守卫** | [`tests/test_bounty_list.py`](tests/test_bounty_list.py) | 21 条断言 ＋ 16 条定点变异（M1–M16） |
+| 悬赏清单 | [`docs/bounty/悬赏清单.md`](docs/bounty/悬赏清单.md) | **统一查看面**：长期方向的验收标准／进度／负责人（由真源机械生成，禁手改） |
 | 价值向量 | [`docs/bounty/value_vector.json`](docs/bounty/value_vector.json) | 由账本导出（声誉分 ＋ 难度/影响两轴；**不含金额**） |
 | **审核员机制** | [`scripts/bounty_board.py`](scripts/bounty_board.py) ／ [`docs/spec/审核员机制_v0.1.md`](docs/spec/审核员机制_v0.1.md) | 回避闸（自审自结禁止）＋ 审核员档（`/verify` `/appraise`，**不含** `/settle`）＋ 账本 `role` 事件授权面 ＋ 晋升复合判据 |
 | 晋升评估／授权面 | [`docs/bounty/promotion.json`](docs/bounty/promotion.json) ／ [`docs/bounty/roles.json`](docs/bounty/roles.json) | 由账本机械导出（`--promotion-out` ／ `--roles-out`；只读、纯函数） |
@@ -51,6 +54,12 @@ python -X utf8 scripts/daily_table.py --ledger docs/bounty/ledger.json \
 # 3c. 每日贡献表守卫（断言 ＋ 定点变异自证）
 python -X utf8 tests/test_daily_table.py
 python -X utf8 tests/test_daily_table.py --mutate
+
+# 3d. 悬赏清单（生成 ＋ 自检 ＋ 守卫）
+python -X utf8 scripts/bounty_list.py            # 生成 docs/bounty/悬赏清单.md
+python -X utf8 scripts/bounty_list.py --check    # 产物与真源一致则 0，漂移则 1
+python -X utf8 tests/test_bounty_list.py
+python -X utf8 tests/test_bounty_list.py --mutate
 
 # 3d. 审核员机制：晋升评估 ＋ 授权面（账本 → JSON；只读、纯函数）
 python -X utf8 scripts/bounty_board.py --promotion-out docs/bounty/promotion.json

@@ -1,0 +1,254 @@
+{
+  "_schema": {
+    "说明": "灵枢悬赏 · 任务清单真源。**只改本文件**，改完重跑 scripts/bounty_list.py 生成 docs/bounty/悬赏清单.md（禁手改产物）。",
+    "字段": {
+      "id": "稳定短 id（英文/数字，全清单唯一）",
+      "title": "悬赏标题",
+      "direction": "方向（测评/方案/迭代/制作/宣传…）",
+      "difficulty": "easy|medium|hard|expert",
+      "score": "结算分——**必须等于难度表**（1/3/6/10），由守卫强制",
+      "form": "期望交付形态",
+      "status": "open|claimed|delivered|done|paused",
+      "owner": "负责人 GitHub 登录名（空串 = 无人认领）",
+      "issue": "原 issue 号（可为 null）",
+      "issue_note": "原 issue 的留痕说明",
+      "acceptance": "验收标准（**必须可机械复核**：交付物 + 复跑命令 + 期望读数 + 反面对照）",
+      "refs": "参考材料（先读哪几件）",
+      "boundary": "边界与不做项（防交付范围漂移）",
+      "progress": "[{date, note}] 进度流水（渲染时按日期升序）"
+    }
+  },
+  "updated": "2026-10-12",
+  "intro": "灵枢生态的长期方向 —— 统一在此登记、统一在此查看。每条都给出**可机械复核的验收标准**（复跑命令 ＋ 期望读数 ＋ 反面对照），不写不可判的表述。",
+  "howto": [
+    "**认领**：提交 PR 把本清单 [`悬赏.json`](悬赏.json) 里该条的 `status` 改为 `claimed`、`owner` 填你的 GitHub 登录名，并在 PR 描述里写明你的**执行计划**（第一条复跑命令是什么）。合入即认领成立——**可审计、可追溯，不占用 issue 池**。",
+    "**交付**：在 PR 里贴**原始读数**（围栏代码块），逐项对应验收标准；未测的项**显式写「未测 ＋ 原因」**，留空或用「应该没问题」代替视为未交付。",
+    "**更新进度**：改本清单对应条目的 `progress`（追加一行，不改历史行），重跑 `python -X utf8 scripts/bounty_list.py`。",
+    "**认领通道为建议值**，待设计者裁定；如需恢复 issue 认领通道，把原悬赏 issue 重开即可。"
+  ],
+  "not_applicable": [
+    "**单人自营、尚无外部贡献者**：清单仍可用（登记进度），但「认领」无对象。",
+    "**不可机械复核的方向**（如「宣传效果好」）：**不得**写成悬赏——须先把它转成可核验的交付物（链接可达、读数可查）再登记。",
+    "**涉资金的结算**：本站**不涉资金**，`score` 只是声誉分，不是金额。",
+    "**手改产物**：`悬赏清单.md` 是机械生成的派生视图，手改会在下次生成时被覆盖。"
+  ],
+  "items": [
+    {
+      "id": "eval-site",
+      "title": "插件测评站：完整搭建",
+      "direction": "测评",
+      "difficulty": "expert",
+      "score": 10,
+      "form": "PR（修码类）",
+      "status": "open",
+      "owner": "",
+      "issue": 65,
+      "issue_note": "原悬赏 issue，已关闭——载体改为本文档",
+      "acceptance": [
+        "**交付物**：`review/` 子站——`scripts/review_build.py`（纯 stdlib 生成器）＋ `review/data/*.json`（测评数据）＋ `review/site/*.html`（产物）",
+        "**复跑命令**：`python -X utf8 scripts/review_build.py`（退出码 0）；`python -X utf8 tests/test_review_build.py`（末行「通过 N / 失败 0」）；`python -X utf8 tests/test_review_build.py --mutate`",
+        "**期望读数**：`review/site/` 产出 **≥4 页**（首页/榜单/测评详情/方法说明）；`review/data/` 含 **≥3 个插件**记录，每条含插件名、版本、来源 URL、测评维度、**≥1 条可复跑证据**（命令 ＋ 原始输出）、结论、边界",
+        "**守卫**：≥15 条断言；`--mutate` 逐条**恰好**命中期望红项（多红＝语义纠缠，少红＝判据空转）",
+        "**不触网**：生成器纯 stdlib、**零第三方依赖**；CI 不发起网络请求"
+      ],
+      "refs": [
+        "同仓既有惯例（**先读这三件**）：`scripts/build_site.py`、`tests/test_build_site.py`、`docs/bounty/README.md` §四",
+        "设计稿：`docs/spec/悬赏站设计_v1.0.md`",
+        "口径真源：`scripts/bounty_board.py` 的 `DIFFICULTY_SCORES` / `quality_delta`"
+      ],
+      "boundary": [
+        "**不动** `scripts/bounty_board.py`、`scripts/build_site.py`、`docs/bounty/ledger.json`",
+        "**不涉资金**；**不采集用户隐私**、不做用户画像",
+        "「运营机制」（更新节奏/提交入口/维护 SOP）**不在本条范围**——运营是长期职责、不是一次性交付物"
+      ],
+      "progress": [
+        {
+          "date": "2026-10-12",
+          "note": "悬赏发布（原 issue #65）；同日按「统一查看面改为文档」关闭该 issue，条目迁入本清单"
+        }
+      ]
+    },
+    {
+      "id": "bounty-pm",
+      "title": "悬赏与项目管理方案完善：三方对账校验件",
+      "direction": "方案",
+      "difficulty": "hard",
+      "score": 6,
+      "form": "PR（修码类）",
+      "status": "open",
+      "owner": "",
+      "issue": 66,
+      "issue_note": "原悬赏 issue，已关闭——载体改为本文档",
+      "acceptance": [
+        "**交付物**：`docs/spec/悬赏与项目管理_v0.2.md` ＋ `scripts/check_plan.py`（对账校验件）＋ `tests/test_check_plan.py`（守卫）",
+        "**复跑命令**：`python -X utf8 scripts/check_plan.py --dry-run`（退出码 0）；`python -X utf8 tests/test_check_plan.py`（末行「通过 N / 失败 0」）；`--mutate`",
+        "**期望读数**：`--dry-run` 报出三方对账表 `issue 号 | 标签态 | 账本态 | 是否一致`；不一致项**点名**（缺标签/缺账本事件/态冲突 三类各一行，不汇总、不静默）",
+        "**守卫**：≥12 条断言 ＋ ≥3 条定点变异自证",
+        "**反面对照**：人为篡改一条状态（如把账本里的 `settle` 改成 `claim`）⇒ 校验件**必须报不一致并点名该 issue**"
+      ],
+      "refs": [
+        "**先读**：`docs/bounty/README.md`、`docs/spec/悬赏板设计_v0.1.md`",
+        "状态机与账本真源：`scripts/bounty_board.py`（`load_ledger` / `roles_from_events` / `--state` 镜像）",
+        "同仓惯例：`tests/test_daily_table.py`（守卫＋定点变异的体例）"
+      ],
+      "boundary": [
+        "**不改**既有计分口径（`DIFFICULTY_SCORES` / `quality_delta` / `PROMOTION_RULES` 阈值）",
+        "**不改写** `docs/bounty/ledger.json` 既有行（append-only 不破）",
+        "不引入第三方依赖、不引入数据库",
+        "「对内域（蜂巢 job）的评分」属协作架构 v0.2 第七章，**不在本条范围**"
+      ],
+      "progress": [
+        {
+          "date": "2026-10-12",
+          "note": "悬赏发布（原 issue #66）；同日载体改为本文档"
+        }
+      ]
+    },
+    {
+      "id": "cross-eval",
+      "title": "横向测评：各家角色扮演 / 记忆系统 / 智能体工作流方案",
+      "direction": "测评",
+      "difficulty": "expert",
+      "score": 10,
+      "form": "评论证据块（分析/复现类）→ 改走 PR 到 docs/reviews/",
+      "status": "open",
+      "owner": "",
+      "issue": 67,
+      "issue_note": "原悬赏 issue，已关闭——载体改为本文档",
+      "acceptance": [
+        "**交付物**：`docs/reviews/<方案名>_v0.1.md` **≥3 家**（三方向各 ≥1 家，或同方向 ≥3 家）＋ `docs/reviews/测评方法论_v0.1.md`",
+        "**复跑命令**：报告里每条命令第三方**可原样复跑**；报告须含「复现步骤」一节（环境、依赖、命令、预期耗时）",
+        "**期望读数**：每家 ≥1 组**基线 vs 方案**（或改前 vs 改后）逐项对照读数，含原始输出片段（围栏代码块）",
+        "**反面对照**：结论与读数**逐项可指**（哪条读数支撑哪条结论）；**零 LLM 判官**，禁用「看起来更好」「体验更佳」",
+        "**未测项**：**显式写「未测 ＋ 原因」**——留空或用「应该没问题」代替视为未交付",
+        "**边界声明**：每家报告末尾须写「不适用条件」（该方案在什么条件下不成立）"
+      ],
+      "refs": [
+        "**先读**：`docs/spec/质量化计分标准与方式_v1.0.md`（本站读数体例与口径）",
+        "既有测评体例：`docs/spec/贡献量化指标体系_v0.4.md`（可红观测项怎么设）",
+        "价值论证：`docs/spec/价值论证_v0.1.md`（为什么只认可核事实）"
+      ],
+      "boundary": [
+        "**不做**没有读数的「行业综述」；**不写**不可核验的市场数据（引用须附来源 URL）",
+        "**不攻击**具体厂商/个人；只对**公开可复现的行为**作判定",
+        "**不采集**任何用户隐私数据；只用公开数据集或自建合成数据",
+        "不涉及未公开的内部方案（只测公开可得者）"
+      ],
+      "progress": [
+        {
+          "date": "2026-10-12",
+          "note": "悬赏发布（原 issue #67）；同日载体改为本文档；交付形态由「评论证据块」改为「PR 到 docs/reviews/」以适配文档载体"
+        }
+      ]
+    },
+    {
+      "id": "brain-iter",
+      "title": "灵枢大脑仓库迭代：缺陷修复 / 能力增强",
+      "direction": "迭代",
+      "difficulty": "expert",
+      "score": 10,
+      "form": "PR（到 FuRongJun-1999/dsh-memory）",
+      "status": "claimed",
+      "owner": "STARDUSTLC666",
+      "issue": 68,
+      "issue_note": "原悬赏 issue，已关闭——载体改为本文档",
+      "acceptance": [
+        "**交付物**：指向 `FuRongJun-1999/dsh-memory` 的 **PR 链接**（提交信息含 commit hash）",
+        "**复跑命令**：`python -X utf8 tests/test_<改动模块>.py`（末行「通过 N / 失败 0」）；`--mutate`",
+        "**期望读数**：该 PR 的 CI **全绿**（机器判，不可辩）；**缺陷类**贴改前 vs 改后原始读数逐项对照（含复现命令）；**能力增强类**贴基线 vs 新方案指标对照（同数据集、同命令）",
+        "**反面对照**：注入必失败 ⇒ 断言必红**并点名**",
+        "**可核性**：改动范围与验收标准一一对应；**不夹带**无关重构"
+      ],
+      "refs": [
+        "该仓 README 与 `docs/` 目录（**先读**）",
+        "该仓既有守卫体例：`tests/test_*.py`（断言 ＋ `--mutate` 自证）",
+        "悬赏站验收四闸：`docs/bounty/README.md` §三"
+      ],
+      "boundary": [
+        "**不碰**该仓的私有运行时与私域数据",
+        "**不改**公开面既有判据的阈值（要改须单列理由并给出重定标读数）",
+        "一次 PR **只做一件**（缺陷修复与能力增强不混提）",
+        "若改动涉及安全面（删除/权限/脱敏），须在 PR 描述里单列一节说明"
+      ],
+      "progress": [
+        {
+          "date": "2026-10-12",
+          "note": "悬赏发布（原 issue #68）；同日载体改为本文档"
+        },
+        {
+          "date": "2026-10-12",
+          "note": "@STARDUSTLC666 经 GitHub Actions 认领（原 issue #68，`/claim` 于 2026-10-12T15:14:22Z）；租约到期 2026-10-15T15:14:32Z，逾期自动回板并记 -1 分。**本条保留 issue 通道**——认领人正在执行，不做载体迁移。"
+        }
+      ]
+    },
+    {
+      "id": "rp-game",
+      "title": "角色扮演游戏制作：可运行 + 可测",
+      "direction": "制作",
+      "difficulty": "hard",
+      "score": 6,
+      "form": "PR（修码类）",
+      "status": "open",
+      "owner": "",
+      "issue": 70,
+      "issue_note": "原悬赏 issue，已关闭——载体改为本文档",
+      "acceptance": [
+        "**交付物**：PR——游戏代码 ＋ 测试 ＋ README（怎么跑、玩什么、边界）",
+        "**复跑命令**：`python -X utf8 game/run.py --demo`（退出码 0，输出一段完整回合）；`python -X utf8 tests/test_game.py`（末行「通过 N / 失败 0」）；`--mutate`",
+        "**期望读数**：`--demo` 跑出**完整回合**（起→行动→结算→落痕），输出可读、**同输入同输出**",
+        "**守卫**：≥10 条断言，覆盖 **≥2 条核心判据**：①角色状态一致性（状态迁移无矛盾）②记忆召回（同一情境召回同一事实）；`--mutate` 逐条恰好命中期望红项",
+        "**确定性**：同输入两次运行逐字节相同（**禁用随机数**，或把随机种子显式落痕）"
+      ],
+      "refs": [
+        "悬赏站守卫体例（**先读**）：`tests/test_bounty_board.py`、`tests/test_daily_table.py`",
+        "记忆与角色一致性的公开讨论：`docs/spec/` 下相关规格"
+      ],
+      "boundary": [
+        "**不做**纯前端/需要联网的游戏（纯 stdlib、可离线跑）",
+        "**不涉**资金与内购；**不采集**玩家数据（如需存档只落本地文件且不含隐私）",
+        "不引入第三方依赖；美术资源如无授权，一律用文本/ASCII"
+      ],
+      "progress": [
+        {
+          "date": "2026-10-12",
+          "note": "悬赏发布（原 issue #70）；同日载体改为本文档"
+        }
+      ]
+    },
+    {
+      "id": "promo",
+      "title": "灵枢生态宣传：材料 + 渠道 + 触达读数",
+      "direction": "宣传",
+      "difficulty": "medium",
+      "score": 3,
+      "form": "PR（材料）＋ 读数可随 PR 附上",
+      "status": "open",
+      "owner": "",
+      "issue": 71,
+      "issue_note": "原悬赏 issue，已关闭——载体改为本文档",
+      "acceptance": [
+        "**交付物**：`docs/promo/<主题>_v0.1.md`——含 ①文案 ②目标受众 ③渠道清单 ④发布记录（链接 ＋ 日期）⑤触达读数",
+        "**复跑命令**：`python -X utf8 scripts/check_links.py docs/promo/`（退出码 0，逐条链接可达）",
+        "**期望读数**：**≥3 个渠道**的**实际发布链接**（不是「计划发布」）＋ 每条的触达读数（星标/浏览/转发/评论数，须可查）；读数须附**来源**；**无读数的渠道写「未取到读数 ＋ 原因」**",
+        "**反面对照**：链接校验脚本须带守卫（≥3 条断言 ＋ 定点变异自证）；人为改坏一个链接 ⇒ 断言必红并点名",
+        "**合规**：文案过内容政策自检（无夸大、无未证实数据、无侵权素材）；引用数据须附来源 URL"
+      ],
+      "refs": [
+        "本仓对外口径（**先读**）：`README.md`、`docs/bounty/README.md` §〇（价值论证——只给可核验事实的体例）",
+        "悬赏站设计稿：`docs/spec/悬赏站设计_v1.0.md`"
+      ],
+      "boundary": [
+        "**不做**刷量/买流量/机器人转发（读数须真实可查）",
+        "**不碰**未公开的内部方案与私有运行时细节（对外只讲公开面）",
+        "**不承诺**未实现的能力（已实现与规划中须分开写）",
+        "不在未经许可的社区/频道投放"
+      ],
+      "progress": [
+        {
+          "date": "2026-10-12",
+          "note": "悬赏发布（原 issue #71）；同日载体改为本文档"
+        }
+      ]
+    }
+  ]
+}

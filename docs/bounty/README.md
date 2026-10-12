@@ -9,6 +9,7 @@
 状态机 [`scripts/bounty_board.py`](../../scripts/bounty_board.py)（可本地跑·可离线演练·可测）／
 发布模板 [`.github/ISSUE_TEMPLATE/bounty.yml`](../../.github/ISSUE_TEMPLATE/bounty.yml)。
 账本 [`ledger.json`](ledger.json) ｜ 荣誉榜 [`board.md`](board.md)。
+悬赏清单 [`悬赏清单.md`](悬赏清单.md)（**统一查看面**：真源 [`悬赏.json`](悬赏.json) → 生成器 [`scripts/bounty_list.py`](../../scripts/bounty_list.py)）／ 守卫 [`tests/test_bounty_list.py`](../../tests/test_bounty_list.py)。
 
 ---
 

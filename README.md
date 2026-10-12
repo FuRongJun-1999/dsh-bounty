@@ -31,7 +31,7 @@
 | 晋升评估／授权面 | [`docs/bounty/promotion.json`](docs/bounty/promotion.json) ／ [`docs/bounty/roles.json`](docs/bounty/roles.json) | 由账本机械导出（`--promotion-out` ／ `--roles-out`；只读、纯函数） |
 | 静态站产物 | [`site/`](site/) | `index / board / honor / rules` 四页（由生成器产出） |
 | **插件测评站生成器** | [`scripts/review_build.py`](scripts/review_build.py) | 真源 `review/data/*.json` → 产物 `review/site/*.html`（纯 stdlib、确定性、不触网；`--print` 只打印不落盘，坏真源退出码 2） |
-| **插件测评站守卫** | [`tests/test_review_build.py`](tests/test_review_build.py) | 28 条断言 ＋ 7 条定点变异（N0–N6）；`[J]` 映射面 ◦ `[K]` 落盘面（真跑子进程） |
+| **插件测评站守卫** | [`tests/test_review_build.py`](tests/test_review_build.py) | 28 条断言 ＋ 17 条定点变异（`[J]` 映射面 N0–N8：内存副本 `exec` ◦ `[K]` 落盘面 KN0–KN7：变异写临时源码副本 ＋ 子进程真跑）；`--mutate` 会打印 K 组的覆盖映射与未覆盖项 |
 
 **独立仓**：所有件自包含，不依赖任何外部仓的路径或模块——所有命令都在本仓根下跑，
 只用 Python 标准库（**零第三方依赖、不触网**）。

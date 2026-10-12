@@ -2,56 +2,56 @@
   "schema": "review/plugins/v1",
   "scanned_at": "2026-10-13",
   "version_source_order": [
-    "docs/ops/plugin-full-audit-2026-10-11.md（版本漂移真源：逐包 desktop vs web）",
-    "docs/ops/plugin-inventory.md（能力面/工具数登记）",
+    "随仓外附录《插件全量审计（2026-10-11）》（版本漂移真源：逐包 desktop vs web；该附录不在本仓，读数已内联进本条记录）",
+    "随仓外附录《插件清单》（能力面/工具数登记；不在本仓，读数已内联）",
     "本机 profile package.json（现读，用于交叉核对——与文档不一致时在 boundaries 里并列）"
   ],
   "evidence_convention": {
     "command": "可复跑命令字符串（逐字可复制）",
-    "output": "已采集的原始输出原文",
-    "source": "本机执行 2026-10-13（相对工作区根 E:\\deepseek harness data）或 文档路径 行号",
+    "output": "已采集的原始输出原文；转载附录读数时把结论性内容用自己的话内联（自包含），本机家目录路径按脱敏声明处理",
+    "source": "本机实测（写明日期）或 随仓外附录「文件名 + 行号 + 内容摘要」——一律不写本机绝对路径",
     "captured_at": "采集日期",
-    "note": "生成器与本站运行期都不执行这些命令——CI 不触网"
+    "note": "生成器与本站运行期都不执行这些命令——CI 不触网；本仓为独立仓，证据不依赖任何外部仓路径"
   },
   "plugins": [
     {
       "id": "dsh-better-sidebar",
       "name": "dsh-better-sidebar",
       "version": "0.25.0",
-      "version_source": "docs/ops/plugin-full-audit-2026-10-11.md:61（desktop 0.25.0 / web 0.22.1；本文取 desktop 版 0.25.0）",
+      "version_source": "随仓外附录 plugin-full-audit-2026-10-11.md 第 61 行（该文件不在本仓）：desktop 0.25.0 / web 0.22.1；本文取 desktop 版 0.25.0",
       "source_url": "https://github.com/omdsh-dev/DSH-better-sidebar",
       "category": "效率 UI（侧边栏平台 / 开放 ctx.betterSidebar 服务）",
       "tool_tokens": 324,
       "dimensions": [
-        {"name": "声明面", "finding": "peer 区间 0.25.0 版要求 @deepseek-ai/dsh-* ^0.2.0-rc.2、cordis ^4.0.4、react ^18.2.0；web 宿主 0.1.7 不覆盖 ⇒ web 只能装 0.22.1。", "basis": "docs/ops/plugin-full-audit-2026-10-11.md:61"},
-        {"name": "工具面成本", "finding": "注册 1 个模型工具 sidebar_open ≈ 324 tok/轮（占本轮工具面 1.5%）。", "basis": "本机 2026-10-13 实测（dsh-tool-cost-top.mjs）"},
-        {"name": "运行时证据", "finding": "bundle 面命中 asar 或目录即判存在，两向夹具 8/8 通过。", "basis": "本机 2026-10-13 实测（dsh-bundle-health.mjs --selftest）"},
-        {"name": "生态面", "finding": "npm 关键词 dsh-better-sidebar 全量扫得 87 个包；逐个 peer 实测后，官方推荐目录里的 Office 预览包因钉 ^0.17.0 而装不上（0.25.0 已越界）。", "basis": "docs/ops/sidebar-ecosystem-2026-10-12.md:4,35"}
+        {"name": "声明面", "finding": "peer 区间 0.25.0 版要求 @deepseek-ai/dsh-* ^0.2.0-rc.2、cordis ^4.0.4、react ^18.2.0；web 宿主 0.1.7 不覆盖 ⇒ web 只能装 0.22.1。", "basis": "随仓外附录 plugin-full-audit-2026-10-11.md 第 61 行（不在本仓）：web 宿主旧 ⇒ 新版 peer 不覆盖"},
+        {"name": "工具面成本", "finding": "注册 1 个模型工具 sidebar_open ≈ 324 tok/轮（占本轮工具面 1.5%）。", "basis": "本机实测 2026-10-13（dsh-tool-cost-top.mjs，测量脚本随仓外工作区、非本仓文件）"},
+        {"name": "运行时证据", "finding": "bundle 面命中 asar 或目录即判存在，两向夹具 8/8 通过。", "basis": "本机实测 2026-10-13（dsh-bundle-health.mjs --selftest，测量脚本随仓外工作区、非本仓文件）"},
+        {"name": "生态面", "finding": "npm 关键词 dsh-better-sidebar 全量扫得 87 个包；逐个 peer 实测后，官方推荐目录里的 Office 预览包因钉 ^0.17.0 而装不上（0.25.0 已越界）。", "basis": "随仓外附录 sidebar-ecosystem-2026-10-12.md 第 4 行与第 35 行（不在本仓）"}
       ],
       "evidence": [
         {
           "command": "node scripts/dsh-tool-cost-top.mjs",
           "output": "surface: (last)\n\nsurface: 28ac6911-1d9e-4248-a4a8-3315b817fe9f.json  2026-10-12T18:36:21  判别位=(未指定 · 取最新)\n工具面：86 个工具 ≈ 21230 tok/轮\n\n== 单个工具 Top 30 ==（节选）\nsidebar_open                    324  dsh-better-sidebar\n\n== 按包聚合（可摘粒度）==\ndsh-better-sidebar                          1      324    1.5%",
-          "source": "本机执行 2026-10-13（工作区根 E:\\deepseek harness data）",
+          "source": "本机实测 2026-10-13（测量脚本随仓外工作区、非本仓文件；读数原文已内联）",
           "captured_at": "2026-10-13"
         },
         {
           "command": "node scripts/dsh-bundle-health.mjs --selftest",
           "output": "-- dsh-bundle-health 两向自检 --\n夹具断言：8/8 通过\n\nselftest: 两向行为正确（ESM-only 判存在 / 不存在判 missing / asar 命中判 asar）（exit 0）",
-          "source": "本机执行 2026-10-13（工作区根 E:\\deepseek harness data）",
+          "source": "本机实测 2026-10-13（测量脚本随仓外工作区、非本仓文件；读数原文已内联）",
           "captured_at": "2026-10-13"
         },
         {
           "command": "（已记录读数，非本站复跑）npm 关键词 dsh-better-sidebar 全量扫 + 逐个 peer 实测",
-          "output": "来源行原文：\n> 来源：`omdsh-dev/DSH-better-sidebar` README（v0.24.1 支持 DSH 0.2.0-rc.2+；本机装的是 **0.25.0**）\n> + npm 关键词 `dsh-better-sidebar` 全量扫（**87 个包**）+ 逐个 peer 实测。\n— docs/ops/sidebar-ecosystem-2026-10-12.md:3–4\n\n| **`@huanlin/dsh-plugin-better-sidebar-plugin-office`** | 0.2.0 | ❌ | **官方推荐目录里的 Office 预览**，但钉 `dsh-better-sidebar ^0.17.0` ⇒ 本机 0.25.0 **装不上** |\n— docs/ops/sidebar-ecosystem-2026-10-12.md:35",
-          "source": "docs/ops/sidebar-ecosystem-2026-10-12.md:3-4,35",
-          "captured_at": "2026-10-12（文档记录）"
+          "output": "自包含结论（我据 2026-10-12 的实测记录用自己的话重述，必要内容已内联，裸克隆下可独立读懂）：\n① 谁在什么条件下测的：在本机工作区，用 npm 关键词 `dsh-better-sidebar` 全量扫描，得 87 个相关包；再对候选包逐个读其 peerDependencies 与自身要求，比对本机宿主区间。\n② 插件自述：上游 README（v0.24.1）声明支持 DSH 0.2.0-rc.2+；本机侧边栏实例为 0.25.0。\n③ 关键读数：官方推荐目录里的 Office 预览包 `@huanlin/dsh-plugin-better-sidebar-plugin-office`（0.2.0）钉 `dsh-better-sidebar ^0.17.0`；而 `^0.17.0` 仅为 >=0.17.0 <0.18.0 ⇒ 与本机 0.25.0 不交集，实测装不上。\n④ 同族现象：正是这种 0.x caret 过窄，使生态里出现一整族 `@sparkelf/dsh-patch-better-sidebar-*` 补丁包替社区兜底。\n⑤ 边界：87 这个数字与上述 peer 判定都是 2026-10-12 的快照，本轮（2026-10-13）未重扫。",
+          "source": "随仓外附录 sidebar-ecosystem-2026-10-12.md 第 3–4 行与第 35 行（该文件不在本仓；结论已内联于 output，行号仅作可追溯标记）",
+          "captured_at": "2026-10-12（附录记录）"
         }
       ],
       "verdict": "值得用（平台型）：本机 0.25.0 已实装且在工具面留下 1 个可核验成本点（sidebar_open 324 tok/轮）；它的价值主面在客户端（0 tok），工具面数字不能代表其收益。生态装前必查 peer——0.x 的 caret 区间太窄，升级侧边栏即甩掉旧插件。",
       "boundaries": [
         "peer 兼容性是快照：87 个包的数字来自 2026-10-12 的 npm 全量扫 + 实测，未在本轮（2026-10-13）重扫，npm 侧新增/下架不可见。",
-        "web profile 现装 0.22.1（~/.dsh/profiles/web/package.json 现读），与本文取用的 desktop 0.25.0 不同——按 audit 文档的 desktop/web 并列口径处理，不视为异常。",
+        "web profile 现装 0.22.1（~/.dsh/profiles/web/package.json 现读），与本文取用的 desktop 0.25.0 不同——按附录的 desktop/web 并列口径处理，不视为异常。",
         "客户端插件不注册模型工具 ⇒ 工具面统计看不见它的使用率；本站不声称其「在用/没用」。"
       ]
     },
@@ -59,87 +59,88 @@
       "id": "dsh-cost-meter",
       "name": "dsh-cost-meter",
       "version": "1.8.20",
-      "version_source": "docs/ops/plugin-full-audit-2026-10-11.md:57（desktop 1.8.20 / web 1.8.17；本文取 desktop 版 1.8.20）",
+      "version_source": "随仓外附录 plugin-full-audit-2026-10-11.md 第 57 行（该文件不在本仓）：desktop 1.8.20 / web 1.8.17；本文取 desktop 版 1.8.20",
       "source_url": "https://www.npmjs.com/package/dsh-cost-meter",
       "category": "运维（token/费用统计面板）",
       "dimensions": [
-        {"name": "版本漂移", "finding": "desktop 1.8.20 / web 1.8.17；文档注「升了但未完全追平（peer 限制）」。", "basis": "docs/ops/plugin-full-audit-2026-10-11.md:57"},
-        {"name": "工具面成本", "finding": "本轮工具面按包聚合里没有它 ⇒ 当前 desktop 工具面 0 tok/轮（它在这台机器上被摘过，见 inventory:30）。", "basis": "本机 2026-10-13 实测（dsh-tool-cost-top.mjs）"},
-        {"name": "调用面", "finding": "作为客户端插件不注册模型工具 ⇒ 无工具面读数可用（诚实边界，不是零调用证明）。", "basis": "docs/ops/plugin-verdicts-2026-10-12.md:11,100"},
-        {"name": "职责重叠", "finding": "与 dsh-token-meter-panel / dsh-desktop-token-usage 三者都统计 token 用量与花费；当时裁定留 cost-meter（功能最全）。", "basis": "docs/ops/plugin-full-audit-2026-10-11.md:86"}
+        {"name": "版本漂移", "finding": "desktop 1.8.20 / web 1.8.17；附录注「升了但未完全追平（peer 限制）」。", "basis": "随仓外附录 plugin-full-audit-2026-10-11.md 第 57 行（不在本仓）"},
+        {"name": "工具面成本", "finding": "本轮工具面按包聚合里没有它 ⇒ 当前 desktop 工具面 0 tok/轮（它在这台机器上被摘过，见随仓外附录《插件清单》摘除链）。", "basis": "本机实测 2026-10-13（dsh-tool-cost-top.mjs，测量脚本随仓外工作区、非本仓文件）"},
+        {"name": "调用面", "finding": "作为客户端插件不注册模型工具 ⇒ 无工具面读数可用（诚实边界，不是零调用证明）。", "basis": "随仓外附录 plugin-verdicts-2026-10-12.md 第 11 行与第 100 行（不在本仓）"},
+        {"name": "职责重叠", "finding": "与 dsh-token-meter-panel / dsh-desktop-token-usage 三者都统计 token 用量与花费；当时裁定留 cost-meter（功能最全）。", "basis": "随仓外附录 plugin-full-audit-2026-10-11.md 第 86 行（不在本仓）"}
       ],
       "evidence": [
         {
           "command": "（已记录读数，非本站复跑）node scripts/dsh-tool-cost-top.mjs（2026-10-11 基线）",
-          "output": "来源行原文（当前分组 · 154 工具 / 34,932 tok）：\n| 提供者 | 工具 | ≈tok/轮 | 归因 |\n| `dsh-better-sidebar` | 1 | 324 | 实测 |\n| `dsh-chart` | 1 | 209 | 实测 |\n（表内没有 `dsh-cost-meter` 行 —— 本轮工具面里它不注册任何模型工具）\n— docs/ops/plugin-token-ledger.md:19-34",
-          "source": "docs/ops/plugin-token-ledger.md:19-34",
-          "captured_at": "2026-10-11（文档记录）"
+          "output": "自包含结论（我据 2026-10-11 的实测台账用自己的话重述，必要内容已内联，裸克隆下可独立读懂）：\n① 谁在什么条件下测的：在本机工作区读 contextHeaders 里真实的 request/header 字节，逐工具累加 ≈tok/轮，再按提供者聚合。\n② 该日基线：154 个工具 / 34,932 tok/轮；分组表内 `dsh-better-sidebar` = 1 工具 / 324 tok、`dsh-chart` = 1 工具 / 209 tok 等行在列。\n③ 关键读数：分组表内**没有** `dsh-cost-meter` 行 —— 该轮工具面里它不注册任何模型工具。\n④ 边界：这张表只覆盖注册模型工具的包，故「无行」只能读成『不占工具面预算』，不能读成『零调用』。",
+          "source": "随仓外附录 plugin-token-ledger.md 第 19–34 行（该文件不在本仓；结论已内联于 output，行号仅作可追溯标记）",
+          "captured_at": "2026-10-11（附录记录）"
         },
         {
           "command": "node scripts/dsh-tool-cost-top.mjs",
           "output": "surface: (last)\n\nsurface: 28ac6911-1d9e-4248-a4a8-3315b817fe9f.json  2026-10-12T18:36:21  判别位=(未指定 · 取最新)\n工具面：86 个工具 ≈ 21230 tok/轮\n\n== 按包聚合（可摘粒度）==\n包                                          工具   ≈tok/轮      占比\n------------------------------------------------------------------\n(core / 官方内置 / MCP / 其他)                   36     8077   38.0%\n...\ndsh-better-sidebar                          1      324    1.5%\n（无 dsh-cost-meter 行）",
-          "source": "本机执行 2026-10-13（工作区根 E:\\deepseek harness data）",
+          "source": "本机实测 2026-10-13（测量脚本随仓外工作区、非本仓文件；读数原文已内联）",
           "captured_at": "2026-10-13"
         },
         {
-          "command": "（现读文件，非本站复跑）Get-Content ~/.dsh/profiles/{desktop,web}/package.json → dependencies",
-          "output": "desktop: dsh-cost-meter = 1.8.21\ndesktop node_modules/dsh-cost-meter/package.json: dsh-cost-meter@1.8.21 | peer=@deepseek-ai/dsh-credentials:^0.1.0-rc.6 || ... || >=0.2.0-rc.1 <0.3.0-0 @deepseek-ai/dsh-home-paths:同上\nweb: dsh-cost-meter = ^1.8.17",
-          "source": "本机执行 2026-10-13（读 ~/.dsh/profiles/*/package.json）",
+          "command": "foreach ($p in @(\"desktop\",\"web\")) { $j = Get-Content \"$HOME\\.dsh\\profiles\\$p\\package.json\" -Raw | ConvertFrom-Json; \"$p/package.json  dsh-cost-meter = \" + $j.dependencies.\"dsh-cost-meter\" }; $m = Get-Content \"$HOME\\.dsh\\profiles\\desktop\\node_modules\\dsh-cost-meter\\package.json\" -Raw | ConvertFrom-Json; \"desktop node_modules: version = \" + $m.version; \"desktop node_modules peerDependencies:\"; $m.peerDependencies.PSObject.Properties | ForEach-Object { \"  \" + $_.Name + \" = \" + $_.Value }",
+          "output": "desktop/package.json  dsh-cost-meter = 1.8.21\nweb/package.json  dsh-cost-meter = ^1.8.17\ndesktop node_modules: version = 1.8.21\ndesktop node_modules peerDependencies:\n  @deepseek-ai/dsh-credentials = ^0.1.0-rc.6 || ^0.1.1-0 || ^0.1.2-0 || ^0.1.3-0 || ^0.1.5-0 || >=0.2.0-rc.1 <0.3.0-0\n  @deepseek-ai/dsh-home-paths = ^0.1.0-rc.6 || ^0.1.1-0 || ^0.1.2-0 || ^0.1.3-0 || ^0.1.5-0 || >=0.2.0-rc.1 <0.3.0-0\n[exit=0]（pwsh -NoProfile 实跑的原样输出；命令用 $HOME 变量与相对路径，输出不含任何本机绝对路径或用户名，故无需脱敏）",
+          "source": "本机实测 2026-10-13（pwsh -NoProfile；现读 ~/.dsh/profiles/*/package.json 与已装 node_modules）",
           "captured_at": "2026-10-13"
         }
       ],
       "verdict": "留用（运维读数面唯一）：三条统计类插件里功能最全；代价面在客户端（渲染），模型工具面 0 tok ⇒ 不占每轮注入预算。",
       "boundaries": [
-        "文档记录的 desktop 版本是 1.8.20，而本机现读 package.json 与已装 node_modules 均为 1.8.21 ⇒ 两口径并存（文档采集于 2026-10-11，本机现读晚于它）；版本以文档为准，漂移如实登记。",
-        "工具面无该行不能写成「零调用」——客户端插件不注册模型工具，没数据；文档自己标了这条诚实边界（plugin-verdicts-2026-10-12.md:11）。",
-        "体积（1.9MB，plugin-verdicts-2026-10-12.md:85）本轮未采集，不引用为实测读数。"
+        "附录记录的 desktop 版本是 1.8.20，而本机现读 package.json 与已装 node_modules 均为 1.8.21 ⇒ 两口径并存（附录采集于 2026-10-11，本机现读晚于它）；版本以附录为准，漂移如实登记。",
+        "工具面无该行不能写成「零调用」——客户端插件不注册模型工具，没数据；附录自己标了这条诚实边界。",
+        "体积（1.9MB）本轮未采集，不引用为实测读数。"
       ]
     },
     {
       "id": "dsh-office-tools",
       "name": "dsh-office-tools",
       "version": "1.0.5",
-      "version_source": "docs/ops/two-plugins-not-effective-2026-10-11.md:3（`dsh-office-tools@1.0.5`，安装态排查记录口径）",
+      "version_source": "随仓外附录 two-plugins-not-effective-2026-10-11.md 第 3 行（该文件不在本仓）：安装态排查记录口径 `dsh-office-tools@1.0.5`",
       "source_url": "https://www.npmjs.com/package/dsh-office-tools",
       "category": "工具（Office 文档读写：word_* / excel_* / ppt_*）",
       "tool_tokens": 2785,
       "dimensions": [
-        {"name": "声明面 vs 工具面", "finding": "同结构的 dsh-chart（只有 bundle 段）生效，而 office-tools（bundle + compatibility）工具面 0 个 ⇒ 结构本身不能解释缺席，根因未证实。", "basis": "docs/ops/two-plugins-not-effective-2026-10-11.md:35-44"},
-        {"name": "解析面", "finding": "require.resolve 成功、包自检 PASS、模拟 apply(ctx) 能注册（注册包在 ctx.effect() 惰性回调里）⇒「解析成功」不等于「工具面生效」。", "basis": "docs/ops/two-plugins-not-effective-2026-10-11.md:14"},
-        {"name": "成本面", "finding": "曾实测 8 工具 ≈ 2,785 tok/轮（占当时工具面 8.5%），而历史调用仅 4 次。", "basis": "docs/ops/plugin-token-ledger.md:24；docs/ops/plugin-verdicts-2026-10-12.md:33"},
-        {"name": "安装态", "finding": "本轮 scripts/dsh-plugin-effect-check.py 判定为【未装】（工具面清单里没有），与 inventory:28 的摘除链（→ 42 dsh-cad + dsh-office-tools）一致。", "basis": "本机 2026-10-13 实测（dsh-plugin-effect-check.py）"}
+        {"name": "声明面 vs 工具面", "finding": "同结构的 dsh-chart（只有 bundle 段）生效，而 office-tools（bundle + compatibility）工具面 0 个 ⇒ 结构本身不能解释缺席，根因未证实。", "basis": "随仓外附录 two-plugins-not-effective-2026-10-11.md 第 35–44 行（不在本仓）"},
+        {"name": "解析面", "finding": "require.resolve 成功、包自检 PASS、模拟 apply(ctx) 能注册（注册包在 ctx.effect() 惰性回调里）⇒「解析成功」不等于「工具面生效」。", "basis": "随仓外附录 two-plugins-not-effective-2026-10-11.md 第 14 行（不在本仓）"},
+        {"name": "成本面", "finding": "曾实测 8 工具 ≈ 2,785 tok/轮（占当时工具面 8.5%），而历史调用仅 4 次。", "basis": "随仓外附录 plugin-token-ledger.md 第 24 行；plugin-verdicts-2026-10-12.md 第 33 行（均不在本仓）"},
+        {"name": "安装态", "finding": "本轮 scripts/dsh-plugin-effect-check.py 判定为【未装】（工具面清单里没有），与随仓外附录《插件清单》的摘除链（→ 42 dsh-cad + dsh-office-tools）一致。", "basis": "本机实测 2026-10-13（dsh-plugin-effect-check.py，测量脚本随仓外工作区、非本仓文件）"}
       ],
       "evidence": [
         {
           "command": "python -X utf8 scripts/dsh-plugin-effect-check.py --selftest",
           "output": "=== dsh-plugin-effect-check --selftest（两向夹具）===\nCHECKED=3\nselftest: PASS",
-          "source": "本机执行 2026-10-13（工作区根 E:\\deepseek harness data）",
+          "source": "本机实测 2026-10-13（测量脚本随仓外工作区、非本仓文件；读数原文已内联）",
           "captured_at": "2026-10-13"
         },
         {
           "command": "python -X utf8 scripts/dsh-plugin-effect-check.py",
-          "output": "会话日志: C:\\Users\\liang\\.dsh\\sessions\\--E-deepseek~0020harness~0020data--\\28ac6911-...\\session.v4.jsonl.zstd\n最近一次请求的工具数: 86\n\n  [★未生效] dsh-cad                            参数化建模  ← 已装但工具面里没有\n  [未装]   dsh-office-tools                   Office 文档读写\n  [未装]   dsh-video-understand               视频理解\n\nCHECKED=6\n\n★ 疑似「装了但没生效」1 个：\n  · dsh-cad\n[exit=1]（exit 1 = 检出疑似项；本轮检出的是 dsh-cad，不是 office-tools）",
-          "source": "本机执行 2026-10-13（工作区根 E:\\deepseek harness data）",
+          "output": "会话日志: ~/.dsh/sessions/<本机工作区转义目录>/28ac6911-.../session.v4.jsonl.zstd\n最近一次请求的工具数: 86\n\n  [★未生效] dsh-cad                            参数化建模  ← 已装但工具面里没有\n  [未装]   dsh-office-tools                   Office 文档读写\n  [未装]   dsh-video-understand               视频理解\n\nCHECKED=6\n\n★ 疑似「装了但没生效」1 个：\n  · dsh-cad\n[exit=1]（exit 1 = 检出疑似项；本轮检出的是 dsh-cad，不是 office-tools）\n[脱敏声明] 原始输出首行为本机家目录绝对路径；已把家目录前缀与本机工作区名替换为 `~/.dsh/` 与 `<本机工作区转义目录>`，其余逐字保留（含 [exit=1] 与全部插件名/状态）。",
+          "source": "本机实测 2026-10-13（测量脚本随仓外工作区、非本仓文件；家目录前缀已按上方声明脱敏）",
           "captured_at": "2026-10-13"
         },
         {
           "command": "（已记录读数，非本站复跑）python scripts/dsh-plugin-effect-check.py",
-          "output": "来源行原文（症状表）：\n| 模拟 `apply(ctx)` | ✅ 能注册（`video_understand` 1 个；office-tools 注册包在 `ctx.effect()` 惰性回调里） |\n| **工具面（`request/header.tools[]`）** | ❌ **两者均从未出现** |\n| 宿主重启后 | ❌ 仍不出现（**推翻「加载时机」假设**） |\n— docs/ops/two-plugins-not-effective-2026-10-11.md:14-16\n\n| **`dsh-office-tools`** | `bundle` + `compatibility` | ❌ **0 个** |\n— 同文件:42",
-          "source": "docs/ops/two-plugins-not-effective-2026-10-11.md:14-16,42",
-          "captured_at": "2026-10-11（文档记录）"
+          "output": "自包含结论（我据 2026-10-11 的实测排查记录用自己的话重述，必要内容已内联，裸克隆下可独立读懂）：\n① 谁在什么条件下测的：在本机工作区对该包做安装态排查（bundles 登记、require.resolve、包自检、模拟 apply(ctx)、读宿主 request/header.tools[]）。\n② 症状读数：bundles 数组里有它、require.resolve 能解析到入口、包自检 PASS、模拟 apply(ctx) 能注册（其注册包写在 ctx.effect() 惰性回调里）；但**工具面（request/header.tools[]）里两者从未出现**，且宿主重启（新 PID）后仍不出现 ⇒ 推翻「加载时机」假设。\n③ 结构差异不解释缺席：`dsh-chart`（只有 bundle 段）工具面 1 个、`@furongjun1999/dsh-memory`（只有 bundle 段）2 个，而 `dsh-office-tools`（`bundle` + `compatibility`）**0 个** ⇒ 结构本身不能解释。\n④ 记录自身的结论：「根因未证实」，静态分析已到极限；若继续排查只能走运行时（读宿主启动日志/隔离复现）。本站照抄该标注，不自行解释成兼容性或加载缺陷。",
+          "source": "随仓外附录 two-plugins-not-effective-2026-10-11.md 第 14–16 行与第 42 行（该文件不在本仓；结论已内联于 output，行号仅作可追溯标记）",
+          "captured_at": "2026-10-11（附录记录）"
         },
         {
           "command": "（已记录读数，非本站复跑）node scripts/plugin-token-breakdown.mjs",
-          "output": "来源行原文：\n| 提供者 | 工具 | ≈tok/轮 | 归因 |\n| `dsh-office-tools` | 8 | 2,785 | 实测 |\n— docs/ops/plugin-token-ledger.md:24\n\n| `dsh-office-tools` | **零调用**（用户裁定） | 8 工具 ≈2,785；历史 **4 次**（`word_create` 1 / `word_read` 3） | 2,785 tok/轮 |\n— docs/ops/plugin-verdicts-2026-10-12.md:33",
-          "source": "docs/ops/plugin-token-ledger.md:24；docs/ops/plugin-verdicts-2026-10-12.md:33",
-          "captured_at": "2026-10-11 / 2026-10-12（文档记录）"
+          "output": "自包含结论（我据 2026-10-11 / 2026-10-12 的两份实测记录用自己的话重述，必要内容已内联，裸克隆下可独立读懂）：\n① 成本读数（2026-10-11 实测）：`dsh-office-tools` 提供 8 个模型工具 ≈ 2,785 tok/轮。\n② 使用读数（2026-10-12 裁决表）：该包历史调用共 **4 次**（`word_create` 1 次 / `word_read` 3 次）；处置栏记为「零调用（用户裁定）」。\n③ 归因：8 工具 ≈2,785 tok/轮，是当时工具面里第三大的单项开销，而调用量与开销严重不成比例——这是它被摘出的直接依据。\n④ 边界：2,785 与该 4 次都是历史快照读数，不是本轮现状。",
+          "source": "随仓外附录 plugin-token-ledger.md 第 24 行；plugin-verdicts-2026-10-12.md 第 33 行（均不在本仓；结论已内联于 output，行号仅作可追溯标记）",
+          "captured_at": "2026-10-11 / 2026-10-12（附录记录）"
         }
       ],
       "verdict": "本机现状：不装（已出列）。它的历史教训比它本身更值钱——「解析成功」+「apply 能注册」都不等于「工具面生效」；要判生效只有一条权威判据：读工具面（dsh-plugin-effect-check.py）。",
       "boundaries": [
         "版本 1.0.5 取自 2026-10-11 排查记录的安装态；当前两个 profile 都已不含该包（本轮实测为【未装】，且 profiles/*/package.json 的 dependencies 里取不到）⇒ 无法给出比该记录更新的版本读数。",
         "「工具面 0 个」原文标注的根因是「未证实」——本站照抄该标注，不自行解释成兼容性或加载缺陷。",
-        "2,785 tok/轮 是 2026-10-11 的实测快照，不是现状读数。"
+        "2,785 tok/轮 是 2026-10-11 的实测快照，不是现状读数。",
+        "证据 3、4 转载自随仓外附录（不在本仓）；结论性内容已内联进 output，裸克隆下可独立读懂，但无法在本仓内重跑附录的原始采集。"
       ]
     }
   ]

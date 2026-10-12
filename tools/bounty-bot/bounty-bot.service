@@ -1,0 +1,17 @@
+[Unit]
+Description=Bounty QQ Bot (OneBot HTTP, dsh-bounty)
+After=network-online.target docker.service
+Wants=network-online.target docker.service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/bounty-bot
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 /opt/bounty-bot/bot.py
+Restart=always
+RestartSec=5
+# 渲染串行 + 即用即退，内存占用可控（一号机 2C/1.6G，与 NapCat/nginx 同机）
+MemoryMax=400M
+
+[Install]
+WantedBy=multi-user.target

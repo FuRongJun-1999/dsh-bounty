@@ -22,8 +22,10 @@
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import shutil
 import subprocess
 import threading
 import time
@@ -40,16 +42,96 @@ class RenderError(RuntimeError):
     """渲染失败（含 Chrome 崩溃、超时、产物缺失）。"""
 
 
+#: 默认缓存目录名（相对 workdir）
+_CACHE_DIR = ".cache"
+
+#: 默认不过期的 kind——内容是静态的，渲染一次后可长期复用
+_STATIC_KINDS = ("help",)
+
+
 class Renderer:
     def __init__(self, cfg, workdir):
         self.cfg = cfg or {}
         self.workdir = Path(workdir)
         self.tmpdir = self.workdir / "tmp"
         self.tmpdir.mkdir(parents=True, exist_ok=True)
+        self.cachedir = self.workdir / str(self.cfg.get("cache_dir") or _CACHE_DIR)
+        self.cachedir.mkdir(parents=True, exist_ok=True)
 
     @property
     def enabled(self):
         return bool(self.cfg.get("cmd"))
+
+    # ------------------------------------------------------------ 缓存
+    @property
+    def cache_enabled(self):
+        return self.cfg.get("cache", True) is not False
+
+    def _static_kinds(self):
+        """静态卡（内容不变，永不过期）。配置可覆盖；置空数组则全部实时渲染。"""
+        v = self.cfg.get("static_kinds")
+        if v is None:
+            return _STATIC_KINDS
+        if isinstance(v, str):
+            return (v,) if v else ()
+        return tuple(v)
+
+    def cache_key(self, kind, data):
+        """按**渲染真正用到的东西**算键。
+
+        注意要排除 _generated_at 这类每次都变的时间戳，否则缓存永不命中。
+        """
+        # 排除 _xxx（每次变的时间戳）与 kind（由参数单独给，别重复进 payload）
+        payload = {k: v for k, v in (data or {}).items()
+                   if not k.startswith("_") and k != "kind"}
+        blob = json.dumps({"kind": kind, "payload": payload},
+                          ensure_ascii=False, sort_keys=True)
+        return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:20]
+
+    def _cache_path(self, kind, key):
+        return self.cachedir / ("%s_%s.png" % (kind, key))
+
+    def cached(self, kind, payload):
+        """命中则返回可发送的 PNG 路径，否则 None。"""
+        if not (self.enabled and self.cache_enabled):
+            return None
+        key = self.cache_key(kind, payload)
+        p = self._cache_path(kind, key)
+        try:
+            if p.is_file() and p.stat().st_size > 0:
+                return str(p)
+        except OSError:
+            pass
+        return None
+
+    def _store_cache(self, kind, key, out_path):
+        """把渲染产物收进缓存；成功返回缓存路径（供调用方统一返回），否则 None。"""
+        if not (self.cache_enabled and kind in self._static_kinds()):
+            return None
+        dst = self._cache_path(kind, key)
+        try:
+            shutil.copyfile(out_path, dst)
+        except OSError:
+            return None
+        try:
+            Path(out_path).unlink(missing_ok=True)   # 中间产物清掉，缓存件即唯一副本
+        except OSError:
+            pass
+        return str(dst)
+
+    def render_cached(self, kind, payload, timeout=None):
+        """先查缓存，命中直接返回；未命中才真渲染。
+
+        静态卡（默认 help）渲染一次后长期复用；动态卡（bounty/contribution/rank）
+        只要 payload 没变也复用——数据一变，key 就变，自然重渲染。
+        """
+        hit = self.cached(kind, payload)
+        if hit:
+            return hit
+        key = self.cache_key(kind, payload)     # 与 cached() 同一算法，勿再包一层
+        path = self.render(kind, payload, timeout=timeout)
+        # 静态卡：返回缓存件本身（唯一副本）——这样调用方拿到的路径发完也不会被删
+        return self._store_cache(kind, key, path) or path
 
     def _timeout(self, timeout):
         try:
@@ -117,6 +199,12 @@ class Renderer:
         if keep or not path:
             return
         p = Path(path)
+        # 缓存件是长期复用的资产，发完不能删
+        try:
+            if p.parent.resolve() == self.cachedir.resolve():
+                return
+        except OSError:
+            pass
         for target in (p, p.with_suffix(".json")):
             try:
                 target.unlink(missing_ok=True)
@@ -124,7 +212,10 @@ class Renderer:
                 pass
 
     def sweep_tmp(self, max_age_hours=6):
-        """清理残留临时文件（崩溃留下的 PNG/JSON，以及渲染器留下的中间 HTML）。"""
+        """清理残留临时文件（崩溃留下的 PNG/JSON）。
+
+        只扫 tmp/——缓存目录（默认 .cache/）是长期资产，绝不在此清理。
+        """
         cutoff = time.time() - max_age_hours * 3600
         n = 0
         for p in self.tmpdir.glob("*"):

@@ -141,13 +141,17 @@ COMMANDS = [
 
 
 def cmd_help() -> str:
-    """返回图片路径。"""
-    return RENDERER.render("help", {"commands": COMMANDS})
+    """返回图片路径。
+
+    内容固定 => 走缓存：首次渲染后长期复用，不再每次起 Chrome。
+    """
+    return RENDERER.render_cached("help", {"commands": COMMANDS})
 
 
 def cmd_bounty() -> str:
     items = db.list_bounties(CONN)
-    return RENDERER.render("bounty", {
+    # 动态卡：payload 变了（悬赏增删/状态变）才重渲染，没变就复用上一张
+    return RENDERER.render_cached("bounty", {
         "bounties": items,
         "empty": not items,
         "empty_text": "暂时没有悬赏哦",
@@ -177,7 +181,7 @@ def cmd_contribution(qq):
         "synced_at": db.meta_get(CONN, "contrib_synced_at"),
         "contrib_day": db.meta_get(CONN, "contrib_day"),
     }
-    return "ok", RENDERER.render("contribution", payload)
+    return "ok", RENDERER.render_cached("contribution", payload)
 
 
 def cmd_bind(qq, arg) -> str:
@@ -228,8 +232,8 @@ def cmd_update(qq) -> str:
 def cmd_rank() -> str:
     """（附加）声誉榜。渲染成图片。"""
     rows = db.all_totals(CONN)
-    return RENDERER.render("rank", {"ranking": rows,
-                                    "synced_at": db.meta_get(CONN, "contrib_synced_at")})
+    return RENDERER.render_cached("rank", {"ranking": rows,
+                                           "synced_at": db.meta_get(CONN, "contrib_synced_at")})
 
 
 # ---------------------------------------------------------------- 消息路由

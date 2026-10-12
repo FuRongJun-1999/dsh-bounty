@@ -30,7 +30,12 @@
       "{out}"
     ],
     "cwd": "/opt/bounty-bot/render",
-    "timeout": 90
+    "timeout": 90,
+    "cache": true,
+    "cache_dir": ".cache",
+    "static_kinds": [
+      "help"
+    ]
   },
   "sync": {
     "on_start": true,

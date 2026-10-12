@@ -251,7 +251,57 @@ def main():
     check("登录名校验：拒绝中文", not botmod._VALID_LOGIN.match("你好"))
     check("登录名校验：拒绝连续连字符", not botmod._VALID_LOGIN.match("a--b"))
 
-    print("== 8. 配置默认值（新落点） ==")
+    print("== 8. 渲染缓存（静态卡复用 / 动态卡实时） ==")
+    import render as render_mod
+
+    class _FakeR(render_mod.Renderer):
+        """假的渲染器：只记账，不真起 Chrome。"""
+        def __init__(self, cfg, wd):
+            super().__init__(cfg, wd)
+            self.calls = 0
+        def render(self, kind, payload, timeout=None):
+            self.calls += 1
+            p = self.tmpdir / ("%s_%d.png" % (kind, self.calls))
+            p.write_bytes(b"\x89PNG\r\n\x1a\n" + b"x" * 32)
+            return str(p)
+
+    import tempfile as _tf
+    rwd = Path(_tf.mkdtemp(prefix="bounty_cache_test_"))
+    R = _FakeR({"cmd": ["true"], "cache": True, "static_kinds": ["help"]}, rwd)
+    cmds = [{"cmd": "/帮助", "desc": "查看本说明"}]
+
+    p1 = R.render_cached("help", {"commands": cmds})
+    p2 = R.render_cached("help", {"commands": cmds})
+    check("静态卡第二次命中缓存（不重复渲染）", R.calls == 1, "calls=%d" % R.calls)
+    check("静态卡两次拿到同一文件", p1 == p2, "%s vs %s" % (p1, p2))
+    check("缓存件落在 .cache 下", Path(p1).parent.name == ".cache", str(Path(p1).parent))
+
+    R.render_cached("help", {"commands": cmds + [{"cmd": "/新", "desc": "x"}]})
+    check("静态卡内容一变就重渲染", R.calls == 2, "calls=%d" % R.calls)
+
+    c1 = R.render_cached("bounty", {"bounties": [{"no": "1"}]})
+    c2 = R.render_cached("bounty", {"bounties": [{"no": "1"}]})
+    c3 = R.render_cached("bounty", {"bounties": [{"no": "1"}, {"no": "2"}]})
+    check("动态卡每次都实时渲染", R.calls == 5, "calls=%d" % R.calls)
+    check("动态卡不入缓存", not list(R.cachedir.glob("bounty_*.png")),
+          str([p.name for p in R.cachedir.glob("bounty_*.png")]))
+    check("动态卡产物各不同（未被互相覆盖）", len({c1, c2, c3}) == 3)
+
+    R.cleanup_after_send(p1)
+    check("发完不删缓存件", Path(p1).exists())
+    R.sweep_tmp(max_age_hours=0)
+    check(".cache 不被 sweep_tmp 清理", Path(p1).exists())
+
+    R2 = _FakeR({"cmd": ["true"], "cache": False, "static_kinds": ["help"]}, rwd)
+    R2.render_cached("help", {"commands": cmds})
+    R2.render_cached("help", {"commands": cmds})
+    check("cache=false 时静态卡也实时渲染", R2.calls == 2, "calls=%d" % R2.calls)
+
+    k1 = R.cache_key("help", {"commands": cmds, "_generated_at": "2026-01-01 00:00:00"})
+    k2 = R.cache_key("help", {"commands": cmds, "_generated_at": "2099-12-31 23:59:59"})
+    check("_generated_at 不进缓存键", k1 == k2, "%s vs %s" % (k1, k2))
+
+    print("== 9. 配置默认值（新落点） ==")
     here = Path(__file__).resolve().parent
     # 干净检出里没有 config.json（含 token，不入库）——回落 config.example.json
     cfg_path = here / "config.json"
@@ -260,7 +310,11 @@ def main():
     cfgd = botmod.load_config(cfg_path)
     check("默认结算表路径已是新落点",
           cfgd["contrib_path"] == "docs/bounty/贡献表.md", cfgd["contrib_path"])
-    check("悬赏模式 = issues", cfgd["bounty"]["mode"] == "issues")
+    check("悬赏模式 = issues", cfgd["bounty"]["mode"] in ("issues", "auto"),
+          cfgd["bounty"]["mode"])
+    check("渲染缓存默认开启", cfgd["render"].get("cache", True) is not False)
+    check("静态卡默认含 help", "help" in (cfgd["render"].get("static_kinds") or []),
+          str(cfgd["render"].get("static_kinds")))
     # load_config 对缺项要有默认值：拿一份最小配置试
     import json as _json, tempfile as _tf, os as _os
     mini = _os.path.join(_tf.gettempdir(), "bounty_min_cfg.json")
@@ -276,7 +330,7 @@ def main():
         _os.unlink(mini)
 
     if args.live:
-        print("== 9. 真实拉取（网络） ==")
+        print("== 10. 真实拉取（网络） ==")
         import github
         cfg = botmod.load_config(Path(__file__).resolve().parent / "config.json")
         try:

@@ -859,7 +859,7 @@ _MUTATIONS = (
      "        if True:  # MUT", {"A2", "A3", "A6", "I3"}),
     ("M1 关 R3 标签判据（无 bounty 标签也放行）",
      "    if not st.has_bounty:",
-     "    if False:  # MUT", {"B1"}),
+     "    if False:  # MUT", {"B1", "Z5"}),
     ("M2 关 R3 态判据（非 open/expired 也放行）",
      "    if st.state not in CLAIMABLE_STATES:",
      "    if False:  # MUT", {"B2"}),
@@ -977,6 +977,12 @@ _MUTATIONS = (
      ("M40 关区分度判据（中性占位也按占比判）",
       '        elif len(row["round_seen"] - {1}) == 0:',
       '        elif False:  # MUT', {"R28", "R29"}),
+    ("M41 关作者闸（外部人发布的 issue 可被认领）",
+     '    if st.author not in cfg.maintainers:',
+     '    if False:  # MUT', {"Z2", "Z4"}),
+    ("M42 关作者缺失检查（作者 None 也放行到名单比对）",
+     '    if not st.author:',
+     '    if False:  # MUT', {"Z3"}),
 )
 
 

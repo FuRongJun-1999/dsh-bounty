@@ -20,6 +20,10 @@
 | **网站面生成器** | [`scripts/build_site.py`](scripts/build_site.py) | 静态站（纯 stdlib）；**荣誉榜由账本机械生成** |
 | **网站面守卫** | [`tests/test_build_site.py`](tests/test_build_site.py) | 24 条断言 ＋ 5 条定点变异（N0–N4） |
 | 账本／荣誉榜 | [`docs/bounty/ledger.json`](docs/bounty/ledger.json) ／ [`docs/bounty/board.md`](docs/bounty/board.md) | append-only 事件流 ／ 由账本机械生成 |
+| **每日贡献表生成器** | [`scripts/daily_table.py`](scripts/daily_table.py) | 从账本按**结算日**渲染贡献表（确定性；`--check` 自检） |
+| **每日贡献表守卫** | [`tests/test_daily_table.py`](tests/test_daily_table.py) | 15 条断言 ＋ 4 条定点变异（M1–M4） |
+| 每日贡献表 | [`docs/bounty/贡献表.md`](docs/bounty/贡献表.md) | 由账本机械生成（按结算日分节 ＋ 按人合计 ＋ 累计） |
+| 价值向量 | [`docs/bounty/value_vector.json`](docs/bounty/value_vector.json) | 由账本导出（声誉分 ＋ 难度/影响两轴；**不含金额**） |
 | 静态站产物 | [`site/`](site/) | `index / board / honor / rules` 四页（由生成器产出） |
 
 **独立仓**：所有件自包含，不依赖任何外部仓的路径或模块——所有命令都在本仓根下跑，
@@ -38,6 +42,13 @@ python -X utf8 tests/test_bounty_board.py --mutate
 # 3. 生成静态站（账本 → site/ 四页；不触网）
 python -X utf8 scripts/build_site.py
 
+# 3b. 生成每日贡献表（账本 → docs/bounty/贡献表.md）
+python -X utf8 scripts/daily_table.py --ledger docs/bounty/ledger.json \
+    --out docs/bounty/贡献表.md
+
+# 3c. 每日贡献表守卫（断言 ＋ 定点变异自证）
+python -X utf8 tests/test_daily_table.py
+python -X utf8 tests/test_daily_table.py --mutate
 # 4. 网站面守卫（账本→页面映射 ＋ 定点变异自证）
 python -X utf8 tests/test_build_site.py
 python -X utf8 tests/test_build_site.py --mutate

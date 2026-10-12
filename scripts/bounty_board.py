@@ -105,6 +105,21 @@ DIFFICULTY_SCORES = {"difficulty:easy": 1, "difficulty:medium": 3,
                      "difficulty:hard": 6, "difficulty:expert": 10}
 #: 无难度标签时的兜底分（照 easy 记，并在事件理由里写明）。
 SCORE_DEFAULT = 1
+
+#: 授权角色名（账本 `role` 事件的 role 取值）。名单（Config.maintainers/reviewers）是**启动面**，
+#: 账本 role 事件是**权威面**——两者取并集，撤销以账本为准。
+ROLE_NAMES = ("reviewer", "maintainer")
+#: 须回避的角色动作：actor 不得与本 issue 当前持有者同一人（自审自结闸；对维护者与审核员**一律**生效）。
+RECUSAL_ACTIONS = ("/verify", "/settle", "/appraise")
+#: 晋升审核员的**复合判据**（**建议值，待裁**——与 DIFFICULTY_SCORES 同款「口径单点」：改口径只改本表）。
+#: 为什么是复合而非单阈值：声誉分只答「做了多难」，不答「做得多好」；须叠加一次过闸占比与负向记录。
+PROMOTION_RULES = {
+    "min_reputation": 24,           # 声誉分下限（≈ expert×2 + hard×1，或 hard×4）
+    "min_settled": 2,               # 已结算项数下限（防单次侥幸）
+    "min_round0_ratio": 1.0 / 3.0,  # 一次过闸（round=0）占比下限；**无 round 数据时不适用**（见 evidence_gaps）
+    "max_invalid": 0,               # 无效交付（轮次用尽）上限
+    "max_timeout": 0,               # 超时未交付上限
+}
 #: 落选分（招标模式：投标有效但未被采纳；0/1/2/4 按难度）——0 分也写事件，否则与「未投标」同形。
 LOSER_SCORES = {"difficulty:easy": 0, "difficulty:medium": 1,
                 "difficulty:hard": 2, "difficulty:expert": 4}
@@ -230,7 +245,7 @@ LEDGER_SCHEMA = {
         "id": "事件指纹（内容 sha1 前 12 位）——同事件重复投递按 id 幂等去重",
         "ts": "事件时间（UTC ISO8601）",
         "issue": "issue 号",
-        "action": "claim|deliver|withdraw|dispute|verify|settle|expire|reject",
+        "action": "claim|deliver|withdraw|dispute|verify|settle|expire|reject|role",
         "actor": "触发者登录名（超时回板记 schedule）",
         "from": "迁移前态（bounty:* 的裸值）",
         "to": "迁移后态",
@@ -239,6 +254,9 @@ LEDGER_SCHEMA = {
         "delta": "本事件声誉分增量（结算为正；超时/虚假交付为负）",
         "reason": "判定理由（拒绝原因 / 验收理由）",
         "pr": "交付链接指向本仓 PR 时的元数据（号/标题/态/head sha）",
+        "subject": "role 事件：被授权者的登录名",
+        "role": "role 事件：reviewer|maintainer",
+        "op": "role 事件：grant|revoke",
     },
     "计分": {"easy": 1, "medium": 3, "hard": 6, "expert": 10,
              "完成分": "max(1, round_half_up(base*2/(round+1)))（v1.0 质量化）",
@@ -289,7 +307,12 @@ class Config:
     max_concurrent: int = 2      # 同一认领人并发认领上限（设计稿 §七 待裁项 #3 → 缺省 2）
     claim_hours: int = 72        # 认领期（设计稿 §二：72h 超时回板）
     max_rounds: int = 3          # 交付轮次上限（设计稿 §四 防作弊：最多 3 轮修改）
-    maintainers: tuple = ("FuRongJun-1999",)   # 维护者名单（/verify /settle 的授权面）
+    maintainers: tuple = ("FuRongJun-1999",)   # 维护者名单（/verify /settle /appraise /select 的授权面）
+    #: 审核员名单（**启动面**；权威面是账本 `role` 事件，见 `roles_from_events`）。
+    #: 审核员可 `/verify` 与 `/appraise`，**不含** `/settle`（结算入账仍归维护者）。
+    reviewers: tuple = ()
+    #: 账本路径（真模式读 `role` 事件以定审核员面）。
+    ledger_path: str = "docs/bounty/ledger.json"
 
     # 生效条件：env 为 None 时读 os.environ，否则读传入映射；返回按 BOUNTY_* 覆盖缺省后的 Config；数值项解析失败时抛 BoardError（不静默回落缺省）。
     @classmethod
@@ -308,6 +331,12 @@ class Config:
         raw_m = (env.get("BOUNTY_MAINTAINERS") or "").strip()
         if raw_m:
             kw["maintainers"] = tuple(x.strip() for x in raw_m.split(",") if x.strip())
+        raw_r = (env.get("BOUNTY_REVIEWERS") or "").strip()
+        if raw_r:
+            kw["reviewers"] = tuple(x.strip() for x in raw_r.split(",") if x.strip())
+        raw_l = (env.get("BOUNTY_LEDGER") or "").strip()
+        if raw_l:
+            kw["ledger_path"] = raw_l
         return cls(**kw)
 
 
@@ -572,9 +601,16 @@ def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
                     delta=delta, event=ev, extra_events=tuple(extra_events))
 
 
-# 生效条件：st 为 IssueState、cmd 为 COMMANDS 之一、actor 为非空登录名、now 为带时区 datetime、cfg 为 Config、active_claims 为 actor 当前并发认领数（不含本 issue）时返回一个 Decision——**纯逻辑，零 IO/零网络**；is_maintainer 只影响 /verify 与 /settle；pr_meta 只写进账本事件。
+# 生效条件：st 为 IssueState、actor 为非空登录名时返回 (是否须回避, 理由)——actor 与本 issue 当前
+# 持有者同一人即须回避（自审自结）；无持有者时不触发。纯函数、零 IO。
+def needs_recusal(st, actor):
+    if st.holder and actor and actor == st.holder:
+        return True, (f"@{actor} 是本 issue 的当前持有者——按回避纪律，持有者不得自审自结"
+                      "（`/verify` `/settle` `/appraise` 三闸一律回避）")
+    return False, ""# 生效条件：st 为 IssueState、cmd 为 COMMANDS 之一、actor 为非空登录名、now 为带时区 datetime、cfg 为 Config、active_claims 为 actor 当前并发认领数（不含本 issue）时返回一个 Decision——**纯逻辑，零 IO/零网络**；is_maintainer 影响 /verify /settle /appraise /select，is_reviewer 另开 /verify 与 /appraise（审核员档，**不含 /settle**）；回避闸（needs_recusal）对两者一律先生效；pr_meta 只写进账本事件。
 def handle_command(st: IssueState, cmd, payload, body, actor, now, cfg: Config,
-                   is_maintainer=False, active_claims=0, pr_meta=None) -> Decision:
+                   is_maintainer=False, active_claims=0, pr_meta=None,
+                   is_reviewer=False) -> Decision:
     """一条命令 → 一次裁决（纯函数：可直接喂夹具单测）。"""
     if cmd == "/claim":
         return _do_claim(st, actor, now, cfg, active_claims)
@@ -585,13 +621,13 @@ def handle_command(st: IssueState, cmd, payload, body, actor, now, cfg: Config,
     if cmd == "/select":
         return _do_select(st, payload, actor, now, cfg, is_maintainer)
     if cmd == "/appraise":
-        return _do_appraise(st, payload, actor, now, cfg, is_maintainer)
+        return _do_appraise(st, payload, actor, now, cfg, is_maintainer, is_reviewer)
     if cmd == "/withdraw":
         return _do_withdraw(st, actor, now, cfg)
     if cmd == "/dispute":
         return _do_dispute(st, payload, actor, now, is_maintainer)
     if cmd == "/verify":
-        return _do_verify(st, payload, actor, now, cfg, is_maintainer)
+        return _do_verify(st, payload, actor, now, cfg, is_maintainer, is_reviewer)
     if cmd == "/settle":
         return _do_settle(st, actor, now, cfg, is_maintainer)
     return _decide(st, cmd or "", f"未知命令 {cmd!r}", now, actor, "unknown_command")
@@ -693,9 +729,12 @@ def _do_select(st, payload, actor, now, cfg, is_maintainer):
 # 生效条件：st/actor/now/cfg 齐全且 is_maintainer 为真时返回裁决——非维护者拒；载荷首词须 ∈ IMPACT_GRADES；**依据必填**
 # （否则价值评价不可追溯）。通过则记价值评价：态不变，等级进标记快照并随态迁移继承，事件带 impact 结构化字段。
 # 硬边界：等级**不与难度相乘、不换算任何金额**——两轴分别记录，合成属使用者侧（见《价值评价规格 v0.1》V2/V4）。
-def _do_appraise(st, payload, actor, now, cfg, is_maintainer):
-    if not is_maintainer:
-        return _decide(st, "/appraise", "仅维护者可作价值评价（人审闸）", now, actor,
+def _do_appraise(st, payload, actor, now, cfg, is_maintainer, is_reviewer=False):
+    _rec, _why = needs_recusal(st, actor)
+    if _rec:
+        return _decide(st, "/appraise", _why, now, actor, "recusal_required")
+    if not (is_maintainer or is_reviewer):
+        return _decide(st, "/appraise", "仅维护者或审核员可作价值评价（人审闸）", now, actor,
                        "not_maintainer")
     text = (payload or "").strip()
     head, _sep, rest = text.partition(" ")
@@ -781,9 +820,12 @@ def _do_dispute(st, payload, actor, now, is_maintainer):
 
 
 # 生效条件：st/payload/actor/now/cfg 齐全且 is_maintainer 为真时返回裁决——非维护者拒；态非 delivered 拒；判定词取载荷首词（pass/fail，缺省 pass），fail 记 −5 并回 claimed 返工、pass 转 verified。
-def _do_verify(st, payload, actor, now, cfg, is_maintainer):
-    if not is_maintainer:
-        return _decide(st, "/verify", "仅维护者可裁决验收（人审闸）", now, actor,
+def _do_verify(st, payload, actor, now, cfg, is_maintainer, is_reviewer=False):
+    _rec, _why = needs_recusal(st, actor)
+    if _rec:
+        return _decide(st, "/verify", _why, now, actor, "recusal_required")
+    if not (is_maintainer or is_reviewer):
+        return _decide(st, "/verify", "仅维护者或审核员可裁决验收（人审闸）", now, actor,
                        "not_maintainer")
     if st.state != "delivered":
         return _decide(st, "/verify", f"当前态 `bounty:{st.state}` 不在待验收面",
@@ -833,6 +875,9 @@ def _do_verify(st, payload, actor, now, cfg, is_maintainer):
 
 # 生效条件：st/actor/now/cfg 齐全且 is_maintainer 为真时返回裁决——非维护者拒；态非 verified 拒；通过则转 settled 并按 difficulty:* 记正分（缺标签时按 SCORE_DEFAULT 记并在理由里写明）。
 def _do_settle(st, actor, now, cfg, is_maintainer):
+    _rec, _why = needs_recusal(st, actor)
+    if _rec:
+        return _decide(st, "/settle", _why, now, actor, "recusal_required")
     if not is_maintainer:
         return _decide(st, "/settle", "仅维护者可结算", now, actor, "not_maintainer")
     if st.state != "verified":
@@ -998,6 +1043,116 @@ def value_vector(events, meta_by_issue=None):
     out.sort(key=lambda r: (-r["reputation_delta"], r["login"], r["project"]))
     return {"vectors": out, "note": NOTE_NO_MONEY}
 
+
+# 生效条件：events 为账本事件列表时返回 {"reviewer": {login: 授予信息}, "maintainer": {...}}——
+# 只认 `action="role"` 事件（append-only 授权面）；同一主体以**时间最晚**的一条为准，
+# `op="grant"` 留下、`op="revoke"` 移除。缺 subject/role/op 或取值越界的事件跳过（不猜测）。纯函数。
+def roles_from_events(events):
+    latest = {}
+    for ev in events or []:
+        if ev.get("action") != "role":
+            continue
+        who = (ev.get("subject") or "").strip()
+        role = (ev.get("role") or "").strip()
+        op = (ev.get("op") or "").strip()
+        if not who or role not in ROLE_NAMES or op not in ("grant", "revoke"):
+            continue
+        ts = ev.get("ts") or ""
+        key = (role, who)
+        if key in latest and (latest[key]["ts"] or "") > ts:
+            continue
+        latest[key] = {"ts": ts, "op": op, "by": ev.get("actor") or "",
+                       "reason": ev.get("reason") or ""}
+    out = {r: {} for r in ROLE_NAMES}
+    for (role, who), info in latest.items():
+        if info["op"] == "grant":
+            out[role][who] = info
+    return out
+
+
+# 生效条件：events 为账本事件列表、meta_by_issue 为 {issue号: {project: ...}} 时返回晋升审核员的
+# **复合判据**评估——按人聚合声誉分/已结算项数/一次过闸（round=0）占比/无效交付/超时/争议提起，
+# 逐条对照 PROMOTION_RULES，给出 eligible ＋ blockers ＋ evidence_gaps。纯函数、零 IO。
+# 证据缺口（evidence_gaps）**不阻塞**晋升，但须由授予者在 `role` 事件的 reason 里显式确认。
+def promotion_report(events, meta_by_issue=None):
+    meta = meta_by_issue or {}
+    per = {}
+    for ev in events or []:
+        act = ev.get("action") or ""
+        f = ev.get("formula") or {}
+        who = (ev.get("actor") or "") if act == "reject" else (ev.get("holder") or ev.get("actor") or "")
+        if not who:
+            continue
+        row = per.setdefault(who, {
+            "login": who, "reputation_delta": 0, "settled": 0, "round0": 0,
+            "round_known": 0, "round_seen": set(), "invalid": 0, "timeout": 0, "disputes": 0,
+            "projects": set(), "issues": []})
+        row["reputation_delta"] += int(ev.get("delta") or 0)
+        if act == "settle":
+            row["settled"] += 1
+        if act == "dispute":
+            row["disputes"] += 1
+        if f.get("kind") == "invalid":
+            row["invalid"] += 1
+        if f.get("kind") == "timeout":
+            row["timeout"] += 1
+        if f.get("kind") == "complete" and f.get("round") is not None:
+            row["round_known"] += 1
+            row["round_seen"].add(int(f["round"]))
+            if int(f["round"]) == 0:
+                row["round0"] += 1
+        try:
+            ino = int(ev.get("issue") or 0)
+        except (TypeError, ValueError):
+            ino = 0
+        if ino:
+            row["projects"].add((meta.get(ino) or {}).get("project") or "")
+            if ino not in row["issues"]:
+                row["issues"].append(ino)
+    out = []
+    for who, row in per.items():
+        R = PROMOTION_RULES
+        blockers, gaps = [], []
+        if row["reputation_delta"] < R["min_reputation"]:
+            blockers.append("声誉分 %d < %d" % (row["reputation_delta"], R["min_reputation"]))
+        if row["settled"] < R["min_settled"]:
+            blockers.append("已结算 %d 项 < %d" % (row["settled"], R["min_settled"]))
+        if row["invalid"] > R["max_invalid"]:
+            blockers.append("无效交付 %d 项 > %d" % (row["invalid"], R["max_invalid"]))
+        if row["timeout"] > R["max_timeout"]:
+            blockers.append("超时未交付 %d 项 > %d" % (row["timeout"], R["max_timeout"]))
+        #: 区分度前置：追溯性结算的 round 恒为 1（中性占位，非真实返工次数）⇒
+        #: 「一次过闸占比」在该数据上**无区分度**，属不适用（记缺口、不阻塞）；
+        #: 一旦出现 round=0（一次过闸）或 round>=2（多次返工），判据自动生效。
+        if not row["round_known"]:
+            gaps.append("无 round 数据（一次过闸占比不可判）——该条判据不适用")
+        elif len(row["round_seen"] - {1}) == 0:
+            gaps.append("round 全为中性占位（追溯性结算无状态机轮次证据）——"
+                        "一次过闸占比无区分度，该条判据不适用")
+        else:
+            ratio = row["round0"] / row["round_known"]
+            if ratio < R["min_round0_ratio"]:
+                blockers.append("一次过闸占比 %.2f < %.2f" % (ratio, R["min_round0_ratio"]))
+        if row["disputes"]:
+            gaps.append("有 %d 条争议提起；本承载面无「争议败诉」判据，须人审" % row["disputes"])
+        if not row["round_known"]:
+            gaps.append("无状态机轮次证据（追溯性结算不含 rounds）")
+        out.append({
+            "login": who, "reputation_delta": row["reputation_delta"],
+            "settled": row["settled"], "round0": row["round0"],
+            "round_known": row["round_known"],
+            "round0_ratio": (row["round0"] / row["round_known"]) if row["round_known"] else None,
+            "round_seen": sorted(row["round_seen"]),
+            "invalid": row["invalid"], "timeout": row["timeout"],
+            "disputes": row["disputes"],
+            "projects": sorted(p for p in row["projects"] if p),
+            "issues": sorted(row["issues"]),
+            "eligible": not blockers, "blockers": blockers, "evidence_gaps": gaps,
+        })
+    out.sort(key=lambda r: (-r["reputation_delta"], r["login"]))
+    return {"candidates": out, "rules": dict(PROMOTION_RULES),
+            "note": "判据为建议值（PROMOTION_RULES）；evidence_gaps 不阻塞晋升，"
+                    "但须由授予者在 role 事件的 reason 里显式确认。"}
 def render_board(events) -> str:
     """账本 → 荣誉榜 markdown（`docs/bounty/board.md` 的生成器）。"""
     events = list(events or [])
@@ -1584,6 +1739,10 @@ def handle_issue_comment(payload, cfg: Config, client, apply=False, out=print):
     assoc = (comment.get("author_association") or "").upper()
     is_maint = (actor in cfg.maintainers
                 or assoc in ("OWNER", "MEMBER", "COLLABORATOR"))
+    # 审核员面 = 账本 `role` 事件（权威面）∪ `BOUNTY_REVIEWERS`（启动面）。
+    # 账本缺失 → load_ledger 返回 []，审核员面为空（**fail-closed**：不因读不到账本就放宽授权）。
+    _roles = roles_from_events(load_ledger(cfg.ledger_path))
+    is_rev = actor in cfg.reviewers or actor in _roles['reviewer']
     pr_meta = None
     if cmd == "/deliver":
         prn = extract_pr_number(cmd_payload, client.repo)
@@ -1596,7 +1755,7 @@ def handle_issue_comment(payload, cfg: Config, client, apply=False, out=print):
     active = client.count_active_claims(actor, exclude=number)
     dec = handle_command(st, cmd, cmd_payload, body, actor,
                          datetime.now(timezone.utc), cfg, is_maintainer=is_maint,
-                         active_claims=active, pr_meta=pr_meta)
+                         active_claims=active, pr_meta=pr_meta, is_reviewer=is_rev)
     out(f"命令 `{cmd}` · 触发者 @{actor} · 维护者={is_maint} · 并发认领={active} · "
         f"当前态 bounty:{st.state or '（无）'}")
     events = apply_live(client, [st], [dec], apply=apply, out=out)
@@ -1663,6 +1822,10 @@ def main(argv=None) -> int:
                     help="从账本生成荣誉榜 markdown（写盘）")
     ap.add_argument("--value-vector-out", default="",
                     help="从账本导出**价值向量** JSON（本站只做声誉分与价值评价，不含金额）")
+    ap.add_argument("--promotion-out", default="",
+                    help="从账本导出**晋升评估** JSON（复合判据：声誉分/一次过闸占比/负向记录）")
+    ap.add_argument("--roles-out", default="",
+                    help="从账本导出**授权面** JSON（role 事件 → reviewer/maintainer 名单）")
     args = ap.parse_args(argv)
 
     try:
@@ -1699,6 +1862,31 @@ def main(argv=None) -> int:
                 json.dump(doc, fh, ensure_ascii=False, indent=1, sort_keys=True)
                 fh.write(chr(10))
             print(f"价值向量已导出：{args.value_vector_out}（{len(doc['vectors'])} 行；账本 {len(events)} 条事件）")
+            return 0
+
+        if args.promotion_out:
+            events = load_ledger(args.ledger)
+            doc = promotion_report(events)
+            parent = os.path.dirname(os.path.abspath(args.promotion_out))
+            if parent:
+                os.makedirs(parent, exist_ok=True)
+            with open(args.promotion_out, "w", encoding="utf-8", newline=chr(10)) as fh:
+                json.dump(doc, fh, ensure_ascii=False, indent=1, sort_keys=True)
+                fh.write(chr(10))
+            _ok = [r['login'] for r in doc['candidates'] if r['eligible']]
+            print(f"晋升评估已导出：{args.promotion_out}（{len(doc['candidates'])} 人；达标 {len(_ok)} 人）")
+            return 0
+
+        if args.roles_out:
+            events = load_ledger(args.ledger)
+            doc = roles_from_events(events)
+            parent = os.path.dirname(os.path.abspath(args.roles_out))
+            if parent:
+                os.makedirs(parent, exist_ok=True)
+            with open(args.roles_out, "w", encoding="utf-8", newline=chr(10)) as fh:
+                json.dump(doc, fh, ensure_ascii=False, indent=1, sort_keys=True)
+                fh.write(chr(10))
+            print(f"授权面已导出：{args.roles_out}（审核员 {len(doc['reviewer'])} 人；维护者 {len(doc['maintainer'])} 人）")
             return 0
 
         if args.state:

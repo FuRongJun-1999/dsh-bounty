@@ -1,0 +1,194 @@
+{
+ "candidates": [
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    12,
+    24,
+    36,
+    45
+   ],
+   "login": "LarryE135",
+   "projects": [],
+   "reputation_delta": 28,
+   "round0": 0,
+   "round0_ratio": 0.0,
+   "round_known": 4,
+   "round_seen": [
+    1
+   ],
+   "settled": 4,
+   "timeout": 0
+  },
+  {
+   "blockers": [
+    "声誉分 20 < 24"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    19,
+    35
+   ],
+   "login": "cyd471",
+   "projects": [],
+   "reputation_delta": 20,
+   "round0": 0,
+   "round0_ratio": 0.0,
+   "round_known": 2,
+   "round_seen": [
+    1
+   ],
+   "settled": 2,
+   "timeout": 0
+  },
+  {
+   "blockers": [
+    "声誉分 16 < 24"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    13,
+    22
+   ],
+   "login": "STARDUSTLC666",
+   "projects": [],
+   "reputation_delta": 16,
+   "round0": 0,
+   "round0_ratio": 0.0,
+   "round_known": 2,
+   "round_seen": [
+    1
+   ],
+   "settled": 2,
+   "timeout": 0
+  },
+  {
+   "blockers": [
+    "声誉分 16 < 24"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    34,
+    44
+   ],
+   "login": "rinDBeans",
+   "projects": [],
+   "reputation_delta": 16,
+   "round0": 0,
+   "round0_ratio": 0.0,
+   "round_known": 2,
+   "round_seen": [
+    1
+   ],
+   "settled": 2,
+   "timeout": 0
+  },
+  {
+   "blockers": [
+    "声誉分 6 < 24",
+    "已结算 1 项 < 2"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    18
+   ],
+   "login": "qweqqxq11",
+   "projects": [],
+   "reputation_delta": 6,
+   "round0": 0,
+   "round0_ratio": 0.0,
+   "round_known": 1,
+   "round_seen": [
+    1
+   ],
+   "settled": 1,
+   "timeout": 0
+  },
+  {
+   "blockers": [
+    "声誉分 6 < 24",
+    "已结算 1 项 < 2"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    43
+   ],
+   "login": "ybyz2",
+   "projects": [],
+   "reputation_delta": 6,
+   "round0": 0,
+   "round0_ratio": 0.0,
+   "round_known": 1,
+   "round_seen": [
+    1
+   ],
+   "settled": 1,
+   "timeout": 0
+  },
+  {
+   "blockers": [
+    "声誉分 3 < 24",
+    "已结算 1 项 < 2"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    11
+   ],
+   "login": "acrot0",
+   "projects": [],
+   "reputation_delta": 3,
+   "round0": 0,
+   "round0_ratio": 0.0,
+   "round_known": 1,
+   "round_seen": [
+    1
+   ],
+   "settled": 1,
+   "timeout": 0
+  }
+ ],
+ "note": "判据为建议值（PROMOTION_RULES）；evidence_gaps 不阻塞晋升，但须由授予者在 role 事件的 reason 里显式确认。",
+ "rules": {
+  "max_invalid": 0,
+  "max_timeout": 0,
+  "min_reputation": 24,
+  "min_round0_ratio": 0.3333333333333333,
+  "min_settled": 2
+ }
+}

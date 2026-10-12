@@ -16,7 +16,7 @@
 | 状态机 | [`scripts/bounty_board.py`](scripts/bounty_board.py) | 三层白箱：纯逻辑层／薄 GitHub 客户端（stdlib `urllib`）／路由层；**状态权威面＝issue 线程本身**（评论里的 `<!-- bounty:v1 {…} -->` 标记） |
 | 薄壳 | [`.github/workflows/bounty.yml`](.github/workflows/bounty.yml) | 事件只经 `$GITHUB_EVENT_PATH` 文件进 python；`persist-credentials: false`；权限最小面 |
 | 发布模板 | [`.github/ISSUE_TEMPLATE/bounty.yml`](.github/ISSUE_TEMPLATE/bounty.yml) | 悬赏发布（验收标准必填） |
-| 状态机守卫 | [`tests/test_bounty_board.py`](tests/test_bounty_board.py) | 58 条断言 ＋ 8 条定点变异（M0–M7） |
+| 状态机守卫 | [`tests/test_bounty_board.py`](tests/test_bounty_board.py) | 119 条断言 ＋ 42 条定点变异（M0–M40，含审核员机制 `[R]` 组） |
 | **网站面生成器** | [`scripts/build_site.py`](scripts/build_site.py) | 静态站（纯 stdlib）；**荣誉榜由账本机械生成** |
 | **网站面守卫** | [`tests/test_build_site.py`](tests/test_build_site.py) | 24 条断言 ＋ 5 条定点变异（N0–N4） |
 | 账本／荣誉榜 | [`docs/bounty/ledger.json`](docs/bounty/ledger.json) ／ [`docs/bounty/board.md`](docs/bounty/board.md) | append-only 事件流 ／ 由账本机械生成 |
@@ -24,6 +24,8 @@
 | **每日贡献表守卫** | [`tests/test_daily_table.py`](tests/test_daily_table.py) | 15 条断言 ＋ 4 条定点变异（M1–M4） |
 | 每日贡献表 | [`docs/bounty/贡献表.md`](docs/bounty/贡献表.md) | 由账本机械生成（按结算日分节 ＋ 按人合计 ＋ 累计） |
 | 价值向量 | [`docs/bounty/value_vector.json`](docs/bounty/value_vector.json) | 由账本导出（声誉分 ＋ 难度/影响两轴；**不含金额**） |
+| **审核员机制** | [`scripts/bounty_board.py`](scripts/bounty_board.py) ／ [`docs/spec/审核员机制_v0.1.md`](docs/spec/审核员机制_v0.1.md) | 回避闸（自审自结禁止）＋ 审核员档（`/verify` `/appraise`，**不含** `/settle`）＋ 账本 `role` 事件授权面 ＋ 晋升复合判据 |
+| 晋升评估／授权面 | [`docs/bounty/promotion.json`](docs/bounty/promotion.json) ／ [`docs/bounty/roles.json`](docs/bounty/roles.json) | 由账本机械导出（`--promotion-out` ／ `--roles-out`；只读、纯函数） |
 | 静态站产物 | [`site/`](site/) | `index / board / honor / rules` 四页（由生成器产出） |
 
 **独立仓**：所有件自包含，不依赖任何外部仓的路径或模块——所有命令都在本仓根下跑，
@@ -49,6 +51,10 @@ python -X utf8 scripts/daily_table.py --ledger docs/bounty/ledger.json \
 # 3c. 每日贡献表守卫（断言 ＋ 定点变异自证）
 python -X utf8 tests/test_daily_table.py
 python -X utf8 tests/test_daily_table.py --mutate
+
+# 3d. 审核员机制：晋升评估 ＋ 授权面（账本 → JSON；只读、纯函数）
+python -X utf8 scripts/bounty_board.py --promotion-out docs/bounty/promotion.json
+python -X utf8 scripts/bounty_board.py --roles-out docs/bounty/roles.json
 # 4. 网站面守卫（账本→页面映射 ＋ 定点变异自证）
 python -X utf8 tests/test_build_site.py
 python -X utf8 tests/test_build_site.py --mutate

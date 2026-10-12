@@ -80,6 +80,10 @@ bounty:open ──/claim──▶ bounty:claimed ──/deliver──▶ bounty:
 - **「最多 3 轮修改」**：同一悬赏的第 4 次 `/deliver` 会被拒；此时请走 `/dispute` 交维护者裁定。
 - `/verify`、`/settle` 是维护者动作的命令化（设计稿只写了「维护者打 `bounty:verified`」
   与 `verified → settled`，未指定触发形态）——若你希望改为纯标签操作，请在 issue 里提出。
+- **审核员**（v0.1 新增）：`/verify` 与 `/appraise` 也可由**审核员**执行；`/settle` 仍只归维护者
+  （**裁决与入账分离**）。**持有者一律回避**——不得自审自结（对维护者与审核员同等生效）。
+  授权面＝账本 `role` 事件（append-only）；晋升走**复合判据**。详见
+  [审核员机制 v0.1](../spec/审核员机制_v0.1.md)。
 
 ## 三、验收四闸（逐道可查 · 不通过就说不通过）
 
@@ -195,6 +199,10 @@ python -X utf8 scripts/bounty_board.py --ledger-append <events.jsonl>
 
 # 从账本重生成荣誉榜
 python -X utf8 scripts/bounty_board.py --board-out docs/bounty/board.md
+
+# 导出晋升评估与授权面（只读、纯函数）
+python -X utf8 scripts/bounty_board.py --promotion-out docs/bounty/promotion.json
+python -X utf8 scripts/bounty_board.py --roles-out docs/bounty/roles.json
 ```
 
 本地离线核验（**不触网**）：

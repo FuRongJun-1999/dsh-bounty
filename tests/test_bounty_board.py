@@ -644,8 +644,174 @@ def group_routing():
        evs[0].get("pr") if evs else None)
 
 
+# ================================================================ [R] 审核员机制
+
+# 生效条件：无必需形参时跑 [R] 组断言——回避闸（自审自结）、审核员档（/verify + /appraise，不含
+# /settle）、账本 role 授权面、晋升复合判据。
+def group_reviewers():
+    print("[R] 审核员机制：回避闸 / 审核员档 / 账本 role 授权面 / 晋升复合判据")
+
+    # --- 回避闸：持有者不得自审自结（对维护者与审核员一律生效）---
+    st = mk_state(state="delivered", holder="alice")
+    d = bb.handle_command(st, "/verify", "pass 自审", "/verify pass 自审", "alice",
+                          NOW, CFG, is_maintainer=True)
+    ok("R1 持有者自审 /verify → 拒（recusal_required）",
+       (not d.ok) and d.event.get("reason", "").startswith("recusal_required"),
+       d.event.get("reason", ""))
+
+    st = mk_state(state="verified", holder="alice")
+    d = bb.handle_command(st, "/settle", "", "/settle", "alice", NOW, CFG,
+                          is_maintainer=True)
+    ok("R2 持有者自结 /settle → 拒（recusal_required）",
+       (not d.ok) and d.event.get("reason", "").startswith("recusal_required"),
+       d.event.get("reason", ""))
+
+    st = mk_state(state="delivered", holder="alice")
+    d = bb.handle_command(st, "/appraise", "A 自评", "/appraise A 自评", "alice",
+                          NOW, CFG, is_maintainer=True)
+    ok("R3 持有者自评 /appraise → 拒（recusal_required）",
+       (not d.ok) and d.event.get("reason", "").startswith("recusal_required"),
+       d.event.get("reason", ""))
+
+    st = mk_state(state="delivered", holder="alice")
+    d = bb.handle_command(st, "/verify", "pass 读数齐全", "/verify pass 读数齐全",
+                          "FuRongJun-1999", NOW, CFG, is_maintainer=True)
+    ok("R4 非持有者维护者 /verify → 放行（回避不误伤）",
+       d.ok and d.to_state == "verified", str(d.reason))
+
+    ok("R5 无持有者时回避不触发",
+       bb.needs_recusal(mk_state(state="open", holder=None), "alice")[0] is False)
+
+    # --- 审核员档：可 /verify 与 /appraise，不含 /settle ---
+    st = mk_state(state="delivered", holder="alice")
+    d = bb.handle_command(st, "/verify", "pass 审核员判定", "/verify pass 审核员判定",
+                          "rev1", NOW, CFG, is_reviewer=True)
+    ok("R6 审核员 /verify → 放行", d.ok and d.to_state == "verified", str(d.reason))
+
+    st = mk_state(state="delivered", holder="alice")
+    d = bb.handle_command(st, "/appraise", "A 审核员评价", "/appraise A 审核员评价",
+                          "rev1", NOW, CFG, is_reviewer=True)
+    ok("R7 审核员 /appraise → 放行",
+       d.ok and d.event.get("impact") == "A", str(d.event.get("impact")))
+
+    st = mk_state(state="verified", holder="alice")
+    d = bb.handle_command(st, "/settle", "", "/settle", "rev1", NOW, CFG,
+                          is_reviewer=True)
+    ok("R8 审核员 /settle → 拒（审核员档**不含**结算）",
+       (not d.ok) and d.event.get("reason", "").startswith("not_maintainer"),
+       d.event.get("reason", ""))
+
+    st = mk_state(state="delivered", holder="alice")
+    d = bb.handle_command(st, "/verify", "pass 路人", "/verify pass 路人", "bob",
+                          NOW, CFG)
+    ok("R9 非维护者非审核员 /verify → 拒（not_maintainer）",
+       (not d.ok) and d.event.get("reason", "").startswith("not_maintainer"),
+       d.event.get("reason", ""))
+
+    st = mk_state(state="delivered", holder="rev1")
+    d = bb.handle_command(st, "/verify", "pass 自审", "/verify pass 自审", "rev1",
+                          NOW, CFG, is_reviewer=True)
+    ok("R10 审核员对自持 issue /verify → 仍拒（回避优先于授权）",
+       (not d.ok) and d.event.get("reason", "").startswith("recusal_required"),
+       d.event.get("reason", ""))
+
+    # --- 账本 role 授权面（append-only；同一主体以时间最晚的一条为准）---
+    def _role(sub, role="reviewer", op="grant", ts="2026-10-12T00:00:00Z"):
+        return {"ts": ts, "action": "role", "actor": "FuRongJun-1999",
+                "subject": sub, "role": role, "op": op, "reason": "守卫夹具"}
+
+    ok("R11 role grant → 进审核员面",
+       "rev1" in bb.roles_from_events([_role("rev1")])["reviewer"])
+    ok("R12 role revoke（更晚）→ 移出审核员面",
+       "rev1" not in bb.roles_from_events(
+           [_role("rev1"), _role("rev1", op="revoke", ts="2026-10-12T01:00:00Z")]
+           )["reviewer"])
+    ok("R13 后事件覆盖前事件（以时间最晚为准）",
+       "rev1" not in bb.roles_from_events(
+           [_role("rev1", op="revoke", ts="2026-10-12T01:00:00Z"), _role("rev1")]
+           )["reviewer"])
+    ok("R14 越界 role/op → 跳过（不猜测）",
+       "rev1" not in bb.roles_from_events(
+           [_role("rev1", role="superuser"), _role("rev1", op="maybe")])["reviewer"])
+    ok("R15 缺 subject → 跳过",
+       bb.roles_from_events([{"action": "role", "subject": "", "role": "reviewer",
+                              "op": "grant"}])["reviewer"] == {})
+    ok("R16 非 role 事件不进授权面",
+       bb.roles_from_events([{"action": "settle", "subject": "rev1",
+                              "role": "reviewer", "op": "grant"}])["reviewer"] == {})
+
+    # --- 晋升复合判据 ---
+    def _sev(who, delta, rnd=0, kind="complete", ino=1):
+        return {"ts": "2026-10-12T00:00:00Z", "issue": ino, "action": "settle",
+                "actor": "FuRongJun-1999", "holder": who, "delta": delta,
+                "formula": {"kind": kind, "round": rnd}}
+
+    def _pick(rep, who):
+        return [c for c in rep["candidates"] if c["login"] == who][0]
+
+    rep = bb.promotion_report([_sev("good", 20, 0, ino=1), _sev("good", 20, 0, ino=2)])
+    g = _pick(rep, "good")
+    ok("R17 复合判据达标 → eligible=True", g["eligible"] is True, str(g["blockers"]))
+    ok("R18 一次过闸占比算出（2/2 = 1.0）", g["round0_ratio"] == 1.0)
+
+    rep = bb.promotion_report([_sev("bad", 20, 0, ino=1), _sev("bad", 20, 0, ino=2),
+                               _sev("bad", -6, 0, kind="invalid", ino=3)])
+    b = _pick(rep, "bad")
+    ok("R19 无效交付 → 阻塞（负向记录一票否决）",
+       b["eligible"] is False and any("无效交付" in x for x in b["blockers"]),
+       str(b["blockers"]))
+
+    rep = bb.promotion_report([_sev("rework", 20, 2, ino=1), _sev("rework", 20, 2, ino=2)])
+    n = _pick(rep, "rework")
+    ok("R20 有 round 数据但过闸占比不达标 → 阻塞",
+       n["eligible"] is False and any("一次过闸" in x for x in n["blockers"]),
+       str(n["blockers"]))
+
+    rep = bb.promotion_report([{"ts": "2026-10-12T00:00:00Z", "issue": 1,
+                                "action": "settle", "actor": "m", "holder": "noround",
+                                "delta": 20}])
+    nr = _pick(rep, "noround")
+    ok("R21 无 round 数据 → **不阻塞**（该条判据不适用）",
+       not any("一次过闸" in x for x in nr["blockers"]), str(nr["blockers"]))
+    ok("R22 无 round 数据 → 记证据缺口（不静默）",
+       any("无 round 数据" in x for x in nr["evidence_gaps"]),
+       str(nr["evidence_gaps"]))
+    ok("R23 无 round 数据时 round0_ratio=None", nr["round0_ratio"] is None)
+
+    rep = bb.promotion_report([_sev("low", 3, 0, ino=1)])
+    lo = _pick(rep, "low")
+    ok("R24 声誉分与项数双不达标 → 阻塞",
+       lo["eligible"] is False and len(lo["blockers"]) >= 2, str(lo["blockers"]))
+
+    rep = bb.promotion_report([_sev("t", -6, 0, kind="timeout", ino=1)])
+    tt = _pick(rep, "t")
+    ok("R25 超时未交付 → 阻塞",
+       tt["eligible"] is False and any("超时" in x for x in tt["blockers"]),
+       str(tt["blockers"]))
+
+    ok("R26 报告带判据表快照（可审计）", rep["rules"] == dict(bb.PROMOTION_RULES))
+    ok("R27 判据表与实现同源（非硬编码副本）",
+       bb.PROMOTION_RULES["min_reputation"] == rep["rules"]["min_reputation"])
+
+    rep = bb.promotion_report([_sev("flat", 20, 1, ino=1), _sev("flat", 20, 1, ino=2)])
+    fl = _pick(rep, "flat")
+    ok("R28 round 全为中性占位 → 该维度不适用（不阻塞）",
+       fl["eligible"] is True and not any("一次过闸" in x for x in fl["blockers"]),
+       str(fl["blockers"]))
+    ok("R29 无区分度 → 记证据缺口（不静默）",
+       any("无区分度" in x for x in fl["evidence_gaps"]),
+       str(fl["evidence_gaps"]))
+    ok("R29b round_seen 快照可审计（[1]）", fl["round_seen"] == [1])
+    rep = bb.promotion_report([_sev("mix", 20, 0, ino=1), _sev("mix", 20, 2, ino=2),
+                               _sev("mix", 20, 2, ino=3), _sev("mix", 20, 2, ino=4)])
+    mx = _pick(rep, "mix")
+    ok("R30 出现 round=0/>=2 → 有区分度，判据自动生效",
+       mx["eligible"] is False and any("一次过闸" in x for x in mx["blockers"]),
+       str(mx["blockers"]))
+
 _GROUPS = (group_parse, group_label_state, group_holder, group_concurrency,
-           group_is_holder, group_payload, group_lifecycle, group_routing)
+           group_is_holder, group_payload, group_lifecycle, group_routing,
+           group_reviewers)
 
 
 # 生效条件：无必需形参时清账并跑 [0]–[F] 全组（离线子进程组由调用方另跑），返回失败项前缀集合。
@@ -751,7 +917,7 @@ _MUTATIONS = (
      "    if _im:" + chr(10) + '        marker["impact"] = _im',
      "    if False:  # MUT" + chr(10) + '        marker["impact"] = _im', {"G37", "G42"}),
     ("M29 关价值评价的维护者闸（越权可评）",
-     "    if not is_maintainer:",
+     "    if not (is_maintainer or is_reviewer):",
      "    if False:  # MUT", {"G40"}),
     ("M30 向价值向量注入金额字段（越界）",
      "    out.sort(key=lambda r: (-r[\"reputation_delta\"], r[\"login\"], r[\"project\"]))",
@@ -759,6 +925,33 @@ _MUTATIONS = (
     ("M31 关证据强度判据（formula 凭据不计）",
      "        row[\"evidence_strength\"] = bool(row.pop(\"_f\"))",
      "        row.pop(\"_f\", None)" + chr(10) + "        row[\"evidence_strength\"] = False  # MUT", {"G45"}),
+     ("M32 关 /verify 回避闸（持有者可自审）",
+      '    _rec, _why = needs_recusal(st, actor)',
+      '    _rec, _why = (False, "")  # MUT', {"R1", "R10"}),
+     ("M33 关 /verify 审核员档（审核员不可裁）",
+      '    if not (is_maintainer or is_reviewer):',
+      '    if not is_maintainer:  # MUT', {"R6"}),
+     ("M34 关 /settle 授权闸（审核员可结算）",
+      '    if not is_maintainer:',
+      '    if False:  # MUT', {"G5", "R8"}),
+     ("M35 关 /settle 回避闸（持有者可自结）",
+      '    _rec, _why = needs_recusal(st, actor)',
+      '    _rec, _why = (False, "")  # MUT', {"R2"}),
+     ("M36 关 /appraise 回避闸（持有者可自评）",
+      '    _rec, _why = needs_recusal(st, actor)',
+      '    _rec, _why = (False, "")  # MUT', {"R3"}),
+     ("M37 授权面不认 revoke（撤销无效）",
+      '        if info["op"] == "grant":',
+      '        if True:  # MUT', {"R12", "R13"}),
+     ("M38 无 round 数据不记「不适用」缺口",
+      '        if not row["round_known"]:' + chr(10) + '            gaps.append("无 round 数据（一次过闸占比不可判）——该条判据不适用")',
+      '        if False:  # MUT' + chr(10) + '            gaps.append("无 round 数据（一次过闸占比不可判）——该条判据不适用")', {"R22"}),
+     ("M39 无效交付不阻塞晋升",
+      '        if row["invalid"] > R["max_invalid"]:',
+      '        if False:  # MUT', {"R19"}),
+     ("M40 关区分度判据（中性占位也按占比判）",
+      '        elif len(row["round_seen"] - {1}) == 0:',
+      '        elif False:  # MUT', {"R28", "R29"}),
 )
 
 
@@ -797,7 +990,12 @@ _MUT_TARGETS = (("M0", "parse_command"), ("M1", "_check_claimable"),
                 ("M23", "_do_select"), ("M24", "_do_select"),
                 ("M25", "rescore"), ("M26", "_do_appraise"), ("M27", "_do_appraise"),
                 ("M28", "_accept"), ("M29", "_do_appraise"),
-                ("M30", "value_vector"), ("M31", "value_vector"))
+                ("M30", "value_vector"), ("M31", "value_vector"),
+                ("M32", "_do_verify"), ("M33", "_do_verify"),
+                ("M34", "_do_settle"), ("M35", "_do_settle"),
+                ("M36", "_do_appraise"), ("M37", "roles_from_events"),
+                ("M38", "promotion_report"), ("M39", "promotion_report"),
+                ("M40", "promotion_report"))
 
 
 def _anchor_preflight():

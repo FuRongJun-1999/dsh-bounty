@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dsh-better-sidebar @ 0.25.0 · 插件测评站</title>
+<style>
+:root{--fg:#1c1e21;--dim:#606770;--line:#e4e6eb;--acc:#1d76db;--bg:#fff;--soft:#f5f6f7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);line-height:1.7;
+ font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{border-bottom:1px solid var(--line);padding:18px 24px;background:var(--soft)}
+header h1{margin:0 0 8px;font-size:20px}
+header h1 a{color:var(--fg);text-decoration:none}
+nav a{margin-right:16px;color:var(--dim);text-decoration:none;font-size:15px}
+nav a.on{color:var(--acc);font-weight:700;border-bottom:2px solid var(--acc)}
+main{max-width:900px;margin:0 auto;padding:24px}
+h2{font-size:18px;margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+h3{font-size:15px;margin:20px 0 6px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+code{background:var(--soft);padding:1px 5px;border-radius:3px;font-size:13px}
+pre{background:var(--soft);padding:12px;border-radius:5px;overflow:auto;font-size:13px}
+.note{background:#fff8e1;border-left:4px solid #f0ad4e;padding:10px 14px;margin:14px 0}
+.ok{background:#eef7ee;border-left:4px solid #4caf50;padding:10px 14px;margin:14px 0}
+.muted{color:var(--dim)}
+.tag{display:inline-block;background:var(--soft);border:1px solid var(--line);
+ border-radius:10px;padding:0 8px;font-size:12px;margin-right:6px}
+.bar{display:inline-block;height:10px;background:var(--acc);border-radius:2px;vertical-align:middle}
+footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
+ color:var(--dim);font-size:13px}
+
+</style>
+</head>
+<body>
+<header><h1><a href="index.html">插件测评站</a></h1><nav><a class="" href="index.html">首页</a><a class="" href="ranking.html">榜单</a><a class="" href="method.html">方法说明</a></nav></header>
+<main>
+<h2>dsh-better-sidebar @ 0.25.0</h2>
+<p><span class="tag">效率 UI（侧边栏平台 / 开放 ctx.betterSidebar 服务）</span><a href="https://github.com/omdsh-dev/DSH-better-sidebar">https://github.com/omdsh-dev/DSH-better-sidebar</a></p>
+<div class="note"><b>版本出处</b>：docs/ops/plugin-full-audit-2026-10-11.md:61（desktop 0.25.0 / web 0.22.1；本文取 desktop 版 0.25.0）——版本号现取，不凭记忆。</div>
+<h2>维度读数</h2>
+<table><tr><th>维度</th><th>读数</th><th>依据</th></tr><tr><td><b>声明面</b></td><td>peer 区间 0.25.0 版要求 @deepseek-ai/dsh-* ^0.2.0-rc.2、cordis ^4.0.4、react ^18.2.0；web 宿主 0.1.7 不覆盖 ⇒ web 只能装 0.22.1。</td><td class="muted">docs/ops/plugin-full-audit-2026-10-11.md:61</td></tr><tr><td><b>工具面成本</b></td><td>注册 1 个模型工具 sidebar_open ≈ 324 tok/轮（占本轮工具面 1.5%）。</td><td class="muted">本机 2026-10-13 实测（dsh-tool-cost-top.mjs）</td></tr><tr><td><b>运行时证据</b></td><td>bundle 面命中 asar 或目录即判存在，两向夹具 8/8 通过。</td><td class="muted">本机 2026-10-13 实测（dsh-bundle-health.mjs --selftest）</td></tr><tr><td><b>生态面</b></td><td>npm 关键词 dsh-better-sidebar 全量扫得 87 个包；逐个 peer 实测后，官方推荐目录里的 Office 预览包因钉 ^0.17.0 而装不上（0.25.0 已越界）。</td><td class="muted">docs/ops/sidebar-ecosystem-2026-10-12.md:4,35</td></tr></table>
+<h2>可复跑证据（命令 ＋ 原始输出）</h2>
+<h3>证据 1</h3><p>命令：<code>node scripts/dsh-tool-cost-top.mjs</code></p><pre>surface: (last)
+
+surface: 28ac6911-1d9e-4248-a4a8-3315b817fe9f.json  2026-10-12T18:36:21  判别位=(未指定 · 取最新)
+工具面：86 个工具 ≈ 21230 tok/轮
+
+== 单个工具 Top 30 ==（节选）
+sidebar_open                    324  dsh-better-sidebar
+
+== 按包聚合（可摘粒度）==
+dsh-better-sidebar                          1      324    1.5%</pre><p class="muted">出处：本机执行 2026-10-13（工作区根 E:\deepseek harness data） ｜ 采集：2026-10-13</p>
+<h3>证据 2</h3><p>命令：<code>node scripts/dsh-bundle-health.mjs --selftest</code></p><pre>-- dsh-bundle-health 两向自检 --
+夹具断言：8/8 通过
+
+selftest: 两向行为正确（ESM-only 判存在 / 不存在判 missing / asar 命中判 asar）（exit 0）</pre><p class="muted">出处：本机执行 2026-10-13（工作区根 E:\deepseek harness data） ｜ 采集：2026-10-13</p>
+<h3>证据 3</h3><p>命令：<code>（已记录读数，非本站复跑）npm 关键词 dsh-better-sidebar 全量扫 + 逐个 peer 实测</code></p><pre>来源行原文：
+&gt; 来源：`omdsh-dev/DSH-better-sidebar` README（v0.24.1 支持 DSH 0.2.0-rc.2+；本机装的是 **0.25.0**）
+&gt; + npm 关键词 `dsh-better-sidebar` 全量扫（**87 个包**）+ 逐个 peer 实测。
+— docs/ops/sidebar-ecosystem-2026-10-12.md:3–4
+
+| **`@huanlin/dsh-plugin-better-sidebar-plugin-office`** | 0.2.0 | ❌ | **官方推荐目录里的 Office 预览**，但钉 `dsh-better-sidebar ^0.17.0` ⇒ 本机 0.25.0 **装不上** |
+— docs/ops/sidebar-ecosystem-2026-10-12.md:35</pre><p class="muted">出处：docs/ops/sidebar-ecosystem-2026-10-12.md:3-4,35 ｜ 采集：2026-10-12（文档记录）</p>
+<h2>结论</h2>
+<div class="ok">值得用（平台型）：本机 0.25.0 已实装且在工具面留下 1 个可核验成本点（sidebar_open 324 tok/轮）；它的价值主面在客户端（0 tok），工具面数字不能代表其收益。生态装前必查 peer——0.x 的 caret 区间太窄，升级侧边栏即甩掉旧插件。</div>
+<h2>边界（本站不知道什么）</h2>
+<ul><li>peer 兼容性是快照：87 个包的数字来自 2026-10-12 的 npm 全量扫 + 实测，未在本轮（2026-10-13）重扫，npm 侧新增/下架不可见。</li><li>web profile 现装 0.22.1（~/.dsh/profiles/web/package.json 现读），与本文取用的 desktop 0.25.0 不同——按 audit 文档的 desktop/web 并列口径处理，不视为异常。</li><li>客户端插件不注册模型工具 ⇒ 工具面统计看不见它的使用率；本站不声称其「在用/没用」。</li></ul>
+<p class="muted">返回 <a href="index.html">首页</a> ｜ <a href="ranking.html">榜单</a> ｜ <a href="method.html">方法说明</a></p>
+
+
+</main>
+<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> ＋ <code>review/data/method.json</code> 机械生成——勿手改。证据＝命令 ＋ 已采集的原始输出；生成器与 CI <b>不触网</b>。</footer>
+</body>
+</html>

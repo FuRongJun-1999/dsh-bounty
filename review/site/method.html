@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>方法说明 · 插件测评站</title>
+<style>
+:root{--fg:#1c1e21;--dim:#606770;--line:#e4e6eb;--acc:#1d76db;--bg:#fff;--soft:#f5f6f7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);line-height:1.7;
+ font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{border-bottom:1px solid var(--line);padding:18px 24px;background:var(--soft)}
+header h1{margin:0 0 8px;font-size:20px}
+header h1 a{color:var(--fg);text-decoration:none}
+nav a{margin-right:16px;color:var(--dim);text-decoration:none;font-size:15px}
+nav a.on{color:var(--acc);font-weight:700;border-bottom:2px solid var(--acc)}
+main{max-width:900px;margin:0 auto;padding:24px}
+h2{font-size:18px;margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+h3{font-size:15px;margin:20px 0 6px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+code{background:var(--soft);padding:1px 5px;border-radius:3px;font-size:13px}
+pre{background:var(--soft);padding:12px;border-radius:5px;overflow:auto;font-size:13px}
+.note{background:#fff8e1;border-left:4px solid #f0ad4e;padding:10px 14px;margin:14px 0}
+.ok{background:#eef7ee;border-left:4px solid #4caf50;padding:10px 14px;margin:14px 0}
+.muted{color:var(--dim)}
+.tag{display:inline-block;background:var(--soft);border:1px solid var(--line);
+ border-radius:10px;padding:0 8px;font-size:12px;margin-right:6px}
+.bar{display:inline-block;height:10px;background:var(--acc);border-radius:2px;vertical-align:middle}
+footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
+ color:var(--dim);font-size:13px}
+
+</style>
+</head>
+<body>
+<header><h1><a href="index.html">插件测评站</a></h1><nav><a class="" href="index.html">首页</a><a class="" href="ranking.html">榜单</a><a class="on" href="method.html">方法说明</a></nav></header>
+<main>
+<h2>插件测评站 · 方法说明</h2>
+<p>证据优先的本地插件测评口径（纯 stdlib 生成、零网络）</p>
+<h2>四个证据字段</h2>
+<table><tr><th>字段</th><th>含义</th></tr><tr><td><code>command</code></td><td>逐字可复制的命令字符串（或明确标注『已记录读数，非本站复跑』）</td></tr><tr><td><code>output</code></td><td>已采集的原始输出原文；转载文档读数时连行号一起带出来</td></tr><tr><td><code>source</code></td><td>本机执行（写明日期）或 文档路径 + 行号</td></tr><tr><td><code>captured_at</code></td><td>采集日期（读数有保质期）</td></tr></table>
+<h2>五个测评维度</h2>
+<table><tr><th>维度</th><th>查什么</th><th>为什么</th></tr><tr><td><b>声明面</b></td><td>package.json 的 version / peerDependencies / dependencies 区间，与目标宿主版本比</td><td>0.x 的 caret 语义很窄（^0.17.0 = &gt;=0.17.0 &lt;0.18.0），宿主一升级就可能整行被静默禁用</td></tr><tr><td><b>工具面</b></td><td>该包在 request/header.tools[] 里到底注册了几个工具、每轮约多少 token</td><td>工具面是唯一能证『生效』的权威判据：解析成功、apply 能注册都不算</td></tr><tr><td><b>调用面</b></td><td>全库会话日志里该工具名被调用的次数</td><td>区分『装了没用』与『在用』；但客户端插件不注册模型工具 ⇒ 这一面看不见它们</td></tr><tr><td><b>运行时/结构面</b></td><td>bundle 是否命中（目录或 asar）、loader entry id 是否冲突</td><td>排除加载链上的机械性缺席，避免把『根本没装』误读成『装了没生效』</td></tr><tr><td><b>职责重叠</b></td><td>与已装包的职责是否可被替代</td><td>重叠是摘除的第一依据——但必须拿读数说话，不凭印象</td></tr></table>
+<h2>排序规则</h2>
+<p>本站榜单不做综合加权评分（权重是使用者的资金与偏好，不是站方的），只做多读数并列，按三个正交轴排：① 可核验的模型工具面成本（≈tok/轮，升序，读不到则不参与）② 结构面/运行时证据是否齐 ③ 证据条目数（升序）。名次只说明『读数是否更完整、代价是否更可核验』，不说明『更值得装』。</p>
+<h2>页面结构</h2>
+<table><tr><th>页面</th><th>内容</th></tr><tr><td><code>index.html</code></td><td>这是什么 / 四个字段 / 五个维度 / 三插件速览 / 两个诚实边界 / 怎么复跑</td></tr><tr><td><code>ranking.html</code></td><td>多读数并列榜（不合成总分）</td></tr><tr><td><code>plugin-&lt;id&gt;.html</code></td><td>单插件详情：版本与出处、五维读数、可复跑证据（命令 + 原始输出）、结论、边界</td></tr><tr><td><code>method.html</code></td><td>本页（方法说明）</td></tr></table>
+<h2>离线口径（零网络）</h2>
+<ul><li>生成器 scripts/review_build.py 纯 Python 标准库；不 import 任何网络模块（socket / urllib / http.client / requests 都禁止）。</li><li>生成器不执行证据里的命令——它只把这些字符串渲染进页面；读数在写进 JSON 之前就已采集完毕。</li><li>证据的『原始输出』一律是采集时逐字留下的文本，包括命令自身的报错与退出码。</li><li>CI 只跑生成器与守卫，不发起任何网络请求。</li></ul>
+<h2>本站不假装知道什么（边界）</h2>
+<ul><li>工具面统计只覆盖注册模型工具的包；30+ 支客户端插件（含本页的 cost-meter）不注册模型工具 ⇒ 它们的『在用/没用』本站没有数据，不假装有。</li><li>体积（MB）是另一支量具的数，本站当前未采集，故不列为维度读数。</li><li>版本读数以文档行号为准（本仓口径：docs/ops/plugin-full-audit-2026-10-11.md 的行）；本机现读与之不一致时两条并列登记，不择优、不覆盖。</li><li>所有证据都有保质期：文档转载的读数标注采集日；跨日使用前应当重跑命令。</li></ul>
+<h2>交付体例（骨架）</h2>
+<ol><li>意图声明</li><li>可信边界</li><li>预期结果</li><li>证据（命令 ＋ 原始输出 ＋ 出处）</li></ol>
+<h2>怎么复跑</h2>
+<ol><li><code>python -X utf8 scripts/review_build.py   # 由 review/data/*.json 生成 review/site/*.html（退出码 0）</code></li><li><code>python -X utf8 tests/test_review_build.py          # 守卫：断言全绿（末行「通过 N / 失败 0」）</code></li><li><code>python -X utf8 tests/test_review_build.py --mutate # 定点变异：每条恰好命中期望红项</code></li><li><code>python -X utf8 tests/test_review_build.py --list   # 只列变异表与期望红项</code></li></ol>
+<p class="muted">本页与榜面、详情页一样，全部由 scripts/review_build.py 从 review/data/*.json 机械生成——勿手改 review/site/ 下的 HTML。</p>
+
+
+</main>
+<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> ＋ <code>review/data/method.json</code> 机械生成——勿手改。证据＝命令 ＋ 已采集的原始输出；生成器与 CI <b>不触网</b>。</footer>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{
+  "title": "插件测评站 · 方法说明",
+  "subtitle": "证据优先的本地插件测评口径（纯 stdlib 生成、零网络）",
+  "schema": "review/method/v1",
+  "intro": "本站只做一件事：把「某支 dsh 插件值不值得装」拆成可核验的读数，并把每条读数的出处写在旁边。它不是评测机构的结论页，而是一份可复跑的证据台账——读的人应该能不看结论、只看证据就自己复算。",
+  "evidence_fields": [
+    {"field": "command", "meaning": "逐字可复制的命令字符串（或明确标注『已记录读数，非本站复跑』）"},
+    {"field": "output", "meaning": "已采集的原始输出原文；转载文档读数时连行号一起带出来"},
+    {"field": "source", "meaning": "本机执行（写明日期）或 文档路径 + 行号"},
+    {"field": "captured_at", "meaning": "采集日期（读数有保质期）"}
+  ],
+  "dimensions": [
+    {"name": "声明面", "check": "package.json 的 version / peerDependencies / dependencies 区间，与目标宿主版本比",
+     "why": "0.x 的 caret 语义很窄（^0.17.0 = >=0.17.0 <0.18.0），宿主一升级就可能整行被静默禁用"},
+    {"name": "工具面", "check": "该包在 request/header.tools[] 里到底注册了几个工具、每轮约多少 token",
+     "why": "工具面是唯一能证『生效』的权威判据：解析成功、apply 能注册都不算"},
+    {"name": "调用面", "check": "全库会话日志里该工具名被调用的次数",
+     "why": "区分『装了没用』与『在用』；但客户端插件不注册模型工具 ⇒ 这一面看不见它们"},
+    {"name": "运行时/结构面", "check": "bundle 是否命中（目录或 asar）、loader entry id 是否冲突",
+     "why": "排除加载链上的机械性缺席，避免把『根本没装』误读成『装了没生效』"},
+    {"name": "职责重叠", "check": "与已装包的职责是否可被替代",
+     "why": "重叠是摘除的第一依据——但必须拿读数说话，不凭印象"}
+  ],
+  "ranking_rule": "本站榜单不做综合加权评分（权重是使用者的资金与偏好，不是站方的），只做多读数并列，按三个正交轴排：① 可核验的模型工具面成本（≈tok/轮，升序，读不到则不参与）② 结构面/运行时证据是否齐 ③ 证据条目数（升序）。名次只说明『读数是否更完整、代价是否更可核验』，不说明『更值得装』。",
+  "pages": [
+    {"file": "index.html", "content": "这是什么 / 四个字段 / 五个维度 / 三插件速览 / 两个诚实边界 / 怎么复跑"},
+    {"file": "ranking.html", "content": "多读数并列榜（不合成总分）"},
+    {"file": "plugin-<id>.html", "content": "单插件详情：版本与出处、五维读数、可复跑证据（命令 + 原始输出）、结论、边界"},
+    {"file": "method.html", "content": "本页（方法说明）"}
+  ],
+  "offline": [
+    "生成器 scripts/review_build.py 纯 Python 标准库；不 import 任何网络模块（socket / urllib / http.client / requests 都禁止）。",
+    "生成器不执行证据里的命令——它只把这些字符串渲染进页面；读数在写进 JSON 之前就已采集完毕。",
+    "证据的『原始输出』一律是采集时逐字留下的文本，包括命令自身的报错与退出码。",
+    "CI 只跑生成器与守卫，不发起任何网络请求。"
+  ],
+  "boundaries": [
+    "工具面统计只覆盖注册模型工具的包；30+ 支客户端插件（含本页的 cost-meter）不注册模型工具 ⇒ 它们的『在用/没用』本站没有数据，不假装有。",
+    "体积（MB）是另一支量具的数，本站当前未采集，故不列为维度读数。",
+    "版本读数以文档行号为准（本仓口径：docs/ops/plugin-full-audit-2026-10-11.md 的行）；本机现读与之不一致时两条并列登记，不择优、不覆盖。",
+    "所有证据都有保质期：文档转载的读数标注采集日；跨日使用前应当重跑命令。"
+  ],
+  "rerun": [
+    "python -X utf8 scripts/review_build.py   # 由 review/data/*.json 生成 review/site/*.html（退出码 0）",
+    "python -X utf8 tests/test_review_build.py          # 守卫：断言全绿（末行「通过 N / 失败 0」）",
+    "python -X utf8 tests/test_review_build.py --mutate # 定点变异：每条恰好命中期望红项",
+    "python -X utf8 tests/test_review_build.py --list   # 只列变异表与期望红项"
+  ],
+  "declaration_template": {
+    "note": "本站推荐每条测评记录按本仓既有交付体例写（四段式 ＋ 三字段），本页只展示骨架，不代替 issue 交付面。",
+    "sections": ["意图声明", "可信边界", "预期结果", "证据（命令 ＋ 原始输出 ＋ 出处）"]
+  },
+  "generated_note": "本页与榜面、详情页一样，全部由 scripts/review_build.py 从 review/data/*.json 机械生成——勿手改 review/site/ 下的 HTML。"
+}

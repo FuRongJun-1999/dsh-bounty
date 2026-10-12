@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dsh-cost-meter @ 1.8.20 · 插件测评站</title>
+<style>
+:root{--fg:#1c1e21;--dim:#606770;--line:#e4e6eb;--acc:#1d76db;--bg:#fff;--soft:#f5f6f7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);line-height:1.7;
+ font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{border-bottom:1px solid var(--line);padding:18px 24px;background:var(--soft)}
+header h1{margin:0 0 8px;font-size:20px}
+header h1 a{color:var(--fg);text-decoration:none}
+nav a{margin-right:16px;color:var(--dim);text-decoration:none;font-size:15px}
+nav a.on{color:var(--acc);font-weight:700;border-bottom:2px solid var(--acc)}
+main{max-width:900px;margin:0 auto;padding:24px}
+h2{font-size:18px;margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+h3{font-size:15px;margin:20px 0 6px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+code{background:var(--soft);padding:1px 5px;border-radius:3px;font-size:13px}
+pre{background:var(--soft);padding:12px;border-radius:5px;overflow:auto;font-size:13px}
+.note{background:#fff8e1;border-left:4px solid #f0ad4e;padding:10px 14px;margin:14px 0}
+.ok{background:#eef7ee;border-left:4px solid #4caf50;padding:10px 14px;margin:14px 0}
+.muted{color:var(--dim)}
+.tag{display:inline-block;background:var(--soft);border:1px solid var(--line);
+ border-radius:10px;padding:0 8px;font-size:12px;margin-right:6px}
+.bar{display:inline-block;height:10px;background:var(--acc);border-radius:2px;vertical-align:middle}
+footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
+ color:var(--dim);font-size:13px}
+
+</style>
+</head>
+<body>
+<header><h1><a href="index.html">插件测评站</a></h1><nav><a class="" href="index.html">首页</a><a class="" href="ranking.html">榜单</a><a class="" href="method.html">方法说明</a></nav></header>
+<main>
+<h2>dsh-cost-meter @ 1.8.20</h2>
+<p><span class="tag">运维（token/费用统计面板）</span><a href="https://www.npmjs.com/package/dsh-cost-meter">https://www.npmjs.com/package/dsh-cost-meter</a></p>
+<div class="note"><b>版本出处</b>：docs/ops/plugin-full-audit-2026-10-11.md:57（desktop 1.8.20 / web 1.8.17；本文取 desktop 版 1.8.20）——版本号现取，不凭记忆。</div>
+<h2>维度读数</h2>
+<table><tr><th>维度</th><th>读数</th><th>依据</th></tr><tr><td><b>版本漂移</b></td><td>desktop 1.8.20 / web 1.8.17；文档注「升了但未完全追平（peer 限制）」。</td><td class="muted">docs/ops/plugin-full-audit-2026-10-11.md:57</td></tr><tr><td><b>工具面成本</b></td><td>本轮工具面按包聚合里没有它 ⇒ 当前 desktop 工具面 0 tok/轮（它在这台机器上被摘过，见 inventory:30）。</td><td class="muted">本机 2026-10-13 实测（dsh-tool-cost-top.mjs）</td></tr><tr><td><b>调用面</b></td><td>作为客户端插件不注册模型工具 ⇒ 无工具面读数可用（诚实边界，不是零调用证明）。</td><td class="muted">docs/ops/plugin-verdicts-2026-10-12.md:11,100</td></tr><tr><td><b>职责重叠</b></td><td>与 dsh-token-meter-panel / dsh-desktop-token-usage 三者都统计 token 用量与花费；当时裁定留 cost-meter（功能最全）。</td><td class="muted">docs/ops/plugin-full-audit-2026-10-11.md:86</td></tr></table>
+<h2>可复跑证据（命令 ＋ 原始输出）</h2>
+<h3>证据 1</h3><p>命令：<code>（已记录读数，非本站复跑）node scripts/dsh-tool-cost-top.mjs（2026-10-11 基线）</code></p><pre>来源行原文（当前分组 · 154 工具 / 34,932 tok）：
+| 提供者 | 工具 | ≈tok/轮 | 归因 |
+| `dsh-better-sidebar` | 1 | 324 | 实测 |
+| `dsh-chart` | 1 | 209 | 实测 |
+（表内没有 `dsh-cost-meter` 行 —— 本轮工具面里它不注册任何模型工具）
+— docs/ops/plugin-token-ledger.md:19-34</pre><p class="muted">出处：docs/ops/plugin-token-ledger.md:19-34 ｜ 采集：2026-10-11（文档记录）</p>
+<h3>证据 2</h3><p>命令：<code>node scripts/dsh-tool-cost-top.mjs</code></p><pre>surface: (last)
+
+surface: 28ac6911-1d9e-4248-a4a8-3315b817fe9f.json  2026-10-12T18:36:21  判别位=(未指定 · 取最新)
+工具面：86 个工具 ≈ 21230 tok/轮
+
+== 按包聚合（可摘粒度）==
+包                                          工具   ≈tok/轮      占比
+------------------------------------------------------------------
+(core / 官方内置 / MCP / 其他)                   36     8077   38.0%
+...
+dsh-better-sidebar                          1      324    1.5%
+（无 dsh-cost-meter 行）</pre><p class="muted">出处：本机执行 2026-10-13（工作区根 E:\deepseek harness data） ｜ 采集：2026-10-13</p>
+<h3>证据 3</h3><p>命令：<code>（现读文件，非本站复跑）Get-Content ~/.dsh/profiles/{desktop,web}/package.json → dependencies</code></p><pre>desktop: dsh-cost-meter = 1.8.21
+desktop node_modules/dsh-cost-meter/package.json: dsh-cost-meter@1.8.21 | peer=@deepseek-ai/dsh-credentials:^0.1.0-rc.6 || ... || &gt;=0.2.0-rc.1 &lt;0.3.0-0 @deepseek-ai/dsh-home-paths:同上
+web: dsh-cost-meter = ^1.8.17</pre><p class="muted">出处：本机执行 2026-10-13（读 ~/.dsh/profiles/*/package.json） ｜ 采集：2026-10-13</p>
+<h2>结论</h2>
+<div class="ok">留用（运维读数面唯一）：三条统计类插件里功能最全；代价面在客户端（渲染），模型工具面 0 tok ⇒ 不占每轮注入预算。</div>
+<h2>边界（本站不知道什么）</h2>
+<ul><li>文档记录的 desktop 版本是 1.8.20，而本机现读 package.json 与已装 node_modules 均为 1.8.21 ⇒ 两口径并存（文档采集于 2026-10-11，本机现读晚于它）；版本以文档为准，漂移如实登记。</li><li>工具面无该行不能写成「零调用」——客户端插件不注册模型工具，没数据；文档自己标了这条诚实边界（plugin-verdicts-2026-10-12.md:11）。</li><li>体积（1.9MB，plugin-verdicts-2026-10-12.md:85）本轮未采集，不引用为实测读数。</li></ul>
+<p class="muted">返回 <a href="index.html">首页</a> ｜ <a href="ranking.html">榜单</a> ｜ <a href="method.html">方法说明</a></p>
+
+
+</main>
+<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> ＋ <code>review/data/method.json</code> 机械生成——勿手改。证据＝命令 ＋ 已采集的原始输出；生成器与 CI <b>不触网</b>。</footer>
+</body>
+</html>

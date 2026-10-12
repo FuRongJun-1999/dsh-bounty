@@ -30,6 +30,8 @@
 | **审核员机制** | [`scripts/bounty_board.py`](scripts/bounty_board.py) ／ [`docs/spec/审核员机制_v0.1.md`](docs/spec/审核员机制_v0.1.md) | 回避闸（自审自结禁止）＋ 审核员档（`/verify` `/appraise`，**不含** `/settle`）＋ 账本 `role` 事件授权面 ＋ 晋升复合判据 |
 | 晋升评估／授权面 | [`docs/bounty/promotion.json`](docs/bounty/promotion.json) ／ [`docs/bounty/roles.json`](docs/bounty/roles.json) | 由账本机械导出（`--promotion-out` ／ `--roles-out`；只读、纯函数） |
 | 静态站产物 | [`site/`](site/) | `index / board / honor / rules` 四页（由生成器产出） |
+| **插件测评站生成器** | [`scripts/review_build.py`](scripts/review_build.py) | 真源 `review/data/*.json` → 产物 `review/site/*.html`（纯 stdlib、确定性、不触网；`--print` 只打印不落盘，坏真源退出码 2） |
+| **插件测评站守卫** | [`tests/test_review_build.py`](tests/test_review_build.py) | 28 条断言 ＋ 7 条定点变异（N0–N6）；`[J]` 映射面 ◦ `[K]` 落盘面（真跑子进程） |
 
 **独立仓**：所有件自包含，不依赖任何外部仓的路径或模块——所有命令都在本仓根下跑，
 只用 Python 标准库（**零第三方依赖、不触网**）。
@@ -61,6 +63,10 @@ python -X utf8 scripts/bounty_list.py --check    # 产物与真源一致则 0，
 python -X utf8 tests/test_bounty_list.py
 python -X utf8 tests/test_bounty_list.py --mutate
 
+# 3e. 插件测评站（真源 review/data/*.json → 六页产物；断言 ＋ 定点变异自证）
+python -X utf8 scripts/review_build.py
+python -X utf8 tests/test_review_build.py
+python -X utf8 tests/test_review_build.py --mutate
 # 3d. 审核员机制：晋升评估 ＋ 授权面（账本 → JSON；只读、纯函数）
 python -X utf8 scripts/bounty_board.py --promotion-out docs/bounty/promotion.json
 python -X utf8 scripts/bounty_board.py --roles-out docs/bounty/roles.json

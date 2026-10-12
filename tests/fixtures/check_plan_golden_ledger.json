@@ -1,0 +1,71 @@
+{
+  "_schema": "check_plan golden 账本夹具（append-only 形态，由守卫 _fixture 派生）",
+  "events": [
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 1,
+      "action": "claim"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 1,
+      "action": "deliver"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 1,
+      "action": "settle"
+    },
+    {
+      "ts": "2026-10-12T13:00:00Z",
+      "issue": 2,
+      "action": "claim"
+    },
+    {
+      "ts": "2026-10-12T14:00:00Z",
+      "issue": 2,
+      "action": "settle"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 4,
+      "action": "settle"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 5,
+      "action": "deliver"
+    },
+    {
+      "ts": "2026-10-12T15:00:00Z",
+      "issue": 5,
+      "action": "settle"
+    },
+    {
+      "ts": "2026-10-12T13:00:00Z",
+      "issue": 9,
+      "action": "claim"
+    },
+    {
+      "ts": "2026-10-12T14:00:00Z",
+      "issue": 9,
+      "action": "settle",
+      "covers": [
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 42,
+      "action": "role",
+      "role": "reviewer"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 43,
+      "action": "reject"
+    }
+  ]
+}

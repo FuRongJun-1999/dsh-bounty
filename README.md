@@ -30,6 +30,12 @@
 | **审核员机制** | [`scripts/bounty_board.py`](scripts/bounty_board.py) ／ [`docs/spec/审核员机制_v0.1.md`](docs/spec/审核员机制_v0.1.md) | 回避闸（自审自结禁止）＋ 审核员档（`/verify` `/appraise`，**不含** `/settle`）＋ 账本 `role` 事件授权面 ＋ 晋升复合判据 |
 | 晋升评估／授权面 | [`docs/bounty/promotion.json`](docs/bounty/promotion.json) ／ [`docs/bounty/roles.json`](docs/bounty/roles.json) | 由账本机械导出（`--promotion-out` ／ `--roles-out`；只读、纯函数） |
 | 静态站产物 | [`site/`](site/) | `index / board / honor / rules` 四页（由生成器产出） |
+| **三方对账校验件** | [`scripts/check_plan.py`](scripts/check_plan.py) | issue 标签面 × 标记面 × 账本面 → 一张对账表 ＋ 五类不一致**逐行点名**（纯 stdlib、只读、不触网；输入源 `--state` 镜像 或 `--ledger/--issues`；`--check` 漂移检测、`--strict` 准入、`--json` 机读） |
+| **三方对账守卫** | [`tests/test_check_plan.py`](tests/test_check_plan.py) | 48 条断言 ＋ 7 条定点变异（M1–M7）；含 `--state`/`--check`/`--strict`/`--json` 的输入输出面 |
+| 对账夹具 | [`tests/fixtures/check_plan_golden.json`](tests/fixtures/check_plan_golden.json) ／ [`…_ledger.json`](tests/fixtures/check_plan_golden_ledger.json) | `--check` 的**固定输入**（无网可跑；由守卫 `_fixture` 派生，两处同源） |
+| issue 快照导出器 | [`scripts/check_plan_snapshot.py`](scripts/check_plan_snapshot.py) | 把 issue 面导成对账可读的快照（**可选运维工具**，需 `gh` 登录；产物不提交进仓） |
+| 项目管理规格 | [`docs/spec/悬赏与项目管理_v0.2.md`](docs/spec/悬赏与项目管理_v0.2.md) | 三方定义／声明态 vs 默认态／五类口径／退出码语义／机读口径／不适用条件 |
+| 交付证据包 | [`docs/spec/悬赏与项目管理_v0.2_交付证据.md`](docs/spec/悬赏与项目管理_v0.2_交付证据.md) | 本条（bounty-pm）的四段式 ＋ 三字段证据块（投递草案） |
 
 **独立仓**：所有件自包含，不依赖任何外部仓的路径或模块——所有命令都在本仓根下跑，
 只用 Python 标准库（**零第三方依赖、不触网**）。
@@ -60,6 +66,12 @@ python -X utf8 scripts/bounty_list.py            # 生成 docs/bounty/悬赏清�
 python -X utf8 scripts/bounty_list.py --check    # 产物与真源一致则 0，漂移则 1
 python -X utf8 tests/test_bounty_list.py
 python -X utf8 tests/test_bounty_list.py --mutate
+
+# 3e. 三方对账：离线对账 ＋ 漂移检测 ＋ 守卫
+python -X utf8 scripts/check_plan.py --dry-run   # 对账表 ＋ 五类不一致逐行点名（退出码 0/1/2）
+python -X utf8 scripts/check_plan.py --check     # 漂移检测：0=无漂移 / 1=检出漂移或输入坏（读仓内夹具）
+python -X utf8 tests/test_check_plan.py
+python -X utf8 tests/test_check_plan.py --mutate
 
 # 3d. 审核员机制：晋升评估 ＋ 授权面（账本 → JSON；只读、纯函数）
 python -X utf8 scripts/bounty_board.py --promotion-out docs/bounty/promotion.json

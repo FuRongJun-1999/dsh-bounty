@@ -40,6 +40,23 @@
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    12,
+    24,
+    45,
+    267
+   ],
+   "login": "LarryE135",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 28,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
     167
@@ -54,14 +71,14 @@
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
-   "impact_grade": "A",
+   "impact_grade": "B",
    "issues": [
-    12,
-    24,
-    45
+    36,
+    106,
+    273
    ],
    "login": "LarryE135",
-   "project": "bounty_site",
+   "project": "memory",
    "quality_E": null,
    "reputation_delta": 22,
    "rounds": 1
@@ -129,21 +146,6 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 18,
-   "rounds": 1
-  },
-  {
-   "difficulty": "expert",
-   "difficulty_base": 10,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    36,
-    106
-   ],
-   "login": "LarryE135",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 16,
    "rounds": 1
   },
   {

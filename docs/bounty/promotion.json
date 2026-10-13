@@ -1,6 +1,36 @@
 {
  "candidates": [
   {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    12,
+    24,
+    36,
+    45,
+    106,
+    107,
+    267,
+    273
+   ],
+   "login": "LarryE135",
+   "projects": [],
+   "reputation_delta": 60,
+   "round0": 0,
+   "round0_ratio": 0.0,
+   "round_known": 8,
+   "round_seen": [
+    1
+   ],
+   "settled": 8,
+   "timeout": 0
+  },
+  {
    "blockers": [
     "一次过闸占比 0.20 < 0.33"
    ],
@@ -59,34 +89,6 @@
     1
    ],
    "settled": 11,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    12,
-    24,
-    36,
-    45,
-    106,
-    107
-   ],
-   "login": "LarryE135",
-   "projects": [],
-   "reputation_delta": 48,
-   "round0": 0,
-   "round0_ratio": 0.0,
-   "round_known": 6,
-   "round_seen": [
-    1
-   ],
-   "settled": 6,
    "timeout": 0
   },
   {

@@ -407,6 +407,74 @@ def group_lifecycle():
        (_d35a.reason[:20], _d35b.reason[:20], _d35c.reason[:20]))
     _ok36, _bad36 = bb.rescore(list(_d32.extra_events) + list(_d34.extra_events))
     ok("G36 落选分 rescore 一致（按难度表复算）", _ok36 and not _bad36, _bad36)
+
+    # ---- G46..：rescore 对**畸形 formula / delta** 的报告面（不得崩）----
+    # `rescore` 是 `docs/bounty/README.md:144` 写明的**公开可复算入口**，职责是
+    # 「逐条按事件自带 formula 重算并断言与 delta 一致」⇒ 畸形输入应落**结构化 bad**，
+    # 而不是抛裸 ValueError 回溯（本仓输入级错误走 `BoardError` ⇒ 调用方退 2 的契约）。
+    _SR = bb.SCORE_RULE
+
+    def _rs1(formula, delta=10):
+        try:
+            return bb.rescore([{"id": "evt_m", "delta": delta, "formula": formula}])
+        except Exception as _exc:                                   # noqa: BLE001
+            return ("CRASH", type(_exc).__name__)
+
+    _m = {}
+    for _tag, _f in (
+            ("e_total 非数值", {"rule": _SR, "kind": "complete", "base": 6, "round": 0,
+                                "e_pass": 1, "e_total": "abc"}),
+            ("round 非数值", {"rule": _SR, "kind": "complete", "base": 6, "round": "x",
+                              "e_pass": 1, "e_total": 3}),
+            ("e_pass 非数值", {"rule": _SR, "kind": "complete", "base": 6, "round": 0,
+                               "e_pass": "x", "e_total": 3}),
+            ("timeout base 非数值", {"rule": _SR, "kind": "timeout", "base": "x"}),
+            ("invalid base 非数值", {"rule": _SR, "kind": "invalid", "base": "x"})):
+        _r = _rs1(_f)
+        _m[_tag] = _r
+    ok("G46 畸形 formula 一律**不崩**、返回 (ok=False, bad)",
+       all(isinstance(v, tuple) and v[0] is False and v[1]
+           for v in _m.values()),
+       {k: (v[0], (v[1][0][1][:26] if isinstance(v[1], list) and v[1] else v[1]))
+        for k, v in _m.items()})
+    ok("G47 畸形理由以 `malformed formula` 开头（与 missing/unknown 同款结构）",
+       all(isinstance(v[1], list) and v[1] and v[1][0][1].startswith("malformed formula")
+           for v in _m.values()),
+       {k: (v[1][0][1][:30] if isinstance(v[1], list) and v[1] else v[1])
+        for k, v in _m.items()})
+    ok("G48 `bad` 三元组形状与既有条目一致（id, reason, delta, recomputed）",
+       all(len(v[1][0]) == 4 and v[1][0][0] == "evt_m" and v[1][0][3] is None
+           for v in _m.values()), '')
+
+    _rd = [_rs1({"rule": _SR, "kind": "complete", "base": 6, "round": 0}, delta=d)
+           for d in ("abc", None, [], {})]
+    ok("G49 非数值 delta 不崩，落 `delta mismatch`",
+       all(isinstance(v, tuple) and v[0] is False and v[1][0][1] == "delta mismatch"
+           for v in _rd), _rd)
+    ok("G50 数值字符串 delta 仍按数值处理（不误判）",
+       _rs1({"rule": _SR, "kind": "complete", "base": 10, "round": 0}, delta="20")[0] is True,
+       _rs1({"rule": _SR, "kind": "complete", "base": 10, "round": 0}, delta="20"))
+
+    # G51 用**防御式**调用（M44 会把 `_as_int` 改成直接抛）——否则变异体会让整套崩，
+    # 变异框架只能记 `<变异体异常>`，无法定向点名 G51。
+    _ai_vals = ("abc", None, [], "12", 7.9)
+    _ai_ok = True
+    _ai_res = []
+    for _x in _ai_vals:
+        try:
+            _ai_res.append(bb._as_int(_x))
+        except Exception:                                            # noqa: BLE001
+            _ai_ok = False
+            _ai_res.append(None)
+    _ai_res = tuple(_ai_res)
+    ok("G51 `_as_int` 宽容且不抛（非法 ⇒ 默认值；合法照转）",
+       _ai_ok and _ai_vals == ("abc", None, [], "12", 7.9)
+       and _ai_res == (0, 0, 0, 12, 7),
+       f"{_ai_vals} → {_ai_res}")
+
+    # G52 不另立：合法事件的 `rescore` 一致性已由 **G20** 覆盖（同一断言重复会让
+    # M8/M13 的红项集合多出一项，从而破坏「恰好命中」的变异自证契约）。
+
     # ---- 价值评价（影响等级；可配置表 + 判定留痕 + 不参与计分）----
     _stap = bb.IssueState(number=101, labels=("bounty", "bounty:delivered", "difficulty:hard"),
                           has_bounty=True, state="delivered", holder="alice", rounds=1, seq=1,
@@ -908,9 +976,13 @@ _MUTATIONS = (
     ("M17 partial 不校验数值范围（越界放行）",
      "        if _t <= 0 or _p < 0 or _p > _t:",
      "        if False:  # MUT", {"G25"}),
+# ⚠ 本 PR 改了 `rescore` 的 `_e` 取法（内联 ⇒ `e_ratio` 单点），故 M18 的锚点必须
+# 同步更新——否则 `_anchor_preflight()` 会以 ANCHOR-MISS 退出码 2（fail-closed）拒掉本 PR。
+# 这是本仓既有纪律（`_mutate_source` 的锚点唯一性），不是放宽判据：M18 的语义
+# （关掉 E 乘数 ⇒ 复算链与结算口径分叉）与期望红项 `{"G24"}` 均未变。
     ("M18 rescore 忽略 E（复算链与结算口径分叉）",
-     "            _e = (int(f.get(\"e_pass\") or 0) / int(f[\"e_total\"])) if f.get(\"e_total\") else 1.0",
-     "            _e = 1.0  # MUT", {"G24"}),
+     "            _e = e_ratio(f.get(\"e_pass\"), f.get(\"e_total\"))",
+     "            _e = 1.0  # MUT", {"G24", "G47", "G48"}),
     ("M19 关一人一投判据（可重复投标刷名单）",
      "    if actor in st.bidders:",
      "    if False:  # MUT", {"G29"}),
@@ -983,6 +1055,15 @@ _MUTATIONS = (
     ("M42 关作者缺失检查（作者 None 也放行到名单比对）",
      '    if not st.author:',
      '    if False:  # MUT', {"Z3"}),
+    # ★本笔新增：关掉 `rescore` 的畸形输入兜底 ⇒ 畸形 formula 会**抛裸 ValueError**
+    # （旧实现即如此：`int("abc")` 直接回溯，既不落 `BoardError` 也不返回 bad 报告）。
+    ("M43 rescore 不兜底畸形 formula（畸形输入直接抛）",
+     '        except (TypeError, ValueError, ZeroDivisionError) as exc:',
+     '        except (KeyboardInterrupt,) as exc:  # MUT', {"G46", "G47", "G48"}),
+    # ★本笔新增：`_as_int` 不再宽容（非法值直接抛）⇒ 畸形 delta 会崩。
+    ("M44 `_as_int` 不宽容（非法值直接抛）",
+     '    try:' + chr(10) + '        return int(x)' + chr(10) + '    except (TypeError, ValueError):' + chr(10) + '        return default',
+     '    return int(x)  # MUT', {"G49", "G51"}),
 )
 
 
@@ -1027,7 +1108,8 @@ _MUT_TARGETS = (("M0", "parse_command"), ("M1", "_check_claimable"),
                 ("M36", "_do_appraise"), ("M37", "roles_from_events"),
                 ("M38", "promotion_report"), ("M39", "promotion_report"),
                 ("M40", "promotion_report"),
-                ("M41", "_check_admission"), ("M42", "_check_admission"))
+                ("M41", "_check_admission"), ("M42", "_check_admission"),
+                ("M43", "rescore"), ("M44", "_as_int"))
 
 
 def _anchor_preflight():

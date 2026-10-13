@@ -115,6 +115,12 @@ def readme_snapshot_of(slug) -> str:
     """该记录的正文快照文件名。"""
     name = "%s.README.md" % slug
     for doc in load_manifest_docs():
+        # ★本笔：**元素形状判据**。清单条目非对象（合法 JSON）⇒ `AttributeError`，
+        # 而本文件 docstring 承诺「2 = 输入／环境错误（…快照读不到——fail-closed）」。
+        # 实测：清单里插一条 `"oops"` ⇒ `readme_snapshot_of` 抛
+        # `AttributeError: 'str' object has no attribute 'get'`（rc=1，契约要 2）。
+        if not isinstance(doc, dict):
+            continue
         if str(doc.get("file") or "") == name:
             return name
     raise ValueError("快照清单里没有 %s（正文快照）" % name)

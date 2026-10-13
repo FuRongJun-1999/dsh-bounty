@@ -1536,6 +1536,76 @@
       "project": "hive_memory_bench",
       "reason": "hive-memory-bench negated() 退化路径仍用废弃 12 字窗（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
       "ts": "2026-10-13T12:00:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        65
+      ],
+      "day": "2026-10-13",
+      "delta": 10,
+      "difficulty": "expert",
+      "formula": {
+        "base": 10,
+        "delta": 10,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 10.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "acrot0",
+      "id": "evt_0291fd5c72bd",
+      "impact": "A",
+      "issue": 65,
+      "pr": {
+        "additions": 1798,
+        "head_sha": "d2996e4",
+        "number": 104,
+        "state": "merged",
+        "title": "feat(review): 插件测评站生成器 ＋ 守卫（28 断言 / 17 定点变异）＋ 3 插件测评"
+      },
+      "project": "bounty_site",
+      "reason": "悬赏 #65（插件测评站，expert）的交付：review 子站生成器 + 数据 schema + 四页产物；与 zijinmengxi 的 #161 为**同一悬赏的两份独立交付**，两份互不相交（#104 测 3 个插件：dsh-better-sidebar / dsh-cost-meter / dsh-office-tools；#161 测另 3 个：dsh-memory / dsh-mnemonic / dsh-auto-memory），合并时两套数据并存于 review/legacy/dsh-platform-v1/。**两份各记 expert 10 分**（维护者裁定）。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "ts": "2026-10-13T12:30:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        65
+      ],
+      "day": "2026-10-13",
+      "delta": 10,
+      "difficulty": "expert",
+      "formula": {
+        "base": 10,
+        "delta": 10,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 10.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "zijinmengxi",
+      "id": "evt_8804091ea390",
+      "impact": "A",
+      "issue": 65,
+      "pr": {
+        "additions": 5872,
+        "head_sha": "9eccb72",
+        "number": 161,
+        "state": "merged",
+        "title": "feat(review): eval-site 认领 + 交付 · 插件测评子站（48/23 断言，20 组定点变异）"
+      },
+      "project": "bounty_site",
+      "reason": "悬赏 #65（插件测评站，expert）的交付：生成器 737 行（--check 漂移闸 + fail-closed exit 2）、五维固定 1–5 整数评分、证据包 manifest（7 文档 sha256 锚定）、证据核验件；并新开 .github/workflows/review-check.yml CI 面。**两份各记 expert 10 分**（维护者裁定）。另：本件在 PR 正文中主动上报了一处上游自相矛盾（悬赏.json 的 howto/not_applicable 与 #65 关闭说明冲突）且未擅改治理文本——该上报经核实成立。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "ts": "2026-10-13T12:30:00Z"
     }
   ]
 }

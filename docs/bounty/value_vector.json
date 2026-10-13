@@ -121,6 +121,21 @@
    "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
+    65,
+    99
+   ],
+   "login": "acrot0",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 16,
+   "rounds": 1
+  },
+  {
+   "difficulty": "expert",
+   "difficulty_base": 10,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
     107
    ],
    "login": "LarryE135",
@@ -158,6 +173,20 @@
    "rounds": 1
   },
   {
+   "difficulty": "expert",
+   "difficulty_base": 10,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    65
+   ],
+   "login": "zijinmengxi",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 10,
+   "rounds": 1
+  },
+  {
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
@@ -183,20 +212,6 @@
    ],
    "login": "Beiwo992",
    "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 6,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    99
-   ],
-   "login": "acrot0",
-   "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 6,
    "rounds": 1

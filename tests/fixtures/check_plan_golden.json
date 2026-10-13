@@ -1,0 +1,112 @@
+{
+  "_schema": "check_plan golden 夹具（固定输入，无网可跑）——由 tests/test_check_plan.py 的 _fixture 派生，两处须同源",
+  "items": [
+    {
+      "number": 1,
+      "labels": [
+        "bounty",
+        "difficulty:hard",
+        "bounty:settled"
+      ],
+      "comments": [
+        "<!-- bounty:v1 {\"seq\": 4, \"state\": \"settled\"} -->"
+      ]
+    },
+    {
+      "number": 2,
+      "labels": [
+        "bounty",
+        "difficulty:medium",
+        "bounty:claimed"
+      ],
+      "comments": [
+        "<!-- bounty:v1 {\"seq\": 2, \"state\": \"claimed\"} -->"
+      ]
+    },
+    {
+      "number": 3,
+      "labels": [
+        "bounty",
+        "difficulty:hard",
+        "bounty:delivered"
+      ],
+      "comments": [
+        "<!-- bounty:v1 {\"seq\": 3, \"state\": \"delivered\"} -->"
+      ]
+    },
+    {
+      "number": 4,
+      "labels": [],
+      "comments": [
+        "<!-- bounty:v1 {\"seq\": 5, \"state\": \"settled\"} -->"
+      ]
+    },
+    {
+      "number": 5,
+      "labels": [
+        "bounty",
+        "difficulty:easy",
+        "bounty:claimed",
+        "bounty:delivered"
+      ],
+      "comments": [
+        "<!-- bounty:v1 {\"seq\": 6, \"state\": \"claimed\"} -->"
+      ]
+    },
+    {
+      "number": 6,
+      "labels": [],
+      "comments": []
+    },
+    {
+      "number": 7,
+      "labels": [
+        "bounty",
+        "difficulty:expert"
+      ],
+      "comments": []
+    },
+    {
+      "number": 8,
+      "labels": [
+        "bounty",
+        "difficulty:hard",
+        "bounty:claimed"
+      ],
+      "comments": []
+    },
+    {
+      "number": 9,
+      "labels": [
+        "bounty",
+        "difficulty:hard",
+        "bounty:settled"
+      ],
+      "comments": [
+        "<!-- bounty:v1 {\"seq\": 10, \"state\": \"settled\"} -->"
+      ]
+    },
+    {
+      "number": 10,
+      "labels": [
+        "bounty",
+        "difficulty:medium",
+        "bounty:settled"
+      ],
+      "comments": [
+        "<!-- bounty:v1 {\"seq\": 8, \"state\": \"settled\"} -->"
+      ]
+    },
+    {
+      "number": 11,
+      "labels": [
+        "bounty",
+        "difficulty:medium",
+        "bounty:settled"
+      ],
+      "comments": [
+        "<!-- bounty:v1 {\"seq\": 9, \"state\": \"settled\"} -->"
+      ]
+    }
+  ]
+}

@@ -343,7 +343,14 @@ def reconcile(issues, events):
         # 才不需账本背书（否则线上每个刚挂上的 `bounty:open` 都会炸成漂移）。
         verdict = "一致"
         broken = ""
-        if declared and lst and lst != eff:
+        # ★本笔：**去掉 `declared` 合取项** —— 它吞掉了「账本声明了态、issue 面一个态都没声明」
+        # 这一方向。旧判据只校验「声明态 ⇒ 账本」，不校验「账本有态 ⇒ issue 面须声明」。
+        # 例：`#76` 标签 `open`（仅由 `bounty` 推导，`declared=False`）、账本 `settled`
+        # ⇒ 旧实现判「一致」（漏报），而 v0.2 §三优先 1 的判据原文是
+        # 「账本与有效态不一致，**且账本与标记、标签两面都对不上**」—— #76 完全命中。
+        # `declared` 对其既定目的（「默认 open 不需账本背书」）是**冗余**的：
+        # 那种情形下 `lst` 为空，`lst and …` 已短路。
+        if lst and lst != eff:
             verdict = DEFECT_STATE_CONFLICT
             # 账本与「标签/标记合成的有效态」对不上 ⇒ 说清**是哪一面**与账本矛盾，好定位。
             if ls and lst == ls:
@@ -352,8 +359,17 @@ def reconcile(issues, events):
                 broken = f"标签态与账本不符（标签={ls}）"
             else:
                 broken = "标签与标记均与账本不符"
-        elif lst and bb.LABEL_GATE not in labels:
-            verdict = DEFECT_LABEL_GAP          # 账本有事件，issue 面无入选标记
+        # ★本笔：把 `difficulty:*` 的缺件判据从**串联**改成**并联**。
+        # 旧实现：verdict 只在「缺 `bounty`」时才落到 `DEFECT_LABEL_GAP`，
+        # 而下方 `if not any(lbl.startswith("difficulty:"))` 那一支**永远不可达**
+        # （L352 的 `if bb.LABEL_GATE not in labels` 必然为真时才走到这里）。
+        # ⇒ 「已结算、却从未定难度」这一缺口**零判据**，而 `_do_settle` 对无 difficulty 的
+        # 悬赏**照常结算**（只写「无 difficulty 标签（按 base 1 记）」）⇒ 该形态是**正常产物**。
+        # v0.2 §三优先 2 的判据是「账本有事件 **且**（无 `bounty` **或** 无 `difficulty`）」
+        # —— **每缺一项一行**，两个条件本应并列。
+        elif lst and (bb.LABEL_GATE not in labels
+                      or not any(lbl.startswith("difficulty:") for lbl in labels)):
+            verdict = DEFECT_LABEL_GAP          # 账本有事件，issue 面缺入选标记或难度标签
         elif declared and not lst:
             verdict = DEFECT_LEDGER_GAP         # 有声明态却账本查无此号
         elif lst and ls and ms and ls != ms:

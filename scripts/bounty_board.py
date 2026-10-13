@@ -476,6 +476,15 @@ def _seq(rec: dict) -> int:
         return 0
 
 
+def _rounds(rec: dict) -> int:
+    # #275：rounds 非数字字符串（如 "abc"）时 int() 抛 ValueError，
+    # workflow 无 try/except 会整轮卡死；与 _seq 同款兜底，畸形按 0 处理。
+    try:
+        return int(rec.get("rounds") or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
 # 生效条件：comments 为评论正文可迭代（含 None/坏 JSON）时返回「seq 最大且带 state 字段」的标记字典；无任何合格标记时返回 None（坏 JSON 一律跳过，不抛）。
 def latest_marker(comments):
     """评论流 → 最新的状态标记（权威记录）；无则 None。"""
@@ -504,7 +513,7 @@ def build_state(number, labels, comments, author=None) -> IssueState:
     return IssueState(
         number=int(number), labels=labels, has_bounty=has_bounty, state=state or "",
         holder=marker.get("holder") or None, due_at=marker.get("due_at") or None,
-        rounds=int(marker.get("rounds") or 0), seq=_seq(marker),
+        rounds=_rounds(marker), seq=_seq(marker),
         difficulty=difficulty, author=author,
         criteria=tuple(marker.get("criteria") or ()),
         bidders=tuple(marker.get("bidders") or ()),

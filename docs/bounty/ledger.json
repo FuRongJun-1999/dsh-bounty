@@ -1717,6 +1717,174 @@
       "project": "bounty_site",
       "reason": "悬赏 #65（插件测评站，expert）的交付：生成器 737 行（--check 漂移闸 + fail-closed exit 2）、五维固定 1–5 整数评分、证据包 manifest（7 文档 sha256 锚定）、证据核验件；并新开 .github/workflows/review-check.yml CI 面。**两份各记 expert 10 分**（维护者裁定）。另：本件在 PR 正文中主动上报了一处上游自相矛盾（悬赏.json 的 howto/not_applicable 与 #65 关闭说明冲突）且未擅改治理文本——该上报经核实成立。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
       "ts": "2026-10-13T12:30:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        166
+      ],
+      "day": "2026-10-13",
+      "delta": 6,
+      "difficulty": "hard",
+      "formula": {
+        "base": 6,
+        "delta": 6,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 6.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "cyd471",
+      "id": "evt_9dd30cadff64",
+      "impact": "A",
+      "issue": 166,
+      "project": "hive_memory_bench",
+      "reason": "hive-memory-bench 缺陷 3 条（1×P0 + 2×P1），维护者逐条独立结构验证成立：① chain/tools/probe_judge.py:487 效度门③的 _nonincreasing(seq, tol=0.05) 允许每桶回升 0.05 ⇒ 实测 0.859→0.902→0.931 逐桶上升的臂 monotone=True、四条门全过（门名「链长单调退化」与判据语义不符）；② METRIC_FIELDS 10 项无时点类正确率 ⇒ 63 道时点问无指标、全答 active 的常数臂 0.523 高于版本盲 0.508；③ cards/o050.yaml 的 rubric any_of 即题干四地名 ⇒ 复述题干得 4/5=0.8 规则层 pass。申报自申 easy×3，维护者上调 hard：P0 使一条已发布的效度门名实不符，且牵连 dsh-bounty #5 交付主张「校准门四条全过」。影响 A 按「不做则整条链长压力轴的结论不可信」判。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "ts": "2026-10-13T12:00:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        167
+      ],
+      "day": "2026-10-13",
+      "delta": 6,
+      "difficulty": "hard",
+      "formula": {
+        "base": 6,
+        "delta": 6,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 6.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "level0000x",
+      "id": "evt_d7c5fd7b3f2e",
+      "impact": "A",
+      "issue": 167,
+      "project": "memory",
+      "reason": "dsh-memory 缺陷 12 条（工作项＝2026-09-23 批次，#25/#26/#27/#28/#29/#30/#31/#33/#34/#35/#36/#37）：检索门控 S1/S1b/S3/S4/S7 在生产路径从未生效、空库首次写入恒不落盘、E041「LLM 不得自己验证自己」可被大小写绕过并成功落盘、hotcache 写侧已接而中间从未挂载、Rust 与 Python 检索 top-5 仅 1/40 逐位对齐、检索热路径单查询 572 次文件读、S1b 中文 query × 英文桶键恒不收敛、租户物理根隔离声明未接线、判据面覆盖缺口、互验执行链实测六项。难度 hard、影响 A（含租户隔离与治理绕过两条安全面）。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "ts": "2026-10-13T12:00:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        167
+      ],
+      "day": "2026-10-13",
+      "delta": 3,
+      "difficulty": "medium",
+      "formula": {
+        "base": 3,
+        "delta": 3,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 3.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "level0000x",
+      "id": "evt_55394ea19ef5",
+      "impact": "B",
+      "issue": 167,
+      "project": "memory",
+      "reason": "dsh-memory 缺陷 3 条（工作项＝2026-10-11 批次，#120/#121/#122）：统一配置层 registry 自称「可调参数单一登记真源」而实测 24 个生产 env 绕过、md_cg/metacognition calibration() 静默丢弃条件、核心枚举 LAYERS 在 md_access.py 存在第二份独立权威。难度 medium、影响 B（架构治理面，爆炸半径限本仓）。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "ts": "2026-10-13T12:00:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        167
+      ],
+      "day": "2026-10-13",
+      "delta": 10,
+      "difficulty": "expert",
+      "formula": {
+        "base": 10,
+        "delta": 10,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 10.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "level0000x",
+      "id": "evt_c3021f7360c2",
+      "impact": "A",
+      "issue": 167,
+      "project": "memory",
+      "reason": "dsh-memory 缺陷 21 条（工作项＝2026-10-12 批次，#125/#126/#127/#128/#129/#130/#131/#132/#135/#137/#138/#140/#143/#175/#176/#177/#179/#180/#183/#184/#185）：含安全模型（#132 密钥轮换为无迁移路径的单向数据丢失、令牌库损坏致常驻进程全量凭据失效、信封清单对 guest 全量暴露）、可靠性（#137 自维持常驻循环心跳与业务档共用单线程，实测 1/7 心跳）、设计面（#135 atoms.json 815 个「标准语义原子」中 575 项 70% 冗余；#138 校验器语义与所校验对象不同源）、检索面（#130 _path_entity 分数恒为常量 1.0 却以全权重进融合；#131 倒排发布表判据与内容不同源）、治理面（#129 守卫族缺执行面元守卫，8 个守卫 gate/CI 双缺），另有 #127/#128 两条 P0 与 5 条回归/守卫残留。难度 expert、影响 A（单批含安全模型级与多条 P0，覆盖核心链路）。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "ts": "2026-10-13T12:00:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        167
+      ],
+      "day": "2026-10-13",
+      "delta": 6,
+      "difficulty": "hard",
+      "formula": {
+        "base": 6,
+        "delta": 6,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 6.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "level0000x",
+      "id": "evt_496cfceb07a4",
+      "impact": "B",
+      "issue": 167,
+      "project": "memory",
+      "reason": "dsh-memory 缺陷 3 条（工作项＝2026-10-13 批次，#196/#197/#205）：#196 #175 的「守卫隔离宿主 env」只改了一个文件（收口不全）、#197 #130 残留 _RANK_ABSTAIN_PATHS 硬编码名单漏项、#205 融合层名次可信度给出可机械判据（floor_mass 而非路名名单，实测推翻同批假设）。难度 hard、影响 B（前两条为残留面，第三条为方法级改进）。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "ts": "2026-10-13T12:00:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        5
+      ],
+      "day": "2026-10-13",
+      "delta": 6,
+      "difficulty": "hard",
+      "formula": {
+        "base": 6,
+        "delta": 6,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 6.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "TanPowasd",
+      "id": "evt_ea3c2972eb97",
+      "impact": "B",
+      "issue": 5,
+      "project": "memory",
+      "reason": "dsh-memory 交付：状态链轨 v0.2 记忆算法 RRF3 v1.1 + ChronicleDM（625 题 现值 0.979／历史 0.927／变更链 0.982，零 LLM 判官可复算）。补记说明：本条原应在 2026-10-12 批次入账（当日已在 dsh-bounty #5 留结算评论并关闭），实测账本遗漏 ⇒ 本轮补记并同步更正原评论。难度 hard（未申请，维护者独立定档）、影响 B（新增算法与交付件，未合入、未改动任何既有文件 ⇒ 探索性提案，爆炸半径限本仓）。待办：本交付的效度门③读数口径已由 dsh-bounty #166 指出问题（_nonincreasing 容忍逐桶回升），其「校准门四条全过」的结论待上游修门后重算；本轮不据此扣分（扣分只发生在轮次用尽/无效交付/超时）。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "ts": "2026-10-13T12:00:00Z"
     }
   ]
 }

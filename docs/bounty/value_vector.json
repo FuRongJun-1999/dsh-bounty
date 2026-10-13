@@ -40,6 +40,20 @@
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    167
+   ],
+   "login": "level0000x",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 25,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
     12,
@@ -188,6 +202,21 @@
    "rounds": 1
   },
   {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    146,
+    166
+   ],
+   "login": "cyd471",
+   "project": "hive_memory_bench",
+   "quality_E": null,
+   "reputation_delta": 9,
+   "rounds": 1
+  },
+  {
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
@@ -242,6 +271,20 @@
    ],
    "login": "NekoDD-wow",
    "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    5
+   ],
+   "login": "TanPowasd",
+   "project": "memory",
    "quality_E": null,
    "reputation_delta": 6,
    "rounds": 1
@@ -439,20 +482,6 @@
    ],
    "login": "acrot0",
    "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 3,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    146
-   ],
-   "login": "cyd471",
-   "project": "hive_memory_bench",
    "quality_E": null,
    "reputation_delta": 3,
    "rounds": 1

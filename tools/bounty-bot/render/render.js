@@ -85,7 +85,9 @@ try {
   ], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] });
 
   const m = probe.match(/data-full-height="(\d+)"/);
-  const h = m ? Math.min(Math.max(parseInt(m[1], 10), 400), 4000) : 1600;
+  // 高度**不设硬上限**：榜单有多少人就出多长（早期截断在 4000px 会切掉尾部人名）。
+  // 只留一个很宽的安全边界（24000px ≈ 数百人）防跑飞。
+  const h = m ? Math.min(Math.max(parseInt(m[1], 10), 400), 24000) : 1600;
 
   chrome([
     '--headless=new', '--no-sandbox', '--disable-gpu', '--hide-scrollbars',

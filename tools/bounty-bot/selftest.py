@@ -219,6 +219,55 @@ def main():
     check("历史快照永不删除", _hm["has_history"] is True)
     _hc.close()
 
+    print("== 3c. 总榜含历史补录 ＋ 日榜/月榜 ＋ 不限人数 ==")
+    import tempfile as _tf3
+    _bdb = Path(_tf3.mkdtemp(prefix="bounty_board_")) / "b.db"
+    _bc = db.connect(_bdb)
+    # 当前表：alice 8 / bob 6；历史补录：alice +20（11号 v0.1）
+    db.replace_contrib(_bc, [], [{"github": "alice", "total": 8, "issues": None},
+                                 {"github": "bob", "total": 6, "issues": None}])
+    db.add_history(_bc, "alice", 20, src="v0.1", note="11号")
+    db.add_history(_bc, "carol", 4, src="v0.1", note="11号")
+    _t = {r["github"]: r["total"] for r in db.all_totals(_bc)}
+    check("总榜 = 当前表 + 历史补录",
+          _t == {"alice": 28, "bob": 6, "carol": 4}, str(_t))
+    check("历史的人也在榜上（carol）", "carol" in _t)
+    check("名次按合并分算", db.rank_of(_bc, "alice")[0] == 1,
+          str(db.rank_of(_bc, "alice")))
+    check("总人数含历史", db.rank_of(_bc, "bob")[1] == 3,
+          str(db.rank_of(_bc, "bob")))
+    _d = db.person_detail(_bc, "alice")
+    check("个人明细 total = 当前 + 历史",
+          _d["total"] == 28 and _d["total_now"] == 8 and _d["total_history"] == 20,
+          str((_d["total"], _d["total_now"], _d["total_history"])))
+
+    # 日榜 / 月榜
+    db.seed_snapshot(_bc, "2026-10-11", [("alice", 20), ("carol", 4)], src="v0.1")
+    db.seed_snapshot(_bc, "2026-10-12", [("alice", 28), ("bob", 6), ("carol", 4)],
+                     src="ledger")
+    db.seed_snapshot(_bc, "2026-10-13", [("alice", 34), ("bob", 6), ("carol", 4)],
+                     src="ledger")
+    _day = db.board_by_day(_bc, "2026-10-13")
+    _dm = {r["github"]: r["total"] for r in _day}
+    check("日榜 = 当天增量", _dm.get("alice") == 6, str(_dm))
+    check("日榜不含没得分的人", "bob" not in _dm, str(_dm))
+    _mon = db.board_by_month(_bc, "2026-10")
+    _mm = {r["github"]: r["total"] for r in _mon}
+    # 月榜 = 该月**热力图各方格之和**（同源，逐格一致）。
+    #   11 号 20（首版基线）＋ 12 号 28（换口径新基线）＋ 13 号 6 = 54
+    check("月榜 = 各日增量之和（与热力图同源）", _mm.get("alice") == 54, str(_mm))
+    check("月榜含历史来源（carol 4+4=8）", _mm.get("carol") == 8, str(_mm))
+    check("已记录结算日可列出",
+          db.snapshot_days(_bc) == ["2026-10-11", "2026-10-12", "2026-10-13"],
+          str(db.snapshot_days(_bc)))
+
+    # 不限人数：灌 60 人看是否全出
+    db.replace_contrib(_bc, [], [{"github": "u%02d" % i, "total": 100 - i, "issues": None}
+                                 for i in range(60)])
+    check("总榜不限人数（60 人全出）", len(db.all_totals(_bc)) >= 60,
+          "n=%d" % len(db.all_totals(_bc)))
+    _bc.close()
+
     print("== 4. 名次 / 明细 ==")
     rank, people = db.rank_of(conn, subj)
     check("名次=1（榜首）", rank == 1, "rank=%d/%d" % (rank, people))

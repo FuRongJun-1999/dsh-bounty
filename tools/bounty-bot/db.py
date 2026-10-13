@@ -87,6 +87,17 @@ CREATE TABLE IF NOT EXISTS bounty (
     synced_at   TEXT NOT NULL
 );
 
+-- 历史手动补录（**常年累加**）：初期 bootstrap 的分数（如 11 号 v0.1 表）
+-- 这些不在当前贡献表里，但属于该成员已获得的分，故并入总榜/累计。
+-- 与 contrib_total 分开存 => 每天同步整表替换 contrib_total 时不会把它冲掉。
+CREATE TABLE IF NOT EXISTS contrib_history (
+    github      TEXT PRIMARY KEY,
+    total       INTEGER NOT NULL,
+    src         TEXT,
+    note        TEXT,
+    added_at    TEXT NOT NULL
+);
+
 -- 同步元数据（sha / 指纹 / 上次时间）
 CREATE TABLE IF NOT EXISTS sync_meta (
     k           TEXT PRIMARY KEY,
@@ -257,31 +268,48 @@ def seed_snapshot(conn, snap_date, pairs, src="ledger") -> int:
 
 
 def person_detail(conn, github):
-    """某个 github 账户的完整贡献明细（大小写不敏感）。"""
+    """某个 github 账户的完整贡献明细（大小写不敏感）。
+
+    total = 当前表分 ＋ 历史补录分（与总榜口径一致）。
+    """
     cf = github.strip().lower()
     total_row = conn.execute(
         "SELECT * FROM contrib_total WHERE lower(github)=?", (cf,)
+    ).fetchone()
+    hist = conn.execute(
+        "SELECT total,src FROM contrib_history WHERE lower(github)=?", (cf,)
     ).fetchone()
     issues = conn.execute(
         "SELECT * FROM contrib_issue WHERE lower(github)=? ORDER BY CAST("
         "REPLACE(REPLACE(issue_no, '#', ''), ' ', '') AS INTEGER)",
         (cf,),
     ).fetchall()
-    if total_row is None and not issues:
+    if total_row is None and hist is None and not issues:
         return None
+    if total_row is not None:
+        base = int(total_row["total"])
+        name = total_row["github"]
+        itext = total_row["issues"]
+    elif issues:
+        base = sum(int(i["delta"] or 0) for i in issues)
+        name = issues[0]["github"]
+        itext = None
+    else:
+        base, name, itext = 0, hist["github"] if "github" in hist.keys() else github, None
+    hist_total = int(hist["total"]) if hist else 0
     return {
-        "github": (total_row["github"] if total_row else issues[0]["github"]),
-        "total": int(total_row["total"]) if total_row else sum(int(i["delta"] or 0) for i in issues),
+        "github": name,
+        "total": base + hist_total,
+        "total_now": base,
+        "total_history": hist_total,
         "issues": [dict(i) for i in issues],
-        "issues_text": total_row["issues"] if total_row else None,
+        "issues_text": itext,
     }
 
 
 def rank_of(conn, github):
-    """返回 (名次, 总人数)；不在榜则 (0, n)。"""
-    rows = conn.execute(
-        "SELECT github, total FROM contrib_total ORDER BY total DESC, github ASC"
-    ).fetchall()
+    """返回 (名次, 总人数)；不在榜则 (0, n)。口径与总榜一致（含历史补录）。"""
+    rows = all_totals(conn)
     cf = github.strip().lower()
     for idx, r in enumerate(rows, 1):
         if r["github"].lower() == cf:
@@ -289,10 +317,122 @@ def rank_of(conn, github):
     return 0, len(rows)
 
 
+def _merged_totals(conn):
+    """contrib_total（当前贡献表）＋ contrib_history（手动补录的历史）按人合并。
+
+    历史分是**累加**的：11 号拿过的分，不该因为 12 号换了表就消失。
+    """
+    acc = {}
+    for r in conn.execute("SELECT github,total FROM contrib_total"):
+        k = r["github"].strip()
+        acc[k.lower()] = acc.get(k.lower(), 0) + int(r["total"] or 0)
+    for r in conn.execute("SELECT github,total FROM contrib_history"):
+        k = r["github"].strip()
+        acc[k.lower()] = acc.get(k.lower(), 0) + int(r["total"] or 0)
+    # 还原显示名（优先当前表的写法，其次历史表）
+    names = {}
+    for r in conn.execute("SELECT github FROM contrib_history"):
+        names.setdefault(r["github"].strip().lower(), r["github"].strip())
+    for r in conn.execute("SELECT github FROM contrib_total"):
+        names[r["github"].strip().lower()] = r["github"].strip()
+    return [{"github": names.get(k, k), "total": v} for k, v in acc.items()]
+
+
 def all_totals(conn):
+    """总榜：当前表 + 历史补录，按分降序。**不限人数**（有多少人出多少人）。"""
+    rows = _merged_totals(conn)
+    rows.sort(key=lambda x: (-x["total"], x["github"].lower()))
+    return rows
+
+
+def _daily_deltas(conn):
+    """逐日增量：{日期: {github小写: 增量}}。
+
+    与 heatmap() **同一套规则**（首版/换来源 => 按自身累计作基线，否则求差），
+    保证日榜/月榜与热力图格子**逐格一致**，不会两处口径打架。
+    """
+    snaps = conn.execute(
+        "SELECT snap_date,total,COALESCE(src,'ledger') AS src,github "
+        "FROM contrib_snapshot ORDER BY snap_date ASC, github ASC"
+    ).fetchall()
+    by_day = {}
+    for s in snaps:
+        by_day.setdefault(s["snap_date"], []).append(
+            (s["github"].strip().lower(), s["github"], int(s["total"]), s["src"] or "ledger"))
+    out, prev, prev_src = {}, {}, None
+    for day in sorted(by_day):
+        cur = {k: v for k, _n, v, _s in by_day[day]}
+        src_today = by_day[day][0][3] if by_day[day] else "ledger"
+        switch = (prev_src is not None and src_today != prev_src)
+        day_map = {}
+        for k, name, v, _s in by_day[day]:
+            if not prev or switch:
+                day_map[k] = v          # 首版 / 换口径：按自身累计作基线
+            else:
+                day_map[k] = v - prev.get(k, 0)
+        out[day] = day_map
+        prev, prev_src = cur, src_today
+    return out
+
+
+def board_by_day(conn, day):
+    """日榜：某一天各人获得的声誉分（当天增量），降序。**只列当天有分的人**。"""
+    out = [{"github": _name_of(conn, k), "total": v}
+           for k, v in _daily_deltas(conn).get(day, {}).items()]
+    out = [r for r in out if r["total"] != 0]
+    out.sort(key=lambda x: (-x["total"], x["github"].lower()))
+    return out
+
+
+def board_by_month(conn, year_month):
+    """月榜：某月各人获得的声誉分（= 该月各日增量之和，与热力图同源），降序。
+
+    只列该月**有分**的人（0 分不入榜）。
+    """
+    acc, names = {}, {}
+    for day, dm in _daily_deltas(conn).items():
+        if not day.startswith(year_month):
+            continue
+        for k, v in dm.items():
+            acc[k] = acc.get(k, 0) + v
+            names[k] = _name_of(conn, k)
+    out = [{"github": names[k], "total": v} for k, v in acc.items() if v != 0]
+    out.sort(key=lambda x: (-x["total"], x["github"].lower()))
+    return out
+
+
+def _name_of(conn, key):
+    """小写登录名 -> 显示名（优先当前表写法）。"""
+    r = conn.execute("SELECT github FROM contrib_total WHERE lower(github)=? LIMIT 1",
+                     (key,)).fetchone()
+    if r:
+        return r["github"]
+    r = conn.execute("SELECT github FROM contrib_snapshot WHERE lower(github)=? "
+                     "ORDER BY snap_date DESC LIMIT 1", (key,)).fetchone()
+    return r["github"] if r else key
+
+
+def snapshot_days(conn):
+    """已记录的结算日列表（升序）。"""
+    return [r["snap_date"] for r in conn.execute(
+        "SELECT DISTINCT snap_date FROM contrib_snapshot ORDER BY snap_date")]
+
+
+def add_history(conn, github, total, src="", note=""):
+    """写/覆盖一条历史补录（幂等）。"""
+    with _LOCK, conn:
+        conn.execute(
+            "INSERT INTO contrib_history(github,total,src,note,added_at)"
+            " VALUES(?,?,?,?,?) ON CONFLICT(github) DO UPDATE SET"
+            " total=excluded.total, src=excluded.src, note=excluded.note,"
+            " added_at=excluded.added_at",
+            (str(github).strip(), int(total), src, note, now_iso()),
+        )
+
+
+def history_all(conn):
     return [dict(r) for r in conn.execute(
-        "SELECT github,total FROM contrib_total ORDER BY total DESC, github ASC"
-    )]
+        "SELECT github,total,src,note FROM contrib_history ORDER BY total DESC, github")]
 
 
 # ---------------------------------------------------------------- 热力图

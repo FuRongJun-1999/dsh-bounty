@@ -42,12 +42,14 @@ def _day_of(text, fallback_pairs):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description="补录 10-11 / 10-12 历史快照")
+    ap = argparse.ArgumentParser(description="补录 10-11 / 10-12 历史")
     ap.add_argument("--db", default=str(Path(__file__).resolve().parent / "bounty.db"))
     ap.add_argument("--table", default="docs/bounty/贡献表.md",
                     help="10-12 的新贡献表（可给本地路径）")
     ap.add_argument("--v01", default="docs/spec/贡献结算表_v0.1.md",
                     help="10-11 的 v0.1 老表")
+    ap.add_argument("--no-ledger-history", action="store_true",
+                    help="不把 11 号并入总榜（默认并入）")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
 
@@ -76,7 +78,16 @@ def main(argv=None):
     conn = db.connect(args.db)
     for day, pairs, src in plan:
         n = db.seed_snapshot(conn, day, pairs, src=src)
-        print("  写入 %s：%d 行 (src=%s)" % (day, n, src))
+        print("  写入快照 %s：%d 行 (src=%s)" % (day, n, src))
+
+    # ★ 11 号（v0.1）的分不在新贡献表里：把它并入**总榜/累计**，
+    #   否则这些人会从榜上消失（早期 bug：只进了热力图，没进总榜）。
+    if not args.no_ledger_history:
+        v01_day, v01_pairs, v01_src = plan[0]
+        for who, total in v01_pairs:
+            db.add_history(conn, who, total, src=v01_src,
+                           note="%s 初期数据（v0.1 表），并入累计" % v01_day)
+        print("  并入总榜 %d 人（源 %s，%s）" % (len(v01_pairs), v01_src, v01_day))
     conn.close()
     print("完成。" if ok else "完成（有跳过项）。")
     return 0

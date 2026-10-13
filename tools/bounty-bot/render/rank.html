@@ -26,8 +26,8 @@ h1 { font-weight: 400; font-family: 'F-Title','S-Title',serif; font-size: 108px;
 <body><div class="stage mat-wood">
   <div class="frame">
     <img class="emblem" src="__ASSETS__/emblem_cut.png">
-    <h1 class="title-serif">声誉英雄榜</h1>
-    <div class="sub">— HALL OF FAME —</div>
+    <h1 class="title-serif" id="rtitle">声誉英雄榜</h1>
+    <div class="sub" id="rscope">— HALL OF FAME —</div>
     <div class="divider" style="margin: 22px 0 4px"></div>
 <style>
 .row { display: flex; align-items: center; gap: 20px; padding: 20px 26px; margin-top: 16px;
@@ -54,6 +54,9 @@ h1 { font-weight: 400; font-family: 'F-Title','S-Title',serif; font-size: 108px;
   var d = window.__DATA__ || {};
   var host = document.getElementById('root');
   var rows = d.ranking || [];
+  // 标题与口径随榜单类型变（总榜 / 日榜 / 月榜）
+  document.getElementById('rtitle').textContent = d.title || '声誉英雄榜';
+  document.getElementById('rscope').textContent = d.scope || '— HALL OF FAME —';
   if (!rows.length) {
     host.innerHTML = '<div style="text-align:center;padding:80px 30px;font-size:34px;color:#b99a66">榜单虚位以待</div>';
   } else {
@@ -66,7 +69,9 @@ h1 { font-weight: 400; font-family: 'F-Title','S-Title',serif; font-size: 108px;
         '<div style="flex:1"><div class="rname"></div><div class="rsub"></div></div>' +
         '<div><span class="rscore">' + r.total + '</span><span class="runit">分</span></div>';
       el.querySelector('.rname').textContent = r.github;
-      el.querySelector('.rsub').textContent = r.issues ? '委托 ' + r.issues : '';
+      var sub = r.issues ? '委托 ' + r.issues : '';
+      if (d.kind === 'total') sub = '共 ' + rows.length + ' 人上榜' + (sub ? ' · ' + sub : '');
+      el.querySelector('.rsub').textContent = sub;
       host.appendChild(el);
     });
   }

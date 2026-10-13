@@ -160,7 +160,7 @@ COMMANDS = [
     {"cmd": "/悬赏", "desc": "查看当前悬赏委托（来自本仓 issue）"},
     {"cmd": "/绑定 <GitHub 用户名>", "desc": "绑定你的 GitHub 账号（空格可有可无）"},
     {"cmd": "/我的贡献", "desc": "查看累计声誉分与悬赏热力图"},
-    {"cmd": "/榜单", "desc": "查看声誉榜"},
+    {"cmd": "/榜单", "desc": "声誉总榜；/榜单 日、/榜单 月 看日榜月榜"},
     {"cmd": "/更新", "desc": "立刻检查是否有最新结算表与悬赏"},
 ]
 
@@ -259,11 +259,38 @@ def cmd_update(qq) -> str:
     return "\n".join(["已检查最新状态：", res.summary(), tail])
 
 
-def cmd_rank() -> str:
-    """（附加）声誉榜。渲染成图片。"""
+def cmd_rank(args="") -> str:
+    """声誉榜（渲染成图片）。**不限人数**——有多少人出多少人。
+
+    /榜单            总榜（累计，含历史补录）
+    /榜单 日          今日日榜
+    /榜单 日 2026-10-11  指定日
+    /榜单 月          本月月榜
+    /榜单 月 2026-10  指定月
+    """
+    arg = (args or "").strip()
+    kind = "total"
+    title = "声誉总榜"
     rows = db.all_totals(CONN)
-    return RENDERER.render_cached("rank", {"ranking": rows,
-                                           "synced_at": db.meta_get(CONN, "contrib_synced_at")})
+    scope = "累计（当前贡献表 ＋ 历史补录）"
+    if arg:
+        parts = arg.split()
+        head = parts[0]
+        want = parts[1] if len(parts) > 1 else ""
+        if head.startswith("日"):
+            kind, title = "day", "今日日榜"
+            day = want or db.today()
+            rows = db.board_by_day(CONN, day)
+            scope = "结算日 %s（当天增量）" % day
+        elif head.startswith("月"):
+            kind, title = "month", "本月月榜"
+            ym = want or db.today()[:7]
+            rows = db.board_by_month(CONN, ym)
+            scope = "%s（当月累计）" % ym
+    return RENDERER.render_cached("rank", {
+        "ranking": rows, "kind": kind, "title": title, "scope": scope,
+        "days": db.snapshot_days(CONN),
+        "synced_at": db.meta_get(CONN, "contrib_synced_at")})
 
 
 # ---------------------------------------------------------------- 消息路由
@@ -274,7 +301,9 @@ RENDER_CMDS = {"/帮助": cmd_help, "/悬赏": cmd_bounty, "/榜单": cmd_rank}
 def handle_command(cmd, args, qq, group_id):
     """返回 (kind, content)。kind in {text, image}。"""
     if cmd in RENDER_CMDS:
-        return "image", RENDER_CMDS[cmd]()
+        fn = RENDER_CMDS[cmd]
+        # /榜单 支持参数（日/月），其余不带参
+        return "image", (fn(args) if cmd == "/榜单" else fn())
     if cmd == "/绑定":
         return "text", cmd_bind(qq, args)
     if cmd == "/我的贡献":

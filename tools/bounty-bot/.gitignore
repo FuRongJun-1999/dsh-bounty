@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+bot.log
+bounty.db*
+tmp/
+.cache/
+config.json

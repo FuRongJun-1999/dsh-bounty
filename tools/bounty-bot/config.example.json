@@ -1,0 +1,45 @@
+{
+  "listen_host": "127.0.0.1",
+  "listen_port": 3040,
+  "repo": "FuRongJun-1999/dsh-bounty",
+  "branch": "main",
+  "contrib_path": "docs/bounty/贡献表.md",
+  "github_token": "<在这里填只读 token，可提到 5000 次/小时；留空则 60 次/小时>",
+  "group_whitelist": [
+    "<群号1>",
+    "<群号2>"
+  ],
+  "admin_qq": [],
+  "napcat": {
+    "url": "http://127.0.0.1:3010",
+    "token": "<NapCat 的 access token>"
+  },
+  "bounty": {
+    "mode": "json",
+    "source_path": "docs/bounty/悬赏.json",
+    "enabled": true,
+    "labels": "",
+    "include_closed": false,
+    "per_page": 100,
+    "max_pages": 3
+  },
+  "render": {
+    "cmd": [
+      "node",
+      "/opt/bounty-bot/render/render.js",
+      "{payload}",
+      "{out}"
+    ],
+    "cwd": "/opt/bounty-bot/render",
+    "timeout": 90,
+    "cache": true,
+    "cache_dir": ".cache",
+    "static_kinds": [
+      "help"
+    ]
+  },
+  "sync": {
+    "on_start": true,
+    "interval_seconds": 9000
+  }
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+body { color: #f0dcae; }
+.stage { padding: 46px 46px 42px; }
+.frame {
+  position: relative; padding: 50px 50px 42px;
+  background-image: url('__ASSETS__/wood_board.png');
+  background-size: cover; background-position: center;
+  border: 3px solid #6b4a2c;
+  outline: 2px solid var(--gold); outline-offset: -12px;
+  box-shadow: 0 14px 44px rgba(0,0,0,.6), inset 0 0 120px rgba(0,0,0,.5);
+}
+.frame::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,190,90,.20), transparent 55%);
+}
+.emblem { width: 120px; height: 128px; margin: 0 auto 6px; display: block; filter: drop-shadow(0 4px 8px rgba(0,0,0,.6)); }
+h1 { font-weight: 400; font-family: 'F-Title','S-Title',serif; font-size: 108px; text-align: center; letter-spacing: 10px; color: var(--gold-light);
+     text-shadow: 0 2px 0 #000, 0 0 26px rgba(201,162,39,.4); }
+.sub { text-align: center; margin-top: 18px; font-size: 36px; color: #c9ab72; letter-spacing: 5px; margin-top: 4px; }
+.footer { margin-top: 30px; display: flex; align-items: center; justify-content: space-between; font-size: 27px; color: #a8895a; }
+.seal { width: 86px; height: 90px; filter: drop-shadow(0 3px 6px rgba(0,0,0,.6)); transform: rotate(-8deg); }
+</style></head>
+<body><div class="stage mat-wood">
+  <div class="frame">
+    <img class="emblem" src="__ASSETS__/emblem_cut.png">
+    <h1 class="title-serif">悬赏委托板</h1>
+    <div class="sub">— QUEST BOARD —</div>
+    <div class="divider" style="margin: 22px 0 4px"></div>
+<style>
+.quest {
+  margin-top: 24px; padding: 30px 32px 26px;
+  background: rgba(20,10,4,.55);
+  border: 1px solid rgba(201,162,39,.4);
+  border-left: 6px solid var(--gold);
+  box-shadow: inset 0 1px 0 rgba(255,220,140,.06);
+  position: relative;
+}
+.quest .no { position: absolute; top: 22px; right: 28px; font-size: 28px; color: #8a6f45; letter-spacing: 1px; }
+.quest .qtitle { font-size: 50px; font-weight: 900; color: var(--gold-light); text-shadow: 0 1px 3px #000; line-height: 1.35; max-width: 78%; }
+.quest .meta { display: flex; flex-wrap: wrap; gap: 14px 26px; margin-top: 16px; align-items: center; }
+.quest .meta .diff { flex: 0 0 auto; display: inline-block !important; margin-right: 6px; }
+.quest .field { font-size: 35px; color: #e6cf9e; }
+.quest .field b { color: var(--gold-light); font-weight: 700; margin-right: 6px; }
+.quest .note { margin-top: 16px; font-size: 31px; color: #b99a66; line-height: 1.55; border-top: 1px dashed rgba(201,162,39,.3); padding-top: 14px; }
+.empty { margin-top: 40px; padding: 70px 40px; text-align: center; }
+.empty .big { font-size: 58px; font-weight: 900; color: var(--gold-light); text-shadow: 0 1px 3px #000; }
+.empty .small { margin-top: 14px; font-size: 33px; color: #b99a66; }
+.empty img { width: 150px; opacity: .9; margin-bottom: 8px; }
+
+</style>
+
+<style>
+.quest .meta .diff {
+  display: inline-block !important;
+  padding: 6px 18px !important; border-radius: 5px;
+  font-size: 34px !important; font-weight: 900; letter-spacing: 2px;
+  color: #fff !important; text-shadow: 0 1px 3px rgba(0,0,0,.7);
+  box-shadow: 0 2px 6px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.28);
+  vertical-align: middle;
+}
+.quest .meta .diff-easy   { background: linear-gradient(180deg,#5f8f5a,#3d5f3a) !important; }
+.quest .meta .diff-medium { background: linear-gradient(180deg,#4a7ba6,#2e5478) !important; }
+.quest .meta .diff-hard   { background: linear-gradient(180deg,#a67828,#7a5418) !important; }
+.quest .meta .diff-expert { background: linear-gradient(180deg,#8b2e2e,#5c1a1a) !important; }
+</style>
+<div id="list"></div>
+<script>
+/*__DATA__*/
+(function(){
+  var d = window.__DATA__ || {};
+  var host = document.getElementById('list');
+  var items = d.bounties || [];
+  var ICON = '__ASSETS__/skull_cut.png';
+  // 口径：真源 docs/bounty/悬赏.json —— 认领与否都算，只排除「已结束」
+  var STATUS = { open: '悬赏中', claimed: '已认领', delivered: '待验收',
+                 verified: '已验收', settled: '已结算', paused: '已暂停', done: '已结束' };
+  if (!items.length) {
+    host.innerHTML = '<div class="empty">' +
+      '<img src="' + ICON + '">' +
+      '<div class="big">' + (d.empty_text || '暂时没有悬赏哦') + '</div>' +
+      '<div class="small">等仓主张贴新的委托，再来看看吧</div></div>';
+  } else {
+    items.forEach(function(b, i){
+      var diff = (b.difficulty || '').toLowerCase();
+      var cls = 'diff diff-' + (['easy','medium','hard','expert'].indexOf(diff) >= 0 ? diff : 'medium');
+      var label = {easy:'简单',medium:'普通',hard:'困难',expert:'大师'}[diff] || diff || '未定';
+      var el = document.createElement('div');
+      el.className = 'quest';
+      var html = '<div class="no">' + (b.no ? b.no : '№ ' + (i+1)) + '</div>' +
+        '<div class="qtitle"></div>' +
+        '<div class="meta">' +
+          '<span class="' + cls + '">' + label + '</span>' +
+          (b.reward ? '<span class="field"><b>结算分</b>' + b.reward + '</span>' : '') +
+          (b.status ? '<span class="field"><b>状态</b>' + (STATUS[b.status] || b.status) + '</span>' : '') +
+          (b.deadline ? '<span class="field"><b>截止</b>' + b.deadline + '</span>' : '') +
+          (b.owner ? '<span class="field"><b>负责人</b>' + b.owner + '</span>' : '') +
+        '</div>' +
+        (b.note ? '<div class="note"></div>' : '');
+      el.innerHTML = html;
+      el.querySelector('.qtitle').textContent = b.title || '未命名委托';
+      if (b.note) el.querySelector('.note').textContent = b.note;
+      // 委托源是 issue：给整张卡加链接，点开即认领页
+      if (b.url && /^https:\/\//.test(b.url)) {
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', function(){ window.open(b.url, '_blank'); });
+        el.title = b.url;
+      }
+      host.appendChild(el);
+    });
+  }
+  requestAnimationFrame(function(){
+    document.body.setAttribute('data-full-height', document.querySelector('.stage').scrollHeight);
+  });
+})();
+</script>
+    <div class="footer">
+      <div>委托由仓主张贴 · 难度越高赏金越厚</div>
+      <img class="seal" src="__ASSETS__/seal_cut.png">
+    </div>
+  </div>
+</div></body></html>

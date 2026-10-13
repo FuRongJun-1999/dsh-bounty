@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+body { color: #f0dcae; }
+.stage { padding: 46px 46px 42px; }
+.frame {
+  position: relative; padding: 50px 50px 42px;
+  background-image: url('__ASSETS__/wood_board.png');
+  background-size: cover; background-position: center;
+  border: 3px solid #6b4a2c;
+  outline: 2px solid var(--gold); outline-offset: -12px;
+  box-shadow: 0 14px 44px rgba(0,0,0,.6), inset 0 0 120px rgba(0,0,0,.5);
+}
+.frame::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,190,90,.20), transparent 55%);
+}
+.emblem { width: 120px; height: 128px; margin: 0 auto 6px; display: block; filter: drop-shadow(0 4px 8px rgba(0,0,0,.6)); }
+h1 { font-weight: 400; font-family: 'F-Title','S-Title',serif; font-size: 108px; text-align: center; letter-spacing: 10px; color: var(--gold-light);
+     text-shadow: 0 2px 0 #000, 0 0 26px rgba(201,162,39,.4); }
+.sub { text-align: center; margin-top: 18px; font-size: 36px; color: #c9ab72; letter-spacing: 5px; margin-top: 4px; }
+.footer { margin-top: 30px; display: flex; align-items: center; justify-content: space-between; font-size: 27px; color: #a8895a; }
+.seal { width: 86px; height: 90px; filter: drop-shadow(0 3px 6px rgba(0,0,0,.6)); transform: rotate(-8deg); }
+</style></head>
+<body><div class="stage mat-wood">
+  <div class="frame">
+    <img class="emblem" src="__ASSETS__/emblem_cut.png">
+    <h1 class="title-serif" id="rtitle">声誉英雄榜</h1>
+    <div class="sub" id="rscope">— HALL OF FAME —</div>
+    <div class="divider" style="margin: 22px 0 4px"></div>
+<style>
+.row { display: flex; align-items: center; gap: 20px; padding: 20px 26px; margin-top: 16px;
+  background: rgba(20,10,4,.55); border: 1px solid rgba(201,162,39,.3); }
+.row.top1 { border-color: var(--gold-light); background: rgba(60,40,10,.6); box-shadow: 0 0 18px rgba(201,162,39,.25); }
+.row.top2 { border-color: rgba(201,162,39,.55); }
+.row.top3 { border-color: rgba(201,162,39,.4); }
+.rk { width: 82px; height: 82px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 38px; font-weight: 900; flex-shrink: 0;
+  background: rgba(201,162,39,.15); color: var(--gold-light); border: 1px solid rgba(201,162,39,.4); }
+.top1 .rk { background: linear-gradient(180deg,#e8c96a,#c9a227); color: #2b1810; box-shadow: 0 0 14px rgba(232,201,106,.6); }
+.top2 .rk { background: linear-gradient(180deg,#d8d8d8,#a8a8a8); color: #2b1810; }
+.top3 .rk { background: linear-gradient(180deg,#c98f5a,#8a5a2e); color: #2b1810; }
+.rname { flex: 1; font-size: 42px; font-weight: 900; color: #ecd9ab; text-shadow: 0 1px 2px #000; }
+.rsub { font-size: 26px; color: #a8895a; margin-top: 4px; }
+.rscore { font-family: 'F-Title',serif; font-size: 64px; font-weight: 900; color: var(--gold-light); text-shadow: 0 2px 4px #000; }
+.top1 .rscore { color: var(--gold-light); }
+.runit { font-size: 26px; color: #a8895a; margin-left: 6px; }
+</style>
+<div id="root"></div>
+<script>
+/*__DATA__*/
+(function(){
+  var d = window.__DATA__ || {};
+  var host = document.getElementById('root');
+  var rows = d.ranking || [];
+  // 标题与口径随榜单类型变（总榜 / 日榜 / 月榜）
+  document.getElementById('rtitle').textContent = d.title || '声誉英雄榜';
+  document.getElementById('rscope').textContent = d.scope || '— HALL OF FAME —';
+  if (!rows.length) {
+    host.innerHTML = '<div style="text-align:center;padding:80px 30px;font-size:34px;color:#b99a66">榜单虚位以待</div>';
+  } else {
+    rows.forEach(function(r, i){
+      var n = i + 1;
+      var cls = 'row' + (n === 1 ? ' top1' : n === 2 ? ' top2' : n === 3 ? ' top3' : '');
+      var el = document.createElement('div');
+      el.className = cls;
+      el.innerHTML = '<div class="rk">' + n + '</div>' +
+        '<div style="flex:1"><div class="rname"></div><div class="rsub"></div></div>' +
+        '<div><span class="rscore">' + r.total + '</span><span class="runit">分</span></div>';
+      el.querySelector('.rname').textContent = r.github;
+      var sub = r.issues ? '委托 ' + r.issues : '';
+      if (d.kind === 'total') sub = '共 ' + rows.length + ' 人上榜' + (sub ? ' · ' + sub : '');
+      el.querySelector('.rsub').textContent = sub;
+      host.appendChild(el);
+    });
+  }
+  requestAnimationFrame(function(){
+    document.body.setAttribute('data-full-height', document.querySelector('.stage').scrollHeight);
+  });
+})();
+</script>
+    <div class="footer">
+      <div>以声誉论英雄 · 榜随账本机械生成</div>
+      <img class="seal" src="__ASSETS__/seal_cut.png">
+    </div>
+  </div>
+</div></body></html>

@@ -187,9 +187,15 @@ def states_of(labels, comments):
 # 按 (ts, 追加序) 取该号最后一次态迁移；**只给 primary 补 covers 扩展**（covers-only 号没有
 # 自己的事件，若也发事件就会污染「该号有没有账本记录」的判定）。
 def ledger_states(events, primary=None):
+    # ★本笔：排序键对**非对象元素**做防护。旧实现 `(p[1] or {}).get("ts")` ——
+    # `p[1]` 非空但不是 dict（如手工改坏的账本里塞了字符串）⇒ `str.get` ⇒
+    # **未捕获 `AttributeError`**，`core()` 直接抛，而不是走 `ScanError`。
+    # 同函数下方多处已 `isinstance(ev, dict)`，**唯独排序键漏了** ——
+    # 即「过滤在循环里、取键在循环外」的典型漏点。
     ordered = sorted(
         enumerate(events or ()),
-        key=lambda p: (str((p[1] or {}).get("ts") or ""), p[0]),
+        key=lambda p: (str((p[1] or {}).get("ts") or "")
+                       if isinstance(p[1], dict) else "", p[0]),
     )
     out = {}
     for _i, ev in ordered:
@@ -285,6 +291,19 @@ def read_state(path):
         store = bb.load_store(path)
     except bb.BoardError as exc:
         raise ScanError(str(exc)) from exc
+    # ★本笔：**形状判据**。`load_store` 只保证「文件在、是 JSON」，**不保证顶层是对象、
+    # 更不保证 `issues` 是对象** —— 旧实现直接把 `store.get("issues") or {}` 拿去 `.items()`，
+    # 遇到 `{"issues": 5}`（**合法 JSON**）⇒ `AttributeError: 'int' object has no attribute
+    # 'items'`，`core()` 直接抛而不是返回退出码，而本件 docstring 承诺
+    # 「1 = 账本/快照读不了（**结构坏**、缺文件而显式指定）」。
+    if not isinstance(store, dict):
+        raise ScanError("状态镜像顶层不是对象：%s（实为 %s）" % (path, type(store).__name__))
+    if store.get("issues") is not None and not isinstance(store["issues"], dict):
+        raise ScanError("状态镜像的 issues 不是对象：%s（实为 %s）"
+                        % (path, type(store["issues"]).__name__))
+    if store.get("ledger") is not None and not isinstance(store["ledger"], (list, tuple)):
+        raise ScanError("状态镜像的 ledger 不是数组：%s（实为 %s）"
+                        % (path, type(store["ledger"]).__name__))
     return issues_from_store(store), list(store.get("ledger") or [])
 
 

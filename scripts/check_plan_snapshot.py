@@ -37,8 +37,21 @@ MARKER_RE = re.compile(r"<!--\s*bounty:v1\s+\{.*?\}\s*-->", re.DOTALL)
 # 生效条件：args 为 gh 参数列表时返回其 JSON 行数组；失败抛 RuntimeError（不静默）。
 def _gh_lines(args):
     """跑 gh api，返回 stdout 的非空行（**不要求是 JSON**——base64 输出用它）。"""
-    proc = subprocess.run(["gh", "api", "--paginate", *args],
-                          capture_output=True, text=True, encoding="utf-8")
+    # ★本笔：捕获 **`OSError`**（`PATH` 里没有 `gh` ⇒ `subprocess.run` 抛
+    # `FileNotFoundError: [WinError 2]`）。旧实现只判 `proc.returncode`，
+    # 于是「gh 没装」这条**最常见的坏法**穿透成裸 `FileNotFoundError` 栈：
+    #   · 违背本函数自己的 docstring 承诺「失败抛 **RuntimeError**（不静默）」；
+    #   · 违背本文件 docstring 承诺「退出码：0 = 导出成功；**1 = gh 调用失败 / 未登录**」
+    #     —— `main()` 只接 `RuntimeError`，这个异常直接穿出去；
+    #   · 退码**巧合**仍是 1（Python 未捕获异常退 1），受损的是**错误分类**与
+    #     `main()` 的返回值契约（而不是退码）。
+    try:
+        proc = subprocess.run(["gh", "api", "--paginate", *args],
+                              capture_output=True, text=True, encoding="utf-8")
+    except OSError as exc:
+        raise RuntimeError(
+            f"调不起 gh（未安装或不在 PATH？）：{' '.join(args)} — "
+            f"{type(exc).__name__}: {exc}") from None
     if proc.returncode:
         raise RuntimeError(f"gh 调用失败：{' '.join(args)} — {proc.stderr.strip()[:300]}")
     return [ln.strip() for ln in proc.stdout.splitlines() if ln.strip()]

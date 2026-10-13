@@ -110,6 +110,27 @@ def _pick(names, prefix):
     return None
 
 
+#: Markdown 图片 / 行内链接 / 粗斜体 / 行内代码 的轻量清洗（卡片是纯文本渲染）
+_MD_IMG = re.compile(r"!\[[^\]]*\]\([^)]*\)")
+_MD_LINK = re.compile(r"\[([^\]]*)\]\(([^)]*)\)")
+_MD_EMPH = re.compile(r"\*\*|__|(?<![\w*])\*|(?<![\w_])_")
+_MD_CODE = re.compile(r"\x60([^\x60]*)\x60")
+_MD_HR = re.compile(r"^\s*([-*_])\s*(\1\s*){2,}$")
+
+
+def plain_text(md):
+    """Markdown -> 单行纯文本。
+
+    卡片用的是 textContent，不会自己渲染 Markdown——不清洗就会把 **、[]() 原样显示。
+    """
+    t = _MD_IMG.sub("", md or "")            # 图片整体丢掉
+    t = _MD_LINK.sub(r"\1", t)               # [文字](链接) -> 文字
+    t = _MD_CODE.sub(r"\1", t)               # 行内代码
+    t = _MD_EMPH.sub("", t)                   # **粗体** / *斜体* / _下划线_
+    t = re.sub(r"^\s*>\s?", "", t)            # 引用
+    return t.strip()
+
+
 def issue_to_bounty(issue):
     """GitHub issue -> 悬赏记录（给 db.replace_bounties 用）。
 
@@ -125,17 +146,19 @@ def issue_to_bounty(issue):
     summary = ""
     for ln in body.splitlines():
         s = ln.strip()
-        if not s or s.startswith("#") or s.startswith("<!--"):
+        # 跳过标题 / 注释 / 分隔线 / 表格 / 纯符号行，取第一段有内容的正文
+        if not s or s.startswith(("#", "<!--", "|", ">")) or _MD_HR.match(s):
             continue
-        summary = s
-        break
+        summary = plain_text(s)
+        if summary:
+            break
     if len(summary) > 120:
         summary = summary[:120] + "…"
     ms = issue.get("milestone")
     return {
         "bid": "issue-%s" % issue.get("number"),
         "no": str(issue.get("number") or ""),
-        "title": strip_bounty_prefix(issue.get("title")),
+        "title": plain_text(strip_bounty_prefix(issue.get("title"))),
         "difficulty": difficulty,
         "reward": None,
         "status": state,

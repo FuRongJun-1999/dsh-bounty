@@ -219,6 +219,22 @@ def main():
     check("标题已去前缀", b0["title"] == "灵枢生态宣传", b0["title"])
     check("摘要取正文首个非标题行", b0["note"] == "材料 + 渠道 + 触达读数", str(b0["note"]))
     check("url 指向 issue", b0["url"].endswith("/issues/71"), b0["url"])
+    # ★ 卡片是 textContent 渲染，Markdown 必须清洗掉（否则 ** / []() 原样显示）
+    check("Markdown 粗体被清洗", sync_mod.plain_text("但 **结论多、读数少**——") == "但 结论多、读数少——",
+          repr(sync_mod.plain_text("但 **结论多、读数少**——")))
+    check("Markdown 链接只留文字",
+          sync_mod.plain_text("[dsh-memory](https://github.com/x) 是白箱") == "dsh-memory 是白箱",
+          repr(sync_mod.plain_text("[dsh-memory](https://github.com/x) 是白箱")))
+    check("Markdown 图片被丢弃", sync_mod.plain_text("![x](http://y/z.png) 正文") == "正文",
+          repr(sync_mod.plain_text("![x](http://y/z.png) 正文")))
+    check("Markdown 行内代码去反引号",
+          sync_mod.plain_text("用 python 跑") == "用 python 跑")
+    md_body = {"number": 99, "title": "悬赏 测试", "state": "open", "body":
+               "## 背景\n\n这里有 **粗体** 和 [链接](https://x) 与 ![图](http://y)\n",
+               "labels": [], "html_url": "https://github.com/o/r/issues/99"}
+    _b = sync_mod.issue_to_bounty(md_body)
+    check("issue 摘要已清洗 Markdown",
+          _b["note"] == "这里有 粗体 和 链接 与", repr(_b["note"]))
     check("PR 被剔除", all(b["no"] != "67" for b in got))
     check("closed 默认不要", all(b["no"] != "68" for b in got))
     check("include_closed=True 时纳入",
@@ -300,6 +316,17 @@ def main():
     k1 = R.cache_key("help", {"commands": cmds, "_generated_at": "2026-01-01 00:00:00"})
     k2 = R.cache_key("help", {"commands": cmds, "_generated_at": "2099-12-31 23:59:59"})
     check("_generated_at 不进缓存键", k1 == k2, "%s vs %s" % (k1, k2))
+
+    # ★ 改模板/样式必须使静态卡缓存失效，否则永远发旧图
+    tdir = Path(_tf.mkdtemp(prefix="bounty_tpl_test_"))
+    (tdir / "help.html").write_text("<html>v1</html>", encoding="utf-8")
+    Rt = _FakeR({"cmd": ["true"], "cache": True, "static_kinds": ["help"],
+                 "cwd": str(tdir)}, tdir)
+    ka = Rt.cache_key("help", {"commands": cmds})
+    (tdir / "help.html").write_text("<html>v2 改了字色</html>", encoding="utf-8")
+    Rt._style_fp = None
+    kb = Rt.cache_key("help", {"commands": cmds})
+    check("改模板后缓存键变化（不会发旧图）", ka != kb, "%s vs %s" % (ka, kb))
 
     print("== 9. 配置默认值（新落点） ==")
     here = Path(__file__).resolve().parent

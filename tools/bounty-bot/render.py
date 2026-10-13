@@ -57,6 +57,7 @@ class Renderer:
         self.tmpdir.mkdir(parents=True, exist_ok=True)
         self.cachedir = self.workdir / str(self.cfg.get("cache_dir") or _CACHE_DIR)
         self.cachedir.mkdir(parents=True, exist_ok=True)
+        self._style_fp = None      # 模板指纹，惰性计算一次
 
     @property
     def enabled(self):
@@ -76,6 +77,27 @@ class Renderer:
             return (v,) if v else ()
         return tuple(v)
 
+    def style_fingerprint(self):
+        """模板与样式的指纹，参与缓存键。
+
+        没有它，改了 HTML/CSS 但 payload 没变时会**永远发旧图**（静态卡尤其致命）。
+        取渲染工作目录下的 *.html / *.css（数量少、体积小）。
+        """
+        if self._style_fp is not None:
+            return self._style_fp
+        base = Path(self.cfg.get("cwd") or self.workdir)
+        h = hashlib.sha256()
+        try:
+            files = sorted([p for p in base.glob("*.html")] + [p for p in base.glob("*.css")],
+                           key=lambda p: p.name)
+            for p in files:
+                h.update(p.name.encode("utf-8"))
+                h.update(p.read_bytes())
+        except OSError:
+            pass
+        self._style_fp = h.hexdigest()[:12]
+        return self._style_fp
+
     def cache_key(self, kind, data):
         """按**渲染真正用到的东西**算键。
 
@@ -84,7 +106,8 @@ class Renderer:
         # 排除 _xxx（每次变的时间戳）与 kind（由参数单独给，别重复进 payload）
         payload = {k: v for k, v in (data or {}).items()
                    if not k.startswith("_") and k != "kind"}
-        blob = json.dumps({"kind": kind, "payload": payload},
+        blob = json.dumps({"kind": kind, "payload": payload,
+                           "style": self.style_fingerprint()},
                           ensure_ascii=False, sort_keys=True)
         return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:20]
 

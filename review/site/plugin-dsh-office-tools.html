@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dsh-office-tools @ 1.0.5 · 插件测评站</title>
+<style>
+:root{--fg:#1c1e21;--dim:#606770;--line:#e4e6eb;--acc:#1d76db;--bg:#fff;--soft:#f5f6f7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);line-height:1.7;
+ font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{border-bottom:1px solid var(--line);padding:18px 24px;background:var(--soft)}
+header h1{margin:0 0 8px;font-size:20px}
+header h1 a{color:var(--fg);text-decoration:none}
+nav a{margin-right:16px;color:var(--dim);text-decoration:none;font-size:15px}
+nav a.on{color:var(--acc);font-weight:700;border-bottom:2px solid var(--acc)}
+main{max-width:900px;margin:0 auto;padding:24px}
+h2{font-size:18px;margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+h3{font-size:15px;margin:20px 0 6px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+code{background:var(--soft);padding:1px 5px;border-radius:3px;font-size:13px}
+pre{background:var(--soft);padding:12px;border-radius:5px;overflow:auto;font-size:13px}
+.note{background:#fff8e1;border-left:4px solid #f0ad4e;padding:10px 14px;margin:14px 0}
+.ok{background:#eef7ee;border-left:4px solid #4caf50;padding:10px 14px;margin:14px 0}
+.muted{color:var(--dim)}
+.tag{display:inline-block;background:var(--soft);border:1px solid var(--line);
+ border-radius:10px;padding:0 8px;font-size:12px;margin-right:6px}
+.bar{display:inline-block;height:10px;background:var(--acc);border-radius:2px;vertical-align:middle}
+footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
+ color:var(--dim);font-size:13px}
+
+</style>
+</head>
+<body>
+<header><h1><a href="index.html">插件测评站</a></h1><nav><a class="" href="index.html">首页</a><a class="" href="ranking.html">榜单</a><a class="" href="method.html">方法说明</a></nav></header>
+<main>
+<h2>dsh-office-tools @ 1.0.5</h2>
+<p><span class="tag">工具（Office 文档读写：word_* / excel_* / ppt_*）</span><a href="https://www.npmjs.com/package/dsh-office-tools">https://www.npmjs.com/package/dsh-office-tools</a></p>
+<div class="note"><b>版本出处</b>：随仓外附录 two-plugins-not-effective-2026-10-11.md 第 3 行（该文件不在本仓）：安装态排查记录口径 `dsh-office-tools@1.0.5`——版本号现取，不凭记忆。</div>
+<h2>维度读数</h2>
+<table><tr><th>维度</th><th>读数</th><th>依据</th></tr><tr><td><b>声明面 vs 工具面</b></td><td>同结构的 dsh-chart（只有 bundle 段）生效，而 office-tools（bundle + compatibility）工具面 0 个 ⇒ 结构本身不能解释缺席，根因未证实。</td><td class="muted">随仓外附录 two-plugins-not-effective-2026-10-11.md 第 35–44 行（不在本仓）</td></tr><tr><td><b>解析面</b></td><td>require.resolve 成功、包自检 PASS、模拟 apply(ctx) 能注册（注册包在 ctx.effect() 惰性回调里）⇒「解析成功」不等于「工具面生效」。</td><td class="muted">随仓外附录 two-plugins-not-effective-2026-10-11.md 第 14 行（不在本仓）</td></tr><tr><td><b>成本面</b></td><td>曾实测 8 工具 ≈ 2,785 tok/轮（占当时工具面 8.5%），而历史调用仅 4 次。</td><td class="muted">随仓外附录 plugin-token-ledger.md 第 24 行；plugin-verdicts-2026-10-12.md 第 33 行（均不在本仓）</td></tr><tr><td><b>安装态</b></td><td>本轮 scripts/dsh-plugin-effect-check.py 判定为【未装】（工具面清单里没有），与随仓外附录《插件清单》的摘除链（→ 42 dsh-cad + dsh-office-tools）一致。</td><td class="muted">本机实测 2026-10-13（dsh-plugin-effect-check.py，测量脚本随仓外工作区、非本仓文件）</td></tr></table>
+<h2>可复跑证据（命令 ＋ 原始输出）</h2>
+<h3>证据 1</h3><p>命令：<code>python -X utf8 scripts/dsh-plugin-effect-check.py --selftest</code></p><pre>=== dsh-plugin-effect-check --selftest（两向夹具）===
+CHECKED=3
+selftest: PASS</pre><p class="muted">出处：本机实测 2026-10-13（测量脚本随仓外工作区、非本仓文件；读数原文已内联） ｜ 采集：2026-10-13</p>
+<h3>证据 2</h3><p>命令：<code>python -X utf8 scripts/dsh-plugin-effect-check.py</code></p><pre>会话日志: ~/.dsh/sessions/&lt;本机工作区转义目录&gt;/28ac6911-.../session.v4.jsonl.zstd
+最近一次请求的工具数: 86
+
+  [★未生效] dsh-cad                            参数化建模  ← 已装但工具面里没有
+  [未装]   dsh-office-tools                   Office 文档读写
+  [未装]   dsh-video-understand               视频理解
+
+CHECKED=6
+
+★ 疑似「装了但没生效」1 个：
+  · dsh-cad
+[exit=1]（exit 1 = 检出疑似项；本轮检出的是 dsh-cad，不是 office-tools）
+[脱敏声明] 原始输出首行为本机家目录绝对路径；已把家目录前缀与本机工作区名替换为 `~/.dsh/` 与 `&lt;本机工作区转义目录&gt;`，其余逐字保留（含 [exit=1] 与全部插件名/状态）。</pre><p class="muted">出处：本机实测 2026-10-13（测量脚本随仓外工作区、非本仓文件；家目录前缀已按上方声明脱敏） ｜ 采集：2026-10-13</p>
+<h3>证据 3</h3><p>命令：<code>（已记录读数，非本站复跑）python scripts/dsh-plugin-effect-check.py</code></p><pre>自包含结论（我据 2026-10-11 的实测排查记录用自己的话重述，必要内容已内联，裸克隆下可独立读懂）：
+① 谁在什么条件下测的：在本机工作区对该包做安装态排查（bundles 登记、require.resolve、包自检、模拟 apply(ctx)、读宿主 request/header.tools[]）。
+② 症状读数：bundles 数组里有它、require.resolve 能解析到入口、包自检 PASS、模拟 apply(ctx) 能注册（其注册包写在 ctx.effect() 惰性回调里）；但**工具面（request/header.tools[]）里两者从未出现**，且宿主重启（新 PID）后仍不出现 ⇒ 推翻「加载时机」假设。
+③ 结构差异不解释缺席：`dsh-chart`（只有 bundle 段）工具面 1 个、`@furongjun1999/dsh-memory`（只有 bundle 段）2 个，而 `dsh-office-tools`（`bundle` + `compatibility`）**0 个** ⇒ 结构本身不能解释。
+④ 记录自身的结论：「根因未证实」，静态分析已到极限；若继续排查只能走运行时（读宿主启动日志/隔离复现）。本站照抄该标注，不自行解释成兼容性或加载缺陷。</pre><p class="muted">出处：随仓外附录 two-plugins-not-effective-2026-10-11.md 第 14–16 行与第 42 行（该文件不在本仓；结论已内联于 output，行号仅作可追溯标记） ｜ 采集：2026-10-11（附录记录）</p>
+<h3>证据 4</h3><p>命令：<code>（已记录读数，非本站复跑）node scripts/plugin-token-breakdown.mjs</code></p><pre>自包含结论（我据 2026-10-11 / 2026-10-12 的两份实测记录用自己的话重述，必要内容已内联，裸克隆下可独立读懂）：
+① 成本读数（2026-10-11 实测）：`dsh-office-tools` 提供 8 个模型工具 ≈ 2,785 tok/轮。
+② 使用读数（2026-10-12 裁决表）：该包历史调用共 **4 次**（`word_create` 1 次 / `word_read` 3 次）；处置栏记为「零调用（用户裁定）」。
+③ 归因：8 工具 ≈2,785 tok/轮，是当时工具面里第三大的单项开销，而调用量与开销严重不成比例——这是它被摘出的直接依据。
+④ 边界：2,785 与该 4 次都是历史快照读数，不是本轮现状。</pre><p class="muted">出处：随仓外附录 plugin-token-ledger.md 第 24 行；plugin-verdicts-2026-10-12.md 第 33 行（均不在本仓；结论已内联于 output，行号仅作可追溯标记） ｜ 采集：2026-10-11 / 2026-10-12（附录记录）</p>
+<h2>结论</h2>
+<div class="ok">本机现状：不装（已出列）。它的历史教训比它本身更值钱——「解析成功」+「apply 能注册」都不等于「工具面生效」；要判生效只有一条权威判据：读工具面（dsh-plugin-effect-check.py）。</div>
+<h2>边界（本站不知道什么）</h2>
+<ul><li>版本 1.0.5 取自 2026-10-11 排查记录的安装态；当前两个 profile 都已不含该包（本轮实测为【未装】，且 profiles/*/package.json 的 dependencies 里取不到）⇒ 无法给出比该记录更新的版本读数。</li><li>「工具面 0 个」原文标注的根因是「未证实」——本站照抄该标注，不自行解释成兼容性或加载缺陷。</li><li>2,785 tok/轮 是 2026-10-11 的实测快照，不是现状读数。</li><li>证据 3、4 转载自随仓外附录（不在本仓）；结论性内容已内联进 output，裸克隆下可独立读懂，但无法在本仓内重跑附录的原始采集。</li></ul>
+<p class="muted">返回 <a href="index.html">首页</a> ｜ <a href="ranking.html">榜单</a> ｜ <a href="method.html">方法说明</a></p>
+
+
+</main>
+<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> ＋ <code>review/data/method.json</code> 机械生成——勿手改。证据＝命令 ＋ 已采集的原始输出；生成器与 CI <b>不触网</b>。</footer>
+</body>
+</html>

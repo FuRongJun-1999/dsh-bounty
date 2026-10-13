@@ -139,6 +139,10 @@ def latest_by_issue(events) -> dict:
     """账本 → 每 issue 的当前态（取最后一条事件）。"""
     out = {}
     for ev in events or []:
+        # ★本笔：**元素形状判据**。旧实现直接 `ev.get("issue")` —— 账本事件里混进
+        # 非对象（手工改坏／别的写入者）⇒ `AttributeError`，`--check` 退码拿不到。
+        if not isinstance(ev, dict):
+            continue
         num = ev.get("issue")
         if num is None:
             continue
@@ -162,6 +166,9 @@ def open_tasks(events, tasks=None) -> list:
     recs = []
     if tasks is not None:
         for t in tasks or ():
+            # ★本笔：`tasks` 是**外部快照**（`--issues <path>`），元素未必是对象。
+            if not isinstance(t, dict):
+                continue
             recs.append({"number": str(t.get("number") or ""),
                          "title": str(t.get("title") or ""),
                          "difficulty": str(t.get("difficulty") or ""),

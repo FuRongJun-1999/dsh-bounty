@@ -124,10 +124,9 @@ PROMOTION_RULES = {
 LOSER_SCORES = {"difficulty:easy": 0, "difficulty:medium": 1,
                 "difficulty:hard": 2, "difficulty:expert": 4}
 
-#: 负分（设计稿 §五）：虚假交付（v0.1 固定分，历史事件用）。
+#: 负分（设计稿 §五）：虚假交付 / 超时未交付。
 SCORE_FAKE_DELIVERY = -5
-# 注：v0.1 的超时固定分 −1 已废止——当前超时口径唯一真源是 `timeout_delta`（−2×base）；
-# 旧事件里的 −1 仅在 LEDGER_SCHEMA 的「v0.1 超时未交付（分段复算用）」条目中作历史注记。
+SCORE_TIMEOUT = -1
 
 # ---- 质量化计分（v1.0；依据《质量化计分标准与方式 v1.0》）------------------
 #: 计分口径版本：分段生效——旧事件标 v0.1（固定分），新事件标 v1.0（质量化）。
@@ -327,7 +326,7 @@ LEDGER_SCHEMA = {
              "无效交付": "-base（轮次用尽）", "超时未交付": "-2base",
              "影响等级（可调）": {g: IMPACT_CRITERIA[g] for g in IMPACT_GRADES},
              "v0.1 虚假交付（分段复算用）": SCORE_FAKE_DELIVERY,
-             "v0.1 超时未交付（分段复算用）": -1},
+             "v0.1 超时未交付（分段复算用）": SCORE_TIMEOUT},
     "生成": "python -X utf8 scripts/bounty_board.py --ledger-append <events.jsonl>",
 }
 
@@ -729,9 +728,6 @@ def _do_claim(st, actor, now, cfg, active_claims):
     if not ok_conc:
         return _decide(st, "/claim", why_conc, now, actor, "concurrency_limit")
     due = fmt_ts(now + timedelta(hours=cfg.claim_hours))
-    # ★本笔：回评里的超时扣分必须与 `timeout_delta`（−2×base）一致——旧实现插值
-    # `SCORE_TIMEOUT`（v0.1 残留固定 −1），expert 认领时承诺 −1、超时实扣 −20。
-    # 现场按本 issue 的 difficulty 算出真实值并渲染（与 `/expire` 回评同款措辞）。
     _td, _ = timeout_delta(base_of(st.difficulty))
     bullets = [f"持有者：@{actor}",
                f"到期：{due}（逾期自动回板 `bounty:open` 并记 {_td} 分 = −2×base）",
@@ -987,7 +983,7 @@ def _do_settle(st, actor, now, cfg, is_maintainer):
                    st.rounds, f"结算 {score} 分（{note}）", bullets, delta=score, formula=formula)
 
 
-# 生效条件：states 为 IssueState 可迭代、now 为带时区 datetime、cfg 为 Config 时返回 Decision 列表——逐条判「态为 claimed ∧ 有 due_at ∧ now ≥ due ⇒ 超时回板 open（记 −2×base（timeout_delta），负分归属原持有者）」；未超期/无到期/非 claimed 一律不动。
+# 生效条件：states 为 IssueState 可迭代、now 为带时区 datetime、cfg 为 Config 时返回 Decision 列表——逐条判「态为 claimed ∧ 有 due_at ∧ now ≥ due ⇒ 超时回板 open（记 SCORE_TIMEOUT，负分归属原持有者）」；未超期/无到期/非 claimed 一律不动。
 def sweep(states, now: datetime, cfg: Config):
     """超时回收（`schedule` 每 6 小时调用）：`bounty:claimed` 且到期未交付 → 回板。"""
     out = []

@@ -1249,6 +1249,33 @@
     },
     {
       "ts": "2026-10-13T12:00:00Z",
+      "issue": 163,
+      "covers": [],
+      "pr": 163,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "NekoDD-wow",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "bounty_site",
+      "impact": "B",
+      "reason": "fix(game) 不变量③『倒下⇔0 血』+ heal() 只经治疗迁移（宣称即实现）：找出 4 处**可达**的状态×生命值矛盾（0 血仍清醒 / 满血却倒下 / 构造即矛盾 / 未经治疗迁移直接回血），而既有 19 条断言全未覆盖；新增不变量③在 __init__ 与 transition 落定时判定（失败则整次迁移不生效），把 heal= 设为唯一回血入口并给 heal() 加 via 检查；补 F1/F2 两条断言 + m14/m15 两条定点变异；并**主动修正自身 A2 判据的「代绿」空转**（新不变量会让旧判据被代绿 ⇒ 收紧为必须含「非法迁移」）。维护者独立复核：四例在 main 上全部复现、在 PR head 上全部转 StateError；demo 三 seed sha256 改前改后**逐位一致**（强回归证据）；21 断言 / 31 变异 rc=0。难度按「需自行探索非显然的可达状态并设计不变量＋判据不得空转」判 hard；影响按「被修对象是悬赏交付件、爆炸半径限于仓内」判 B（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-13",
+      "id": "evt_9d3cc3774c09"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
       "issue": 160,
       "covers": [
         160
@@ -1330,6 +1357,33 @@
       },
       "day": "2026-10-13",
       "id": "evt_ce943e4380a8"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 164,
+      "covers": [],
+      "pr": 164,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "tang19-chao",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "bounty_site",
+      "impact": "A",
+      "reason": "真源对齐 ＋ 治理文本收口：13 文件。① 修掉**超时口径 20 倍不一致**——代码与规则正文写 −2×base（expert −20），而 README／发布模板／§七／榜面／规则页／首页／荣誉榜页仍写「记 −1」；② 认领通道表述收口为按条目分流；③ **新增 tests/test_rule_text.py（3 断言 + 7 定点变异 R1–R7）**，补上「真源改了、面向文本没跟着改」这一缺失守卫；④ 修 build_site.py 把 v0.1「虚假交付 −5」当现行口径、以及静态文案 markdown 星号/反引号原样漏进 HTML。维护者独立复核：两处口径不一致在**同一文件内**共存（docs/bounty/README.md L125 写 −2×base、L190 写「记 −1」），主张成立；合 main 解冲突后 9 守卫全绿（含新增件 3/0 + 变异 7/7 恰好命中）。难度按「跨 13 面收口 ＋ 新建带变异自证的守卫」判 hard；影响按「外部贡献者照文本预期分数实际被扣 20 倍，且按错通道 /claim 会被记在本人头上」判 A（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-13",
+      "id": "evt_d1b6d912fc8f"
     },
     {
       "ts": "2026-10-13T12:00:00Z",

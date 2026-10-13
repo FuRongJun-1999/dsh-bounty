@@ -368,6 +368,32 @@
    ],
    "invalid": 0,
    "issues": [
+    163
+   ],
+   "login": "NekoDD-wow",
+   "projects": [],
+   "reputation_delta": 6,
+   "round0": 0,
+   "round0_ratio": 0.0,
+   "round_known": 1,
+   "round_seen": [
+    1
+   ],
+   "settled": 1,
+   "timeout": 0
+  },
+  {
+   "blockers": [
+    "声誉分 6 < 24",
+    "已结算 1 项 < 2"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     59
    ],
    "login": "ganzhe12138",
@@ -397,6 +423,32 @@
     152
    ],
    "login": "myYangyunfan",
+   "projects": [],
+   "reputation_delta": 6,
+   "round0": 0,
+   "round0_ratio": 0.0,
+   "round_known": 1,
+   "round_seen": [
+    1
+   ],
+   "settled": 1,
+   "timeout": 0
+  },
+  {
+   "blockers": [
+    "声誉分 6 < 24",
+    "已结算 1 项 < 2"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    164
+   ],
+   "login": "tang19-chao",
    "projects": [],
    "reputation_delta": 6,
    "round0": 0,

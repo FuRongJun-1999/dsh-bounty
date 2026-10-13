@@ -222,6 +222,20 @@
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
+    163
+   ],
+   "login": "NekoDD-wow",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
     59
    ],
    "login": "ganzhe12138",
@@ -297,6 +311,20 @@
    ],
    "login": "qweqqxq11",
    "project": "hive_memory_bench",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    164
+   ],
+   "login": "tang19-chao",
+   "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 6,
    "rounds": 1

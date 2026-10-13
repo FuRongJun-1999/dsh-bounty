@@ -16,7 +16,7 @@
 | 状态机 | [`scripts/bounty_board.py`](scripts/bounty_board.py) | 三层白箱：纯逻辑层／薄 GitHub 客户端（stdlib `urllib`）／路由层；**状态权威面＝issue 线程本身**（评论里的 `<!-- bounty:v1 {…} -->` 标记） |
 | 薄壳 | [`.github/workflows/bounty.yml`](.github/workflows/bounty.yml) | 事件只经 `$GITHUB_EVENT_PATH` 文件进 python；`persist-credentials: false`；权限最小面 |
 | 发布模板 | [`.github/ISSUE_TEMPLATE/bounty.yml`](.github/ISSUE_TEMPLATE/bounty.yml) | 悬赏发布（验收标准必填） |
-| 状态机守卫 | [`tests/test_bounty_board.py`](tests/test_bounty_board.py) | 119 条断言 ＋ 42 条定点变异（M0–M40，含审核员机制 `[R]` 组） |
+| 状态机守卫 | [`tests/test_bounty_board.py`](tests/test_bounty_board.py) | 142 条断言 ＋ 52 条定点变异（M0–M51，含审核员机制 `[R]` 组） |
 | **网站面生成器** | [`scripts/build_site.py`](scripts/build_site.py) | 静态站（纯 stdlib）；**荣誉榜由账本机械生成** |
 | **网站面守卫** | [`tests/test_build_site.py`](tests/test_build_site.py) | 24 条断言 ＋ 5 条定点变异（N0–N4） |
 | 账本／荣誉榜 | [`docs/bounty/ledger.json`](docs/bounty/ledger.json) ／ [`docs/bounty/board.md`](docs/bounty/board.md) | append-only 事件流 ／ 由账本机械生成 |

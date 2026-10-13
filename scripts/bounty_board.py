@@ -110,7 +110,11 @@ SCORE_DEFAULT = 1
 #: 账本 role 事件是**权威面**——两者取并集，撤销以账本为准。
 ROLE_NAMES = ("reviewer", "maintainer")
 #: 须回避的角色动作：actor 不得与本 issue 当前持有者同一人（自审自结闸；对维护者与审核员**一律**生效）。
-RECUSAL_ACTIONS = ("/verify", "/settle", "/appraise")
+#: **本表是死常量**：评委决定的实现是各 `_do_*` 里的显式 `needs_recusal` 调用，没有读本表的代码路径
+#: ⇒ 往表里加成员**不产生任何行为**（2026-10-13 实证）。真正生效的判据是 `needs_recusal(st, actor)`
+#: 内部的两条：`actor == st.holder`（自审自结）与 `st.state == contest ∧ actor ∈ st.bidders`
+#: （投标人回避）。本表仅供文档/人工核对，改动它请同步改 `needs_recusal` 并补定点变异。
+RECUSAL_ACTIONS = ("/verify", "/settle", "/appraise", "/select")
 #: 晋升审核员的**复合判据**（**建议值，待裁**——与 DIFFICULTY_SCORES 同款「口径单点」：改口径只改本表）。
 #: 为什么是复合而非单阈值：声誉分只答「做了多难」，不答「做得多好」；须叠加一次过闸占比与负向记录。
 PROMOTION_RULES = {
@@ -445,6 +449,8 @@ class IssueState:
     bidders: tuple = ()
     #: 价值评价的影响等级（∈ IMPACT_GRADES；空串 = 未评价）。
     impact: str = ""
+    #: 影响等级的**评价者**（跨态继承时用于回避复核：评价者成了持有者 ⇒ 该等级失效）。
+    impact_by: str = ""
 
 
 @dataclass(frozen=True)
@@ -508,7 +514,8 @@ def build_state(number, labels, comments, author=None) -> IssueState:
         difficulty=difficulty, author=author,
         criteria=tuple(marker.get("criteria") or ()),
         bidders=tuple(marker.get("bidders") or ()),
-        impact=marker.get("impact") or "")
+        impact=marker.get("impact") or "",
+        impact_by=marker.get("impact_by") or "")
 
 
 # 生效条件：labels 为标签可迭代、target 为裸态名时返回 (要加的标签, 要删的标签)——删光其余态标签，加目标态标签；target 为空串时只删不加。
@@ -523,12 +530,22 @@ def label_patch(labels, target):
 # ================================================================ 校验面（每条判据 = 一个可定点变异的函数）
 
 
+# 生效条件：st 为 IssueState 时返回 (是否通过, 理由)——入选标记 `bounty` 必须在；**不含态判据**
+# （认领与招标共用标签闸，但「招标态」本身不可认领，故态判据留在 `_check_claimable`）。
+def _check_bounty_label(st: IssueState):
+    """R3a：入选标记 `bounty`（标签闸；`/claim` 与 `/bid` `/select` 共用）。"""
+    if not st.has_bounty:
+        return False, ("本 issue 没有 `bounty` 标签——它不是悬赏任务"
+                       "（维护者打 `bounty` 标签后即可认领/投标）")
+    return True, ""
+
+
 # 生效条件：st 的标签面与态面给定时返回 (是否通过, 理由)——`bounty` 标签必须在 ∧ 态 ∈ {open, expired}；否则拒绝并把当前态写进理由。
 def _check_claimable(st: IssueState):
     """R3：入选标记 `bounty` 在 ∧ 态为 open/expired（设计稿 §三 `/claim` 校验）。"""
-    if not st.has_bounty:
-        return False, ("本 issue 没有 `bounty` 标签——它不是悬赏任务"
-                       "（维护者打 `bounty` 标签后即可认领）")
+    ok_lbl, why_lbl = _check_bounty_label(st)
+    if not ok_lbl:
+        return False, why_lbl
     if st.state not in CLAIMABLE_STATES:
         return False, (f"当前态 `bounty:{st.state}` 不可认领"
                        f"（仅 {'/'.join(CLAIMABLE_STATES)} 可认领）")
@@ -628,7 +645,7 @@ def _decide(st, action, reason, now, actor, code, delta=0, formula=None) -> Deci
 def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
             bullets, marker_extra=None, delta=0, event_holder=None,
             event_actor=None, formula=None, criteria=None, bidders=None,
-            extra_events=(), impact=None) -> Decision:
+            extra_events=(), impact=None, impact_by=None) -> Decision:
     """通过裁决的统一构造。"""
     add, remove = label_patch(st.labels, to_state)
     marker = {"state": to_state, "holder": holder, "due_at": due_at,
@@ -641,8 +658,14 @@ def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
     if _bd:
         marker["bidders"] = list(_bd)
     _im = st.impact if impact is None else (impact or "")
+    _ib = st.impact_by if impact_by is None else (impact_by or "")
+    # 自评等级不得随持有者/结算者迁移（缺陷 #269A）：评价者本人成了新持有者或本次执行的
+    # actor 时，等级作废（`_do_appraise` 自身除外——它正是在登记这一条等级）。
+    if _im and _ib and action != "/appraise" and _ib in (holder, actor):
+        _im, _ib = "", ""
     if _im:
         marker["impact"] = _im
+        marker["impact_by"] = _ib
     ev = {"ts": fmt_ts(now), "issue": st.number, "action": action.lstrip("/"),
           "actor": event_actor or actor, "from": st.state, "to": to_state,
           "holder": st.holder if event_holder is None else event_holder,
@@ -652,6 +675,7 @@ def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
         ev["formula"] = formula
     if _im:
         ev["impact"] = _im
+        ev["impact_by"] = _ib
     if marker_extra:
         ev.update({k: v for k, v in marker_extra.items() if k == "pr"})
     ev["id"] = event_id(ev)
@@ -664,13 +688,21 @@ def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
                     delta=delta, event=ev, extra_events=tuple(extra_events))
 
 
-# 生效条件：st 为 IssueState、actor 为非空登录名时返回 (是否须回避, 理由)——actor 与本 issue 当前
-# 持有者同一人即须回避（自审自结）；无持有者时不触发。纯函数、零 IO。
+# 生效条件：st 为 IssueState、actor 为非空登录名时返回 (是否须回避, 理由)——actor 是本 issue 的
+# **当前持有者**（自审自结），或处在招标态且 actor ∈ st.bidders（投标人已是利害关系人）即须回避；
+# 两者皆不成立时不触发。纯函数、零 IO。
 def needs_recusal(st, actor):
+    _acts = "、".join(f"`{a}`" for a in RECUSAL_ACTIONS)
     if st.holder and actor and actor == st.holder:
         return True, (f"@{actor} 是本 issue 的当前持有者——按回避纪律，持有者不得自审自结"
-                      "（`/verify` `/settle` `/appraise` 三闸一律回避）")
-    return False, ""# 生效条件：st 为 IssueState、cmd 为 COMMANDS 之一、actor 为非空登录名、now 为带时区 datetime、cfg 为 Config、active_claims 为 actor 当前并发认领数（不含本 issue）时返回一个 Decision——**纯逻辑，零 IO/零网络**；is_maintainer 影响 /verify /settle /appraise /select，is_reviewer 另开 /verify 与 /appraise（审核员档，**不含 /settle**）；回避闸（needs_recusal）对两者一律先生效；pr_meta 只写进账本事件。
+                      f"（{_acts} 一律回避）")
+    if actor and st.state == "contest" and actor in (st.bidders or ()):
+        return True, (f"@{actor} 是本 issue 的投标人——按回避纪律，投标人不得参与对自己"
+                      f"所投任务的评判（{_acts} 一律回避）")
+    return False, ""
+
+
+# 生效条件：st 为 IssueState、cmd 为 COMMANDS 之一、actor 为非空登录名、now 为带时区 datetime、cfg 为 Config、active_claims 为 actor 当前并发认领数（不含本 issue）时返回一个 Decision——**纯逻辑，零 IO/零网络**；is_maintainer 影响 /verify /settle /appraise /select，is_reviewer 另开 /verify 与 /appraise（审核员档，**不含 /settle**）；回避闸（needs_recusal）对两者一律先生效；pr_meta 只写进账本事件。
 def handle_command(st: IssueState, cmd, payload, body, actor, now, cfg: Config,
                    is_maintainer=False, active_claims=0, pr_meta=None,
                    is_reviewer=False) -> Decision:
@@ -714,6 +746,20 @@ def _check_admission(st, cfg):
     return True, ""
 
 
+# 生效条件：st 为 IssueState、cfg 为 Config 时返回裁决或 None——招标侧（`/bid` `/select`）的公共前置：
+# 作者闸（not_admitted）与标签闸（state_not_claimable）依序短路；通过返回 None 交调用方继续。
+# 为什么招标也要过作者闸：投标不校验发布者时，「外部人发一条带 bounty:contest 的 issue」
+# 就能绕过准入闸直接产生中标者与结算（缺陷 #270B）。
+def _guard_admitted_bounty(st, cmd, actor, now, cfg):
+    ok_adm, why_adm = _check_admission(st, cfg)
+    if not ok_adm:
+        return _decide(st, cmd, why_adm, now, actor, "not_admitted")
+    ok_lbl, why_lbl = _check_bounty_label(st)
+    if not ok_lbl:
+        return _decide(st, cmd, why_lbl, now, actor, "state_not_claimable")
+    return None
+
+
 def _do_claim(st, actor, now, cfg, active_claims):
     ok_adm, why_adm = _check_admission(st, cfg)
     if not ok_adm:
@@ -731,6 +777,13 @@ def _do_claim(st, actor, now, cfg, active_claims):
     bullets = [f"持有者：@{actor}",
                f"到期：{due}（逾期自动回板 `bounty:open` 并记 {SCORE_TIMEOUT} 分）",
                "交付：评论 `/deliver <PR 链接或证据块>`；放弃：`/withdraw`"]
+    # 回避闸（缺陷 #269A）：本 issue 当时无持有者 ⇒ 评价者可先 `/appraise` 再自 `/claim`。
+    # 作废动作**不在此处落地**——统一由 `_accept` 的「等级不得随人迁移」不变量处置
+    # （`impact_by ∈ {新持有者, 执行者}` ⇒ 作废）；这里只补一句留痕，使人看得懂等级为何消失。
+    # （2026-10-13 实证：删掉本段，R31 仍绿 ⇒ 本段只承担留痕，不承担判据。）
+    if st.impact and st.impact_by == actor:
+        bullets.append(f"回避：{st.impact} 级由 **@{actor} 本人**作出——认领后该等级作废，"
+                       "须由非持有者重新 `/appraise`")
     return _accept(st, "/claim", now, actor, "claimed", actor, due, 0,
                    f"@{actor} 认领，锁至 {due}", bullets)
 
@@ -738,6 +791,9 @@ def _do_claim(st, actor, now, cfg, active_claims):
 # 生效条件：st 为 IssueState、payload 为投标载荷、actor/now/cfg/pr_meta 齐全时返回裁决——校验依序
 # 「态为招标中 → 未过投标截止 → 带链接或证据块 → 本人未投过」；全过则登记投标人（态不变）。
 def _do_bid(st, payload, body, actor, now, cfg, pr_meta):
+    _gate = _guard_admitted_bounty(st, "/bid", actor, now, cfg)
+    if _gate is not None:
+        return _gate
     if st.state != "contest":
         return _decide(st, "/bid",
                        f"当前态 `bounty:{st.state}` 不接受投标（须为 `bounty:contest`："
@@ -772,6 +828,12 @@ def _do_bid(st, payload, body, actor, now, cfg, pr_meta):
 # 载荷首词须为已投标登录名（可带 @）。通过则定标：中标者转 delivered（holder=中标者、rounds=1 首交付），
 # **其余有效投标者各记落选分**（0/1/2/4，按难度）为 extra_events（0 分也写事件——否则与「未投标」同形）。
 def _do_select(st, payload, actor, now, cfg, is_maintainer):
+    _rec, _why = needs_recusal(st, actor)
+    if _rec:
+        return _decide(st, "/select", _why, now, actor, "recusal_required")
+    _gate = _guard_admitted_bounty(st, "/select", actor, now, cfg)
+    if _gate is not None:
+        return _gate
     if not is_maintainer:
         return _decide(st, "/select", "仅维护者可定标（人审闸）", now, actor, "not_maintainer")
     if st.state != "contest":
@@ -782,6 +844,10 @@ def _do_select(st, payload, actor, now, cfg, is_maintainer):
     text = (payload or "").strip()
     head, _sep, rest = text.partition(" ")
     winner = head.lstrip("@").strip()
+    if winner == actor:
+        return _decide(st, "/select",
+                       f"@{actor} 不得把标的定给自己——定标人不得是中标人（回避纪律）",
+                       now, actor, "recusal_required")
     if winner not in st.bidders:
         _names = "、".join("@" + b for b in st.bidders)
         return _decide(st, "/select", f"中标人须为已投标者之一（当前投标：{_names}）",
@@ -801,12 +867,19 @@ def _do_select(st, payload, actor, now, cfg, is_maintainer):
         extra.append(_ev)
     _w, _wf = quality_delta(base_of(st.difficulty), 1)
     _lz = f"（各记落选分：{'、'.join('@' + b for b in losers)}）" if losers else ""
-    bullets = [f"定标者：@{actor}", f"中标人：**@{winner}**", f"理由：{reason}",
-               f"投标共 {len(st.bidders)} 份；落标 {len(losers)} 份{_lz}",
-               f"中标者转 `bounty:delivered`：走验收四闸后 `/verify` → `/settle`"
-               f"（首交付 {_w} 分）"]
+    # 中标人本人的自评等级是否作废，**不在本函数内落地**——统一由 `_accept` 的
+    # 「等级不得随人迁移」不变量处置（`impact_by ∈ {新持有者, 执行者}` ⇒ 作废）。
+    # 这里只负责**留痕**：命中时把回避原因写进公告，使人能看懂等级为何消失了。
+    _clear = bool(st.impact) and st.impact_by == winner
+    _b0 = [f"定标者：@{actor}", f"中标人：**@{winner}**", f"理由：{reason}"]
+    if _clear:
+        _b0.append(f"回避：{st.impact} 级由 **@{winner} 本人**作出——中标后该等级作废，"
+                   "须由非持有者重新 `/appraise`")
+    _b0.append(f"投标共 {len(st.bidders)} 份；落标 {len(losers)} 份{_lz}")
+    _b0.append(f"中标者转 `bounty:delivered`：走验收四闸后 `/verify` → `/settle`"
+               f"（首交付 {_w} 分）")
     return _accept(st, "/select", now, actor, "delivered", winner, st.due_at, 1,
-                   f"定标：@{winner} 中标（{len(st.bidders)} 份投标）", bullets,
+                   f"定标：@{winner} 中标（{len(st.bidders)} 份投标）", _b0,
                    extra_events=tuple(extra), bidders=())
 
 # 生效条件：st/actor/now/cfg 齐全且 is_maintainer 为真时返回裁决——非维护者拒；载荷首词须 ∈ IMPACT_GRADES；**依据必填**
@@ -836,7 +909,7 @@ def _do_appraise(st, payload, actor, now, cfg, is_maintainer, is_reviewer=False)
                "注：等级**不与难度相乘**，也**不换算为任何金额**——两轴分别记录，合成属使用者侧。"]
     return _accept(st, "/appraise", now, actor, st.state, st.holder, st.due_at,
                    st.rounds, f"价值评价 {grade}：{reason[:60]}", bullets,
-                   impact=grade)
+                   impact=grade, impact_by=actor)
 
 # 生效条件：st 为 IssueState、payload 为命令载荷、body 为整条评论正文、actor/now/cfg 齐全时返回裁决——校验依序「仅本人可交付 → 态可交付 → 带链接或证据块 → 轮次 ≤ max_rounds」；全过则转 delivered 并记 pr_meta（若交付链接指向本仓 PR）。
 def _do_deliver(st, payload, body, actor, now, cfg, pr_meta):

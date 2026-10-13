@@ -181,13 +181,17 @@ delta = max(1, round_half_up(base × 2 / (round + 1)))     # round = 已发生�
 - **发布**（维护者）：用 [发布模板](../../.github/ISSUE_TEMPLATE/bounty.yml) 建 issue——**验收标准必填**、
   难度、期望交付形态、参考材料；维护者补 `difficulty:*` 标签。
 - **认领**（任何人）：在该 issue 评论 `/claim`（首次认领前请读一遍验收标准——只按那份判）。
+  两条通道按条目分流：原 issue **仍开着**的走 `/claim`；已随**载体迁移**关闭的（见 `docs/bounty/悬赏清单.md`
+  各条 `issue_note`）走 **PR 通道**——提交 PR 把真源 `悬赏.json` 里该条 `status` 改为 `claimed`、
+  `owner` 填 GitHub 登录名，并在 PR 描述里写明第一条复跑命令；**PR 合并且清单重生成后**真源才生效。
 - **交付**：评论 `/deliver <PR 链接或证据块>`。
 - **等验收**：维护者按 §三 四闸裁决；通过后 `/settle` 入账。
 
 ## 七、超时回板（自动）
 
 每 6 小时扫描一次：`bounty:claimed` 且已过 72 小时未交付 ⇒ 自动回板 `bounty:open`
-（回评说明原持有者、到期时间与超期时长；记 −1）。任何人可重新认领。
+（回评说明原持有者、到期时间与超期时长；记 **−2×base**——expert **−20** ／ hard **−12** ／
+medium **−6** ／ easy **−2**；口径真源 `timeout_delta`，见 §四）。任何人可重新认领。
 
 ## 八、账本收口（维护者看这一节）
 

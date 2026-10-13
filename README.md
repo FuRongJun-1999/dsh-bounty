@@ -30,6 +30,7 @@
 | **审核员机制** | [`scripts/bounty_board.py`](scripts/bounty_board.py) ／ [`docs/spec/审核员机制_v0.1.md`](docs/spec/审核员机制_v0.1.md) | 回避闸（自审自结禁止）＋ 审核员档（`/verify` `/appraise`，**不含** `/settle`）＋ 账本 `role` 事件授权面 ＋ 晋升复合判据 |
 | 晋升评估／授权面 | [`docs/bounty/promotion.json`](docs/bounty/promotion.json) ／ [`docs/bounty/roles.json`](docs/bounty/roles.json) | 由账本机械导出（`--promotion-out` ／ `--roles-out`；只读、纯函数） |
 | 静态站产物 | [`site/`](site/) | `index / board / honor / rules` 四页（由生成器产出） |
+| **口径文本守卫** | [`tests/test_rule_text.py`](tests/test_rule_text.py) | 3 条断言 ＋ 7 条定点变异（R1–R7）：现行口径到位 ／ 陈旧口径不残留 ／ 认领通道单一——**真源改了、面向文本没跟着改**即红 |
 
 **独立仓**：所有件自包含，不依赖任何外部仓的路径或模块——所有命令都在本仓根下跑，
 只用 Python 标准库（**零第三方依赖、不触网**）。
@@ -68,6 +69,10 @@ python -X utf8 scripts/bounty_board.py --roles-out docs/bounty/roles.json
 python -X utf8 tests/test_build_site.py
 python -X utf8 tests/test_build_site.py --mutate
 
+# 4b. 口径文本守卫（真源 ↔ 面向文本一致性 ＋ 定点变异自证）
+python -X utf8 tests/test_rule_text.py
+python -X utf8 tests/test_rule_text.py --mutate
+
 # 5. 本地预览（起个 stdlib 静态服务器，浏览器开 http://127.0.0.1:8000/site/）
 python -X utf8 -m http.server 8000
 ```
@@ -93,7 +98,9 @@ python -X utf8 -m http.server 8000
   **`expired` 立即回 `open`**（不驻留标签）。
 - **验收四闸**：① CI 全绿（机器判）② 复现读数 ③ 守卫＋定点变异 ④ **维护者人审**
   （第 ④ 闸**不许写成自动通过**）。
-- **计分**：easy 1 ／ medium 3 ／ hard 6 ／ expert 10；虚假交付 −5；超时 −1。
+- **计分**：难度基准 easy 1 ／ medium 3 ／ hard 6 ／ expert 10；完成分按质量化
+  `max(1, round_half_up(base×2/(round+1)))`；**超时未交付 −2×base**；轮次用尽判无效交付 −base；
+  主动释放与争议提起不扣分。口径真源＝`scripts/bounty_board.py`。
   ★ **这些数值在设计稿里标着「建议值，待裁」**——代码与页面照实现，但每处都标明
   **「数值待设计者裁定」**，不写成已定（改口径只改 `scripts/bounty_board.py` 的
   `DIFFICULTY_SCORES` 与负分常量）。

@@ -1187,9 +1187,11 @@ def render_board(events) -> str:
         "手改会在下一次生成时被覆盖。",
         f"> 账本事件数：{len(events)}" + (f" ｜ 统计截至：{until}" if until else ""),
         "",
-        "计分口径（设计稿 §五 建议值，待设计者裁定）：easy 1 / medium 3 / hard 6 / "
-        "expert 10；虚假交付 −5；超时未交付 −1；主动释放与争议提起不扣分"
-        "（争议败诉记录在案、不扣本金）。",
+        "计分口径（口径真源＝本仓 `scripts/bounty_board.py`）：难度基准 easy 1 / "
+        "medium 3 / hard 6 / expert 10；完成分 max(1, round_half_up(base×2/(round+1)))；"
+        "扣分：超时未交付 **−2×base** ／ 轮次用尽判无效交付 −base；"
+        "主动释放与争议提起不扣分（争议败诉记录在案、不扣本金）；被拒命令记 0 分但记在尝试者头上。"
+        "分段生效：v0.1 旧事件用固定分（虚假交付 −5 ／ 超时 −1），v1.0 起用质量化（`SCORE_RULE`）。",
         "",
     ]
     if not rows:

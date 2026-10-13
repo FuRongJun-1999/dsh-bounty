@@ -1537,6 +1537,16 @@ def load_store(path):
             doc = json.load(fh)
     except ValueError as exc:
         raise BoardError(f"状态文件不是合法 JSON：{path}（{exc}）")
+    # ★本笔：**顶层形状判据**。`json.load` 只保证「合法 JSON」，不保证顶层是对象 ——
+    # 旧实现直接 `doc.setdefault(...)`，遇到 `[]` / `"x"` / `5` / `null`（**全是合法 JSON**）
+    # ⇒ `AttributeError: ... has no attribute 'setdefault'`：**未捕获的裸异常**，
+    # 而非本模块的 `BoardError`（「环境/输入级错误 ⇒ 调用方据此退 2」）。
+    # 同族的 `load_ledger` 对同类输入是抛 `BoardError` 的（「账本结构不符（须为
+    # {'events': [...]}）」）⇒ 两处口径本就不一致，本件对齐。
+    # 危害不限于本模块：`check_plan.py --state <坏镜像>` 会穿透它的
+    # `except ScanError` / `except bb.BoardError` 两条腿，直接抛栈而不是退 1。
+    if not isinstance(doc, dict):
+        raise BoardError(f"状态文件结构不符（顶层须为对象，实为 {type(doc).__name__}）：{path}")
     doc.setdefault("issues", {})
     doc.setdefault("ledger", [])
     return doc

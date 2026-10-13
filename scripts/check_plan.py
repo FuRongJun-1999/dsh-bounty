@@ -109,6 +109,19 @@ def read_json(path):
         raise ScanError(f"不是合法 JSON：{path}（{exc}）") from exc
 
 
+# 生效条件：path 为账本 JSON 路径时返回事件列表；**文件不存在抛 ScanError**。
+# ★本笔：**不能**直接调 `bb.load_ledger` —— 它对不存在的路径返回 `[]`（那是「离线演练
+# 起点」语义，见 `bounty_board.load_ledger` 的说明）。对被**显式指定**的审计对象，
+# 这个语义是错的：会把「账本文件根本不在」伪装成「账本里一条事件都没有」，于是
+# 每个号都被判「缺账本事件」、整批假阳性，而且**退出码 0**（本件 docstring 承诺
+# 「1 = 账本/快照读不了（结构坏、缺文件而显式指定）」）。
+# **快照腿与镜像腿都做了这道检查**（`read_json` 先 `isfile`；`read_state` 同），唯独账本腿漏了。
+def read_ledger(path):
+    if not os.path.isfile(path):
+        raise ScanError(f"文件不存在：{path}")
+    return bb.load_ledger(path)
+
+
 # 生效条件：obj 为快照文档（{"items": [...]} 或裸列表）时归一化为 [(number, labels, comments)] 升序去重；
 # 字段形状不符抛 ScanError（坏输入不静默跳过）。
 def normalize_issues(obj):
@@ -424,7 +437,7 @@ def render_json(result):
 
 # 生效条件：ledger_path/issues_path 给定时返回 reconcile 结果；读不了抛 ScanError。
 def scan(ledger_path, issues_path):
-    events = bb.load_ledger(ledger_path)
+    events = read_ledger(ledger_path)
     issues = normalize_issues(read_json(issues_path))
     return reconcile(issues, events)
 
@@ -453,7 +466,7 @@ def core(argv=None):
         if src == "state":
             issues, events = read_state(payload)
         else:
-            events = bb.load_ledger(payload[0])
+            events = read_ledger(payload[0])
             issues = normalize_issues(read_json(payload[1]))
         result = reconcile(issues, events)
     except ScanError as exc:

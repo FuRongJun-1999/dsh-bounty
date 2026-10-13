@@ -46,6 +46,7 @@ import importlib.util
 import io
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -87,15 +88,31 @@ def load_json(path):
         raise ValueError("读取失败：%s（%s）" % (path, exc))
 
 
+#: 严格日期**形状**（与 `review_build.py:80` 的 `DATE_RE` 同款）。
+#: ★本笔：`review_build` 与 `evidence_check` 各有一个同名同述的 `date_ok`，**已实际分叉**：
+#: `evidence_check` 旧实现只做「`datetime.date.fromisoformat` 可解析 ＋ `len(s) == 10`」，
+#: 而 **Python 3.11+ 的 `fromisoformat` 接受 ISO 周日期** —— `"2026-W01-1"` 恰好 10 字符、
+#: 且能被解析（⇒ `2025-12-29`）⇒ 旧实现判 **True**，而 `review_build` 判 **False**。
+#: 本函数 docstring 自称「形状 ＋ 日历双判」，旧实现根本没有形状判据（长度 ≠ 形状）。
+DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
+
+
 # 生效条件：text 为任意值时返回其是否为真实存在的 YYYY-MM-DD（形状 ＋ 日历双判）。
 def date_ok(text) -> bool:
-    """日期校验：形状 ＋ 日历。"""
+    """日期校验：形状 ＋ 日历。
+
+    ★本笔：补上**形状**那一半（旧实现只有「可解析 ＋ 长度 10」）。与
+    `review_build.date_ok` 的判据逐位一致（同款 `DATE_RE.fullmatch` ＋
+    `fromisoformat`）——两处同名同述的实现不得分叉。
+    """
     s = str(text or "")
+    if not DATE_RE.fullmatch(s):
+        return False
     try:
         datetime.date.fromisoformat(s)
     except ValueError:
         return False
-    return len(s) == 10
+    return True
 
 
 # 生效条件：doc 为快照清单对象时返回「文件名 → 清单项」映射；结构不符抛 ValueError。

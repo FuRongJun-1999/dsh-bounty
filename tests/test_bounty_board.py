@@ -384,9 +384,9 @@ def group_lifecycle():
        _d31.ok is False and "不接受投标" in _d31.reason, _d31.reason)
     _d32 = _bd(_mkb(bidders=("alice", "bob", "carol")), "/select", "bob 读数最全",
                 actor="FuRongJun-1999", maint=True)
-    ok("G32 /select 定标 → 转 delivered、holder=中标者、rounds=1（首交付）",
+    ok("G32 /select 定标 → 转 delivered、holder=中标者、rounds=0（待首轮交付；中标者 /deliver 后为 1）",
        _d32.ok and _d32.to_state == "delivered" and _d32.holder == "bob"
-       and _d32.rounds == 1, (_d32.to_state, _d32.holder, _d32.rounds))
+       and _d32.rounds == 0, (_d32.to_state, _d32.holder, _d32.rounds))
     ok("G33 落标者各一条落选事件：hard → 2 分（v0.4 表 0/1/2/4）",
        len(_d32.extra_events) == 2
        and {e["actor"] for e in _d32.extra_events} == {"alice", "carol"}

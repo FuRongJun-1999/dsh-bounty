@@ -51,7 +51,13 @@ GOLDEN_DIR = os.path.join(REPO, "tests", "fixtures")
 GOLDEN_ISSUES = os.path.join(GOLDEN_DIR, "check_plan_golden.json")
 GOLDEN_LEDGER = os.path.join(GOLDEN_DIR, "check_plan_golden_ledger.json")
 
-#: 账本 action → 它把 issue 迁到的态（**不新增口径**：与 bounty_board 的迁移目标一致）。
+#: 账本 action → 它**通常**迁到的态。★**仅作兼容回落**：`bounty_board._accept` 在每条
+#: 通过事件里都会写死 `from`/`to`，那份 `to` 才是真源 —— 同一个 action 的目标态**可以不同**：
+#: `/verify pass` ⇒ `verified`，而 `/verify fail` ⇒ **`claimed`**（退回返工，见
+#: `bounty_board._do_verify`）；`/deliver` 轮次用尽 ⇒ `disputed`。
+#: 旧实现**无条件**用本表反推 ⇒ 一次正常的 `/verify fail` 会被判成 `verified`，
+#: 与标签/标记的 `claimed` 对不上 ⇒ **假「态冲突」**。
+#: 本表只在事件**不含 `to`** 时使用（历史遗留：维护者的批量补记件不走 `_accept`，故无 `to`）。
 #: `reject`/`role` 不改态——拒绝是尝试痕、role 是授权面。
 LEDGER_TO_STATE = {
     "claim": "claimed",
@@ -63,6 +69,16 @@ LEDGER_TO_STATE = {
     "expire": "expired",
 }
 NO_STATE_ACTIONS = ("reject", "role")   # 文档用：这两类不态迁移（判据在 LEDGER_TO_STATE）
+
+
+# 生效条件：ev 为账本事件 dict 时返回它迁到的态（可能为空串）——
+# **优先取事件自带的 `to`**（真源，随结果变化），无 `to` 时回落到 `LEDGER_TO_STATE`（兼容）。
+def state_of_event(ev) -> str:
+    """事件迁到的态：`to` 优先，动作表回落。**两者皆无 ⇒ 空串**（调用方据此跳过）。"""
+    to = str(ev.get("to") or "")
+    if to:
+        return to
+    return LEDGER_TO_STATE.get(str(ev.get("action") or "")) or ""
 
 DEFECT_LABEL_GAP = "缺标签"
 DEFECT_LEDGER_GAP = "缺账本事件"
@@ -166,7 +182,9 @@ def ledger_states(events, primary=None):
     for _i, ev in ordered:
         if not isinstance(ev, dict):
             continue
-        to = LEDGER_TO_STATE.get(str(ev.get("action") or ""))
+        # ★本笔：`to` 优先（真源）——旧实现无条件用 `LEDGER_TO_STATE` 反推，会把
+        # `/verify fail`（`to=claimed`）误判成 `verified` ⇒ 假「态冲突」。
+        to = state_of_event(ev)
         if not to:
             continue
         nums = [ev.get("issue")]
@@ -194,7 +212,9 @@ def ledger_issue_numbers(events):
     for ev in events or ():
         if not isinstance(ev, dict):
             continue
-        if not LEDGER_TO_STATE.get(str(ev.get("action") or "")):
+        # ★本笔：与 `ledger_states` 同一判据（`to` 优先 + 动作表回落）——两处必须同尺子，
+        # 否则「有态迁移的号」集合与「态表」的键集会对不上。
+        if not state_of_event(ev):
             continue
         raw = ev.get("issue")
         s = str(raw if raw is not None else "")

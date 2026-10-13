@@ -398,13 +398,18 @@ def group_lifecycle():
        len(_d34.extra_events) == 1 and _d34.extra_events[0]["delta"] == 0,
        [(e["actor"], e["delta"]) for e in _d34.extra_events])
     _d35a = _bd(_mkb(bidders=("alice",)), "/select", "alice", actor="bob")
-    _d35b = _bd(_mkb(bidders=("alice",)), "/select", "dave", maint=True)
+    _d35b = _bd(_mkb(bidders=("alice",)), "/select", "dave", actor="carol",
+                maint=True)
     _d35c = _bd(_mkb(), "/select", "alice", maint=True)
-    ok("G35 定标越权/非投标人/无投标 → 三种皆拒",
+    _d35d = _bd(_mkb(bidders=("alice",), holder="bob"), "/select", "alice",
+                actor="bob", maint=True)
+    ok("G35 定标越权/非投标人/无投标/自持挑选 → 四种皆拒",
        _d35a.ok is False and "仅维护者" in _d35a.reason
        and _d35b.ok is False and "须为已投标者之一" in _d35b.reason
-       and _d35c.ok is False and "尚无投标" in _d35c.reason,
-       (_d35a.reason[:20], _d35b.reason[:20], _d35c.reason[:20]))
+       and _d35c.ok is False and "尚无投标" in _d35c.reason
+       # 自持（actor == holder）时即便是维护者也回避——回避优先于授权（对齐 R10）
+       and _d35d.ok is False and "持有者" in _d35d.reason,
+       (_d35a.reason[:20], _d35b.reason[:20], _d35c.reason[:20], _d35d.reason[:20]))
     _ok36, _bad36 = bb.rescore(list(_d32.extra_events) + list(_d34.extra_events))
     ok("G36 落选分 rescore 一致（按难度表复算）", _ok36 and not _bad36, _bad36)
 
@@ -512,6 +517,82 @@ def group_lifecycle():
                                 impact="A"), payload="pass 全过")
     ok("G42 impact 随状态迁移继承（verify 后的新标记仍带等级）",
        _d42.ok and '"impact":"A"' in _d42.comment, _d42.comment[-140:])
+
+    # ---- ★本笔新增（缺陷 #269A/B/C）：自评/自审隔离与自定标禁令 ----
+    _L271 = ("bounty", "bounty:open", "difficulty:hard")
+    _st271 = bb.IssueState(number=271, labels=_L271, has_bounty=True, state="open",
+                           holder=None, rounds=0, seq=1, difficulty="difficulty:hard",
+                           author="FuRongJun-1999")
+    _apA = bb.handle_command(_st271, "/appraise", "S 先插一条自评", "/appraise S 先插一条自评",
+                             "rev1", NOW, CFG, is_maintainer=True)
+    _cl = bb.handle_command(
+        bb.build_state(271, list(_L271), [_apA.comment], author="FuRongJun-1999"),
+        "/claim", "", "/claim", "rev1", NOW, CFG)
+    ok("R31 先评后领：评价者本人认领时自评等级作废（标记与事件均不带 impact）",
+       _apA.ok and '"impact":"S"' in _apA.comment
+       and _cl.ok and bb.latest_marker([_apA.comment, _cl.comment]).get("impact") is None
+       and not _cl.event.get("impact"),
+       (_apA.ok, _cl.ok, _cl.event.get("impact"),
+        bb.latest_marker([_apA.comment, _cl.comment]).get("impact")))
+    # 作废必须是**显式留痕**的：`_accept` 里那条按持有者作废是静默的，单看「不带 impact」
+    # 无法区分「走了 /claim 专闸」与「被 _accept 兜底吞掉」⇒ 断言必须盯住回避子弹本身。
+    ok("R31b 先评后领：作废在该认领评论里**明写回避缘由**（不是静默吞掉）",
+       _cl.ok and "由 **@rev1 本人**作出" in _cl.comment
+       and "须由非持有者重新 `/appraise`" in _cl.comment and "作废" in _cl.comment,
+       _cl.comment[-260:])
+    ok("R32 招标中投标人须回避、非投标人不回避（回避面含投标人）",
+       bb.needs_recusal(_st271, "rev1")[0] is False
+       and bb.needs_recusal(
+           bb.IssueState(number=271, labels=_L271, has_bounty=True, state="contest",
+                         holder=None, bidders=("rev1",), difficulty="difficulty:hard",
+                         author="FuRongJun-1999"), "rev1")[0] is True,
+       (bb.needs_recusal(_st271, "rev1"),
+        bb.needs_recusal(bb.IssueState(
+            number=271, labels=_L271, has_bounty=True, state="contest", holder=None,
+            bidders=("rev1",), difficulty="difficulty:hard",
+            author="FuRongJun-1999"), "rev1")))
+    _st272 = bb.IssueState(number=272, labels=("bounty", "bounty:contest", "difficulty:hard"),
+                           has_bounty=True, state="contest", holder=None, rounds=0, seq=1,
+                           difficulty="difficulty:hard", author="FuRongJun-1999",
+                           bidders=("rev1",))
+    _d33 = bb.handle_command(_st272, "/appraise", "S 投标人自评", "/appraise S 投标人自评",
+                             "rev1", NOW, CFG, is_maintainer=True)
+    ok("R33 招标中投标人 /appraise → 拒（recusal_required，回避含投标人）",
+       _d33.ok is False and _d33.event.get("reason", "").startswith("recusal_required"),
+       _d33.event.get("reason", ""))
+    _st272b = bb.IssueState(number=272, labels=("bounty", "bounty:contest", "difficulty:hard"),
+                            has_bounty=True, state="contest", holder=None, rounds=0, seq=1,
+                            difficulty="difficulty:hard", author="FuRongJun-1999",
+                            bidders=("rev1", "alice"))
+    _d33b = bb.handle_command(_st272b, "/select", "alice 别人", "/select alice 别人",
+                              "rev1", NOW, CFG, is_maintainer=True)
+    ok("R33b 投标人 /select → 拒（recusal_required，定标人不得是投标人）",
+       _d33b.ok is False and _d33b.event.get("reason", "").startswith("recusal_required"),
+       _d33b.event.get("reason", ""))
+    _st273 = bb.IssueState(number=273, labels=("bounty", "bounty:contest", "difficulty:hard"),
+                           has_bounty=True, state="contest", holder=None, rounds=0, seq=1,
+                           difficulty="difficulty:hard", author="FuRongJun-1999",
+                           bidders=("alice", "bob"))
+    _st273b = bb.IssueState(number=273, labels=("bounty", "bounty:contest", "difficulty:hard"),
+                            has_bounty=True, state="contest", holder=None, rounds=0, seq=1,
+                            difficulty="difficulty:hard", author="FuRongJun-1999",
+                            bidders=("alice",))
+    _d33c = bb.handle_command(_st273b, "/select", "bob 选自己人", "/select bob 选自己人",
+                              "bob", NOW, CFG, is_maintainer=True)
+    ok("R33c 维护者把标的定给自己 → 拒（recusal_required，自定标禁令）",
+       _d33c.ok is False and _d33c.event.get("reason", "").startswith("recusal_required"),
+       _d33c.event.get("reason", ""))
+    _st274 = bb.IssueState(number=274, labels=("bounty", "bounty:contest", "difficulty:hard"),
+                           has_bounty=True, state="contest", holder=None, rounds=0, seq=1,
+                           difficulty="difficulty:hard", author="FuRongJun-1999",
+                           bidders=("alice", "bob"), impact="S", impact_by="bob")
+    _d35s = bb.handle_command(_st274, "/select", "bob 中标", "/select bob 中标",
+                              "FuRongJun-1999", NOW, CFG, is_maintainer=True)
+    ok("R35 中标者本人的自评等级在定标时作废（不得随人迁移到结算）",
+       _d35s.ok and bb.latest_marker([_d35s.comment]).get("impact") is None
+       and not _d35s.event.get("impact") and _d35s.holder == "bob",
+       (bb.latest_marker([_d35s.comment]).get("impact"), _d35s.event.get("impact")))
+
     # ---- 价值向量出口（本站只做声誉分与价值评价；金额不进站）----
     def _evv(**kw):
         _e = {"ts": "2026-10-12T01:00:00Z", "action": "settle", "actor": "m", "delta": 0}
@@ -667,6 +748,12 @@ def _route(payload, client, apply=False):
                                    out=lambda *_a: None)
 
 
+# 生效条件：同上，但 cfg 由调用方给出——用于真模式读**临时账本**的授权面（I7/I8）。
+def _route_cfg(payload, client, cfg, apply=False):
+    return bb.handle_issue_comment(payload, cfg, client, apply=apply,
+                                   out=lambda *_a: None)
+
+
 def _issue_payload(body, labels=("bounty", "bounty:open", "difficulty:medium"),
                    number=301, actor="zoe", assoc="NONE", is_pr=False):
     issue = {"number": number, "labels": [{"name": x} for x in labels],
@@ -710,6 +797,35 @@ def group_routing():
        code == 0 and evs and (evs[0].get("pr") or {}).get("number") == 77
        and (evs[0].get("pr") or {}).get("head_sha") == "abcdef123456",
        evs[0].get("pr") if evs else None)
+
+    # ---- 真模式授权面：`is_rev` 必须**真的**由账本 role 事件决定（缺陷 #271）----
+    # X1/X2 两个变异体（把 is_rev 钉成 True / 只看 cfg.reviewers）在旧套件下**存活**：
+    # 没有任何断言走「真模式 + 账本 role」这条路径，授权面等于没有守卫。
+    _vst = ('<!-- bounty:v1 {"state":"delivered","holder":"alice",'
+            '"rounds":1,"seq":1} -->')
+    _led = os.path.join(tempfile.mkdtemp(prefix="bounty_routing_"), "ledger.json")
+
+    cli = _FakeClient(comments=[_vst])
+    code, evs = _route_cfg(_issue_payload("/verify pass 读数齐全", actor="zoe"), cli,
+                           bb.Config(ledger_path=_led))
+    ok("I7 账本无 role ＋ 评论者非维护者 → 真模式 /verify 拒（not_maintainer）",
+       code == 0 and evs
+       and (evs[0].get("reason") or "").startswith("not_maintainer"),
+       (evs[0].get("reason") if evs else None))
+
+    _ev = {"ts": "2026-10-12T00:00:00Z", "issue": 0, "action": "role",
+           "actor": "FuRongJun-1999", "subject": "zoe", "role": "reviewer",
+           "op": "grant", "reason": "I8 夹具"}
+    _ev["id"] = bb.event_id(_ev)
+    bb.write_ledger(_led, [_ev])
+    cli = _FakeClient(comments=[_vst])
+    code, evs = _route_cfg(_issue_payload("/verify pass 读数齐全", actor="zoe"), cli,
+                           bb.Config(ledger_path=_led))
+    ok("I8 账本 role grant reviewer → 同一评论者真模式 /verify 放行（授权面走账本）",
+       code == 0 and evs and evs[0].get("action") == "verify"
+       and not (evs[0].get("reason") or "").startswith(("not_maintainer",
+                                                        "recusal_required")),
+       (evs[0].get("action") if evs else None, evs[0].get("reason") if evs else None))
 
 
 # ================================================================ [R] 审核员机制
@@ -901,6 +1017,36 @@ def group_admission():
     ok("Z5 维护者发布但无 bounty 标签 → 仍拒（标签闸独立生效）",
        d.ok is False and "bounty" in d.reason and "不在维护者名单内" not in d.reason, d.reason)
 
+    # ---- 招标侧（`/bid` `/select`）与认领侧共用同一准入闸：否则外部人发一条带
+    #      bounty:contest 的 issue 就能招标、产生中标者并被结算（缺陷 #270B）----
+    def _bidder(author, labels):
+        return bb.IssueState(number=1, labels=tuple(labels),
+                             has_bounty="bounty" in labels, state="contest",
+                             holder=None, rounds=0, seq=1,
+                             difficulty="difficulty:hard", author=author, bidders=())
+
+    _L_contest = ("bounty", "bounty:contest", "difficulty:hard")
+    d = bb.handle_command(_bidder("outsider", _L_contest), "/bid",
+                          "https://example.com/pull/1", "/bid https://example.com/pull/1",
+                          "zoe", NOW, CFG)
+    ok("Z6 外部人发布的招标 /bid → 拒（not_admitted）",
+       d.ok is False and d.event.get("reason", "").startswith("not_admitted"),
+       d.event.get("reason", ""))
+
+    d = bb.handle_command(_bidder("FuRongJun-1999", ("bounty:contest", "difficulty:hard")),
+                          "/bid", "https://example.com/pull/1",
+                          "/bid https://example.com/pull/1", "zoe", NOW, CFG)
+    ok("Z7 缺 bounty 标签的招标 /bid → 拒（state_not_claimable）",
+       d.ok is False and d.event.get("reason", "").startswith("state_not_claimable"),
+       d.event.get("reason", ""))
+
+    d = bb.handle_command(_bidder("outsider", _L_contest), "/select", "zoe 定标",
+                          "/select zoe 定标", "FuRongJun-1999", NOW, CFG,
+                          is_maintainer=True)
+    ok("Z8 外部人发布的招标 /select 同拒（not_admitted，招标两侧共闸）",
+       d.ok is False and d.event.get("reason", "").startswith("not_admitted"),
+       d.event.get("reason", ""))
+
 
 _GROUPS = (group_admission, group_parse, group_label_state, group_holder, group_concurrency,
            group_is_holder, group_payload, group_lifecycle, group_routing,
@@ -927,7 +1073,7 @@ _MUTATIONS = (
      "        if True:  # MUT", {"A2", "A3", "A6", "I3"}),
     ("M1 关 R3 标签判据（无 bounty 标签也放行）",
      "    if not st.has_bounty:",
-     "    if False:  # MUT", {"B1", "Z5"}),
+     "    if False:  # MUT", {"B1", "Z5", "Z7"}),
     ("M2 关 R3 态判据（非 open/expired 也放行）",
      "    if st.state not in CLAIMABLE_STATES:",
      "    if False:  # MUT", {"B2"}),
@@ -1012,7 +1158,8 @@ _MUTATIONS = (
      "    if False:  # MUT", {"G39"}),
     ("M28 不写影响等级快照（跨态丢失）",
      "    if _im:" + chr(10) + '        marker["impact"] = _im',
-     "    if False:  # MUT" + chr(10) + '        marker["impact"] = _im', {"G37", "G42"}),
+     "    if False:  # MUT" + chr(10) + '        marker["impact"] = _im',
+     {"G37", "G42", "R31", "R31b"}),
     ("M29 关价值评价的维护者闸（越权可评）",
      "    if not (is_maintainer or is_reviewer):",
      "    if False:  # MUT", {"G40"}),
@@ -1027,7 +1174,7 @@ _MUTATIONS = (
       '    _rec, _why = (False, "")  # MUT', {"R1", "R10"}),
      ("M33 关 /verify 审核员档（审核员不可裁）",
       '    if not (is_maintainer or is_reviewer):',
-      '    if not is_maintainer:  # MUT', {"R6"}),
+      '    if not is_maintainer:  # MUT', {"R6", "I8"}),
      ("M34 关 /settle 授权闸（审核员可结算）",
       '    if not is_maintainer:',
       '    if False:  # MUT', {"G5", "R8"}),
@@ -1036,7 +1183,7 @@ _MUTATIONS = (
       '    _rec, _why = (False, "")  # MUT', {"R2"}),
      ("M36 关 /appraise 回避闸（持有者可自评）",
       '    _rec, _why = needs_recusal(st, actor)',
-      '    _rec, _why = (False, "")  # MUT', {"R3"}),
+      '    _rec, _why = (False, "")  # MUT', {"R3", "R33"}),
      ("M37 授权面不认 revoke（撤销无效）",
       '        if info["op"] == "grant":',
       '        if True:  # MUT', {"R12", "R13"}),
@@ -1051,7 +1198,7 @@ _MUTATIONS = (
       '        elif False:  # MUT', {"R28", "R29"}),
     ("M41 关作者闸（外部人发布的 issue 可被认领）",
      '    if st.author not in cfg.maintainers:',
-     '    if False:  # MUT', {"Z2", "Z4"}),
+     '    if False:  # MUT', {"Z2", "Z4", "Z6", "Z8"}),
     ("M42 关作者缺失检查（作者 None 也放行到名单比对）",
      '    if not st.author:',
      '    if False:  # MUT', {"Z3"}),
@@ -1064,6 +1211,30 @@ _MUTATIONS = (
     ("M44 `_as_int` 不宽容（非法值直接抛）",
      '    try:' + chr(10) + '        return int(x)' + chr(10) + '    except (TypeError, ValueError):' + chr(10) + '        return default',
      '    return int(x)  # MUT', {"G49", "G51"}),
+    # ---- ★本笔新增（缺陷 #270：招标侧准入/标签闸）----
+    ("M45 关招标作者闸（外部人发布的招标可被投标）",
+     '    ok_adm, why_adm = _check_admission(st, cfg)',
+     '    ok_adm, why_adm = (True, "")  # MUT', {"Z6", "Z8"}),
+    ("M46 关招标标签闸（缺 `bounty` 标签也放行投标/定标）",
+     '    ok_lbl, why_lbl = _check_bounty_label(st)',
+     '    ok_lbl, why_lbl = (True, "")  # MUT', {"Z7"}),
+    # ---- ★本笔新增（缺陷 #269B/C：投标人回避）----
+    ("M47 关 /select 的投标人回避（投标人可参与定标）",
+     '    _rec, _why = needs_recusal(st, actor)',
+     '    _rec, _why = (False, "")  # MUT', {"G35", "R33b"}),
+    ("M48 关 needs_recusal 的投标人回避（招标中投标人可自评）",
+     '    if actor and st.state == "contest" and actor in (st.bidders or ()):',
+     '    if False:  # MUT', {"R32", "R33", "R33b"}),
+    ("M49 关 /select 的自定标闸（定标人可把标定给自己）",
+     '    if winner == actor:',
+     '    if False:  # MUT', {"R33c"}),
+    # ---- ★本笔新增（缺陷 #269A：自评等级不得随持有者迁移）----
+    ("M50 不隔离随人迁移的自评等级（等级可迁移到新持有者/执行者）",
+     '    if _im and _ib and action != "/appraise" and _ib in (holder, actor):',
+     '    if False:  # MUT', {"R31", "R35"}),
+    ("M51 关真模式审核员面（账本 role 授权失效）",
+     "    is_rev = actor in cfg.reviewers or actor in _roles['reviewer']",
+     '    is_rev = actor in cfg.reviewers  # MUT', {"I8"}),
 )
 
 
@@ -1088,7 +1259,7 @@ def _mut_source(fn_name, old, new):
 
 
 #: 变异 → 目标函数（锚点落在哪个函数里就变异哪个）。
-_MUT_TARGETS = (("M0", "parse_command"), ("M1", "_check_claimable"),
+_MUT_TARGETS = (("M0", "parse_command"), ("M1", "_check_bounty_label"),
                 ("M2", "_check_claimable"), ("M3", "_check_no_holder"),
                 ("M4", "_check_concurrency"), ("M5", "_check_is_holder"),
                 ("M6", "_check_payload"), ("M7", "_check_payload"),
@@ -1109,7 +1280,11 @@ _MUT_TARGETS = (("M0", "parse_command"), ("M1", "_check_claimable"),
                 ("M38", "promotion_report"), ("M39", "promotion_report"),
                 ("M40", "promotion_report"),
                 ("M41", "_check_admission"), ("M42", "_check_admission"),
-                ("M43", "rescore"), ("M44", "_as_int"))
+                ("M43", "rescore"), ("M44", "_as_int"),
+                ("M45", "_guard_admitted_bounty"), ("M46", "_guard_admitted_bounty"),
+                ("M47", "_do_select"), ("M48", "needs_recusal"),
+                ("M49", "_do_select"), ("M50", "_accept"),
+                ("M51", "handle_issue_comment"))
 
 
 def _anchor_preflight():

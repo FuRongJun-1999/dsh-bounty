@@ -482,6 +482,15 @@ def _seq(rec: dict) -> int:
         return 0
 
 
+def _rounds(rec: dict) -> int:
+    # #275：rounds 非数字字符串（如 "abc"）时 int() 抛 ValueError，
+    # workflow 无 try/except 会整轮卡死；与 _seq 同款兜底，畸形按 0 处理。
+    try:
+        return int(rec.get("rounds") or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
 # 生效条件：comments 为评论正文可迭代（含 None/坏 JSON）时返回「seq 最大且带 state 字段」的标记字典；无任何合格标记时返回 None（坏 JSON 一律跳过，不抛）。
 def latest_marker(comments):
     """评论流 → 最新的状态标记（权威记录）；无则 None。"""
@@ -499,6 +508,22 @@ def latest_marker(comments):
 
 
 # 生效条件：number 为 issue 号、labels 为标签可迭代、comments 为评论正文可迭代时返回重建的 IssueState——态取「最新标记 > 态标签 > （有 bounty 标签则 open）」；author 给定时写入。
+def _norm_criteria(v):
+    """criteria 归一为二元数字 tuple（issue #276）。
+
+    畸形输入（字符串、非二元、非数字）一律按 () 处理——字符串不能
+    直接 tuple()，否则 "ab" 会被拆成 ('a','b') 导致下游 int() 崩溃。
+    """
+    if isinstance(v, str) or not isinstance(v, (list, tuple)):
+        return ()
+    if len(v) != 2:
+        return ()
+    try:
+        return (int(v[0]), int(v[1]))
+    except (ValueError, TypeError):
+        return ()
+
+
 def build_state(number, labels, comments, author=None) -> IssueState:
     """「标签视图 ＋ 评论流」→ IssueState（态优先级：标记 > 标签 > 默认 open）。"""
     labels = tuple(labels or ())
@@ -510,9 +535,9 @@ def build_state(number, labels, comments, author=None) -> IssueState:
     return IssueState(
         number=int(number), labels=labels, has_bounty=has_bounty, state=state or "",
         holder=marker.get("holder") or None, due_at=marker.get("due_at") or None,
-        rounds=int(marker.get("rounds") or 0), seq=_seq(marker),
+        rounds=_rounds(marker), seq=_seq(marker),
         difficulty=difficulty, author=author,
-        criteria=tuple(marker.get("criteria") or ()),
+        criteria=_norm_criteria(marker.get("criteria")),
         bidders=tuple(marker.get("bidders") or ()),
         impact=marker.get("impact") or "",
         impact_by=marker.get("impact_by") or "")
@@ -651,7 +676,7 @@ def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
     marker = {"state": to_state, "holder": holder, "due_at": due_at,
               "rounds": rounds, "seq": st.seq + 1, "ts": fmt_ts(now),
               "actor": actor, "action": action.lstrip("/")}
-    _cr = st.criteria if criteria is None else tuple(criteria)
+    _cr = st.criteria if criteria is None else _norm_criteria(criteria)
     if len(_cr) == 2:
         marker["criteria"] = [int(_cr[0]), int(_cr[1])]
     _bd = st.bidders if bidders is None else tuple(bidders)
@@ -825,7 +850,9 @@ def _do_bid(st, payload, body, actor, now, cfg, pr_meta):
 
 
 # 生效条件：st/actor/now/cfg 齐全且 is_maintainer 为真时返回裁决——非维护者拒；态非 contest 拒；无投标拒；
-# 载荷首词须为已投标登录名（可带 @）。通过则定标：中标者转 delivered（holder=中标者、rounds=1 首交付），
+# 载荷首词须为已投标登录名（可带 @）。通过则定标：中标者转 delivered（holder=中标者、
+# rounds=0 待首轮交付——中标者 `/deliver` 后 rounds=1，与 `/claim` 流程的轮次语义对齐；
+# 若定标时直接记 rounds=1，中标者再 `/deliver` 会被 `_do_deliver` 累加成 2 导致结算减半），
 # **其余有效投标者各记落选分**（0/1/2/4，按难度）为 extra_events（0 分也写事件——否则与「未投标」同形）。
 def _do_select(st, payload, actor, now, cfg, is_maintainer):
     _rec, _why = needs_recusal(st, actor)
@@ -878,7 +905,7 @@ def _do_select(st, payload, actor, now, cfg, is_maintainer):
     _b0.append(f"投标共 {len(st.bidders)} 份；落标 {len(losers)} 份{_lz}")
     _b0.append(f"中标者转 `bounty:delivered`：走验收四闸后 `/verify` → `/settle`"
                f"（首交付 {_w} 分）")
-    return _accept(st, "/select", now, actor, "delivered", winner, st.due_at, 1,
+    return _accept(st, "/select", now, actor, "delivered", winner, st.due_at, 0,
                    f"定标：@{winner} 中标（{len(st.bidders)} 份投标）", _b0,
                    extra_events=tuple(extra), bidders=())
 
@@ -1041,7 +1068,7 @@ def _do_settle(st, actor, now, cfg, is_maintainer):
                        f"当前态 `bounty:{st.state}` 不可结算（须先过验收 "
                        "`bounty:verified`）", now, actor, "state_not_settleable")
     _base = base_of(st.difficulty)
-    _cr = tuple(st.criteria or ())
+    _cr = _norm_criteria(st.criteria)
     _ep, _et = (int(_cr[0]), int(_cr[1])) if len(_cr) == 2 else (None, None)
     score, formula = quality_delta(_base, st.rounds, e_pass=_ep, e_total=_et)
     diff = st.difficulty.split(":", 1)[-1] if st.difficulty else ""
@@ -1291,8 +1318,6 @@ def promotion_report(events, meta_by_issue=None):
                 blockers.append("一次过闸占比 %.2f < %.2f" % (ratio, R["min_round0_ratio"]))
         if row["disputes"]:
             gaps.append("有 %d 条争议提起；本承载面无「争议败诉」判据，须人审" % row["disputes"])
-        if not row["round_known"]:
-            gaps.append("无状态机轮次证据（追溯性结算不含 rounds）")
         out.append({
             "login": who, "reputation_delta": row["reputation_delta"],
             "settled": row["settled"], "round0": row["round0"],
@@ -1684,14 +1709,15 @@ def store_apply(store, dec: Decision):
         for lbl in dec.labels_add:
             if lbl not in rec["labels"]:
                 rec["labels"].append(lbl)
+        # ★fix-206：直接复用 `_accept` 已生成的完整标记（含 bidders/criteria/impact），
+        # 不再手写裁剪版 schema——离线标记与线上评论标记逐字段一致。
+        # 旧实现只写 8 个字段，`/bid` 后的 bidders 丢失 → 下一条 `/select` 读回空投标被拒。
+        marker = latest_marker([dec.comment]) or {}
+        marker = dict(marker)
+        marker["seq"] = len(rec["markers"]) + 1
         rec["markers"].append(
             "<!-- bounty:v1 " + json.dumps(
-                {"state": dec.to_state, "holder": dec.holder,
-                 "due_at": dec.due_at, "rounds": dec.rounds,
-                 "seq": len(rec["markers"]) + 1, "ts": dec.event.get("ts"),
-                 "actor": dec.event.get("actor"),
-                 "action": dec.event.get("action")},
-                ensure_ascii=False, sort_keys=True,
+                marker, ensure_ascii=False, sort_keys=True,
                 separators=(",", ":")) + " -->")
     rec["history"].append({"ts": dec.event.get("ts"), "action": dec.action,
                            "actor": dec.event.get("actor"), "ok": dec.ok,

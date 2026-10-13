@@ -1,0 +1,99 @@
+name: bounty-board-check
+
+# 悬赏板状态机守卫（`scripts/bounty_board.py`）的 CI 门禁 —— 薄壳：只做事件分发与调用，
+# 判据全在 `tests/test_bounty_board.py` 里（可本地跑、可离线跑、零第三方依赖）。
+#
+# 为什么需要这一份：本守卫早就写好了正反两模式，但**没进任何 workflow** ⇒
+# `bounty.yml` 只跑脚本本体（`--ledger-append` / `--board-out`），`review-check.yml` 只覆盖
+# 灵枢测评子站 ⇒ 本守卫实际处于「有人写了、没人跑」状态。曾经因此让两个变异体（真模式
+# 审核员授权面）在 130 条断言 / 45 条变异下静默存活——**没人跑就等于没有**。
+#
+# 本 workflow 把「正向断言 ＋ 定点变异自证 ＋ 跑完不许把仓搞脏」钉在每次 push / PR 上。
+#
+# ★ 为什么**故意不加** `paths:` / `paths-ignore:`（改前请先读这段，别好心收窄）：
+#   GitHub 官方文档明载：workflow 因 path filtering 被跳过时，它的 check 会**停在 Pending**，
+#   而不是变成 skipped/success ⇒ 一旦本门禁被设为分支保护的必需检查，凡「改动不在过滤路径内」
+#   的 PR 都会被**永久卡住**（既没跑、也不算过）。
+#   出处：Skipping workflow runs / Workflow syntax（on.<push|pull_request>.paths）
+#     https://docs.github.com/actions/managing-workflow-runs/skipping-workflow-runs
+#     https://docs.github.com/actions/reference/workflow-syntax-for-github-actions
+#   （对比：job 因 `if:` 条件被跳过 ⇒ 报 Success，不卡。要「按路径收窄」又不卡 PR，
+#     正确姿势是把过滤逻辑放进 step 里判断，而不是用 workflow 级 paths。）
+#   ⇒ 本仓另两个 workflow（`bounty.yml` / `review-check.yml`）也都不用 paths 过滤，与此一致。
+#   本守卫全量跑一次 < 1 分钟、零依赖、不触网，漏跑一次的代价（变异体静默存活）远大于省下的配额。
+#
+# 安全模型（与 `bounty.yml` / `review-check.yml` 同款，改动前先读）：
+#   · 本文件不引用任何仓库机密，也不写仓、不做任何提交 ⇒ `contents: read` 即够。
+#   · 不用自托管 runner。
+#   · 全部命令**不触网**、**零第三方依赖**（只用 Python 标准库）。
+#   · 守卫内部以子进程真跑 `scripts/bounty_board.py`，但不带 `--apply` ⇒ 只读不写。
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+# 同一分支上串行；不取消在跑的（留全痕）。
+concurrency:
+  group: bounty-board-check-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  PYTHONUTF8: "1"
+  PYTHONIOENCODING: "utf-8"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # 1) 正向断言：退出码 0 = 全过；1 = 有失败项（逐条点名）
+      - name: 状态机守卫（正向断言）
+        run: python -X utf8 tests/test_bounty_board.py
+
+      # 2) 定点变异自证：逐条短路一条判据 ⇒ 对应断言必须**恰好**转红
+      #    （多红＝语义纠缠，少红＝判据空转；锚点命中 ≠1 ⇒ ANCHOR-MISS ＋ 退出码 2，fail-closed）
+      - name: 状态机守卫 · 变异自证
+        run: python -X utf8 tests/test_bounty_board.py --mutate
+
+      # 3) 变异清单可读性（把「期望红项」逐条打出来，便于审阅本门禁到底钉了什么）
+      - name: 变异清单
+        run: python -X utf8 tests/test_bounty_board.py --list
+
+      # 3b) 元守卫：变异条数**不得减少**。
+      #     为什么需要它：前四步只能证明「现有变异全过」。若有人为了绕开失败而**删掉**变异
+      #     （或把 --mutate 从上面的步骤里拿掉），本门禁会静默失去牙齿而依然全绿。
+      #     这里把「条数」钉成下界：只许随修复增多，不许悄悄变少。
+      #     （要合法减少，请在本行显式下调下界并在 PR 说明理由——让删减在 diff 里可见。）
+      - name: 元守卫 · 变异条数不得减少
+        run: |
+          MIN_MUTATIONS=45   # 2026-10-14 基线（主干 6754363 实测 45 条）
+          got=$(python -X utf8 tests/test_bounty_board.py --list | grep -c '^  M[0-9]')
+          echo "变异条数实测：$got（下界 $MIN_MUTATIONS）"
+          if [ "$got" -lt "$MIN_MUTATIONS" ]; then
+            echo "::error::变异条数从 $MIN_MUTATIONS 降到 $got —— 门禁牙齿被削弱（是否删了变异？）"
+            exit 1
+          fi
+
+      # 4) 「跑完不许把仓搞脏」：上面全部跑完后，工作区必须**逐字节干净**。
+      #    本守卫会真跑实现脚本（子进程），此闸用来钉住「守卫不得带写副作用」。
+      - name: 跑完不许把仓搞脏
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::工作区被跑脏了——守卫或实现脚本写了仓内文件："
+            git status --porcelain
+            git --no-pager diff
+            exit 1
+          fi
+          echo "工作区干净：守卫无写副作用。"

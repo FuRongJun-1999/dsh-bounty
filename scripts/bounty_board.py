@@ -143,13 +143,38 @@ def base_of(difficulty: str) -> int:
     return DIFFICULTY_SCORES.get(difficulty or "", SCORE_DEFAULT)
 
 
+# 生效条件：`e_pass`/`e_total` 给定时返回**钳制到 [0,1]** 的 E 比值（`e_total` 为假值 ⇒ 1.0，表示「无质量凭据、按满额」）。
+def e_ratio(e_pass, e_total) -> float:
+    """`E = 通过数 / 总数`，**钳制到 [0,1]** —— 本仓计分口径的**唯一实现**。
+
+    ★本笔：`quality_delta`（生产侧）原先钳制、`rescore`（复算侧）**不**钳制 ⇒
+    同一公式两份实现，在 `e_pass > e_total` 时**必然分叉**：
+
+        quality_delta(6, 1, e_pass=5, e_total=3)  ⇒ _e=1.0   ⇒ delta=12
+        rescore(同一条 formula 快照)              ⇒ _e=5/3   ⇒ d=20   ⇒ "delta mismatch"
+
+    即**复算器把生产器自己写的事件判为不符**。现把比值提成单点，两条路径共用 ⇒
+    不可能再分叉。口径与模块头「口径单点」（`DIFFICULTY_SCORES` 同款）一致：
+    改口径只改本函数。
+
+    边界（如实）：本函数**不改**判据语义——`e_total` 为假值时仍返回 1.0（满额），
+    与 `quality_delta` 既有行为逐位一致；`e_pass` 为负时由 `_p` 侧的 `max(0, …)` 负责，
+    本函数只做「除以总数 + 钳制」这一步（`int()` 转换亦保持在调用方，语义不变）。
+    """
+    if not e_total:
+        return 1.0
+    return max(0.0, min(1.0, int(e_pass or 0) / int(e_total)))
+
 # 生效条件：base 为正整数、rounds 为 1-based 交付次数时返回 (delta, formula)——round = max(0, rounds-1)；
 # delta = max(1, round_half_up(base*2/(round+1)))；formula 为可独立复算的快照。
 def quality_delta(base: int, rounds: int, e_pass=None, e_total=None):
     r = max(0, int(rounds) - 1)
     if e_total:
         _p, _t = max(0, int(e_pass or 0)), int(e_total)
-        _e = max(0.0, min(1.0, _p / _t)) if _t else 1.0
+        # ★本笔：走 `e_ratio` 单点（与 `rescore` 共用）。旧实现在此处内联
+        # `max(0.0, min(1.0, _p / _t))`，而复算侧不钳制 ⇒ 两份实现分叉。
+        # `_p` 仍按 `max(0, …)` 计算——它进 `formula` 快照（`f["e_pass"]`），口径不变。
+        _e = e_ratio(_p, _t)
     else:
         _p, _t, _e = None, None, 1.0
     raw = base * 2.0 * _e / (r + 1)
@@ -182,6 +207,8 @@ def loser_delta(difficulty: str):
                "difficulty": (difficulty or "").split(":", 1)[-1], "delta": d}
 
 
+
+
 def rescore(events):
     bad = []
     for ev in events or []:
@@ -201,7 +228,9 @@ def rescore(events):
         elif kind == "lost_bid":
             d = LOSER_SCORES.get("difficulty:" + str(f.get("difficulty") or ""), 0)
         else:
-            _e = (int(f.get("e_pass") or 0) / int(f["e_total"])) if f.get("e_total") else 1.0
+            # ★本笔：走 `e_ratio` 单点（与 `quality_delta` 共用）——旧实现此处
+            # 直接 `e_pass / e_total` **不钳制**，与生产侧分叉（见 `e_ratio` 注释）。
+            _e = e_ratio(f.get("e_pass"), f.get("e_total"))
             d = max(1, _round_half_up(int(f.get("base") or 0) * 2.0 * _e / (int(f.get("round") or 0) + 1)))
         if d != int(ev.get("delta") or 0):
             bad.append((ev.get("id"), "delta mismatch", ev.get("delta"), d))

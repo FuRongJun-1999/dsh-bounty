@@ -908,8 +908,12 @@ _MUTATIONS = (
     ("M17 partial 不校验数值范围（越界放行）",
      "        if _t <= 0 or _p < 0 or _p > _t:",
      "        if False:  # MUT", {"G25"}),
+# ⚠ 本 PR 改了 `rescore` 的 `_e` 取法（内联 ⇒ `e_ratio` 单点），故 M18 的锚点必须
+# 同步更新——否则 `_anchor_preflight()` 会以 ANCHOR-MISS 退出码 2（fail-closed）拒掉本 PR。
+# 这是本仓既有纪律（`_mutate_source` 的锚点唯一性），不是放宽判据：M18 的语义
+# （关掉 E 乘数 ⇒ 复算链与结算口径分叉）与期望红项 `{"G24"}` 均未变。
     ("M18 rescore 忽略 E（复算链与结算口径分叉）",
-     "            _e = (int(f.get(\"e_pass\") or 0) / int(f[\"e_total\"])) if f.get(\"e_total\") else 1.0",
+     "            _e = e_ratio(f.get(\"e_pass\"), f.get(\"e_total\"))",
      "            _e = 1.0  # MUT", {"G24"}),
     ("M19 关一人一投判据（可重复投标刷名单）",
      "    if actor in st.bidders:",

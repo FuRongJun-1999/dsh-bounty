@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dsh-mnemon 测评详情 · 灵枢插件测评</title>
+<style>
+:root{--fg:#1c1e21;--dim:#606770;--line:#e4e6eb;--acc:#1d76db;--bg:#fff;--soft:#f5f6f7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);line-height:1.7;
+ font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{border-bottom:1px solid var(--line);padding:18px 24px;background:var(--soft)}
+header h1{margin:0 0 8px;font-size:20px}
+header h1 a{color:var(--fg);text-decoration:none}
+nav a{margin-right:16px;color:var(--dim);text-decoration:none;font-size:15px}
+nav a.on{color:var(--acc);font-weight:700;border-bottom:2px solid var(--acc)}
+main{max-width:880px;margin:0 auto;padding:24px}
+h2{font-size:18px;margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+h3{font-size:15px;margin:20px 0 6px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+code{background:var(--soft);padding:1px 5px;border-radius:3px;font-size:13px}
+pre{background:var(--soft);padding:12px;border-radius:5px;overflow:auto;font-size:13px}
+.note{background:#fff8e1;border-left:4px solid #f0ad4e;padding:10px 14px;margin:14px 0}
+.muted{color:var(--dim)}
+.tag{display:inline-block;background:var(--soft);border:1px solid var(--line);
+ border-radius:10px;padding:0 8px;font-size:12px;margin-right:6px}
+footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
+ color:var(--dim);font-size:13px}
+
+</style>
+</head>
+<body>
+<header><h1><a href="index.html">灵枢插件测评</a></h1>
+<nav><a class="" href="index.html">首页</a><a class="on" href="board.html">榜单</a><a class="" href="method.html">方法说明</a></nav></header>
+<main>
+<a id="dsh-mnemon"></a>
+<h2>dsh-mnemon · 测评详情</h2>
+<p><span class="tag">版本 0.5.28</span><span class="tag">测评日 2026-10-13</span><span class="tag">总分 12 / 25</span><span class="tag">他评</span></p>
+
+<p>来源：<a href="https://github.com/omdsh-dev/dsh-mnemon" rel="noopener noreferrer" target="_blank">https://github.com/omdsh-dev/dsh-mnemon</a></p>
+<p>版本面：<a href="https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/v0.5.28/package.json" rel="noopener noreferrer" target="_blank">https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/v0.5.28/package.json</a>（核对日 2026-10-13）</p>
+<h2>维度读数</h2>
+<table><tr><th>维度</th><th>分（1–5）</th></tr><tr><td>检索质量</td><td><b>1</b></td></tr><tr><td>记忆持久</td><td><b>4</b></td></tr><tr><td>注入预算</td><td><b>1</b></td></tr><tr><td>隐私与本地性</td><td><b>3</b></td></tr><tr><td>可验证性</td><td><b>3</b></td></tr></table>
+<p class="muted">无读数维度（记 1）：检索质量、注入预算</p>
+<h2>可复跑证据（命令 ＋ 原始输出）</h2>
+<h3>证据 1 <span class="tag">公开文档转引</span></h3>
+<p class="muted">公开文档转引——引自下列快照，<b>不是</b>本站本机跑出来的读数。</p>
+<p><b>① 复跑命令</b></p>
+<pre># 仓库自述的验证入口（Node.js ^22.19.0 || &gt;=24.0.0 ＋ pnpm）
+pnpm install --frozen-lockfile
+pnpm verify
+pnpm verify:plugins</pre>
+<p><b>② 原始输出</b>（公开文档 <a href="https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/main/README.md" rel="noopener noreferrer" target="_blank">https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/main/README.md</a> （抓取日 2026-10-13）· <b>本机未安装未运行</b>）</p>
+<pre># README「Develop and verify」小节的原文（**无读数，仅命令**）：
+#   pnpm install --frozen-lockfile
+#   pnpm verify
+#   pnpm verify:plugins
+# README 同节声明：「Mechanical tests are not claims about model accuracy or live cloud Providers.」</pre>
+<p><b>③ 出处快照</b>：<code>review/evidence/dsh-mnemon.README.md</code></p>
+<p><b>④ 逐字引文</b>（在快照里按字节子串核对）：</p>
+<ul><li><code>pnpm install --frozen-lockfile</code></li><li><code>pnpm verify:plugins</code></li><li><code>Mechanical tests are not claims about model accuracy</code></li></ul>
+<h3>证据 2 <span class="tag">公开文档转引</span></h3>
+<p class="muted">公开文档转引——引自下列快照，<b>不是</b>本站本机跑出来的读数。</p>
+<p><b>① 复跑命令</b></p>
+<pre># 端到端演示 WebUI（README 给的可跑入口；--live-model 需 DEEPSEEK_API_KEY）
+node scripts/serve-e2e.mjs --docs-demo</pre>
+<p><b>② 原始输出</b>（公开文档 <a href="https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/main/README.md" rel="noopener noreferrer" target="_blank">https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/main/README.md</a> （抓取日 2026-10-13）· <b>本机未运行</b>）</p>
+<pre># README 原文（**无读数，仅入口与前置**）：
+#   node scripts/serve-e2e.mjs  starts a disposable real WebUI;
+#   add --docs-demo for the seeded project behind these screenshots,
+#   and --live-model to have the DeepSeek API answer, with the key read from DEEPSEEK_API_KEY.</pre>
+<p><b>③ 出处快照</b>：<code>review/evidence/dsh-mnemon.README.md</code></p>
+<p><b>④ 逐字引文</b>（在快照里按字节子串核对）：</p>
+<ul><li><code>Local by default</code></li><li><code>Third-party Providers use their own services</code></li><li><code>ZIP backup</code></li></ul>
+<h3>证据 3 <span class="tag">本机复跑</span></h3>
+<p class="muted">本机复跑（探针 <code>record.dsh-mnemon</code>）——复算：<code>python -X utf8 scripts/evidence_probe.py record.dsh-mnemon</code>；`python -X utf8 scripts/evidence_check.py --repro` 会逐字节比对。</p>
+<p><b>① 复跑命令</b></p>
+<pre>python -X utf8 scripts/evidence_probe.py record.dsh-mnemon
+# 逐字节复算（CI 用的那道闸）：
+python -X utf8 scripts/evidence_check.py --repro</pre>
+<p><b>② 原始输出</b>（本机复跑（命令见左）：原始输出就是该探针的 stdout，由 <code>scripts/evidence_check.py --repro</code> 逐字节复算。它证明的是<b>本记录的证据链在本机成立</b>——正文快照 sha256、版本面快照里的 version、以及每一条逐字引文都按字节命中；<b>不</b>构成对插件运行时行为的判定。）</p>
+<pre># 探针 record.dsh-mnemon · 只读已提交快照与真源，不触网
+
+## ① 正文快照（本记录的主引文出处面）
+file   : review/evidence/dsh-mnemon.README.md
+sha256 : 8cff64efd44b873161a68205a07900b038db70ebd908fc339d0808b8a26b9eda
+bytes  : 16830
+
+## ② 版本面快照（不可变 tag 上的 package.json）
+file   : review/evidence/dsh-mnemon.package.json
+sha256 : 9dd752495cc6aca737a616800febabd32e4263e87b74401f1d70ffe3c6207d46
+bytes  : 9184
+version: 0.5.28（真源声明 0.5.28）
+source : https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/v0.5.28/package.json
+[OK] 版本面：快照里的 version == 真源声明的 version
+
+## ③ 逐字引文（**按每条证据自己声明的 doc** 做字节子串核对）
+[OK] evidence[0] doc=dsh-mnemon.README.md &#x27;pnpm install --frozen-lockfile&#x27; → 第 143 行
+[OK] evidence[0] doc=dsh-mnemon.README.md &#x27;pnpm verify:plugins&#x27; → 第 145 行
+[OK] evidence[0] doc=dsh-mnemon.README.md &#x27;Mechanical tests are not claims about model accuracy&#x27; → 第 148 行
+[OK] evidence[1] doc=dsh-mnemon.README.md &#x27;Local by default&#x27; → 第 39 行
+[OK] evidence[1] doc=dsh-mnemon.README.md &#x27;Third-party Providers use their own services&#x27; → 第 132 行
+[OK] evidence[1] doc=dsh-mnemon.README.md &#x27;ZIP backup&#x27; → 第 39、133 行
+[OK] evidence[2] doc=dsh-mnemon.README.md &#x27;Mechanical tests are not claims about model accuracy&#x27; → 第 148 行
+
+## ④ 本条记录引用到的快照指纹（逐个可离线复核）
+file   : review/evidence/dsh-mnemon.README.md
+sha256 : 8cff64efd44b873161a68205a07900b038db70ebd908fc339d0808b8a26b9eda
+bytes  : 16830
+
+引文命中 7 条；未命中 0 条；引用快照 1 份
+结论：本记录的证据链在本机逐字节成立
+</pre>
+<p><b>③ 出处快照</b>：<code>review/evidence/dsh-mnemon.README.md</code></p>
+<p><b>④ 逐字引文</b>（在快照里按字节子串核对）：</p>
+<ul><li><code>Mechanical tests are not claims about model accuracy</code></li></ul>
+<h2>结论</h2>
+<p><b>逐项指回读数</b>：①「可验证性 3」：证据 1、2 给出的是<b>命令入口</b>而非读数——能跑，但 README <b>不公开任何量化对照组</b>（无基线 vs 方案对照、无 hit@k、无 token 预算读数），故不给更高分；也不给 1，因 <code>pnpm verify</code> 本身是一套可复现的机械验证套件（与「没有对照读数」是两件事）。②「隐私与本地性 3」：README 明确「Local by default with Mnemon Native」，但同时列出多家第三方 Provider，并声明「Third-party Providers use their own services and scopes」——数据是否出本地<b>取决于所选 Provider</b>，故给中档。③「记忆持久 4」：三层记忆结构（Runtime memory／Project Documents／Memory Spaces）＋ ZIP 备份口径在 README 里有明确描述。④「检索质量 1」与「注入预算 1」＝<b>无读数档</b>：README 未提供该两维度的任何读数（见 unmeasured_dims）。</p>
+<h2>边界 · 不适用条件</h2>
+<p><b>不适用条件</b>：①本条<b>只依据 README 文本</b>——未安装、未运行，故<b>不构成</b>对其运行时行为的判定。②「检索质量」与「注入预算」记 1 是<b>无读数档</b>，不是实测结论；README 未提供任何在该两维度上的读数。③多家 Provider 各自的检索/删除/枚举能力 README 声明「differ by backend」，本条未逐家核验。④对本条的判定<b>只对公开可复现的文档表述成立</b>，不对其云端服务的实际行为作判定（未测）。⑤版本面锚在<b>不可变 tag</b> <code>v0.5.28</code> 的 package.json（快照 <code>review/evidence/dsh-mnemon.package.json</code>）。⑥<b>证据 3 是本机复跑</b>，只证明本记录的证据链在本机成立，<b>不</b>构成运行时判定。</p>
+<h2>未测项（未测 ＋ 原因）</h2>
+<p><b>未测 ＋ 原因</b>：①本机<b>未安装、未运行</b> <code>pnpm verify</code> / <code>node scripts/serve-e2e.mjs</code>——其前置为 Node ^22.19 ＋ pnpm ＋ 完整依赖安装，而本机到 github.com 被 hosts 拦截，<b>无法取依赖</b>。②全部量化维度（hit@k／token 预算／延迟）<b>未取得任何原始输出</b>——README 未公开，故「检索质量」「注入预算」记 1（无读数档）。③多家第三方 Provider <b>未逐家验证</b>。④<code>--live-model</code> 路径需 <code>DEEPSEEK_API_KEY</code>，本条<b>未提供密钥、未运行</b>。⑤<code>pnpm verify:plugins</code>（<code>scripts/verify-plugin-artifacts.mjs</code>）<b>证明性地需要公网 npm registry 与真实 DSH 运行时</b>：该脚本内明文 <code>fetch(&#x27;https://registry.npmjs.org/&#x27; + name)</code>、<code>npm pack</code>、<code>npm install --registry</code>，并以 <code>--upgrade-registry https://registry.npmjs.org</code> 驱动 <code>scripts/verify-headless-profile.mjs</code>。这与本站「复跑不触网」的约束直接冲突，故本条<b>未运行</b>，也不把它的输出当作任何维度的读数。</p>
+<p><a href="board.html">← 回榜单</a></p>
+
+</main>
+<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> 机械生成——勿手改。本站只放可核验读数，<b>不涉资金</b>，<b>不采集用户隐私</b>。</footer>
+</body>
+</html>

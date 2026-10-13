@@ -130,6 +130,14 @@ def validate(doc):
         errs.append("items 缺失或为空")
     seen = set()
     for it in doc.get("items", []):
+        # ★本笔：**元素形状判据**。旧实现直接 `it.get("id", "?")` —— 真源
+        # `docs/bounty/悬赏.json` 的 `items` 里若混进字符串／数字／null（**都是合法 JSON**），
+        # `validate` 抛 `AttributeError: 'str' object has no attribute 'get'`：**fail-closed 的
+        # 退出码 2 拿不到，换成裸栈**。而 `validate` 正是 `--check` 那条 CI 闸的判据面
+        # （docstring：「真源自校验：错即 fail-closed（退出码 2），绝不产出半截文档」）。
+        if not isinstance(it, dict):
+            errs.append("items 里有非对象条目（%s）：%r" % (type(it).__name__, it))
+            continue
         i = it.get("id", "?")
         for k in ("id", "title", "direction", "difficulty", "score", "form",
                   "status", "acceptance", "refs", "boundary"):

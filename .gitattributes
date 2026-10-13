@@ -1,0 +1,14 @@
+# 本仓的产物与守卫依赖「逐字节一致」：
+#   - `review/evidence/manifest.json` 记的是**内容 sha256**；
+#   - `scripts/review_build.py --check` 比对产物与真源；
+#   - `.github/workflows/review-check.yml` 末步断言「跑完不许把仓搞脏」。
+#
+# 而 Git for Windows 的默认 `core.autocrlf=true` 会在检出时把 LF 转成 CRLF，
+# 于是同一份提交在 Linux 上全绿、在 Windows 默认检出下 sha256 全不匹配——
+# 守卫变成**平台相关**的，它校验的性质在仓里并不成立。
+#
+# 故显式钉死 LF：`eol=lf` 覆盖 `core.autocrlf`，任何平台检出都是 LF。
+# 索引内当前 0 个文件含 CRLF（`git ls-files --eol`），本规则不产生归一化改动。
+* text=auto eol=lf
+
+# 产物目录里没有二进制件；若将来有，在此按路径排除（`-text`）。

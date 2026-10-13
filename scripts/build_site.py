@@ -14,9 +14,10 @@
 一条硬口径（设计稿 §五）：**结算＝声誉制，不涉资金**——本站只显示声誉分，
 页面里没有任何支付/钱包/链上概念，也没有任何资金字段可填。
 
-★ 计分数值（easy 1 / medium 3 / hard 6 / expert 10；虚假交付 −5；超时 −1）在设计稿
-  的口径（v1.0 质量化）——每一处出现分值/口径处都带 `NOTE_PENDING`
-  标注（"数值待设计者裁"），不许写成已定。
+★ 计分数值（easy 1 / medium 3 / hard 6 / expert 10；超时未交付 −2×base；
+  轮次用尽判无效交付 −base）的**口径真源**是 `scripts/bounty_board.py`
+  （`DIFFICULTY_SCORES` ／ `quality_delta` ／ `timeout_delta` ／ `invalid_delta`）——
+  本文件不另立一套数字；页面凡出现分值/口径处都带 `NOTE_PENDING` 标注。
 
 离线口径（**本站生成器恒不触网**）
 ---------------------------------------------------------------
@@ -43,6 +44,7 @@ import argparse
 import html
 import json
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))          # <仓根>/scripts
@@ -106,6 +108,16 @@ COMMAND_ROWS = (
 
 
 # ================================================================ 判据面（每条 = 一个可定点变异的函数）
+
+
+# 生效条件：静态文案进页面的**唯一出口**——顺序是「先 esc（一律转义）→ 再收敛 markdown
+# 书写形态」。为什么这个顺序不能反：先 esc 则文本里的字面 `<b>` 必成 `&lt;b&gt;`（不可注入），
+# 而收敛只会把 `**x**` / `` `x` `` 变成标签；反过来先套标签再 esc，标签会被转义成 `&lt;b&gt;` 显形。
+# 只用于生成器自带的静态文案；账本里来的不可信文本一律走 esc，不经本例。
+def rich(text) -> str:
+    """静态文案的安全出口：转义 ＋ markdown 书写形态收敛。"""
+    return re.sub(r"`([^`]+)`", r"<code>\1</code>",
+                  re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", esc(text), flags=re.S))
 
 
 # 生效条件：text 为任意值（含账本里来的不可信文本）时返回其 HTML 转义形态——账本内容一律先转义再进页面，防注入。
@@ -245,7 +257,7 @@ footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
 # 生效条件：events 为账本事件列表时返回首页 HTML（这是什么／怎么认领／怎么交付／去哪看规则）。
 def render_index(events) -> str:
     rows = "".join(f"<tr><td><code>{esc(c)}</code></td><td>{esc(who)}</td>"
-                   f"<td>{esc(chk)}</td><td>{esc(eff)}</td></tr>"
+                   f"<td>{rich(chk)}</td><td>{rich(eff)}</td></tr>"
                    for c, who, chk, eff in COMMAND_ROWS)
     body = "\n".join([
         "<h2>这是什么</h2>",
@@ -263,7 +275,7 @@ def render_index(events) -> str:
         "<h2>怎么交付</h2>",
         "<p>评论 <code>/deliver &lt;PR 链接或证据块&gt;</code>：修码类走 PR，"
         "分析／复现类走围栏代码块里的可复跑读数。最多 <b>3 轮</b>修改，"
-        "超时自动回板（记 −1）。</p>",
+        "超时自动回板（记 <b>−2×base</b>）。</p>",
         "<p>放弃用 <code>/withdraw</code>（不影响声誉）；有异议用 "
         "<code>/dispute &lt;理由&gt;</code>。</p>",
         "<h2>命令面</h2>",
@@ -294,8 +306,9 @@ def render_board(events, tasks=None) -> str:
         table = ("<table><tr><th>#</th><th>任务</th><th>难度</th><th>态</th>"
                  "<th>持有者</th></tr>" + "".join(trs) + "</table>")
     else:
-        table = ('<p class="muted">（当前没有可认领的悬赏——账本里没有 '
-                 "`open` 态的任务；维护者打 `bounty` 标签并发布后此处自动出现。）</p>")
+        table = (f'<p class="muted">（当前没有可认领的悬赏——账本里没有 '
+                 f"{rich('`open`')} 态的任务；维护者打 {rich('`bounty`')} "
+                 "标签并发布后此处自动出现。）</p>")
     body = "\n".join([
         "<h2>悬赏板 · 当前开放任务</h2>",
         '<div class="note">' + esc(_note_pending()) + "</div>",
@@ -330,7 +343,7 @@ def render_honor(events) -> str:
     body = "\n".join([
         "<h2>荣誉榜 · 由账本机械生成</h2>",
         '<div class="note">' + esc(_note_pending()) + "</div>",
-        f"<p>计分口径：{esc(SCORE_RULE)}</p>",
+        f"<p>计分口径：{rich(SCORE_RULE)}</p>",
         f'<p class="muted">账本事件数：{len(list(events or ()))}'
         + (f" ｜ 统计截至：{esc(until)}" if until else "") + "</p>",
         table,
@@ -347,10 +360,10 @@ def render_honor(events) -> str:
 
 # 生效条件：无参数时返回规则页 HTML（认领-租约-验收四闸-声誉计分-争议）。
 def render_rules() -> str:
-    gates = "".join(f"<tr><td><b>{esc(n)}</b></td><td>{esc(d)}</td></tr>"
+    gates = "".join(f"<tr><td><b>{esc(n)}</b></td><td>{rich(d)}</td></tr>"
                     for n, d in ACCEPTANCE_GATES)
     rows = "".join(f"<tr><td><code>{esc(c)}</code></td><td>{esc(who)}</td>"
-                   f"<td>{esc(chk)}</td><td>{esc(eff)}</td></tr>"
+                   f"<td>{rich(chk)}</td><td>{rich(eff)}</td></tr>"
                    for c, who, chk, eff in COMMAND_ROWS)
     body = "\n".join([
         "<h2>〇、为什么这些方向优先（价值论证）</h2>",
@@ -384,7 +397,7 @@ def render_rules() -> str:
         "<code>open</code>，只把「超时」事件与评论留在痕里。</p>",
         "<h2>二、认领与租约</h2>",
         "<p>认领即上锁，租约 <b>72 小时</b>；同一人并发认领上限 <b>2</b>；"
-        "每 6 小时扫描一次，超期自动回板并记 −1。任何人可重新认领。</p>",
+        "每 6 小时扫描一次，超期自动回板并记 <b>−2×base</b>。任何人可重新认领。</p>",
         "<h2>三、验收四闸（逐道可查 · 不通过就说不通过）</h2>",
         '<table><tr><th>闸</th><th>内容</th></tr>' + gates + "</table>",
         '<div class="note">第 ④ 闸是<b>维护者人审</b>——设计稿写死「维护者打 '
@@ -393,7 +406,7 @@ def render_rules() -> str:
         '<table><tr><th>命令</th><th>谁用</th><th>校验</th><th>效果</th></tr>',
         rows, "</table>",
         "<h2>五、声誉计分</h2>",
-        f"<p>{esc(SCORE_RULE)}</p>",
+        f"<p>{rich(SCORE_RULE)}</p>",
         '<div class="note">' + esc(_note_pending()) + "</div>",
         "<p>荣誉榜由账本机械生成（见 <a href=\"honor.html\">荣誉榜</a>）；"
         "账本 append-only、按事件 id 幂等去重。</p>",

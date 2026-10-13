@@ -113,18 +113,24 @@ def manifest_index(manifest) -> dict:
 
 
 # 生效条件：无必需形参时返回 (探针模块, 错误串)——import 失败时模块为 None 且错误串非空（fail-closed）。
-def load_probe_module():
+def load_probe_module(base=None):
     """动态载入探针模块（保持本件与探针文件解耦：不靠包结构，只看同仓路径）。"""
-    if not os.path.isfile(PROBE_SCRIPT):
-        return None, "找不到探针脚本：%s" % PROBE_SCRIPT
+    # ★本笔：探针路径**由调用方给的仓根派生**，不再固定用本脚本自己所在的仓。
+    # 旧实现：`--root` 只覆盖快照／清单／数据三处读盘（L136 `base = root or ROOT`），
+    # 而复算段读的仍是**脚本自己所在的仓** ⇒ 同一个 `--root` 会给出 0/1 两种判决，
+    # 并给**不匹配的字节**签发「全部一致」（实测：交付仓脚本 + `--root 沙箱` ⇒ rc=0，
+    # 而沙箱自带脚本 + 同一 `--root` ⇒ rc=1）。
+    script = os.path.join(base, "scripts", "evidence_probe.py") if base else PROBE_SCRIPT
+    if not os.path.isfile(script):
+        return None, "找不到探针脚本：%s" % script
     try:
-        spec = importlib.util.spec_from_file_location("evidence_probe_for_check", PROBE_SCRIPT)
+        spec = importlib.util.spec_from_file_location("evidence_probe_for_check", script)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
     except Exception as exc:                       # noqa: BLE001 —— 载入期任何异常都收成 fail-closed
         return None, "探针模块载入失败：%s" % exc
     if not hasattr(mod, "render"):
-        return None, "探针模块缺 render()：%s" % PROBE_SCRIPT
+        return None, "探针模块缺 render()：%s" % script
     return mod, ""
 
 
@@ -204,6 +210,17 @@ def audit(root=None, want_repro=True) -> tuple:
         slug = str(rec.get("slug") or "?")
         for i, e in enumerate(rec.get("evidence") or []):
             eid = "%s#%d" % (slug, i)
+            # ★本笔：**元素形状判据**。旧实现直接 `e.get(...)` —— evidence 元素是字符串／
+            # 数字／数组（**都是合法 JSON**）时抛 `AttributeError: 'str' object has no
+            # attribute 'get'`，整份点名明细丢失，且退出码与「检出不一致」撞码。
+            # 同仓另两件对**同一形状**都点名（`review_build.validate` 报
+            # 「evidence[0] 不是对象」；`evidence_probe.py` 显式 `continue`）。
+            if not isinstance(e, dict):
+                bad.append("证据条目不是对象：%s 的 evidence[%d] 实为 %s"
+                           % (slug, i, type(e).__name__))
+                rows.append({"kind": "cite", "id": eid, "ok": False,
+                             "detail": "不是对象（%s）" % type(e).__name__})
+                continue
             doc = str(e.get("doc") or "")
             if not doc:
                 bad.append("出处未声明：%s 没写 doc（引文出自哪个快照）" % eid)
@@ -252,7 +269,7 @@ def audit(root=None, want_repro=True) -> tuple:
 
     # ④ 本机复跑逐字节复算（可复跑证据的机器判据）
     if want_repro:
-        mod, why = load_probe_module()
+        mod, why = load_probe_module(base)
         if mod is None:
             bad.append("复算不可用：%s" % why)
             rows.append({"kind": "repro", "id": "探针载入", "ok": False, "detail": why})
@@ -261,6 +278,9 @@ def audit(root=None, want_repro=True) -> tuple:
             for rec in recs:
                 slug = str(rec.get("slug") or "?")
                 for i, e in enumerate(rec.get("evidence") or []):
+                    # ★本笔：与上方同一形状判据（复算段同样不能对非对象调 `.get`）。
+                    if not isinstance(e, dict):
+                        continue
                     if str(e.get("kind") or "") != KIND_LOCAL:
                         continue
                     n_local += 1

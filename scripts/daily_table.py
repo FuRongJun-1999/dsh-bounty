@@ -102,6 +102,10 @@ def covers_of(ev):
 def group_by_day(events):
     days = {}
     for ev in events or []:
+        # ★本笔：**元素形状判据**。贡献表由账本机械生成，账本事件里混进非对象
+        # ⇒ `AttributeError`，而本件 docstring 承诺确定性渲染。
+        if not isinstance(ev, dict):
+            continue
         if ev.get("action") != "settle":
             continue
         d = (ev.get("day") or (ev.get("ts") or "")[:10] or "未标日")

@@ -42,7 +42,7 @@
       "difficulty": "expert",
       "score": 10,
       "form": "PR（修码类）",
-      "status": "claimed",
+      "status": "done",
       "owner": "zijinmengxi",
       "issue": 65,
       "issue_note": "#65 已关闭（载体迁移）。迁移前零认领、零评论 —— 迁移无损害。",
@@ -79,6 +79,10 @@
         {
           "date": "2026-10-13",
           "note": "本方向两件交付均走 PR 通道并**已分别合并**：#104（@acrot0，插件测评站生成器 ＋ 3 插件测评）与 #161（@zijinmengxi，eval-site 子站 ＋ 生成器 ＋ 证据链）。维护者裁定：两份为**同一悬赏的两份独立交付**（被测插件完全不相交），**各记 expert 10 分**。"
+        },
+        {
+          "date": "2026-10-13",
+          "note": "**结算：done。** 两份独立交付均已合并并各记 expert 10 分（@acrot0 的 #104 ＋ @zijinmengxi 的 #161）。验收物实测齐备：scripts/review_build.py（49330 B，rc=0，产出 index/board/method ＋ 3 个插件详情页共 6 项）、tests/test_review_build.py（48 断言 rc=0）、review/data/（1 项）。状态由 claimed 置为 done —— 此前 progress 已写明「已分别合并、各记 10 分」而 status 仍停在 claimed，属状态滞后，本轮结算修正。"
         }
       ]
     },
@@ -89,8 +93,8 @@
       "difficulty": "hard",
       "score": 6,
       "form": "PR（修码类）",
-      "status": "open",
-      "owner": "",
+      "status": "done",
+      "owner": "acrot0",
       "issue": 66,
       "issue_note": "#66 已关闭（载体迁移）。迁移前零认领、零评论 —— 迁移无损害。",
       "acceptance": [
@@ -119,6 +123,10 @@
         {
           "date": "2026-10-12",
           "note": "载体迁移：#66 关闭，条目保留在清单（迁移前零认领零评论，无损害）。"
+        },
+        {
+          "date": "2026-10-13",
+          "note": "**结算：done**，owner 由空置为 @acrot0。交付＝docs/spec/悬赏与项目管理_v0.2.md（12470 B）＋ scripts/check_plan.py（30156 B，三方对账校验件）＋ tests/test_check_plan.py（26601 B，断言全过 rc=0）。对应账本事件 evt_496f8e95a86c（@acrot0，hard，Δ6，covers=[99]），其 reason 已注明「（#66 原悬赏件 hard）」。**遗留缺口（如实登记）**：tests/test_check_plan.py --mutate 的 M1 变异锚点已失锚 —— 期望串「        if declared and lst and lst != eff:」在 check_plan.py 中命中 0 次（rc=2 ANCHOR-MISS）；成因是后续 #169 把 LEDGER_TO_STATE 的无条件映射改为 to 优先、表为回落，动了该段逻辑；非本交付之责，作为待修项登记，不影响本轮结算。"
         }
       ]
     },

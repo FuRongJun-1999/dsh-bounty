@@ -104,11 +104,25 @@ def manifest_index(manifest) -> dict:
     docs = manifest.get("documents") if isinstance(manifest, dict) else None
     if not isinstance(docs, list) or not docs:
         raise ValueError("快照清单结构不符（须含非空 documents 数组）：%s" % MANIFEST)
+    # ★本笔：**重复声明判据**（fail-closed）。旧实现是「覆盖式建索引」
+    # （`out[str(d["file"])] = d`），**后一条静默盖掉前一条** ⇒ 在 `documents` **头部**
+    # 插入一条同 `file` 的伪造声明（错的 sha256／bytes／kind／source_url／fetched_at），
+    # 正确声明在其后 ⇒ **只有正确那条被校验**，工具仍签「不一致 0 处／全部一致」、
+    # **退出码 0**；且反向遍历那行会报「7 份在盘／**7 份在清单**」，**与清单实际 8 条声明不符**。
+    # 本仓对镜像缺口已立过判据（docstring 声明「**反向遍历**——目录里存在但清单没登记的
+    # 同样点名」），本件补的是**镜像的那一面**：清单自身的重复声明。
     out = {}
+    dups = []
     for d in docs:
         if not isinstance(d, dict) or not str(d.get("file") or ""):
             raise ValueError("快照清单有条目缺 file：%r" % (d,))
-        out[str(d["file"])] = d
+        name = str(d["file"])
+        if name in out:
+            dups.append(name)
+        out[name] = d
+    if dups:
+        raise ValueError("快照清单里同一 file 声明了多次（被覆盖的那条不会被校验）：%s"
+                         % "，".join(sorted(set(dups))))
     return out
 
 

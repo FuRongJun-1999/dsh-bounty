@@ -493,6 +493,22 @@ def latest_marker(comments):
 
 
 # 生效条件：number 为 issue 号、labels 为标签可迭代、comments 为评论正文可迭代时返回重建的 IssueState——态取「最新标记 > 态标签 > （有 bounty 标签则 open）」；author 给定时写入。
+def _norm_criteria(v):
+    """criteria 归一为二元数字 tuple（issue #276）。
+
+    畸形输入（字符串、非二元、非数字）一律按 () 处理——字符串不能
+    直接 tuple()，否则 "ab" 会被拆成 ('a','b') 导致下游 int() 崩溃。
+    """
+    if isinstance(v, str) or not isinstance(v, (list, tuple)):
+        return ()
+    if len(v) != 2:
+        return ()
+    try:
+        return (int(v[0]), int(v[1]))
+    except (ValueError, TypeError):
+        return ()
+
+
 def build_state(number, labels, comments, author=None) -> IssueState:
     """「标签视图 ＋ 评论流」→ IssueState（态优先级：标记 > 标签 > 默认 open）。"""
     labels = tuple(labels or ())
@@ -506,7 +522,7 @@ def build_state(number, labels, comments, author=None) -> IssueState:
         holder=marker.get("holder") or None, due_at=marker.get("due_at") or None,
         rounds=int(marker.get("rounds") or 0), seq=_seq(marker),
         difficulty=difficulty, author=author,
-        criteria=tuple(marker.get("criteria") or ()),
+        criteria=_norm_criteria(marker.get("criteria")),
         bidders=tuple(marker.get("bidders") or ()),
         impact=marker.get("impact") or "")
 
@@ -634,7 +650,7 @@ def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
     marker = {"state": to_state, "holder": holder, "due_at": due_at,
               "rounds": rounds, "seq": st.seq + 1, "ts": fmt_ts(now),
               "actor": actor, "action": action.lstrip("/")}
-    _cr = st.criteria if criteria is None else tuple(criteria)
+    _cr = st.criteria if criteria is None else _norm_criteria(criteria)
     if len(_cr) == 2:
         marker["criteria"] = [int(_cr[0]), int(_cr[1])]
     _bd = st.bidders if bidders is None else tuple(bidders)
@@ -968,7 +984,7 @@ def _do_settle(st, actor, now, cfg, is_maintainer):
                        f"当前态 `bounty:{st.state}` 不可结算（须先过验收 "
                        "`bounty:verified`）", now, actor, "state_not_settleable")
     _base = base_of(st.difficulty)
-    _cr = tuple(st.criteria or ())
+    _cr = _norm_criteria(st.criteria)
     _ep, _et = (int(_cr[0]), int(_cr[1])) if len(_cr) == 2 else (None, None)
     score, formula = quality_delta(_base, st.rounds, e_pass=_ep, e_total=_et)
     diff = st.difficulty.split(":", 1)[-1] if st.difficulty else ""

@@ -21,10 +21,10 @@
 | **网站面守卫** | [`tests/test_build_site.py`](tests/test_build_site.py) | 24 条断言 ＋ 5 条定点变异（N0–N4） |
 | 账本／荣誉榜 | [`docs/bounty/ledger.json`](docs/bounty/ledger.json) ／ [`docs/bounty/board.md`](docs/bounty/board.md) | append-only 事件流 ／ 由账本机械生成 |
 | **每日贡献表生成器** | [`scripts/daily_table.py`](scripts/daily_table.py) | 从账本按**结算日**渲染贡献表（确定性；`--check` 自检） |
-| **每日贡献表守卫** | [`tests/test_daily_table.py`](tests/test_daily_table.py) | 15 条断言 ＋ 4 条定点变异（M1–M4） |
+| **每日贡献表守卫** | [`tests/test_daily_table.py`](tests/test_daily_table.py) | 21 条断言 ＋ 5 条定点变异（M1–M5） |
 | 每日贡献表 | [`docs/bounty/贡献表.md`](docs/bounty/贡献表.md) | 由账本机械生成（按结算日分节 ＋ 按人合计 ＋ 累计） |
 | **悬赏清单生成器** | [`scripts/bounty_list.py`](scripts/bounty_list.py) | 真源 `docs/bounty/悬赏.json` → 清单 `docs/bounty/悬赏清单.md`（纯 stdlib、确定性；`--check` 自检漂移） |
-| **悬赏清单守卫** | [`tests/test_bounty_list.py`](tests/test_bounty_list.py) | 21 条断言 ＋ 16 条定点变异（M1–M16） |
+| **悬赏清单守卫** | [`tests/test_bounty_list.py`](tests/test_bounty_list.py) | 21 条断言 ＋ 17 条定点变异（M1–M17） |
 | 悬赏清单 | [`docs/bounty/悬赏清单.md`](docs/bounty/悬赏清单.md) | **统一查看面**：长期方向的验收标准／进度／负责人（由真源机械生成，禁手改） |
 | 价值向量 | [`docs/bounty/value_vector.json`](docs/bounty/value_vector.json) | 由账本导出（声誉分 ＋ 难度/影响两轴；**不含金额**） |
 | **审核员机制** | [`scripts/bounty_board.py`](scripts/bounty_board.py) ／ [`docs/spec/审核员机制_v0.1.md`](docs/spec/审核员机制_v0.1.md) | 回避闸（自审自结禁止）＋ 审核员档（`/verify` `/appraise`，**不含** `/settle`）＋ 账本 `role` 事件授权面 ＋ 晋升复合判据 |

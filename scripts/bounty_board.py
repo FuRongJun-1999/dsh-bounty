@@ -769,7 +769,9 @@ def _do_bid(st, payload, body, actor, now, cfg, pr_meta):
 
 
 # 生效条件：st/actor/now/cfg 齐全且 is_maintainer 为真时返回裁决——非维护者拒；态非 contest 拒；无投标拒；
-# 载荷首词须为已投标登录名（可带 @）。通过则定标：中标者转 delivered（holder=中标者、rounds=1 首交付），
+# 载荷首词须为已投标登录名（可带 @）。通过则定标：中标者转 delivered（holder=中标者、
+# rounds=0 待首轮交付——中标者 `/deliver` 后 rounds=1，与 `/claim` 流程的轮次语义对齐；
+# 若定标时直接记 rounds=1，中标者再 `/deliver` 会被 `_do_deliver` 累加成 2 导致结算减半），
 # **其余有效投标者各记落选分**（0/1/2/4，按难度）为 extra_events（0 分也写事件——否则与「未投标」同形）。
 def _do_select(st, payload, actor, now, cfg, is_maintainer):
     if not is_maintainer:
@@ -805,7 +807,7 @@ def _do_select(st, payload, actor, now, cfg, is_maintainer):
                f"投标共 {len(st.bidders)} 份；落标 {len(losers)} 份{_lz}",
                f"中标者转 `bounty:delivered`：走验收四闸后 `/verify` → `/settle`"
                f"（首交付 {_w} 分）"]
-    return _accept(st, "/select", now, actor, "delivered", winner, st.due_at, 1,
+    return _accept(st, "/select", now, actor, "delivered", winner, st.due_at, 0,
                    f"定标：@{winner} 中标（{len(st.bidders)} 份投标）", bullets,
                    extra_events=tuple(extra), bidders=())
 

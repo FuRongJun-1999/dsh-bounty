@@ -226,7 +226,7 @@
   },
   {
    "blockers": [
-    "声誉分 19 < 24"
+    "声誉分 22 < 24"
    ],
    "disputes": 0,
    "eligible": false,
@@ -238,18 +238,19 @@
     125,
     132,
     133,
-    135
+    135,
+    238
    ],
    "login": "zhangdeishuai1",
    "projects": [],
-   "reputation_delta": 19,
+   "reputation_delta": 22,
    "round0": 0,
    "round0_ratio": 0.0,
-   "round_known": 4,
+   "round_known": 5,
    "round_seen": [
     1
    ],
-   "settled": 4,
+   "settled": 5,
    "timeout": 0
   },
   {

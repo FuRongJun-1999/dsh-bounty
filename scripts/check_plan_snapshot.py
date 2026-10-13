@@ -108,7 +108,15 @@ def main(argv=None):
     except RuntimeError as exc:
         print(f"[error] {exc}", file=sys.stderr)
         return 1
-    path = write_snapshot(doc, args.out)
+    # ★本笔：把 `write_snapshot` **收进契约**。旧实现它在 `try` 之外 ——
+    # 输出路径不可写（目录不存在／权限／盘符非法）时抛裸 `OSError`，
+    # 而本文件 docstring 承诺「退出码：0 = 导出成功；1 = …」，`main()` 也不接 `OSError`。
+    # 与 `_gh_lines` 那条腿同一纪律：**外部资源不可用 ⇒ 按承诺返回，不抛栈**。
+    try:
+        path = write_snapshot(doc, args.out)
+    except OSError as exc:
+        print(f"[error] 快照写不出去：{args.out} — {type(exc).__name__}: {exc}", file=sys.stderr)
+        return 1
     n_mark = sum(len(i["comments"]) for i in doc["items"])
     print(f"[ok] {path} ｜ issue {len(doc['items'])} 条 ｜ 机器标记 {n_mark} 个")
     return 0

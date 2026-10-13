@@ -16,6 +16,7 @@
   [C] **确定性**（同输入同输出、剧本选取为纯函数、全仓零随机数）
   [D] **边界**（悬赏不做项：纯 stdlib、不联网）
   [E] **CLI 正向**（`--demo` 四阶段齐全、同种子逐字节相同、`--list`、用法错误退出码）
+  [F] **不变量③与回血入口**（倒下⇔0 血；heal() 只经治疗迁移，不接受裸调）
 
 用法：
   python -X utf8 tests/test_game.py            # 正向：全断言
@@ -80,10 +81,14 @@ def a2_illegal_transition_raises_and_names():
     """A2 非法迁移必须抛 StateError，且**消息里同时点名来源与目标**。
 
     非法样例取 `倒下 → 重伤`：`倒下` 只能回 `清醒`（需救治/休整），不得直接转重伤。
+
+    ⚠ 须含「非法迁移」：引入不变量③后，m1 放开迁移表时 `倒下(0血)→重伤` 会被③拦下，
+    其消息同样含『倒下』『重伤』——若只判这两个词，A2 会被③「代绿」（判据空转）。
     """
     ch = Character("甲", "倒下", 0)
     exc, msg = _catch(ch.transition, "重伤")
-    return (exc == "StateError" and "倒下" in msg and "重伤" in msg), \
+    return (exc == "StateError" and "非法迁移" in msg
+            and "倒下" in msg and "重伤" in msg), \
         f"exc={exc} msg={msg[:70]!r}"
 
 
@@ -122,8 +127,13 @@ def a5_downed_cannot_act_and_names_action():
 
 
 def a6_zero_hp_must_fall():
-    """A6 生命值归零必须落到『倒下』——不得停在中间态。"""
-    ch = Character("甲", "清醒", 0)
+    """A6 生命值归零必须落到『倒下』——不得停在中间态。
+
+    夹具经 `damage()` 走到「结算中间态」（0 血仍『清醒』），而非直接构造——
+    构造 0 血『清醒』已被不变量③拒绝（见 F1）。
+    """
+    ch = Character("甲", "清醒", 30)
+    ch.damage(30)
     log = engine.RoundLog("夹具", 0)
     engine.enforce_downed(ch, log)
     # 反面：未归零者不得被强行迁移
@@ -172,6 +182,44 @@ def b4_unknown_situation_returns_none():
     m.remember("酒馆", "北门夜里不落锁")
     got = m.recall("从未到过的地方")
     return (got is None), f"got={got!r}"
+
+
+# ============================================================ [F] 不变量③ 与回血入口
+
+def f1_downed_iff_zero_hp():
+    """F1 不变量③：『倒下』⇔ 生命值 0——构造、迁入倒下、离开倒下三处都必须拒绝矛盾并点名。
+
+    反面：带治疗的 `倒下 → 清醒`（heal=40）必须放行且落到 40 血（防过严）。
+    """
+    e1, m1 = _catch(Character, "甲", "清醒", 0)              # 构造：0 血却清醒
+    e2, m2 = _catch(Character, "甲", "倒下", 50)             # 构造：倒下却有血
+    full = Character("乙", "清醒", 100)
+    e3, m3 = _catch(full.transition, "倒下")                 # 满血迁入倒下
+    down = Character("丙", "倒下", 0)
+    e4, m4 = _catch(down.transition, "清醒")                 # 0 血不带治疗离开倒下
+    rollback = (down.state, down.hp) == ("倒下", 0)
+    ok_down = Character("丁", "倒下", 0)
+    e5, _ = _catch(ok_down.transition, "清醒", 40)           # 反面：带治疗必须放行
+    named = all("不变量③" in m for m in (m1, m2, m3, m4))
+    return (all(e == "StateError" for e in (e1, e2, e3, e4)) and named and rollback
+            and e5 is None and ok_down.snapshot() == ("丁", "清醒", 40)), \
+        f"构造0血清醒={e1} 构造有血倒下={e2} 满血迁倒下={e3} 0血离倒下={e4} " \
+        f"点名={named} 失败不留半态={rollback} 带治疗放行={e5}/{ok_down.snapshot()}"
+
+
+def f2_bare_heal_is_rejected():
+    """F2 `heal()` 宣称「只在治疗类迁移中调用」——直接裸调必须抛 StateError 并点名。
+
+    反面：经 `transition("清醒", heal=…)` 的治疗迁移必须放行（防过严）。
+    """
+    ch = Character("甲", "清醒", 50)
+    exc, msg = _catch(ch.heal, 30)
+    untouched = ch.hp == 50
+    ch2 = Character("乙", "重伤", 30)
+    exc2, _ = _catch(ch2.transition, "清醒", 40)
+    return (exc == "StateError" and "不变量①" in msg and untouched
+            and exc2 is None and ch2.hp == 70), \
+        f"裸调={exc}({msg[:50]!r}) 血量未动={untouched} 治疗迁移={exc2}/{ch2.hp}"
 
 
 # ============================================================ [C] 确定性
@@ -304,6 +352,8 @@ ASSERTIONS = (
     ("E2", "--demo 逐字节相同", e2_demo_is_byte_identical),
     ("E3", "--list 可用", e3_list_works),
     ("E4", "用法错误退出码 2", e4_usage_error_exit_2),
+    ("F1", "不变量③：倒下⇔0 血", f1_downed_iff_zero_hp),
+    ("F2", "heal() 不接受裸调用", f2_bare_heal_is_rejected),
 )
 
 
@@ -324,11 +374,19 @@ def _m_transition_skip_noop_check():
     """m2 去掉空迁移检查。"""
     orig = Character.transition
 
-    def patched(self, dst):
+    def patched(self, dst, heal=0):
         if dst not in rules.STATES:
             raise StateError(f"未知目标状态：{dst!r}")
         if dst not in rules.ALLOWED[self.state]:
             raise StateError(f"非法迁移：从『{self.state}』不能迁到『{dst}』")
+        old_hp = self.hp
+        if heal:
+            self.heal(heal, via=(self.state, dst))
+        try:
+            rules.check_hp_state(self.name, dst, self.hp)
+        except StateError:
+            self.hp = old_hp
+            raise
         self.state = dst
     Character.transition = patched
     return orig
@@ -480,6 +538,25 @@ def _m_run_output_not_stable():
     return orig
 
 
+def _m_noop_hp_state():
+    """m14 让不变量③（倒下⇔0 血）空转。"""
+    orig = rules.check_hp_state
+    rules.check_hp_state = lambda name, state, hp: None
+    return orig
+
+
+def _m_heal_unguarded():
+    """m15 去掉 heal() 的治疗迁移闸（恢复为裸调可回血）。"""
+    orig = Character.heal
+
+    def patched(self, amount, via=None):
+        if amount <= 0:
+            raise StateError(f"治疗值必须为正：{amount}")
+        self.hp = min(rules.MAX_HP, self.hp + amount)
+    Character.heal = patched
+    return orig
+
+
 #: 变异表：`(编号, 说明, 施加函数, 期望**恰好**转红的断言编号)`
 MUTATIONS = (
     ("m1", "放开迁移表（倒下→重伤 合法化）", _m_set_allowed_clear_allow, "A2"),
@@ -495,6 +572,8 @@ MUTATIONS = (
     ("m11", "引擎落痕带内部计数器", _m_round_not_deterministic, "C1"),
     ("m12", "丢掉『落痕』阶段标记", _m_drop_record_phase, "E1"),
     ("m13", "CLI 输出带渲染序号", _m_run_output_not_stable, "E2"),
+    ("m14", "不变量③空转（倒下⇔0 血）", _m_noop_hp_state, "F1"),
+    ("m15", "heal() 去掉治疗迁移闸", _m_heal_unguarded, "F2"),
 )
 
 
@@ -545,6 +624,10 @@ def _restore(name, token):
         engine.run_round = token
     elif name in ("m12", "m13"):
         run.run_round = token
+    elif name == "m14":
+        rules.check_hp_state = token
+    elif name == "m15":
+        Character.heal = token
 
 
 def run_mutations():

@@ -15,21 +15,21 @@ python -X utf8 game/run.py --list                 # 列出全部剧本
 python -X utf8 game/run.py --digest --seed 1      # 只打印落痕摘要（逐字节比对用）
 
 python -X utf8 tests/test_game.py                 # 正向断言：末行「通过 N / 失败 0」
-python -X utf8 tests/test_game.py --mutate        # 定点变异自证：13 条逐条恰好转红
+python -X utf8 tests/test_game.py --mutate        # 定点变异自证：15 条逐条恰好转红
 python -X utf8 tests/test_game.py --list          # 只看变异表
 ```
 
 退出码：`0` = 全绿（或变异逐条恰好命中）；`1` = 有断言失败 / 变异未按预期转红；
 **`2` = 用法错误**（`run.py`）或 **ANCHOR-MISS**（守卫件——实现漂移即硬失败）。
 
-### 实测读数（本机 Python 3.12.14 / Windows）
+### 实测读数（Python 3.12.14 / Windows 首测；3.12.15 / Linux 复测）
 
 | 命令 | 读数 |
 |---|---|
 | `python -X utf8 game/run.py --demo` | 退出码 **0**，输出含 `[起] [行动] [结算] [落痕]` **四阶段** |
 | 同种子两次 `--demo` | `sha256` 前 16 位 = `60FC38FA90588360`（两次**逐字节相同**） |
-| `python -X utf8 tests/test_game.py` | **通过 19 / 失败 0** |
-| `python -X utf8 tests/test_game.py --mutate` | **通过 27 / 失败 0**（13 条变异 × 「恰好转红 + 复原后全绿」） |
+| `python -X utf8 tests/test_game.py` | **通过 21 / 失败 0** |
+| `python -X utf8 tests/test_game.py --mutate` | **通过 31 / 失败 0**（15 条变异 × 「恰好转红 + 复原后全绿」） |
 
 ---
 
@@ -58,6 +58,8 @@ python -X utf8 tests/test_game.py --list          # 只看变异表
    非法迁移抛 `StateError` 并**点名**来源与目标。两条不变量：
    - ① 未经**治疗类迁移**不得回血（`check_invariant_no_free_heal`）；
    - ② `倒下` 态不得执行主动行动（`assert_active`，点名行动名）。
+  - ③ `倒下` ⇔ 生命值 0（`check_hp_state`；构造与每次迁移落定时判定，失败不留半态）。
+  - 回血唯一入口：`transition(dst, heal=n)`，只对治疗类迁移放行；`heal()` 裸调一律拒绝。
 2. **记忆召回一致性** —— 同一情境**恒**召回**自己**的事实（`Memory.recall`）；
    同一情境写入**不同**事实抛 `MemoryConflict` 并点名情境与两个事实（**不静默覆盖**）；
    未知情境返回 `None`（**不猜测**、不回落默认值）。
@@ -105,7 +107,7 @@ game/
   engine.py     回合引擎（起→行动→结算→落痕）+ 剧本
   run.py        CLI（--demo / --seed / --list / --digest）
 tests/
-  test_game.py  19 条断言 + 13 条定点变异（本仓 tests/ 体例）
+  test_game.py  21 条断言 + 15 条定点变异（本仓 tests/ 体例）
 ```
 
 `run.py` 的落痕摘要（`--digest`）就是可比对的"指纹"：同种子必须完全相同。

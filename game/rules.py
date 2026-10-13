@@ -43,6 +43,18 @@ class StateError(Exception):
     """非法状态迁移 / 违反不变量。消息里必须点名到（状态、行动或数值）。"""
 
 
+def check_hp_state(name: str, state: str, hp: int) -> None:
+    """③ 号不变量：`倒下` ⇔ 生命值为 0（互为充要，**静止态**判定）。
+
+    在构造与每次 `transition()` 落定时判定；`damage()` 之后到 `enforce_downed()`
+    之前的结算中间态不在此列（引擎负责在同一结算内收口）。
+    """
+    if state == "倒下" and hp != 0:
+        raise StateError(f"违反不变量③：{name} 状态『倒下』但生命值为 {hp}（倒下须为 0）")
+    if state != "倒下" and hp == 0:
+        raise StateError(f"违反不变量③：{name} 生命值为 0 但状态为『{state}』（0 血须为『倒下』）")
+
+
 class Character:
     """角色：状态 + 生命值。所有变更都必须过 `transition()` / `damage()` / `heal()`。"""
 
@@ -51,14 +63,19 @@ class Character:
             raise StateError(f"未知初始状态：{state!r}（合法集合 {STATES}）")
         if not (0 <= hp <= MAX_HP):
             raise StateError(f"初始生命值越界：{hp}（合法区间 0..{MAX_HP}）")
+        check_hp_state(name, state, hp)
         self.name = name
         self.state = state
         self.hp = hp
 
     # ---------------------------------------------------------- 迁移
 
-    def transition(self, dst: str) -> None:
-        """迁移到 `dst`。非法则抛 `StateError` 并**点名**来源与目标。"""
+    def transition(self, dst: str, heal: int = 0) -> None:
+        """迁移到 `dst`。非法则抛 `StateError` 并**点名**来源与目标。
+
+        `heal > 0` 时先回血再落定状态——这是**唯一**的回血入口，且只对 `HEALING`
+        里的迁移放行（`倒下 → 清醒` 必须带 `heal`，否则会落成 0 血的『清醒』）。
+        """
         if dst not in STATES:
             raise StateError(f"未知目标状态：{dst!r}（合法集合 {STATES}）")
         if dst == self.state:
@@ -67,6 +84,14 @@ class Character:
             raise StateError(
                 f"非法迁移：从『{self.state}』不能迁到『{dst}』"
                 f"（允许：{'、'.join(ALLOWED[self.state])}）")
+        old_hp = self.hp
+        if heal:
+            self.heal(heal, via=(self.state, dst))
+        try:
+            check_hp_state(self.name, dst, self.hp)
+        except StateError:
+            self.hp = old_hp                 # 判定失败 ⇒ 整次迁移不生效（原子）
+            raise
         self.state = dst
 
     def can_transition(self, dst: str) -> bool:
@@ -80,8 +105,17 @@ class Character:
             raise StateError(f"伤害值必须为正：{amount}")
         self.hp = max(0, self.hp - amount)
 
-    def heal(self, amount: int) -> None:
-        """治疗。**只允许在治疗类迁移中调用**（① 号不变量的落点）。"""
+    def heal(self, amount: int, via: tuple = None) -> None:
+        """治疗。**只允许在治疗类迁移中调用**（① 号不变量的落点）。
+
+        `via` 必须是 `HEALING` 里的一条迁移且来源等于当前状态——由 `transition(dst, heal=…)`
+        传入；直接调用 `heal(n)` 一律拒绝并点名（宣称即实现，不靠调用方自觉）。
+        """
+        if via not in HEALING or via[0] != self.state:
+            raise StateError(
+                f"违反不变量①：{self.name} 在『{self.state}』直接回血 {amount}，"
+                f"未经治疗类迁移（via={via!r}；允许："
+                f"{'、'.join(f'{a}→{b}' for a, b in sorted(HEALING))}）")
         if amount <= 0:
             raise StateError(f"治疗值必须为正：{amount}")
         self.hp = min(MAX_HP, self.hp + amount)

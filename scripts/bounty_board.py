@@ -1611,14 +1611,15 @@ def store_apply(store, dec: Decision):
         for lbl in dec.labels_add:
             if lbl not in rec["labels"]:
                 rec["labels"].append(lbl)
+        # ★fix-206：直接复用 `_accept` 已生成的完整标记（含 bidders/criteria/impact），
+        # 不再手写裁剪版 schema——离线标记与线上评论标记逐字段一致。
+        # 旧实现只写 8 个字段，`/bid` 后的 bidders 丢失 → 下一条 `/select` 读回空投标被拒。
+        marker = latest_marker([dec.comment]) or {}
+        marker = dict(marker)
+        marker["seq"] = len(rec["markers"]) + 1
         rec["markers"].append(
             "<!-- bounty:v1 " + json.dumps(
-                {"state": dec.to_state, "holder": dec.holder,
-                 "due_at": dec.due_at, "rounds": dec.rounds,
-                 "seq": len(rec["markers"]) + 1, "ts": dec.event.get("ts"),
-                 "actor": dec.event.get("actor"),
-                 "action": dec.event.get("action")},
-                ensure_ascii=False, sort_keys=True,
+                marker, ensure_ascii=False, sort_keys=True,
                 separators=(",", ":")) + " -->")
     rec["history"].append({"ts": dec.event.get("ts"), "action": dec.action,
                            "actor": dec.event.get("actor"), "ok": dec.ok,

@@ -39,9 +39,12 @@ import bounty_board as bb                                            # noqa: E40
 _DIFF_BASE = {k.split(":", 1)[-1]: v for k, v in bb.DIFFICULTY_SCORES.items()}
 
 #: 计分口径（与《贡献结算表 v0.1》§三 同源；改口径只改本注记与账本事件）。
-SCORE_NOTE = ("Δ = max(1, round_half_up(base × 2 / (round + 1)))，"
-              "round = 已发生的返工次数。标准交付取**中性点** round = 1 ⇒ Δ = base："
-              "既不奖「一次过闸」的 2×（未验收即发奖），也不罚返工。")
+#: ★本笔修正：旧注记写"标准交付取中性点 round = 1 ⇒ Δ = base"，与实现
+#: （`bounty_board.quality_delta`：`r = max(0, rounds - 1)`，首交付 rounds=1
+#: ⇒ r=0 ⇒ Δ=2×base）及同表数据行（round=0、Δ=12=2×6）三处矛盾。
+SCORE_NOTE = ("Δ = max(1, round_half_up(base × 2 / (r + 1)))，"
+              "r = max(0, rounds - 1)。首交付 rounds=1 ⇒ r=0 ⇒ Δ=2×base；"
+              "返工一次 rounds=2 ⇒ r=1（中性点）⇒ Δ=base。")
 
 #: 金额边界注记——与 bounty_board.NOTE_NO_MONEY 同一条硬边界。
 NOTE_NO_MONEY = ("本站只做声誉分与价值评价；金额不进站。两轴（难度 / 影响等级）"

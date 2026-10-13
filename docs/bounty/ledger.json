@@ -54,11 +54,18 @@
       "impact": "B",
       "reason": "dsh-memory #109 后续：写动词面闸门短路返回体协议必需键全收口 10 处，含守卫与定点变异（PR #113）",
       "formula": {
+        "rule": "v1.0",
         "kind": "complete",
-        "round": 1
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
       },
       "day": "2026-10-12",
-      "id": "evt_08d8b7f867f1"
+      "id": "evt_e8bf85f0531c"
     },
     {
       "ts": "2026-10-12T12:00:00Z",
@@ -79,11 +86,18 @@
       "impact": "A",
       "reason": "dsh-bounty 权威记录/账本/客户端五条（P0×2 + P1×3）：标记可被手写伪造改写权威状态、/withdraw 后轮次清零、先清空再重写、批量失败丢已写裁决、载荷回显吃标记",
       "formula": {
+        "rule": "v1.0",
         "kind": "complete",
-        "round": 1
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
       },
       "day": "2026-10-12",
-      "id": "evt_1291e5a8f91e"
+      "id": "evt_8e810abe876c"
     },
     {
       "ts": "2026-10-12T12:00:00Z",
@@ -196,11 +210,18 @@
       "impact": "A",
       "reason": "dsh-bounty 状态机/客户端/账本十条 P1 缺陷：复现+根因+补丁+定点变异齐备（评论数 1000 截断、标记字段无校验、/verify 判定词兜底、批内重复入账等）",
       "formula": {
+        "rule": "v1.0",
         "kind": "complete",
-        "round": 1
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
       },
       "day": "2026-10-12",
-      "id": "evt_40901ec68f83"
+      "id": "evt_74aff5b086ad"
     },
     {
       "ts": "2026-10-12T12:00:00Z",
@@ -304,11 +325,18 @@
       "impact": "A",
       "reason": "dsh-bounty 架构提案 P0：权威记录改为可验证链（现行「正文里 seq 最大标记获胜」可被机器人自己的评论伪造）",
       "formula": {
+        "rule": "v1.0",
         "kind": "complete",
-        "round": 1
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
       },
       "day": "2026-10-12",
-      "id": "evt_5ba506e4aae5"
+      "id": "evt_5bdc3230070e"
     },
     {
       "ts": "2026-10-12T12:00:00Z",
@@ -326,11 +354,18 @@
       "impact": "A",
       "reason": "dsh-memory BM25 两项交付：写入后增量块维护（PR #114，十万条写后查询约 4 倍加速）＋ 写后稀疏同步（PR #160，138.12→5.05 ms），前者已合并",
       "formula": {
+        "rule": "v1.0",
         "kind": "complete",
-        "round": 1
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
       },
       "day": "2026-10-12",
-      "id": "evt_68e87c02d6e4"
+      "id": "evt_65f9c3afe267"
     },
     {
       "ts": "2026-10-12T12:00:00Z",
@@ -409,11 +444,18 @@
       "impact": "A",
       "reason": "dsh-bounty 六条新缺陷（P1×3 + P2×3）：/dispute 不截断回显、招标落选分马甲刷分、身份只认登录名、/dispute 无状态前置、结算表错列、价值论证 0 URL",
       "formula": {
+        "rule": "v1.0",
         "kind": "complete",
-        "round": 1
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
       },
       "day": "2026-10-12",
-      "id": "evt_73f569471808"
+      "id": "evt_23f72c292191"
     },
     {
       "ts": "2026-10-12T12:00:00Z",
@@ -430,11 +472,18 @@
       "impact": "A",
       "reason": "dsh-memory 检索文本复用与 recall 预算修复（PR #115/#116/#117，含真实 DSH 验收），已合并、已历返工",
       "formula": {
+        "rule": "v1.0",
         "kind": "complete",
-        "round": 1
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
       },
       "day": "2026-10-12",
-      "id": "evt_73f803810b18"
+      "id": "evt_d1d277ff6cfc"
     },
     {
       "ts": "2026-10-12T12:00:00Z",
@@ -570,11 +619,18 @@
       "impact": "A",
       "reason": "lingshu #461 世界模型第一批闭环补全（F01/F02/F03/F05），1262 passed",
       "formula": {
+        "rule": "v1.0",
         "kind": "complete",
-        "round": 1
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
       },
       "day": "2026-10-12",
-      "id": "evt_951c1d9e5c17"
+      "id": "evt_46d2c13ae9a3"
     },
     {
       "ts": "2026-10-12T12:00:00Z",
@@ -625,11 +681,18 @@
       "impact": "B",
       "reason": "lingshu 六条缺陷申报：固化核 7 参数契约、子进程环境变量继承、lr 跨 5000 倍无响应、voxel min-max 噪声放大、--seeds/--prompts 静默改写、pr-lint 标题门绕过",
       "formula": {
+        "rule": "v1.0",
         "kind": "complete",
-        "round": 1
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
       },
       "day": "2026-10-12",
-      "id": "evt_a521896545e8"
+      "id": "evt_d58d95946ca1"
     },
     {
       "ts": "2026-10-12T12:00:00Z",
@@ -646,11 +709,18 @@
       "impact": "A",
       "reason": "lingshu 缺陷审计：65 条 issue，维护者独立复现成立 63 条、同根并案 2 条，38 条已进入修复提交",
       "formula": {
+        "rule": "v1.0",
         "kind": "complete",
-        "round": 1
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
       },
       "day": "2026-10-12",
-      "id": "evt_a680f5475144"
+      "id": "evt_1f800248cc47"
     },
     {
       "ts": "2026-10-12T12:00:00Z",
@@ -667,11 +737,18 @@
       "impact": "A",
       "reason": "dsh-memory 检索/索引/调度层审计 9 条 issue（#149–#157），全部本机实跑，含 2 次自我更正与 4 条子代理结论推翻",
       "formula": {
+        "rule": "v1.0",
         "kind": "complete",
-        "round": 1
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
       },
       "day": "2026-10-12",
-      "id": "evt_ada08ee917dc"
+      "id": "evt_b7286230e4ef"
     },
     {
       "ts": "2026-10-12T12:00:00Z",
@@ -752,11 +829,18 @@
       "impact": "B",
       "reason": "lingshu #460 稀疏推断优化与 Unified 关系生命周期修复——PR 评估（已修复，待人审）",
       "formula": {
+        "rule": "v1.0",
         "kind": "complete",
-        "round": 1
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
       },
       "day": "2026-10-12",
-      "id": "evt_d7322c2c40ed"
+      "id": "evt_5d8a99014fba"
     },
     {
       "ts": "2026-10-12T12:00:00Z",
@@ -805,11 +889,18 @@
       "impact": "A",
       "reason": "dsh-memory P0 缺陷审计五条：睡眠周期静默回滚记忆编辑、link/import 路径穿越覆写密钥、frontmatter 漏括号整库打不开、MCP 模板 python -m 劫持、private 记忆被明文并入",
       "formula": {
+        "rule": "v1.0",
         "kind": "complete",
-        "round": 1
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
       },
       "day": "2026-10-12",
-      "id": "evt_efa5baac9e62"
+      "id": "evt_e3803bc0e812"
     },
     {
       "ts": "2026-10-12T17:36:21Z",

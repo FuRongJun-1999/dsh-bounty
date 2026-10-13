@@ -1,0 +1,83 @@
+name: review-check
+
+# 灵枢插件测评子站（review/）的 CI 门禁 —— 薄壳：只做事件分发与调用，判据全在
+# `scripts/review_build.py` / `scripts/evidence_check.py` / 两个守卫里（都可本地跑、可离线跑）。
+#
+# 为什么需要这一份：本子站的判据全是「可复跑读数」，但**没人跑就等于没有**。
+# 本 workflow 把「生成器 ＋ 漂移闸 ＋ 证据链 ＋ 两个守卫 ＋ 两组定点变异」钉在每次
+# push / PR 上，并加一道**「跑完不许把仓搞脏」**——产物与真源不一致、或哪个脚本偷偷
+# 写了仓内文件，都在这里被挡下。
+#
+# 安全模型（与 `bounty.yml` 同款，改动前先读）：
+#   · 本文件不引用任何仓库机密，也不写仓、不做任何提交 ⇒ `contents: read` 即够。
+#   · 不用自托管 runner。
+#   · 全部命令**不触网**、**零第三方依赖**（只用 Python 标准库；守卫有 import 白名单断言）。
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+# 同一分支上串行（防两条流水同时写 review/site/ 互相踩）；不取消在跑的（留全痕）。
+concurrency:
+  group: review-check-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  PYTHONUTF8: "1"
+  PYTHONIOENCODING: "utf-8"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # 1) 生成器：真源 → 产物（退出码 0 = 生成成功；2 = 输入／校验错误，fail-closed）
+      - name: 生成 review/site/
+        run: python -X utf8 scripts/review_build.py
+
+      # 2) 漂移闸：产物必须与真源一致（0 = 一致；1 = 漂移，逐页点名）
+      - name: 漂移闸（产物 vs 真源）
+        run: python -X utf8 scripts/review_build.py --check
+
+      # 3) 证据链：快照 ←→ 清单 ←→ 真源 三方对账 ＋ 本机复跑逐字节复算
+      - name: 证据链对账 ＋ 本机复跑复算
+        run: python -X utf8 scripts/evidence_check.py
+
+      # 4) 两个守卫：逐条判据
+      - name: 生成器守卫
+        run: python -X utf8 tests/test_review_build.py
+
+      - name: 证据链守卫
+        run: python -X utf8 tests/test_evidence_check.py
+
+      # 5) 定点变异自证：逐条短路一条映射 ⇒ 对应断言必须**恰好**转红
+      #    （多红＝语义纠缠，少红＝判据空转；锚点缺失 ⇒ 退出码 2，fail-closed）
+      - name: 生成器守卫 · 变异自证
+        run: python -X utf8 tests/test_review_build.py --mutate
+
+      - name: 证据链守卫 · 变异自证
+        run: python -X utf8 tests/test_evidence_check.py --mutate
+
+      # 6) 「跑完不许把仓搞脏」：上面全部跑完后，工作区必须**逐字节干净**。
+      #    脏 = 产物与真源不一致（忘了重跑生成器）、或某个脚本写了不该写的文件。
+      - name: 跑完不许把仓搞脏
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::工作区被跑脏了——产物与真源不一致，或脚本写了仓内文件："
+            git status --porcelain
+            git --no-pager diff
+            exit 1
+          fi
+          echo "工作区干净：产物与真源一致。"

@@ -129,8 +129,20 @@ def measure():
         gt = io.open(os.path.join(d, "scripts", "bounty_list.py"), encoding="utf-8").read()
         gblk = gt.split("DIFFICULTY_SCORES = {")[1].split("}")[0]
         gtab = dict(re.findall(r'"([a-z]+)":\s*(\d+)', gblk))
-        m["table_ok"] = (bool(board) and len(gtab) == 4
-                         and all(board.get("difficulty:" + k) == v for k, v in gtab.items()))
+        # ★本笔：补**反向判据**（与 #179「元守卫补反向判据」同款）。
+        # 旧实现只校验 `gtab ⊆ board`（从表的每一项都能在权威表里找到同值），
+        # 且只硬编码 `len(gtab) == 4` ⇒ **权威表加档时静默放过**：
+        #   `bounty_board` 新增 `difficulty:legendary: 15` 而 `bounty_list` 未跟改 ⇒
+        #   旧判据仍为 True（从表 4 项都能对上）⇒ 守卫不红；
+        #   届时 `bounty_list.py` 的 `if d not in DIFFICULTY_SCORES` 会把该档的真源
+        #   条目判成「难度非法」⇒ **校验器给出假错、真源反而被拒**。
+        # 现要求**双向**：档数相等 ∧ 从表 ⊆ 权威表 ∧ 权威表 ⊆ 从表。
+        _fwd = all(board.get("difficulty:" + k) == v for k, v in gtab.items())
+        _rev = all(("difficulty:" + k) in board
+                   for k in gtab) and len(board) == len(gtab) and len(gtab) == 4
+        m["table_ok"] = bool(board) and _fwd and _rev
+        m["table_fwd_ok"] = bool(board) and _fwd
+        m["table_rev_ok"] = _rev and len(board) >= 4
         return m
     finally:
         shutil.rmtree(d, ignore_errors=True)
@@ -192,6 +204,13 @@ MUTATIONS = [
     ("M14", "scripts/bounty_list.py", "    for it in items:\n        L.append(\"| %s |",
      "    for it in []:\n        L.append(\"| %s |", {"A04", "A14", "A20"}),
     ("M15", "scripts/bounty_board.py", '"difficulty:hard": 6,', '"difficulty:hard": 7,', {"A15"}),
+    # ★本笔新增：**权威表加档**（bounty_list 未跟改）。修前 A15 只做单向
+    # `gtab ⊆ board` 且硬编码 `len(gtab) == 4` ⇒ 本变异**不红**（漏报）；
+    # 补反向判据后必须点名 A15。
+    ("M17", "scripts/bounty_board.py",
+     '"difficulty:hard": 6, "difficulty:expert": 10}',
+     '"difficulty:hard": 6, "difficulty:expert": 10, "difficulty:legendary": 15}',
+     {"A15"}),
     ("M16", "scripts/bounty_list.py",
      'STATUS_CN.get(it["status"], it["status"])', 'it["status"]', {"A12"}),
 ]

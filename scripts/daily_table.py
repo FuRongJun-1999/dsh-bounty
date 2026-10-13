@@ -19,6 +19,25 @@ import json
 import os
 import sys
 
+HERE = os.path.dirname(os.path.abspath(__file__))          # <仓根>/scripts
+REPO = os.path.dirname(HERE)                               # <仓根>
+if HERE not in sys.path:
+    sys.path.insert(0, HERE)
+
+import bounty_board as bb                                            # noqa: E402
+
+#: 难度 → base 分（**不另立一份表**——直接取权威单点 `bounty_board.DIFFICULTY_SCORES`；
+#: import 体例与 `build_site.py` 同款，`build_site.py:68` 亦写明「改口径只改
+#: `scripts/bounty_board.py` 的 `DIFFICULTY_SCORES`」）。
+#:
+#: ★本笔修正：旧实现在下方 `base is None` 分支里内联了一份
+#: `{"easy": 1, "medium": 3, "hard": 6, "expert": 10}` —— 这是**第三份拷贝**
+#: （另两份在 `bounty_board.py:104` 与 `bounty_list.py:19`），且**没有任何守卫**
+#: 比对它与权威表（`test_bounty_list.py` 的 A15 只覆盖前两份）。后果：改权威表后
+#: `贡献表.md` 的 `base` 列会**静默陈旧**。而账本事件**不带 `difficulty_base`**
+#: ⇒ 该分支恒真、这份拷贝**永远在热路径上**（它是维护者每日计分要看的表）。
+_DIFF_BASE = {k.split(":", 1)[-1]: v for k, v in bb.DIFFICULTY_SCORES.items()}
+
 #: 计分口径（与《贡献结算表 v0.1》§三 同源；改口径只改本注记与账本事件）。
 SCORE_NOTE = ("Δ = max(1, round_half_up(base × 2 / (round + 1)))，"
               "round = 已发生的返工次数。标准交付取**中性点** round = 1 ⇒ Δ = base："
@@ -125,8 +144,9 @@ def render(events):
             for i, ev in enumerate(evs, 1):
                 base = ev.get("difficulty_base")
                 if base is None:
-                    base = {"easy": 1, "medium": 3, "hard": 6, "expert": 10}.get(
-                        ev.get("difficulty") or "", 1)
+                    # ★本笔：取权威单点 `_DIFF_BASE`（由 `bb.DIFFICULTY_SCORES` 派生），
+                    # 不再内联第三份拷贝。默认值 `1` 与旧实现的 `.get(…, 1)` 逐位一致。
+                    base = _DIFF_BASE.get(ev.get("difficulty") or "", 1)
                 f = ev.get("formula") or {}
                 rnd = f.get("round")
                 diff = (ev.get("difficulty") or "") + (f"（round={rnd}）" if rnd is not None else "")

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>方法说明 · 灵枢插件测评</title>
+<style>
+:root{--fg:#1c1e21;--dim:#606770;--line:#e4e6eb;--acc:#1d76db;--bg:#fff;--soft:#f5f6f7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);line-height:1.7;
+ font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{border-bottom:1px solid var(--line);padding:18px 24px;background:var(--soft)}
+header h1{margin:0 0 8px;font-size:20px}
+header h1 a{color:var(--fg);text-decoration:none}
+nav a{margin-right:16px;color:var(--dim);text-decoration:none;font-size:15px}
+nav a.on{color:var(--acc);font-weight:700;border-bottom:2px solid var(--acc)}
+main{max-width:880px;margin:0 auto;padding:24px}
+h2{font-size:18px;margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+h3{font-size:15px;margin:20px 0 6px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+code{background:var(--soft);padding:1px 5px;border-radius:3px;font-size:13px}
+pre{background:var(--soft);padding:12px;border-radius:5px;overflow:auto;font-size:13px}
+.note{background:#fff8e1;border-left:4px solid #f0ad4e;padding:10px 14px;margin:14px 0}
+.muted{color:var(--dim)}
+.tag{display:inline-block;background:var(--soft);border:1px solid var(--line);
+ border-radius:10px;padding:0 8px;font-size:12px;margin-right:6px}
+footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
+ color:var(--dim);font-size:13px}
+
+</style>
+</head>
+<body>
+<header><h1><a href="index.html">灵枢插件测评</a></h1>
+<nav><a class="" href="index.html">首页</a><a class="" href="board.html">榜单</a><a class="on" href="method.html">方法说明</a></nav></header>
+<main>
+<h2>〇、口径先说清</h2>
+<div class="note">本子站的测评分（每维 1–5，总分 ≤ 25）是<b>本子站自己的读数刻度</b>，与 <code>scripts/bounty_board.py</code> 的悬赏声誉分（easy 1 ／ medium 3 ／ hard 6 ／ expert 10）<b>不是同一个量</b>，两者不可换算、不可相加。悬赏侧口径真源见 <code>docs/bounty/README.md</code> §四。</div>
+<h2>一、怎么读一条测评</h2>
+<p>一条测评 = ①维度读数 ②每条证据的<b>命令 ＋ 原始输出 ＋ 来源</b> ③结论 ④边界 ⑤未测项。缺任何一项，生成器在落盘前就拒绝（fail-closed）；落盘期失败（磁盘／权限）同样点名并以退出码 2 收场，不留半截站。</p>
+<p><b>零 LLM 判官</b>：本子站的每一条判定都能指回一条读数——哪条读数支撑哪条结论逐项可指。禁用「看起来更好」「体验更佳」一类表述；生成器本身也<b>不调用任何模型</b>、不发任何网络请求。</p>
+<h2>二、评分刻度</h2>
+<p>每个维度按 <b>1–5 整数</b>打分（5 = 该维度上有可复跑证据且读数最好的一档；1 = 该维度上公开可得的信息最少或代价最高）；总分 = 五维之和（≤ 25）。打分<b>只依据本页列出的证据</b>——凡未取得读数的维度一律记 1 并在「未测」节说明原因，<b>不许</b>用「体验更好」「看起来更强」一类不可判表述代替读数。</p>
+<table><tr><th>维度</th><th>分域</th></tr><tr><td>检索质量</td><td>1–5</td></tr><tr><td>记忆持久</td><td>1–5</td></tr><tr><td>注入预算</td><td>1–5</td></tr><tr><td>隐私与本地性</td><td>1–5</td></tr><tr><td>可验证性</td><td>1–5</td></tr></table>
+<h2>三、未测项怎么处理</h2>
+<div class="note"><b>未测项</b>：凡本子站未取得原始输出的维度或子项，一律在详情页「未测」节<b>显式写「未测 ＋ 原因」</b>——留空、或用「应该没问题」代替，视为未交付。打分为 1 只表示「公开可得信息最少」，<b>不表示</b>该插件在该维度上差。</div>
+<h2>四、证据来源的两档（**本子站把「可复跑」从「转引」里切出去**）</h2>
+<table><tr><th>来源档</th><th>字段</th><th>含义与判据</th></tr><tr><td><code>本机复跑</code></td><td><code>kind</code> ＋ <code>probe</code></td><td>由 <code>scripts/evidence_probe.py</code> 的具名探针在本机跑出；<code>output</code> 必须与该探针的 stdout <b>逐字节相同</b>——由 <code>python -X utf8 scripts/evidence_check.py --repro</code> 每次复算，差一个字节即点名判红。<b>每条记录至少 1 条</b>（生成器强制）。</td></tr><tr><td><code>公开文档转引</code></td><td><code>source</code>（URL ＋ 抓取日）</td><td>原始输出取自该公开文档的原文读数（<b>不是</b>本站本机重跑）；URL 与抓取日期随证据一并公开，可自行核验。<b>不得</b>挂 <code>probe</code>。</td></tr></table>
+<div class="note"><b>本机复跑证明了什么、没证明什么</b>：它证明「我们引的字节就是这些字节」「这条命令现在仍然跑得出这段输出」；它<b>不</b>证明被测评插件的运行时行为。凡未取得原始输出的维度，一律记 1（无读数档）并在「未测」节写明原因。</div>
+<h2>五、复现步骤</h2>
+<table><tr><th>项</th><th>内容</th></tr><tr><td>环境</td><td>Python 3.12（与同仓其他脚本一致；<code>python -X utf8</code> 走 UTF-8）。</td></tr><tr><td>依赖</td><td><b>零第三方依赖</b>——只用 Python 标准库（argparse／html／json／os／re／sys）。</td></tr><tr><td>生成</td><td><code>python -X utf8 scripts/review_build.py</code>（写 <code>review/site/</code>）。</td></tr><tr><td>守卫</td><td><code>python -X utf8 tests/test_review_build.py</code>（末行「通过 N / 失败 0」）。</td></tr><tr><td>变异</td><td><code>python -X utf8 tests/test_review_build.py --mutate</code>（逐条恰好命中期望红项）。</td></tr><tr><td>预期耗时</td><td>生成 &lt; 1 秒；守卫 &lt; 5 秒；变异自证（逐条重跑守卫）&lt; 60 秒。</td></tr><tr><td>不触网</td><td>以上命令<b>全程不发网络请求</b>；CI 里同样成立。</td></tr></table>
+
+</main>
+<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> 机械生成——勿手改。本站只放可核验读数，<b>不涉资金</b>，<b>不采集用户隐私</b>。</footer>
+</body>
+</html>

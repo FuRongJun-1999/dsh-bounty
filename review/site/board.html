@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>榜单 · 灵枢插件测评</title>
+<style>
+:root{--fg:#1c1e21;--dim:#606770;--line:#e4e6eb;--acc:#1d76db;--bg:#fff;--soft:#f5f6f7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);line-height:1.7;
+ font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{border-bottom:1px solid var(--line);padding:18px 24px;background:var(--soft)}
+header h1{margin:0 0 8px;font-size:20px}
+header h1 a{color:var(--fg);text-decoration:none}
+nav a{margin-right:16px;color:var(--dim);text-decoration:none;font-size:15px}
+nav a.on{color:var(--acc);font-weight:700;border-bottom:2px solid var(--acc)}
+main{max-width:880px;margin:0 auto;padding:24px}
+h2{font-size:18px;margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+h3{font-size:15px;margin:20px 0 6px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+code{background:var(--soft);padding:1px 5px;border-radius:3px;font-size:13px}
+pre{background:var(--soft);padding:12px;border-radius:5px;overflow:auto;font-size:13px}
+.note{background:#fff8e1;border-left:4px solid #f0ad4e;padding:10px 14px;margin:14px 0}
+.muted{color:var(--dim)}
+.tag{display:inline-block;background:var(--soft);border:1px solid var(--line);
+ border-radius:10px;padding:0 8px;font-size:12px;margin-right:6px}
+footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
+ color:var(--dim);font-size:13px}
+
+</style>
+</head>
+<body>
+<header><h1><a href="index.html">灵枢插件测评</a></h1>
+<nav><a class="" href="index.html">首页</a><a class="on" href="board.html">榜单</a><a class="" href="method.html">方法说明</a></nav></header>
+<main>
+<h2>榜单 · 总分降序</h2>
+<div class="note">本子站的测评分（每维 1–5，总分 ≤ 25）是<b>本子站自己的读数刻度</b>，与 <code>scripts/bounty_board.py</code> 的悬赏声誉分（easy 1 ／ medium 3 ／ hard 6 ／ expert 10）<b>不是同一个量</b>，两者不可换算、不可相加。悬赏侧口径真源见 <code>docs/bounty/README.md</code> §四。</div>
+<p><b>性质列</b>：「自评」＝被评插件与本站维护者同源（当前 1 条），其分值不应与他评条目等权看待；每条自评的详情页顶部都有利益相关声明。</p>
+<p>计分口径：每个维度按 <b>1–5 整数</b>打分（5 = 该维度上有可复跑证据且读数最好的一档；1 = 该维度上公开可得的信息最少或代价最高）；总分 = 五维之和（≤ 25）。打分<b>只依据本页列出的证据</b>——凡未取得读数的维度一律记 1 并在「未测」节说明原因，<b>不许</b>用「体验更好」「看起来更强」一类不可判表述代替读数。</p>
+<table><tr><th>#</th><th>插件</th><th>版本</th><th>总分</th><th>性质</th><th>证据（本机复跑 / 转引）</th><th>来源</th></tr><tr><td>1</td><td><a href="detail_dsh-auto-memory.html">dsh-auto-memory</a></td><td>0.7.1</td><td><b>19</b></td><td>他评</td><td>2 / 2</td><td><a href="https://github.com/AskTheWay/dsh-auto-memory" rel="noopener noreferrer" target="_blank">https://github.com/AskTheWay/dsh-auto-memory</a></td></tr><tr><td>2</td><td><a href="detail_dsh-memory.html">dsh-memory</a></td><td>0.8.1</td><td><b>19</b></td><td>自评</td><td>1 / 3</td><td><a href="https://github.com/FuRongJun-1999/dsh-memory" rel="noopener noreferrer" target="_blank">https://github.com/FuRongJun-1999/dsh-memory</a></td></tr><tr><td>3</td><td><a href="detail_dsh-mnemon.html">dsh-mnemon</a></td><td>0.5.28</td><td><b>12</b></td><td>他评</td><td>1 / 2</td><td><a href="https://github.com/omdsh-dev/dsh-mnemon" rel="noopener noreferrer" target="_blank">https://github.com/omdsh-dev/dsh-mnemon</a></td></tr></table>
+<h2>怎么看这个榜</h2>
+<p>总分只是<b>五维读数之和</b>，不是「谁更好」的总判决——不同插件面向的用法不同，请点进详情页对着<b>证据命令</b>自己判。</p>
+<p>同分时按插件名升序排（次序稳定、可复现）。</p>
+
+</main>
+<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> 机械生成——勿手改。本站只放可核验读数，<b>不涉资金</b>，<b>不采集用户隐私</b>。</footer>
+</body>
+</html>

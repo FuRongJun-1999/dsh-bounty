@@ -40,6 +40,7 @@ SCRIPTS = os.path.join(REPO, "scripts")
 sys.path.insert(0, SCRIPTS)
 
 import daily_table as dt                                            # noqa: E402
+import bounty_board as bb                                           # noqa: E402
 
 IMPL = os.path.join(SCRIPTS, "daily_table.py")
 
@@ -107,6 +108,23 @@ def run_checks():
     # D10 竖线不破表
     ok("D10 依据竖线转义", "a/b" in dt.render([_ev(1, "a", 3, reason="a|b")]))
 
+    # D11 base 列取**权威单点**（不另立第三份表）
+    # 旧实现在 `base is None` 分支内联了一份 {"easy":1,…,"expert":10} 的表 —— 那是
+    # 全仓**第三份**拷贝，且**无任何守卫**比对它与 `bb.DIFFICULTY_SCORES`
+    # （`test_bounty_list.py` 的 A15 只覆盖 bounty_board↔bounty_list 两份）。
+    # 而账本事件**不带 `difficulty_base`** ⇒ 该分支恒真、这份拷贝永远在热路径上。
+    _exp = {k.split(":", 1)[-1]: v for k, v in bb.DIFFICULTY_SCORES.items()}
+    ok("D11a base 表由 bounty_board.DIFFICULTY_SCORES 派生（非另立拷贝）",
+       getattr(dt, "_DIFF_BASE", None) == _exp,
+       f"{getattr(dt, '_DIFF_BASE', None)} vs {_exp}")
+    for _d, _v in sorted(_exp.items()):
+        _t = dt.render([_ev(1, "a", _v, difficulty=_d)])
+        ok(f"D11b 无 difficulty_base 时 difficulty={_d} ⇒ base 列渲染 {_v}",
+           f"| {_v} |" in _t, _t[:0])
+    _t = dt.render([_ev(1, "a", 6, difficulty="hard", difficulty_base=99)])
+    ok("D11c 有 difficulty_base 时以其为准（不覆盖账本既有字段）",
+       "| 99 |" in _t and "| 6 |" not in _t, _t[:0])
+
 
 _MUTATIONS = (
     ("M1 关 covers 优先（工作项覆盖丢失）",
@@ -127,6 +145,13 @@ _MUTATIONS = (
      "                row = per.setdefault(who, {\"d\": 0, \"n\": 0, \"is\": []})" + chr(10) +
      "                row[\"d\"] = int(ev.get(\"delta\") or 0)  # MUT",
      {"D5"}),
+    # ★本笔新增：把**权威单点派生**改回**内联的第三份拷贝**（且值故意与权威不符）。
+    # 修前 daily_table 就是这么写的（内联表 + 零守卫）⇒ 本变异在那时**不红**。
+    ("M5 base 列改回内联拷贝（不取权威单点）",
+     "                    base = _DIFF_BASE.get(ev.get(\"difficulty\") or \"\", 1)",
+     "                    base = {\"easy\": 1, \"medium\": 3, \"hard\": 7, \"expert\": 10}.get(" + chr(10) +
+     "                        ev.get(\"difficulty\") or \"\", 1)  # MUT",
+     {"D11b"}),
 )
 
 #: 变异 → (被测函数名, 跑哪些断言组)
@@ -135,6 +160,7 @@ _MUT_TARGETS = (
     ("M2", "fmt_issues", run_checks),
     ("M3", "group_by_day", run_checks),
     ("M4", "render", run_checks),
+    ("M5", "render", run_checks),
 )
 
 

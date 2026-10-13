@@ -192,6 +192,21 @@
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
+    70,
+    141
+   ],
+   "login": "m3159584479",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 9,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
     55,
     122
    ],
@@ -437,20 +452,6 @@
    ],
    "login": "cyd471",
    "project": "hive_memory_bench",
-   "quality_E": null,
-   "reputation_delta": 3,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    141
-   ],
-   "login": "m3159584479",
-   "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 3,
    "rounds": 1

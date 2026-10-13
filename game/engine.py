@@ -46,6 +46,10 @@ ACTIONS = {
 }
 
 
+#: 「救治」的回血量（随 `transition(…, heal=)` 一步落定）
+HEAL_AMOUNT = 40
+
+
 class RoundLog:
     """一段完整回合的落痕容器（可逐字节打印、可逐位比对）。"""
 
@@ -122,12 +126,11 @@ def run_round(name: str = "旅人", seed: int = 0, hp: int = rules.MAX_HP):
 
         dmg, target = ACTIONS.get(action, (0, None))
         if target is not None:
-            ch.transition(target)
+            # 「救治」的回血随治疗迁移一步完成（heal() 不再接受裸调用）
+            ch.transition(target, heal=HEAL_AMOUNT if action == "救治" else 0)
             moved = True
         if dmg:
             ch.damage(dmg)
-        if action == "救治":
-            ch.heal(40)
         after = ch.snapshot()
 
         # ① 号不变量：未经治疗迁移不得回血（把「本次是否治疗迁移」如实传入）

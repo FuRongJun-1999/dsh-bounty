@@ -313,7 +313,15 @@ LEDGER_SCHEMA = {
         "role": "role 事件：reviewer|maintainer",
         "op": "role 事件：grant|revoke",
     },
-    "计分": {"easy": 1, "medium": 3, "hard": 6, "expert": 10,
+    # ★本笔：难度→分**从权威表派生**（与同字典内的「影响等级」同款写法），不再手写第二份。
+    # 旧实现把 `{"easy": 1, "medium": 3, "hard": 6, "expert": 10}` 硬编码在这里 —— 那是
+    # 全仓**第四份**难度表（另三份：本文件 `DIFFICULTY_SCORES`、`bounty_list.py:19`、
+    # `daily_table.py` 内联，后两者已分别处理）。危害比其余三份更大：`LEDGER_SCHEMA`
+    # 经 `write_ledger` **原样写进 `docs/bounty/ledger.json` 的 `_schema`**，
+    # 那是**已发布的公开产物**、第三方据以独立核口径 ⇒ 权威表一改，账本仍宣称旧值。
+    # 对照：紧邻的「影响等级」本就是 `{g: IMPACT_CRITERIA[g] for g in IMPACT_GRADES}` 派生的。
+    # 派生顺序与旧写法一致（easy/medium/hard/expert），`json.dump` 后逐字节不变。
+    "计分": {**{k.split(":", 1)[-1]: v for k, v in DIFFICULTY_SCORES.items()},
              "完成分": "max(1, round_half_up(base*2/(round+1)))（v1.0 质量化）",
              "无效交付": "-base（轮次用尽）", "超时未交付": "-2base",
              "影响等级（可调）": {g: IMPACT_CRITERIA[g] for g in IMPACT_GRADES},

@@ -564,6 +564,15 @@ def render_detail(d) -> str:
         for k in DIMENSIONS)
     ev_blocks = []
     for i, e in enumerate(d["evidence"], 1):
+        # ★本笔：**元素形状判据**。`d["evidence"]` 来自 `review/data/plugins.json`（外部台账），
+        # 元素非对象 ⇒ `AttributeError`，详情页整页生不出来。
+        # 可达性如实标注：`main()` 里 `validate(doc)` **先**跑，故 CLI 链上被拦住；
+        # 但 `build(doc, out_dir)` 是公开入口、**仓内测试正是直接调它**，此时无人拦。
+        if not isinstance(e, dict):
+            ev_blocks.append("<h3>证据 %d <span class=\"tag\">（非对象条目）</span></h3>"
+                             "<p class=\"muted\">该条目不是对象（实为 %s），跳过渲染。</p>"
+                             % (i, esc(type(e).__name__)))
+            continue
         kind = str(e.get("kind") or "（未标档位）")
         ev_blocks.append("<h3>证据 %d <span class=\"tag\">%s</span></h3>"
                          % (i, esc(kind)))

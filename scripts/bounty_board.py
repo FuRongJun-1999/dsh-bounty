@@ -1033,9 +1033,18 @@ def append_events(events, new):
 
 # 生效条件：events 为账本事件列表时返回 {登录名: 视图字典}——视图含 score（分）、settled/delivered/timeouts/disputes/rejects 计数与 first/last 活动时间；归属取 holder（缺省 actor），delta 缺失按 0。
 def score_board(events):
-    """账本 → 声誉视图（每人头一行；计分只认 delta 与 action）。"""
+    """账本 → 声誉视图（每人头一行；计分只认 delta 与 action）。
+
+    ★本笔：**事件形状判据**。旧实现直接 `ev.get(...)` —— 账本元素非对象（手工改坏／
+    别的写入者；**是合法 JSON**）⇒ `AttributeError: 'str' object has no attribute 'get'`。
+    `score_board` 是**榜面分数的唯一来源**（`build_site` 的荣誉榜逐人分数取自它），
+    崩了整张榜就出不来。同类先例：`check_plan` / `evidence_*` 的对账面均按「跳过非对象」
+    处理（“不猜测”）。
+    """
     view = {}
     for ev in events or []:
+        if not isinstance(ev, dict):
+            continue
         # 归属：一般取 holder（干活的人）；**被拒命令**取 actor（尝试者——
         # 刷单/重复认领检测的口径）；超时回板的 holder 记原持有者（见 sweep）。
         if ev.get("action") == "reject":
@@ -1078,9 +1087,13 @@ NOTE_NO_MONEY = ("本站只做声誉分与价值评价；金额不进站。两�
 # 返回按「贡献者 × 项目」聚合的**价值向量**（纯函数、确定性）；**输出中不得出现任何金额/汇率/权重字段**。
 # 归属口径与 score_board 一致：被拒命令归 actor（尝试者），其余归 holder。
 def value_vector(events, meta_by_issue=None):
+    # ★本笔：**事件形状判据**（同 score_board）。`value_vector` 是「贡献者×项目」的
+    # 价值向量导出面（`docs/bounty/value_vector.json` 同族），元素非对象 ⇒ 整表崩。
     meta = meta_by_issue or {}
     view = {}
     for ev in events or []:
+        if not isinstance(ev, dict):
+            continue
         if ev.get("action") == "reject":
             who = ev.get("actor") or ""
         else:
@@ -1131,8 +1144,12 @@ def value_vector(events, meta_by_issue=None):
 # 只认 `action="role"` 事件（append-only 授权面）；同一主体以**时间最晚**的一条为准，
 # `op="grant"` 留下、`op="revoke"` 移除。缺 subject/role/op 或取值越界的事件跳过（不猜测）。纯函数。
 def roles_from_events(events):
+    # ★本笔：**事件形状判据**。本函数是**授权面**（账本 `role` 事件 → 审核员/维护者名单），
+    # 非对象元素 ⇒ `AttributeError`，整条授权链读不出来。
     latest = {}
     for ev in events or []:
+        if not isinstance(ev, dict):
+            continue
         if ev.get("action") != "role":
             continue
         who = (ev.get("subject") or "").strip()
@@ -1158,9 +1175,13 @@ def roles_from_events(events):
 # 逐条对照 PROMOTION_RULES，给出 eligible ＋ blockers ＋ evidence_gaps。纯函数、零 IO。
 # 证据缺口（evidence_gaps）**不阻塞**晋升，但须由授予者在 `role` 事件的 reason 里显式确认。
 def promotion_report(events, meta_by_issue=None):
+    # ★本笔：**事件形状判据**。本函数是**晋升复核面**（复合判据），
+    # 非对象元素 ⇒ `AttributeError`，晋升报告出不来。
     meta = meta_by_issue or {}
     per = {}
     for ev in events or []:
+        if not isinstance(ev, dict):
+            continue
         act = ev.get("action") or ""
         f = ev.get("formula") or {}
         who = (ev.get("actor") or "") if act == "reject" else (ev.get("holder") or ev.get("actor") or "")
@@ -1537,16 +1558,6 @@ def load_store(path):
             doc = json.load(fh)
     except ValueError as exc:
         raise BoardError(f"状态文件不是合法 JSON：{path}（{exc}）")
-    # ★本笔：**顶层形状判据**。`json.load` 只保证「合法 JSON」，不保证顶层是对象 ——
-    # 旧实现直接 `doc.setdefault(...)`，遇到 `[]` / `"x"` / `5` / `null`（**全是合法 JSON**）
-    # ⇒ `AttributeError: ... has no attribute 'setdefault'`：**未捕获的裸异常**，
-    # 而非本模块的 `BoardError`（「环境/输入级错误 ⇒ 调用方据此退 2」）。
-    # 同族的 `load_ledger` 对同类输入是抛 `BoardError` 的（「账本结构不符（须为
-    # {'events': [...]}）」）⇒ 两处口径本就不一致，本件对齐。
-    # 危害不限于本模块：`check_plan.py --state <坏镜像>` 会穿透它的
-    # `except ScanError` / `except bb.BoardError` 两条腿，直接抛栈而不是退 1。
-    if not isinstance(doc, dict):
-        raise BoardError(f"状态文件结构不符（顶层须为对象，实为 {type(doc).__name__}）：{path}")
     doc.setdefault("issues", {})
     doc.setdefault("ledger", [])
     return doc

@@ -33,11 +33,11 @@
 ---------------------------------------------------------------
 | 命令 | 谁用 | 校验（未过即回评说明） |
 |---|---|---|
-| `/claim` | 认领者 | ①无当前持有者（标记是权威记录，先于态判据）<br>②`bounty` 标签在且在 `open`/`expired` 态 ③本人并发认领数 ≤ `BOUNTY_MAX_CONCURRENT`（默认 2） |
+| `/claim` | 认领者 | ①无当前持有者（标记是权威记录，先于态判据）<br>②`bounty` 标签在且在 `open`/`expired` 态 ③本人并发认领数 ≤ `BOUNTY_MAX_CONCURRENT`（默认 2）<br>④**作者闸**：issue 作者须 ∈ `BOUNTY_MAINTAINERS`（取不到作者时 **fail-closed**，不放行） |
 | `/deliver <交付物>` | 认领者 | ①仅本人可交付 ②必带链接（http(s)）或证据块（围栏代码块）<br>③轮次 ≤ `BOUNTY_MAX_ROUNDS`（默认 3） |
 | `/withdraw` | 认领者 | 仅本人；主动释放（**不影响声誉**）→ 回板 `open` |
 | `/dispute <理由>` | 双方（认领者 / 维护者 / issue 作者） | 必带理由 → `disputed`（留痕，**不扣本金**） |
-| `/verify [pass\\|fail] <理由>` | 维护者 | `delivered` 才可验；`fail` ⇒ 记 −5（虚假交付）并回 `claimed` 返工 |
+| `/verify [pass\\|fail] <理由>` | 维护者 | `delivered` 才可验；`fail` ⇒ **不扣分**、退回返工（轮次照计） |
 | `/settle` | 维护者 | `verified` 才可结；按 `difficulty:*` 记正分入账本 |
 
 （`/verify`、`/settle` 是设计稿「维护者人审打 `bounty:verified`」与状态机

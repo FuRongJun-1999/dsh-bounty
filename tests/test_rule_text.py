@@ -6,7 +6,8 @@
   python -X utf8 tests/test_rule_text.py --list      # 只列变异表
 
 为什么需要这一件：口径真源只有一处（`scripts/bounty_board.py` 的 `DIFFICULTY_SCORES` ／
-`quality_delta` ／ `timeout_delta` ／ `invalid_delta`）。**真源改了、面向文本没跟着改**，
+`quality_delta` ／ `timeout_delta` ／ `invalid_delta`），而生成本仓面向文本的地方**有五个**
+（README ／ 规则正文 ／ 发布模板 ／ board 生成器 ／ 站点生成器）。**真源改了、这些地方没跟着改**，
 外部贡献者就会按旧口径预期自己的分（例如以为超时只扣 1 分，实际按 −2×base 扣 20 分）。
 本件把「文本与真源一致」变成可机械复核、可反面证明的判据——不是靠人记得改。
 
@@ -14,12 +15,13 @@
   T1 现行口径**到位**：四处主要面向面必须写出 `−2×base`（改真源忘改文本 ⇒ 这里红）。
   T2 陈旧口径**不残留**：规则/榜面不得把超时写成 `−1`（`v0.1 分段生效`语境除外——
      那是历史事件的复算口径，必须保留）。
-  T3 认领通道**单一**：`docs/bounty/悬赏.json` 的认领条与渲染面必须一致。
+  T3 认领通道**单一**：真源 `howto` 的认领条与其渲染面必须同口径，且不含旧的绝对表述。
 
-**扫描面（有意收窄，写在这里以免读者以为漏了）**：
-  · 含 `docs/spec/**`、`docs/guide/**`——设计史与版本化指南（各自带版本头，允许与现行口径不同）。
-  · 含 `tests/**`——守卫自身会**引用**陈旧口径作为变异描述（那是判据素材，不是对外文本）。
-  · 含 `docs/bounty/悬赏.json` / `悬赏清单.md` 的 `progress`——进度是 append-only 历史记录，
+**扫描面（有意收窄，两个方向都写清以免读者以为漏了或错读）**：
+  · **不含** `docs/spec/**`、`docs/guide/**`——设计史与版本化指南（各自带版本头，
+    存在与现行口径不同的历史值，如 `悬赏站设计_v1.0` §4.4.3 的 `−max(1, base//2)`）。
+  · **不含** `tests/**`——守卫自身会**引用**陈旧口径作为变异描述（判据素材，不是对外文本）。
+  · **不含** `progress` 流水（`悬赏.json` ／ `悬赏清单.md`）——进度是 append-only 历史记录，
     更正以**追加一行**表达（见真源 howto「更新进度」），不得回改历史行。
 """
 import io
@@ -43,8 +45,10 @@ CURRENT_ANCHORS = (
     ("site/rules.html", "超期自动回板并记 <b>−2×base</b>"),
 )
 
-#: T2 陈旧口径扫描面（规则/榜面；不含 append-only 的进度流水）。
-STALE_SCAN = ("docs/bounty/board.md", "site/index.html", "site/honor.html")
+#: T2 陈旧口径扫描面（规则/榜面 ＋ **两个生成器源**；不含 append-only 的进度流水）。
+#: 为什么必须含源：产物陈旧时源往往**同样陈旧**——只扫产物＝源下次再生成又把旧口径写回页面。
+STALE_SCAN = ("docs/bounty/board.md", "site/index.html", "site/honor.html",
+              "scripts/bounty_board.py", "scripts/build_site.py")
 
 #: 陈旧信号：超时与负数 1 同现。
 STALE_RE = re.compile(r"超时[^\n]{0,40}?(?:−|-)\s*1(?:\s*分)?")
@@ -54,6 +58,10 @@ STALE_RE = re.compile(r"超时[^\n]{0,40}?(?:−|-)\s*1(?:\s*分)?")
 #: 粒度为什么是句子而不是整行：`board.md` 的计分口径是**一整行**（既写现行 −2×base，
 #: 又写「分段生效：v0.1 旧事件用固定分…超时 −1」）——按整行放行会把整行豁免掉，判据就空转了；
 #: 而要求**两个**标记同时出现，则一句里只有「v0.1」不足以豁免（防用旧口径冒充历史说明）。
+#: T3 真源认领条必须出现的两个信号（两条通道都要写明），以及**不得**出现的旧绝对表述。
+CLAIM_MUST = ("仍开放", "PR")
+CLAIM_MUST_NOT = "认领通道在 issue"
+
 WHITELIST = ("分段生效", "v0.1")
 SENT_SPLIT = "；;。\n"
 
@@ -98,11 +106,15 @@ def judge(m):
     del _red[:]
     miss = [rel for rel, hit in m["anchors"] if not hit]
     ok("T1 现行超时口径（−2×base）到位（四处主要面向面）", not miss, "缺：%s" % miss)
-    ok("T2 陈旧超时口径（−1）不残留在规则/榜面", not m["stale"], "命中：%s" % m["stale"])
-    src_ok = ("PR 通道" in m["claim_src"] and "PR 通道" in m["claim_md"]
-              and "认领通道在 issue" not in m["claim_src"]
-              and "认领通道在 issue" not in m["claim_md"])
-    ok("T3 认领通道表述与真源一致（PR 通道 ＋ 不含旧表述）", src_ok,
+    ok("T2 陈旧超时口径（−1）不残留在规则/榜面与生成器源", not m["stale"],
+       "命中：%s" % m["stale"])
+    # 判据两面：真源 howto 与渲染面**都**须给出「通道取决于原 issue 是否仍开放」，
+    # 且都不得残留旧的绝对表述（「认领通道在 issue，不在本清单」）。
+    src_ok = (all(w in m["claim_src"] for w in CLAIM_MUST)
+              and all(w in m["claim_md"] for w in CLAIM_MUST)
+              and CLAIM_MUST_NOT not in m["claim_src"]
+              and CLAIM_MUST_NOT not in m["claim_md"])
+    ok("T3 认领通道表述与真源一致（两条通道同口径 ＋ 不含旧绝对表述）", src_ok,
        "howto[1]=%r" % m["claim_src"][:60])
     return list(_red)
 
@@ -122,8 +134,11 @@ MUTATIONS = [
      "超时未交付 **−2×base**", "超时未交付 −1", {"T2"}),
     ("R6", "site/index.html",
      "超时自动回板（记 <b>−2×base</b>）", "超时自动回板（记 −1）", {"T2"}),
-    ("R7", "docs/bounty/悬赏.json",
-     "走 **PR 通道**", "走 issue 通道", {"T3"}),
+    ("R7", "scripts/build_site.py",
+     "超时自动回板（记 <b>−2×base</b>）", "超时自动回板（记 −1）", {"T2"}),
+    ("R8", "docs/bounty/悬赏.json",
+     "**认领**：本清单**本身不接受认领**（它只是查看面）",
+     "**认领**：在对应 **issue** 上评论 /claim。**认领通道在 issue，不在本清单**", {"T3"}),
 ]
 
 

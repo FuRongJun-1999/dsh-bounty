@@ -204,6 +204,37 @@
       ]
     },
     {
+      "id": "brain-enhance-qmd",
+      "title": "灵枢大脑仓库能力增强：QMD 多维汇流检索 ＋ 统一系统提示词",
+      "direction": "迭代",
+      "difficulty": "expert",
+      "score": 10,
+      "form": "PR（到 FuRongJun-1999/dsh-memory）",
+      "status": "claimed",
+      "owner": "TanPowasd",
+      "issue": 85,
+      "issue_note": "#85 为能力增强类申报（原申请二选一：对 #68 开招标 或 另立条目）。**选项 1 程序上不可用**：#68 已 CLOSED(COMPLETED)、态 `bounty:delivered`、真源 `brain-iter` 已 `done` 且已结算，而 `/bid` 硬要求态为 `bounty:contest`（`bounty_board.py` L741-744 拒 `state_not_bidding`），招标是「开放任务定标前」的机制，对已定标+已交付+已结算的条目无法开启 ⇒ 按选项 2 另立本条。",
+      "acceptance": [
+        "**交付物**：指向 `FuRongJun-1999/dsh-memory` 的 **PR 链接**（提交信息含 commit hash）＋ `tests/test_qmd.py`（守卫）",
+        "**复跑命令**：`python -X utf8 tests/test_qmd.py`（末行「通过 N / 失败 0」）；`python -X utf8 tests/test_qmd.py --mutate`；申报正文给出的 `hive_official.py gen/judge --arm QMD` 三条命令第三方可原样复跑",
+        "**期望读数**：hive 主轮 92 题端到端覆盖率 **≥ .561**（同数据、同官方阅读器与判官）；逐题配对对 TriCue v3 **38/9 显著**（双侧符号检验 p<.001）；编造数 **0**；带 system 的题面扩展与作答、判官强制不带 system",
+        "**反面对照**：注入必失败 ⇒ 断言必红**并点名**；申报已列计划变异三条（关掉判官 system 隔离 / 关掉枢纽抑制 / 缓存不隔离），各须**精确点红**",
+        "**可核性**：改动范围与验收标准一一对应；**不夹带**无关重构；预注册文件 `PREREG_qmd.md` 时间戳须早于 hive 读数"
+      ],
+      "refs": [
+        "该仓 README 与 `docs/`（先读）；`docs/bounty/README.md` §4.4/§4.5 计分与招标口径；申报 #85 正文与其公开复跑仓 `TanPowasd/LingShu-prime`（commit 15b90f7，含答卷、判官输出、逐题分数）"
+      ],
+      "boundary": [
+        "只做检索与作答面，**不改判官口径**（判官强制不带 system 以保证与既有臂可比）；**不宣称超越直读上界**（申报自述对直读仍低 .042 且不显著）；无 LLM 可用时只剩零 key 检索面，端到端增益不成立；两跳追问已自证不采纳（检索面升、端到端无提升），**不得作为交付内容**"
+      ],
+      "progress": [
+        {
+          "date": "2026-10-13",
+          "note": "维护者受理（选项 2：另立本条）。难度档位由维护者按**对标既有 `brain-iter`（expert）** 定为 expert（10）——申报自述证据含预注册冻结、逐题配对显著性与公开原始数据；若设计者认为应调整档位，改真源即可（append-only，不改历史行）。"
+        }
+      ]
+    },
+    {
       "id": "rp-game",
       "title": "角色扮演游戏制作：可运行 + 可测",
       "direction": "制作",

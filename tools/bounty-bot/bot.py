@@ -79,7 +79,9 @@ def load_config(path=CFG_PATH):
     cfg.setdefault("admin_qq", [])
     cfg.setdefault("render", {})
     b = cfg.setdefault("bounty", {})
-    b.setdefault("mode", "issues")          # issues = 标题带「悬赏」的 issue
+    # json = 真源 docs/bounty/悬赏.json（默认）；issues = 标题带「悬赏」的 issue；auto = 先 json
+    b.setdefault("mode", "json")
+    b.setdefault("source_path", "docs/bounty/悬赏.json")
     b.setdefault("enabled", True)
     b.setdefault("labels", "")
     b.setdefault("include_closed", False)
@@ -102,8 +104,19 @@ def in_whitelist(group_id):
 _CQ_AT = re.compile(r"^\s*\[CQ:at,[^\]]*\]")
 
 
+#: 指令名（按长度降序匹配，避免 /绑定 被 /榜 之类的前缀抢走）
+_KNOWN_CMDS = ("/帮助", "/悬赏", "/绑定", "/我的贡献", "/榜单", "/更新")
+
+
 def parse_command(message):
-    """OneBot message（array 或 string）-> (cmd, args)。只认行首第一个词。"""
+    """OneBot message（array 或 string）-> (cmd, args)。
+
+    只认行首第一个词；**指令与参数之间空格可有可无**：
+        /绑定 octocat      -> ("/绑定", "octocat")
+        /绑定octocat       -> ("/绑定", "octocat")      <- 等价
+    非「已知指令 + 可选参数」的形态一律不认（例如 /绑定abc 若 abc 不是合法登录名
+    也会先当参数传下去，由绑定逻辑自己报格式错）。
+    """
     text = ""
     if isinstance(message, list):
         for seg in message:
@@ -124,6 +137,18 @@ def parse_command(message):
         text = text[m.end():].strip()
     if not text.startswith("/"):
         return None, ""
+
+    # ① 先按「已知指令前缀」匹配（支持无空格）：/绑定octocat
+    for cmd in sorted(_KNOWN_CMDS, key=len, reverse=True):
+        if text == cmd:
+            return cmd, ""
+        if text.startswith(cmd):
+            rest = text[len(cmd):]
+            # 前缀后面必须紧跟参数（可无空格）；空白就吃掉
+            rest = rest.strip()
+            if rest:
+                return cmd, rest
+    # ② 退回「空格分隔的第一个词」：兼容将来新增的指令
     first, _, rest = text.partition(" ")
     return first.strip(), rest.strip()
 
@@ -133,7 +158,7 @@ def parse_command(message):
 COMMANDS = [
     {"cmd": "/帮助", "desc": "查看本说明"},
     {"cmd": "/悬赏", "desc": "查看当前悬赏委托（来自本仓 issue）"},
-    {"cmd": "/绑定 <GitHub 用户名>", "desc": "绑定你的 GitHub 账号"},
+    {"cmd": "/绑定 <GitHub 用户名>", "desc": "绑定你的 GitHub 账号（空格可有可无）"},
     {"cmd": "/我的贡献", "desc": "查看累计声誉分与悬赏热力图"},
     {"cmd": "/榜单", "desc": "查看声誉榜"},
     {"cmd": "/更新", "desc": "立刻检查是否有最新结算表与悬赏"},
@@ -150,7 +175,7 @@ def cmd_help() -> str:
 
 def cmd_bounty() -> str:
     items = db.list_bounties(CONN)
-    # 动态卡：payload 变了（悬赏增删/状态变）才重渲染，没变就复用上一张
+    # 动态卡：payload 变了（悬赏增删/状态变/换负责人）才重渲染，没变就复用上一张
     return RENDERER.render_cached("bounty", {
         "bounties": items,
         "empty": not items,
@@ -203,7 +228,10 @@ def cmd_bind(qq, arg) -> str:
 
     exist = db.get_binding_by_github(CONN, canonical)
     if exist and str(exist["qq"]) != str(qq):
-        return "这个 GitHub 账号已经绑定了另一个 QQ（尾号 %s），不能重复绑定。" % str(exist["qq"])[-4:]
+        return ("这个 GitHub 账号已经绑定了另一个 QQ（尾号 %s），不能重复绑定。\n"
+                "每个人绑自己的 GitHub 账号即可，互不影响。\n"
+                "发送「/绑定 <你的GitHub用户名>」（空格可有可无）"
+                % str(exist["qq"])[-4:])
 
     try:
         action, old = db.bind(CONN, qq, canonical)
@@ -214,7 +242,9 @@ def cmd_bind(qq, arg) -> str:
         return "绑定成功！\nGitHub：%s\n发送「/我的贡献」查看你的累计贡献。" % canonical
     if (old or "").lower() == canonical.lower():
         return "绑定成功！\nGitHub：%s（与上次相同）" % canonical
-    return "绑定成功！（已由 %s 更新为 %s）\n发送「/我的贡献」查看你的累计贡献。" % (old, canonical)
+    # 换绑：说清是**你自己**的旧绑定被替换（不是别人的），避免误解
+    return ("绑定成功！\nGitHub：%s\n（你之前绑的 %s 已被替换）\n"
+            "发送「/我的贡献」查看你的累计贡献。" % (canonical, old))
 
 
 def cmd_update(qq) -> str:
@@ -258,7 +288,13 @@ def handle_command(cmd, args, qq, group_id):
 
 
 def reply(handler_event, kind, content):
-    """发回结果；图片**发出成功后**才删临时文件（发送失败保留，交 sweep_tmp 兜底）。"""
+    """发回结果。
+
+    图片的删法分两种：
+      * 常驻缓存件（.cache/，静态卡复用）—— **永不删**，由 Renderer 自己识别；
+      * 一次性临时件（tmp/）—— 发出成功即删；**发送失败**才留着（便于排查），
+        但会记一条日志，并由 sweep_tmp 在 6 小时内清掉，不会无限堆积。
+    """
     gid = handler_event.get("group_id")
     uid = handler_event.get("user_id")
     sent = False
@@ -275,6 +311,10 @@ def reply(handler_event, kind, content):
                 API.send_private_text(uid, content)
         sent = True
         return True
+    except Exception as exc:
+        if kind == "image":
+            log("[send-fail-keep]", "保留临时图待排查：%s（%s）" % (content, type(exc).__name__))
+        raise
     finally:
         if kind == "image" and sent:
             RENDERER.cleanup_after_send(content)
@@ -330,20 +370,73 @@ class Handler(BaseHTTPRequestHandler):
         pass
 
     def _authorized(self):
+        """鉴权：**宽容放行**，绝不用 403 卡住上报。
+
+        为什么：NapCat 的 Http Client 上报在非 2xx 时会记
+        「新消息事件HTTP上报返回快速操作失败」并可能中断该条投递——实测三个
+        机器人里只有本机返回 403，正是这条报错的来源。
+        token 只用来「配对校验」：不匹配记一条日志，仍然处理。
+        需要严格模式的部署可把 config.napcat.strict_token 设为 true。
+        """
         token = (CFG.get("napcat") or {}).get("token") or ""
+        strict = bool((CFG.get("napcat") or {}).get("strict_token"))
         if not token:
             return True
-        got = self.headers.get("Authorization", "")
-        return got == "Bearer " + token
+        got = self.headers.get("Authorization", "") or ""
+        ok = (got == "Bearer " + token) or (got == token)
+        if not ok:
+            log("[auth]", "token 不匹配（%s），按宽容模式放行" % (got[:24] or "<无>"))
+            return not strict        # 默认：不匹配也放行
+        return True
+
+    #: 请求体上限（防超大载荷打爆内存）
+    MAX_BODY = 8 * 1024 * 1024
 
     def _body(self):
-        try:
-            length = int(self.headers.get("Content-Length") or 0)
-        except (TypeError, ValueError):
+        """读请求体。
+
+        ★ 必须同时支持 **chunked** 与 Content-Length 两种编码：
+          NapCat 的 Http Client 上报**不带 Content-Length**（chunked），
+          早期实现只认 Content-Length，会把 length 当 0 => 读到空 {} =>
+          每条真实消息都被静默丢弃（现象：事件到了 3040 却不进命令处理）。
+        """
+        raw = b""
+        if (self.headers.get("Transfer-Encoding", "") or "").lower().strip() == "chunked":
+            raw = self._read_chunked()
+        else:
+            try:
+                length = int(self.headers.get("Content-Length") or 0)
+            except (TypeError, ValueError):
+                return None
+            if length < 0 or length > self.MAX_BODY:
+                return None
+            raw = self.rfile.read(length) if length else b""
+            if length and len(raw) != length:
+                return None                      # 体不完整，别拿半截 JSON 去解析
+        if len(raw) > self.MAX_BODY:
             return None
-        if length <= 0 or length > 8 * 1024 * 1024:   # 8MB 上限，防超大载荷打爆内存
-            return b"{}"
-        return self.rfile.read(length)
+        return raw or b"{}"
+
+    def _read_chunked(self):
+        """读 chunked 体；格式错/超限返回 b''（交由上层当空事件）。"""
+        chunks, total = [], 0
+        while True:
+            line = self.rfile.readline(64)
+            if not line:
+                break
+            try:
+                size = int(line.strip().split(b";", 1)[0] or b"0", 16)
+            except ValueError:
+                return b""
+            if size <= 0:
+                self.rfile.readline(8)           # 吃掉结尾 CRLF
+                break
+            total += size
+            if total > self.MAX_BODY:
+                return b""
+            chunks.append(self.rfile.read(size))
+            self.rfile.readline(8)               # 每个 chunk 后的 CRLF
+        return b"".join(chunks)
 
     def _reply(self, code, body=b"", ctype="application/json"):
         self.send_response(code)
@@ -418,7 +511,10 @@ def main():
     log("  群白名单:", CFG.get("group_whitelist") or "(全部)")
     log("  仓库:", CFG["repo"])
     log("  结算表:", CFG["contrib_path"])
-    log("  悬赏源:", "issue（标题前缀「悬赏」）")
+    b = CFG.get("bounty") or {}
+    log("  悬赏源:", ("真源 %s" % b.get("source_path", "docs/bounty/悬赏.json"))
+        if (b.get("mode") or "json") == "json" else "issue（标题前缀「悬赏」）")
+    log("  悬赏口径:", "认领与否均计入，只排除已结束(done)")
 
     def _bye(signum, frame):
         log("[signal]", signum, "退出")

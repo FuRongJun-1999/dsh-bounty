@@ -9,6 +9,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -79,6 +80,7 @@ def main():
             p.unlink()
     conn = db.connect(tmp)
 
+    import tempfile as _tf2
     print("== 1. 绑定规则 ==")
     act, old = db.bind(conn, "1001", "alice")
     check("首次绑定 created", act == "created" and old is None)
@@ -93,6 +95,34 @@ def main():
         check("一 GitHub 一 QQ（唯一索引兜底）", False, "没抛 BindConflict")
     except db.BindConflict:
         check("一 GitHub 一 QQ（唯一索引兜底）", True)
+
+
+    print("== 1b. 多人绑定互不影响（★ 本轮） ==")
+    _mdb = Path(_tf2.mkdtemp(prefix="bounty_bind_")) / "b.db"
+    _mc = db.connect(_mdb)
+    for _i, (_qq, _gh) in enumerate([("2001", "alice"), ("2002", "bob"),
+                                     ("2003", "carol"), ("2004", "dave")]):
+        db.bind(_mc, _qq, _gh)
+    _all = {r["qq"]: r["github"] for r in
+            _mc.execute("select qq, github from bindings")}
+    check("4 个 QQ 各自绑到 4 个不同账号",
+          _all == {"2001": "alice", "2002": "bob", "2003": "carol", "2004": "dave"},
+          str(_all))
+    check("每个人查到的都是自己的账号",
+          all(db.get_binding(_mc, q)["github"] == g for q, g in _all.items()))
+    check("不会串号（查 alice 只对应 2001）",
+          db.get_binding_by_github(_mc, "alice")["qq"] == "2001")
+    _act, _old = db.bind(_mc, "2001", "eric")
+    check("同一人换绑 => 覆盖，且旧值是他自己的 alice",
+          _act == "rebound" and _old == "alice", "%s/%s" % (_act, _old))
+    check("换绑不影响别人（bob 仍属 2002）",
+          db.get_binding_by_github(_mc, "bob")["qq"] == "2002")
+    try:
+        db.bind(_mc, "2009", "BOB")
+        check("抢别人的账号 => 被拒绝", False, "没抛 BindConflict")
+    except db.BindConflict:
+        check("抢别人的账号 => 被拒绝", True)
+    _mc.close()
 
     print("== 2. 结算表解析（新落点 docs/bounty/贡献表.md） ==")
     if args.table:
@@ -141,33 +171,59 @@ def main():
         check("难度带 round 注解仍取裸值", a["difficulty"] == "expert" and a["round"] == 1,
               "%s round=%s" % (a["difficulty"], a["round"]))
 
-    print("== 3. 入库 + 快照 + 热力图 ==")
-    # 取榜首当受试者（榜首一定在 totals 里，且分数唯一最高；不写死人名）
+    print("== 3. 入库 + 快照 + 热力图（累计求差口径） ==")
     subj = totals[0]["github"]
     subj_total = int(totals[0]["total"])
     db.replace_contrib(conn, issues, totals)
-    n = db.snapshot_contrib(conn, "2026-10-10")
+    # 10-10 记累计 subj_total；10-11 记累计 subj_total+6 => 差为 +6
+    n = db.snapshot_contrib(conn, "2026-10-10", pairs=[(t["github"], int(t["total"]))
+                                                      for t in totals])
     check("快照写入", n == len(totals), "n=%d" % n)
-    db.replace_contrib(conn, issues, [
-        {"github": t["github"], "total": (t["total"] + 6 if t["github"] == subj else t["total"]),
-         "issues": t["issues"]} for t in totals])
-    db.snapshot_contrib(conn, "2026-10-11")
-    hm = db.heatmap(conn, subj, weeks=4)
+    n2 = db.snapshot_contrib(conn, "2026-10-11", pairs=[(subj, subj_total + 6)] + [
+        (t["github"], int(t["total"])) for t in totals if t["github"] != subj])
+    check("次日快照可写", n2 == len(totals), "n=%d" % n2)
+    hm = db.heatmap(conn, subj, days=30)
     vals = {d["date"]: d["value"] for d in hm["days"]}
-    check("首日快照记 0（基线）", vals.get("2026-10-10") == 0, str(vals.get("2026-10-10")))
-    check("次日增量 +6", vals.get("2026-10-11") == 6, str(vals.get("2026-10-11")))
-    check("热力图 max=6", hm["max"] == 6, "max=%s" % hm["max"])
+    check("首日 = 自身累计（无前序）", vals.get("2026-10-10") == subj_total,
+          "%s vs %s" % (vals.get("2026-10-10"), subj_total))
+    check("次日 = 今天累计 − 昨天累计（+6）", vals.get("2026-10-11") == 6,
+          str(vals.get("2026-10-11")))
+    check("热力图 max", hm["max"] == max(subj_total, 6), "max=%s" % hm["max"])
     check("历史快照保留 2 版",
           conn.execute("select count(distinct snap_date) from contrib_snapshot").fetchone()[0] == 2)
-    check("热力图大小写不敏感", db.heatmap(conn, subj.upper(), weeks=4)["max"] == 6)
-    check("基线存量 = 首版快照分", hm["baseline"]["total"] == subj_total,
-          "%s vs %s" % (hm["baseline"]["total"], subj_total))
+    check("热力图大小写不敏感",
+          db.heatmap(conn, subj.upper(), days=30)["max"] == max(subj_total, 6))
+    check("基线 = 最早一天", hm["baseline"]["date"] == "2026-10-10", str(hm["baseline"]))
+
+    print("== 3b. 一个月窗口 + 跨来源不作差 ==")
+    _hidb = Path(_tf2.mkdtemp(prefix="bounty_hist_")) / "h.db"
+    _hc = db.connect(_hidb)
+    # 11 号累计 20（v0.1）；12 号累计 28（ledger，换口径 -> 记新基线）；13 号累计 34（+6）
+    db.seed_snapshot(_hc, "2026-10-11", [("alice", 20)], src="v0.1")
+    db.seed_snapshot(_hc, "2026-10-12", [("alice", 28)], src="ledger")
+    db.seed_snapshot(_hc, "2026-10-13", [("alice", 34)], src="ledger")
+    _hm = db.heatmap(_hc, "alice")
+    _vals = {d["date"]: d["value"] for d in _hm["days"]}
+    check("窗口是一个月（30 天）", len(_hm["days"]) == 30, "n=%d" % len(_hm["days"]))
+    check("11 号 = 自身累计 20（无前序）", _vals.get("2026-10-11") == 20,
+          str(_vals.get("2026-10-11")))
+    check("12 号换口径 => 不作差，记新基线 28", _vals.get("2026-10-12") == 28,
+          str(_vals.get("2026-10-12")))
+    check("13 号 = 34-28 = +6（同源求差）", _vals.get("2026-10-13") == 6,
+          str(_vals.get("2026-10-13")))
+    check("区间合计 = 各格子之和", _hm["total"] == 20 + 28 + 6, str(_hm["total"]))
+    check("cells 是周对齐网格（7 的倍数）", len(_hm["cells"]) % 7 == 0,
+          "n=%d" % len(_hm["cells"]))
+    check("cells 含空格子占位", any(c is None for c in _hm["cells"]))
+    check("未记录的日子 has=False", any(d["has"] is False for d in _hm["days"]))
+    check("历史快照永不删除", _hm["has_history"] is True)
+    _hc.close()
 
     print("== 4. 名次 / 明细 ==")
     rank, people = db.rank_of(conn, subj)
     check("名次=1（榜首）", rank == 1, "rank=%d/%d" % (rank, people))
     detail = db.person_detail(conn, subj.upper())
-    check("大小写不敏感查明细", detail is not None and detail["total"] == subj_total + 6,
+    check("大小写不敏感查明细", detail is not None and detail["total"] == subj_total,
           str(detail and detail["total"]))
     check("明细带 issue 级字段",
           bool((detail or {}).get("issues")) and "impact" in detail["issues"][0])
@@ -240,7 +296,46 @@ def main():
     check("include_closed=True 时纳入",
           "68" in [b["no"] for b in sync_mod.parse_bounty_issues(raw_issues, True)])
 
-    print("== 6. 悬赏入库/排序 ==")
+    print("== 5b. 悬赏真源（docs/bounty/悬赏.json） ==")
+    REAL_JSON = json.dumps({
+        "items": [
+            {"id": "a-open", "title": "开放中", "status": "open", "difficulty": "easy",
+             "score": 1, "direction": "测评", "acceptance": ["交付物：**x** 与 review/data/*.json"],
+             "owner": ""},
+            {"id": "b-claimed", "title": "已认领的", "status": "claimed", "difficulty": "hard",
+             "score": 6, "direction": "迭代", "acceptance": ["跑 `python x.py`"],
+             "owner": "alice", "issue": 42},
+            {"id": "c-delivered", "title": "待验收的", "status": "delivered", "difficulty": "hard",
+             "score": 6, "acceptance": ["a"]},
+            {"id": "d-paused", "title": "已暂停的", "status": "paused", "difficulty": "medium",
+             "score": 3, "acceptance": ["b"]},
+            {"id": "e-done", "title": "已结束的（不该出现）", "status": "done", "difficulty": "expert",
+             "score": 10, "acceptance": ["c"]},
+        ]
+    }, ensure_ascii=False)
+    jitems = sync_mod.parse_bounty_json(REAL_JSON, repo="owner/repo")
+    check("真源解析：只排除已结束(done)",
+          [b["no"] for b in jitems] == ["a-open", "b-claimed", "c-delivered", "d-paused"],
+          str([b["no"] for b in jitems]))
+    check("认领中的照样计入（不问认领与否）", "b-claimed" in [b["no"] for b in jitems])
+    check("已交付/已暂停也计入", {"c-delivered", "d-paused"} <= {b["no"] for b in jitems})
+    check("已结束(done) 被排除", "e-done" not in [b["no"] for b in jitems])
+    jb = [b for b in jitems if b["no"] == "b-claimed"][0]
+    check("结算分进 reward 字段", jb["reward"] == "6", str(jb["reward"]))
+    check("负责人进 owner", jb["owner"] == "alice", str(jb["owner"]))
+    check("原 issue 号成链接（含 repo 前缀）",
+          jb["url"] == "https://github.com/owner/repo/issues/42", str(jb["url"]))
+    jc = [b for b in jitems if b["no"] == "c-delivered"][0]
+    check("没有 repo / issue 时不硬拼链接", jc["url"] is None, str(jc["url"]))
+    ja = [b for b in jitems if b["no"] == "a-open"][0]
+    check("验收标准进摘要且已清洗 Markdown", "review/data/*.json" in (ja["note"] or ""),
+          str(ja["note"]))
+    check("状态原样保留（claimed 不等同 open）", jb["status"] == "claimed", jb["status"])
+    try:
+        sync_mod.parse_bounty_json("{bad json")
+        check("非法 JSON 会报错而不是静默清空", False, "没抛异常")
+    except ValueError:
+        check("非法 JSON 会报错而不是静默清空", True)
     db.replace_bounties(conn, got)
     db.replace_bounties(conn, got)      # 重复整表替换（不应撞主键）
     bs = db.list_bounties(conn)
@@ -253,6 +348,18 @@ def main():
     import bot as botmod
     check("/帮助", botmod.parse_command("/帮助") == ("/帮助", ""))
     check("/绑定 带参", botmod.parse_command("/绑定 octocat") == ("/绑定", "octocat"))
+    check("/绑定 无空格也认（★ 本轮）",
+          botmod.parse_command("/绑定octocat") == ("/绑定", "octocat"),
+          str(botmod.parse_command("/绑定octocat")))
+    check("/绑定 无参", botmod.parse_command("/绑定") == ("/绑定", ""))
+    check("/绑定@user 去 @", botmod.parse_command("/绑定@user") == ("/绑定", "@user"))
+    check("其它指令不受无空格影响",
+          botmod.parse_command("/帮助") == ("/帮助", "")
+          and botmod.parse_command("/我的贡献") == ("/我的贡献", "")
+          and botmod.parse_command("/榜单") == ("/榜单", ""))
+    check("未知名前缀不被吞（/绑x 不是 /绑定）",
+          botmod.parse_command("/绑x")[0] != "/绑定",
+          str(botmod.parse_command("/绑x")))
     check("非命令不响应", botmod.parse_command("你好啊 /悬赏")[0] is None)
     check("array 消息", botmod.parse_command(
         [{"type": "text", "data": {"text": "/我的贡献"}}]) == ("/我的贡献", ""))
@@ -266,6 +373,81 @@ def main():
     check("登录名校验：合法", bool(botmod._VALID_LOGIN.match("octocat")))
     check("登录名校验：拒绝中文", not botmod._VALID_LOGIN.match("你好"))
     check("登录名校验：拒绝连续连字符", not botmod._VALID_LOGIN.match("a--b"))
+
+    print("== 7b. HTTP 体解析（chunked 回归） ==")
+    import bot as _botmod2
+    import http.client as _hc
+
+    class _H(_botmod2.Handler):
+        def __init__(self, headers, body):
+            self.headers = headers
+            self._raw = body
+            self.rfile = __import__("io").BytesIO(body)
+        def log_message(self, *a):
+            pass
+
+    # ① chunked：NapCat 的真实形态（没有 Content-Length）
+    chunked = b"1a\r\n" + b'{"post_type":"meta_event"}' + b"\r\n0\r\n\r\n"
+    h = _H(_hc.HTTPMessage(), chunked)
+    h.headers["Transfer-Encoding"] = "chunked"
+    got = h._body()
+    check("chunked 体能被读出（★ NapCat 上报的形态）",
+          got == b'{"post_type":"meta_event"}', repr(got))
+
+    # ② Content-Length：curl 等常见形态
+    body = b'{"post_type":"message"}'
+    h2 = _H(_hc.HTTPMessage(), body)
+    h2.headers["Content-Length"] = str(len(body))
+    check("Content-Length 体仍能读出", h2._body() == body)
+
+    # ③ 既无 chunked 也无 CL（空请求）=> 空事件而不是崩溃
+    h3 = _H(_hc.HTTPMessage(), b"")
+    check("无 CL 无 chunked => 空 {} 不崩", h3._body() == b"{}", repr(h3._body()))
+
+    # ④ 声明长度与实际不符 => 拒绝（别把半截 JSON 交给解析器）
+    h4 = _H(_hc.HTTPMessage(), b"short")
+    h4.headers["Content-Length"] = "999"
+    check("体不完整 => 拒绝", h4._body() is None)
+
+    # ⑤ 超限 => 拒绝
+    h5 = _H(_hc.HTTPMessage(), b"")
+    h5.headers["Content-Length"] = str(_botmod2.Handler.MAX_BODY + 1)
+    check("超限体 => 拒绝", h5._body() is None)
+
+    print("== 7c. 图片压缩（上传体积回归） ==")
+    import imageopt
+    import tempfile as _tf
+    try:
+        from PIL import Image as _Img
+        _tdir = Path(_tf.mkdtemp(prefix="bounty_img_test_"))
+        _big = _tdir / "big.png"
+        # 造一张有噪声的大图（纯色会压得太好，测不出真实行为）
+        # 用逐像素伪随机噪声 => PNG 几乎无法压缩，模拟真实照片底纹大图
+        import random as _rnd
+        _rnd.seed(7)
+        _im = _Img.new("RGB", (1080, 1400))
+        _im.putdata([(_rnd.randrange(256), _rnd.randrange(256), _rnd.randrange(256))
+                     for _ in range(1080 * 1400)])
+        _im.save(_big, "PNG")
+        _before = _big.stat().st_size
+        _out, _ok = imageopt.compress_png(_big, target_bytes=900 * 1024)
+        _after = Path(_out).stat().st_size
+        check("大图被压到目标体积内", _after <= 900 * 1024 and _after < _before,
+              "%.2fMB -> %.2fMB" % (_before / 1048576, _after / 1048576))
+        check("压缩后文件仍可被打开", _Img.open(_out).size[0] == 1080, _out)
+        # 小图不该被动
+        _small = _tdir / "small.png"
+        _Img.new("RGB", (40, 40), (10, 20, 30)).save(_small, "PNG")
+        _s2, _ch2 = imageopt.compress_png(_small, target_bytes=900 * 1024)
+        check("已达标的小图不重压", _ch2 is False and _s2 == str(_small))
+        # 不存在/坏文件不能抛
+        try:
+            imageopt.compress_png(_tdir / "nope.png")
+            check("不存在的文件不抛异常", True)
+        except Exception as _e:
+            check("不存在的文件不抛异常", False, str(_e))
+    except ImportError:
+        print("  SKIP  无 Pillow，跳过压缩测试")
 
     print("== 8. 渲染缓存（静态卡复用 / 动态卡实时） ==")
     import render as render_mod
@@ -281,7 +463,6 @@ def main():
             p.write_bytes(b"\x89PNG\r\n\x1a\n" + b"x" * 32)
             return str(p)
 
-    import tempfile as _tf
     rwd = Path(_tf.mkdtemp(prefix="bounty_cache_test_"))
     R = _FakeR({"cmd": ["true"], "cache": True, "static_kinds": ["help"]}, rwd)
     cmds = [{"cmd": "/帮助", "desc": "查看本说明"}]
@@ -337,8 +518,11 @@ def main():
     cfgd = botmod.load_config(cfg_path)
     check("默认结算表路径已是新落点",
           cfgd["contrib_path"] == "docs/bounty/贡献表.md", cfgd["contrib_path"])
-    check("悬赏模式 = issues", cfgd["bounty"]["mode"] in ("issues", "auto"),
+    check("悬赏模式默认 = json（真源）", cfgd["bounty"]["mode"] == "json",
           cfgd["bounty"]["mode"])
+    check("真源路径 = docs/bounty/悬赏.json",
+          cfgd["bounty"].get("source_path") == "docs/bounty/悬赏.json",
+          str(cfgd["bounty"].get("source_path")))
     check("渲染缓存默认开启", cfgd["render"].get("cache", True) is not False)
     check("静态卡默认含 help", "help" in (cfgd["render"].get("static_kinds") or []),
           str(cfgd["render"].get("static_kinds")))
@@ -351,7 +535,7 @@ def main():
         m = botmod.load_config(mini)
         check("最小配置也能补齐默认值",
               m["contrib_path"] == "docs/bounty/贡献表.md"
-              and m["bounty"]["mode"] == "issues" and m["listen_port"] == 3040,
+              and m["bounty"]["mode"] == "json" and m["listen_port"] == 3040,
               str(sorted(m.keys())))
     finally:
         _os.unlink(mini)

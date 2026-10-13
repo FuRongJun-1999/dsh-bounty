@@ -74,8 +74,9 @@ h1 { font-weight: 400; font-family: 'F-Title','S-Title',serif; font-size: 108px;
   var host = document.getElementById('list');
   var items = d.bounties || [];
   var ICON = '__ASSETS__/skull_cut.png';
-  // 口径：只要 issue 是 open 就一直算悬赏，不按认领态区分——所以这里基本只有「悬赏中」
-  var STATUS = { open: '悬赏中', closed: '已结束' };
+  // 口径：真源 docs/bounty/悬赏.json —— 认领与否都算，只排除「已结束」
+  var STATUS = { open: '悬赏中', claimed: '已认领', delivered: '待验收',
+                 verified: '已验收', settled: '已结算', paused: '已暂停', done: '已结束' };
   if (!items.length) {
     host.innerHTML = '<div class="empty">' +
       '<img src="' + ICON + '">' +
@@ -88,14 +89,14 @@ h1 { font-weight: 400; font-family: 'F-Title','S-Title',serif; font-size: 108px;
       var label = {easy:'简单',medium:'普通',hard:'困难',expert:'大师'}[diff] || diff || '未定';
       var el = document.createElement('div');
       el.className = 'quest';
-      var html = '<div class="no">委托 ' + (b.no ? '№ ' + b.no : '№ ' + (i+1)) + '</div>' +
+      var html = '<div class="no">' + (b.no ? b.no : '№ ' + (i+1)) + '</div>' +
         '<div class="qtitle"></div>' +
         '<div class="meta">' +
           '<span class="' + cls + '">' + label + '</span>' +
-          (b.reward ? '<span class="field"><b>赏金</b>' + b.reward + '</span>' : '') +
+          (b.reward ? '<span class="field"><b>结算分</b>' + b.reward + '</span>' : '') +
           (b.status ? '<span class="field"><b>状态</b>' + (STATUS[b.status] || b.status) + '</span>' : '') +
           (b.deadline ? '<span class="field"><b>截止</b>' + b.deadline + '</span>' : '') +
-          (b.no ? '<span class="field"><b>issue</b>#' + b.no + '</span>' : '') +
+          (b.owner ? '<span class="field"><b>负责人</b>' + b.owner + '</span>' : '') +
         '</div>' +
         (b.note ? '<div class="note"></div>' : '');
       el.innerHTML = html;

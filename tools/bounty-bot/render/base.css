@@ -72,7 +72,7 @@
   .diff-easy   { background: linear-gradient(180deg,#5f8f5a,#3d5f3a); }
   .diff-medium { background: linear-gradient(180deg,#4a7ba6,#2e5478); }
   .diff-hard   { background: linear-gradient(180deg,#a67828,#7a5418); }
-  .diff-expert { background: linear-gradient(180deg,#8b2e2e,#5c1a1a); }
+  .diff-expert { background: linear-gradient(180deg,#9c6b1e,#6b430f); }
   .diff-icon { width: 30px; height: 30px; margin-right: 8px; filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
 
   /* ===== 分隔纹 ===== */
@@ -102,8 +102,9 @@
   .num-hero {
     font-family: "Noto Serif CJK SC", serif;
     font-weight: 900;
-    color: var(--crimson);
-    text-shadow: 0 2px 0 rgba(255,244,214,.7);
+    /* 木纹暗底上深红看不清 —— 统一用亮金 */
+    color: var(--gold-light);
+    text-shadow: 0 2px 4px rgba(0,0,0,.65);
   }
 
   /* ===== 指令行：指令名=主体，解释=附属 ===== */

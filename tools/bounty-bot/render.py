@@ -35,7 +35,9 @@ _RENDER_LOCK = threading.Lock()
 
 #: 渲染器常量超时上限——避免配错一个 0/负数就让主线程永不返回
 _MAX_TIMEOUT = 600
-_DEFAULT_TIMEOUT = 60
+#: 默认渲染超时。无头 Chrome 冷启动 + 长卡（悬赏 6 条能到 3000px 高）实测 8~12s，
+#: 机器负载高时会翻倍，故给 150s 余量（不是让渲染变慢，是别误判超时）。
+_DEFAULT_TIMEOUT = 150
 
 
 class RenderError(RuntimeError):
@@ -132,6 +134,8 @@ class Renderer:
         if not (self.cache_enabled and kind in self._static_kinds()):
             return None
         dst = self._cache_path(kind, key)
+        if Path(out_path).suffix.lower() == ".jpg":
+            dst = dst.with_suffix(".jpg")
         try:
             shutil.copyfile(out_path, dst)
         except OSError:
@@ -205,7 +209,28 @@ class Renderer:
             if out_path.stat().st_size == 0:
                 self._cleanup(payload_path, out_path)
                 raise RenderError("渲染产物为空文件")
+            return self._shrink(out_path)
+
+    def _shrink(self, out_path):
+        """把产物压到适合 QQ 上传的体积（不压则原样返回）。
+
+        不压的后果：NapCat 默认 uploadSpeedKBps=256，3MB 图 base64 后 4MB，
+        上传要 16 秒 > baseTimeout(10s) => 「send_group_msg 失败：timed out」。
+        """
+        if self.cfg.get("compress", True) is False:
             return str(out_path)
+        try:
+            import imageopt
+            target = int(self.cfg.get("max_image_kb", 900)) * 1024
+            newp, changed = imageopt.compress_png(
+                out_path, target_bytes=target,
+                quality=int(self.cfg.get("jpeg_quality", 82)),
+                allow_jpeg=self.cfg.get("allow_jpeg", True) is not False)
+            if changed:
+                pass  # 压缩成功（可能换了后缀）
+            return str(newp)
+        except Exception:
+            return str(out_path)   # 压缩失败绝不能影响出图
 
     def _cleanup(self, *paths):
         for p in paths:
@@ -228,7 +253,8 @@ class Renderer:
                 return
         except OSError:
             pass
-        for target in (p, p.with_suffix(".json")):
+        # 一并清掉同批次的 payload JSON 与压缩可能产生的 .jpg
+        for target in (p, p.with_suffix(".json"), p.with_suffix(".jpg")):
             try:
                 target.unlink(missing_ok=True)
             except OSError:

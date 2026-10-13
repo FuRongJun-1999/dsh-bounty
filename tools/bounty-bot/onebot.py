@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import base64
 import json
+import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -24,15 +25,35 @@ class OneBotError(RuntimeError):
     pass
 
 
+#: 发图/发消息这类写操作的重试次数（网络抖动、上传超时）
+_SEND_RETRIES = 2
+
+
 class OneBot:
-    def __init__(self, base_url, token="", timeout=30):
+    def __init__(self, base_url, token="", timeout=60, retries=_SEND_RETRIES):
         self.base_url = base_url.rstrip("/")
         self.token = token or ""
+        # 默认 60s：图片要经 NapCat 上传（默认限速 256KB/s），30s 会误判超时
         self.timeout = timeout
+        self.retries = max(0, int(retries))
 
     def _call(self, action, payload=None):
         url = "%s/%s" % (self.base_url, action)
         body = json.dumps(payload or {}, ensure_ascii=False).encode("utf-8")
+        last = None
+        for attempt in range(self.retries + 1):
+            try:
+                return self._call_once(url, action, body)
+            except OneBotError as exc:
+                last = exc
+                # 只重试「超时/网络」这类瞬时失败；retcode 业务错误不重试
+                if "timed out" not in str(exc) and "urlopen error" not in str(exc):
+                    raise
+                if attempt < self.retries:
+                    time.sleep(1.5 * (attempt + 1))
+        raise last
+
+    def _call_once(self, url, action, body):
         req = urllib.request.Request(url, data=body, method="POST",
                                      headers={"Content-Type": "application/json",
                                               "User-Agent": UA})

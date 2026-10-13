@@ -55,11 +55,17 @@ CREATE TABLE IF NOT EXISTS contrib_total (
 );
 
 -- 每日快照（append-only，永不删除）——热力图数据源
+--
+-- ★ 语义：`total` = 该日的**累计声誉分**（存量）。
+--   热力图口径 = **今天累计 − 昨天累计**（当日增量）。
+--   跨来源（v0.1 -> 新贡献表）两套算法不可比，该日不产生增量，只作新基线。
+--   src = 来源（'v0.1' 旧的 11 号 / 'ledger' 新的贡献表）。
 CREATE TABLE IF NOT EXISTS contrib_snapshot (
     snap_date   TEXT NOT NULL,
     github      TEXT NOT NULL,
     total       INTEGER NOT NULL,
     captured_at TEXT NOT NULL,
+    src         TEXT NOT NULL DEFAULT 'ledger',
     PRIMARY KEY (snap_date, github)
 );
 
@@ -76,6 +82,8 @@ CREATE TABLE IF NOT EXISTS bounty (
     note        TEXT,
     labels      TEXT,
     updated_at  TEXT,
+    owner       TEXT,
+    ord         INTEGER,
     synced_at   TEXT NOT NULL
 );
 
@@ -89,7 +97,9 @@ CREATE TABLE IF NOT EXISTS sync_meta (
 
 #: 老库补列（列名 -> 建表语句片段）；缺失才 ALTER，幂等
 _MIGRATIONS = {
-    "bounty": {"labels": "TEXT", "updated_at": "TEXT"},
+    "bounty": {"labels": "TEXT", "updated_at": "TEXT",
+               "owner": "TEXT", "ord": "INTEGER"},
+    "contrib_snapshot": {"src": "TEXT NOT NULL DEFAULT 'ledger'"},
 }
 
 
@@ -198,20 +208,50 @@ def replace_contrib(conn, issues, totals) -> None:
         )
 
 
-def snapshot_contrib(conn, snap_date=None) -> int:
-    """把当日「按人合计」落成快照（同日重复同步覆盖当日，不改历史日）。"""
+def snapshot_contrib(conn, snap_date=None, src="ledger", pairs=None) -> int:
+    """落一版**累计分**快照（同日重复同步覆盖当日，不改历史日）。
+
+    pairs 给定时用它；否则取 contrib_total（当日表的按人合计 = 累计分）。
+    src 记录来源（ledger = 新贡献表）。历史日的快照**绝不删除**。
+    """
     snap_date = snap_date or today()
     ts = now_iso()
-    rows = conn.execute("SELECT github, total FROM contrib_total").fetchall()
+    if pairs is None:
+        pairs = [(r["github"], int(r["total"]))
+                 for r in conn.execute("SELECT github, total FROM contrib_total")]
+    rows = [(snap_date, str(g).strip(), int(t), ts, src)
+            for g, t in pairs if str(g).strip()]
     if not rows:
         return 0
     with _LOCK, conn:
         conn.executemany(
-            "INSERT INTO contrib_snapshot(snap_date,github,total,captured_at)"
-            " VALUES(?,?,?,?) "
+            "INSERT INTO contrib_snapshot(snap_date,github,total,captured_at,src)"
+            " VALUES(?,?,?,?,?) "
             "ON CONFLICT(snap_date,github) DO UPDATE SET total=excluded.total,"
-            " captured_at=excluded.captured_at",
-            [(snap_date, r["github"], int(r["total"]), ts) for r in rows],
+            " captured_at=excluded.captured_at, src=excluded.src",
+            rows,
+        )
+    return len(rows)
+
+
+def seed_snapshot(conn, snap_date, pairs, src="ledger") -> int:
+    """直接写一版快照（补录历史用）。pairs = [(github, total), ...]。
+
+    与 snapshot_contrib 的区别：数据不从 contrib_total 来，便于补 11/12 号这类
+    已经不在当前表里的历史。
+    """
+    ts = now_iso()
+    rows = [(snap_date, str(g).strip(), int(t), ts, src)
+            for g, t in pairs if str(g).strip()]
+    if not rows:
+        return 0
+    with _LOCK, conn:
+        conn.executemany(
+            "INSERT INTO contrib_snapshot(snap_date,github,total,captured_at,src)"
+            " VALUES(?,?,?,?,?) "
+            "ON CONFLICT(snap_date,github) DO UPDATE SET total=excluded.total,"
+            " captured_at=excluded.captured_at, src=excluded.src",
+            rows,
         )
     return len(rows)
 
@@ -257,58 +297,85 @@ def all_totals(conn):
 
 # ---------------------------------------------------------------- 热力图
 
-def heatmap(conn, github, weeks=53):
-    """悬赏热力图：每天获得的声誉分。
+#: 热力图默认窗口（天）——用户要求「一个月」
+HEATMAP_DAYS = 30
 
-    口径：相邻两版快照求差 => 当日增量。首版快照无前序，记 0，并在响应里
-    给出 baseline 供前端标注「初始快照」。历史快照永不删除。
+
+def heatmap(conn, github, days=HEATMAP_DAYS, first_day_counts=True, **kwargs):
+    """悬赏热力图：最近 days 天每天获得的声誉分（默认一个月）。
+
+    ★ 口径 = **今天累计 − 昨天累计**（相邻两版快照求差）：
+      * 快照里存的 `total` 是该日**累计**分，格子值 = 与前一版的差；
+      * 首版无前序 => 首日按自身累计展示（否则新建的库一片空白）；
+      * **跨来源**（v0.1 老表 -> 新贡献表）两套算法不可比，不相减，
+        该日整份记为新基线（避免 95-62=33 这种假增量）；
+      * 无记录的日子记 0 并标 has=False；历史快照永不删除。
     """
     cf = github.strip().lower()
     end = date.today()
-    start = end - timedelta(days=weeks * 7 - 1)
+    start = end - timedelta(days=max(1, int(days)) - 1)
 
     snaps = conn.execute(
-        "SELECT snap_date,total FROM contrib_snapshot WHERE lower(github)=? "
-        "ORDER BY snap_date ASC",
+        "SELECT snap_date,total,COALESCE(src,'ledger') AS src FROM contrib_snapshot "
+        "WHERE lower(github)=? ORDER BY snap_date ASC",
         (cf,),
     ).fetchall()
     if not snaps:
         return {"start": start.isoformat(), "end": end.isoformat(),
-                "days": [], "max": 0, "total": 0, "baseline": None,
-                "has_history": False}
+                "days": [], "cells": [], "max": 0, "total": 0, "baseline": None,
+                "has_history": False, "weeks": 0}
 
-    daily = {}
-    prev = None
+    daily, srcs = {}, {}
+    prev, prev_src = None, None
     baseline = None
     for s in snaps:
         d = s["snap_date"]
         cur = int(s["total"])
-        if prev is None:
-            daily[d] = 0
-            baseline = {"date": d, "total": cur}
+        cur_src = s["src"] or "ledger"
+        srcs[d] = cur_src
+        if prev is None or cur_src != prev_src:
+            # 首版 / 换口径：不作差，按自身累计作基线
+            daily[d] = cur if first_day_counts else 0
+            baseline = {"date": d, "total": cur, "initial": True}
         else:
-            daily[d] = cur - prev
-        prev = cur
+            daily[d] = cur - prev              # ★ 今天累计 − 昨天累计
+        prev, prev_src = cur, cur_src
 
-    days = []
+    out_days = []
     d = start
     while d <= end:
         k = d.isoformat()
         if k in daily:
-            days.append({"date": k, "value": daily[k], "has": True})
+            out_days.append({"date": k, "value": daily[k], "has": True,
+                             "src": srcs.get(k)})
         else:
-            days.append({"date": k, "value": 0, "has": False})
+            out_days.append({"date": k, "value": 0, "has": False})
         d += timedelta(days=1)
 
-    vals = [x["value"] for x in days]
+    # 补到整周：起始日前面按周一对齐补空格，末尾补齐到周日。
+    # 这样前端按 7 行（周一~周日）× N 列（周）排，格子才是小方块；
+    # 不补的话 30 天铺成 5 列会变成巨大的方块（实测出过）。
+    lead = start.weekday()                 # 周一=0
+    cells = [None] * lead + [
+        {"date": x["date"], "value": x["value"], "has": x["has"], "src": x.get("src")}
+        for x in out_days
+    ]
+    while len(cells) % 7:
+        cells.append(None)
+
+    vals = [x["value"] for x in out_days]
+    tracked = sum(1 for s in snaps if s["snap_date"] >= start.isoformat())
     return {
         "start": start.isoformat(),
         "end": end.isoformat(),
-        "days": days,
+        "days": out_days,
+        # 给前端的周对齐网格（None = 空格子）
+        "cells": cells,
         "max": max(vals) if vals else 0,
         "total": sum(vals),
         "baseline": baseline,
-        "has_history": len(snaps) > 1,
+        "has_history": tracked > 1,
+        "weeks": max(1, len(cells) // 7),
     }
 
 
@@ -320,7 +387,7 @@ def replace_bounties(conn, items) -> int:
     rows, seen = [], set()
     for idx, b in enumerate(items, 1):
         bid = str(b.get("bid") or b.get("no") or idx)
-        if bid in seen:                 # 同一 issue 重复出现只留一条（PRIMARY KEY 冲突会炸）
+        if bid in seen:                 # 同一 id 重复出现只留一条（PRIMARY KEY 冲突会炸）
             continue
         seen.add(bid)
         labels = b.get("labels")
@@ -329,24 +396,29 @@ def replace_bounties(conn, items) -> int:
         rows.append(
             (bid, str(b.get("no") or ""), str(b.get("title") or ""), b.get("difficulty"),
              b.get("reward"), b.get("status"), b.get("deadline"), b.get("url"),
-             b.get("note"), labels, b.get("updated_at"), ts)
+             b.get("note"), labels, b.get("updated_at"),
+             (b.get("owner") or None), idx, ts)
         )
     with _LOCK, conn:
         conn.execute("DELETE FROM bounty")
         conn.executemany(
             "INSERT OR REPLACE INTO bounty"
             "(bid,no,title,difficulty,reward,status,deadline,url,note,labels,"
-            " updated_at,synced_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
+            " updated_at,owner,ord,synced_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
             rows,
         )
     return len(rows)
 
 
 def list_bounties(conn):
+    """按难度降序、同难度按真源次序。
+
+    ⚠ no 现在是稳定短 id（如 eval-site），不能 CAST 成整数——改用 ord 列。
+    """
     order = ("CASE difficulty WHEN 'expert' THEN 4 WHEN 'hard' THEN 3 "
              "WHEN 'medium' THEN 2 WHEN 'easy' THEN 1 ELSE 0 END DESC")
     return [dict(r) for r in conn.execute(
-        "SELECT * FROM bounty ORDER BY " + order + ", CAST(no AS INTEGER)")]
+        "SELECT * FROM bounty ORDER BY " + order + ", ord, no")]
 
 
 # ---------------------------------------------------------------- meta

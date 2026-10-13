@@ -205,7 +205,7 @@ def _by_person_block(lines, title):
             continue
         cells = _cells(ln)
         if header is None:
-            header = [c.lower() for c in cells]
+            header = [c.casefold() for c in cells]
             continue
         name = _login(cells[0]) if cells else None
         if not name or name in ("贡献者", "合计", "总计"):
@@ -220,6 +220,34 @@ def _by_person_block(lines, title):
             "issues": _clean(cells[3]) if len(cells) > 3 else None,
         })
     return out
+
+
+def parse_days(text):
+    """按**结算日**拆出每天的分数：{日期: [{github,total,items,issues}, ...]}。
+
+    表里每节形如：
+        ## 2026-10-12（结算 13 项 · 合计 95 分）
+        | # | 贡献者 | ... |        <- 明细（当日交付）
+        ### 按人合计
+        | 贡献者 | 声誉分 | 项数 |   <- **当天的分**（不是累计）
+
+    ★ 口径：这些分数就是「当天赚到的分」，**不需要再相减**。
+    热力图直接按天记录，历史靠这里的日期分批落库。
+    """
+    lines = (text or "").splitlines()
+    days, cur_date, buf = {}, None, []
+    for ln in lines:
+        m = re.match(r"^#{2,3}\s*(\d{4}-\d{2}-\d{2})", ln.strip())
+        if m:
+            if cur_date:
+                days[cur_date] = _by_person_block(buf, "按人合计") or _by_person_block(buf, "")
+            cur_date, buf = m.group(1), []
+            continue
+        if cur_date:
+            buf.append(ln)
+    if cur_date:
+        days[cur_date] = _by_person_block(buf, "按人合计") or _by_person_block(buf, "")
+    return {d: v for d, v in days.items() if v}
 
 
 def parse_totals(text):

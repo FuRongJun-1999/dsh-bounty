@@ -43,7 +43,7 @@ h1 { font-weight: 400; font-family: 'F-Title','S-Title',serif; font-size: 108px;
 .score-row { display: flex; gap: 22px; margin-top: 22px; }
 .score-card { flex: 1; text-align: center; padding: 26px 12px 22px;
   background: rgba(20,10,4,.55); border: 1px solid rgba(201,162,39,.35); }
-.score-card .num { font-family: 'F-Title',serif; font-size: 100px; font-weight: 900; color: var(--crimson); text-shadow: 0 2px 0 rgba(255,220,150,.25), 0 3px 6px #000; line-height: 1; }
+.score-card .num { font-family: 'F-Title',serif; font-size: 100px; font-weight: 900; color: var(--gold-light); text-shadow: 0 2px 4px rgba(0,0,0,.7); line-height: 1; }
 .score-card .lbl { font-size: 28px; color: #b99a66; margin-top: 12px; letter-spacing: 2px; }
 .score-card.gold .num { color: var(--gold-light); }
 .section-title { margin-top: 30px; font-size: 40px; font-weight: 900; color: var(--gold-light); letter-spacing: 3px;
@@ -56,15 +56,22 @@ h1 { font-weight: 400; font-family: 'F-Title','S-Title',serif; font-size: 108px;
 .issue .ibody { flex: 1; }
 .issue .ititle { font-size: 34px; color: #ecd9ab; line-height: 1.4; }
 .issue .imeta { font-size: 27px; color: #a8895a; margin-top: 4px; }
-.issue .ipt { font-family: 'F-Title',serif; font-size: 46px; font-weight: 900; color: var(--crimson); }
+.issue .ipt { font-family: 'F-Title',serif; font-size: 46px; font-weight: 900; color: var(--gold-light); }
 .hm-wrap { margin-top: 18px; padding: 22px 20px 16px; background: rgba(20,10,4,.5); border: 1px solid rgba(201,162,39,.3); }
-.hm-grid { display: grid; grid-template-columns: repeat(53, 1fr); gap: 3px; margin-top: 14px; }
-.hm-cell { aspect-ratio: 1; border-radius: 2px; background: rgba(240,220,174,.08); }
+/* 月历版式：7 列（周一~周日）× N 行（周）。固定小格子，
+   否则 1fr 会把格子撑成 180px 的大方块（实测出过）。 */
+.hm-grid { display: grid; grid-template-columns: repeat(7, 86px); gap: 7px;
+           margin-top: 14px; justify-content: center; }
+.hm-weekday { display: grid; grid-template-columns: repeat(7, 86px); gap: 7px;
+              justify-content: center; margin-top: 12px;
+              font-size: 20px; color: #a8895a; text-align: center; }
+.hm-cell { width: 86px; height: 62px; border-radius: 4px; background: rgba(240,220,174,.08); }
+.hm-cell.empty { background: transparent; }
 .hm-cell.l1 { background: rgba(201,162,39,.35); }
 .hm-cell.l2 { background: rgba(201,162,39,.62); }
 .hm-cell.l3 { background: rgba(201,162,39,.88); }
 .hm-cell.l4 { background: #e8c96a; box-shadow: 0 0 4px rgba(232,201,106,.7); }
-.hm-cell.neg { background: rgba(139,46,46,.55); }
+.hm-cell.neg { background: rgba(120,78,20,.75); box-shadow: inset 0 0 0 1px rgba(232,201,106,.35); }
 .hm-legend { display: flex; align-items: center; gap: 6px; font-size: 24px; color: #a8895a; margin-top: 10px; }
 .hm-legend .cell { width: 14px; height: 14px; border-radius: 2px; }
 .hm-note { font-size: 25px; color: #8a6f45; margin-top: 10px; }
@@ -101,23 +108,31 @@ h1 { font-weight: 400; font-family: 'F-Title','S-Title',serif; font-size: 108px;
     html += '</div>';
   }
   var hm = d.heatmap || {days:[], max:0};
-  html += '<div class="section-title">悬赏活跃图 · 每日声誉</div>' +
+  var HMC = Math.max(1, hm.weeks || Math.ceil((hm.days||[]).length/7) || 6);
+  html += '<div class="section-title">悬赏活跃图 · 近一个月每日声誉</div>' +
     '<div class="hm-wrap"><div style="display:flex;justify-content:space-between;font-size:21px;color:#b99a66">' +
     '<span>' + (hm.start||'') + ' ~ ' + (hm.end||'') + '</span><span>区间共 ' + (hm.total||0) + ' 分</span></div>' +
+    '<div class="hm-weekday"><span>一</span><span>二</span><span>三</span><span>四</span>' +
+    '<span>五</span><span>六</span><span>日</span></div>' +
     '<div class="hm-grid" id="hm"></div>' +
     '<div class="hm-legend">少 <span class="cell" style="background:rgba(240,220,174,.08)"></span>' +
     '<span class="cell" style="background:rgba(201,162,39,.35)"></span>' +
     '<span class="cell" style="background:rgba(201,162,39,.62)"></span>' +
     '<span class="cell" style="background:rgba(201,162,39,.88)"></span>' +
     '<span class="cell" style="background:#e8c96a"></span> 多</div>' +
-    (hm.baseline ? '<div class="hm-note">◆ ' + hm.baseline.date + ' 为初始快照（存量 ' + hm.baseline.total + ' 分），此后逐日记增量</div>' : '') +
+    (hm.baseline ? '<div class="hm-note">◆ ' + hm.baseline.date + ' 起算（存量 ' + hm.baseline.total + ' 分），此后逐日记增量；换结算口径当日不跨源相减</div>' : '') +
     '</div>';
   host.innerHTML = html;
   host.querySelector('.p-name').textContent = d.github || '未绑定';
   var grid = document.getElementById('hm');
-  if (grid && hm.days) {
-    hm.days.forEach(function(day){
+  if (grid) {
+    // 优先用后端给好的周对齐网格（含空格子）；没有则退回按天铺
+    var cells = hm.cells || (hm.days || []).map(function(d){
+      return {date:d.date, value:d.value, has:d.has};
+    });
+    cells.forEach(function(day){
       var c = document.createElement('div');
+      if (!day) { c.className = 'hm-cell empty'; grid.appendChild(c); return; }
       var v = day.value || 0;
       var cls = 'hm-cell';
       if (v < 0) cls += ' neg';

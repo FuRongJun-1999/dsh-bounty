@@ -15,7 +15,8 @@
     "token": "<NapCat 的 access token>"
   },
   "bounty": {
-    "mode": "issues",
+    "mode": "json",
+    "source_path": "docs/bounty/悬赏.json",
     "enabled": true,
     "labels": "",
     "include_closed": false,

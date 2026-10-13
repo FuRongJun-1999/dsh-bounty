@@ -2,10 +2,10 @@
  "note": "本站只做声誉分与价值评价；金额不进站。两轴（难度 / 影响等级）分别记录，合成权重与资金换算属使用者侧。",
  "vectors": [
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
+   "difficulty": "hard",
+   "difficulty_base": 6,
    "evidence_strength": true,
-   "impact_grade": "B",
+   "impact_grade": "A",
    "issues": [
     19,
     35,
@@ -15,7 +15,7 @@
    "login": "cyd471",
    "project": "memory",
    "quality_E": null,
-   "reputation_delta": 33,
+   "reputation_delta": 36,
    "rounds": 1
   },
   {
@@ -205,7 +205,7 @@
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
-   "impact_grade": "C",
+   "impact_grade": "B",
    "issues": [
     102,
     105

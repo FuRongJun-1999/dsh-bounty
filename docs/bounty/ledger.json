@@ -41,6 +41,139 @@
   "events": [
     {
       "ts": "2026-10-12T12:00:00Z",
+      "issue": 11,
+      "covers": [
+        11
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "acrot0",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "memory",
+      "impact": "B",
+      "reason": "dsh-memory #109 后续：写动词面闸门短路返回体协议必需键全收口 10 处，含守卫与定点变异（PR #113）",
+      "formula": {
+        "kind": "complete",
+        "round": 1
+      },
+      "day": "2026-10-12",
+      "id": "evt_08d8b7f867f1"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 12,
+      "covers": [
+        12,
+        14,
+        15,
+        16,
+        17
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "bounty_site",
+      "impact": "A",
+      "reason": "dsh-bounty 权威记录/账本/客户端五条（P0×2 + P1×3）：标记可被手写伪造改写权威状态、/withdraw 后轮次清零、先清空再重写、批量失败丢已写裁决、载荷回显吃标记",
+      "formula": {
+        "kind": "complete",
+        "round": 1
+      },
+      "day": "2026-10-12",
+      "id": "evt_1291e5a8f91e"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 55,
+      "covers": [
+        55
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "bench",
+      "impact": "A",
+      "reason": "dsh-bench 守卫盲区：58 用例 + 63 变异对 pytest 零收集（2 个幻影用例报错）+ README 交付件表少算 20 条（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-12",
+      "id": "evt_2d6a7ca354a7"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 105,
+      "covers": [
+        105
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Beiwo992",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "memory",
+      "impact": "C",
+      "reason": "lingshu #497 新发现 1 处（P2）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-12",
+      "id": "evt_2da6cd1138bd"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 86,
+      "covers": [
+        86,
+        87,
+        88,
+        89
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "expert",
+      "delta": 10,
+      "project": "memory",
+      "impact": "A",
+      "reason": "dsh-memory P1 缺陷审计 4 条：restricted 人名/条件词写进无密级 internal 概念节点、review_cli accept 以 designer-cli 重封装致写入者读不到、cg(recent,add) 入参不校验、link 对端签名参数可绕（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
+      },
+      "day": "2026-10-12",
+      "id": "evt_3d0e59a81dcf"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
       "issue": 24,
       "covers": [
         24,
@@ -71,6 +204,193 @@
     },
     {
       "ts": "2026-10-12T12:00:00Z",
+      "issue": 61,
+      "covers": [
+        61,
+        62,
+        64,
+        69
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "expert",
+      "delta": 10,
+      "project": "memory",
+      "impact": "A",
+      "reason": "lingshu 四条：门禁性能 207 子进程 240.9s → 批量 3.3s（73.2×）、跨仓 5 条缺陷、#456–459 四条（契约不成立/NaN 译满额/观察改变授权/钳制漏网 41 处）、test_c2 观测窗口 0.25s flaky guard（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
+      },
+      "day": "2026-10-12",
+      "id": "evt_4224b5f46dd8"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 63,
+      "covers": [
+        63
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "memory",
+      "impact": "B",
+      "reason": "dsh-memory 死代码残留：calibrate_turn 双定义（v2 共 97 行被遮蔽）+ 6 处恒假分支（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-12",
+      "id": "evt_45aa6649a15f"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 99,
+      "covers": [
+        99
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "acrot0",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "bounty_site",
+      "impact": "B",
+      "reason": "dsh-bounty 三方对账校验件（标签面/标记面/账本面）：48 断言 + 7 定点变异各自恰好命中；对 98 issue 实跑对账 19 项不一致；含 --state 镜像与准入开关（#66 原悬赏件 hard）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-12",
+      "id": "evt_496f8e95a86c"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 18,
+      "covers": [
+        18
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "bounty_site",
+      "impact": "A",
+      "reason": "dsh-bounty 架构提案 P0：权威记录改为可验证链（现行「正文里 seq 最大标记获胜」可被机器人自己的评论伪造）",
+      "formula": {
+        "kind": "complete",
+        "round": 1
+      },
+      "day": "2026-10-12",
+      "id": "evt_5ba506e4aae5"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 22,
+      "covers": [
+        22,
+        54
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "expert",
+      "delta": 10,
+      "project": "memory",
+      "impact": "A",
+      "reason": "dsh-memory BM25 两项交付：写入后增量块维护（PR #114，十万条写后查询约 4 倍加速）＋ 写后稀疏同步（PR #160，138.12→5.05 ms），前者已合并",
+      "formula": {
+        "kind": "complete",
+        "round": 1
+      },
+      "day": "2026-10-12",
+      "id": "evt_68e87c02d6e4"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 74,
+      "covers": [
+        74
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
+      "impact": "B",
+      "reason": "lingshu #103 + #120 记忆层四项判据级缺陷 + repro-bot cp936 崩溃（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-12",
+      "id": "evt_6c3a02229413"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 52,
+      "covers": [
+        52,
+        53
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "segujushi-lang",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "memory",
+      "impact": "C",
+      "reason": "lingshu 补登 2026-10-09 / 2026-10-11：PR #320 来源验证往返回归测试（1 文件 68 行，37 passed + 77 subtests，4 处定点变异）+ 活动稀疏度提案 + 缺陷复现（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-12",
+      "id": "evt_715784d1187c"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
       "issue": 45,
       "covers": [
         45,
@@ -97,28 +417,193 @@
     },
     {
       "ts": "2026-10-12T12:00:00Z",
-      "issue": 12,
+      "issue": 13,
       "covers": [
-        12,
-        14,
-        15,
-        16,
-        17
+        13
       ],
       "action": "settle",
       "actor": "FuRongJun-1999",
-      "holder": "LarryE135",
+      "holder": "STARDUSTLC666",
       "difficulty": "hard",
       "delta": 6,
-      "project": "bounty_site",
+      "project": "memory",
       "impact": "A",
-      "reason": "dsh-bounty 权威记录/账本/客户端五条（P0×2 + P1×3）：标记可被手写伪造改写权威状态、/withdraw 后轮次清零、先清空再重写、批量失败丢已写裁决、载荷回显吃标记",
+      "reason": "dsh-memory 检索文本复用与 recall 预算修复（PR #115/#116/#117，含真实 DSH 验收），已合并、已历返工",
       "formula": {
         "kind": "complete",
         "round": 1
       },
       "day": "2026-10-12",
-      "id": "evt_1291e5a8f91e"
+      "id": "evt_73f803810b18"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 98,
+      "covers": [
+        98
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "dsh_market",
+      "impact": "B",
+      "reason": "dsh-market 3 条 symlinkSync 测试漏用仓内已有 Windows 探测守卫 ⇒ Windows 上 3 条确定性 EPERM 失败（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-12",
+      "id": "evt_772b5f3ee2c2"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 73,
+      "covers": [
+        73,
+        75,
+        76,
+        77,
+        78,
+        79,
+        81,
+        92
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "chinese_programming",
+      "impact": "A",
+      "reason": "ChineseProgramming 8 条：19 文件替换 sys.stdout 致 pytest 崩溃、20 文件模块级 sys.exit() 致 INTERNALERROR、17 测试件硬编码本机路径、cargo 守卫晚于崩溃点、check 与 compile-pbc 结论相反、cli init 脚手架过不了自家 .pbc、protocol.toml 死配置、知足 缺数值守卫裸崩（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-12",
+      "id": "evt_7c1459f50994"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 102,
+      "covers": [
+        102
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Beiwo992",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "memory",
+      "impact": "B",
+      "reason": "dsh-memory 增补缺陷 5 处（2×P1 + 3×健壮性）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-12",
+      "id": "evt_8702c8eb925a"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 59,
+      "covers": [
+        59
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ganzhe12138",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "scvm",
+      "impact": "B",
+      "reason": "SCVM 记忆系统插件初版 v0.2.0（灵枢记忆本体 · 离线判定件链）+ 索引/因果两条研究线实测结论（含 10 族阴性）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-12",
+      "id": "evt_930f8963dbf8"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 44,
+      "covers": [
+        44
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "rinDBeans",
+      "difficulty": "expert",
+      "delta": 10,
+      "project": "memory",
+      "impact": "A",
+      "reason": "lingshu #461 世界模型第一批闭环补全（F01/F02/F03/F05），1262 passed",
+      "formula": {
+        "kind": "complete",
+        "round": 1
+      },
+      "day": "2026-10-12",
+      "id": "evt_951c1d9e5c17"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 58,
+      "covers": [
+        58,
+        60
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
+      "impact": "B",
+      "reason": "dsh-memory Memory-RSI 第一至四轮证据归档及第五轮失败归因（PR #162，冻结提交 f212e44）：阶段性实验交付，含负结果与评测质量发现（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-12",
+      "id": "evt_9f5fdd1e8d0d"
     },
     {
       "ts": "2026-10-12T12:00:00Z",
@@ -148,31 +633,6 @@
     },
     {
       "ts": "2026-10-12T12:00:00Z",
-      "issue": 19,
-      "covers": [
-        19,
-        20,
-        21,
-        23,
-        42
-      ],
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "holder": "cyd471",
-      "difficulty": "expert",
-      "delta": 10,
-      "project": "memory",
-      "impact": "A",
-      "reason": "dsh-memory P0 缺陷审计五条：睡眠周期静默回滚记忆编辑、link/import 路径穿越覆写密钥、frontmatter 漏括号整库打不开、MCP 模板 python -m 劫持、private 记忆被明文并入",
-      "formula": {
-        "kind": "complete",
-        "round": 1
-      },
-      "day": "2026-10-12",
-      "id": "evt_efa5baac9e62"
-    },
-    {
-      "ts": "2026-10-12T12:00:00Z",
       "issue": 35,
       "covers": [
         35
@@ -191,91 +651,6 @@
       },
       "day": "2026-10-12",
       "id": "evt_a680f5475144"
-    },
-    {
-      "ts": "2026-10-12T12:00:00Z",
-      "issue": 22,
-      "covers": [
-        22,
-        54
-      ],
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "holder": "STARDUSTLC666",
-      "difficulty": "expert",
-      "delta": 10,
-      "project": "memory",
-      "impact": "A",
-      "reason": "dsh-memory BM25 两项交付：写入后增量块维护（PR #114，十万条写后查询约 4 倍加速）＋ 写后稀疏同步（PR #160，138.12→5.05 ms），前者已合并",
-      "formula": {
-        "kind": "complete",
-        "round": 1
-      },
-      "day": "2026-10-12",
-      "id": "evt_68e87c02d6e4"
-    },
-    {
-      "ts": "2026-10-12T12:00:00Z",
-      "issue": 13,
-      "covers": [
-        13
-      ],
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "holder": "STARDUSTLC666",
-      "difficulty": "hard",
-      "delta": 6,
-      "project": "memory",
-      "impact": "A",
-      "reason": "dsh-memory 检索文本复用与 recall 预算修复（PR #115/#116/#117，含真实 DSH 验收），已合并、已历返工",
-      "formula": {
-        "kind": "complete",
-        "round": 1
-      },
-      "day": "2026-10-12",
-      "id": "evt_73f803810b18"
-    },
-    {
-      "ts": "2026-10-12T12:00:00Z",
-      "issue": 34,
-      "covers": [
-        34
-      ],
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "holder": "rinDBeans",
-      "difficulty": "hard",
-      "delta": 6,
-      "project": "memory",
-      "impact": "B",
-      "reason": "lingshu #460 稀疏推断优化与 Unified 关系生命周期修复——PR 评估（已修复，待人审）",
-      "formula": {
-        "kind": "complete",
-        "round": 1
-      },
-      "day": "2026-10-12",
-      "id": "evt_d7322c2c40ed"
-    },
-    {
-      "ts": "2026-10-12T12:00:00Z",
-      "issue": 44,
-      "covers": [
-        44
-      ],
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "holder": "rinDBeans",
-      "difficulty": "expert",
-      "delta": 10,
-      "project": "memory",
-      "impact": "A",
-      "reason": "lingshu #461 世界模型第一批闭环补全（F01/F02/F03/F05），1262 passed",
-      "formula": {
-        "kind": "complete",
-        "round": 1
-      },
-      "day": "2026-10-12",
-      "id": "evt_951c1d9e5c17"
     },
     {
       "ts": "2026-10-12T12:00:00Z",
@@ -300,488 +675,7 @@
     },
     {
       "ts": "2026-10-12T12:00:00Z",
-      "issue": 11,
-      "covers": [
-        11
-      ],
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "holder": "acrot0",
-      "difficulty": "medium",
-      "delta": 3,
-      "project": "memory",
-      "impact": "B",
-      "reason": "dsh-memory #109 后续：写动词面闸门短路返回体协议必需键全收口 10 处，含守卫与定点变异（PR #113）",
-      "formula": {
-        "kind": "complete",
-        "round": 1
-      },
-      "day": "2026-10-12",
-      "id": "evt_08d8b7f867f1"
-    },
-    {
-      "ts": "2026-10-12T12:00:00Z",
-      "issue": 18,
-      "covers": [
-        18
-      ],
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "holder": "qweqqxq11",
-      "difficulty": "hard",
-      "delta": 6,
-      "project": "bounty_site",
-      "impact": "A",
-      "reason": "dsh-bounty 架构提案 P0：权威记录改为可验证链（现行「正文里 seq 最大标记获胜」可被机器人自己的评论伪造）",
-      "formula": {
-        "kind": "complete",
-        "round": 1
-      },
-      "day": "2026-10-12",
-      "id": "evt_5ba506e4aae5"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        99
-      ],
-      "day": "2026-10-13",
-      "delta": 6,
-      "difficulty": "hard",
-      "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "acrot0",
-      "id": "evt_08b5b1c600e4",
-      "impact": "B",
-      "issue": 99,
-      "project": "bounty_site",
-      "reason": "dsh-bounty 三方对账校验件（标签面/标记面/账本面）：48 断言 + 7 定点变异各自恰好命中；对 98 issue 实跑对账 19 项不一致；含 --state 镜像与准入开关（#66 原悬赏件 hard）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        83,
-        84,
-        90,
-        91,
-        100
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
-      "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "Beiwo992",
-      "id": "evt_20c7e20ab46f",
-      "impact": "C",
-      "issue": 83,
-      "project": "bounty_site",
-      "reason": "dsh-bounty 三处：悬赏板任务按字符串排序（#10 排在 #9 前）、daily_table 竖线未转义 + bounty_list 校验/渲染口径不一、workflow 跨组并发致双状态标签竞态（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        102
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
-      "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "Beiwo992",
-      "id": "evt_de7c2762f265",
-      "impact": "B",
-      "issue": 102,
-      "project": "memory",
-      "reason": "dsh-memory 增补缺陷 5 处（2×P1 + 3×健壮性）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        105
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
-      "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "Beiwo992",
-      "id": "evt_e278fff8a1eb",
-      "impact": "C",
-      "issue": 105,
-      "project": "memory",
-      "reason": "lingshu #497 新发现 1 处（P2）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        86,
-        87,
-        88,
-        89
-      ],
-      "day": "2026-10-13",
-      "delta": 10,
-      "difficulty": "expert",
-      "formula": {
-        "base": 10,
-        "delta": 10,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 10.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "cyd471",
-      "id": "evt_4767dd76c1f7",
-      "impact": "A",
-      "issue": 86,
-      "project": "memory",
-      "reason": "dsh-memory P1 缺陷审计 4 条：restricted 人名/条件词写进无密级 internal 概念节点、review_cli accept 以 designer-cli 重封装致写入者读不到、cg(recent,add) 入参不校验、link 对端签名参数可绕（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        59
-      ],
-      "day": "2026-10-13",
-      "delta": 6,
-      "difficulty": "hard",
-      "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "ganzhe12138",
-      "id": "evt_6e3e2c150586",
-      "impact": "B",
-      "issue": 59,
-      "project": "scvm",
-      "reason": "SCVM 记忆系统插件初版 v0.2.0（灵枢记忆本体 · 离线判定件链）+ 索引/因果两条研究线实测结论（含 10 族阴性）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        73,
-        75,
-        76,
-        77,
-        78,
-        79,
-        81,
-        92
-      ],
-      "day": "2026-10-13",
-      "delta": 6,
-      "difficulty": "hard",
-      "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "m3159584479",
-      "id": "evt_4972a23c37d3",
-      "impact": "A",
-      "issue": 73,
-      "project": "chinese_programming",
-      "reason": "ChineseProgramming 8 条：19 文件替换 sys.stdout 致 pytest 崩溃、20 文件模块级 sys.exit() 致 INTERNALERROR、17 测试件硬编码本机路径、cargo 守卫晚于崩溃点、check 与 compile-pbc 结论相反、cli init 脚手架过不了自家 .pbc、protocol.toml 死配置、知足 缺数值守卫裸崩（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        98
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
-      "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "m3159584479",
-      "id": "evt_edc65f0bb254",
-      "impact": "B",
-      "issue": 98,
-      "project": "dsh_market",
-      "reason": "dsh-market 3 条 symlinkSync 测试漏用仓内已有 Windows 探测守卫 ⇒ Windows 上 3 条确定性 EPERM 失败（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        74
-      ],
-      "day": "2026-10-13",
-      "delta": 6,
-      "difficulty": "hard",
-      "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "m3159584479",
-      "id": "evt_119251977e87",
-      "impact": "B",
-      "issue": 74,
-      "project": "memory",
-      "reason": "lingshu #103 + #120 记忆层四项判据级缺陷 + repro-bot cp936 崩溃（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        55
-      ],
-      "day": "2026-10-13",
-      "delta": 6,
-      "difficulty": "hard",
-      "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "qweqqxq11",
-      "id": "evt_e7e938860d07",
-      "impact": "A",
-      "issue": 55,
-      "project": "bench",
-      "reason": "dsh-bench 守卫盲区：58 用例 + 63 变异对 pytest 零收集（2 个幻影用例报错）+ README 交付件表少算 20 条（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        63
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
-      "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "qweqqxq11",
-      "id": "evt_f83b9548a012",
-      "impact": "B",
-      "issue": 63,
-      "project": "memory",
-      "reason": "dsh-memory 死代码残留：calibrate_turn 双定义（v2 共 97 行被遮蔽）+ 6 处恒假分支（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        56
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
-      "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "qweqqxq11",
-      "id": "evt_1a99e6d798de",
-      "impact": "C",
-      "issue": 56,
-      "project": "hive_memory_bench",
-      "reason": "hive-memory-bench 硬闸文档分歧：README 4 处把 judge_audit.py 写成必然 exit 2（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        61,
-        62,
-        64,
-        69
-      ],
-      "day": "2026-10-13",
-      "delta": 10,
-      "difficulty": "expert",
-      "formula": {
-        "base": 10,
-        "delta": 10,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 10.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "qweqqxq11",
-      "id": "evt_81543cc6027c",
-      "impact": "A",
-      "issue": 61,
-      "project": "memory",
-      "reason": "lingshu 四条：门禁性能 207 子进程 240.9s → 批量 3.3s（73.2×）、跨仓 5 条缺陷、#456–459 四条（契约不成立/NaN 译满额/观察改变授权/钳制漏网 41 处）、test_c2 观测窗口 0.25s flaky guard（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        52,
-        53
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
-      "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "segujushi-lang",
-      "id": "evt_b5867a1e846f",
-      "impact": "C",
-      "issue": 52,
-      "project": "memory",
-      "reason": "lingshu 补登 2026-10-09 / 2026-10-11：PR #320 来源验证往返回归测试（1 文件 68 行，37 passed + 77 subtests，4 处定点变异）+ 活动稀疏度提案 + 缺陷复现（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        58,
-        60
-      ],
-      "day": "2026-10-13",
-      "delta": 6,
-      "difficulty": "hard",
-      "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "STARDUSTLC666",
-      "id": "evt_61bc9e68dfed",
-      "impact": "B",
-      "issue": 58,
-      "project": "memory",
-      "reason": "dsh-memory Memory-RSI 第一至四轮证据归档及第五轮失败归因（PR #162，冻结提交 f212e44）：阶段性实验交付，含负结果与评测质量发现（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
+      "issue": 93,
       "covers": [
         93,
         94,
@@ -789,519 +683,480 @@
         96,
         97
       ],
-      "day": "2026-10-13",
-      "delta": 10,
-      "difficulty": "expert",
-      "formula": {
-        "base": 10,
-        "delta": 10,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 10.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
+      "action": "settle",
+      "actor": "FuRongJun-1999",
       "holder": "WASD258-jpg",
-      "id": "evt_fbbd33a83385",
-      "impact": "A",
-      "issue": 93,
+      "difficulty": "expert",
+      "delta": 10,
       "project": "memory",
+      "impact": "A",
       "reason": "lingshu：信任边界绕过 P0×3（import_all 无密钥改写并降级结构层 / 无密钥改写自我模型 / wm_simloop）、记忆可信性 P0×2、自我层静默丢数据 P0×2、代码执行路径 P0×2、修复批次回归与绕过 P1×2（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        154
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
       "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
+        "rule": "v1.0",
         "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "123WP-a",
-      "id": "evt_24bd1170dfd6",
-      "impact": "B",
-      "issue": 154,
-      "project": "memory",
-      "reason": "dsh-memory 路径解释面缺陷（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        144
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
-      "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "cyd471",
-      "id": "evt_3fbfc4826753",
-      "impact": "B",
-      "issue": 144,
-      "project": "memory",
-      "reason": "dsh-memory 写入一致性与记忆完整性缺陷 5 条（P1）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        146,
-        153
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
-      "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "cyd471",
-      "id": "evt_fc174e64a1f3",
-      "impact": "B",
-      "issue": 146,
-      "project": "hive_memory_bench",
-      "reason": "hive-memory-bench 缺陷 2 条（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        106
-      ],
-      "day": "2026-10-13",
-      "delta": 10,
-      "difficulty": "expert",
-      "formula": {
         "base": 10,
-        "delta": 10,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 10.0,
-        "round": 1,
         "rounds": 2,
-        "rule": "v1.0"
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
       },
-      "holder": "LarryE135",
-      "id": "evt_eacab0642b5f",
-      "impact": "A",
-      "issue": 106,
-      "project": "memory",
-      "reason": "lingshu / dsh-memory 安全修复回归审计（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
+      "day": "2026-10-12",
+      "id": "evt_b8a76473ed74"
     },
     {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 83,
+      "covers": [
+        83,
+        84,
+        90,
+        91,
+        100
+      ],
       "action": "settle",
       "actor": "FuRongJun-1999",
-      "covers": [
-        107
-      ],
-      "day": "2026-10-13",
-      "delta": 10,
-      "difficulty": "expert",
-      "formula": {
-        "base": 10,
-        "delta": 10,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 10.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "LarryE135",
-      "id": "evt_0895dc0d7715",
-      "impact": "A",
-      "issue": 107,
-      "project": "hive_memory_bench",
-      "reason": "hive-memory-bench 判分器审计 8 条（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        141
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
+      "holder": "Beiwo992",
       "difficulty": "medium",
-      "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "m3159584479",
-      "id": "evt_b8c015dbe3e5",
-      "impact": "B",
-      "issue": 141,
+      "delta": 3,
       "project": "bounty_site",
-      "reason": "dsh-bounty rescore 与 quality_delta 同一公式两份实现（复算侧漏 _e 的 [0,1] 钳制）——与 #157 独立同题，互为交叉验证（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        142,
-        143
-      ],
-      "day": "2026-10-13",
-      "delta": 6,
-      "difficulty": "hard",
+      "impact": "C",
+      "reason": "dsh-bounty 三处：悬赏板任务按字符串排序（#10 排在 #9 前）、daily_table 竖线未转义 + bounty_list 校验/渲染口径不一、workflow 跨组并发致双状态标签竞态（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
       "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
+        "rule": "v1.0",
         "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
+        "base": 3,
         "rounds": 2,
-        "rule": "v1.0"
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
       },
-      "holder": "m3159584479",
-      "id": "evt_2bc0dd8ef658",
-      "impact": "A",
-      "issue": 142,
-      "project": "memory",
-      "reason": "dsh-memory 2 条：provision_dek 面 + _SafeModule 只堵顶层 __builtins__（取子模块属性即得裸 module）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
+      "day": "2026-10-12",
+      "id": "evt_b95dffb2e69f"
     },
     {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 34,
       "covers": [
-        109,
-        110,
-        111,
-        112,
-        113,
-        145
+        34
       ],
-      "day": "2026-10-13",
-      "delta": 6,
-      "difficulty": "hard",
-      "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "m3159584479",
-      "id": "evt_e01f66bb610b",
-      "impact": "A",
-      "issue": 109,
-      "project": "memory",
-      "reason": "lingshu 6 条：deviation_threshold 幻影旋钮、longterm_gate/core/hex_train/activation 等零引用参数、#299 幂等标记写在另一条事务（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
       "action": "settle",
       "actor": "FuRongJun-1999",
+      "holder": "rinDBeans",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
+      "impact": "B",
+      "reason": "lingshu #460 稀疏推断优化与 Unified 关系生命周期修复——PR 评估（已修复，待人审）",
+      "formula": {
+        "kind": "complete",
+        "round": 1
+      },
+      "day": "2026-10-12",
+      "id": "evt_d7322c2c40ed"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 56,
+      "covers": [
+        56
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "hive_memory_bench",
+      "impact": "C",
+      "reason": "hive-memory-bench 硬闸文档分歧：README 4 处把 judge_audit.py 写成必然 exit 2（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-12",
+      "id": "evt_e950e49158c7"
+    },
+    {
+      "ts": "2026-10-12T12:00:00Z",
+      "issue": 19,
+      "covers": [
+        19,
+        20,
+        21,
+        23,
+        42
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "expert",
+      "delta": 10,
+      "project": "memory",
+      "impact": "A",
+      "reason": "dsh-memory P0 缺陷审计五条：睡眠周期静默回滚记忆编辑、link/import 路径穿越覆写密钥、frontmatter 漏括号整库打不开、MCP 模板 python -m 劫持、private 记忆被明文并入",
+      "formula": {
+        "kind": "complete",
+        "round": 1
+      },
+      "day": "2026-10-12",
+      "id": "evt_efa5baac9e62"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 108,
+      "covers": [
+        108
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ybyz2",
+      "difficulty": "expert",
+      "delta": 10,
+      "project": "bounty_site",
+      "impact": "A",
+      "reason": "悬赏机器人完整交付（PR #72，5 commits / 21 files / +4010 行）：零第三方依赖，selftest 123 断言全 PASS，已部署线上运行（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
+      },
+      "day": "2026-10-13",
+      "id": "evt_03eda530cb9f"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 157,
       "covers": [
         157
       ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
-      "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
+      "action": "settle",
+      "actor": "FuRongJun-1999",
       "holder": "momeiji",
-      "id": "evt_044a8c677b84",
-      "impact": "A",
-      "issue": 157,
+      "difficulty": "medium",
+      "delta": 3,
       "project": "bounty_site",
+      "impact": "A",
       "reason": "dsh-bounty 计分口径单点化 + A15 守卫补反向判据（PR #156 已合并）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        155
-      ],
-      "day": "2026-10-13",
-      "delta": 6,
-      "difficulty": "hard",
       "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
+        "rule": "v1.0",
         "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "momeiji",
-      "id": "evt_7bf140c1b320",
-      "impact": "A",
-      "issue": 155,
-      "project": "memory",
-      "reason": "dsh-memory/lingshu 五件 PR（含 _SafeModule 递归包裹子模块属性堵沙箱逃逸取道）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        140
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
-      "formula": {
         "base": 3,
-        "delta": 3,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
         "rounds": 2,
-        "rule": "v1.0"
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
       },
-      "holder": "momeiji",
-      "id": "evt_1f269ccca016",
-      "impact": "B",
-      "issue": 140,
-      "project": "dsh_mobile_apk",
-      "reason": "dsh-mobile-apk ConsoleActivity 销毁后仍调用已销毁 WebView（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
+      "day": "2026-10-13",
+      "id": "evt_044a8c677b84"
     },
     {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 107,
+      "covers": [
+        107
+      ],
       "action": "settle",
       "actor": "FuRongJun-1999",
-      "covers": [
-        152
-      ],
-      "day": "2026-10-13",
-      "delta": 6,
-      "difficulty": "hard",
-      "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "myYangyunfan",
-      "id": "evt_3d89935d97da",
+      "holder": "LarryE135",
+      "difficulty": "expert",
+      "delta": 10,
+      "project": "hive_memory_bench",
       "impact": "A",
-      "issue": 152,
-      "project": "memory",
-      "reason": "lingshu 批次 F 量具缺陷三件：stale 死条件 / unparsable / 覆盖图（复现+根因+补丁+守卫+定点变异，PR #512）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        121
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
+      "reason": "hive-memory-bench 判分器审计 8 条（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
       "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
+        "rule": "v1.0",
         "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
+        "base": 10,
         "rounds": 2,
-        "rule": "v1.0"
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
       },
-      "holder": "qweqqxq11",
-      "id": "evt_ce943e4380a8",
-      "impact": "B",
-      "issue": 121,
-      "project": "awesome_dsh_plugin",
-      "reason": "awesome-dsh-plugin 2 个测试件因 next() 无默认值永久不可收集（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
+      "day": "2026-10-13",
+      "id": "evt_0895dc0d7715"
     },
     {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 119,
       "covers": [
         119,
         120
       ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
-      "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
+      "action": "settle",
+      "actor": "FuRongJun-1999",
       "holder": "qweqqxq11",
-      "id": "evt_17c9be0e9c98",
-      "impact": "C",
-      "issue": 119,
+      "difficulty": "medium",
+      "delta": 3,
       "project": "chinese_programming",
+      "impact": "C",
       "reason": "ChineseProgramming LLM 桥接层 2 条：_should_proceed(method) 零引用 / update_failure(error) 丢弃原因（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        122
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
       "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
+        "rule": "v1.0",
         "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
+        "base": 3,
         "rounds": 2,
-        "rule": "v1.0"
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
       },
-      "holder": "qweqqxq11",
-      "id": "evt_f7fdfbc2df97",
-      "impact": "B",
-      "issue": 122,
-      "project": "bench",
-      "reason": "dsh-bench 缺陷（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
+      "day": "2026-10-13",
+      "id": "evt_17c9be0e9c98"
     },
     {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 134,
+      "covers": [
+        134
+      ],
       "action": "settle",
       "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "expert",
+      "delta": 10,
+      "project": "memory",
+      "impact": "A",
+      "reason": "dsh-memory PR #188 预算内原文证据选择与回源位置（excerpt_strategy=query，段落 IDF + 边际词项覆盖）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
+      },
+      "day": "2026-10-13",
+      "id": "evt_1df0a70c41ab"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 140,
+      "covers": [
+        140
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeiji",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "dsh_mobile_apk",
+      "impact": "B",
+      "reason": "dsh-mobile-apk ConsoleActivity 销毁后仍调用已销毁 WebView（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-13",
+      "id": "evt_1f269ccca016"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 154,
+      "covers": [
+        154
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "memory",
+      "impact": "B",
+      "reason": "dsh-memory 路径解释面缺陷（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-13",
+      "id": "evt_24bd1170dfd6"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 142,
+      "covers": [
+        142,
+        143
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
+      "impact": "A",
+      "reason": "dsh-memory 2 条：provision_dek 面 + _SafeModule 只堵顶层 __builtins__（取子模块属性即得裸 module）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-13",
+      "id": "evt_2bc0dd8ef658"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 123,
+      "covers": [
+        123,
+        124
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "hive_memory_bench",
+      "impact": "B",
+      "reason": "hive-memory-bench 缺陷 2 条（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-13",
+      "id": "evt_2e24b131d07a"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 152,
+      "covers": [
+        152
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
+      "impact": "A",
+      "reason": "lingshu 批次 F 量具缺陷三件：stale 死条件 / unparsable / 覆盖图（复现+根因+补丁+守卫+定点变异，PR #512）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-13",
+      "id": "evt_3d89935d97da"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 148,
       "covers": [
         148,
         149,
         150,
         151
       ],
-      "day": "2026-10-13",
-      "delta": 6,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
       "difficulty": "hard",
-      "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "qweqqxq11",
-      "id": "evt_3f93aeceae1d",
-      "impact": "A",
-      "issue": 148,
+      "delta": 6,
       "project": "memory",
+      "impact": "A",
       "reason": "dsh-memory 4 条：含 st_ctime_ns 语义误用（Windows 上为创建时间，不随内容写入变化，经本机实测确证）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        123,
-        124
-      ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
       "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
+        "rule": "v1.0",
         "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
+        "base": 6,
         "rounds": 2,
-        "rule": "v1.0"
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
       },
-      "holder": "qweqqxq11",
-      "id": "evt_2e24b131d07a",
-      "impact": "B",
-      "issue": 123,
-      "project": "hive_memory_bench",
-      "reason": "hive-memory-bench 缺陷 2 条（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
+      "day": "2026-10-13",
+      "id": "evt_3f93aeceae1d"
     },
     {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 144,
+      "covers": [
+        144,
+        162
+      ],
       "action": "settle",
       "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
+      "impact": "A",
+      "reason": "dsh-memory 写入一致性与记忆完整性缺陷 5 条（P1）（#144）；并入同日同仓的 #162——非管理员经 link/export 覆写 _keys.json 致 private 记忆永久无法解密（P0）＋ private 写入被REJECT 后正文以 internal 明文落盘访客可读（P0），附复现与参考补丁。按「同人 × 同源仓 × 同日 = 1 项」合并，难度取最高档 medium→hard、影响 B→A（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-13",
+      "id": "evt_406e92b60606"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 114,
       "covers": [
         114,
         115,
@@ -1310,143 +1165,264 @@
         118,
         147
       ],
-      "day": "2026-10-13",
-      "delta": 3,
-      "difficulty": "medium",
-      "formula": {
-        "base": 3,
-        "delta": 3,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 3.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "qweqqxq11",
-      "id": "evt_4433767ccb39",
-      "impact": "B",
-      "issue": 114,
-      "project": "memory",
-      "reason": "lingshu 6 条：texture_features/pattern_mask/grow_kernel/_draw_object 等零引用参数 + prepare_shared_sync 5 处 json.loads（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
       "action": "settle",
       "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "memory",
+      "impact": "B",
+      "reason": "lingshu 6 条：texture_features/pattern_mask/grow_kernel/_draw_object 等零引用参数 + prepare_shared_sync 5 处 json.loads（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-13",
+      "id": "evt_4433767ccb39"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 155,
+      "covers": [
+        155
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeiji",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
+      "impact": "A",
+      "reason": "dsh-memory/lingshu 五件 PR（含 _SafeModule 递归包裹子模块属性堵沙箱逃逸取道）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-13",
+      "id": "evt_7bf140c1b320"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 135,
+      "covers": [
+        135,
+        136,
+        137,
+        138,
+        139
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "dsh_mobile_apk",
+      "impact": "A",
+      "reason": "dsh-mobile-apk 5 条：refreshSnapshot 成功路径删用户备份、sha256 可省致更新链完整性缺口、时间戳 MM-dd 无年份跨年比较等（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-13",
+      "id": "evt_83b21c346b65"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 160,
       "covers": [
         160
       ],
-      "day": "2026-10-13",
-      "delta": 6,
-      "difficulty": "hard",
-      "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
+      "action": "settle",
+      "actor": "FuRongJun-1999",
       "holder": "rinDBeans",
-      "id": "evt_ab91b7556643",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
       "impact": "B",
-      "issue": 160,
-      "project": "memory",
       "reason": "lingshu 第二三批真实位姿、关系、像素反馈与预测闭环（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-13",
+      "id": "evt_ab91b7556643"
     },
     {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 141,
+      "covers": [
+        141
+      ],
       "action": "settle",
       "actor": "FuRongJun-1999",
-      "covers": [
-        134
-      ],
-      "day": "2026-10-13",
-      "delta": 10,
-      "difficulty": "expert",
-      "formula": {
-        "base": 10,
-        "delta": 10,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 10.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "STARDUSTLC666",
-      "id": "evt_1df0a70c41ab",
-      "impact": "A",
-      "issue": 134,
-      "project": "memory",
-      "reason": "dsh-memory PR #188 预算内原文证据选择与回源位置（excerpt_strategy=query，段落 IDF + 边际词项覆盖）（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        108
-      ],
-      "day": "2026-10-13",
-      "delta": 10,
-      "difficulty": "expert",
-      "formula": {
-        "base": 10,
-        "delta": 10,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 10.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
-      "holder": "ybyz2",
-      "id": "evt_03eda530cb9f",
-      "impact": "A",
-      "issue": 108,
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
       "project": "bounty_site",
-      "reason": "悬赏机器人完整交付（PR #72，5 commits / 21 files / +4010 行）：零第三方依赖，selftest 123 断言全 PASS，已部署线上运行（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
-    },
-    {
-      "action": "settle",
-      "actor": "FuRongJun-1999",
-      "covers": [
-        133
-      ],
-      "day": "2026-10-13",
-      "delta": 1,
-      "difficulty": "easy",
+      "impact": "B",
+      "reason": "dsh-bounty rescore 与 quality_delta 同一公式两份实现（复算侧漏 _e 的 [0,1] 钳制）——与 #157 独立同题，互为交叉验证（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
       "formula": {
-        "base": 1,
-        "delta": 1,
-        "den": 2,
+        "rule": "v1.0",
         "kind": "complete",
-        "num": 2,
-        "raw": 1.0,
-        "round": 1,
+        "base": 3,
         "rounds": 2,
-        "rule": "v1.0"
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
       },
-      "holder": "zhangdeishuai1",
-      "id": "evt_ecea8b6bbb0c",
-      "impact": "C",
-      "issue": 133,
-      "project": "awesome_dsh_plugin",
-      "reason": "awesome-dsh-plugin validate_data.py 声称「成功时无输出」实测不符（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
+      "day": "2026-10-13",
+      "id": "evt_b8c015dbe3e5"
     },
     {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 121,
+      "covers": [
+        121
+      ],
       "action": "settle",
       "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "awesome_dsh_plugin",
+      "impact": "B",
+      "reason": "awesome-dsh-plugin 2 个测试件因 next() 无默认值永久不可收集（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-13",
+      "id": "evt_ce943e4380a8"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 132,
+      "covers": [
+        132
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "hive_memory_bench",
+      "impact": "A",
+      "reason": "hive-memory-bench negated() 退化路径仍用废弃 12 字窗（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-13",
+      "id": "evt_de54e917e61e"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 109,
+      "covers": [
+        109,
+        110,
+        111,
+        112,
+        113,
+        145
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
+      "impact": "A",
+      "reason": "lingshu 6 条：deviation_threshold 幻影旋钮、longterm_gate/core/hex_train/activation 等零引用参数、#299 幂等标记写在另一条事务（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-13",
+      "id": "evt_e01f66bb610b"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 106,
+      "covers": [
+        106
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "expert",
+      "delta": 10,
+      "project": "memory",
+      "impact": "A",
+      "reason": "lingshu / dsh-memory 安全修复回归审计（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
+      },
+      "day": "2026-10-13",
+      "id": "evt_eacab0642b5f"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 125,
       "covers": [
         125,
         126,
@@ -1455,87 +1431,112 @@
         129,
         130
       ],
-      "day": "2026-10-13",
-      "delta": 6,
-      "difficulty": "hard",
-      "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
+      "action": "settle",
+      "actor": "FuRongJun-1999",
       "holder": "zhangdeishuai1",
-      "id": "evt_ec17bf50ff51",
-      "impact": "A",
-      "issue": 125,
+      "difficulty": "hard",
+      "delta": 6,
       "project": "bench",
+      "impact": "A",
       "reason": "dsh-bench 6 条：禁用词闸只给结论配严格档、select_valid_runs 判据错、weights_ok 接受负权重、incomplete_pairs 把合法 0 值判缺等（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-13",
+      "id": "evt_ec17bf50ff51"
     },
     {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 133,
+      "covers": [
+        133
+      ],
       "action": "settle",
       "actor": "FuRongJun-1999",
-      "covers": [
-        135,
-        136,
-        137,
-        138,
-        139
-      ],
-      "day": "2026-10-13",
-      "delta": 6,
-      "difficulty": "hard",
-      "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
-        "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
-        "rounds": 2,
-        "rule": "v1.0"
-      },
       "holder": "zhangdeishuai1",
-      "id": "evt_83b21c346b65",
-      "impact": "A",
-      "issue": 135,
-      "project": "dsh_mobile_apk",
-      "reason": "dsh-mobile-apk 5 条：refreshSnapshot 成功路径删用户备份、sha256 可省致更新链完整性缺口、时间戳 MM-dd 无年份跨年比较等（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
+      "difficulty": "easy",
+      "delta": 1,
+      "project": "awesome_dsh_plugin",
+      "impact": "C",
+      "reason": "awesome-dsh-plugin validate_data.py 声称「成功时无输出」实测不符（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "day": "2026-10-13",
+      "id": "evt_ecea8b6bbb0c"
     },
     {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 122,
+      "covers": [
+        122
+      ],
       "action": "settle",
       "actor": "FuRongJun-1999",
-      "covers": [
-        132
-      ],
-      "day": "2026-10-13",
-      "delta": 6,
-      "difficulty": "hard",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "bench",
+      "impact": "B",
+      "reason": "dsh-bench 缺陷（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
       "formula": {
-        "base": 6,
-        "delta": 6,
-        "den": 2,
+        "rule": "v1.0",
         "kind": "complete",
-        "num": 2,
-        "raw": 6.0,
-        "round": 1,
+        "base": 3,
         "rounds": 2,
-        "rule": "v1.0"
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
       },
-      "holder": "zhangdeishuai1",
-      "id": "evt_de54e917e61e",
-      "impact": "A",
-      "issue": 132,
+      "day": "2026-10-13",
+      "id": "evt_f7fdfbc2df97"
+    },
+    {
+      "ts": "2026-10-13T12:00:00Z",
+      "issue": 146,
+      "covers": [
+        146,
+        153
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "medium",
+      "delta": 3,
       "project": "hive_memory_bench",
-      "reason": "hive-memory-bench negated() 退化路径仍用废弃 12 字窗（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
-      "ts": "2026-10-13T12:00:00Z"
+      "impact": "B",
+      "reason": "hive-memory-bench 缺陷 2 条（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-13",
+      "id": "evt_fc174e64a1f3"
     },
     {
       "action": "settle",

@@ -389,6 +389,11 @@ def leaderboard(recs) -> list:
     """真源 → 榜单行（含算出的总分）。"""
     rows = []
     for d in recs:
+        # ★本笔：**记录形状判据**。`recs` 来自 `review/data/plugins.json`（外部台账），
+        # 元素非对象 ⇒ 下标 `d["name"]` 抛 `TypeError`/`KeyError`，**榜单整页出不来**。
+        # `leaderboard` 是**榜单次序的唯一判据**（`render_board` / `render_pages` 都经它）。
+        if not isinstance(d, dict):
+            continue
         rows.append({"name": str(d["name"]), "slug": str(d["slug"]),
                      "version": str(d["version"]),
                      "source_url": str(d["source_url"]),

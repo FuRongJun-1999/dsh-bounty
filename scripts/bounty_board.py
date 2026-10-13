@@ -1220,8 +1220,6 @@ def promotion_report(events, meta_by_issue=None):
                 blockers.append("一次过闸占比 %.2f < %.2f" % (ratio, R["min_round0_ratio"]))
         if row["disputes"]:
             gaps.append("有 %d 条争议提起；本承载面无「争议败诉」判据，须人审" % row["disputes"])
-        if not row["round_known"]:
-            gaps.append("无状态机轮次证据（追溯性结算不含 rounds）")
         out.append({
             "login": who, "reputation_delta": row["reputation_delta"],
             "settled": row["settled"], "round0": row["round0"],

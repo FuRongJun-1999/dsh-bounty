@@ -179,6 +179,16 @@ def _record_probe(slug):
         vdoc = json.loads(vtext)
     except ValueError as exc:
         raise ValueError("版本面快照不是合法 JSON：%s（%s）" % (vname, exc))
+    # ★本笔：**顶层形状判据**。`json.loads` 只保证「合法 JSON」，不保证顶层是对象 ——
+    # 旧实现直接 `vdoc.get("version")`，遇到 `[]` / `"x"` / `null`（**全是合法 JSON**）
+    # ⇒ `AttributeError: 'list' object has no attribute 'get'`：**未捕获的裸异常**，
+    # 而本文件 docstring 承诺「2 = 输入／环境错误（…快照读不到——fail-closed）」。
+    # 同一条读取路径**已经**处理了「读不到」与「解不开」两种坏法（`read_text` 抛 ValueError
+    # ⇒ 上层收成 `[错误] … 读不到或不是 UTF-8`、rc=2），**唯独漏了「解开了但不是对象」**。
+    # 危害穿透到 `evidence_check.py`：其复算段只收 `ValueError` ⇒ 这个 AttributeError
+    # 直接抛栈、rc=1（与「检出不一致」同码），整份点名明细丢失。
+    if not isinstance(vdoc, dict):
+        raise ValueError("版本面快照顶层不是对象（实为 %s）：%s" % (type(vdoc).__name__, vname))
     vgot = str(vdoc.get("version") or "")
     vwant = str(rec.get("version") or "")
 

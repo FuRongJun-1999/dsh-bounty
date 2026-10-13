@@ -17,9 +17,26 @@ import check_plan_snapshot as cs
 import shutil, subprocess
 print('— A 静态面：捕获 OSError —')
 SRC = open(_IMPL, encoding="utf-8").read()
-check('A0 `except OSError` 锚点命中', SRC.count("    except OSError as exc:") == 1,
-      f'命中 {SRC.count("    except OSError as exc:")} 次')
-check('A subprocess 调用在 try 内', "try:\n        proc = subprocess.run(" in SRC, '')
+
+
+def _fn_body(src, name):
+    """截出某个顶层函数的源码段（到下一个顶层 def 为止）。"""
+    i = src.find(f"def {name}(")
+    if i < 0:
+        return ''
+    j = src.find("\ndef ", i + 1)
+    return src[i:j if j > 0 else len(src)]
+
+
+# ★判据作用域（2026-10-13 维护者修正）：此前写作 `SRC.count(...) == 1`，即
+# 「**全文件**恰好一处」—— 这是把「存在该捕获」错写成「全文件只有一处」。
+# 同文件后来为**另一条外部资源腿**（`write_snapshot` 写盘失败）合法新增了第二处
+# `except OSError`，本判据即被误判红（#192）。改为**限定 `_gh_lines` 自身作用域**：
+# 判据的语义是「这条腿有捕获」，与文件里别处有几处捕获无关。
+GH = _fn_body(SRC, '_gh_lines')
+_N = GH.count("    except OSError as exc:")
+check('A0 `_gh_lines` 内 `except OSError` 锚点命中（限定作用域）', _N == 1, f'命中 {_N} 次')
+check('A subprocess 调用在 try 内', "try:\n        proc = subprocess.run(" in GH, '')
 print('— B 端到端：PATH 里没有 gh —')
 PY = sys.executable
 d = tempfile.mkdtemp(prefix="ghmissing_")

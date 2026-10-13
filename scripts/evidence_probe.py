@@ -214,7 +214,26 @@ def _record_probe(slug):
             cache[doc] = read_text("review/evidence/" + doc)
             used.append(doc)
         text = cache[doc]
-        for q in (e.get("quotes") or []):
+        # ★本笔：**判 `quotes` 的容器类型**——本文件是三件里**唯一**不判的
+        # （`evidence_check.py` 判 `isinstance(quotes, list)`；`review_build.py` 判
+        # 「须为非空字符串数组」）。旧实现直接 `for q in (e.get("quotes") or []):`：
+        #   `quotes = "遗忘"` ⇒ 迭代出 `'遗'`、`'忘'` **单字** ⇒ 单字在十万字节文档里
+        #     几乎必然命中 ⇒ 探针报「[OK] … 本记录的证据链在本机逐字节成立」，
+        #     而同一份数据 `evidence_check` 报 NG（「引文未声明」）⇒ **两件结论相反**；
+        #     恰好绕过 `MIN_QUOTE_LEN` 存在的理由（该常量的注释就写着短串必然命中）。
+        #   `quotes = {"引文": 1}` ⇒ 迭代出**字典的键**。
+        #   `quotes = 5` / `True` ⇒ `TypeError` 崩栈（契约要求退 2）。
+        # 修法：容器不是 list ⇒ **点名 NG**（不静默跳过、不崩）。`None` 与 `[]` 维持
+        # 原有「无输出」行为（未声明引文由 `evidence_check` 负责点名）。
+        _quotes = e.get("quotes")
+        if _quotes is None:
+            continue
+        if not isinstance(_quotes, list):
+            n_ng += 1
+            lines.append("[NG] evidence[%d] doc=%s quotes 须为引文字符串数组（实为 %s）"
+                         % (i, doc, type(_quotes).__name__))
+            continue
+        for q in _quotes:
             qs = str(q)
             hits = line_numbers(text, qs)
             if hits:

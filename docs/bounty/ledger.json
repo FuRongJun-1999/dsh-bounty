@@ -812,6 +812,34 @@
       "id": "evt_efa5baac9e62"
     },
     {
+      "ts": "2026-10-12T17:36:21Z",
+      "issue": 68,
+      "covers": [
+        68
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "expert",
+      "delta": 20,
+      "project": "memory",
+      "impact": "A",
+      "reason": "悬赏 #68（brain-iter，expert）的交付：FuRongJun-1999/dsh-memory PR #168（已 squash 合入 main efa2ee2b）。内容：默认 search_rrf 的 chain 路「先 DFS 枚举再挑最强链」——一个只有 28 节点的弱合流分支就能耗尽 500 条链预算，漏掉更强的两跳目标；仅交换 seed 出边的声明顺序，结果就改变。改为最大优先队列 + 深度/累积权重 Pareto 标签，优先展开强前缀、合并冗余路径，并保留仍有剩余跳数的浅层弱前缀。沿用既有边权/计分/深度/预算数值；walk/explain 保留全路径枚举，非单调数值参数走原实现兼容回退。维护者独立复核（隔离克隆 + 基线 worktree 同脚本配对实验，非采信自报）：① 基线 23ac3f04 上 w=6 / w=12 的 strong_first 两例 target=False（**且默认生产 RRF 路径同样 False**）独立复现，head 全部 True；② 强目标召回 4/6→6/6（展开与默认 RRF 两口径一致）；③ 同例边权计算次数 500→117，与自报逐值吻合；④ 守卫 14/0、--mutate 9/0 且九个单点变异**逐条点名**到具体断言；⑤ chain.py 在测量版 b70e19dc 与 head 之间 git diff 为空 ⇒ 逐字节相同，「检索源码未变」成立；⑥ fixture_sha256 6/6 逐例与冻结 JSON 一致；CI 4/4 SUCCESS；合并后 main 上复跑守卫仍 14/0 与 9/0，六个 chain 相关模块（-m 方式）全绿（12/16/35/31/58/78 断言）。遗留发现（已反馈作者，不影响定档）：冻结 JSON 的 source_sha256 是**按 CRLF 归一后**的字节哈希（我实测 LF 检出 blob 为 30999689…，CRLF 归一后为 f376e566… 与 PR 记录值逐位相同），⇒ 该指纹随检出平台/core.autocrlf 变化，第三方在 LF 检出上无法原样复现，与报告自称的「可原样复跑」有落差。轮次口径：本条**有轮次证据**（悬赏机器人记「第 1/3 轮」，交付日 2026-10-12T17:36:21Z）且**无返工轮次** ⇒ round=0 ⇒ 2× ⇒ expert 20。与 #70 的区别：#70 取中性点是因为第三方在其自身承诺的判据上发现 4 处可达缺陷；本条逐项复现未发现实质缺陷，公式输出可站住。难度按悬赏真源（expert）；影响按「默认生产检索路径静默漏召回——不做则所有 chain 查询在 ≥28 节点合流图上无报错地漏掉强相关两跳目标」判 A（一次交付、无返工轮次 ⇒ round=0 ⇒ 2×）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 10,
+        "rounds": 1,
+        "round": 0,
+        "num": 2,
+        "den": 1,
+        "raw": 20.0,
+        "delta": 20
+      },
+      "day": "2026-10-12",
+      "id": "evt_224f6e078550"
+    },
+    {
       "ts": "2026-10-12T18:52:21Z",
       "issue": 70,
       "covers": [

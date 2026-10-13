@@ -166,7 +166,7 @@
       "difficulty": "expert",
       "score": 10,
       "form": "PR（到 FuRongJun-1999/dsh-memory）",
-      "status": "claimed",
+      "status": "done",
       "owner": "STARDUSTLC666",
       "issue": 68,
       "issue_note": "#68 **保留在 issue 通道**：@STARDUSTLC666 于 2026-10-12T15:14:22Z 认领，租约到期 2026-10-15T15:14:32Z。**未迁移。**",
@@ -196,6 +196,10 @@
         {
           "date": "2026-10-13",
           "note": "口径更正（**不改历史行**，append-only）：上文与 #68 认领评论里的「逾期回板记 -1 分」是**陈旧口径**；超时扣分现为 **−2×base**（expert −20 ／ hard −12 ／ medium −6 ／ easy −2），口径真源 `timeout_delta`，见 `docs/bounty/README.md` §四、§七。租约到期时间不变。"
+        },
+        {
+          "date": "2026-10-13",
+          "note": "**结算**（2026-10-12 批）：@STARDUSTLC666 交付 dsh-memory PR #168（弱分支耗尽预算导致强关系链漏召回），维护者独立复核通过（基线复现漏召回 / 召回 4/6→6/6 / 边权 500→117 / 守卫 14+9 全绿 / chain.py 逐字节未变 / CI 4/4）；已 squash 合入 main `efa2ee2b`。记 **expert 20** —— 一次交付、无返工轮次，round=0 ⇒ 2×。另注：冻结读数里的 source_sha256 是 CRLF 归一后的哈希，随检出平台变化（已在 PR 反馈，不影响定档）。"
         }
       ]
     },

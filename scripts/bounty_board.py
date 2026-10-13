@@ -207,6 +207,23 @@ def loser_delta(difficulty: str):
                "difficulty": (difficulty or "").split(":", 1)[-1], "delta": d}
 
 
+def _as_int(x, default: int = 0) -> int:
+    """宽容取整：非数值（含 `None` / `''` / `'abc'` / `[]`）返回 `default`，**绝不抛**。
+
+    ★本笔：专供 `rescore` 这类**报告型**校验路径。旧实现直接用 `int(ev.get("delta") or 0)`
+    与 `int(f.get("base") or 0)` —— 账本被手工改成非数值时，**校验器抛裸 `ValueError`
+    回溯**，既不落 `BoardError`（本仓「输入级错误 ⇒ 退 2」的契约，见 `BoardError`
+    docstring），也不返回结构化报告。而 `rescore` 是 `docs/bounty/README.md:144`
+    写明的**公开可复算入口**（「逐条按事件自带 `formula` 重算并断言与 `delta` 一致」）
+    ⇒ 它的职责是**报告不符**，不是崩。
+
+    边界（如实）：本函数**只**用于报告型路径。生产侧（`quality_delta` 等）仍用**裸**
+    `int()` —— 那里输入由本模块自己构造，宽松化会掩盖真实缺陷。
+    """
+    try:
+        return int(x)
+    except (TypeError, ValueError):
+        return default
 
 
 def rescore(events):
@@ -214,25 +231,34 @@ def rescore(events):
     for ev in events or []:
         f = ev.get("formula")
         if not f:
-            if int(ev.get("delta") or 0) != 0:
+            if _as_int(ev.get("delta")) != 0:
                 bad.append((ev.get("id"), "missing formula", ev.get("delta"), None))
             continue
         if f.get("rule") != SCORE_RULE:
             bad.append((ev.get("id"), "unknown rule " + str(f.get("rule")), ev.get("delta"), None))
             continue
         kind = f.get("kind")
-        if kind == "timeout":
-            d = -2 * int(f.get("base") or 0)
-        elif kind == "invalid":
-            d = -int(f.get("base") or 0)
-        elif kind == "lost_bid":
-            d = LOSER_SCORES.get("difficulty:" + str(f.get("difficulty") or ""), 0)
-        else:
-            # ★本笔：走 `e_ratio` 单点（与 `quality_delta` 共用）——旧实现此处
-            # 直接 `e_pass / e_total` **不钳制**，与生产侧分叉（见 `e_ratio` 注释）。
-            _e = e_ratio(f.get("e_pass"), f.get("e_total"))
-            d = max(1, _round_half_up(int(f.get("base") or 0) * 2.0 * _e / (int(f.get("round") or 0) + 1)))
-        if d != int(ev.get("delta") or 0):
+        # ★本笔：畸形 `formula`（非数值的 base/round/e_pass/e_total、除零等）**不让
+        # 校验器崩**——转成一条结构化 `bad`，理由前缀 `malformed formula`，与既有的
+        # `missing formula` / `unknown rule` 同款（三元组形状与既有条目一致）。
+        try:
+            if kind == "timeout":
+                d = -2 * int(f.get("base") or 0)
+            elif kind == "invalid":
+                d = -int(f.get("base") or 0)
+            elif kind == "lost_bid":
+                d = LOSER_SCORES.get("difficulty:" + str(f.get("difficulty") or ""), 0)
+            else:
+                # ★本笔：走 `e_ratio` 单点（与 `quality_delta` 共用）——旧实现此处
+                # 直接 `e_pass / e_total` **不钳制**，与生产侧分叉（见 `e_ratio` 注释）。
+                _e = e_ratio(f.get("e_pass"), f.get("e_total"))
+                d = max(1, _round_half_up(int(f.get("base") or 0) * 2.0 * _e / (int(f.get("round") or 0) + 1)))
+        except (TypeError, ValueError, ZeroDivisionError) as exc:
+            bad.append((ev.get("id"),
+                        "malformed formula: %s: %s" % (type(exc).__name__, exc),
+                        ev.get("delta"), None))
+            continue
+        if d != _as_int(ev.get("delta")):
             bad.append((ev.get("id"), "delta mismatch", ev.get("delta"), d))
     return (not bad), bad
 

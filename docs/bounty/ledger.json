@@ -2130,6 +2130,166 @@
       "project": "bounty_site",
       "reason": "dsh-bounty 榜单生成器健壮性修复：review_build.leaderboard 对非对象记录不得崩（PR #218，已合并）。leaderboard 是榜单次序的**唯一判据**（render_board / render_pages 都经它），recs 来自外部台账 review/data/plugins.json，元素非对象时原实现直接 d[\"name\"] ⇒ KeyError/TypeError ⇒ 榜单整页出不来；修复后跳过坏元素并保持真实记录条数不变（零行为变更）。附定点变异守卫 tests/test_rb_leaderboard_element_shape.py。定档依据：与既有先例同形 —— momeiji 的 evt_044a8c677b84（bounty_site，单笔修复＋守卫，medium Δ3）⇒ 单笔修复且带守卫取 medium；本笔为单笔、无 P0、不主张现有台账存在此类坏元素（报告人自陈「结构缺口 + 可达路径」）⇒ 不及 hard。影响 C 的依据：按「不做会怎样」判 —— 触发需要外部台账出现坏元素，当前台账全为合法对象，属健壮性缺口而非现行失效。同族兄弟件 #214–#217（同人在 score_board / value_vector / roles_from_events / promotion_report 四处做同类修复，对应 intake #228/#231/#233/#235）**仍在开放、返工中**：它们与本笔属**同一件工作**，日后合并时并入本项、**不另计分**（先例：#165 并入 #164、#168–#170 并入 #156/#158/#159）。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
       "ts": "2026-10-14T14:00:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        251
+      ],
+      "day": "2026-10-14",
+      "delta": 10,
+      "difficulty": "expert",
+      "formula": {
+        "base": 10,
+        "delta": 10,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 10.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "STARDUSTLC666",
+      "id": "evt_bba6b9751694",
+      "impact": "A",
+      "issue": 251,
+      "op": "settle",
+      "pr": 237,
+      "project": "memory",
+      "reason": "dsh-memory 缺陷修复：JSONL 增量读水位越过尚未提交的记录（PR #237，2026-10-13 交付）。读到半条 JSON 或半个 UTF-8 字符后旧水位推进至 EOF，写方补完该记录后四个 inbox/decisions 增量缓存永久漏掉它，而从头读能看见——属静默丢账。修法：仅消费最后一个换行之前的完整行（fsutil.read_jsonl_tail，committed = data.rfind(b\"\\n\")+1），水位跟随已消费的完整记录而非文件当前大小；四个调用方共用该读函数，不新增缓存或持久格式。维护者独立取证：① 新增守卫 tests/test_jsonl_commit_watermark.py 在 PR head 上 8 通过/0 失败，--mutate 3 项定点变异全被指定断言捕获；② 把该守卫单独拷到 origin/main 基线（仅测试文件，生产模块全为未改版本）⇒ rc=1（8 中 5 失败）⇒ 守卫真咬；③ 与当前 GitHub main（2ea5b792）合并零冲突；④ CI run-tests 及三项 check 全 SUCCESS；⑤ 删除行扫描无静默回退（本件未删任何他人已合入的修复）。定档依据：难度取 expert——需要判定并发追加的提交边界（写方未写完一行时的真实读取位置）并同时满足四个缓存调用方的共同契约，覆盖 UTF-8 每个切分点、决定账与 inbox、坏行恢复与去重；与自申档一致。影响 A：不做则审核记录永久丢失且全量读可见（静默、不可逆）。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）工作项创建日 2026-10-13，结算日 2026-10-14。",
+      "role": "contributor",
+      "subject": "JSONL 提交水位：补完尾行不再丢审核记录",
+      "ts": "2026-10-14T12:10:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        255
+      ],
+      "day": "2026-10-14",
+      "delta": 6,
+      "difficulty": "hard",
+      "formula": {
+        "base": 6,
+        "delta": 6,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 6.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "STARDUSTLC666",
+      "id": "evt_41adaa31e8c9",
+      "impact": "A",
+      "issue": 255,
+      "op": "settle",
+      "pr": 238,
+      "project": "memory",
+      "reason": "dsh-memory 缺陷修复：启动与压实共用索引快照准入（PR #238，2026-10-13 交付）。合法 JSON ≠ 可用快照：nodes=null/list/number 或条目 None/list 会让启动报错，空条目还会让假节点取代真实节点池。修法：新增 _usable_index_snapshot（mdcg.py +19/−2）做 schema/容器/条目 path·bucket 形态检查，加载与 compact 共用；拒绝整份不可用派生快照后回到既有 Markdown 扫描与日志重放（不新增第三套判据）。维护者独立取证：① 新守卫 tests/test_index_snapshot_shape.py 在 head 上 8 通过/0 失败，--mutate 4 项全被捕获；② 同守卫拷到基线 ⇒ rc=1（8 中 7 失败）；③ 与 GitHub main 合并零冲突；④ CI 4/4 SUCCESS；⑤ 删除行扫描无静默回退。定档依据：**不取自申档（自申 expert）**——改动为单点形状谓词（+19/−2），无跨模块并发面与正确性证明面，识别难点在「派生快照须整份准入」的语义判断，实现面窄 ⇒ 判 hard 而非 expert。影响 A：不做则启动不可用，且空条目会让假节点取代真实节点池（记忆节点池被污染）。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）工作项创建日 2026-10-13，结算日 2026-10-14。",
+      "role": "contributor",
+      "subject": "索引快照统一准入：启动与压实恢复真实节点",
+      "ts": "2026-10-14T12:11:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        252
+      ],
+      "day": "2026-10-14",
+      "delta": 6,
+      "difficulty": "hard",
+      "formula": {
+        "base": 6,
+        "delta": 6,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 6.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "STARDUSTLC666",
+      "id": "evt_84b5ccca1f74",
+      "impact": "B",
+      "issue": 252,
+      "op": "settle",
+      "pr": 239,
+      "project": "memory",
+      "reason": "dsh-memory 缺陷修复：RRF 同一路径唯一投票（PR #239，2026-10-13 交付）。RRF 每路每节点应只投一票，但图收敛与重复边会让同一节点在一路里出现多份，导致该路重复计票、路径得分虚高。修法：在排序后、路径上限与 per_path 计数前按 id 保留最强一次出现（mdcos.py +8/−0）；不做全局去重以免误删合法跨路证据。维护者独立取证：① 新守卫 tests/test_rrf_unique_votes.py 在 head 上 8 通过/0 失败，--mutate 3 项全被捕获；② 同守卫拷到基线 ⇒ rc=1；③ 与 GitHub main 合并零冲突；④ CI 4/4 SUCCESS；⑤ 删除行扫描无静默回退。定档依据：**不取自申档（自申 expert）**——改动 +8/−0，难点在「投票单位＝路×节点」的语义识别与「不得全局去重」的边界，无正确性证明或跨模块契约面 ⇒ 判 hard 而非 expert。影响 B：不做则同一路径得分虚高、挤掉应入选候选（漏召回），后果是检索结果错误但非数据丢失。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）工作项创建日 2026-10-13，结算日 2026-10-14。",
+      "role": "contributor",
+      "subject": "RRF 同一路径唯一投票，消除图收敛重复加权",
+      "ts": "2026-10-14T12:12:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        253
+      ],
+      "day": "2026-10-14",
+      "delta": 10,
+      "difficulty": "expert",
+      "formula": {
+        "base": 10,
+        "delta": 10,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 10.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "STARDUSTLC666",
+      "id": "evt_4cb7fec4d051",
+      "impact": "B",
+      "issue": 253,
+      "op": "settle",
+      "pr": 240,
+      "project": "memory",
+      "reason": "dsh-memory 缺陷修复：资格感知的精确 Top-K 与有界提前停止（PR #240，2026-10-13 交付）。原实现按固定超采样窗取候选（fused_all[:max(k*2,10)]），资格降权（REJECT/DEFER/ACCEPT）后无法保证取得真正的 Top-K。修法：改为资格感知的精确 Top-K + 有界提前停止（mdcos.py +12/−1），以独立全扫描 oracle 对照。维护者独立取证：① 新守卫 tests/test_rrf_qualified_topk.py 在 head 上 8 通过/0 失败，--mutate 4 项全被捕获；② 同守卫拷到基线 ⇒ rc=1；③ 与 GitHub main 合并零冲突；④ CI 4/4 SUCCESS；⑤ 删除行扫描无静默回退。定档依据：难度取 expert——需同时满足资格降权后的精确排名、候选补足与提前停止的正确性（不能用单纯扩倍窗口代替证明），并有独立全扫描 oracle 对照；与自申档一致。影响 B：不做则资格降权后 Top-K 不精确（返回错误结果），但非数据丢失或不可用。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）工作项创建日 2026-10-13，结算日 2026-10-14。",
+      "role": "contributor",
+      "subject": "资格感知的精确 Top-K 与有界提前停止",
+      "ts": "2026-10-14T12:13:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        257
+      ],
+      "day": "2026-10-14",
+      "delta": 10,
+      "difficulty": "expert",
+      "formula": {
+        "base": 10,
+        "delta": 10,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 10.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "STARDUSTLC666",
+      "id": "evt_2e70cc84a5d9",
+      "impact": "C",
+      "issue": 257,
+      "op": "settle",
+      "pr": 241,
+      "project": "memory",
+      "reason": "dsh-memory 能力增强：STG 分块时间索引（PR #241，2026-10-13 交付）。原实现对 timed 节点的批量删除为 O(N²)（by_time 列表 del）。修法：引入 _TimeBlocks 有序块容器（stgidx.py +139/−28），维护增量分类与区间查询契约，块结构不变量 + 随机更新 oracle + 原 STG 17 项定点变异 + 同数据配对性能对照；并保留 broken 回退契约（bulk 排序把比较异常推迟到 add 之后，仍 fail-closed）。文档如实保留代价：120 次短区间查询 0.860 → 1.219 ms（变慢约 42%）。维护者独立取证：① 新守卫 tests/test_stg_time_blocks.py 在 head 上 8 通过/0 失败，--mutate 5 项全被捕获；② 同守卫拷到基线 ⇒ rc=1（8 中 1 失败）；③ 与 GitHub main 合并零冲突；④ CI 4/4 SUCCESS；⑤ 本件同步更新既有守卫 test_stgidx_index_parity.py 的变异锚（impl 变化所致），变异条数不减；⑥ 删除行扫描无静默回退。定档依据：难度取 expert——核心时间索引数据结构重写并须维护块结构不变量与区间查询契约；与自申档一致。影响 C：按「不做会怎样」判——不做只是慢（随机建表 4384.63→413.77 ms、批量删除 2223.37→577.08 ms），正确性不变、不丢数据、不误返回。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）工作项创建日 2026-10-13，结算日 2026-10-14。",
+      "role": "contributor",
+      "subject": "STG 分块时间索引：有界更新与配对性能证据",
+      "ts": "2026-10-14T12:14:00Z"
     }
   ]
 }

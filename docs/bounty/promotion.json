@@ -1,6 +1,39 @@
 {
  "candidates": [
   {
+   "blockers": [
+    "一次过闸占比 0.10 < 0.33"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [],
+   "invalid": 0,
+   "issues": [
+    13,
+    22,
+    58,
+    68,
+    134,
+    251,
+    252,
+    253,
+    255,
+    257
+   ],
+   "login": "STARDUSTLC666",
+   "projects": [],
+   "reputation_delta": 94,
+   "round0": 1,
+   "round0_ratio": 0.1,
+   "round_known": 10,
+   "round_seen": [
+    0,
+    1
+   ],
+   "settled": 10,
+   "timeout": 0
+  },
+  {
    "blockers": [],
    "disputes": 0,
    "eligible": true,
@@ -28,34 +61,6 @@
     1
    ],
    "settled": 8,
-   "timeout": 0
-  },
-  {
-   "blockers": [
-    "一次过闸占比 0.20 < 0.33"
-   ],
-   "disputes": 0,
-   "eligible": false,
-   "evidence_gaps": [],
-   "invalid": 0,
-   "issues": [
-    13,
-    22,
-    58,
-    68,
-    134
-   ],
-   "login": "STARDUSTLC666",
-   "projects": [],
-   "reputation_delta": 52,
-   "round0": 1,
-   "round0_ratio": 0.2,
-   "round_known": 5,
-   "round_seen": [
-    0,
-    1
-   ],
-   "settled": 5,
    "timeout": 0
   },
   {

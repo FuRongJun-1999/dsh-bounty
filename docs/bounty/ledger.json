@@ -2107,7 +2107,11 @@
       "action": "settle",
       "actor": "FuRongJun-1999",
       "covers": [
-        238
+        238,
+        228,
+        231,
+        233,
+        235
       ],
       "day": "2026-10-14",
       "delta": 3,
@@ -2124,11 +2128,11 @@
         "rule": "v1.0"
       },
       "holder": "zhangdeishuai1",
-      "id": "evt_b5ab5b785846",
+      "id": "evt_9dc38a268944",
       "impact": "C",
       "issue": 238,
       "project": "bounty_site",
-      "reason": "dsh-bounty 榜单生成器健壮性修复：review_build.leaderboard 对非对象记录不得崩（PR #218，已合并）。leaderboard 是榜单次序的**唯一判据**（render_board / render_pages 都经它），recs 来自外部台账 review/data/plugins.json，元素非对象时原实现直接 d[\"name\"] ⇒ KeyError/TypeError ⇒ 榜单整页出不来；修复后跳过坏元素并保持真实记录条数不变（零行为变更）。附定点变异守卫 tests/test_rb_leaderboard_element_shape.py。定档依据：与既有先例同形 —— momeiji 的 evt_044a8c677b84（bounty_site，单笔修复＋守卫，medium Δ3）⇒ 单笔修复且带守卫取 medium；本笔为单笔、无 P0、不主张现有台账存在此类坏元素（报告人自陈「结构缺口 + 可达路径」）⇒ 不及 hard。影响 C 的依据：按「不做会怎样」判 —— 触发需要外部台账出现坏元素，当前台账全为合法对象，属健壮性缺口而非现行失效。同族兄弟件 #214–#217（同人在 score_board / value_vector / roles_from_events / promotion_report 四处做同类修复，对应 intake #228/#231/#233/#235）**仍在开放、返工中**：它们与本笔属**同一件工作**，日后合并时并入本项、**不另计分**（先例：#165 并入 #164、#168–#170 并入 #156/#158/#159）。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "reason": "dsh-bounty 榜单生成器健壮性修复：review_build.leaderboard 对非对象记录不得崩（PR #218，已合并）。leaderboard 是榜单次序的**唯一判据**（render_board / render_pages 都经它），recs 来自外部台账 review/data/plugins.json，元素非对象时原实现直接 d[\"name\"] ⇒ KeyError/TypeError ⇒ 榜单整页出不来；修复后跳过坏元素并保持真实记录条数不变（零行为变更）。附定点变异守卫 tests/test_rb_leaderboard_element_shape.py。定档依据：与既有先例同形 —— momeiji 的 evt_044a8c677b84（bounty_site，单笔修复＋守卫，medium Δ3）⇒ 单笔修复且带守卫取 medium；本笔为单笔、无 P0、不主张现有台账存在此类坏元素（报告人自陈「结构缺口 + 可达路径」）⇒ 不及 hard。影响 C 的依据：按「不做会怎样」判 —— 触发需要外部台账出现坏元素，当前台账全为合法对象，属健壮性缺口而非现行失效。同族兄弟件 #214–#217（同人在 score_board / value_vector / roles_from_events / promotion_report 四处做同类修复，对应 intake #228/#231/#233/#235）**仍在开放、返工中**：它们与本笔属**同一件工作**，日后合并时并入本项、**不另计分**（先例：#165 并入 #164、#168–#170 并入 #156/#158/#159）。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）（2026-10-14 补记：本批 #214–#217 已落地合并——取超集件 #217 一次性合入，四件守卫全部并入并补登 CI 门禁；同批携带的 load_store 顶层形状判据静默回退已由维护侧剔除并逐字节还原。四件 covers 已并入本行，按上句不另计分。）",
       "ts": "2026-10-14T14:00:00Z"
     },
     {

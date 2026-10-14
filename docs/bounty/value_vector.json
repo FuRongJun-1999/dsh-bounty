@@ -503,6 +503,20 @@
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
+    265
+   ],
+   "login": "acrot0",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 3,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
     11
    ],
    "login": "acrot0",

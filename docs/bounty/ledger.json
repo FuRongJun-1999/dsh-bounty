@@ -2383,6 +2383,36 @@
       "project": "lingshu",
       "reason": "结算 Beiwo992 第 6 轮 lingshu 仓 7 件缺陷修复（申报件 #281 的 lingshu 部分）：coggraph 5 件（#530 created 为字符串致整轮崩溃 / #531 session_chains 非数字 t / #532 build_viewer 把日枢纽 count 当 degree / #533 check_pr_title 文档退出码 / #534 export_coggraph mapping 形态 edges 静默丢边）+ nn 2 件 P0 潜在数据损坏（#556 HexHierNet.set_vec 视图别名 / #557 UnitHeadNet.set_vec theta 持有视图）。定档依据：7 件均经维护者独立复现（隔离克隆 lingshu@60fedf1 实跑 + pre-fix 对照），修复内容逐字在库（103 行新增代码 0 缺失），与同批 dsh-bounty 9 件（evt_50f63f46235b，hard 6）同口径；含 2 件 P0 潜在数据损坏但危害需外部 mutate 触发，故不升 expert。本事件仅结算 lingshu 部分；#281 的 dsh-bounty 11 件已由 evt_50f63f46235b 与第 4 轮事件结算，不重复计分。",
       "ts": "2026-10-14T01:30:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        265,
+        274
+      ],
+      "day": "2026-10-14",
+      "delta": 3,
+      "difficulty": "medium",
+      "formula": {
+        "base": 3,
+        "delta": 3,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 3.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "acrot0",
+      "id": "evt_25c0e6f7ea07",
+      "impact": "B",
+      "issue": 265,
+      "pr": null,
+      "project": "lingshu",
+      "reason": "结算 acrot0 的「lingshu 身体库贡献结算核对」交付件（#265 → #274，合 1 项）。【归并依据】同一作者、同一批上游 PR、同一目的；#274 为 #265 的扩容补正版（相隔 31 分钟发布），且为 #265 的**超集**（PR 7→8 件、新增 #3 的核对与三项披露、更正 #284 判定）⇒ 锚在最终交付 #274，避免同一件工作被结算两次。covers=[265,274] 使两件在悬赏站均标记为已处理。【独立取证】维护者按「内容在库」判据逐条复核 #274 的 7 项核心断言，**全部成立**：① 8cb0846e 提交信息逐字含「采纳自 PR #26，作者 acrot0」；② 9647ddca 含「采纳 PR #286，作者 acrot0」；③ 在库/404 对照 6/6 命中（test_scene_follow_patrol.py、test_gate_dependency_closure.py 在库；test_scene_wander_kinematics.py、test_stcnn_import_purity.py、test_gen_import_purity.py、test_hexgen_c1_real_gap.py 均 404）；④ lingshu/nn/stcnn.py:10 顶层 sys.stdout.reconfigure 逐字在位、其注释「模块顶层不做 stdout 改造」0 次命中；⑤ lingshu/world/brain_store.py:513 fail-open 写法（if st and st not in accept_states）在位、旧写法 0 次命中，tests/test_brain_store.py:118 带「PR #3 部位②」标记；⑥ lingshu#232 作者确为 ffyfox（2026-10-08T16:09:21Z），#285 由 acrot0 建于 19:15:58Z（晚 3h06m）⇒ 发现权归属成立；⑦ lingshu/gen/hexgen_c1_real.py:827 局部 gap 覆写在位。【举证瑕疵（不影响结论）】#274 称 \"gap_plain\": gap 在 :877，实测已漂移至 :881（±4 行）——acrot0 自身已声明行号会随批次漂移；语义标记在位，按既有口径「举证瑕疵 ≠ 结论不成立」处置，不据此扣分。【定档依据】difficulty=medium（3）：本件为**纯只读核对**，未产出代码、守卫或 CI 接入，与同作者 #99（交付可复跑对账代码件 48 断言＋7 变异，hard 6）性质不同；核对深度低于「发现缺陷」（后者需理解代码语义，前者只需验证在库/缺失）。规模：8 件 PR / 20 文件 / +1464 −35，逐条反证 5 件未采纳，附 6 个可复现命令块。impact=B：本件为结算方的判定依据，缺失或误判会使上游贡献计分失真（有实际后果），但非默认配置即可触发。【制度价值（已计入 medium 而非 easy 的理由）】acrot0 主动披露对自己不利的事实——不主张 #285 发现权（归 ffyfox）、#3 改编采纳不与自己自算的 2 件同档、披露 2026-10-09 自定「全部不发」、披露 #379 技术审未落档与 A′ 跨验证未跑完；并在正文中把「整件原样采纳 2 / 含改编采纳 3 / PR 提交数 8」三个口径并列，请结算方明示采用哪个，而非自取最高值。【不适用/边界】#274 自述未做逐行 diff、未在 ubuntu-latest CI 实跑；本结算不因此加减分。",
+      "ts": "2026-10-14T02:00:00Z"
     }
   ]
 }

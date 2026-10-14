@@ -3847,6 +3847,90 @@
       },
       "day": "2026-10-14",
       "id": "evt_8bbc2a6c889c"
+    },
+    {
+      "ts": "2026-10-14T09:00:00Z",
+      "issue": 332,
+      "covers": [
+        332
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "bench",
+      "impact": "C",
+      "reason": "dsh-bench `scripts/validate_data.py`：`semantic_plugin` / `semantic_ledger` 的 `verdict` 形参双双零引用 —— 语义校验与判分口径解耦（申报件 #332，intake 输入件，target FuRongJun-1999/dsh-bench，基线 e730aab97271）。【维护者独立取证】隔离克隆 D:/ext-iso/r18_db（HEAD == origin/main == e730aab97271，工作树干净），不采信申报件读数、自己跑 AST 与实跑：① AST 判定逐字复核 —— `semantic_plugin(pl, verdict)`（validate_data.py:314）与 `semantic_ledger(led, verdict)`（:326）两个函数体内 `Name(verdict)` = 0 次、`Attribute(verdict.*)` = 0 次 ⇒ 形参确实零引用。② 对照成立 —— 同文件 `verdict.` 出现 **29** 次 ⇒ 「用 verdict」确为本文件既有体例，唯独这两个语义校验函数不用。③ 申报的预期结果实测成立 —— 把 `verdict` 换成 `None`，对 2 份插件（plugin-example-memory / plugin-example-tool）与 1 份账本（ledger-2026-10）调用两函数，返回值**逐字节相同**（三例全 `[]`，`==` 为 True）⇒ 换 None 确实零影响，即**这两个形参当前是死形参**。④ 与既有账本行的边界 —— evt_b6854212af4b（#288）⑥ 讲的是 `decide()` 的 `evidence_ok` / `algorithm_validated` **未被传参**（补传参即可修），本件讲的是 `semantic_*` 的 `verdict` **形参未被使用**（不同函数、不同修法）⇒ 按归并三要件（同一文件＋同一处＋同一修法）缺陷面不相交，各计一份。⑤ 源仓 issue #1–#12 全部标题逐条核过，无一件涉及 semantic_plugin / semantic_ledger ⇒ 未被既有行覆盖。【定档依据】难度 medium 3：采纳申报自定 medium —— 需判定「该不该让它参与判据、参与哪些判据」，并核清 29 处既有用法的口径，非单行改动。影响 C：按「不做会怎样」判 —— 本件**不改现行输出**（实测换 None 逐字节不变），危害是「口径变了语义校验不会跟着变」的**结构性解耦风险**，属设计/优化建议档；与申报建议的 A 不同，维护者下调并在档位可申诉的前提下说明依据。全件为纯缺陷报告（无 PR，申报者明确不代为设计）⇒ 按「未合入提案可计分」先例 evt_ea3c2972eb97 受理。追溯性结算 ⇒ round=1，delta == base。",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-14",
+      "id": "evt_daafe0838fd3"
+    },
+    {
+      "ts": "2026-10-14T09:01:00Z",
+      "issue": 333,
+      "covers": [
+        333
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "bench",
+      "impact": "C",
+      "reason": "dsh-bench `scripts/validate_data.py:177`：`redacted_evidence_sufficient` 缺字段即判「证据充分」（`bool(ev.get(..., True))`），与紧邻 `original_deleted` 的 fail-closed 方向相反（申报件 #333，intake 输入件，target FuRongJun-1999/dsh-bench，基线 e730aab97271）。【维护者独立取证】隔离克隆 @ e730aab97271，自己构造探针实跑：① 构造事实逐字复核 —— `validate_data.py:176-177` 确为 `original_deleted=bool(ev.get(\"original_deleted\"))`（缺省 False）紧邻 `redacted_evidence_sufficient=bool(ev.get(\"redacted_evidence_sufficient\", True))`（缺省 True）⇒ **同一处构造、两个布尔、默认方向相反**，其一方向是「放行」，与申报一致。② 类型默认值同向确证 —— `verdict.py:367-368` 的 `VerificationData` 数据类默认亦为 `original_deleted: bool = False` / `redacted_evidence_sufficient: bool = True` ⇒ 不是单点笔误。③ **可达性判定（决定性）** —— 删掉 `data/examples/report-example-memory.json` 的 `evidence.redacted_evidence_sufficient` 后跑 `validate_data.py`：**rc=1，报错「$.evidence: 缺必填字段 redacted_evidence_sufficient」**（report.schema.json 的 `properties.evidence.required` 含该键）；而原报告 rc=0 PASS ⇒ **schema 闸在语义层之前就拦住了缺字段文件**，故 `ev.get(..., True)` 的 fail-open 默认在**正常校验路径上不可达**。④ 与既有账本行的边界 —— evt_b6854212af4b（#288）⑥ 讲的是「证据链只查 evidence_id 非空」（悬空证据照样发布），本件讲的是「证据充分性判据的默认方向」，缺陷面不相交 ⇒ 各计一份。【定档依据】难度 medium 3：采纳申报自定 medium。影响 C：按「不做会怎样」判 —— 因 schema 已把该键列为必填，缺字段的合规文件根本进不到这一行；本件属**健壮性缺口／纵深防御方向错误**，非现行失效（先例 evt_9dc38a268944 对「健壮性缺口、非现行失效」取 C）。申报建议 A，维护者下调，依据如上，档位可申诉。全件为纯缺陷报告（无 PR）。追溯性结算 ⇒ round=1，delta == base。",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-14",
+      "id": "evt_77aacef1f8fb"
+    },
+    {
+      "ts": "2026-10-14T09:02:00Z",
+      "issue": 334,
+      "covers": [
+        334
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "easy",
+      "delta": 1,
+      "project": "bench",
+      "impact": "A",
+      "reason": "dsh-bench `scripts/build_site.py:219`：同一 `redacted_evidence_sufficient` 缺字段即判「证据充分」的**第二处**，位于**产物生成面**（申报件 #334，intake 输入件，target FuRongJun-1999/dsh-bench，基线 e730aab97271）。【维护者独立取证】隔离克隆 @ e730aab97271，三组对照实跑并**逐文件比对产物**（不止看 rc）：① 构造事实复核 —— `build_site.py:218-219` 与 `validate_data.py:176-177` 逐字相同（`original_deleted=bool(ev.get(\"original_deleted\"))` / `redacted_evidence_sufficient=bool(ev.get(\"redacted_evidence_sufficient\", True))`），但本处 `depth=report.get(\"depth\")` 无默认（与另一处的 `verdict.DEPTH_STANDARD` 不同）⇒ 申报的「同源第二处」属实。② **产物面零校验确证（决定可达性）** —— `build_site.py` 全文对 `validate_data` / `validate_file` / `semantic_report` / `validate_schema` 各 **0** 次引用 ⇒ 产物生成路径**不经过任何 schema 或语义校验**，故「缺必填字段」的报告**照常进入 build_site**（对照 #333：同一份文件在 `validate_data.py` 上 rc=1 被拒）。③ **现行失效实测确证** —— 取 `report-example-memory.json`，置 `evidence.original_deleted=true` 并**删掉** `redacted_evidence_sufficient`，跑 `build_site.py`：**rc=0，正常生成 8 个页面**；与「显式 `True`」的产物**逐字节完全相同**（8/8 文件 same=True），全站「证据核验受限」出现 **0** 次，报告页仍挂「真有用」3 次、「推荐」3 次；而对照组「显式 `False`」同一份报告则全站出现「证据核验受限」**4** 次、报告页出现「退出有效数字排名」1 次 ⇒ **缺键 = 被判「证据充分」**，应受限的报告照常进数字排名并保留推荐徽章。④ 消费点确证 —— `verdict.py:580` `evidence_verification_limited = bool(original_deleted and not redacted_evidence_sufficient)` 是唯一消费者，缺键时 `not True` = False ⇒ 永不置位。⑤ 与既有账本行的边界 —— evt_b6854212af4b（#288）② 讲的是「build_site 全文零引用 validate_data（不执行发布前检查）」这一**根因**，本件讲的是「同一判据在产物面缺省方向偏放行」这一**独立缺陷**（即便 build_site 补上校验，该默认方向仍错，修法不同）；与 #333 亦不同件 —— 二者**不同文件**（不满足归并三要件之「同一文件」），且**可达性相反**（#333 被 schema 闸拦住、#334 无闸）⇒ 缺陷面不完全相交，各计一份。【定档依据】难度 easy 1：采纳申报自定 easy —— 修法为单点默认方向翻转（`True`→`False`）＋一条守卫，非结构性改动。影响 A：按「不做会怎样」判 —— 实测现行可达（rc=0 出站）且后果是**排名资格与推荐徽章被错误授予**（应标「证据核验受限、退出有效数字排名」的报告照常进榜），属**量具失效使评测结论不可信**，与 #288 的 A 档口径一致（同一根因下的产物面后果）。全件为纯缺陷报告（无 PR）。追溯性结算 ⇒ round=1，delta == base。",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "day": "2026-10-14",
+      "id": "evt_eb78cca36ab2"
     }
   ]
 }

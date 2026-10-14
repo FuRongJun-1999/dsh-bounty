@@ -64,6 +64,16 @@ SNAPSHOT_KINDS = ("README", "VERSION", "RUN")
 #: 引文最小长度——与 `scripts/review_build.py` 的 `MIN_QUOTE_LEN` 同口径，两处都判（纵深防御）。
 MIN_QUOTE_LEN = 6
 
+#: 五维名——**刻意与 scripts/review_build.py 的 DIMENSIONS 分开写**：
+#: 两处一旦漂移，守卫会因「两个实现说的不是同一套维度」而报红（见 tests/test_evidence_check.py）。
+DIMENSIONS = ("检索质量", "记忆持久", "注入预算", "隐私与本地性", "可验证性")
+
+#: 「有可核数字读数」的判据——**刻意与 scripts/review_build.py 的 has_reading 独立实现**：
+#: 评分基座对账里两处都要过才算过；任一边单独改口径，守卫会因两边结论不一致而报红。
+READING_RE = re.compile(
+    r"\d+(?:\.\d+)?\s*(?:%|bytes\b|KB|MB|GB|ms\b|tok\b|tokens?\b|条|个|次|倍|轮|分)"
+    r"|hit@\d+|@\d+", re.I)
+
 #: 本机复跑的类型名（与 review_build.EVIDENCE_KINDS 对齐）。
 KIND_LOCAL = "本机复跑"
 
@@ -350,6 +360,86 @@ def audit(root=None, want_repro=True) -> tuple:
             if n_local == 0:
                 bad.append("没有任何「本机复跑」证据——验收标准要的是「命令 ＋ 原始输出」，"
                            "全部靠转引不算")
+
+    # ③b 评分基座对账（**与生成器相互独立地**再判一遍）
+    #     为什么要独立：若只有生成器一个实现说了算，改口径时「生成器与判据一起漂移」不会被发现。
+    #     这里的判据就是方法页写明的那两条硬条件：① 每个参与合计的分数都必须挂具名证据；
+    #     ② 5 分必须有本机复跑证据（「5 = 该维度上有可复跑证据且读数最好的一档」）。
+    if not str(data.get("rubric_version") or "").strip():
+        bad.append("真源缺 rubric_version（评分判据版本；口径不自版本化就无法复审）")
+    for rec in recs:
+        slug = str(rec.get("slug") or "?")
+        dims = rec.get("dimensions") or {}
+        basis_all = rec.get("dim_basis")
+        rats = rec.get("dim_rationale")
+        um = rec.get("unmeasured_dims")
+        if not isinstance(basis_all, dict) or set(basis_all) != set(DIMENSIONS):
+            bad.append("评分基座缺失：%s 的 dim_basis 须恰为五维：%r" % (slug, basis_all))
+            continue
+        if not isinstance(rats, dict) or set(rats) != set(DIMENSIONS):
+            bad.append("评分理由缺失：%s 的 dim_rationale 须恰为五维：%r" % (slug, rats))
+            continue
+        if not isinstance(um, list):
+            bad.append("未测维度列表缺失：%s 的 unmeasured_dims 须为数组：%r" % (slug, um))
+            continue
+        evs = rec.get("evidence") or []
+        ev_n = len(evs)
+        tiers = {}
+        for dim in DIMENSIONS:
+            score = dims.get(dim)
+            basis = basis_all.get(dim)
+            rat = str(rats.get(dim) or "").strip()
+            if not isinstance(basis, list):
+                bad.append("评分基座非数组：%s 的 %s -> %r" % (slug, dim, basis))
+                continue
+            for x in basis:
+                if not isinstance(x, int) or isinstance(x, bool) or not (0 <= x < ev_n):
+                    bad.append("评分基座下标越界：%s 的 %s 指向 %r（证据共 %d 条）"
+                               % (slug, dim, x, ev_n))
+            in_um = dim in um
+            if score is None:
+                if not in_um:
+                    bad.append("未测维度未登记：%s 的 %s 记 null 却不在 unmeasured_dims 里"
+                               % (slug, dim))
+                if basis:
+                    bad.append("未测维度挂了证据：%s 的 %s 记 null 却有 dim_basis=%r"
+                               % (slug, dim, basis))
+            else:
+                if in_um:
+                    bad.append("已评分维度被列为未测：%s 的 %s 有分数却进了 unmeasured_dims"
+                               % (slug, dim))
+                if not basis:
+                    bad.append("评分无基座：%s 的 %s 记 %r 却没挂任何证据——"
+                               "「打分只依据证据」于是没有判据" % (slug, dim, score))
+                if not rat:
+                    bad.append("评分无理由：%s 的 %s 记 %r 却没写 dim_rationale"
+                               % (slug, dim, score))
+            # ★本笔补一处**形状判据缺口**（与下方 259／323 两处同款，本段原先漏了）：
+            #   `basis` 是**下标**，`evs` 是**未过滤**的 `rec["evidence"]`。元素非对象
+            #   （字符串／数字／数组／null，**全是合法 JSON**）时，`e.get(...)` 抛
+            #   `AttributeError: 'str' object has no attribute 'get'` —— 整份点名明细丢失，
+            #   且退出码与「检出不一致」撞码（契约要求 2）。实测：上游姊妹守卫
+            #   `tests/test_evidence_check_element_shape.py` 在旧实现上 12/12 绿，
+            #   本段引入后该件 8/12（4 条 `evidence[0]=字符串/数字/数组/null ⇒ 不崩栈` 全红）。
+            #   判据：非对象条目**不可能**是「本机复跑」证据，跳过即可；
+            #   元素形状本身已由上面引文段的 `证据条目不是对象` 单独点名，此处不重复记账。
+            picked = [evs[i] for i in basis if isinstance(i, int) and not isinstance(i, bool)
+                      and 0 <= i < ev_n and isinstance(evs[i], dict)]
+            has_local = any(str(e.get("kind") or "") == KIND_LOCAL for e in picked)
+            has_num = any(READING_RE.search(str(e.get("output") or "")) for e in picked)
+            tier = ("none" if not picked
+                    else ("repro" if has_local else ("reading" if has_num else "prose")))
+            tiers[dim] = tier
+            if score == 5 and not has_local:
+                bad.append("5 分无本机复跑：%s 的 %s 记 5 分，但其 dim_basis 里没有任何"
+                           "「本机复跑」证据——方法页口径是「5 = 该维度上有可复跑证据且读数最好的一档」"
+                           % (slug, dim))
+            rows.append({"kind": "basis", "id": "%s#%s" % (slug, dim), "ok": True,
+                         "detail": "分数 %s ／ 档位 %s ／ 基座 %d 条"
+                                   % ("未测" if score is None else score, tier, len(basis))})
+        rows.append({"kind": "basis-sum", "id": slug, "ok": True,
+                     "detail": "五维档位：" + "，".join(
+                         "%s=%s" % (d, tiers.get(d, "?")) for d in DIMENSIONS)})
     return rows, bad
 
 

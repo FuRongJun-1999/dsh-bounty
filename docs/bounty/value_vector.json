@@ -25,6 +25,30 @@
    "rounds": 1
   },
   {
+   "difficulty": "difficulty:medium",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    295,
+    296,
+    297,
+    298,
+    299,
+    323,
+    324,
+    326,
+    349,
+    360,
+    365
+   ],
+   "login": "Yinfeng818",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 48,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -44,23 +68,19 @@
    "rounds": 1
   },
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
+   "difficulty": "difficulty:expert",
+   "difficulty_base": 1,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
-    295,
-    296,
-    297,
-    298,
-    299,
-    323,
-    324,
-    326,
-    349,
-    360
+    185,
+    186,
+    187,
+    258,
+    378,
+    385
    ],
-   "login": "Yinfeng818",
+   "login": "rinDBeans",
    "project": "lingshu",
    "quality_E": null,
    "reputation_delta": 45,
@@ -89,6 +109,25 @@
    "rounds": 1
   },
   {
+   "difficulty": "difficulty:hard",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    175,
+    263,
+    264,
+    266,
+    290,
+    361
+   ],
+   "login": "ganzhe12138",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 40,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -105,24 +144,6 @@
    "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 37,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    175,
-    263,
-    264,
-    266,
-    290
-   ],
-   "login": "ganzhe12138",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 34,
    "rounds": 1
   },
   {
@@ -266,18 +287,19 @@
    "rounds": 1
   },
   {
-   "difficulty": "expert",
-   "difficulty_base": 10,
+   "difficulty": "difficulty:hard",
+   "difficulty_base": 1,
    "evidence_strength": true,
-   "impact_grade": "B",
+   "impact_grade": "A",
    "issues": [
-    378,
-    385
+    183,
+    184,
+    294
    ],
-   "login": "rinDBeans",
+   "login": "hawkongz",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 20,
+   "reputation_delta": 18,
    "rounds": 1
   },
   {
@@ -375,21 +397,6 @@
    ],
    "login": "cyd471",
    "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 12,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    184,
-    294
-   ],
-   "login": "hawkongz",
-   "project": "lingshu",
    "quality_E": null,
    "reputation_delta": 12,
    "rounds": 1
@@ -509,6 +516,20 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 9,
+   "rounds": 1
+  },
+  {
+   "difficulty": "difficulty:hard",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    262
+   ],
+   "login": "Albertdev12",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 6,
    "rounds": 1
   },
   {
@@ -677,6 +698,20 @@
    ],
    "login": "tang19-chao",
    "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
+   "difficulty": "difficulty:hard",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    337
+   ],
+   "login": "tang19-chao",
+   "project": "memory",
    "quality_E": null,
    "reputation_delta": 6,
    "rounds": 1

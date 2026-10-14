@@ -62,6 +62,21 @@ jobs:
       - name: 状态机守卫（正向断言）
         run: python -X utf8 tests/test_bounty_board.py
 
+      # 1b) 导出面形状守卫（元素非对象不得崩）：榜面 / 价值向量 / 授权面 / 晋升面。
+      #     为什么单独一步而不并进 pytest 腿：这四件是 standalone 脚本（模块级即执行 +
+      #     顶层 sys.exit）⇒ pytest 收集期会 SystemExit，整条腿 exit 3。必须逐件显式调用。
+      #     （2026-10-14 维护侧补接线：原 PR #217 只带守卫、未登记进任何 workflow，
+      #      等于「有人写了没人跑」——本文件头部正是为治这个毛病而存在。）
+      - name: 导出面形状守卫（四件）
+        run: |
+          for f in tests/test_bb_score_board_element_shape.py \
+                   tests/test_bb_value_vector_element_shape.py \
+                   tests/test_bb_roles_from_events_shape.py \
+                   tests/test_bb_promotion_report_shape.py; do
+            echo "== $f"
+            python -X utf8 "$f"
+          done
+
       # 2) 定点变异自证：逐条短路一条判据 ⇒ 对应断言必须**恰好**转红
       #    （多红＝语义纠缠，少红＝判据空转；锚点命中 ≠1 ⇒ ANCHOR-MISS ＋ 退出码 2，fail-closed）
       - name: 状态机守卫 · 变异自证

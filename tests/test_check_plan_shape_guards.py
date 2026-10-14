@@ -130,7 +130,23 @@ _NEW_SHAPE = ('    if not isinstance(store, dict):\n'
               '                        % (path, type(store["ledger"]).__name__))\n')
 check('E0 形状判据锚点命中', SRC.count(_NEW_SHAPE) == 1, f'命中 {SRC.count(_NEW_SHAPE)} 次')
 if SRC.count(_NEW_SHAPE) == 1:
-    m2 = _load_old(SRC.replace(_NEW_SHAPE, "", 1), "cp_oldshape")
+    # ★同步更新（本批）：`issues_from_store` 现在**自己**也判 `issues` 的容器形状
+    # （抛 `ScanError`）。故「重建旧实现」必须**同时**去掉那道判据，否则旧实现
+    # 仍会被新判据拦住 ⇒ E 组的反向证明变成空转（实测：未同步前 E 组 [✘] 未抛）。
+    # 这不是放宽判据：E 组要证的仍是「去掉形状判据 ⇒ 抛 AttributeError」。
+    _OLD_SHAPE2 = ('    _issues = store.get("issues") if isinstance(store, dict) else None\n'
+                   '    if _issues is None:\n'
+                   '        _issues = {}\n'
+                   '    if not isinstance(_issues, dict):\n'
+                   '        raise ScanError("状态镜像的 issues 不是对象：%r" % (type(_issues).__name__,))\n'
+                   '    for key, rec in sorted(_issues.items(),')
+    _OLD_SHAPE2_BACK = '    for key, rec in sorted((store.get("issues") or {}).items(),'
+    _src_old = SRC.replace(_NEW_SHAPE, "", 1)
+    if _OLD_SHAPE2 in _src_old:
+        _src_old = _src_old.replace(_OLD_SHAPE2, _OLD_SHAPE2_BACK, 1)
+    else:
+        print("  [warn] issues_from_store 的旧形态锚点未命中，E 组可能仍空转")
+    m2 = _load_old(_src_old, "cp_oldshape")
     d2 = tempfile.mkdtemp(prefix="cp_oldshape_")
     q2 = os.path.join(d2, "s.json")
     open(q2, "w", encoding="utf-8").write('{"issues": 5}')

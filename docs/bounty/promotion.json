@@ -167,6 +167,36 @@
    ],
    "invalid": 0,
    "issues": [
+    83,
+    102,
+    105,
+    198,
+    199,
+    207,
+    281
+   ],
+   "login": "Beiwo992",
+   "projects": [],
+   "reputation_delta": 27,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 7,
+   "round_seen": [
+    1
+   ],
+   "settled": 7,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     11,
     65,
     99,
@@ -265,37 +295,6 @@
     1
    ],
    "settled": 5,
-   "timeout": 0
-  },
-  {
-   "blockers": [
-    "声誉分 21 < 24"
-   ],
-   "disputes": 0,
-   "eligible": false,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    83,
-    102,
-    105,
-    198,
-    199,
-    207
-   ],
-   "login": "Beiwo992",
-   "projects": [],
-   "reputation_delta": 21,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 6,
-   "round_seen": [
-    1
-   ],
-   "settled": 6,
    "timeout": 0
   },
   {

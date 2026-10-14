@@ -2354,6 +2354,35 @@
       "role": "contributor",
       "subject": "贡献表计分注记与实现对齐（r = max(0, rounds-1)）",
       "ts": "2026-10-14T13:05:30Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        281
+      ],
+      "day": "2026-10-14",
+      "delta": 6,
+      "difficulty": "hard",
+      "formula": {
+        "base": 6,
+        "delta": 6,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 6.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "Beiwo992",
+      "id": "evt_780f459b6c06",
+      "impact": "B",
+      "issue": 281,
+      "pr": null,
+      "project": "lingshu",
+      "reason": "结算 Beiwo992 第 6 轮 lingshu 仓 7 件缺陷修复（申报件 #281 的 lingshu 部分）：coggraph 5 件（#530 created 为字符串致整轮崩溃 / #531 session_chains 非数字 t / #532 build_viewer 把日枢纽 count 当 degree / #533 check_pr_title 文档退出码 / #534 export_coggraph mapping 形态 edges 静默丢边）+ nn 2 件 P0 潜在数据损坏（#556 HexHierNet.set_vec 视图别名 / #557 UnitHeadNet.set_vec theta 持有视图）。定档依据：7 件均经维护者独立复现（隔离克隆 lingshu@60fedf1 实跑 + pre-fix 对照），修复内容逐字在库（103 行新增代码 0 缺失），与同批 dsh-bounty 9 件（evt_50f63f46235b，hard 6）同口径；含 2 件 P0 潜在数据损坏但危害需外部 mutate 触发，故不升 expert。本事件仅结算 lingshu 部分；#281 的 dsh-bounty 11 件已由 evt_50f63f46235b 与第 4 轮事件结算，不重复计分。",
+      "ts": "2026-10-14T01:30:00Z"
     }
   ]
 }

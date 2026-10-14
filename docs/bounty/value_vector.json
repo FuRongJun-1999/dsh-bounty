@@ -155,12 +155,13 @@
     65,
     99,
     269,
-    291
+    291,
+    379
    ],
    "login": "acrot0",
    "project": "bounty_site",
    "quality_E": null,
-   "reputation_delta": 25,
+   "reputation_delta": 28,
    "rounds": 1
   },
   {
@@ -378,6 +379,20 @@
     67
    ],
    "login": "ganzhe12138",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 10,
+   "rounds": 1
+  },
+  {
+   "difficulty": "expert",
+   "difficulty_base": 10,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    67
+   ],
+   "login": "rinDBeans",
    "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 10,

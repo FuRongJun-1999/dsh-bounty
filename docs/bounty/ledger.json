@@ -3931,6 +3931,76 @@
       },
       "day": "2026-10-14",
       "id": "evt_eb78cca36ab2"
+    },
+    {
+      "ts": "2026-10-14T11:05:00Z",
+      "issue": 379,
+      "covers": [
+        379
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "acrot0",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "bounty_site",
+      "impact": "A",
+      "reason": "dsh-bounty 自身脚本面：三处「合法 JSON ⇒ 过得了 json.load、到 .get()/int() 才炸」的畸形根形状裸栈，＋ `check_marker_reverts.py` 的 `--markers` 解析后为空时静默报「未发现」并退 0（源 PR #366，作者 @acrot0；intake 锚点件 #379，维护者代立，本仓为源仓兼目标仓）。【维护者独立取证（隔离克隆 D:/ext-iso/r23_bb，HEAD == origin/main == 77ff74bf6449，不采信 PR 自陈）】① 可合性：`git merge-tree --write-tree HEAD origin/pr366` rc=0，无冲突；② 改动面（三-dot 口径）：恰 7 件 +296/−7，`docs/bounty/`·`site/`·`review/` 产物面零改动（squash 后脚本内断言 staged 文件集，不符即中止）；③ 判别力（最强证据：把新守卫放到修复前基线上跑）：新增 `tests/test_malformed_root_reports.py` 在 pre-fix `wmain` rc=1（四类畸形根 × 3 条 = 12 条 NG：`AttributeError: 'list' object has no attribute 'get'`、rc=1 而非 2、`ValueError: invalid literal for int()` 等），同件在 PR 树 rc=0（通过 29/失败 0）；新增 `tests/test_marker_checker_failclosed.py` 在 pre-fix `wmain` rc=1（`--markers ' '`/`','`/`' , '` 三种空表情形 rc=0 且照常打印「未发现疑似静默回退」= 橡皮章确证，9 条 NG），同件在 PR 树 rc=0（通过 25/失败 0）；反向对照（`--markers ★本笔`、默认标记表、`check_fix_has_guard` 空 diff）在基线上即 rc=0 ⇒ 未过度收紧；④ 合并后本机全量：46 件守卫套件 0 红、10 道门禁全 rc=0、`tests/test_bounty_board.py --mutate` rc=0；⑤ CI 全绿（bounty-board-check run 38549406747、review-check run 38549406939）。【同批 PR #376（同作者）不受理】`#376` 是 `#366` 中间 commit `000d21c` 的复刻（提交信息逐字相同），`#366` 其后另加 `b68c82c`「归因判据改用 shutil.which —— CI 实证的跨平台修正」；`git diff --stat origin/pr376..origin/pr366` = 7 文件 +207/−19、反向 +19/−207 ⇒ 真子集。`#376` 在 Linux CI 上 4 条 NG（`--repo` 无效目录被误归因「git 未安装或不在 PATH」），根因即 Linux 下 cwd 无效抛 `FileNotFoundError`（与 git 缺席同类型）而 Windows 抛 `OSError` ⇒ `except FileNotFoundError` 分支在 Linux 必然误判；`#366` 以 `shutil.which` 显式探测取代，跨平台正确。按归并三要件（同一文件＋同一处＋同一修法）判为同一工作项 ⇒ `#376` 不另立工作项、不记账本行（关闭理由为同源重复，非质量否决）。【举证瑕疵（不扣分，按既有判例「举证瑕疵 ≠ 结论不成立」）】`#376` 自陈「`test_check_plan.py` rc=1（`D14c`）在干净树上同样失败」与实测不符：干净 main 上 `tests/test_check_plan.py` 直接跑 rc=0（失败 0 / ALL OK），只有 `--mutate` 腿 rc=2 且红项是 `M1` `ANCHOR-MISS`（非 `D14c`）；结论「既有缺口、与本笔无关」成立，引用的编号与退出码有误。【定档依据】难度 medium：单批修复（5 处小改，均在既有函数内加判据）＋ 自带 2 件守卫共 237 行断言，与 evt_43c24a2e9b8e（#302 单笔修复+守卫 medium 3）、evt_044a8c677b84（bounty_site 单笔修复+守卫 medium 3）同形。影响 A：按「不做会怎样」判 —— `check_marker_reverts.py` 是《运行手册》§二-8「看删除行」的可跑化、§七 明文要求关键步骤做成可跑脚本并纳入 CI；其「判据面为空 ⇒ 恒不命中 ⇒ 报『未发现』并退 0」是**量具输出假通过**（0 检查 ≠ 通过），属 A 档「量具失效」；①②③ 三处裸栈为可见失败（拿不到结论），同项取最高档。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "pr": {
+        "number": 366,
+        "state": "merged",
+        "title": "fix(guards): 畸形「根形状」不再裸栈 —— 三处判据面补 fail-closed",
+        "additions": 296,
+        "head_sha": "b68c82c"
+      },
+      "id": "evt_200566e8c835"
+    },
+    {
+      "ts": "2026-10-14T11:06:00Z",
+      "issue": 67,
+      "covers": [
+        67
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "rinDBeans",
+      "difficulty": "expert",
+      "delta": 10,
+      "project": "bounty_site",
+      "impact": "A",
+      "reason": "悬赏 #67（横向测评 ≥3 家 · 可复跑，expert 10）的**第二份独立交付**：角色扮演方向（RisuAI / SillyTavern / diceframe ＋ 手写基线），PR #362（147 文件 / +38479 / −0），已 squash 合并为 b61a838fa4b3（保留作者）。【口径先例】同一悬赏的多份独立交付、被测对象不相交 ⇒ 各计一份：账本先例 evt_0291fd5c72bd（@acrot0, PR #104）与 evt_8804091ea390（@zijinmengxi, PR #161），两件均 covers=[65]、expert Δ10；本悬赏既有交付为 evt_97c17eaf74a8（@ganzhe12138, PR #282，智能体工作流方向 LangGraph / LlamaIndex Workflows / txtai），与本件角色扮演方向**完全不相交** ⇒ 判据成立。【维护者独立取证（隔离克隆 D:/ext-iso/r23_bb，不采信报告者结论）】① 改动面（三-dot 口径）：147 件，唯一非新增 = `M .gitattributes`（追加 `bench/roleplay_eval/raw/** -text`，理由：raw/ 是逐字 stdout 证据、报告内 sha256 以工作区字节为准、测量机为 Windows 部分捕获含 CRLF，关归一化才能跨平台复现；属**加强**可复现性，非削弱）；`docs/bounty/`·`site/` 零改动（squash 后脚本内断言）。② 可合性：`git merge-tree --write-tree` rc=0。③ 试合后全套件 46 件 0 红；既有 5 道门禁 rc=0（`bounty_list --check`·`review_build --check`·`build_site --check`·`daily_table --check`·`bounty_board --products-check`）；自带两件守卫 rc=0（`scripts/check_reviews_roleplay.py` 通过 13/失败 0；`tests/test_check_reviews_roleplay.py` 通过 18/失败 0）；`check_reviews` 两侧均 rc=0 ⇒ 新增 `review-roleplay-check.yml` 为**独立** workflow，未改既有 review 门禁。④ **读数同源性（决定性正证）**：把三份报告围栏代码块内的读数行（`[RAW] `/`READOUT `/`DETERMINISM `/`SHA `/`SUMMARY `/`CAPS ` 前缀）逐行与 `bench/roleplay_eval/raw/` 全文比对 —— RisuAI 48/48、SillyTavern 73/73、diceframe 52/52，**合计 173/173（100%）逐字一致，零不一致**；反向 raw/ 内 258 条 READOUT 有 222 条（86%）被报告引用 ⇒ 报告读数与仓库内证据完全同源、非编造。⑤ 合规（内容政策 ＋ 隐私双清单）：147 件全量扫描，私钥头 / gh token / sk- 密钥 / AKIA / Bearer 长串 **0 处**，私有库名（AEIS 等）**0 处**；仅 4 处测量机用户名 `C:/Users/Zs/`（出现在复现命令示例与逐字证据 `raw/baseline_summary.json`·`raw/diceframe_repro_fix.txt` 内，非凭据），属轻度标识、不构成阻断性泄漏，记录在案；`fetch_upstream.sh` 仅从 codeload 取公开快照到不进库的 `upstream/`，`setup.sh` 走公开 PyPI 镜像/npm 源，运行期零网络零凭据。⑥ 验收对照：悬赏 #67 要求「`docs/reviews/<方案名>_v0.1.md` ≥3 家（同方向 ≥3 家亦可）＋ 测评方法论」，本件提供同方向 3 家 ＋ `测评方法论_角色扮演_v0.1.md` ＋ `选型取证_角色扮演_v0.1.md`，且 4 份报告均含「未测 ＋ 原因」显式声明（RisuAI 24 处、SillyTavern 11 处、diceframe 10 处）与「不适用条件」节 ⇒ 符合验收标准。【定档依据】难度 expert 10：与 evt_97c17eaf74a8（#67 首份，expert 10）、evt_0291fd5c72bd / evt_8804091ea390（#65 两份，expert 10）同档，同属「测评方法论设计 ＋ 多方案实测 ＋ 可复跑证据链」的悬赏口径。影响 A：核心链路交付（悬赏 #67 的验收交付物），与同悬赏既有行同档。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
+      },
+      "pr": {
+        "number": 362,
+        "state": "merged",
+        "title": "docs(reviews): 角色扮演方向横向测评（#67 第三份独立交付）",
+        "additions": 38479,
+        "head_sha": "3d0d0e9"
+      },
+      "id": "evt_94e177c43308"
     }
   ]
 }

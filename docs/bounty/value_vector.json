@@ -146,6 +146,26 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    12,
+    24,
+    45,
+    267,
+    403,
+    404,
+    405
+   ],
+   "login": "LarryE135",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 37,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -207,23 +227,6 @@
    "project": "chinese_programming",
    "quality_E": null,
    "reputation_delta": 33,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    12,
-    24,
-    45,
-    267
-   ],
-   "login": "LarryE135",
-   "project": "bounty_site",
-   "quality_E": null,
-   "reputation_delta": 28,
    "rounds": 1
   },
   {

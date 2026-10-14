@@ -5408,6 +5408,93 @@
         "delta": 6
       },
       "id": "evt_3a4699a72ec5"
+    },
+    {
+      "ts": "2026-10-14T23:15:47Z",
+      "issue": 403,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（在**本件所锚定的提交** `81d793571fecf36c668098ccf226fcf258c2e6e7` 上取源码核对；实测 `81d7935..HEAD` 对 `scripts/bounty_board.py` / `scripts/check_plan.py` **零改动**，故读数对当前 main 同样成立。非采信申报读数）：【#279 的「等级不得随人迁移」把评价者本人后续的 /verify、/settle 也当成迁移，影响等级被静默清空】**判据就在一行**：`scripts/bounty_board.py:714` `if _im and _ib and action != \"/appraise\" and _ib in (holder, actor):` ⇒ `715 _im, _ib = \"\", \"\"`——把**执行者（actor）**也当成「随人迁移」而作废；L712-713 注释自述该不变量来自缺陷 #269A，L924 注释把不变量写作「`impact_by ∈ {新持有者, 执行者}` ⇒ 作废」，与申报逐字一致。**`actor` 一臂确实打到正常流程**：`_accept` 是**全部态迁移入口的公共出口**，实测其调用点共 12 处——`/claim` L838、`/bid` L872、`/select` L934、`/appraise` L963、`/deliver` L985/L993、`/withdraw` L1008、`/dispute` L1027、`/verify` L1064/L1074/L1080、`/settle` L1110、`/expire` L1137 ⇒ 评价者本人事后任一命令都会以 `actor == st.impact_by` 命中该臂。**静默性**：`_im` 置空后 L716-718 `marker[\"impact\"]` 与 L726-728 `ev[\"impact\"]` **整段不写** ⇒ 标记、事件、下游（`daily_table` / `value_vector`）同时失去该字段，无任何提示。旁证：L834 本仓自注「（2026-10-13 实证：删掉本段，R31 仍绿 ⇒ 本段只承担留痕，不承担判据。）」。**证据强度说明**：以上为**源码级判据复核**（条件、调用面、字段写入路径三点齐全）；申报人的 `repro/` 与 `_common`/`_memgh` 不在本仓，**未复跑其 harness**。。受理。难度与影响等级沿用**申报正文内的自申请**（本件无 `<!-- intake:v1 -->` 机器标记，但正文写明「难度自申请 medium」「影响等级建议 A/B」）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。project 沿用申报的 `project:bounty_site`。**修复面**由 PR #438/#416 承载，其复核/合并按使用者指示暂缓，与本件报告面的结算相互独立（本仓既有口径：报告面与修复面分属两笔，互不抵消）。",
+      "pr": null,
+      "covers": [
+        403
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_2a4068ebc544"
+    },
+    {
+      "ts": "2026-10-14T23:15:47Z",
+      "issue": 404,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（在**本件所锚定的提交** `81d793571fecf36c668098ccf226fcf258c2e6e7` 上取源码核对；实测 `81d7935..HEAD` 对 `scripts/bounty_board.py` / `scripts/check_plan.py` **零改动**，故读数对当前 main 同样成立。非采信申报读数）：【定标 rounds=0 后中标者的投标物不计一轮交付：同一种返工经历在招标路径得 2×base、认领路径得 base】**改动史确证**：`ae2c1a3`（`fix(_do_select): 定标 rounds=1→0，与 /deliver 累加语义对齐 (#242)`）把 `_accept(st, \"/select\", …, st.due_at, **1**, …)` 改为 **`0`**，其提交注释自述理由「若定标时直接记 rounds=1，中标者再 `/deliver` 会被 `_do_deliver` 累加成 2 导致结算减半」。**当前代码四点串起来**：① `/select` → L934 `_accept(…, \"delivered\", winner, st.due_at, **0**, …)`；② `/verify fail` → L1074 `_accept(…, \"claimed\", st.holder, st.due_at, **st.rounds**, …)` ⇒ **轮次照抄不动**；③ `/deliver` → L979 `rounds = st.rounds + 1`、L993-994 传该 `rounds` ⇒ **累加**；④ `/settle` → L1099 `quality_delta(_base, st.rounds, …)`。⇒ 招标路径 `0→0→1` 结算时 `rounds=1` ⇒ `r=max(0,1-1)=0` ⇒ **2×base**；认领路径 `0→1→1→2` 结算时 `rounds=2` ⇒ `r=1` ⇒ **base**。**同一经历两套结果**，且方向可被参与者利用（先交粗糙投标、被退回再认真做，分数不打折）。旁证：L932-933 的定标公告按 `quality_delta(base, 1)`（L921）预告「首交付 `_w` 分」，与实际返工路径的结算口径**自相矛盾**。。受理。难度与影响等级沿用**申报正文内的自申请**（本件无 `<!-- intake:v1 -->` 机器标记，但正文写明「难度自申请 medium」「影响等级建议 A/B」）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。project 沿用申报的 `project:bounty_site`。**修复面**由 PR #438/#416 承载，其复核/合并按使用者指示暂缓，与本件报告面的结算相互独立（本仓既有口径：报告面与修复面分属两笔，互不抵消）。",
+      "pr": null,
+      "covers": [
+        404
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_644d658f19c0"
+    },
+    {
+      "ts": "2026-10-14T23:15:47Z",
+      "issue": 405,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（在**本件所锚定的提交** `81d793571fecf36c668098ccf226fcf258c2e6e7` 上取源码核对；实测 `81d7935..HEAD` 对 `scripts/bounty_board.py` / `scripts/check_plan.py` **零改动**，故读数对当前 main 同样成立。非采信申报读数）：【check_plan 的「to 优先」把被拒命令与落选分事件也当成态迁移，对账读数可被任何人用一条失败命令抹掉】**判据常数形同虚设**：`scripts/check_plan.py:71` `NO_STATE_ACTIONS = (\"reject\", \"role\")   # 文档用：这两类不态迁移（判据在 LEDGER_TO_STATE）`——**注释自认只是「文档用」**，实际判定路径不读它。**取值逻辑**：L76-81 `def state_of_event(ev)`: `to = str(ev.get(\"to\") or \"\")` ⇒ `if to: return to` ⇒ 否则回落 `LEDGER_TO_STATE.get(action) or \"\"`；L74-75 注释自述「**优先取事件自带的 `to`**（真源，随结果变化）」。而 `LEDGER_TO_STATE`（L62-70）**只列 7 个迁移动作**，本就不含 `reject`/`role` ⇒ 回落路径本可正确处理它们，**是 `to` 优先把它短路了**。**非迁移事件确实带 `to`**：`scripts/bounty_board.py:678-683` `_decide` 构造的拒绝事件写死 `\"from\": st.state, \"to\": st.state`；`_do_select` 的落选事件 L913-914 同样 `\"from\": st.state, \"to\": st.state`。⇒ 任何人发一条会被拒的命令（如 `/claim`）即产生一条 `to = 当时 issue 面态` 的事件，被 `state_of_event` **当成真态迁移** ⇒ 账本态被「洗」成 issue 面态 ⇒ 真实存在的「态冲突 / 缺账本事件」从对账报告消失。另 L204 注释自述该改为修 #169（`/verify fail` 读不回态），即**修 A 破 B**。。受理。难度与影响等级沿用**申报正文内的自申请**（本件无 `<!-- intake:v1 -->` 机器标记，但正文写明「难度自申请 medium」「影响等级建议 A/B」）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。project 沿用申报的 `project:bounty_site`。**修复面**由 PR #438/#416 承载，其复核/合并按使用者指示暂缓，与本件报告面的结算相互独立（本仓既有口径：报告面与修复面分属两笔，互不抵消）。",
+      "pr": null,
+      "covers": [
+        405
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_892268d1d27d"
     }
   ]
 }

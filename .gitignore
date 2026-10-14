@@ -6,3 +6,5 @@ __pycache__/
 # 本地离线状态镜像（--state 演练用；不入仓）
 .tmp/
 docs/bounty/issues-state.json
+_r2*_new.jsonl
+_r*_new.jsonl

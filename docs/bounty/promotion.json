@@ -232,19 +232,20 @@
     65,
     99,
     265,
-    269
+    269,
+    291
    ],
    "login": "acrot0",
    "projects": [],
-   "reputation_delta": 28,
+   "reputation_delta": 34,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 5,
+   "round_known": 7,
    "round_seen": [
     1
    ],
-   "settled": 5,
+   "settled": 7,
    "timeout": 0
   },
   {

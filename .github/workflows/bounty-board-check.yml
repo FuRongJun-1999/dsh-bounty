@@ -77,6 +77,35 @@ jobs:
             python -X utf8 "$f"
           done
 
+      # 1c) 全量守卫套件：tests/test_*.py **逐件**显式调用。
+      #     为什么逐件而不 pytest 整腿：多件是 standalone 脚本（模块级即执行 + 顶层 sys.exit），
+      #     pytest 收集期会 SystemExit ⇒ 整条腿 exit 3，坏一件会掩盖其余全部结果。
+      #     为什么需要这一步：本仓另有 30+ 件守卫（每日贡献表 / 证据链 / 三方对账 / 口径文本…），
+      #     其中多件是最近才补的，**此前没有任何 workflow 会跑它们** —— 即「有人写了没人跑」。
+      #     守卫只有被真的执行才算存在；不被执行的守卫会随时间静默腐朽（改了实现也不报警）。
+      #     跳过关系：本步与上面 1)/1b) 有重叠（test_bounty_board 与四件 shape 也在此跑一遍），
+      #     这是**故意的**：本步的职责是「凡 tests/test_*.py 皆被执行」这一不变量，
+      #     不负责去重 —— 少跑一件的代价远大于重复跑一遍的时间（全套 ~25s）。
+      - name: 全量守卫套件（tests/test_*.py 逐件）
+        run: |
+          fail=0
+          n=0
+          for f in tests/test_*.py; do
+            n=$((n+1))
+            echo "== $f"
+            if ! python -X utf8 "$f"; then
+              echo "::error file=$f::守卫失败：$f"
+              fail=$((fail+1))
+            fi
+          done
+          echo "共执行 $n 件守卫套件，失败 $fail 件"
+          # 件数下界：防止「删掉/改名一批守卫」让本门禁静默变松（与 3b 元守卫同因）。
+          if [ "$n" -lt 30 ]; then
+            echo "::error::守卫套件件数从 30 降到 $n —— 是否删了/改名了守卫？"
+            exit 1
+          fi
+          [ "$fail" -eq 0 ] || exit 1
+
       # 2) 定点变异自证：逐条短路一条判据 ⇒ 对应断言必须**恰好**转红
       #    （多红＝语义纠缠，少红＝判据空转；锚点命中 ≠1 ⇒ ANCHOR-MISS ＋ 退出码 2，fail-closed）
       - name: 状态机守卫 · 变异自证
@@ -93,7 +122,7 @@ jobs:
       #     （要合法减少，请在本行显式下调下界并在 PR 说明理由——让删减在 diff 里可见。）
       - name: 元守卫 · 变异条数不得减少
         run: |
-          MIN_MUTATIONS=45   # 2026-10-14 基线（主干 6754363 实测 45 条）
+          MIN_MUTATIONS=58   # 2026-10-14 上级（主干 327996c 实测 58 条；原 45/6754363 已过时）
           got=$(python -X utf8 tests/test_bounty_board.py --list | grep -c '^  M[0-9]')
           echo "变异条数实测：$got（下界 $MIN_MUTATIONS）"
           if [ "$got" -lt "$MIN_MUTATIONS" ]; then

@@ -4065,6 +4065,151 @@
       },
       "pr": null,
       "id": "evt_59cab098f266"
+    },
+    {
+      "ts": "2026-10-14T13:26:30Z",
+      "issue": 383,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "acrot0",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "修 `tests/test_check_plan.py` 的 `_MUTATIONS` 表中两处**已失效的变异锚点**（M1/M2）。维护者独立复现：纯净 `main` 上 `--mutate` 退 2 并打印 `[ANCHOR-MISS] M1 … 锚点命中 0 次（期望 1）：'        if declared and lst and lst != eff:'`；锚点串在 `scripts/check_plan.py` 中**逐字不存在**（实测 `'        if declared and lst and lst != eff:'` 命中 False，现行 `'        if lst and lst != eff:'` 命中 True）。根因＝上游把该判据从串联改成分支/并联并加了 `declared` 前置，锚点未同步。修后维护者实测 `--mutate` rc=0「变异自证：7/7 通过」（M1→D12d/D1b/D2/D2b、M2→D4）。\n\n**独立复核**：作者称「11 件带 `--mutate` 的守卫逐件跑一遍，只有本件有锚点漂移」——维护者独立复算一致：11 件中 6 件其默认运行不含变异自证，逐件跑 `--mutate` 后只有 `test_check_plan.py` 退 2，其余 5 件全绿（`test_check_reviews.py`/`_roleplay.py` 的默认运行本身即含全部变异，故无缺口）。\n\n**定档依据**：难度 medium——改动面仅 3 行，但需归因到上游重写、并为已改成分支/并联的条件重建等价短路变异，且附带范围界定证据；影响 B——失效是**响亮**的（rc=2，fail-closed 拒给结论），但触发需人工跑 `--mutate`（CI 不跑），属「需特定路径才可触发」。可申诉。\n\n**举证瑕疵（不计扣分）**：作者称「rc=1」，维护者实测为 **rc=2**（`main()` 以 `SystemExit(main())` 返回 2）；结论与缺陷面不因此改变。",
+      "pr": 383,
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "covers": [
+        383
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-14",
+      "id": "evt_101bb14be9ef"
+    },
+    {
+      "ts": "2026-10-14T13:26:30Z",
+      "issue": 381,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "acrot0",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "修 `tests/test_check_plan.py::D14c` 的**默认输入路径环境依赖**，并把本地产物收进 `.gitignore`。维护者独立复现决定性 A/B：同一 commit（`d5ae1836ac1c`）上，产物 `docs/bounty/issues-state.json` **不在** ⇒ 该测试 rc=0 全绿；用 `scripts/check_plan_snapshot.py --out docs/bounty/issues-state.json` 生成（rc=0，37,356 B，`issue 327 条 ｜ 机器标记 13 个`）后 ⇒ rc=1 `失败项：['D14c']`。即「干净检出绿 / 跑过一次的检出红」。修后两种条件均 rc=0；`.gitignore` 确在既有「本地离线状态镜像」段后补 `docs/bounty/issues-state.json`。\n\n**独立复核**：全量套件 wmain（修前）1 红＝`test_check_plan.py`；合入后（含 #381/#383）48 件 0 红。\n\n**定档依据**：难度 medium——改动面 +15/−2，但需设计出决定性的 A/B 并识别默认路径与未入仓产物的耦合；影响 B——给出的是**假红**（非静默假绿），且需「本机残留产物」这一特定路径才触发，CI（干净检出）不受影响。可申诉。\n\n**举证瑕疵（不计扣分）**：作者称产物 35,903 B，维护者本机实测 37,356 B（issue 池已增长）；属读数漂移，不影响结论。作者正文已自陈 M1 锚点漂移属 pre-existing 且本 PR 未改——与 #383 的分工一致。",
+      "pr": 381,
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "covers": [
+        381
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-14",
+      "id": "evt_c15c07e9aeb3"
+    },
+    {
+      "ts": "2026-10-14T13:26:30Z",
+      "issue": 384,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "acrot0",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "修 `scripts/daily_table.py` 账本腿的**缺输入静默退 0**（补同族漏网的第二个调用点；`check_plan.py` 账本腿已由维护者先修）。维护者独立复现两条路径：① `--ledger __no_such__.json` 修前 rc=0 且打印「贡献表已生成（账本 **0 条事件**）」，修后 rc=1「账本文件不存在（显式/默认路径）」；② **换 CWD** 使默认相对路径失效，修前 rc=0「确定性自检通过（账本 0 条事件）」，修后 rc=1。\n\n**零行为变更面**：把**同一份**账本喂给修前/修后两侧，产物 sha256 逐字节一致（`fc5f1d4b87ce9114`）；`--check` 漂移闸对盘上产物仍按既有语义工作。\n\n**判别力证据**：新守卫 `tests/test_daily_table_missing_inputs.py` 放到**修前** worktree 上跑 ⇒ rc=1「通过 1 / 失败 7」（红），在 PR head 上 ⇒ rc=0「通过 13 / 失败 0」。\n\n**定档依据**：难度 medium——单点 `read_ledger` + 119 行四组守卫（含 D 组反向证明）；影响 A——「一个对象都没检查」却发绿灯，是**静默假绿**（量具失效），且「换 CWD 调起」对任何 CI/hook 都是现实路径。可申诉。",
+      "pr": 384,
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "covers": [
+        384
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-14",
+      "id": "evt_b2900c515e42"
+    },
+    {
+      "ts": "2026-10-14T13:26:30Z",
+      "issue": 380,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "修 `bench/cross_eval` 基线臂的两条缺陷：`#368`（resume 档 `trace`／`steps_reexecuted_after_failure` 是**硬编码字面量**，自述冒充实测）与 `#371`（`run(\"retry\")` 的 `while True` ＋ 同型 `except RuntimeError: continue` 无尝试上限，被重试步骤真抛错时永不返回）。\n\n**维护者独立复现（AST 面）**：在 `d5ae1836ac1c` 上 `trace`／`steps_reexecuted_after_failure` 共 **3 处 `ast.List` 字面量**、0 处 Call；在 PR head 上 **0 处 List、5 处 Call/Name**。`while` 节点：修前 `Constant(value=True)`（`while True`），修后为 `Compare(...)`（有界）。\n\n**维护者独立复现（实跑面）**：桩掉检索层后——修前 `resume` 真实阶段计数 `load/index/retrieve/verify/emit` 全为 1（**没有任何重跑**），却自报 `REEXECUTED [\"load\",\"index\",\"retrieve\"]`；修前 `retry` 在 verify 恒抛真实异常时 **25 s 未返回**（无界自旋）。修后 `resume` 真实计数 `load:2 index:2 retrieve:2 verify:1 emit:1`，`trace` 8 项 `[load,index,retrieve,load,index,retrieve,verify,emit]`，`reexecuted` 与自报**逐字一致**；修后 `retry` 毫秒级返回 `ok=False attempts=3 first_error` 非空。\n\n**自带守卫与全量**：新件 `tests/test_cross_eval_baseline_readout.py` 正向 rc=0「通过 35 / 失败 0」、`--mutate` rc=0「通过 17 / 失败 0」；全量套件 47 件 0 红（合入后 48 件 0 红）。\n\n**定档依据**：难度 hard——4 文件 +1304/−25，含 `_Stages` 真实轨迹/计数解耦设计、resume 真重跑、retry 有界化（真实调用计数推导 attempts）与 1148 行新守卫（35 断言/17 变异）；影响 A——基线臂是四家对照的**基准臂**，其读数自述即**量具失效**，叠加非终止。可申诉。\n\n**口径说明（可申诉）**：报告面（`#368`/`#371` 等 8 件）已于 round 24 由 `evt_1d28bcc824e9` 结算，本笔**只计修复面**（独立交付、基线因之推进），不重复计报告面；`covers` 记本 PR 号而非 `#368`/`#371`，以与该行区隔。\n\n**遗留义务（已记入回执）**：`bench/cross_eval/raw/baseline_resume.txt`（`TRACE` 仍为 6 项旧自述）与 `raw/baseline_retry.txt` 需按新实现**重测重写**；本 PR 未改 `raw/`（交付面保持只读），维护者另行处置。",
+      "pr": 380,
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "covers": [
+        380
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-14",
+      "id": "evt_9fffdac02085"
+    },
+    {
+      "ts": "2026-10-14T13:26:30Z",
+      "issue": 382,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "`FuRongJun-1999/dsh-memory` 只读安全审计申报：**P1×2 ＋ P2×6**（已提为该仓 issue `#324`/`#325`/`#326`），件内附可复跑命令与原始读数，并自陈「未达 CI 绿」（本机缺 cargo/pnpm/pytest）、46 条基线失败**不作为缺陷主张**、另附 11 条自查推翻的候选不计入缺陷数。\n\n**维护者独立取证（按申报件声明的基线 `1b05eb4bd685410802794ab501c0d3c1cc4c6516`）**：\n\n· **P1①（#324）成立**：`md_cg/writepipe.py:208-239` 的写入硬上限 `MAX_WRITE_BYTES = 1048576`，其唯一构造点按 `n = len(c.encode(\"utf-8\"))` 只量 `a['content']`（该函数 docstring 逐字写明「生效条件：`a['content']` 的 UTF-8 字节数超过上限」）⇒ 超长 `node_id` 不进入计量，单次落盘可远超上限。\n\n· **P1②（#325）成立**：`md_cg/imgskill.py:1437-1448` 的 `_find_reuse` 在 L1445 直接 `p = os.path.join(root, rec[\"output_path\"])` 并对其算 `_sha256_file`，**未过 `safe_join`**；而同文件 `safe_join` 定义于 L289 且已用于 L1177/L1228/L1352/L1366 的参数路径 ⇒ 投毒审计台账可使该函数对**根外任意可读文件**回算并比对 SHA-256，构成完整哈希预言机。\n\n**定档依据**：难度 hard（沿用申报件 `intake:v1` 声明；8 条 finding、跨写面/路径面/内存面/异常面，附逐条复跑读数与自我更正留痕）；影响 A——两条 P1 均为**安全护栏失效**（写入硬上限失效、路径沙箱被绕过），非默认配置即可触发（P1② 需投毒台账这一特定路径），故不列 S。按口径「一条申报件 ＝ 一个工作项」计 1 条，件内未逐条自申不同难度档故不拆。可申诉。\n\n**未验（如实声明，不计入结论）**：P2 六条与 P3 十五条本轮未逐条独立复现；申报件声明的 CI 状态未由维护者复核（该仓本机缺 cargo/pnpm/pytest）。",
+      "pr": null,
+      "covers": [
+        382
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_bf4a7e633bcf"
     }
   ]
 }

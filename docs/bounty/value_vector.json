@@ -362,6 +362,20 @@
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    288
+   ],
+   "login": "cyd471",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
     286

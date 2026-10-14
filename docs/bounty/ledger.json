@@ -2565,6 +2565,34 @@
       "project": "memory",
       "reason": "结算 WASD258-jpg 的 dsh-memory 特性交付（申报件 #287）。\n【内容】dsh-memory PR #299（head 3774604，基于 main e8a296d，+1484/−5，10 文件）：相对时间锚定（MDCG_TIME_ANCHOR，缺省关闭）——写入侧在节点无显式 temporal 时以 created_at 当日为参照，把正文首个时间表达归一成派生字段 temporal_anchor（区间 / 规则 id / 命中位置 / 参照日 / 口径版本）；查询侧问句含日期时加 time_anchor 路，区间有交集者稳定前置，meta.time_anchor 留痕。新增 md_cg/timeanchor.py（510 行）、md_cg/bench_timeanchor.py（357 行）、md_cg/test_time_anchor.py（378 行），并接线 mdcos.search_rrf / hotcache 缓存键 / config_registry_bulk / mdcg 写入面。\n【维护者独立取证（未采信申报者脚本）】\nA. **缺省关与接线核实**：timeanchor.py:47 FLAG=\"MDCG_TIME_ANCHOR\"、:69 tz_hours 缺省 0；hotcache.py:87 _ENV_SWITCHES 含两开关、:66 _KEYED_EXTRA 含 time_anchor；config_registry_bulk.py:367-368 登记两开关；mdcos.py:1926 注明「缺省关 ⇒ 不解析、不入键、零变更」。\nB. **守卫实跑**：在 PR head 上实跑 md_cg/test_time_anchor.py ⇒ **通过 73 / 失败 1**（申报件自述「74/0」）。失败项：node_interval：显式 temporal 优先于派生。\nC. **★ 缺陷根因（维护者定位并复现）**：失败为**真实的时区依赖**，非环境噪声——本机本地时区 UTC+8。根因链：md_cg/trust.py:276 的 parse_time 用 **time.mktime（本地时区）**把 \"2023-01-01\" 解析成 1672502400（= UTC+8 的 1/1 00:00），而 PR 新增的 timeanchor.ts_to_date(:79-86) **缺省 tz_hours=0（UTC）**，把同一秒渲染回 **2022-12-31**；node_interval(:484-496) 把两者合成 ⇒ 非 UTC 主机上**显式 temporal 日期整体偏移一天**。实测对照：TZ=UTC 时守卫 **74/0 rc=0** 且 parse_time(\"2023-01-01\")=1672531200 → node_interval=(2023-01-01, 2023-01-01)；UTC+8 时 1672502400 → (2022-12-31, 2022-12-31) ⇒ **平台相关，可复现**。基线（e8a296d）中不存在 ts→date 等价物（全仓 mktime/1970-1-1 检索确认），故该不一致由本 PR 引入。影响面不止测试：timeanchor.py:417/430 用 ts_to_date(_time.time())/ts_to_date(observed_ts) 取**参照日**，生产写入侧 apply_on_write 亦走同一函数。\nD. **量具未失效（如实，不夸大）**：bench_timeanchor.py 全程以 UTC 写 created_at（docstring「turn 以会话时刻（UTC）+ 序号秒为 created_at 写入」）且**不固定 MDCG_TIME_ANCHOR_TZ**，与 ts_to_date 的 UTC 缺省**自洽** ⇒ 申报件的日期正确率读数在跨机器上仍可复现，故**不判 A（量具失效）**。\nE. **未合入核验**：state=open、merged=False、mergeable=unknown（2026-10-14T01:31:50Z 新建，GitHub 尚未计算）⇒ 未合入。\nF. **读数可追**：LoCoMo locomo10.json @cbfbc1d、category-2 可解析日期 228/321；开关关 日期正确率 8.7% / 英文点名 hit@10 5.8% / 中文点名 5.8% / 原题面 65.0%；开关开 80.6% / 76.7% / 77.7% / 65.0%；去 6 族下界 70.9% / 64.1% / 72.8% / 65.0%；原题面 228/228 逐位相同。\n【归并依据】单件单申报件，covers=[287]，project=memory。与本账号 lingshu 侧交付（#283/#284/#285）为不同仓、不同被测对象 ⇒ 各计一份。\n【定档依据】difficulty=hard（6）：取申报者条目内自述申请（hard）。交付规模为 1 项特性、10 文件、+1484 行、510 行新模块 + 357 行基准 + 378 行守卫，跨 4 个既有模块接线（search_rrf / hotcache / config_registry / 写入面），含前后读数与跨仓适配（lingshu 可行性实验 → dsh-memory 真源重写，非代码搬运）。已考量但未取 expert(10)：单特性、单仓、单面（时间锚定），广度与 #284 的 6 特性栈不可比。**定档可申诉**。\n【影响】impact=B：按 IMPACT_CRITERIA「新系统交付、未合入的提案，或需特定路径才可触发的缺陷」判——未合入、缺省关；且 C 项缺陷需「显式 temporal 日期字符串 + 非 UTC 主机」这一特定路径才触发。已考量但未取 A：bench 全程 UTC 自洽（D 项）⇒ 量具未失效、核心链路未失效。\n【未覆盖项（如实）】① 申报件自述「守卫 74/0」在维护者机器（UTC+8）实为 **73/1**——本件已把该差异作为缺陷记入 C 项，而非计为举证瑕疵；② 申报件自述「5 个内存级变异 + 3 个盘上变异各自转红」，但 md_cg/test_time_anchor.py 内**只有 M1–M5 五个变异、全部内存级**（mutant() 用 exec 编译内存副本），全文件「--mutate」出现 **0 次**、无「盘上变异」实现，全仓「盘上」无该含义命中 ⇒ 「3 个盘上变异」**在交付物中不可得**，属**举证瑕疵**；因其不改变结论（5 个变异可执行、且守卫在 pre-fix 基线上因缺 timeanchor 模块而 AttributeError 转红），**按「举证瑕疵 ≠ 结论不成立」不据此扣分**；③ 全量回归未由维护者复跑（申报件自述与 origin/main 同机对照、既有失败两侧相同）；④ 申报件已如实自陈：test 非干净留出（6 族规则来自 lingshu 开发期见过的失败样例，去 6 族一行是下界）、中文点名是英文语料配中文写法问句、rebase 后只复跑时间锚定测试、存量节点开开关不回填。\n【租约说明】本件不涉悬赏租约，为特性申报件。",
       "ts": "2026-10-14T03:40:00Z"
+    },
+    {
+      "ts": "2026-10-14T12:00:00Z",
+      "issue": 288,
+      "covers": [
+        288
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "bench",
+      "impact": "A",
+      "reason": "dsh-bench 系统性缺陷审计 7 件（6×P0 + 4×P1 归 1 号；源仓 issue #2–#8），维护者逐条独立复现成立：① 判定门槛 a/b/max_half_width 由单份报告自带（validate_data.py:168-170、build_site.py:210-212，schema 仅约束 exclusiveMinimum:0）——报告写 a=0.1/max_half_width=50，区间 [0.5,40] 由冻结门槛下的「还说不准 rank_eligible=False」被复算成「真有用 rank_eligible=True」，--release PASS 并进数字排名；② build_site.py 全文零引用 validate_data/validate_file/semantic_report（各 0 次）——实测同一份报告被 --release 以 3 条错误（无独立复核／执行=复核／未脱敏）拒绝 rc=1，而 --official-only rc=0、报告页生成并进榜显示「✅ 真有用」；③ decide() 23 个参数无 report_status/invalidation——实测 report_status=已失效 ＋ invalidation.status=已失效 仍 build rc=0，排名表保留该行；④ 判定层正确（worth_trying=False、recommendation='暂停推荐'）但 build_site.py 中 worth_trying 出现 0 次——security.status=已确认事件 的报告仍以「✅ 真有用」进榜且全页零安全标识；⑤ cards.能力.value/rank_eligible 与复算结果不比对——仓内 report-example-uncertain.json 声明 cards.能力.rank_eligible=true 而复算 false，validate --release 仍 PASS；tool_four_things 在 validate 中 0 次；⑥ 证据链只查 evidence_id 非空——evidence_id='does-not-exist-999' 时 --release PASS；坏证据（minimal_proof.correctness 为空）自身 FAIL 而引用它的报告 PASS；validate_data/build_site 中 evidence_ok 与 algorithm_validated 均 0 次传参（verdict.py 中分别 4/3 次）；⑦ validate_data.py:175 now=tested_at（查不出过期：tested_at=2025-01-01 时 semantic_report 报错 []，而 decide(now=2026-10-14) 已 expired=True）、build_site.py:217 now=date.today()（结论随构建日变化）、render() 顺序 str.replace 致已填入内容里的模板占位符被二次替换。按「同人 × 同源仓 × 同批代码 = 1 项」合并（同源仓先例 evt_ec17bf50ff51：dsh-bench 6 条合 1 项 hard 6 A），难度取整体 hard、影响 A（测评站量具失效 ⇒ 评测结论不可信）。追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base。档位可申诉。",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-14",
+      "id": "evt_b6854212af4b"
     }
   ]
 }

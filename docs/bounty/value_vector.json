@@ -204,6 +204,20 @@
    "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
+    67
+   ],
+   "login": "ganzhe12138",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 10,
+   "rounds": 1
+  },
+  {
+   "difficulty": "expert",
+   "difficulty_base": 10,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
     108
    ],
    "login": "ybyz2",

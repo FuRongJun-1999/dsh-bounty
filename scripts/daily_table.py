@@ -11,6 +11,10 @@
 
 边界（规格 V2/V4）：本站只出**声誉分**与两条独立的轴（难度 / 影响等级）；
 金额、汇率、合成权重不进站。`--check` 对渲染结果做确定性自检（跑两遍比对）；**给了 `--out` 时同时与盘上产物逐字节比对**（体例对齐 `review_build.py --check`）。
+
+**退出码承诺（★本笔补）**：0 = 一致；1 = 账本读不了（坏 JSON / 结构不符 / **指定路径不存在**）或产物漂移。
+**路径不存在绝不静默当「0 条事件」放过** —— 与 `check_plan.py` 账本腿同一条规矩
+（对照 `tests/test_check_plan_missing_inputs.py`），守卫见 `tests/test_daily_table_missing_inputs.py`。
 """
 from __future__ import annotations
 
@@ -70,6 +74,20 @@ def load_ledger(path):
     if isinstance(doc, dict) and isinstance(doc.get("events"), list):
         return doc["events"]
     raise DailyTableError(f"账本结构不符（须为 {{'events': [...]}}）：{path}")
+
+
+# 生效条件：path 为**显式或默认指定**的账本路径时返回 events 列表；**路径不存在 ⇒ raise**。
+# ★为什么必须与 `load_ledger` 分开：`load_ledger` 对不存在路径返回 `[]`，那是「离线演练起点」
+#   语义（`bounty_board.load_ledger` 同款，且被 `test_check_plan_missing_inputs.py` 的 D 组
+#   当作反向证明锚点 ⇒ **不动它**）。但对**闸门/审计**用途这个语义是错的：会把「账本文件
+#   根本不在」伪装成「账本里一条事件都没有」⇒ `--check` 报「0 条事件 · 自检通过」并 **退 0**。
+#   修前实测（纯净 origin/main）：① 显式给不存在的 `--ledger`；② **换 CWD** 使默认相对路径
+#   失效 —— 两条都是 `rc=0`，即"一个对象都没检查"却发绿灯（0 检查 ≠ 通过）。
+#   同一缺陷族已由维护者在 `check_plan.py` 账本腿修过，本笔补同族漏网的第二个调用点。
+def read_ledger(path):
+    if not os.path.isfile(path):
+        raise DailyTableError(f"账本文件不存在（显式/默认路径）：{path}")
+    return load_ledger(path)
 
 
 # 生效条件：传入任意 issue 号可迭代时返回压缩显示串——连续段压成 #a–#b，非连续逐列；
@@ -225,7 +243,7 @@ def main(argv=None) -> int:
                     help="漂移检测：确定性自检 ＋（给 --out 时）与盘上产物逐字节比对；0=一致 / 1=漂移")
     args = ap.parse_args(argv)
     try:
-        events = load_ledger(args.ledger)
+        events = read_ledger(args.ledger)
         text = render(events)
         if args.check:
             # ① 确定性自检（渲染两遍互比）—— 原有判据，保留。

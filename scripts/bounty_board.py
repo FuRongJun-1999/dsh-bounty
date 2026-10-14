@@ -709,9 +709,11 @@ def _accept(st, action, now, actor, to_state, holder, due_at, rounds, reason,
         marker["bidders"] = list(_bd)
     _im = st.impact if impact is None else (impact or "")
     _ib = st.impact_by if impact_by is None else (impact_by or "")
-    # 自评等级不得随持有者/结算者迁移（缺陷 #269A）：评价者本人成了新持有者或本次执行的
-    # actor 时，等级作废（`_do_appraise` 自身除外——它正是在登记这一条等级）。
-    if _im and _ib and action != "/appraise" and _ib in (holder, actor):
+    # 自评等级不得随持有者/结算者迁移（缺陷 #269A）：评价者本人**接手**了该题（成了新持有者，
+    # 或执行 /claim 认领、/select 中标）时等级作废。评价者执行**常规闸动作**（/verify /settle）
+    # 不在作废之列——那是他的职责动作，等级与评价人必须留着（缺陷 #403）。
+    if (_im and _ib and action != "/appraise"
+            and (_ib == holder or (action in ("/claim", "/select") and _ib == actor))):
         _im, _ib = "", ""
     if _im:
         marker["impact"] = _im

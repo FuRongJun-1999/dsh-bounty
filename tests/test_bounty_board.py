@@ -592,6 +592,30 @@ def group_lifecycle():
        _d35s.ok and bb.latest_marker([_d35s.comment]).get("impact") is None
        and not _d35s.event.get("impact") and _d35s.holder == "bob",
        (bb.latest_marker([_d35s.comment]).get("impact"), _d35s.event.get("impact")))
+    # ---- ★本笔新增（缺陷 #403：#269A 不变量不得吞掉评价者的**常规**执行）----
+    # 场景：alice 持有并已交付；维护者 maint1（= 评价者，**不是**持有者）做验收。
+    # 不变量只应在「评价者本人成为（或是）持有者」时作废等级——`maint1` 执行 `/verify`
+    # 属于常规人审闸动作，等级必须留着。
+    _st403 = bb.IssueState(number=403,
+                           labels=("bounty", "bounty:delivered", "difficulty:hard"),
+                           has_bounty=True, state="delivered", holder="alice", rounds=0,
+                           seq=1, difficulty="difficulty:hard", author="FuRongJun-1999")
+    _ap403 = bb.handle_command(_st403, "/appraise", "A 三级闸有读数",
+                               "/appraise A 三级闸有读数", "maint1", NOW, CFG,
+                               is_maintainer=True)
+    _st403b = bb.build_state(403, list(_st403.labels), [_ap403.comment],
+                             author="FuRongJun-1999")
+    _vf403 = bb.handle_command(_st403b, "/verify", "pass 读数齐全",
+                               "/verify pass 读数齐全", "maint1", NOW, CFG,
+                               is_maintainer=True)
+    ok("R403 评价者本人执行常规验收不吞等级（#269A 只盯「评价者=持有者」）",
+       _ap403.ok and _vf403.ok and _vf403.to_state == "verified"
+       and bb.latest_marker([_ap403.comment, _vf403.comment]).get("impact") == "A"
+       and _vf403.event.get("impact") == "A"
+       and _vf403.event.get("impact_by") == "maint1",
+       (_ap403.ok, _vf403.ok, _vf403.to_state,
+        bb.latest_marker([_ap403.comment, _vf403.comment]).get("impact"),
+        _vf403.event.get("impact"), _vf403.event.get("impact_by")))
 
     # ---- 价值向量出口（本站只做声誉分与价值评价；金额不进站）----
     def _evv(**kw):
@@ -1241,7 +1265,7 @@ _MUTATIONS = (
     ("M28 不写影响等级快照（跨态丢失）",
      "    if _im:" + chr(10) + '        marker["impact"] = _im',
      "    if False:  # MUT" + chr(10) + '        marker["impact"] = _im',
-     {"G37", "G42", "R31", "R31b"}),
+     {"G37", "G42", "R31", "R31b", "R403"}),
     ("M29 关价值评价的维护者闸（越权可评）",
      "    if not (is_maintainer or is_reviewer):",
      "    if False:  # MUT", {"G40"}),
@@ -1312,8 +1336,10 @@ _MUTATIONS = (
      '    if False:  # MUT', {"R33c"}),
     # ---- ★本笔新增（缺陷 #269A：自评等级不得随持有者迁移）----
     ("M50 不隔离随人迁移的自评等级（等级可迁移到新持有者/执行者）",
-     '    if _im and _ib and action != "/appraise" and _ib in (holder, actor):',
-     '    if False:  # MUT', {"R31", "R35"}),
+     '    if (_im and _ib and action != "/appraise"' + chr(10)
+     + '            and (_ib == holder or (action in ("/claim", "/select") and _ib == actor))):'
+     + chr(10) + '        _im, _ib = "", ""',
+     '    if False:  # MUT' + chr(10) + '        _im, _ib = "", ""', {"R31", "R35"}),
     ("M51 关真模式审核员面（账本 role 授权失效）",
      "    is_rev = actor in cfg.reviewers or actor in _roles['reviewer']",
      '    is_rev = actor in cfg.reviewers  # MUT', {"I8"}),
@@ -1336,6 +1362,10 @@ _MUTATIONS = (
     ("M57 不打轮次来源标记（formula 无 mode）",
      '    formula = dict(formula or {}, mode=ROUND_MODE_LIVE)',
      '    formula = formula  # MUT', {"R40"}),
+    # ---- ★本笔新增（缺陷 #403：常规闸动作不得吞「评价者本人的等级」）----
+    ("M58 把「评价者本人接手」判据退回成「评价者 = 执行者」（常规闸动作也吞等级）",
+     '            and (_ib == holder or (action in ("/claim", "/select") and _ib == actor))):',
+     '            and (_ib in (holder, actor))):  # MUT', {"R403"}),
 )
 
 
@@ -1388,7 +1418,8 @@ _MUT_TARGETS = (("M0", "parse_command"), ("M1", "_check_bounty_label"),
                 ("M51", "handle_issue_comment"),
                 ("M52", "handle_issue_comment"), ("M53", "handle_issue_comment"),
                 ("M54", "handle_issue_comment"), ("M55", "promotion_report"),
-                ("M56", "role_revocations"), ("M57", "_do_settle"))
+                ("M56", "role_revocations"), ("M57", "_do_settle"),
+                ("M58", "_accept"))
 
 
 def _anchor_preflight():

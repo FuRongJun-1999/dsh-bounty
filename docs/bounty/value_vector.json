@@ -243,6 +243,22 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    65,
+    367,
+    374
+   ],
+   "login": "zijinmengxi",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 19,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -407,20 +423,6 @@
     108
    ],
    "login": "ybyz2",
-   "project": "bounty_site",
-   "quality_E": null,
-   "reputation_delta": 10,
-   "rounds": 1
-  },
-  {
-   "difficulty": "expert",
-   "difficulty_base": 10,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    65
-   ],
-   "login": "zijinmengxi",
    "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 10,

@@ -4001,6 +4001,70 @@
         "head_sha": "3d0d0e9"
       },
       "id": "evt_94e177c43308"
+    },
+    {
+      "ts": "2026-10-14T11:20:00Z",
+      "issue": 367,
+      "covers": [
+        367,
+        368,
+        370,
+        371,
+        372,
+        373,
+        375
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "bounty_site",
+      "impact": "A",
+      "reason": "dsh-bounty 本仓 bench/cross_eval（悬赏 #67 交付面）量具/判据缺陷 6 件，合并为一条工作项结算（covers=[367,368,370,371,372,373,375]）：#367 报告 4 类共 21 条读数「指不到出处／指到错出处」且守卫 R5 的读数形态表与核对范围均覆盖不到；#368 基线 resume 档读数自述冒充实测；#370 守卫 R8 缺 sha256 即判通过 ＋ runner 失败模式退出码恒 0 ＋ 证据键白名单静默丢弃（同一族三处）；#371 基线 run(\"retry\") 无尝试上限；#372 自证套件 10 条定点变异对 12 条判据、R3 零覆盖且三种削弱静默存活；#373 section_body() 取标题首次出现且不看围栏。审计基线 main @ e65be3ee147b。【维护者独立取证（自建探针，未采信申报件读数）】① #373 决定性实验：把假「## 6. 未测项与原因」埋在前、真节清空 ⇒ R7/R10/R11 全绿 rc=0；无假标题仅清空真节 ⇒ 三判据全部判红 ⇒ 判据有牙而被架空，缺陷成立；② #372：解析 tests/test_check_reviews.py 的 10 条定点变异，期望红项并集 = {R1,R2,R4,R5,R6,R7,R8,R9,R10,R11,R12} ⇒ R3 零覆盖；三种削弱（删净守卫全部 R3 检查、判据注册表砍到 10 条、R8 退化成只查首模式）自证套件全部静默存活 rc=0「通过 12 / 失败 0」；③ #371：AST 确认 L65 while True 唯一 except 为 RuntimeError（与注入失败同类型）；桩替身下 step_verify 永久抛 RuntimeError ⇒ 20s 未返回（无界自旋，量具进程永久挂住）；④ #370 四条子缺陷全中：summary 缺 sha256 且 matches_golden=false ⇒ RED=[] rc=0（对照：保留 sha256 ⇒ RED=['R8']）；桩 impl 全模式异常 ⇒ runner EXIT=0 且该 summary 交 R8 仍 RED=[]；证据键白名单丢弃 baseline 实际返回的 8 个键（含 workers）；AST 确认 cfg_for 形参 mode 零引用；⑤ #368：桩替身下 baseline resume 报 steps_reexecuted_after_failure=[\"load\",\"index\",\"retrieve\"]，而真实阶段计数 {load:1,index:1,retrieve:3,verify:1} ⇒ 派生重跑集为 [\"retrieve\"]，且该代码路径从未重跑任何阶段（_load_index/_fanout 各调一次）；AST 确认该字段为 List 字面量而非表达式；⑥ #367：raw/ 158 件全文 310227 字符中，GRAPH_LINEAR/GRAPH_FANOUT/COMPILE_LINEAR_MS/COMPILE_FANOUT_MS 命中 0 文件、32060.493/0.820/91.887 命中 0 文件、LlamaIndex 的 9 个数只出现在 llamaindex_probe_module_registration.txt；实测 raw/langgraph_runner.txt = 26 行/2983 字节（报告称其含 LOC/COLD_START_IMPORT_MS/GRAPH_*/du -sh 等行）；另测：把伪造的 LOC 表格行写进报告正文 ⇒ RED=[] rc=0。【举证瑕疵（如实记录，不据此扣分）】申报件 §三 引用的 repro/repro.py 与 patch/guard_test.py 未随仓落盘（仅正文引用），故维护者未运行申报件自带脚本，全部读数由自建探针独立取得；申报件自述「R4/R5/R6 的变异只注入一份报告」，与测试源逐字相符。【定档依据】申报件自申 expert（10）。同一申报件内逐条自申为 hard（#367/#368/#370/#371/#372/#373）与 medium（#374），按本仓「申报件内逐条声明优先于件级声明」的口径，且 6 件各自落在不同文件面/判据，不作单一难度合并 ⇒ 拆为 2 条事件：本件（hard，含 P0×2）＋ #374（medium，另立一行）。本件不取 expert 的依据：与 #267-271 先例（evt_abf29eb6aabc，同型批量、申报件自申 expert、维护者定 hard）的区别在于本件含 P0×2 且 6 件均附参考补丁，故取 hard；expert 档按本仓先例留给「含 P0 或量具失效为主体」的单件大交付（如 #67 两份横评各 expert 10）。impact=A：逐条命中 IMPACT_CRITERIA[\"A\"]「核心链路失效、语义错误，或量具失效（使评测结论不可信）」——本批全部落在「使评测结论不可信」面。未取 S：S 要求「不可逆损失或安全破坏，且默认配置即可触发」，本批为可修可重算的量具/判据失效。【去重边界（已核）】账本中与本题面相关的既有结算仅 evt_97c17eaf74a8（covers=[67]，@ganzhe12138，expert Δ10），其维护者取证覆盖 R1-R12 rc=0 与 10 条定点变异各自命中，未覆盖 R5 读数形态与正文/表格读数、缺字段路径、resume 档读数来源、section_body 切段、变异覆盖矩阵、retry 有界性 ⇒ 本件是其未覆盖面的补充，不构成重复计分；同账号既有事件 evt_8804091ea390（covers=[65]，review/ 子站）与本件靶面不相交。【不适用条件】① 本批全部实测在 Windows 11 ＋ Python 3.12，真实 GitHub Actions（ubuntu-latest）未跑，「修后 CI 全绿」未经 CI 验证；② 三家引擎端到端未重跑（本机未装 langgraph / llama-index-core / txtai），涉及引擎的结论只用静态 AST 判别 ＋ 已提交 raw/ 逐字对照；③ 数值型读数未自动判红（申报件参考补丁的 R13 只覆盖标识符型 token）。【利益关系公示】维护者既是本悬赏站的计分者，也是 dsh-bounty 本仓的维护者；本条评级与定档由维护者作出，可申诉。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "pr": null,
+      "id": "evt_1d28bcc824e9"
+    },
+    {
+      "ts": "2026-10-14T11:21:00Z",
+      "issue": 374,
+      "covers": [
+        374
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "bounty_site",
+      "impact": "A",
+      "reason": "dsh-bounty 本仓 bench/cross_eval 守卫 check_reviews.py 的 R5「围栏代码块读数行须在 raw/ 逐字可寻」三条绕过面（另立工作项，与同批 hard 6 件分列，见 covers=[367,368,370,371,372,373,375] 行）：① raw_pool() 把 raw/ 下所有普通文件的非空行并成一个集合，不绑定引擎归属、证据面未收窄 ⇒ A 引擎独有读数行贴进 B 引擎报告仍绿，连 raw/*.py、raw/*.sh 的源码行也可当证据；② CMD_PREFIX 含裸 \"#\" ⇒ 伪造读数行加 \"# \" 前缀即整行免检；③ R5 只遍历 fenced_blocks(t) ⇒ 报告正文与表格里的读数（绝大多数数字所在处）一行都不看。审计基线 main @ e65be3ee147b。【维护者独立取证（自建探针）】三条逐一实测于基线检出：绕过① 把 baseline 引擎独有读数行 TRACE [\"load\",\"index\",\"retrieve\",\"retrieve\",\"verify\",\"emit\"]（逐字只出现在 raw/baseline_resume.txt 与 raw/baseline_runner.txt）贴进 txtai 报告围栏 ⇒ RED=[] rc=0，而同位置贴一条任何 raw 文件都没有的同类行 ⇒ RED=['R5'] rc=1；绕过② 伪造行「SHA <ab×32> golden=<真黄金摘要> match=True lines=40」加 \"# \" 前缀 ⇒ RED=[] rc=0，去掉前缀 ⇒ RED=['R5'] rc=1；绕过③ 同一伪造行写在正文（围栏之外）⇒ RED=[] rc=0，放进围栏 ⇒ RED=['R5'] rc=1。三条反面对照在修前即已判红 ⇒ 判据本身有牙，差别只在归属／前缀／位置这三个判据看不见的维度。【定档依据】申报件内本条自申 medium、件级自申 expert；按本仓「申报件内逐条声明优先于件级声明」口径取 medium。impact=A：命中 IMPACT_CRITERIA[\"A\"]「量具失效（使评测结论不可信）」——R5 是防编造读数的判据，其三条绕过面使伪造读数整篇免检。【去重边界】与同批 hard 6 件不同文件面（本条为 raw_pool/CMD_PREFIX/fenced_blocks 三处判据逻辑，非报告内容或 summary 字段路径），故另立一行而非并入。【不适用条件】同批；未跑真实 CI。【利益关系公示】维护者既是本仓维护者也是计分者，评级可申诉。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "pr": null,
+      "id": "evt_59cab098f266"
     }
   ]
 }

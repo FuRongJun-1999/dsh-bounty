@@ -181,7 +181,10 @@ def run(mode, cfg):
         # emit：verify 已经在上面记过（重试阶段只记一次），所以这里只补 emit。
         st.mark("emit")
         workload.step_emit(verified, out)
-        return {"ok": True, "attempts": attempts, "error_text": "injected transient failure",
+        # error_text 由**真实捕获的首次错误**推导（不再硬编码字面量）：
+        # 注入路径下它就是 _verify_attempt 抛的那句（读数逐字不变）；
+        # 若首次是**真实**错误，这里就会显示真实信息而不是「注入」标签。
+        return {"ok": True, "attempts": attempts, "error_text": first_error or "",
                 "trace": st.trace(),
                 "steps_reexecuted_after_failure": reexec,
                 "results": verified, "out": out}

@@ -182,7 +182,14 @@ MUTATIONS = [
      'return (-it["score"], it["id"])', 'return (it["score"], it["id"])', {"A16"}),
     ("M2", "scripts/bounty_list.py",
      'if it.get("score") != DIFFICULTY_SCORES[d]:', "if False:", {"A03"}),
-    ("M3", "scripts/bounty_list.py", "        return 2\n", "        return 0\n", {"A03"}),
+    # M3：锚点必须带上 it 前两行上下文。单行 `        return 2\n` 在源码里**不唯一**
+    # （2026-10-15 实证：`main` 新增「真源畸形」分支后，`replace(old, new, 1)` 静默改到了
+    # **新分支**的那一处 —— 锚点仍算「命中」，却打在了别的判据上，反证等于失效而无人察觉）。
+    # 锚定整段（for-循环 + return）后，M3 才真正指向「校验失败 ⇒ rc=2」这条判据。
+    ("M3", "scripts/bounty_list.py",
+     '        for e in errs:\n            sys.stderr.write("  - %s\\n" % e)\n        return 2\n',
+     '        for e in errs:\n            sys.stderr.write("  - %s\\n" % e)\n        return 0\n',
+     {"A03"}),
     ("M4", "scripts/bounty_list.py",
      'return str(s).replace("|", "\\\\|")', "return str(s)", {"A14"}),
     ("M5", "scripts/bounty_list.py",

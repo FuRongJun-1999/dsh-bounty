@@ -433,7 +433,7 @@ def render_rules() -> str:
 # 生效条件：ledger_path 为账本 JSON 路径、tasks 为可选快照列表、out_dir 为输出目录、print_only 为假时把四页写盘；返回落盘文件名列表（print_only 为真时不写盘）。
 def build(ledger_path, out_dir, tasks=None, print_only=False) -> list:
     """从账本生成四页；返回落盘的文件名列表。"""
-    events = bb.load_ledger(ledger_path)
+    events = load_events(ledger_path)
     pages = (("index.html", render_index(events)),
              ("board.html", render_board(events, tasks)),
              ("honor.html", render_honor(events)),
@@ -460,7 +460,7 @@ def build(ledger_path, out_dir, tasks=None, print_only=False) -> list:
 # （《运行手册》§四-1 自认的盲区正是这一类）。
 def check(out_dir, ledger_path, tasks=None) -> tuple:
     """产物漂移检测：返回 (漂移项, 多余文件)。只读不写。"""
-    events = bb.load_ledger(ledger_path)
+    events = load_events(ledger_path)
     want = {"index.html": render_index(events),
             "board.html": render_board(events, tasks),
             "honor.html": render_honor(events),
@@ -502,6 +502,24 @@ def load_tasks(path):
     raise bb.BoardError(f"tasks 快照结构不符（须为数组或 {{'tasks': [...]}}）：{path}")
 
 
+# 生效条件：path 为账本 JSON 路径时返回 events 列表；**元素非对象即点名抛错**（fail-closed）。
+# 为什么需要它（2026-10-15 补面）：`bb.load_ledger` 只判**根**（`{'events': [...]}`），元素面
+# 无人判 —— 账本写成 `{"events": [1]}` 时 `render_honor` 的 `until` 生成式 `e.get("ts")`
+# 抛裸 `AttributeError: 'int' object has no attribute 'get'`（`--check` 漂移闸与生成路径都炸）。
+# **不选**「在渲染处跳过非对象元素」：那会静默丢掉脏事件、让 `--check` 照样报「产物与真源一致」
+# （判据失明）；也**不选**改 `bb.load_ledger` 本身：它的调用方有十余处，其中 `latest_by_issue`
+# 等纯函数的既定语义是「跳过非对象元素」（`test_build_site_element_shape.py` 钉住零行为变更）。
+# ⇒ 判据放在**本站点的账本入口**这一层，与根形状同通道（BoardError ⇒ main 收成 rc=2）。
+def load_events(path):
+    """读账本并逐条判元素形状；非对象即点名抛 BoardError（不静默跳过）。"""
+    events = bb.load_ledger(path)
+    for i, e in enumerate(events):
+        if not isinstance(e, dict):
+            raise bb.BoardError("账本事件不是对象：%s 的 events[%d] 实为 %s"
+                                % (path, i, type(e).__name__))
+    return events
+
+
 # 生效条件：argv 为命令行参数列表（None = sys.argv[1:]）时生成静态站并返回退出码——0 成功 / 2 输入或环境错误。
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(
@@ -538,7 +556,7 @@ def main(argv=None) -> int:
             return 1
         made = build(args.ledger, args.out, tasks=tasks,
                      print_only=args.print_only)
-        events = bb.load_ledger(args.ledger)
+        events = load_events(args.ledger)
         if args.print_only:
             print(f"（--print：{len(made)} 页未落盘；账本 "
                   f"{len(events)} 条事件）")

@@ -4,7 +4,7 @@
 
 为什么需要这个文件（2026-10-14 立）：
   `bounty-board-check.yml` 原本只对 `tests/test_bounty_board.py` 一件跑 `--mutate`（第 2 步），
-  而本仓另有 **10 件守卫自带 `--mutate`**（正反两模式），此前没有任何 workflow 会跑它们
+  而本仓另有 **16 件守卫自带 `--mutate`**（正反两模式），此前没有任何 workflow 会跑它们
   —— 又是「有人写了、没人跑」。代价不是「少跑一次」，而是**反面证明会静默腐朽**：
   变异锚点按源码文本定位，实现一改（例如判据从串联改并联）锚点就打不中，而打不中时
   harness 只会自己 fail-closed 报 `[ANCHOR-MISS]` —— **没人跑就没人知道**。
@@ -27,7 +27,7 @@ import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parent
-FLOOR = 10          # 2026-10-14 实测 11 件；留余量但足以发现「批量删除/改名」
+FLOOR = 16          # 2026-10-15 实测 17 件；下界留 1 件余量——「一批删除/改名」即红，单件合并不误伤
 TIMEOUT_S = 300     # 单件上限（实测最慢一件 42s，CI 上留足余量）
 SPECIAL_ARGS = {    # 需要显式取值的 harness
     "test_check_reviews_roleplay.py": ["--mutate=R8b"],   # 该件 --mutate 需取值；R8b 为其文档示例

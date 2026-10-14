@@ -18,7 +18,9 @@
 - `harness/workload.py` —— **唯一的工作负载定义**：五步流水线 `load → index → retrieve → verify → emit`，四家共用同一份纯函数
 - `harness/metrics.py` —— `sha256_file` / `loc`（非空非注释行）/ `timeit`（1 次预热 + 7 次取样，报 min/p50/p95）
 - `harness/baseline.py` —— 手写基线（ThreadPoolExecutor 扇出；无检查点、无内建重试）
-- `harness/runner.py` —— 统一跑法（`--impl --name --modes --corpus --queries --rawdir --workers --repeats`），自动落 `raw/`
+- `harness/runner.py` —— 统一跑法（`--impl --name --modes --corpus --queries --rawdir --workers --repeats`），自动落 `raw/`；
+  模式异常或 `ok` 非真 ⇒ 进程**非零退出**（打印 `FAILED modes=…`），且引擎自报证据键**全量**并入
+  `raw/<name>_summary.json` 与 `raw/<name>_<mode>.txt` 的 `REC` 行（不可序列化键名记在 `dropped_keys`）
 - `data/` —— 语料 200 篇（种子 20261014）、查询 40 条（种子 20261015）、黄金产物 `out_baseline.jsonl`
 - `systems/` —— 三家方案实现，每个暴露 `NAME` / `CAPS` / `run(mode, cfg)`
 - `raw/` —— **原始证据**（逐模式 stdout、逐模式产物 jsonl、summary json、计时日志、复跑脚本）
@@ -50,20 +52,39 @@ python3 -X utf8 bench/cross_eval/harness/runner.py --impl bench/cross_eval/harne
 ## 守卫与 CI
 
 ```sh
-python3 -X utf8 scripts/check_reviews.py        # 12 条交付物判据，退出码 0 全绿
-python3 -X utf8 tests/test_check_reviews.py     # 正向 1 条 + 10 条定点变异 + 判据数自证
+python3 -X utf8 scripts/check_reviews.py        # 14 条交付物判据，退出码 0 全绿
+python3 -X utf8 tests/test_check_reviews.py     # 正向 1 条 + 29 条定点变异 + 判据面/点名自证
 ```
 
-`scripts/check_reviews.py` 的 12 条判据：交付文件齐备（R1）、报告七个固定二级标题逐字且有序（R2）、
-方法论九节齐备（R3）、引用的 `raw/<文件>` 真实存在（R4）、围栏里的读数行能在 `raw/` 逐字指到（R5）、
-无判官词（R6）、复现命令在位（R7）、声称与证据一致（R8，逐模式）、黄金产物 sha256 在方法论正文里（R9）、
-未测项非空（R10）、不适用条件非空（R11）、结论逐项可指（R12）。
+`scripts/check_reviews.py` 的 14 条判据：交付文件齐备（R1）、报告七个固定二级标题逐字且有序（R2）、
+方法论九节齐备（R3）、引用的 `raw/<文件>` 真实存在（R4）、围栏里的读数行能在**该报告自己的证据桶**里
+逐字指到（R5，跨引擎引用需在围栏紧邻上方点名 `raw/<文件>`）、
+无判官词（R6）、复现命令在位（R7）、声称与证据一致（R8，逐模式 **fail-closed**：模式记录缺 64 位
+十六进制 sha256 指纹、`matches_golden` 非布尔，或为 false 而报告未在同一行披露 ⇒ 判红）、
+黄金产物 sha256 在方法论正文里（R9）、
+未测项非空（R10）、不适用条件非空（R11）、结论逐项可指（R12）、
+**声称出处与证据一致（R13：`raw/<文件>` 引用所在行的标识符型读数 token 必须真在该文件里；
+如实写「未落盘」的 token 豁免）**、
+**正文（围栏之外）的读数行与 64 位摘要同样逐字可指（R14）**。
+
+R7/R10/R11/R12 的节切分是**结构化**的（`section_body_ex()`）：按行切出**正文区**（围栏之外）的二级标题，
+只认与目标标题**逐字相等且唯一**的那一节，切尾边界也只在正文区里找。标题出现 0 次或 ≥2 次
+（含埋在围栏里的假头、重复标题）⇒ 该条判红并**在 `--quiet` 下打 `NOTE` 点名**——重复标题本身就是
+报告结构缺陷，不许「取首次出现」蒙过去。围栏块（R5）／正文（R9）／节切分共用同一份围栏状态机 `scan_lines()`。
 CI 在 `.github/workflows/review-cross-eval-check.yml`：守卫 + 自证 + 「跑完不许把仓搞脏」。
 
 ## 口径与边界
 
 - `raw/*.txt` / `raw/*.json` / `raw/*.jsonl` 是**原始日志（证据）**，其中出现的绝对路径属于测量机，未做改写；
   `raw/*.sh` / `raw/*.py` 用 `$(dirname "$0")/../../..` 或 `__file__` 自行定位克隆根，可直接复跑。
+- **证据桶按归属切分**（R5/R13/R14 的核对面）：`<引擎>_*` 的 `.txt/.json/.jsonl` 是该引擎报告自己的证据桶，
+  `raw/*.sh` / `raw/*.py` **不是**读数证据面（源码行不能给报告背书）；跨引擎引用（如引用
+  `baseline_runner.txt` 的对照读数）必须在围栏**紧邻上方**点名 `raw/<文件>`，且该行必须真在
+  那份文件里逐字存在——点名了却不 owning，一样判红。
+- 报告里**声称未落盘**的读数豁免 R13：如实声明不落盘不算编造，但声明之外仍声称「见 raw/<文件>」
+  的 token 必须真在那份文件里。现行声明在 LangGraph 报告 **§4（读数明细）末尾**的「证据未落盘清单」
+  （7 项由终端打印、未随仓落盘；§5 末尾另有一句平实语言的落盘边界说明）——清单与要它解释的读数同节，
+  且不与 §5/§6 的结论性段落耦合（清了 §5 不会连带删掉这份声明）。
 - 本基准只测**离线、公开可得、零凭据**的工作负载；不测厂商托管服务，不采集隐私数据。
 - 并发耗时在 CPU 密集负载下受 GIL 限制，**不作为引擎优劣判据**；详见方法论 §5 与各家报告 §5「不适用条件」。
 - 未测面（LLM 调用面、网络、分布式持久化后端、跨进程恢复等）逐家写在报告 §6「未测项与原因」。

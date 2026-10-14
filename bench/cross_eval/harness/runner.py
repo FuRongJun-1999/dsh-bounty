@@ -5,6 +5,12 @@
       --impl systems/langgraph_impl.py --name langgraph --modes normal,resume,retry,parallel,sequential
 
 所有读数以本脚本打印的原文为准；报告里只能引用 raw/<name>_<mode>.txt 的内容。
+
+退出码：0 = 所有模式 ok 且计时面无 error；1 = 有模式失败（异常 / ok 非真）或有计时 error。
+（旧版 main() 末尾没有 sys.exit ⇒ 五个模式全异常仍 EXIT=0，`| tee` 的调用方读不到成败。）
+证据：实现返回的键**全量**并入 summary 与 REC/EVIDENCE 行（旧版只搬 6 个白名单键，
+其余静默丢弃——实测 steps_reused_from_checkpoint / counts_* / workers / results 全丢）；
+不可 JSON 序列化的键名记入 dropped_keys，不静默消失。
 """
 import argparse
 import importlib.util
@@ -28,9 +34,40 @@ def load_impl(path):
     return mod
 
 
+def carry_evidence(rec, r):
+    """把实现返回的每个证据键**全量**搬进 rec（白名单会静默丢键）。
+
+    不可 JSON 序列化的键不落盘，但**显式记名**在 dropped_keys 里，不静默消失。
+    """
+    carried, dropped = [], []
+    for key in sorted(r):
+        if key == "mode":
+            continue
+        val = r[key]
+        try:
+            json.dumps(val, ensure_ascii=False)
+        except (TypeError, ValueError):
+            dropped.append(key)
+            continue
+        rec[key] = val
+        carried.append(key)
+    rec["carried_keys"] = carried
+    rec["dropped_keys"] = dropped
+    return carried, dropped
+
+
+def conclusion_of(rec):
+    """可判读的失败结论字段：异常或 ok 非真 ⇒ FAIL，否则 OK。"""
+    if rec.get("exception"):
+        return "FAIL"
+    return "OK" if rec.get("ok") is True else "FAIL"
+
+
 def cfg_for(mode, args, out_path):
+    # mode 必须进 cfg：旧版该形参**零引用**（函数体内只引用 args/cfg/out_path/workload），
+    # 于是 cfg 里恒无档位，实现只能靠 run() 的 mode 形参自辨。
     cfg = {"corpus": args.corpus, "queries": args.queries, "out": out_path,
-           "workers": args.workers, "k": workload.K_TOP}
+           "workers": args.workers, "k": workload.K_TOP, "mode": mode}
     return cfg
 
 
@@ -60,11 +97,11 @@ def main():
         rec = {"mode": mode}
         try:
             r = mod.run(mode, cfg_for(mode, args, out_path))
+            if not isinstance(r, dict):
+                raise TypeError("mod.run 必须返回 dict，实得 %s" % type(r).__name__)
+            carry_evidence(rec, r)
+            rec["mode"] = mode
             rec["ok"] = bool(r.get("ok"))
-            for key in ("trace", "attempts", "first_error", "error_text",
-                        "steps_reexecuted_after_failure", "note"):
-                if key in r:
-                    rec[key] = r[key]
             if os.path.exists(out_path):
                 rec["sha256"] = metrics.sha256_file(out_path)
                 rec["sha256_golden"] = metrics.sha256_file(GOLDEN)
@@ -89,6 +126,14 @@ def main():
             rec["exception"] = "%s: %s" % (type(e).__name__, e)
             lines.append("RUN mode=%s EXCEPTION %s" % (mode, rec["exception"]))
             lines.append("TRACEBACK " + traceback.format_exc().replace("\n", " | ")[:800])
+        rec["mode"] = mode
+        # 可判读的失败结论字段（旧版失败模式只有 ok=false，无结论字段、退出码恒 0）。
+        rec["conclusion"] = conclusion_of(rec)
+        lines.append("EVIDENCE carried=%s dropped=%s"
+                     % (json.dumps(rec.get("carried_keys", []), ensure_ascii=False),
+                        json.dumps(rec.get("dropped_keys", []), ensure_ascii=False)))
+        # 证据行：整条记录（含引擎自报的每个键）逐字落原始文本，报告里的读数可指认。
+        lines.append("REC %s" % json.dumps(rec, ensure_ascii=False, sort_keys=True))
         summary["modes"][mode] = rec
         txt = "\n".join(lines) + "\n"
         with open(os.path.join(args.rawdir, "%s_%s.txt" % (args.name, mode)), "w",
@@ -111,6 +156,18 @@ def main():
     metrics.jdump(summary, os.path.join(args.rawdir, "%s_summary.json" % args.name))
     print("SUMMARY_WRITTEN raw/%s_summary.json" % args.name)
 
+    # 失败必须反映到退出码：旧版 main() 无 sys.exit ⇒ 全模式异常仍 EXIT=0。
+    bad_modes = sorted(m for m, rec in summary["modes"].items()
+                       if not isinstance(rec, dict) or rec.get("ok") is not True)
+    bad_timing = sorted(k for k, v in summary.items()
+                        if k.startswith("timing_") and isinstance(v, dict) and v.get("error"))
+    if bad_modes or bad_timing:
+        print("FAILED modes=%s timing=%s" % (json.dumps(bad_modes, ensure_ascii=False),
+                                            json.dumps(bad_timing, ensure_ascii=False)))
+        return 1
+    print("ALL_MODES_OK %d" % len(summary["modes"]))
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

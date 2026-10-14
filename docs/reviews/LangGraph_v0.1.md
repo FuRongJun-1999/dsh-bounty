@@ -236,6 +236,10 @@ CAPS {"checkpoint": true, "fanout": true, "note": "checkpoint=InMemorySaver(serd
 - `retry=true`：`RetryPolicy` 由引擎在节点执行层实施，节点函数内没有任何 `while`/`for` 重试代码。
 - `fanout=true`：`Send` 由引擎的 `add_conditional_edges` 展开为并发任务，`max_concurrency` 由引擎调度器读取，未自建线程池。
 
+- **证据未落盘清单（如实声明，本次审计补记）**：本报告引用的以下读数由 `raw/langgraph_run.sh` 的第 [3]/[4]/[5]/[6] 段在**终端**打印，该段 stdout 未随仓落盘，故 `raw/langgraph_runner.txt` 里查不到这些 token，第三方无法仅凭仓内文件复算：`COLD_START_IMPORT_MS`、`GRAPH_LINEAR`、`GRAPH_FANOUT`、`COMPILE_LINEAR_MS`、`COMPILE_FANOUT_MS`、`LOC`、`du -sh`。复算路径：在测量机上原样执行该脚本并捕获该段 stdout。
+  （为什么放在**读数明细**这一节的末尾而不是别处：这份清单是「本节 M2/M3/M8 的哪几项读数没有随仓落盘」的注脚，
+  与它要解释的读数同节；同时它与 §5/§6 的结论性段落解耦，报告修 §5/§6 时不会连带删掉这份声明。）
+
 ## 5. 不适用条件
 
 本方案的额外前置条件（相对基线而言）：
@@ -246,6 +250,7 @@ CAPS {"checkpoint": true, "fanout": true, "note": "checkpoint=InMemorySaver(serd
 4. **扇出收益不适用于小任务量。** 40 条查询、单查询检索成本约亚毫秒级时，`Send` 的每任务编排开销超过并行节省（M6 两轮 A/B 均未见收益，且并发度收益符号翻转）。扇出只应在单任务成本显著大于编排开销时考虑；本报告**不提供**任何「扇出更快」的适用结论。
 5. **检查点续跑的收益依赖失败点靠后。** 本方案失败在 verify（第 4 步）时才省下 3 步重跑（M4）；若失败发生在第 1 步 load，可复用的步骤为 0，此时相对基线的重跑优势消失。
 6. **代码量成本。** 231 行 vs 基线 66 行（M2），且图编译有一次性开销（linear 2.296 ms / fanout 6.788 ms，本次），在一次性脚本场景下不划算。
+7. **证据落盘边界：本报告有 7 项读数未随仓落盘。** 它们的取值只能由 `raw/langgraph_run.sh` 在终端打印，第三方无法仅凭仓内文件复算——清单与复算路径见 §4 末尾的证据未落盘声明。凡引用这 7 项的结论（M2 的 LOC/图结构、M3 的冷启动、M8 的依赖足迹）**不可**被第三方原样复算，只能按该声明重跑。
 
 ## 6. 未测项与原因
 

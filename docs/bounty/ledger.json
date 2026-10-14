@@ -4297,6 +4297,151 @@
         "delta": 6
       },
       "id": "evt_6afd9112dc4b"
+    },
+    {
+      "ts": "2026-10-14T14:57:52Z",
+      "issue": 395,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "结算 hawkongz 的 dsh-memory intake 申报件 #395（target：dsh-memory issue #313；project=memory）。【缺陷面】`#148` 的修复只接了 `converge_into` / `reinforce` 两路，`check` / `record_accepted` 的 `sensitivity` 形参**从未被生产调用方传入**，且「加密级跳过签名」那半从未实现 ⇒ `_writelimit.json` 里躺着 private/secret 正文的去数字**明文骨架**，而同一节点正文在盘上是密文（`<!-- mdcg-enc:v1:…`）。触发条件为缺省配置 + 公开工具面，无需管理员、无需改配置。【维护者独立复核（本轮亲验）】项目方在 #313 上出回执 cid 6170427277，逐字「报告成立，已修复、加守卫并合入」，并给出两侧对照读数：干净快照 9aeded4e ⇒ 台账含 private 明文骨架 True、`sigs[*][\"sens\"]` = [null]；修后 ⇒ False / []（加密级整条不落签名）。落修提交 a15f5f25。本轮另核：账本内 covers 含 313 的行数 = 0 ⇒ 非重复申报；#382（123WP-a）报的是 dsh-memory #324/#325/#326，与本件靶面不相交。【归属与计分口径】修复本身由维护者完成，作者已在正文「归属声明」如实标注「不计入申报人交付」⇒ 本条只结算**缺陷报告面**（现象 + 最小复现 + 根因定位 + 建议修法第 1/2 条）。先例 evt_ea3c2972eb97（未合入提案可计分）与 evt_abf29eb6aabc（报告面与修复面分属不同人时各计一份）。【定档依据】medium=3：判据真源 `crypto.ENCRYPTED_LEVELS` 已存在，改动为两处接线 + 一个新判据函数，不需另立真源。影响 A：密级语义在缺省配置 + 公开工具面下不成立 ⇒ 命中 IMPACT_CRITERIA「核心链路失效、语义错误」。自申档位与维护者判定一致，采信自申。判级可申诉。",
+      "pr": null,
+      "covers": [
+        395
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_553982f16893"
+    },
+    {
+      "ts": "2026-10-14T14:57:52Z",
+      "issue": 363,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "结算 hawkongz 的 dsh-memory intake 申报件 #363（target：dsh-memory issue #315；project=memory）。【缺陷面】`md_cg/mdcos.remember_gated` 的 MERGE 支调 `forgetting.reinforce` 时**未传 `sensitivity`** ⇒ private 正文以聚合行并入 internal 节点，internal 档读者可读——**降密级泄漏**。【维护者独立复核（本轮亲验）】项目方在 #315 上出回执 cid 6170427277 系列，逐字「报告成立，已修复、加守卫并合入（附一处与报告表述不同的前提）」，给出两侧对照：干净快照 gate.verdict=MERGE 且 reinforced ok=true（appended）；修后 reinforced ok=false、error=merge_downgrade_refused、incoming_sensitivity=private、target_sensitivity=internal。作者另在 #315 上出自我更正评论（cid 6167…「writelimit.py:83-84 行号引用」机械复跑复核），属**作者主动更正、非缺陷**。【与 #395 的归并判据（不合并）】两件报的是**同一落修提交内两个不同分支**的接线缺口：本件 = MERGE 支；#395 = `check`/`record_accepted` 两路。作者在 #395 §六 逐层给出检索范围并论证「互补关系，不是同一面」，且 #315 有独立申报件（本仓 #363）、#313 有独立申报件（本仓 #395），维护者落修时也是分开写进同一提交的两条理由。按「一件工作 = 一条事件」+「缺陷面是否相交」判据：**同一文件但不同分支、不同触发条件、不同危害路径 ⇒ 不相交，各计一份**。先例：round-23 #362/#366 各计。【定档依据】medium=3：一行改法明确（作者自述「一行改法明确，待维护者裁定口径后再开」），判据真源已存在。影响 B：需**特定路径**才可触发——内容 ≥ `writelimit.MAX_CONTENT`=200 字（否则走限流/CONVERGE 闸）+ 重复度 ≥ `DUP_MERGE`=0.85 判 MERGE + 写入方显式声明 `role=\"user\"`（绕开 forgetting.py:358 的 DROP 支）⇒ 字面命中 IMPACT_CRITERIA B 档「需特定路径才可触发的缺陷」。自申 B，采信。判级可申诉。",
+      "pr": null,
+      "covers": [
+        363
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_362a206fc29f"
+    },
+    {
+      "ts": "2026-10-14T14:57:52Z",
+      "issue": 378,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "rinDBeans",
+      "difficulty": "expert",
+      "delta": 10,
+      "reason": "结算 rinDBeans 的 lingshu intake 申报件 #378（世界过程第 1 组；target：lingshu PR #567；project=lingshu）。【交付面】时间会意（接近/停留/离开、绕行后返回、汇合后同行）、示教迁移（参照物相对轨迹绑定新角色，支持平移/水平旋转/显式尺度）、运动组合体（共同平移集合检测 + 遮蔽成员按已学偏移推算、保留高度差）、core 接入（显式注册世界过程模块）、模块登记（两个新模块进清单工具实际解析结构）。交付提交 eba6575abc0d，新增功能提交 d854482，比较基线 894493b4。【作者自述边界（如实采信）】正文明确标注「功能 PR lingshu #567 当前 state=open、merged=false —— **本件不主张已落地计分**」。本轮独立核实：`gh pr view 567` ⇒ state=OPEN、mergedAt=None、+16145/-245、75 files ⇒ 与自述一致。作者同时声明「不重复计入 #461、#516 或同步 main 时带入的代码」。【影响 B 的依据】按 IMPACT_CRITERIA，B 档字面包含「**新系统交付、未合入的提案**」⇒ 本件恰好命中该档定义。作者自申 impact=B 并给出依据，采信。先例 evt_ea3c2972eb97（TanPowasd memory hard Δ6 B，未合入提案计分）。【定档依据】expert=10：新增世界过程子系统（时间会意 / 示教迁移 / 运动组合体三块能力 + core 接入 + 模块登记），属系统级新交付；作者给出 23 个脚本式测试全过、清单严格核验 63 MATCH/0 MISMATCH、导入方向守卫 core→world=28 与原基线相等、绕行同族反例网格 198 例 0 误报、7 个正例保留、远端 CI 三档全成功。自申 expert，采信。判级可申诉。",
+      "pr": null,
+      "covers": [
+        378
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
+      },
+      "id": "evt_72339f83d954"
+    },
+    {
+      "ts": "2026-10-14T14:57:52Z",
+      "issue": 385,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "rinDBeans",
+      "difficulty": "expert",
+      "delta": 10,
+      "reason": "结算 rinDBeans 的 lingshu intake 申报件 #385（世界过程第 2 组；target：lingshu PR #589；project=lingshu）。【交付面】事件回声（从停止/转向事件学习有限延迟关联，保留源与目标实体身份，比较延迟与无延迟模型）、过程补全（以观测前缀匹配已记录过程，报告候选来源与分数，生成尚未观测的尾部）、过程重组（连接两个已记录过程，重绑定角色并检查连接点）、core 接入（新增 echo/complete/compose，复用本地及脑端记忆读取）、可见演示（补全动画 12 帧、重组动画 10 帧，去标题后各 9 种实体画面）。交付提交 f89e4d8194e7，增量基线 eba6575abc0d（即第 1 组交付提交）。【作者自述边界（如实采信）】正文明确标注「功能 PR lingshu #589 当前 state=open、merged=false —— **本件不主张已落地计分**」。本轮独立核实：`gh pr view 589` ⇒ state=OPEN、mergedAt=None、+31008/-245、111 files ⇒ 与自述一致。作者声明「本组不重复计入第 1 组、#461、#516 或同步 main 带入的代码」，并给出增量基线为第 1 组交付提交。【与 #378 的归并判据（不合并）】两件为**同一作者、同一能力族**但**交付面不相交**：第 1 组 = 时间会意/示教迁移/运动组合体；第 2 组 = 事件回声/过程补全/过程重组。作者以「增量基线 = 第 1 组交付提交」显式切分，且第 2 组依赖第 1 组（前置 PR #567）。按「缺陷面/交付面是否相交」判据 ⇒ 不相交，各计一份。先例：evt_0291fd5c72bd 与 evt_8804091ea390（同一悬赏的两份独立交付、被测对象不相交 ⇒ 各计一份）。【定档依据】expert=10：新增事件回声 / 过程补全 / 过程重组三块能力 + core 三入口接入 + 可见演示动画，系统级新交付；作者给出当前固定提交 py3.12、依赖下界、py3.13 三档 gate 全成功与标题检查成功。影响 B：同 #378，命中 B 档「新系统交付、未合入的提案」。自申档位采信。判级可申诉。",
+      "pr": null,
+      "covers": [
+        385
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
+      },
+      "id": "evt_8fb04d91af23"
+    },
+    {
+      "ts": "2026-10-14T14:57:52Z",
+      "issue": 377,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ybyz2",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "结算 ybyz2 的 intake 申报件 #377（周期 PR 审核：lingshu × dsh-memory 在飞 PR 的独立复核；project=memory）。【交付面】对两仓在飞 PR 的**周期独立复核**（评审类交付）：本轮（R4）14 件 + 同日上一轮（R3）28 件 = **42 条已发布评论 / 42 个不同上游 PR / 正文合计约 31.5 万字符**。方法为每件过「主审 + 独立对抗」两轮（不同 agent，对抗方自建树、不读主审中间产物），钉死基线 lingshu 9dd0beb0 / dsh-memory ee3274e1，逐件给判定 + 五面标注（基线对齐 / 可复现 / 守卫鉴别性 / 回归 / 不掩盖），涉架构取舍一律标 needs-owner-decision 不代维护者裁决。【证据链独立核验（本轮亲验，决定性）】把正文 §二 列出的 **14 条 `pull/<N>#issuecomment-<cid>` 链接逐条打到 GitHub API** 核对：**14/14 全部存在**，且 cid、作者（ybyz2）、发布时间（11:01:29Z–11:02:14Z）、正文字节数（5035–17136）均可读取。首次核验时其中 1 条返回瞬时 API 错误，重试后确认存在——**单次 API 报错不构成「评论不存在」的判据**。作者另在 §五 显式列出未测项（#314 的 repro191.py 未随件入仓、#316 TypeScript 侧未编译未跑测、#310 的计数未以可比口径复现）与平台边界（全部实测在 Linux/Python 3.12.3，上游多为 Windows 11/Python 3.11.15，凡依赖平台前提的结论均标注「Windows 侧未独立验证」且不据此否定修复本体），§五.4 明确「不主张任何一件 PR 的作者存在伪造读数」。【影响 A 的依据】其判定的核心产出是**守卫鉴别性的判据**：每条判定都配「把判据短路 ⇒ 期望红项恰好命中」的反面锚定，例如 #578「还原被修函数后 core 面 57 passed / 0 failed ⇒ 鉴别性为零」，正是据此判「需改后重提」。即本件拦下的是**零鉴别力的守卫**这类量具失效——而这些 PR 处于**待合入**状态，不拦就会被合入 main。命中 IMPACT_CRITERIA A 档「量具失效」。【定档依据（维护者下调 expert→hard）】作者自申 expert=10。维护者判 **hard=6**：本件确实**设计了判据**（五面框架 + 守卫鉴别性反面锚定），不是纯走查；42 件逐件双轮复核的工作量亦达 hard。但 expert 档的历史先例（#65 / #67 / #104 / #161 等）均为**系统/生成器级代码交付**，本件交付物是**判定与评论**、无仓内代码增量、无新增可运行件 ⇒ 不达 expert。按「按不做会怎样判影响、按要不要设计判据判难度」定档，判 hard。此下调有明确依据、**可申诉**。",
+      "pr": null,
+      "covers": [
+        377
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_c18a90ef014d"
     }
   ]
 }

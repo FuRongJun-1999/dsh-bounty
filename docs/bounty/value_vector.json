@@ -266,6 +266,21 @@
    "rounds": 1
   },
   {
+   "difficulty": "expert",
+   "difficulty_base": 10,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    378,
+    385
+   ],
+   "login": "rinDBeans",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 20,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -380,6 +395,21 @@
    "rounds": 1
   },
   {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    43,
+    377
+   ],
+   "login": "ybyz2",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 12,
+   "rounds": 1
+  },
+  {
    "difficulty": "expert",
    "difficulty_base": 10,
    "evidence_strength": true,
@@ -461,6 +491,22 @@
    ],
    "login": "cyd471",
    "project": "hive_memory_bench",
+   "quality_E": null,
+   "reputation_delta": 9,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    292,
+    363,
+    395
+   ],
+   "login": "hawkongz",
+   "project": "memory",
    "quality_E": null,
    "reputation_delta": 9,
    "rounds": 1
@@ -641,20 +687,6 @@
    "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
-    43
-   ],
-   "login": "ybyz2",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 6,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
     125
    ],
    "login": "zhangdeishuai1",
@@ -714,20 +746,6 @@
     11
    ],
    "login": "acrot0",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 3,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    292
-   ],
-   "login": "hawkongz",
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 3,

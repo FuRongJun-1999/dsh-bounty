@@ -227,6 +227,25 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    183,
+    184,
+    294,
+    418,
+    439,
+    440
+   ],
+   "login": "hawkongz",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 27,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -302,22 +321,6 @@
    "project": "lingshu",
    "quality_E": null,
    "reputation_delta": 20,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    183,
-    184,
-    294
-   ],
-   "login": "hawkongz",
-   "project": "lingshu",
-   "quality_E": null,
-   "reputation_delta": 18,
    "rounds": 1
   },
   {
@@ -402,6 +405,21 @@
    "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 15,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    430,
+    432
+   ],
+   "login": "aroejony-cell",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 12,
    "rounds": 1
   },
   {
@@ -800,6 +818,20 @@
    ],
    "login": "acrot0",
    "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 3,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    431
+   ],
+   "login": "aroejony-cell",
+   "project": "lingshu",
    "quality_E": null,
    "reputation_delta": 3,
    "rounds": 1

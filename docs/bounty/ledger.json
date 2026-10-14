@@ -5234,6 +5234,180 @@
         "delta": 3
       },
       "id": "evt_4b0ac04bbff3"
+    },
+    {
+      "ts": "2026-10-14T23:06:15Z",
+      "issue": 418,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（**各件在其自己锚定的提交上**核对；lingshu 用隔离克隆 @55a137fc3e31，dsh-memory 用本机 @96be12cfab82 的 git show 取内容；非采信申报读数）：【lingshu PR #591 交付：selfsup_finetune 的 epochs<=0 不再抛 IndexError（#17 遗留项之一）】base↔head 逐行对照：`9dd0beb` 的 L286 是 `\"final_loss\": round(loss_curve[-1], 5),` **无防护**；`55a137fc` 的 L290 改为 `round(loss_curve[-1] if loss_curve else init_loss, 5)`，且 L253 docstring 补了 `epochs <= 0` 回落语义。`git diff --stat 9dd0beb 55a137fc` = **3 文件 / +167 −4**（`lingshu/nn/hex_cnn.py`、`tests/test_hex_selfsup_epochs_zero.py` +159、`docs/intake/body-export-v0.1/_export_manifest.json`），与申报的改动面**逐项吻合**。本件属交付类（修复由申报人完成、合并提交保留署名）。。受理。影响等级由维护者按 IMPACT_CRITERIA 定档（无机器标记件）或沿用自评（有标记件），依据见本行。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生（#418/#439/#440/#431 => lingshu；#430/#432 => memory）。",
+      "pr": null,
+      "covers": [
+        418
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c1accbe135fa"
+    },
+    {
+      "ts": "2026-10-14T23:06:15Z",
+      "issue": 439,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（**各件在其自己锚定的提交上**核对；lingshu 用隔离克隆 @55a137fc3e31，dsh-memory 用本机 @96be12cfab82 的 git show 取内容；非采信申报读数）：【repro-bot 抽围栏：嵌套容器内的 HTML 块起点被漏判 ⇒ 页面不可见的围栏被抽出并真执行（安全面）】**文件身份逐字节命中**：`scripts/extract_and_run_issue_repro.py` @55a137fc3e31 的 sha256 = `2523df6161780e6815d6f5e89112ff94d8c306d1ba74366d4af3ec6c7c1f166a`、45598 字节，与申报所载**完全一致**。`_container_strip`（L271-273）= `_bq_strip(line)` ＋ **仅一次** `_RE_LIST_MARKER.sub(..., count=1)`。真跑嵌套输入：`- - <div title=x>` → 剥后 `- <div title=x>`、`  - > <div title=x>` → `> <div title=x>`、`- 1. <div title=x>` → `1. <div title=x>`，三者 `_html_block_start` **均判不认**；对照单层 `> <div>`、`- <div>`、`> - <div>`、`> > <div>`（bq_depth=2）**均认**。⇒ 只剥一层、嵌套即漏判，与申报逐条一致。。受理。影响等级由维护者按 IMPACT_CRITERIA 定档（无机器标记件）或沿用自评（有标记件），依据见本行。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生（#418/#439/#440/#431 => lingshu；#430/#432 => memory）。",
+      "pr": null,
+      "covers": [
+        439
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_17a7347c8474"
+    },
+    {
+      "ts": "2026-10-14T23:06:15Z",
+      "issue": 440,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（**各件在其自己锚定的提交上**核对；lingshu 用隔离克隆 @55a137fc3e31，dsh-memory 用本机 @96be12cfab82 的 git show 取内容；非采信申报读数）：【抽取器对 HTML 块结束条件与 CommonMark 三处分歧 ⇒ 对有围栏的正文误报「没有围栏代码块」（量具失效）】**同文件、同一 sha256 身份命中**。真跑判据：① **异名闭标签**——`_html_block_start(\"<script>\", True)` 得 `(\"tag\",\"script\")`，而结束条件 L315-317 要求**同名** `</script>`；对 `\"</pre>\"` 命中 **False**（`<pre>` 对 `</script>` 同为 False）⇒ 块永不结束、其后可见围栏被吞。② **`<!-->` 空注释**——`_advance_comment_state(\"<!-->\", False)` 返回 **True**（`<!--` 后 k=4，`find(\"-->\", 4)` 找不回），CommonMark 下空注释应立即闭合 ⇒ 期望 False。③ 裸 `>` 终止行：读码一致（L320-323 的 else 支要求终止串**逐字出现**），未单独真跑。⇒ 三条同族（块迟迟不结束）中两条已真跑证实，结论成立。。受理。影响等级由维护者按 IMPACT_CRITERIA 定档（无机器标记件）或沿用自评（有标记件），依据见本行。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生（#418/#439/#440/#431 => lingshu；#430/#432 => memory）。",
+      "pr": null,
+      "covers": [
+        440
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5556ea8b3c70"
+    },
+    {
+      "ts": "2026-10-14T23:06:15Z",
+      "issue": 430,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "维护者独立复核（**各件在其自己锚定的提交上**核对；lingshu 用隔离克隆 @55a137fc3e31，dsh-memory 用本机 @96be12cfab82 的 git show 取内容；非采信申报读数）：【dsh-memory 写面闸收尾审计：七处既有节点覆写面未过 guard_overwrite（含在役巡检直写 anchor/不可变层）】**判据锚逐字吻合**：`md_cg/protect.py:411 def guard_overwrite`，其 docstring L415-420 原文含「N197/N208（2026-09-28）」与「必须先过这里，否则 self/anchor 层与 immutable 节点被无痕覆写：不抛错、不落 `_protected_history` 快照、不写 `_protected_audit.jsonl`」。**接线面实测**：`guard_overwrite` 在 `md_cg/*.py` 的调用点仅 4 处（`ccgc.py:836`、`ccgc.py:926`、`forgetting.py:592`、`insight.py:307`）。**旗舰面实锤**：`md_cg/consolidate.py` 全文件 `guard_overwrite` / `is_protected` / `is_immutable` **命中各 0 次**，而 `_apply_node`（L654）在 **L685 直调 `cg._write_node`** ⇒ 写目标侧确无保护判。在役性：`md_cg/sustain.py:1195-1199` 的 `_consolidate()` 调 `_cd.consolidate(cg.root, apply=True, …)`。。受理。影响等级由维护者按 IMPACT_CRITERIA 定档（无机器标记件）或沿用自评（有标记件），依据见本行。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生（#418/#439/#440/#431 => lingshu；#430/#432 => memory）。",
+      "pr": null,
+      "covers": [
+        430
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_5a282eaae5a4"
+    },
+    {
+      "ts": "2026-10-14T23:06:15Z",
+      "issue": 431,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（**各件在其自己锚定的提交上**核对；lingshu 用隔离克隆 @55a137fc3e31，dsh-memory 用本机 @96be12cfab82 的 git show 取内容；非采信申报读数）：【检索面「矛盾另一侧丢失」机制定位：search_content 兜底池宣称全表实测 LIMIT 500 ＋ 排序面无对侧保留】**宣称与实现并置**：`lingshu/core/core.py` L2678 注释「→ 回退**全表**二元组 Jaccard」、L2679「节点量级小（千级），全表计算代价可忽略」，而 L2682/L2685 实现是 `ORDER BY importance DESC, last_access DESC **LIMIT 500**` ⇒ 截断键（importance/last_access）与查询内容**完全无关**。**排序面无对侧保留**：L2694 `sim = self.char_bigram_jaccard(q, node.content)` 是唯一相关性信号（另加 0.05 tag_bonus），L2701 `scored.sort(key=lambda x: (-x[1], -x[0].importance, -x[0].confidence))`、L2702 `scored[:limit]` ⇒ 词面不重叠的对侧记载被系统性挤出 top-k。。受理。影响等级由维护者按 IMPACT_CRITERIA 定档（无机器标记件）或沿用自评（有标记件），依据见本行。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生（#418/#439/#440/#431 => lingshu；#430/#432 => memory）。",
+      "pr": null,
+      "covers": [
+        431
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6b704b81dded"
+    },
+    {
+      "ts": "2026-10-14T23:06:15Z",
+      "issue": 432,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "维护者独立复核（**各件在其自己锚定的提交上**核对；lingshu 用隔离克隆 @55a137fc3e31，dsh-memory 用本机 @96be12cfab82 的 git show 取内容；非采信申报读数）：【dsh-memory 审计账本族经有损原语裸写：九条不能丢的账全部走 append_jsonl】**判据锚逐字吻合**：`md_cg/fsutil.py:189 def append_jsonl` 的 docstring L192-197 原文含「Windows CRT 的 _O_APPEND 则是 lseek(END) + write 两步，并发下会偶发交错丢记录（实测 6 进程 × 40 条，每轮丢 ~1 条）。因此本函数只用于**丢一条无所谓**的簿记（访问计数）。任何不能丢的东西（比如索引增量）必须用 ShardedLog」。**实现无锁**：L204-208 仅 `os.open(O_CREAT|O_WRONLY|O_APPEND, 0o600)` + `os.write` + `os.close`。**承载面实测**：九条账在 `md_cg/*.py` 全部命中（`_audit` 74 / `_protected_audit` 25 / `_crypto` 12 / `_trust` 7 / `_maintain` 27 / `_backfill` 8 / `_govern` 5 / `_write_2pc` 10 / `_forgetting` 31），`append_jsonl(` 调用点 **135 处**。**不对称证明**：同仓「不能丢的写」已有 `FileLock(strict=True)` 先例（`coldverify.py:149/177`、`crypto.py:371`）。。受理。影响等级由维护者按 IMPACT_CRITERIA 定档（无机器标记件）或沿用自评（有标记件），依据见本行。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生（#418/#439/#440/#431 => lingshu；#430/#432 => memory）。",
+      "pr": null,
+      "covers": [
+        432
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_3a4699a72ec5"
     }
   ]
 }

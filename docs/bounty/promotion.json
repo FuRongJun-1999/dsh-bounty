@@ -237,15 +237,15 @@
    ],
    "login": "acrot0",
    "projects": [],
-   "reputation_delta": 34,
+   "reputation_delta": 31,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 7,
+   "round_known": 6,
    "round_seen": [
     1
    ],
-   "settled": 7,
+   "settled": 6,
    "timeout": 0
   },
   {

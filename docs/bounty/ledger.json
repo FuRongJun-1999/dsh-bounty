@@ -5495,6 +5495,180 @@
         "delta": 3
       },
       "id": "evt_892268d1d27d"
+    },
+    {
+      "ts": "2026-10-14T23:29:11Z",
+      "issue": 433,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（非采信申报读数）：dsh-memory 三件在本机仓 `D:/program/dsh-memory-main` @ `96be12cfab82` 用 `git show` 取源码；hive-memory-bench 三件用**隔离克隆** `D:/ext-iso/r40_hb` @ `53b1939cbba8`，并按申报所述**确定性重生成** `chain/tools/synth.py` 后核对（重生成前后 `git status` 零变化、自检「keys ↔ synth_log 复算不符 0 题」、题数 642）。【tidy_contextual 的 keep 写点逃逸整条可见性链（不落 _dirty / 不进分片账本 / 不推进读缓存代际）】**同文件同函数的两个写点并置**：`md_cg/writelimit.py` —— `_demote`（L428 定义）在 L451 `cg._write_node(...)` 之后 L453-457 **有** `entry.update({...})` + `cg._dirty[e[\"id\"]] = entry`；而 keep 聚合块在 **L415-417** `cg._write_node(keep[\"id\"], …, durable=True)` 之后**没有任何 `_dirty` 赋值**（紧接 L418-424 是写 out/`flush()/return`），行号与申报的 :415-417 逐字一致。该文件 `_write_node` 出现 2 处、`_dirty` 只出现在 `_demote` 一侧。**判据锚逐字吻合**：`readcache.py` docstring 自述「所有写路径必然标脏（flush 依赖 `_dirty`……**无一例外**）」。**在役面**：sustain 巡检自动跑 tidy（`writelimit.tidy_contextual`，非按需）。**证据强度**：源码级判据复核（写点、标脏点、自述条文三点齐全）；申报的真库实跑读数（`keep in _dirty: False`、清缓存后重搜命中）**未复跑**。。受理。**本件无 `<!-- intake:v1 -->` 机器标记**，难度与影响等级由维护者按本仓判据定档（依据见本行），非沿用申报（申报只给了 P 级严重度，P 级与影响档是两把尺）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。`project` 按目标仓派生（dsh-memory => memory；hive-memory-bench => hive_memory_bench）。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        433
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_37479b2f9f8e"
+    },
+    {
+      "ts": "2026-10-14T23:29:11Z",
+      "issue": 434,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（非采信申报读数）：dsh-memory 三件在本机仓 `D:/program/dsh-memory-main` @ `96be12cfab82` 用 `git show` 取源码；hive-memory-bench 三件用**隔离克隆** `D:/ext-iso/r40_hb` @ `53b1939cbba8`，并按申报所述**确定性重生成** `chain/tools/synth.py` 后核对（重生成前后 `git status` 零变化、自检「keys ↔ synth_log 复算不符 0 题」、题数 642）。【compact_access 折叠访问日志时写盘不落账：索引 access_count/last_access 与盘面永久分叉】**函数体内机械计数（决定性）**：`md_cg/mdcg.py:5431 def compact_access`，其体（L5431-5449）内 `_write_node` 出现 **1** 次（L5445 `self._write_node(nid, self._node_disk_path(e), fm, content)`）、`_dirty` 出现 **0** 次——即写盘后**既不标脏也不同步索引条目**。**在役面**：`md_cg/sustain.py:1169` `act(\"compact_access\", \"折叠访问日志进 access_count / last_access\", …)` ⇒ 巡检自动跑（access_log_backlog 触发）。**下游取数**：`md_cg/freshness.py:204-205` `refrsh_factor(access_count=0, last_access=0, …)` 只吃索引条目 ⇒ 折叠后索引恒 0，访问过 N 次的节点在 freshness 眼里与从未访问同值。**证据强度**：源码级判据复核；申报的真库实跑读数**未复跑**。。受理。**本件无 `<!-- intake:v1 -->` 机器标记**，难度与影响等级由维护者按本仓判据定档（依据见本行），非沿用申报（申报只给了 P 级严重度，P 级与影响档是两把尺）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。`project` 按目标仓派生（dsh-memory => memory；hive-memory-bench => hive_memory_bench）。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        434
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8bf56bcf5ab3"
+    },
+    {
+      "ts": "2026-10-14T23:29:11Z",
+      "issue": 435,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（非采信申报读数）：dsh-memory 三件在本机仓 `D:/program/dsh-memory-main` @ `96be12cfab82` 用 `git show` 取源码；hive-memory-bench 三件用**隔离克隆** `D:/ext-iso/r40_hb` @ `53b1939cbba8`，并按申报所述**确定性重生成** `chain/tools/synth.py` 后核对（重生成前后 `git status` 零变化、自检「keys ↔ synth_log 复算不符 0 题」、题数 642）。【工具面闸表漏登：mdcg_service_info 不映射任何 op，却回吐与被 read 闸管着的 mdcg_whoami 同一份身份清单】**机械差集实测**：`md_cg/mcp_server.py` 内 `\"name\":` 命中 **33** 个工具名（与申报的 33 一致）；`_MDCG_OP_REQUIRE`（L3475 起）键数 **30**；`set(工具名) - set(闸表键) = [\"cg\", \"mdcg_service_info\", \"stg\"]`。**申报的「33 件中唯一」属过度概括**——`cg`/`stg` 同样不在表内，但它们是内核直通（走 `_cg_call`/`_stg_call`，按 `op=` 分档），属另一层设计；准确表述应为「**31 个 `mdcg_*` 工具中唯一不在闸表者**」。**核心机制成立**：`mdcg_service_info` 缺表（`_MDCG_OP_REQUIRE.get(name)` 得 `None` ⇒ 跳过 `require_op`），而 `mdcg_whoami` 映射 **`read`**，二者回吐同一 `principal.as_dict()`。按「举证瑕疵 ≠ 结论不成立」受理，计数偏差已在本行记明。**触发面**：`service_info` 仅在 full surface（`MDCG_MCP_SURFACE=full`）暴露 ⇒ 非默认配置，故影响档取 B 不取 S。**证据强度**：源码级机械核对；申报的真库投射读数**未复跑**。。受理。**本件无 `<!-- intake:v1 -->` 机器标记**，难度与影响等级由维护者按本仓判据定档（依据见本行），非沿用申报（申报只给了 P 级严重度，P 级与影响档是两把尺）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。`project` 按目标仓派生（dsh-memory => memory；hive-memory-bench => hive_memory_bench）。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        435
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ae3d559820a8"
+    },
+    {
+      "ts": "2026-10-14T23:29:11Z",
+      "issue": 436,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（非采信申报读数）：dsh-memory 三件在本机仓 `D:/program/dsh-memory-main` @ `96be12cfab82` 用 `git show` 取源码；hive-memory-bench 三件用**隔离克隆** `D:/ext-iso/r40_hb` @ `53b1939cbba8`，并按申报所述**确定性重生成** `chain/tools/synth.py` 后核对（重生成前后 `git status` 零变化、自检「keys ↔ synth_log 复算不符 0 题」、题数 642）。【判分器对 SUT 自报的**结构形状**零校验：畸形条目让判分器崩溃而非判 fail，且批跑无 per-item 隔离】**不对称（判据锚）**：`score_sut.py:47/48-49` 对**标量**已硬化并留痕——`if obj.get(\"qid\") not in (None, qid)` 打 `[WARN] … 以文件名为准（issue #8）`、`if obj.get(\"condition\") not in (None, \"full\")` 打 `[WARN] … 不被采信（issue #15）`；而 **结构形状从未校验**。**未护栏取值点（实测逐行）**：`judge.py:355 cid, quote = it.get(\"cid\"), it.get(\"quote\") or \"\"`（L354 `for i, it in enumerate(ev, 1)`）、`judge.py:480 q = it.get(\"quote\") or \"\"`、`judge.py:521/578` 对 `resp.get(\"evidence\")` 逐条 `.get`、`judge.py:524/527 c.get(...)` 对 `claims` 逐条 `.get`、`judge.py:586/594/596 it.get(...)`、`judge.py:613 resp.get(\"confidence\")`、`score_sut.py:46 obj.get(\"qid\")`（答卷顶层非 dict）——**任一非 dict 条目 ⇒ AttributeError，判分器不产出任何判决**。**无隔离（决定性）**：`score_sut.py` 全文 `try` 出现 **0** 次、`except` 出现 **0** 次；两个批处理循环 `L73 for qid, resp in sorted(answers.items())` 与 `L151` 同形，均在循环内直调 `J.judge(...)` 而**无 per-item 兜底** ⇒ 一份畸形答卷中断整轮计分。**证据强度**：源码级判据复核 + 全文 try/except 机械计数；申报的 `J.judge` 实跑崩溃读数**未复跑**。。受理。**本件无 `<!-- intake:v1 -->` 机器标记**，难度与影响等级由维护者按本仓判据定档（依据见本行），非沿用申报（申报只给了 P 级严重度，P 级与影响档是两把尺）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。`project` 按目标仓派生（dsh-memory => memory；hive-memory-bench => hive_memory_bench）。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        436
+      ],
+      "project": "hive_memory_bench",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_3731e7f38693"
+    },
+    {
+      "ts": "2026-10-14T23:29:11Z",
+      "issue": 437,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（非采信申报读数）：dsh-memory 三件在本机仓 `D:/program/dsh-memory-main` @ `96be12cfab82` 用 `git show` 取源码；hive-memory-bench 三件用**隔离克隆** `D:/ext-iso/r40_hb` @ `53b1939cbba8`，并按申报所述**确定性重生成** `chain/tools/synth.py` 后核对（重生成前后 `git status` 零变化、自检「keys ↔ synth_log 复算不符 0 题」、题数 642）。【链探针正解键与语料原文冲突：unresolve 的 accept 豁免只补给时点题，历史题落在同一未决序号上仍只认单值】**重生成后逐字核对**（`chain/tools/synth.py` 确定性重跑，`git status` 零变化、自检 0 不符、题数 642）：`chain/keys/keys.json` 的 `B2-021-history-0375` 实测为 `{\"type\":\"历史\",\"doc\":\"雾港\",\"subject\":\"林昭\",\"slot\":\"情绪\",\"answer\":{\"value\":\"愤怒\",\"state\":\"unresolved\",\"at_seq\":21,\"chain\":[…,{\"seq\":21,\"from\":\"欣慰\",\"to\":\"愤怒\"},…]},\"sample_at_seq\":21}` —— **无 `accept` 字段** ✓（与申报一致）。**语料侧**：`chain/corpus/corpus.json` 内该模板句确实存在，其生成源在 `synth.py` 里逐字为 `return f'{subj} 的{slot}出现两种并存的取值：{e[\"to\"]} 与 {e[\"alt\"]}，尚未裁定'` ⇒ 未决事件把 `to` 与 `alt` **并列叙述为合法取值**，而键只认 `to`。⇒ 忠实读语料而答 `alt` 者被系统性强罚 ✓ **核心机制成立**。**如实标注**：我命中并核对的是**模板与键条目**，未逐字定位到 `林昭` 那一句第 21 章原文；申报所称「当前仅 1/642 题实际受害」未独立复算，故影响档取 B 不取 A。**证据强度**：确定性重生成后的产物级核对；申报的机械统计**未复算**。。受理。**本件无 `<!-- intake:v1 -->` 机器标记**，难度与影响等级由维护者按本仓判据定档（依据见本行），非沿用申报（申报只给了 P 级严重度，P 级与影响档是两把尺）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。`project` 按目标仓派生（dsh-memory => memory；hive-memory-bench => hive_memory_bench）。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        437
+      ],
+      "project": "hive_memory_bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4fb859cb5d1f"
+    },
+    {
+      "ts": "2026-10-14T23:29:11Z",
+      "issue": 441,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "维护者独立复核（非采信申报读数）：dsh-memory 三件在本机仓 `D:/program/dsh-memory-main` @ `96be12cfab82` 用 `git show` 取源码；hive-memory-bench 三件用**隔离克隆** `D:/ext-iso/r40_hb` @ `53b1939cbba8`，并按申报所述**确定性重生成** `chain/tools/synth.py` 后核对（重生成前后 `git status` 零变化、自检「keys ↔ synth_log 复算不符 0 题」、题数 642）。【链探针基准有效性级缺陷：同名异体干扰档的语料不含任何区分信息，190 道题（约 30%）正解依赖生成器私有信息】**语料原文逐字命中**（重生成后的 `chain/corpus/corpus.json`）：同一份语料内同时存在 `猎户项目 的有效期秒数首次确立为 600。` 与 `第 42 次提交（猎户项目）。…猎户项目 的有效期秒数首次确立为 7200。` —— **同一主体名 + 同一槽位 + 同一「首次确立」措辞出现两次，全文无任何区分标记** ✓ 与申报的 #31/#42 引例一致。**波及面机械核对**：`keys.json` 中可标为「同名异体」的题数实测 **190**，与申报的 190 完全一致。**判据**：语料内无依据判定两条链各属哪个实体 ⇒ 忠实读者答 `unresolved` 也会被判错（键写死 `state=\"active\"`）⇒ 被度量的不是记忆，而是对生成器私有选边的猜测 ⇒ **基准有效性级**（量具失效，故影响档取 A）。**难度定 hard 的依据**：需要确定性重生成、逐槽位核对语料、机械统计四类指标分母，并逐一排除三个相邻干扰档（嵌套主体/同体异名/同值异时）。**证据强度**：产物级核对；申报的四指标分母占比表与「排除相邻档」清单**未逐项复算**。。受理。**本件无 `<!-- intake:v1 -->` 机器标记**，难度与影响等级由维护者按本仓判据定档（依据见本行），非沿用申报（申报只给了 P 级严重度，P 级与影响档是两把尺）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。`project` 按目标仓派生（dsh-memory => memory；hive-memory-bench => hive_memory_bench）。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        441
+      ],
+      "project": "hive_memory_bench",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_793ab750248b"
     }
   ]
 }

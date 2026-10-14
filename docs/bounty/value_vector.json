@@ -312,6 +312,24 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    430,
+    432,
+    433,
+    434,
+    435
+   ],
+   "login": "aroejony-cell",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 21,
+   "rounds": 1
+  },
+  {
    "difficulty": "expert",
    "difficulty_base": 10,
    "evidence_strength": true,
@@ -416,11 +434,12 @@
    "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
-    430,
-    432
+    436,
+    437,
+    441
    ],
    "login": "aroejony-cell",
-   "project": "memory",
+   "project": "hive_memory_bench",
    "quality_E": null,
    "reputation_delta": 12,
    "rounds": 1

@@ -2,8 +2,19 @@ name: review-cross-eval-check
 
 # cross-eval 交付物守卫（智能体工作流方向 v0.1）。
 # 只读：不触网、不装第三方依赖、只跑仓内脚本与测试。
-# 说明：tests/test_check_reviews.py 的默认运行已含「正向 + 10 条定点变异 + 判据数自证」，
+# 说明：tests/test_check_reviews.py 的默认运行已含「正向 1 条 + 29 条定点变异 + 判据面/点名自证」，
 #      因此这里不再单列一条 --mutate 腿（重复跑同一条断言不增加判别力）。
+#      `tests/test_check_reviews_*.py` 是同一守卫按面拆开的 standalone 守卫件
+#      （取证面 / 节切分面 / fail-closed 面 / 口径清单），本 workflow 显式跑一遍：
+#      `bounty-board-check.yml` 的全量腿虽然也会逐件跑到它们，但那里的失败会被
+#      「共执行 N 件守卫套件」压成一行；分面腿能把失败定位到具体是哪一面。
+#
+# ★ 关于 `paths:`（改前请先读这段）：GitHub 官方文档明载 workflow 因 path filtering 被跳过时，
+#   它的 check 会停在 Pending 而非 skipped/success ⇒ 若本门禁被设为分支保护的必需检查，
+#   改动不在过滤路径内的 PR 会被**永久卡住**。本文件沿用历史的 paths 收窄，但把过滤面
+#   补成 `tests/test_check_reviews*.py`，使新增的分面守卫件也在触发面内（不再需要每次补一行）。
+#   要彻底消除 Pending 风险，应像 `bounty-board-check.yml` 那样去掉 paths 过滤。
+#   出处：https://docs.github.com/actions/managing-workflow-runs/skipping-workflow-runs
 
 on:
   pull_request:
@@ -11,7 +22,7 @@ on:
       - "bench/cross_eval/**"
       - "docs/reviews/**"
       - "scripts/check_reviews.py"
-      - "tests/test_check_reviews.py"
+      - "tests/test_check_reviews*.py"
       - ".github/workflows/review-cross-eval-check.yml"
   workflow_dispatch:
 
@@ -33,10 +44,19 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: 交付物守卫（12 条判据）
+      - name: 交付物守卫（14 条判据）
         run: python -X utf8 scripts/check_reviews.py
-      - name: 守卫自证（正向 1 条 + 10 条定点变异 + 判据数）
+      - name: 守卫自证（正向 1 条 + 29 条定点变异 + 判据面/点名）
         run: python -X utf8 tests/test_check_reviews.py
+      - name: 分面守卫（standalone 四件 · 取证/节切分/fail-closed/口径清单）
+        run: |
+          for f in tests/test_check_reviews_citation.py \
+                   tests/test_check_reviews_sections.py \
+                   tests/test_check_reviews_failclosed.py \
+                   tests/test_check_reviews_manifest.py; do
+            echo "== $f"
+            python -X utf8 "$f"
+          done
       - name: 跑完不许把仓搞脏
         run: |
           if [ -n "$(git status --porcelain)" ]; then

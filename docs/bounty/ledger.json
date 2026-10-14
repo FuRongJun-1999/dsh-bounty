@@ -2290,6 +2290,70 @@
       "role": "contributor",
       "subject": "STG 分块时间索引：有界更新与配对性能证据",
       "ts": "2026-10-14T12:14:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        199
+      ],
+      "day": "2026-10-14",
+      "delta": 3,
+      "difficulty": "medium",
+      "formula": {
+        "base": 3,
+        "delta": 3,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 3.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "Beiwo992",
+      "id": "evt_111a604aaef3",
+      "impact": "A",
+      "issue": 199,
+      "op": "settle",
+      "pr": 243,
+      "project": "bounty_site",
+      "reason": "dsh-bounty 缺陷修复：/claim 成功后的回评向认领者承诺「逾期并记 -1 分」（scripts/bounty_board.py:129 的 SCORE_TIMEOUT 常量被插进回评模板），而超时实扣走 timeout_delta = -2*base；专家档认领时被告知 -1、实际扣 -20，相差 20 倍，属站内承诺与实际扣分的语义错误（PR #243，2026-10-13 交付，返工一次后合并）。修法（返工后，修法 a）：保留 SCORE_TIMEOUT = -1 —— 它本就是 v0.1 分段复算的历史值，LEDGER_SCHEMA 仍在引用；只把 /claim 的回评改走 timeout_delta(base_of(st.difficulty))，使承诺与实扣同源。维护者独立取证：① 隔离工作树合并当前 main 后复跑，tests/test_rule_text.py rc=0（通过 3/失败 0），T2 命中 0 处（对照：返工前 head 命中 2 处）；② 全量 30 守卫全绿（含 test_bounty_board.py 定点变异 PASS、test_rule_text.py 变异 8/8）；③ 漂移闸 bounty_list.py --check 与 review_build.py --check 均 rc=0；④ 与当前 main 合并零冲突；⑤ 删除行扫描仅删旧回评模板行，无静默回退他人已合入的修复；⑥ 触碰面仅 scripts/bounty_board.py，账本与 board.md 未触碰；⑦ CI review-check success。定档依据：难度 medium（base 3）—— 单点口径对齐，改动 +2/-1，无需跨模块推理或证明面，不取自申档（若自申更高可申诉）；影响 A —— 按「不做会怎样」判：认领者被告知 -1 而实扣 -20 是站内承诺与实际扣分的语义错误，且 tests/test_bounty_board.py 本就把「超时回固定 -1」当必杀变异体（口径/量具失效面）。（追溯性结算，无状态机轮次证据 ⇒ 取中性点 round=1，delta == base）工作项创建日 2026-10-13，结算日 2026-10-14。",
+      "role": "contributor",
+      "subject": "认领回评超时口径与实扣对齐（−2×base）",
+      "ts": "2026-10-14T13:05:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        207
+      ],
+      "day": "2026-10-14",
+      "delta": 3,
+      "difficulty": "medium",
+      "formula": {
+        "base": 3,
+        "delta": 3,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 3.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "Beiwo992",
+      "id": "evt_a3ec71d69f81",
+      "impact": "C",
+      "issue": 207,
+      "op": "settle",
+      "pr": 246,
+      "project": "bounty_site",
+      "reason": "dsh-bounty 文档修复：scripts/daily_table.py 的 SCORE_NOTE 注记写「标准交付取**中性点** round = 1 ⇒ Δ = base」，但未写出 round 与 rounds 的映射（实现是 r = max(0, rounds-1)，formula.round 为 0-based 返工次数），与同表 round=0 ⇒ Δ=2×base 的数据行读起来相互矛盾，属命名易混导致的读者误导（PR #246，2026-10-13 交付，返工一次后合并）。修法（返工后）：注记改写为「Δ = max(1, round_half_up(base × 2 / (r + 1)))，r = max(0, rounds - 1)。首交付 rounds=1 ⇒ r=0 ⇒ Δ=2×base；返工一次 rounds=2 ⇒ r=1（中性点）⇒ Δ=base。」，并在本 PR 内一并重生成已落盘产物。维护者独立取证：① 重生成前后 docs/bounty/贡献表.md 的 SHA256 逐字节相同（d8aeca6e2c2f2529…）且 git status 净；② 用当前 main 的 76 条账本重生成，结果与本 PR 落盘产物逐字节一致 ⇒ 未回退本轮新账本；③ tests/test_daily_table.py rc=0（ALL OK）＋变异 5/5；④ 全量 30 守卫全绿；⑤ 漂移闸 bounty_list.py --check 与 review_build.py --check 均 rc=0；⑥ 与当前 main 合并零冲突；⑦ 删除行扫描仅删旧注记三行，无静默回退他人已合入的修复；⑧ 触碰面 docs/bounty/贡献表.md 与 scripts/daily_table.py，账本未触碰；⑨ CI review-check success；⑩ 描述已按复核要求把「三处矛盾」改为「命名易混、原注记未写出映射」。定档依据：难度 medium（base 3）—— 单点文本注记修正加产物重生成，改动 +7/-4；影响 C —— 按「不做会怎样」判：不影响任何入账数字，只误导读者，属文档面（对应判据 C: 文档、设计、优化建议）。（追溯性结算，无状态机轮次证据 ⇒ 取中性点 round=1，delta == base）工作项创建日 2026-10-13，结算日 2026-10-14。",
+      "role": "contributor",
+      "subject": "贡献表计分注记与实现对齐（r = max(0, rounds-1)）",
+      "ts": "2026-10-14T13:05:30Z"
     }
   ]
 }

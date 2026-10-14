@@ -154,6 +154,23 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "C",
+   "issues": [
+    83,
+    198,
+    199,
+    207
+   ],
+   "login": "Beiwo992",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 15,
+   "rounds": 1
+  },
+  {
    "difficulty": "expert",
    "difficulty_base": 10,
    "evidence_strength": true,
@@ -207,21 +224,6 @@
    "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 10,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    83,
-    198
-   ],
-   "login": "Beiwo992",
-   "project": "bounty_site",
-   "quality_E": null,
-   "reputation_delta": 9,
    "rounds": 1
   },
   {

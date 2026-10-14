@@ -10,7 +10,14 @@
   B. 基线语义独立复算：按 CONTRACT.md §2 十条规则另写一份实现，算 P0..P4 × turn1..6 的
      active_uids / inject_order / dropped_uids，与 out/baseline_P*.json 逐 turn 比对。
   C. 注入正文溯源：把 out/<name>_P*.json 每个 block 的 sha256/chars/bytes 与
-     data/worldbook.json 同 uid 条目的 content 重算比对。
+     data/worldbook.json 同 uid 条目的 content 重算比对；不符的 block 再分两类计数：
+       explained＝已披露例外：adapter=sillytavern 且 uid=25 且 block sha256 命中三个已知宏展开值；
+       mismatch＝未解释的不符。explained 不计入 mismatch，也不影响 mismatch 的判定口径。
+     取证（源码）：repos/SillyTavern/public/scripts/world-info.js:5058 在注入前对条目正文调
+       substituteParams；{{roll}} 模式见 public/scripts/macros.js:551、:566 调 droll.roll()；
+       取值算法见 node_modules/droll/droll.js:96（1 + Math.floor(Math.random() * numSides)）；
+       {{user}} 由页面 name1 换成 User。
+     取证（逐字正文）：raw/sillytavern_content.txt、raw/sillytavern_content_P2.txt。
   D. 差异与指标独立复算：自算 方案 vs baseline 的逐 turn 对称差，与 raw/<name>_baseline_diff.txt
      逐行比对；自算 M1（激活集 F1）与 M2（逆序对），与 raw/<name>_kpi.txt 比对（浮点容差 1e-6）。
 
@@ -46,6 +53,36 @@ FIXTURE_FILES = ("worldbook.json", "chat.jsonl", "profiles.json")
 PROFILES = ("P0", "P1", "P2", "P3", "P4")
 TURNS = (1, 2, 3, 4, 5, 6)
 FLOAT_TOL = 1e-6
+
+# ---------- 已披露例外白名单（explained）----------
+# 三条件同时成立才算 explained，缺一即计入 mismatch：
+#   ① adapter=sillytavern  ② uid=25  ③ block 的 sha256 命中下面三个已知宏展开值
+# 取证（源码）：repos/SillyTavern/public/scripts/world-info.js:5058 在注入前对条目正文调
+#   substituteParams；{{roll}} 模式见 public/scripts/macros.js:551，:566 调 droll.roll()；
+#   取值算法见 node_modules/droll/droll.js:96（1 + Math.floor(Math.random() * numSides)）；
+#   {{user}} 由页面 name1 换成 User。
+# 取证（逐字正文）：raw/sillytavern_content.txt（P0/P1/P4 turn3 与 turn4）、
+#   raw/sillytavern_content_P2.txt（P2 turn3）。
+EXPLAINED_ADAPTER = "sillytavern"
+EXPLAINED_UID = 25
+#: 前 16 位 → 完整 sha256；查表要求「前 16 位命中」且「完整值相等」。
+EXPLAINED_SHA256 = {
+    "13763707e2e7b428": "13763707e2e7b428680fc46cbadcdf49eb692cc893429dc4985e624e81aeeb87",
+    "965f6f8351c68252": "965f6f8351c68252c9988056485ee607aa57a519c63dce2b29ee9b3b891e94f8",
+    "b19b9fb41ca55742": "b19b9fb41ca55742103a6c8dd598558235f955ddfcbccaf2294bb6b2e5d0260b",
+}
+
+
+def is_explained_block(name: str, uid: int, sha) -> bool:
+    """三条件同时成立才为 True：adapter=sillytavern、uid=25、sha256 命中已知宏展开值。
+
+    条件写死在本函数，不得放宽到其它 adapter／uid／sha：放宽即把未解释的不符吸进 explained。
+    """
+    if name != EXPLAINED_ADAPTER or uid != EXPLAINED_UID:
+        return False
+    s = str(sha or "").strip().lower()
+    return EXPLAINED_SHA256.get(s[:16]) == s
+
 
 _BUFFER = io.StringIO()
 _COUNT = {"true": 0, "false": 0}
@@ -427,6 +464,10 @@ def observed_block_variants(name: str, uid: int):
 
 def part_c(entries, adapters) -> None:
     emit("# C. 注入正文溯源：out/<name>_P*.json 的 blocks 与 data/worldbook.json 同 uid 内容比对")
+    emit("#   explained＝已披露例外：adapter=sillytavern 且 uid=25 且 block sha256 命中三个已知宏展开值；")
+    emit("#   取证：源码 repos/SillyTavern/public/scripts/world-info.js:5058 → public/scripts/macros.js:551/566")
+    emit("#         → node_modules/droll/droll.js:96；逐字正文 raw/sillytavern_content.txt、raw/sillytavern_content_P2.txt。")
+    emit("#   其余任何不符一律计入 mismatch。")
     by_uid = {int(e["uid"]): e for e in entries}
     for name in adapters:
         for prof_name in PROFILES:
@@ -434,7 +475,7 @@ def part_c(entries, adapters) -> None:
             if not p.is_file():
                 continue
             doc = json.loads(p.read_text(encoding="utf-8"))
-            blocks, mism, bad = 0, 0, []
+            blocks, expl, mism, bad, seen = 0, 0, 0, [], []
             for t in doc.get("turns") or []:
                 for b in t.get("blocks") or []:
                     blocks += 1
@@ -447,11 +488,21 @@ def part_c(entries, adapters) -> None:
                     c, by, sh = chars(e["content"]), bytes_of(e["content"]), sha256_text(e["content"])
                     if (int(b.get("chars", -1)) != c or int(b.get("bytes", -1)) != by
                             or b.get("sha256") != sh):
+                        if is_explained_block(name, uid, b.get("sha256")):
+                            expl += 1
+                            seen.append("turn%s:uid%s sha=%s" % (t.get("turn"), uid,
+                                                                 str(b.get("sha256"))[:16]))
+                            continue
                         mism += 1
                         bad.append("turn%s:uid%s(expected %d/%d/%s got %s/%s/%s)"
                                    % (t.get("turn"), uid, c, by, sh[:12],
                                       b.get("chars"), b.get("bytes"), str(b.get("sha256"))[:12]))
-            emit("PROVENANCE %s %s blocks=%d mismatch=%d" % (name, prof_name, blocks, mism))
+            emit("PROVENANCE %s %s blocks=%d explained=%d mismatch=%d"
+                 % (name, prof_name, blocks, expl, mism))
+            emit("  VERDICT provenance %s %s match=%s" % (name, prof_name, verdict(mism == 0)))
+            if seen:
+                emit("  EXPLAINED provenance %s %s %s（已披露例外，逐字正文见 raw/sillytavern_content.txt 与 raw/sillytavern_content_P2.txt）"
+                     % (name, prof_name, " | ".join(seen[:8])))
             if bad:
                 emit("  DETAIL provenance %s %s %s" % (name, prof_name, " | ".join(bad[:8])))
                 for uid in sorted(bad_uids(bad)):
@@ -627,6 +678,9 @@ def main() -> int:
     emit("#   ④ 递归轮次主键在「窗口文本＋已激活正文」上判，二级键仍只在窗口文本上判")
     emit("#   ⑤ 概率条目每 turn 重置 random.Random(seed)，按 uid 升序各取一次")
     emit("#   ⑥ 预算判定式 used + chars <= budget_chars，取等号保留")
+    emit("# explained 的定义：adapter=sillytavern 且 uid=25 且 block sha256 命中三个已知宏展开值时计 explained（不计 mismatch）；")
+    emit("#   取证：源码 repos/SillyTavern/public/scripts/world-info.js:5058 → public/scripts/macros.js:551/566 → node_modules/droll/droll.js:96，")
+    emit("#         逐字正文 raw/sillytavern_content.txt、raw/sillytavern_content_P2.txt；其余任何不符一律计入 mismatch。")
     emit("")
 
     entries, chat, profs = load_inputs()

@@ -98,12 +98,23 @@
 
 ## 六、运行
 
+工作目录＝仓库根（含 `bench/` 的那一层）。
+
 ```bash
-cd bench/roleplay_eval/adapters/diceframe && bash fetch_upstream.sh && bash setup.sh
+# 1. 取被测源码到 adapters/diceframe/upstream/（codeload 压缩包，锁定 sha）
+cd bench/roleplay_eval/adapters/diceframe
+bash fetch_upstream.sh
+
+# 2. 建 .venv 并装依赖（Tsinghua 镜像；运行期不需要网络与凭据）
+bash setup.sh
 cd ../../../..
-python -X utf8 bench/roleplay_eval/adapters/diceframe/run.py \
+
+# 3. 跑适配器单档（工作目录＝仓库根）；解释器必须是第 2 步建好的 venv：系统 python 缺 diceframe 依赖，实测退出码 1
+./bench/roleplay_eval/adapters/diceframe/.venv/Scripts/python.exe -X utf8 bench/roleplay_eval/adapters/diceframe/run.py \
   --data bench/roleplay_eval/data --profile P0 --out bench/roleplay_eval/out/diceframe_P0.json
 ```
+
+实测（2026-10-14，Windows 11 + MSYS2/Git-Bash，Python 3.13.13）：第 1、2 步退出码 0（为不改动仓库内既有 `upstream/` 与 `.venv`，按脚本自带的目标目录参数在临时目录重跑；取回的 2183 个文件与仓库内快照逐文件 sha256 相同）。第 3 步的退出码随解释器变化：系统 `python` 为 1，stderr 末行为 `ERROR diceframe profile=- kind=engine-import-failed (No module named 'peewee')`；`.venv/Scripts/python.exe` 为 0。两次实测的完整输出见 `bench/roleplay_eval/raw/diceframe_repro_fix.txt`。
 
 `run.py` 的 `--upstream` 缺省指向同目录的 `upstream/`，也可用环境变量 `DICEFRAME_UPSTREAM` 覆盖。
 适配器只读 `--data`、只写 `--out`；运行期零网络、零凭据、零 LLM 调用。

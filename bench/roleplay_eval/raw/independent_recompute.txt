@@ -7,6 +7,9 @@
 #   ④ 递归轮次主键在「窗口文本＋已激活正文」上判，二级键仍只在窗口文本上判
 #   ⑤ 概率条目每 turn 重置 random.Random(seed)，按 uid 升序各取一次
 #   ⑥ 预算判定式 used + chars <= budget_chars，取等号保留
+# explained 的定义：adapter=sillytavern 且 uid=25 且 block sha256 命中三个已知宏展开值时计 explained（不计 mismatch）；
+#   取证：源码 repos/SillyTavern/public/scripts/world-info.js:5058 → public/scripts/macros.js:551/566 → node_modules/droll/droll.js:96，
+#         逐字正文 raw/sillytavern_content.txt、raw/sillytavern_content_P2.txt；其余任何不符一律计入 mismatch。
 
 # 发现的方案：diceframe,risuai,sillytavern
 
@@ -49,29 +52,44 @@ RECOMPUTE baseline P4 turn=5 match=true
 RECOMPUTE baseline P4 turn=6 match=true
 
 # C. 注入正文溯源：out/<name>_P*.json 的 blocks 与 data/worldbook.json 同 uid 内容比对
-PROVENANCE diceframe P0 blocks=46 mismatch=0
-PROVENANCE diceframe P1 blocks=44 mismatch=0
-PROVENANCE diceframe P2 blocks=18 mismatch=0
-PROVENANCE diceframe P3 blocks=40 mismatch=0
-PROVENANCE diceframe P4 blocks=22 mismatch=0
-PROVENANCE risuai P0 blocks=49 mismatch=0
-PROVENANCE risuai P1 blocks=47 mismatch=0
-PROVENANCE risuai P2 blocks=22 mismatch=0
-PROVENANCE risuai P3 blocks=43 mismatch=0
-PROVENANCE risuai P4 blocks=14 mismatch=0
-PROVENANCE sillytavern P0 blocks=48 mismatch=2
-  DETAIL provenance sillytavern P0 turn3:uid25(expected 39/73/9740957ad59c got 25/59/13763707e2e7) | turn4:uid25(expected 39/73/9740957ad59c got 25/59/965f6f8351c6)
-  FACT sillytavern uid=25 世界书原文 chars=39 bytes=73 sha=9740957ad59c12c1；out 中观测到 3 种取值：chars=25 bytes=59 sha=13763707e2e7b428 ; chars=25 bytes=59 sha=965f6f8351c68252 ; chars=25 bytes=59 sha=b19b9fb41ca55742
-PROVENANCE sillytavern P1 blocks=46 mismatch=2
-  DETAIL provenance sillytavern P1 turn3:uid25(expected 39/73/9740957ad59c got 25/59/13763707e2e7) | turn4:uid25(expected 39/73/9740957ad59c got 25/59/965f6f8351c6)
-  FACT sillytavern uid=25 世界书原文 chars=39 bytes=73 sha=9740957ad59c12c1；out 中观测到 3 种取值：chars=25 bytes=59 sha=13763707e2e7b428 ; chars=25 bytes=59 sha=965f6f8351c68252 ; chars=25 bytes=59 sha=b19b9fb41ca55742
-PROVENANCE sillytavern P2 blocks=23 mismatch=1
-  DETAIL provenance sillytavern P2 turn3:uid25(expected 39/73/9740957ad59c got 25/59/b19b9fb41ca5)
-  FACT sillytavern uid=25 世界书原文 chars=39 bytes=73 sha=9740957ad59c12c1；out 中观测到 3 种取值：chars=25 bytes=59 sha=13763707e2e7b428 ; chars=25 bytes=59 sha=965f6f8351c68252 ; chars=25 bytes=59 sha=b19b9fb41ca55742
-PROVENANCE sillytavern P3 blocks=34 mismatch=0
-PROVENANCE sillytavern P4 blocks=45 mismatch=2
-  DETAIL provenance sillytavern P4 turn3:uid25(expected 39/73/9740957ad59c got 25/59/13763707e2e7) | turn4:uid25(expected 39/73/9740957ad59c got 25/59/965f6f8351c6)
-  FACT sillytavern uid=25 世界书原文 chars=39 bytes=73 sha=9740957ad59c12c1；out 中观测到 3 种取值：chars=25 bytes=59 sha=13763707e2e7b428 ; chars=25 bytes=59 sha=965f6f8351c68252 ; chars=25 bytes=59 sha=b19b9fb41ca55742
+#   explained＝已披露例外：adapter=sillytavern 且 uid=25 且 block sha256 命中三个已知宏展开值；
+#   取证：源码 repos/SillyTavern/public/scripts/world-info.js:5058 → public/scripts/macros.js:551/566
+#         → node_modules/droll/droll.js:96；逐字正文 raw/sillytavern_content.txt、raw/sillytavern_content_P2.txt。
+#   其余任何不符一律计入 mismatch。
+PROVENANCE diceframe P0 blocks=46 explained=0 mismatch=0
+  VERDICT provenance diceframe P0 match=true
+PROVENANCE diceframe P1 blocks=44 explained=0 mismatch=0
+  VERDICT provenance diceframe P1 match=true
+PROVENANCE diceframe P2 blocks=18 explained=0 mismatch=0
+  VERDICT provenance diceframe P2 match=true
+PROVENANCE diceframe P3 blocks=40 explained=0 mismatch=0
+  VERDICT provenance diceframe P3 match=true
+PROVENANCE diceframe P4 blocks=22 explained=0 mismatch=0
+  VERDICT provenance diceframe P4 match=true
+PROVENANCE risuai P0 blocks=49 explained=0 mismatch=0
+  VERDICT provenance risuai P0 match=true
+PROVENANCE risuai P1 blocks=47 explained=0 mismatch=0
+  VERDICT provenance risuai P1 match=true
+PROVENANCE risuai P2 blocks=22 explained=0 mismatch=0
+  VERDICT provenance risuai P2 match=true
+PROVENANCE risuai P3 blocks=43 explained=0 mismatch=0
+  VERDICT provenance risuai P3 match=true
+PROVENANCE risuai P4 blocks=14 explained=0 mismatch=0
+  VERDICT provenance risuai P4 match=true
+PROVENANCE sillytavern P0 blocks=48 explained=2 mismatch=0
+  VERDICT provenance sillytavern P0 match=true
+  EXPLAINED provenance sillytavern P0 turn3:uid25 sha=13763707e2e7b428 | turn4:uid25 sha=965f6f8351c68252（已披露例外，逐字正文见 raw/sillytavern_content.txt 与 raw/sillytavern_content_P2.txt）
+PROVENANCE sillytavern P1 blocks=46 explained=2 mismatch=0
+  VERDICT provenance sillytavern P1 match=true
+  EXPLAINED provenance sillytavern P1 turn3:uid25 sha=13763707e2e7b428 | turn4:uid25 sha=965f6f8351c68252（已披露例外，逐字正文见 raw/sillytavern_content.txt 与 raw/sillytavern_content_P2.txt）
+PROVENANCE sillytavern P2 blocks=23 explained=1 mismatch=0
+  VERDICT provenance sillytavern P2 match=true
+  EXPLAINED provenance sillytavern P2 turn3:uid25 sha=b19b9fb41ca55742（已披露例外，逐字正文见 raw/sillytavern_content.txt 与 raw/sillytavern_content_P2.txt）
+PROVENANCE sillytavern P3 blocks=34 explained=0 mismatch=0
+  VERDICT provenance sillytavern P3 match=true
+PROVENANCE sillytavern P4 blocks=45 explained=2 mismatch=0
+  VERDICT provenance sillytavern P4 match=true
+  EXPLAINED provenance sillytavern P4 turn3:uid25 sha=13763707e2e7b428 | turn4:uid25 sha=965f6f8351c68252（已披露例外，逐字正文见 raw/sillytavern_content.txt 与 raw/sillytavern_content_P2.txt）
 
 # D. 差异与指标独立复算：方案 vs baseline 的逐 turn 对称差 ＋ M1/M2
 RECOMPUTE diceframe baseline_diff lines=30 mismatch=0 match=true
@@ -86,4 +104,4 @@ RECOMPUTE M2_order_inv sillytavern reported=22.6667 recomputed=22.666667 same_te
 
 # 说明：make_fixture.py 的产物路径固定为 <仓库>/data/，无法指向任意目录；
 #       本器把该脚本复制进系统临时目录的 harness/ 下重跑，使其相对路径落回临时目录。
-RECOMPUTE-SUMMARY match_true=42 match_false=0 exit=0
+RECOMPUTE-SUMMARY match_true=57 match_false=0 exit=0

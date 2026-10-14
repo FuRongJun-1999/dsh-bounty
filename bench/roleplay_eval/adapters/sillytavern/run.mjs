@@ -4,6 +4,9 @@
 // CLI（CONTRACT §3.3）：
 //   node adapters/sillytavern/run.mjs --data <data 目录> --profile P0 --out <out 文件>
 //
+// 缺省按 CONTRACT §2 规则 8 的档位种子控种（见 readInPage 的 makeRng）；加 --no-seed 可关掉
+// 控种，用于测「不控种时的原生确定性」（读数落在 raw/sillytavern_determinism_native.txt）。
+//
 // 读数来源：起本地 ST 服务，在 chromium 页面里 import 被测方自己的
 // public/scripts/world-info.js，用 setWorldInfoSettings ＋ checkWorldInfo(chat, maxContext, true)
 // 取激活集、注入顺序、注入块与 dropped。适配器不实现任何触发逻辑。
@@ -95,7 +98,7 @@ const sortKeysDeep = (value) => {
 // ---------- CLI ----------
 
 function parseArgs(argv) {
-    const out = { data: null, profile: 'P0', out: null, emitTiming: false, stopServer: false };
+    const out = { data: null, profile: 'P0', out: null, emitTiming: false, stopServer: false, noSeed: false };
     for (let i = 0; i < argv.length; i++) {
         const a = argv[i];
         if (a === '--data') out.data = argv[++i];
@@ -103,6 +106,7 @@ function parseArgs(argv) {
         else if (a === '--out') out.out = argv[++i];
         else if (a === '--emit-timing') out.emitTiming = true;
         else if (a === '--stop-server') out.stopServer = true;
+        else if (a === '--no-seed') out.noSeed = true;
         else throw new Error('未知参数：' + a);
     }
     if (!out.data) throw new Error('缺少 --data');
@@ -218,8 +222,13 @@ async function readInPage(page, payload) {
             world_info_overflow_alert: false,
         };
 
-        // 与 CONTRACT §1.3 的 seed 对齐：ST 的概率判定与成组择一走 Math.random()（world-info.js:5041／:5453），
-        // 无档位种子时不可复现。每次 checkWorldInfo 前装同一序列的可复现发生源，调用后还原。
+        // 锚点标定（anchorUnbounded／anchorProbe）始终控种，与 --no-seed 无关：锚点决定本档的
+        // maxContext，必须逐次可比；--no-seed 只关掉 6 个 turn 档位读数本身的控种。
+        //
+        // 与 CONTRACT §2 规则 8 的档位种子对齐：ST 的概率判定（world-info.js:5041）、成组择一
+        // （world-info.js:5453）与内容宏 {{roll:}}（macros.js:566 → droll.js:96）都走 Math.random()，
+        // 不控种时同一输入不可复现。每次 checkWorldInfo 前把 Math.random 换成同种子的可复现序列，
+        // 调用后立刻还原；上游源码文件不改。--no-seed 时跳过替换，用于测原生确定性。
         const makeRng = (seed) => {
             let s = seed >>> 0;
             return () => {
@@ -267,11 +276,13 @@ async function readInPage(page, payload) {
             return blocks;
         };
 
-        const runOnce = async (turn, maxContext) => {
+        // seededOverride=true 时强制控种：锚点标定必须可比，--no-seed 只作用于档位读数本身。
+        const runOnce = async (turn, maxContext, seededOverride) => {
             const chatForWI = p.chatTexts.slice(0, 2 * turn).reverse();
             console.debug('[ADAPTER] turn ' + turn + ' maxContext ' + maxContext);
+            const useSeed = seededOverride === true ? true : !p.noSeed;
             const original = Math.random;
-            Math.random = makeRng((p.seed + turn * 1000003) >>> 0);
+            if (useSeed) Math.random = makeRng((p.seed + turn * 1000003) >>> 0);
             let res;
             try {
                 res = await wi.checkWorldInfo(chatForWI, maxContext, true);
@@ -300,14 +311,14 @@ async function readInPage(page, payload) {
         apply(p.anchorSettings, p.anchorWorldName);
         const anchorUnbounded = {};
         for (let turn = 1; turn <= 6; turn++) {
-            anchorUnbounded[turn] = await runOnce(turn, p.unboundedMaxContext);
+            anchorUnbounded[turn] = await runOnce(turn, p.unboundedMaxContext, true);
         }
         const anchorProbe = [];
         let anchorMaxContext = null;
         for (const M of p.powers) {
             let same = true;
             for (let turn = 1; turn <= 6; turn++) {
-                const r = await runOnce(turn, M);
+                const r = await runOnce(turn, M, true);
                 if (!sameSet(r.uids, anchorUnbounded[turn].uids)) { same = false; break; }
             }
             anchorProbe.push({ max_context: M, budget_tokens: Math.round(p.budgetPercent * M / 100), non_binding: same });
@@ -433,6 +444,7 @@ async function main() {
         budgetPercent: BUDGET_PERCENT,
         unboundedMaxContext: UNBOUNDED_MAX_CONTEXT,
         seed: Number(profiles.seed || 20261014),
+        noSeed: Boolean(args.noSeed),
         powers: POWERS_OF_TWO,
         chatTexts: chat.map((m) => m.text),
         budgetChars: Number(prof.budget_chars),

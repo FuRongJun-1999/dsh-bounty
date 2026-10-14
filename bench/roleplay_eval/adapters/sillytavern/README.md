@@ -14,7 +14,8 @@
 | `fetch_upstream.sh` | 按锁定 sha 从 codeload 取源码到 `upstream/`，并校验 `package.json` 的 `version` |
 | `setup.sh` | `npm ci` ＋ `cd tests && npm install`；浏览器默认跑 `npx playwright install chromium` |
 | `run.mjs` | 适配器主体：起服务、写世界书、在页面里取读数、打印读数行、写契约 JSON |
-| `verify_determinism.mjs` | 同输入连跑 N 次（每次一个独立 node 进程），比对 stdout 与 out JSON 的 sha256 |
+| `verify_determinism.mjs` | 控种路径：同输入连跑 N 次（每次一个独立 node 进程），比对 stdout 与 out JSON 的 sha256 |
+| `verify_determinism_native.mjs` | 原生路径：每次带 `--no-seed` 连跑 N 次，量上游随机源造成的差异；out JSON 写临时目录，不覆盖 `out/sillytavern_P*.json` |
 | `.gitignore` | `upstream/` 不进版本库 |
 | `upstream/` | 只读源码快照，由 `fetch_upstream.sh` 重建；本适配器只写它自己的用户目录 `data/default-user/worlds/` |
 
@@ -95,6 +96,11 @@ CHROME_PATH=C:/Users/Zs/AppData/Local/ms-playwright/chromium-1234/chrome-win64/c
 | `recursion.delay` | `delayUntilRecursion` | 值直通，但契约未定义 delay 语义 ⇒ 见第五节 |
 | `capability_probe` | 不写入 | 夹具标记，ST 无对应字段 |
 
+**uid25 不参与内容溯源**：uid25 的 `content` 是 `内容宏探针：{{roll:d6}} 与 {{user}} 原样保留，不做替换。`（39 字符 / 73 字节）。
+ST 在注入前对它执行 `substituteParams`（`world-info.js:5058`），`{{roll:d6}}` 被 `macros.js:566` 的 `droll.roll()` 换成 1–6 的整数、`{{user}}` 换成 `User`，
+注入文本因此变成 25 字符 / 59 字节，与夹具原文不等。其余 24 条的注入正文逐字节等于夹具原文（`harness/independent_recompute.py` 的 `PROVENANCE` 行）。
+本适配器保留该条的注入读数（它就是「各家是否做内容宏替换」的探针答案），但**该条不参与内容溯源比对**；三种观测值见交付报告第 4.6 节。
+
 适配器另外写入的固定值（夹具无对应字段）：`vectorized=false`、`sticky=null`、`cooldown=null`、
 `delay=null`、`role=0`、`triggers=[]`、`ignoreBudget=false`、`addMemo=true`、`displayIndex=<条目序号>`、
 `outletName=''`、`groupOverride=false`、`useGroupScoring=null`、`automationId=''`。
@@ -117,8 +123,20 @@ CHROME_PATH=C:/Users/Zs/AppData/Local/ms-playwright/chromium-1234/chrome-win64/c
 | `recursive` | `world_info_recursive` | `:5097` |
 | `recursive_max_depth`＝3 | `world_info_max_recursion_steps = 4`（1 次初扫 ＋ 3 层递归） | `:4768` 用 `count` 计数整个 while 循环 |
 | `case_sensitive` / `whole_words` | 全局 `world_info_case_sensitive`／`world_info_match_whole_words` ＋ 条目级 OR | `:269`、`:347` |
-| `seed` | 每次 `checkWorldInfo` 前把 `Math.random` 换成 `lcg32(seed + turn*1000003)`，调用后还原 | ST 的概率判定（`:5041`）与成组择一（`:5453`）走 `Math.random()`；不播种则不可复现 |
+| `seed` | 每次 `checkWorldInfo` 前把页面上下文里的 `Math.random` 换成 `lcg32(seed + turn*1000003)`，调用后立刻还原 | 见下方「控种口径」 |
 | `budget_chars` | 见下 | ST 无字符预算 |
+
+**控种口径（必须披露）**
+
+- **替换了哪个随机源**：只替换页面上下文里的全局 `Math.random`。上游三处随机都经它取数：概率判定 `world-info.js:5041`（`Math.random() * 100`）、
+  成组择一 `world-info.js:5453`（`Math.random() * totalWeight`）、内容宏 `{{roll:}}` `macros.js:566` → `node_modules/droll/droll.js:96`（`1 + Math.floor(Math.random() * numSides)`）。
+- **怎么替换**：`run.mjs` 在页面里用 `makeRng(seed)` 生成 32 位 LCG（`s = s*1664525 + 1013904223`，取高 32 位后除以 2^32），
+  每个 turn 装一次 `seed + turn*1000003`；`await checkWorldInfo(...)` 返回后在 `finally` 里还原为原函数。种子取 `data/profiles.json` 的 `seed`（20261014），与基线 `random.Random(20261014)` 同种子口径。
+- **为什么不算改引擎行为**：`upstream/` 源码零改动（快照由 `fetch_upstream.sh` 按锁定 sha 重建，只写它的用户数据目录 `data/default-user/worlds/`）；
+  替换只发生在被测函数的调用边界外，不改变任何触发、排序、预算、递归逻辑，只给引擎一个可复现的随机数来源。契约 §2 规则 8 本就要求概率条目按档位种子判定，基线同样用 `random.Random(seed)` 播种。
+- **不控种时的差异**：`--no-seed` 关掉替换后，五档 5 次独立进程的 stdout 与 out JSON 都不再逐字节一致（`raw/sillytavern_determinism_native.txt`）。
+  观测到的两个变动源是 uid17（概率判定）与 uid25（内容宏），见交付报告第 4.4 节。
+- **锚点标定例外**：`--no-seed` 只关掉 6 个 turn 的档位读数；锚点搜索（决定本档 `maxContext`）始终控种，否则 `anchorUnbounded` 与各 `maxContext` 探测两次抽样不同，锚点不可比。
 
 **预算口径（契约字符 vs ST token）**
 
@@ -134,9 +152,9 @@ CHROME_PATH=C:/Users/Zs/AppData/Local/ms-playwright/chromium-1234/chrome-win64/c
 1. **chat 数组形状**：`world_info_include_names=false`，传给 `checkWorldInfo` 的是消息 `text` 反序数组（最新在前），与契约 §2 规则 1 的「窗口＝最近 N 条消息」对齐。
 2. **inject_order**：＝引擎桶的稳定顺序 `before_char → at_depth → after_char`；桶内顺序取引擎自己拼好的 `worldInfoBefore`／`WIDepthEntries`／`worldInfoAfter` 里的先后（`:5203-5266`）。
 3. **dropped_uids**：＝「无约束注入集（maxContext=1000000）− 本档注入集」。两次调用用同一 turn 种子，故概率与成组结果一致，差集只来自预算（含预算导致的递归提前停止）。
-4. **概率与成组可复现**：见第六节 `seed` 行；这是适配器对契约 `seed` 字段的落地，不是改引擎算法。
+4. **概率、成组与内容宏可复现**：见第六节「控种口径」；这是适配器对契约 `seed` 字段的落地，不是改引擎算法，也不是自写触发逻辑。
 5. **世界书文件位置**：`upstream/data/default-user/worlds/roleplay_eval.json` 与 `roleplay_eval_p0.json`。这两个文件由 `run.mjs` 每次重建，属被测方用户数据目录，不是源码改动。
-6. **诊断开关**：`ST_DUMP_CONSOLE=1` 把 `[WI]` 调试行转写到 stderr；`ST_DUMP_CONTENT=1` 把注入正文转写到 stderr；`--emit-timing` 才打印 `TIMING` 行。缺省 stdout 只有 `CAPS`／`READOUT`／`UNSUPPORTED`／`ERROR` 与 `ENGINE_NOTE` 的确定性内容，保证逐次字节一致。
+6. **诊断开关**：`ST_DUMP_CONSOLE=1` 把 `[WI]` 调试行转写到 stderr；`ST_DUMP_CONTENT=1` 把注入正文转写到 stderr；`--emit-timing` 才打印 `TIMING` 行；`--no-seed` 关掉档位读数的控种（锚点仍控种）。缺省 stdout 只有 `CAPS`／`READOUT`／`UNSUPPORTED`／`ERROR` 与 `ENGINE_NOTE` 的确定性内容，保证逐次字节一致。
 7. **服务复用**：`run.mjs` 先探测 `http://127.0.0.1:8123/`，已在监听就复用，否则 `node server.js --port 8123` 自起并等 HTTP 200。冷起耗时见第二节。
 
 ## 八、运行
@@ -152,6 +170,7 @@ python -X utf8 bench/roleplay_eval/harness/runner.py --adapter sillytavern --pro
 python -X utf8 bench/roleplay_eval/harness/validate.py bench/roleplay_eval/out/sillytavern_P0.json
 python -X utf8 bench/roleplay_eval/harness/score.py --name sillytavern
 node bench/roleplay_eval/adapters/sillytavern/verify_determinism.mjs --repeats 5
+node bench/roleplay_eval/adapters/sillytavern/verify_determinism_native.mjs --repeats 5   # 原生（不控种）对照，约 96 s
 ```
 
 只跑单档：
@@ -189,4 +208,4 @@ node bench/roleplay_eval/adapters/sillytavern/run.mjs \
 | 22 | 停用 | 从不激活 |
 | 23 | 空主键 × 选择性 | ST 与基线都判「无键即跳过」 |
 | 24 | 正则键探针 | 键被解析为正则（`:2901`），但 `/地.图/` 需要 地、图 之间多一个字符，原文「地图」不匹配 |
-| 25 | 内容宏探针 | 正文被 `substituteParams` 展开：`{{roll:d6}}`→种子值、`{{user}}`→`User`，39 字符变 25 字符 |
+| 25 | 内容宏探针 | 正文被 `substituteParams`（`:5058`）展开：`{{roll:d6}}`→1–6 的整数、`{{user}}`→`User`，39 字符变 25 字符。控种读数里观测到 3 种取值：`5`（P0/P1/P4 turn3）、`1`（P0/P1/P4 turn4）、`4`（P2 turn3）；该条不参与内容溯源 |

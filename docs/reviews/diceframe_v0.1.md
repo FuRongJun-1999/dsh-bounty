@@ -30,7 +30,7 @@ out JSON 的 `engine_env` 字段：`python=3.13.13`、`entry=bench/roleplay_eval
 
 ## 2. 复现步骤
 
-以下命令第三方可原样粘贴（从仓库根执行）。第 4–7 步用第 2 步建好的 venv python：runner 用 `sys.executable` 启动适配器，因此必须用带 diceframe 依赖的解释器跑 runner。
+以下命令第三方可原样粘贴（工作目录＝仓库根）。第 3–7 步用第 2 步建好的 venv python：系统 python 缺 diceframe 依赖，实测第 3 步退出码 1；runner 用 `sys.executable` 启动适配器，因此跑 runner 也必须用带 diceframe 依赖的解释器。
 
 ```
 # 1. 取被测源码（锁定 sha；codeload，不用 git clone）
@@ -42,7 +42,7 @@ bash setup.sh
 cd ../../../..
 
 # 3. 直接跑适配器单档（产出契约 JSON ＋ stdout 读数行）
-python -X utf8 bench/roleplay_eval/adapters/diceframe/run.py --data bench/roleplay_eval/data --profile P0 --out bench/roleplay_eval/out/diceframe_P0.json
+./bench/roleplay_eval/adapters/diceframe/.venv/Scripts/python.exe -X utf8 bench/roleplay_eval/adapters/diceframe/run.py --data bench/roleplay_eval/data --profile P0 --out bench/roleplay_eval/out/diceframe_P0.json
 
 # 4. 五档读数：写 out/diceframe_P*.json、raw/diceframe_P*.txt、raw/diceframe_P*.json、raw/diceframe_summary.json
 ./bench/roleplay_eval/adapters/diceframe/.venv/Scripts/python.exe -X utf8 bench/roleplay_eval/harness/runner.py --adapter diceframe --profiles P0,P1,P2,P3,P4
@@ -56,6 +56,47 @@ for p in P0 P1 P2 P3 P4; do ./bench/roleplay_eval/adapters/diceframe/.venv/Scrip
 # 7. 确定性：每档连跑 5 次比 sha256，写 raw/diceframe_determinism.txt
 ./bench/roleplay_eval/adapters/diceframe/.venv/Scripts/python.exe -X utf8 bench/roleplay_eval/adapters/diceframe/verify_determinism.py --repeats 5
 ```
+
+第 1、2 步实测：退出码均为 0（为不改动仓库内既有 `upstream/` 与 `.venv`，按脚本自带的目标目录参数在临时目录重跑；取回的 2183 个文件与仓库内快照逐文件 sha256 相同）。完整记录见 `raw/diceframe_repro_fix.txt`。
+
+第 3 步的解释器必须带 diceframe 依赖。系统 `python`（README 旧写法）实测退出码 1：
+
+```
+$ python -X utf8 bench/roleplay_eval/adapters/diceframe/run.py --data bench/roleplay_eval/data --profile P0 --out bench/roleplay_eval/out/diceframe_P0.json
+--- stdout ---
+ERROR diceframe profile=- kind=engine-import-failed
+--- stderr ---
+ERROR diceframe profile=- kind=engine-import-failed (No module named 'peewee')
+--- exit code: 1 ---
+```
+
+`.venv/Scripts/python.exe` 实测退出码 0：
+
+```
+$ ./bench/roleplay_eval/adapters/diceframe/.venv/Scripts/python.exe -X utf8 bench/roleplay_eval/adapters/diceframe/run.py --data bench/roleplay_eval/data --profile P0 --out bench/roleplay_eval/out/diceframe_P0.json
+--- stdout ---
+CAPS diceframe {"at_depth":false,"group":true,"probability":true,"recursive":true,"regex_key":true,"whole_words_cjk":"no_match_cjk"}
+READOUT diceframe P0 turn=1 active=8 order=19,4,3,1,2,6,20,18 chars=1107 bytes=3297 dropped=-
+READOUT diceframe P0 turn=2 active=14 order=19,9,13,10,4,3,11,12,1,2,6,5,20,18 chars=1253 bytes=3735 dropped=-
+READOUT diceframe P0 turn=3 active=9 order=9,13,10,11,12,1,16,25,20 chars=1140 bytes=3376 dropped=-
+READOUT diceframe P0 turn=4 active=6 order=13,1,14,16,25,20 chars=1070 bytes=3166 dropped=-
+READOUT diceframe P0 turn=5 active=5 order=13,1,21,14,20 chars=1034 bytes=3102 dropped=-
+READOUT diceframe P0 turn=6 active=4 order=1,21,7,20 chars=1009 bytes=3027 dropped=-
+UNSUPPORTED diceframe field=depth reason=st-depth-in-engine-unmapped-fields
+UNSUPPORTED diceframe field=position reason=st-position-anchor-no-canonical-prompt-slot
+UNSUPPORTED diceframe field=capability_probe reason=fixture-marker-not-an-engine-field
+UNSUPPORTED diceframe field=macro_expand reason=engine-src-has-no-macro-expander
+ENGINE_NOTE diceframe warning=25 ST position anchor(s) have no DiceFrame prompt slot equivalent; kept in extensions and not executed.
+ENGINE_NOTE diceframe warning=Unmapped ST fields are preserved in extensions and ignored by activation: depth.
+--- stderr（上游源码的两条 SyntaxWarning，不影响退出码）---
+D:\A-part-of-new-software\PROJIECT\_bounty67\bench\roleplay_eval\adapters\diceframe\upstream\src\adventures\graph_v2.py:3: SyntaxWarning: invalid escape sequence '\`'
+  \`\`\`text
+D:\A-part-of-new-software\PROJIECT\_bounty67\bench\roleplay_eval\adapters\diceframe\upstream\src\adventures\gates.py:6: SyntaxWarning: invalid escape sequence '\`'
+  \`\`\`json
+--- exit code: 0 ---
+```
+
+stdout 末行是 `JSON diceframe P0 {…}`（9359 字节），完整 stdout 与 stderr 见 `raw/diceframe_repro_fix.txt`。本次重跑后 `out/diceframe_P0.json` 的 sha256 仍为 `83f0bc564b5d16cc4c5dad50d6aada7c6660e617f31ca64341493ec1c0de4715`（与 §4.3 同值），六条 READOUT 行与 `raw/diceframe_P0.txt` 逐字相同。
 
 期望结果：第 5 步五档均为 `checks=60 fail=0`、退出码 0（完整 stdout 见 `raw/diceframe_validate.txt`，逐档 `SUMMARY` 行后跟 `rc=0`）；第 6 步末行给出 `missing_profiles=0`；第 7 步末行为 `SUMMARY adapter=diceframe repeats=5 failures=0`。
 

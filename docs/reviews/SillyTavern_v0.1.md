@@ -12,8 +12,9 @@
 5. **递归消融幅度与基线一致**：关掉递归后方案只丢 uid13，Δ 0（M4，`raw/sillytavern_kpi.txt`）。
 6. **深度消融**：`scan_depth` 由 4 降到 1 后方案激活集缩小，Δ +0.5（M5，`raw/sillytavern_kpi.txt`）。
 7. **匹配口径消融方向相反**：P4 下方案少丢条目，Δ −3.3333；原因是 ST 的全词边界把 CJK 当非词字符，uid8 仍命中（M7，`raw/sillytavern_kpi.txt`）。
-8. **确定性成立**：同输入 5 次独立进程，stdout 与 out JSON 的 sha256 逐次一致，5/5 `identical=true`（M6，`raw/sillytavern_determinism.txt`）。
+8. **确定性分两条读数**：控种路径下同输入 5 次独立进程的 stdout 与 out JSON 逐次一致，5/5 `identical=true`，M6 取这条（`KPI M6_determinism value=1`）（M6，`raw/sillytavern_determinism.txt`）；关掉控种后五档全部 `identical=false`——SillyTavern 原生随机源不一致，变动来自 uid17 概率判定（`world-info.js:5041`）与 uid25 内容宏（`macros.js:566` → `droll.js:96`）（M6、M8，`raw/sillytavern_determinism_native.txt`）。
 9. **代价**：`npm ci` 9 s（829 包），`node_modules` 337,045,122 字节，冷起服务 3,336 ms，单档端到端 p50 3,707 ms；运行期零凭据，不请求任何模型 API（M8，`raw/sillytavern_runner.txt`）。
+10. **uid25 的注入正文与夹具原文不等，该条不参与内容溯源**：ST 在注入期展开 `{{roll:d6}}` 与 `{{user}}`，39 字符变 25 字符，控种读数里出现 3 种取值；其余 24 条的注入正文逐字节等于夹具原文（M1 的激活集不受影响；逐条见第 4.6 节，`raw/sillytavern_content.txt`、`raw/sillytavern_content_P2.txt`）。
 
 ## 1. 被测对象与版本
 
@@ -54,8 +55,11 @@ for p in P0 P1 P2 P3 P4; do python -X utf8 bench/roleplay_eval/harness/validate.
 # 6) 出 DIFF／KPI——约 1 s
 python -X utf8 bench/roleplay_eval/harness/score.py --name sillytavern
 
-# 7) 确定性核验（5 次独立进程 × 5 档）——约 100 s
+# 7) 确定性核验（5 次独立进程 × 5 档，控种）——约 100 s
 node bench/roleplay_eval/adapters/sillytavern/verify_determinism.mjs --repeats 5
+
+# 8) 原生（不控种）对照核验——约 96 s
+node bench/roleplay_eval/adapters/sillytavern/verify_determinism_native.mjs --repeats 5
 ```
 
 单档最小复跑：
@@ -65,7 +69,7 @@ node bench/roleplay_eval/adapters/sillytavern/run.mjs \
   --data bench/roleplay_eval/data --profile P0 --out bench/roleplay_eval/out/sillytavern_P0.json
 ```
 
-预期耗时（本机实测）：取源码 7 s（下载）＋ 解压数秒；依赖安装 10 s（缓存已热）；冷起服务 3.3 s；单档端到端 3.5–8.7 s（是否含冷起决定上下界）；五档 runner 约 2.5 min；五档校验 1 s；评分 1 s；确定性核验约 100 s。
+预期耗时（本机实测）：取源码 7 s（下载）＋ 解压数秒；依赖安装 10 s（缓存已热）；冷起服务 3.3 s；单档端到端 3.5–8.7 s（是否含冷起决定上下界）；五档 runner 约 2.5 min；五档校验 1 s；评分 1 s；确定性核验约 100 s；原生对照核验约 96 s。
 
 ## 3. 基线 vs 方案对照读数
 
@@ -218,7 +222,9 @@ KPI M7_match_ablation_delta value=-3.33333 ci=[-4.66667,-2] n=6
 KPI M8_total_active_uids value=196 ci=[163,232] n=30
 ```
 
-### 4.4 确定性（`raw/sillytavern_determinism.txt`）
+### 4.4 确定性（两条读数：控种 `raw/sillytavern_determinism.txt` ／ 原生 `raw/sillytavern_determinism_native.txt`）
+
+**主读数（控种）**：M6 取这条。契约 §2 规则 8 规定 `probability<100` 的条目按档位种子（`seed=20261014`）判定，种子是契约输入的一部分，故「同一输入」含种子。
 
 ```
 DETERMINISM sillytavern repeats=5 identical=true sha=4bedb7143038ef1e332328cb0b172d20cf9577aa170e46941593a5d655cd6358
@@ -228,7 +234,26 @@ DETERMINISM sillytavern repeats=5 identical=true sha=c9aaeea232804460d447e3b9084
 DETERMINISM sillytavern repeats=5 identical=true sha=3b02affe3d0742c79286a994359e42d9d595294e9772ac7cc45883a00f7198dd
 ```
 
-5 次都是独立 node 进程，stdout 与 `out/sillytavern_P*.json` 双双逐字节一致。ST 的概率判定（`world-info.js:5041`）与成组择一（`:5453`）走 `Math.random()`，本适配器在每次 `checkWorldInfo` 前按契约 `seed=20261014` 换成 `lcg32(seed + turn*1000003)` 并在调用后还原；不播种时同一输入的结果不保证一致。
+5 次都是独立 node 进程，stdout 与 `out/sillytavern_P*.json` 双双逐字节一致。
+
+**对照读数（原生，不控种）**：同口径连跑 5 次，每次给 `run.mjs` 加 `--no-seed`，五档全部 `identical=false`：
+
+```
+DETERMINISM sillytavern repeats=5 identical=false sha=585fd46dcf173de784917943102e80e4bff516874178d1575a85ec7241f524f7
+DETERMINISM sillytavern repeats=5 identical=false sha=362ce58efe63a72ca84bc7399580dfda7f822a03bee1a40c38eefad7432768b8
+DETERMINISM sillytavern repeats=5 identical=false sha=f84d8deb4873df3b7bbc4c12fb89a90be03b3095798dc0ad564ebfc5923de929
+DETERMINISM sillytavern repeats=5 identical=false sha=fdba5396dedb2fbfc97e10b52bf7ab92df7a84381e3812be66e71d8324090e42
+DETERMINISM sillytavern repeats=5 identical=false sha=bb48471dbd87c73b6c6edca038ba8ea54fa432148340951bb94d013d650a5bb0
+```
+
+变动源都在上游源码里：
+
+- uid17 概率判定：`world-info.js:5041` `const rollValue = Math.random() * 100;`。
+- uid25 内容宏：`world-info.js:5058` `entry.content = substituteParams(entry.content)` → `public/scripts/macros.js:551` 的 `{{roll[ : ]([^}]+)}}` 模式 → `macros.js:566` `droll.roll(formula)` → `node_modules/droll/droll.js:96` `1 + Math.floor(Math.random() * numSides)`。
+- 成组择一 `world-info.js:5453` `const rollValue = Math.random() * totalWeight;` 也走 `Math.random()`；本夹具的组 `props`（uid15 权重 100／uid16 权重 50）在这 25 次原生运行里都由 uid15 胜出，未观测到变动。
+
+控种只替换页面上下文里的全局 `Math.random`：每个 turn 装一次 `lcg32(seed + turn*1000003)`（`seed` 取 `data/profiles.json` 的 20261014），`await checkWorldInfo(...)` 返回后在 `finally` 里还原原函数。
+上游源码零改动——`upstream/` 由 `fetch_upstream.sh` 按锁定 sha 重建，适配器只写它自己的用户数据目录 `data/default-user/worlds/`；替换发生在被测函数调用边界外，不改触发、排序、预算、递归任何规则，与基线 `random.Random(seed)` 同种子口径。锚点标定（决定本档 `maxContext`）始终控种，`--no-seed` 只关掉 6 个 turn 的档位读数。
 
 ### 4.5 预算口径与 maxContext（`raw/sillytavern_timing.txt`）
 
@@ -247,12 +272,16 @@ ENGINE_NOTE sillytavern server_started=true server_wait_ms=3336 browser_ms=380 p
 
 - uid17（概率 50）：P0 turn3 起判不过、P2 turn3 判过（见 `raw/sillytavern_diff.txt` 的 P0vsP2 turn3 `only_b=17`），判定可复现。
 - uid24（正则键 `/地.图/`）：ST 把键解析为正则（`world-info.js:2901`），`.` 要求 地 与 图 之间多一个字符，原文「地图」不匹配，故不激活；基线的字面串比较同样不匹配。两家激活集一致，理由不同。
-- uid25（内容宏）：ST 在注入前调 `substituteParams`（`:5058`），正文被展开成 25 字符（夹具 39 字符）。`raw/sillytavern_content.txt` 逐字：
+- uid25（内容宏探针）：ST 在注入前调 `substituteParams`（`world-info.js:5058`），`{{roll:d6}}` 与 `{{user}}` 被展开，注入文本由夹具的 39 字符 / 73 字节变成 25 字符 / 59 字节。控种读数里出现 3 种取值，正文逐字取自 `raw/sillytavern_content.txt`（P0）与 `raw/sillytavern_content_P2.txt`（P2）：
 
 ```
 [RAW] adapter=sillytavern profile=P0 turn=3 uid=25 position=before_char depth=null chars=25 bytes=59 sha256=13763707e2e7b428680fc46cbadcdf49eb692cc893429dc4985e624e81aeeb87 content="内容宏探针：5 与 User 原样保留，不做替换。"
 [RAW] adapter=sillytavern profile=P0 turn=4 uid=25 position=before_char depth=null chars=25 bytes=59 sha256=965f6f8351c68252c9988056485ee607aa57a519c63dce2b29ee9b3b891e94f8 content="内容宏探针：1 与 User 原样保留，不做替换。"
+[RAW] adapter=sillytavern profile=P2 turn=3 uid=25 position=before_char depth=null chars=25 bytes=59 sha256=b19b9fb41ca55742103a6c8dd598558235f955ddfcbccaf2294bb6b2e5d0260b content="内容宏探针：4 与 User 原样保留，不做替换。"
 ```
+
+  三种取值的分布：`5` 在 P0／P1／P4 的 turn3，`1` 在 P0／P1／P4 的 turn4，`4` 在 P2 的 turn3。`{{roll:d6}}` 由 `macros.js:566` 的 `droll.roll()` 换成 1–6 的整数（`droll.js:96` 取 `Math.random()`），`{{user}}` 由页面 `name1` 换成 `User`；同 turn 不同档位的取值不同，是因为抽签前各档消耗的随机数个数不同。
+  **该条不参与内容溯源**：`harness/independent_recompute.py` 的 `PROVENANCE` 行五档 `mismatch` 全为 0，宏展开按 `explained` 单列——P0／P1／P4 各 `explained=2`（turn3、turn4 的 uid25），P2 记 1（turn3 的 uid25），P3 记 0；这 5 处是被披露的例外，不是被忽略的错误。其余 24 条逐字节等于夹具原文。
 
 - uid8（条目级全词）在 P0 的注入正文（`raw/sillytavern_content.txt`）：
 
@@ -287,7 +316,7 @@ TIMING sillytavern profile=P4 min_ms=3894.24 p50_ms=3921.93 p95_ms=4199.57
 本适配器的读数只在下列条件下成立。
 
 1. 契约预算以字符计，ST 的预算以 token 计且是 `maxContext` 的 25%；P3 与基线的预算不可直接比字符数，可比的只有 dropped 条目集合（契约 M3 本就是集合口径）。
-2. ST 的成组择一与概率判定走 `Math.random()`；本适配器按契约 `seed` 播种后才可复现，不播种时同一输入不保证一致。
+2. ST 的概率判定（`world-info.js:5041`）、成组择一（`:5453`）与内容宏 `{{roll:}}`（`macros.js:566` → `droll.js:96`）走 `Math.random()`。M6 取控种读数（五档 `identical=true`）；不控种时五档 `identical=false`，同一输入不保证一致（`raw/sillytavern_determinism_native.txt`）。控种只替换页面上下文的 `Math.random`，上游源码零改动。
 3. 窗口文本不含说话人名前缀（`world_info_include_names=false`），与基线 §2 规则 1 的口径一致。
 4. 夹具 25 条全为 `delay=false`，且没有 sticky／cooldown，时间效果不参与读数。
 5. 读数取的是 dry run（`checkWorldInfo(..., true)`），不进入生成流程，也不触发任何模型请求。
@@ -302,3 +331,5 @@ TIMING sillytavern profile=P4 min_ms=3894.24 p50_ms=3921.93 p95_ms=4199.57
 6. **`tests` 依赖的冷安装耗时未测**。原因：本次运行时依赖已就位，`npm install` 报 `up to date in 1s`。
 7. **向量化世界书检索（`src/endpoints/vectors.js`）与宏引擎全链路未测**。原因：前者依赖外部 embedding 服务，违反零凭据约束；后者超出本契约的世界书触发面。
 8. **上游自带 e2e 套件未复跑**。原因：本适配器的读数不依赖它；SPIKE 已记录 329 条用例中 328 通过、1 条 2/2 失败（`spike/st-roleplay/SPIKE.md` §3.3）。
+9. **uid25 的注入正文不参与内容溯源比对，该条的其它展开路径未测**。原因：ST 在注入期展开 `{{roll:d6}}` 与 `{{user}}`（`world-info.js:5058`、`macros.js:566`），注入文本与夹具原文不等，`independent_recompute.py` 的 `PROVENANCE` 五档 `mismatch` 全为 0，这 5 处宏展开记在 `explained` 上（P0／P1／P4 各 2、P2 记 1、P3 记 0），属被披露的例外。该条在本夹具上观测到的 3 种取值已逐条列在第 4.6 节；`{{random}}`、`{{pick}}` 等其它宏在本夹具上的取值未测（夹具正文只含 `{{roll:d6}}` 与 `{{user}}`）。
+10. **原生（不控种）读数的逐次取值本身未测**。原因：那 25 次原生运行的 stdout 与 out JSON 已记进 `raw/sillytavern_determinism_native.txt` 的 sha256 与变动清单，但每次运行的注入正文没有落盘；正文只在 `ST_DUMP_CONTENT=1` 时进 stderr。

@@ -260,7 +260,17 @@ def _cover_numbers(events):
 # `<!-- bounty:v1 {...} -->` 文本，好让对账走同一条标记解析路径（**单一真源**）。
 def issues_from_store(store):
     out = []
-    for key, rec in sorted((store.get("issues") or {}).items(),
+    # ★本笔：**容器形状判据**。`store` 来自 `--state` 镜像（**外部文件**）——
+    # `{"issues": 5}`／`{"issues": "oops"}`（**都是合法 JSON**）⇒
+    # `.items()` 抛 `AttributeError`，而 `read_state` 的 docstring 承诺
+    # 「1 = 账本/快照读不了（**结构坏**、缺文件而显式指定）」。
+    # （`read_state` 里已有的 `isinstance(store, dict)` 只判**顶层**，不判 `issues` 这一层。）
+    _issues = store.get("issues") if isinstance(store, dict) else None
+    if _issues is None:
+        _issues = {}
+    if not isinstance(_issues, dict):
+        raise ScanError("状态镜像的 issues 不是对象：%r" % (type(_issues).__name__,))
+    for key, rec in sorted(_issues.items(),
                            key=lambda kv: int(kv[0]) if str(kv[0]).lstrip("-").isdigit() else 0):
         if not isinstance(rec, dict):
             continue

@@ -5060,6 +5060,180 @@
         "delta": 3
       },
       "id": "evt_007a633ff6cf"
+    },
+    {
+      "ts": "2026-10-14T22:55:39Z",
+      "issue": 398,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆，在**各件锚定的那个提交**上核对行号——#398/#402/#413 锚 9dd0beb063f4，#401/#406/#420 锚 55a137fc3e31，后者为前者后 2 个提交；非采信申报读数）：`lingshu/nn/hex_search.py`：① L146 `note_blindspot(f\"d{depth}\", depth, \"infogap_dead_zone\", …)` 与 L164 `note_blindspot(f\"d{depth}\", depth, \"max_depth\", …)` 的**首个位置实参是深度串**，而同一函数 L156-157 给 `found` 写的 `pos` 是象限 `r{…}`（L203-204 `det_pos` 正按象限与 ground-truth 比对）⇒ 同一返回体系里两个 `pos` 同名不同域；docstring L106 逐字承诺「停因/**位置**/深度/份额单列」。② L61 注释写 `ACCEPT(置信≥0.5 且领先≥0.3,死区)`，而 L37-38 实现默认是 `th_conf=0.35, th_margin=0.12` ⇒ 注释判据比实际严格得多。。受理。影响等级沿用申报自评（B），维护者未改档。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生为 lingshu（申报标记的 project 字段系模板硬编码）。",
+      "pr": null,
+      "covers": [
+        398
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_7e4bad9b13f0"
+    },
+    {
+      "ts": "2026-10-14T22:55:39Z",
+      "issue": 401,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆，在**各件锚定的那个提交**上核对行号——#398/#402/#413 锚 9dd0beb063f4，#401/#406/#420 锚 55a137fc3e31，后者为前者后 2 个提交；非采信申报读数）：`lingshu/nn/hex_cnn.py`：L277 `init_loss = recon_loss(w, rng.random(…) < mask_ratio)` 抽一次掩码 A；L279 `hole = rng.random(…) < mask_ratio  # 每步抽一次；步内共用` 每 epoch 重抽；L288 `loss_curve.append(recon_loss(w, hole))`；L290 `\"final_loss\": round(loss_curve[-1] …)` ⇒ final 用的是**最后一个 epoch 的掩码 B**。二者非同一掩码，#17 自述的「口径决策」遗留项至今无人认领。。受理。影响等级沿用申报自评（B），维护者未改档。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生为 lingshu（申报标记的 project 字段系模板硬编码）。",
+      "pr": null,
+      "covers": [
+        401
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c46793b1cd35"
+    },
+    {
+      "ts": "2026-10-14T22:55:39Z",
+      "issue": 402,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆，在**各件锚定的那个提交**上核对行号——#398/#402/#413 锚 9dd0beb063f4，#401/#406/#420 锚 55a137fc3e31，后者为前者后 2 个提交；非采信申报读数）：`lingshu/core/core.py`：L4698（set_anchor）与 L4728（add_structure_node）都是**直接** `self.store.add_node(node)`，其间无任何 content 类型检查；`store.add_node`（L1286）的 docstring 全部是**写权限闸**（角色/按行判权限）语义，无类型闸。**决定性佐证**：#331 的类型闸 docstring L4516-4517 逐字写着「边界（如实标注）：本闸只覆盖 `add_perception`；`store.add_node` / `import_all` 等其它写入面不在本件范围内」——本件正是补上这段自述边界。闸体见 L4519-4522。。受理。影响等级沿用申报自评（B），维护者未改档。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生为 lingshu（申报标记的 project 字段系模板硬编码）。",
+      "pr": null,
+      "covers": [
+        402
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5c9ccf180666"
+    },
+    {
+      "ts": "2026-10-14T22:55:39Z",
+      "issue": 406,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆，在**各件锚定的那个提交**上核对行号——#398/#402/#413 锚 9dd0beb063f4，#401/#406/#420 锚 55a137fc3e31，后者为前者后 2 个提交；非采信申报读数）：`lingshu/world/brain_store.py` `_ConnShim`（L374-406）**只有** `execute`（L390）与 `commit`（L405），**无 `executemany`、无 `rollback`**；而 `lingshu/world/scene_model.py` L397 调 `store.conn.executemany(…)`、L401 `commit()`、L406 `store.conn.rollback()`。L402 `except Exception` 吞掉第一个 AttributeError 后回落逐条（L413-418）。L408-411 的注释**只承认 `rollback` 缺失属常态，对 `executemany` 缺失无一字**——与申报一致。。受理。影响等级沿用申报自评（B），维护者未改档。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生为 lingshu（申报标记的 project 字段系模板硬编码）。",
+      "pr": null,
+      "covers": [
+        406
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4f69038cd55f"
+    },
+    {
+      "ts": "2026-10-14T22:55:39Z",
+      "issue": 413,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆，在**各件锚定的那个提交**上核对行号——#398/#402/#413 锚 9dd0beb063f4，#401/#406/#420 锚 55a137fc3e31，后者为前者后 2 个提交；非采信申报读数）：`lingshu/nn/stcnn.py`：L37 `ot = (T - kt) // st + 1`（H/W 同形 L38-39）；对照 L53 `ot, oh, ow = T // kt, H // kh, W // kw`。算术真跑：`(T=1,kt=3,st=1) → ot=-1`（负 ⇒ `np.zeros` 抛 `negative dimensions`）、`(1,5,1) → -3`、`(2,4,1) → -1`；而 `(2,3,1) → 0` 与 `(5,3,1) → 3` 正常 ⇒ 与申报的五行对照表逐位一致。申报给的触发条件 `kt - T > st` 亦复核正确（`(1,4,2)`：3>2 成立且 ot=-1）。。受理。影响等级沿用申报自评（B），维护者未改档。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生为 lingshu（申报标记的 project 字段系模板硬编码）。",
+      "pr": null,
+      "covers": [
+        413
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1b09f6bc8dd3"
+    },
+    {
+      "ts": "2026-10-14T22:55:39Z",
+      "issue": 420,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆，在**各件锚定的那个提交**上核对行号——#398/#402/#413 锚 9dd0beb063f4，#401/#406/#420 锚 55a137fc3e31，后者为前者后 2 个提交；非采信申报读数）：`lingshu/world/channel_credibility.py` `_load`（L86-97）：L92-94 `for ch, st in data.items():` 内 `self._state[ch].update({k: float(st.get(k, self._state[ch][k])) for k in (\"a\",\"b\",\"hits\",\"misses\")})` —— `float()` **在循环体内且无 per-channel 防护**，而 L95-96 的 `except Exception: pass` 包住**整个循环** ⇒ 一个不可解析值即中断其后全部通道。L160-161 `_update` 末尾 `if self.persist_path: self.save()` 全量写回 ⇒ 混合态被固化。。受理。影响等级沿用申报自评（B），维护者未改档。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生为 lingshu（申报标记的 project 字段系模板硬编码）。",
+      "pr": null,
+      "covers": [
+        420
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4b0ac04bbff3"
     }
   ]
 }

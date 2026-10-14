@@ -235,6 +235,14 @@ def _as_int(x, default: int = 0) -> int:
 def rescore(events):
     bad = []
     for ev in events or []:
+        # ★本笔：**元素形状判据**。`rescore` 是 `docs/bounty/README.md` 写明的
+        # **公开可复算入口**，职责是「逐条复算并断言」⇒ 非对象元素应**点名**，不是崩。
+        # 旧实现直接 `ev.get("formula")` ⇒ `AttributeError`，整份复算结果拿不到
+        # （而本仓 §六 的「账本复算自检」正依赖 `rescore(events)` 的返回值）。
+        if not isinstance(ev, dict):
+            bad.append((None, "malformed event: 不是对象（实为 %s）" % type(ev).__name__,
+                        None, None))
+            continue
         f = ev.get("formula")
         if not f:
             if _as_int(ev.get("delta")) != 0:
@@ -504,7 +512,15 @@ def latest_marker(comments):
     """评论流 → 最新的状态标记（权威记录）；无则 None。"""
     best = None
     for body in comments or ():
-        for m in MARKER_RE.finditer(body or ""):
+        # ★本笔：**元素形状判据**。`comments` 是**外部输入面**（issue 评论正文，
+        # 也来自 `--state` 镜像的 `markers`），元素非字符串（数字／None／数组，
+        # **全是合法 JSON**）⇒ `re.finditer(body)` 抛
+        # `TypeError: expected string or bytes-like object`，而本函数 docstring 明写
+        # 「含 None/坏 JSON」且 **「坏 JSON 一律跳过，不抛」** —— 旧实现对「坏 JSON」守住了，
+        # 对「坏元素」没有。同族的 `_seq`／`parse_command` 都做了字符串化。
+        if not isinstance(body, str):
+            body = str(body or "")
+        for m in MARKER_RE.finditer(body):
             try:
                 rec = json.loads(m.group(1))
             except ValueError:
@@ -1288,6 +1304,12 @@ def roles_from_events(events):
 def role_revocations(events):
     latest = {}
     for ev in events or []:
+        # ★本笔：**元素形状判据**。账本是 append-only 的**外部写入面**（维护者脚本／
+        # 第三方复算件都会写），元素非对象 ⇒ `AttributeError: 'str' object has no
+        # attribute 'get'`。同族的导出面（`score_board`／`value_vector`／`promotion_report`）
+        # 在 2026-10-14 的 `8c9faca` 里已补过一轮 —— **本函数与 `rescore` 是那一轮漏掉的**。
+        if not isinstance(ev, dict):
+            continue
         if ev.get("action") != "role":
             continue
         who = (ev.get("subject") or "").strip()

@@ -390,11 +390,12 @@ def _imports(src):
 
 _MUTATIONS = (
     ("M1 态冲突比较短路（某面与账本矛盾不再被看见）",
-     "        if declared and lst and lst != eff:",
+     "        if lst and lst != eff:",
      "        if False:  # MUT",
      {"D1b", "D2", "D2b", "D12d"}),
     ("M2 缺标签判据短路（无入选标记也放过）",
-     "        elif lst and bb.LABEL_GATE not in labels:",
+     "        elif lst and (bb.LABEL_GATE not in labels\n"
+     "                      or not any(lbl.startswith(\"difficulty:\") for lbl in labels)):",
      "        elif False:  # MUT",
      {"D4"}),
     ("M3 缺账本事件判据短路（声明态、账本查无此号也放过）",

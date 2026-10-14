@@ -1,0 +1,69 @@
+# cross-eval 基准：智能体工作流方向（v0.1）
+
+本目录是悬赏委托 **cross-eval（横向测评）** 的交付实现与原始证据：同一台机器、同一份语料与查询、同一 BM25 实现下，
+对三个「智能体工作流」方案与一份手写基线做逐项对照读数。测评方法论与三份方案报告在 `docs/reviews/`。
+
+被测对象（与首轮交付的「记忆系统」方向完全不相交）：
+
+| 名称 | 版本 | 实现 |
+|---|---|---|
+| 基线（手写） | — | `harness/baseline.py` |
+| LangGraph | 1.2.15 | `systems/langgraph_impl.py` |
+| LlamaIndex Workflows | llama-index-core 0.14.25 / llama-index-workflows 2.26.0 | `systems/llamaindex_impl.py` |
+| txtai Workflow | 8.x（见报告 §1） | `systems/txtai_impl.py` |
+
+## 目录
+
+- `harness/spec.md` —— 冻结的评测契约（方向 / 被测对象 / 工作负载 / 读数项 M1–M8 / 公平性 / 未测面）
+- `harness/workload.py` —— **唯一的工作负载定义**：五步流水线 `load → index → retrieve → verify → emit`，四家共用同一份纯函数
+- `harness/metrics.py` —— `sha256_file` / `loc`（非空非注释行）/ `timeit`（1 次预热 + 7 次取样，报 min/p50/p95）
+- `harness/baseline.py` —— 手写基线（ThreadPoolExecutor 扇出；无检查点、无内建重试）
+- `harness/runner.py` —— 统一跑法（`--impl --name --modes --corpus --queries --rawdir --workers --repeats`），自动落 `raw/`
+- `data/` —— 语料 200 篇（种子 20261014）、查询 40 条（种子 20261015）、黄金产物 `out_baseline.jsonl`
+- `systems/` —— 三家方案实现，每个暴露 `NAME` / `CAPS` / `run(mode, cfg)`
+- `raw/` —— **原始证据**（逐模式 stdout、逐模式产物 jsonl、summary json、计时日志、复跑脚本）
+
+## 复跑
+
+环境：Linux/WSL + `python3` 3.12，`nproc` 4 以上，**不需要任何 LLM/API 凭据**（工作负载纯本地、无网络）。
+依赖装在隔离目录，避免互相污染：
+
+```sh
+python3 -m pip install --break-system-packages --target ~/dm/pylibs/base       rank_bm25
+python3 -m pip install --break-system-packages --target ~/dm/pylibs/langgraph  langgraph
+python3 -m pip install --break-system-packages --target ~/dm/pylibs/llamaindex llama-index-core
+python3 -m pip install --break-system-packages --target ~/dm/pylibs/txtai      txtai
+```
+
+复跑（在仓根执行；`<name>` 取 `baseline` / `langgraph` / `llamaindex` / `txtai`）：
+
+```sh
+cd <repo>
+export PYTHONPATH=~/dm/pylibs/base:~/dm/pylibs/<target>
+python3 -X utf8 bench/cross_eval/harness/runner.py --impl bench/cross_eval/harness/baseline.py \
+    --name baseline --modes normal,resume,retry,sequential,parallel
+```
+
+预期耗时：基线整轮（5 模式 + 3 组计时）约 1 分钟内；三家首轮含冷启动 import，约 1–3 分钟（txtai 首次 import 可达 30 s）。
+`runner.py` 会打印 `SHA … golden=… match=…`、`TRACE`、`ATTEMPTS`、`TIMING`，并把原始文本写进 `raw/`。
+
+## 守卫与 CI
+
+```sh
+python3 -X utf8 scripts/check_reviews.py        # 12 条交付物判据，退出码 0 全绿
+python3 -X utf8 tests/test_check_reviews.py     # 正向 1 条 + 10 条定点变异 + 判据数自证
+```
+
+`scripts/check_reviews.py` 的 12 条判据：交付文件齐备（R1）、报告七个固定二级标题逐字且有序（R2）、
+方法论九节齐备（R3）、引用的 `raw/<文件>` 真实存在（R4）、围栏里的读数行能在 `raw/` 逐字指到（R5）、
+无判官词（R6）、复现命令在位（R7）、声称与证据一致（R8，逐模式）、黄金产物 sha256 在方法论正文里（R9）、
+未测项非空（R10）、不适用条件非空（R11）、结论逐项可指（R12）。
+CI 在 `.github/workflows/review-cross-eval-check.yml`：守卫 + 自证 + 「跑完不许把仓搞脏」。
+
+## 口径与边界
+
+- `raw/*.txt` / `raw/*.json` / `raw/*.jsonl` 是**原始日志（证据）**，其中出现的绝对路径属于测量机，未做改写；
+  `raw/*.sh` / `raw/*.py` 用 `$(dirname "$0")/../../..` 或 `__file__` 自行定位克隆根，可直接复跑。
+- 本基准只测**离线、公开可得、零凭据**的工作负载；不测厂商托管服务，不采集隐私数据。
+- 并发耗时在 CPU 密集负载下受 GIL 限制，**不作为引擎优劣判据**；详见方法论 §5 与各家报告 §5「不适用条件」。
+- 未测面（LLM 调用面、网络、分布式持久化后端、跨进程恢复等）逐家写在报告 §6「未测项与原因」。

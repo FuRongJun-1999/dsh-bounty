@@ -1,0 +1,24 @@
+IMPL bench/cross_eval/harness/baseline.py NAME baseline
+CAPS {"checkpoint": false, "fanout": true, "note": "手写 ThreadPoolExecutor 扇出；无检查点、无内建重试", "retry": false}
+RUN mode=normal ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+RUN mode=resume ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "retrieve", "verify", "emit"]
+FIRST_ERROR injected failure at verify
+REEXECUTED ["load", "index", "retrieve"]
+RUN mode=retry ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+ATTEMPTS 3
+ERROR_TEXT injected transient failure
+RUN mode=sequential ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+RUN mode=parallel ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+TIMING normal {"min_ms": 55.585, "n": 7, "p50_ms": 62.665, "p95_ms": 84.687}
+TIMING sequential {"min_ms": 46.087, "n": 7, "p50_ms": 54.883, "p95_ms": 73.168}
+TIMING parallel {"min_ms": 44.601, "n": 7, "p50_ms": 53.518, "p95_ms": 70.991}
+SUMMARY_WRITTEN raw/baseline_summary.json

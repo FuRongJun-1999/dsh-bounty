@@ -1,0 +1,18 @@
+### M8-1 依赖足迹 du -sh（隔离 --target 目录）
+70M	/home/ubuntu/dm/pylibs/base
+247M	/home/ubuntu/dm/pylibs/llamaindex
+### M8-2 引擎发行版（dist-info 目录名 = 实际安装版本）
+/home/ubuntu/dm/pylibs/llamaindex/llama_index_core-0.14.25.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/llama_index_instrumentation-0.6.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/llama_index_workflows-2.26.0.dist-info
+/home/ubuntu/dm/pylibs/base/numpy-2.5.4.dist-info
+/home/ubuntu/dm/pylibs/base/rank_bm25-0.2.2.dist-info
+### M8-3/4 python 证据
+### M8-3 环境内凭据类变量扫描（命中才打印，无输出=无凭据）
+  credential_like_env_count = 0
+### M8-4 运行期网络封锁：patch socket 建连后跑 normal 全流程
+  normal ok=True n_results=40
+  sha256 = 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd
+  network_connect_attempts = 0
+  verdict = 无网络访问，零凭据可跑通
+M8_DONE

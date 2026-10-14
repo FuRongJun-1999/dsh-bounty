@@ -1,0 +1,55 @@
+M7 exc_type      = RuntimeError
+M7 exc_str       = 'injected failure at verify'
+M7 exc_module    = builtins
+M7 'verify' in str(exc) = True
+M7 FULL_TRACEBACK_BEGIN
+Traceback (most recent call last):
+  File "/mnt/d/lingshu-memory-plugin/cross-eval-20261014/bench/cross_eval/raw/llamaindex_m7.py", line 30, in go
+    await asyncio.wait_for(handler, timeout=120.0)
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/llamaindex/workflows/handler.py", line 34, in _await_result
+    stop_event = await self.stop_event_result()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/llamaindex/workflows/handler.py", line 95, in stop_event_result
+    return await self._result_task
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/llamaindex/workflows/handler.py", line 66, in _wait_for_result
+    result = await self._external_adapter.get_result()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/llamaindex/workflows/plugins/basic.py", line 228, in get_result
+    return await self._queues.complete
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/llamaindex/workflows/plugins/basic.py", line 359, in run_with_concurrency_limit
+    return await registered.workflow_run_fn(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/llamaindex/workflows/runtime/types/step_function.py", line 455, in run_workflow
+    result = await control_loop_fn(
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/llamaindex/workflows/runtime/control_loop/runner.py", line 664, in control_loop
+    return await runner.run(start_event=start_event)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/llamaindex/workflows/runtime/control_loop/runner.py", line 495, in run
+    result = await self._process_tick(tick)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/llamaindex/workflows/runtime/control_loop/runner.py", line 636, in _process_tick
+    result = await self.process_command(command)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/llamaindex/workflows/runtime/control_loop/runner.py", line 367, in process_command
+    raise command.exception
+  File "/home/ubuntu/dm/pylibs/llamaindex/workflows/runtime/types/step_function.py", line 300, in wrapper
+    result = await partial_func()
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/llamaindex/llama_index_instrumentation/dispatcher.py", line 464, in async_wrapper
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/llamaindex/workflows/runtime/types/step_function.py", line 233, in span_safe_call
+    step_result = await call_func(*args, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/lingshu-memory-plugin/cross-eval-20261014/bench/cross_eval/systems/llamaindex_impl.py", line 203, in s_verify
+    raise RuntimeError("injected failure at verify")
+RuntimeError: injected failure at verify
+
+M7 FULL_TRACEBACK_END
+M7_PROBE_DONE

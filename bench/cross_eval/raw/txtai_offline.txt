@@ -1,0 +1,38 @@
+### M8 零凭据/零联网复跑：显式置 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1，清空所有代理变量
+### 环境变量：
+ALL_PROXY=
+HF_DATASETS_OFFLINE=1
+HF_HUB_OFFLINE=1
+HTTPS_PROXY=
+HTTP_PROXY=
+TRANSFORMERS_OFFLINE=1
+all_proxy=
+http_proxy=
+https_proxy=
+no_proxy=*
+### 相关凭据变量（应为空）：
+(none)
+IMPL bench/cross_eval/systems/txtai_impl.py NAME txtai_offline
+CAPS {"checkpoint": false, "fanout": true, "note": "fanout=True 指 txtai 内建线程/进程池（task/base.py:296-297 -> execute.py:239/258-262），作用域为同一 Task 内的多个 action，无元素级扇出；checkpoint=False（workflow/ 目录 grep checkpoint|resume|restart 0 命中，Workflow 无 save/load）；retry=False（Task(retries=3) -> TypeError: __init__() got unexpected keyword arguments: 'retries'）", "retry": false}
+RUN mode=normal ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+RUN mode=resume ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "load", "index", "retrieve", "verify", "emit"]
+FIRST_ERROR injected failure at verify
+REEXECUTED ["load", "index", "retrieve"]
+RUN mode=retry ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "load", "index", "retrieve", "load", "index", "retrieve", "verify", "emit"]
+ATTEMPTS 3
+ERROR_TEXT injected transient failure
+RUN mode=sequential ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+RUN mode=parallel ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+TIMING normal {"min_ms": 35.682, "n": 7, "p50_ms": 39.385, "p95_ms": 46.968}
+TIMING sequential {"min_ms": 32.089, "n": 7, "p50_ms": 46.075, "p95_ms": 57.409}
+TIMING parallel {"min_ms": 41.807, "n": 7, "p50_ms": 51.504, "p95_ms": 74.83}

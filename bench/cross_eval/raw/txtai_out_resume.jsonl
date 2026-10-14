@@ -1,0 +1,40 @@
+{"dropped": 4, "ids": ["doc0014"], "q": "q000", "terms": ["t14", "walnut", "opal"]}
+{"dropped": 2, "ids": ["doc0123", "doc0003", "doc0143"], "q": "q001", "terms": ["t03", "garnet", "basalt"]}
+{"dropped": 4, "ids": ["doc0107"], "q": "q002", "terms": ["t07", "echo", "zephyr"]}
+{"dropped": 4, "ids": ["doc0014"], "q": "q003", "terms": ["t14", "walnut", "tango"]}
+{"dropped": 3, "ids": ["doc0001", "doc0061"], "q": "q004", "terms": ["t01", "november", "tango"]}
+{"dropped": 3, "ids": ["doc0127", "doc0187"], "q": "q005", "terms": ["t07", "umber", "whiskey"]}
+{"dropped": 4, "ids": ["doc0014"], "q": "q006", "terms": ["t14", "timber", "dagger"]}
+{"dropped": 2, "ids": ["doc0075", "doc0095", "doc0015"], "q": "q007", "terms": ["t15", "thistle", "delta"]}
+{"dropped": 3, "ids": ["doc0029", "doc0089"], "q": "q008", "terms": ["t09", "papa", "foxtrot"]}
+{"dropped": 3, "ids": ["doc0009", "doc0129"], "q": "q009", "terms": ["t09", "romeo", "opal"]}
+{"dropped": 4, "ids": ["doc0145"], "q": "q010", "terms": ["t05", "falcon", "delta"]}
+{"dropped": 4, "ids": ["doc0091"], "q": "q011", "terms": ["t11", "nectar", "quill"]}
+{"dropped": 1, "ids": ["doc0112", "doc0012", "doc0072", "doc0132"], "q": "q012", "terms": ["t12", "hazel", "juliet"]}
+{"dropped": 2, "ids": ["doc0083", "doc0003", "doc0063"], "q": "q013", "terms": ["t03", "xenon", "papa"]}
+{"dropped": 2, "ids": ["doc0127", "doc0107", "doc0047"], "q": "q014", "terms": ["t07", "slate", "mike"]}
+{"dropped": 1, "ids": ["doc0104", "doc0064", "doc0184", "doc0084"], "q": "q015", "terms": ["t04", "umbrella", "oscar"]}
+{"dropped": 4, "ids": ["doc0136"], "q": "q016", "terms": ["t16", "thistle", "tango"]}
+{"dropped": 4, "ids": ["doc0062"], "q": "q017", "terms": ["t02", "uniform", "timber"]}
+{"dropped": 2, "ids": ["doc0112", "doc0012", "doc0132"], "q": "q018", "terms": ["t12", "oscar", "basalt"]}
+{"dropped": 2, "ids": ["doc0159", "doc0079", "doc0139"], "q": "q019", "terms": ["t19", "zephyr", "sierra"]}
+{"dropped": 2, "ids": ["doc0029", "doc0049", "doc0009"], "q": "q020", "terms": ["t09", "granite", "amber"]}
+{"dropped": 2, "ids": ["doc0083", "doc0123", "doc0063"], "q": "q021", "terms": ["t03", "thistle", "juliet"]}
+{"dropped": 1, "ids": ["doc0083", "doc0123", "doc0003", "doc0143"], "q": "q022", "terms": ["t03", "indigo", "sapphire"]}
+{"dropped": 2, "ids": ["doc0025", "doc0005", "doc0145"], "q": "q023", "terms": ["t05", "november", "lotus"]}
+{"dropped": 1, "ids": ["doc0168", "doc0068", "doc0028", "doc0008"], "q": "q024", "terms": ["t08", "kelp", "uniform"]}
+{"dropped": 2, "ids": ["doc0030", "doc0150", "doc0130"], "q": "q025", "terms": ["t10", "dagger", "hazel"]}
+{"dropped": 3, "ids": ["doc0145", "doc0105"], "q": "q026", "terms": ["t05", "granite", "timber"]}
+{"dropped": 4, "ids": ["doc0136"], "q": "q027", "terms": ["t16", "hotel", "sierra"]}
+{"dropped": 3, "ids": ["doc0075", "doc0095"], "q": "q028", "terms": ["t15", "quebec", "umber"]}
+{"dropped": 2, "ids": ["doc0064", "doc0184", "doc0084"], "q": "q029", "terms": ["t04", "india", "elm"]}
+{"dropped": 2, "ids": ["doc0034", "doc0014", "doc0194"], "q": "q030", "terms": ["t14", "dune", "umber"]}
+{"dropped": 4, "ids": ["doc0040"], "q": "q031", "terms": ["t00", "nectar", "alpha"]}
+{"dropped": 3, "ids": ["doc0150", "doc0130"], "q": "q032", "terms": ["t10", "velvet", "sierra"]}
+{"dropped": 3, "ids": ["doc0114", "doc0094"], "q": "q033", "terms": ["t14", "quartz", "yarrow"]}
+{"dropped": 2, "ids": ["doc0127", "doc0187", "doc0047"], "q": "q034", "terms": ["t07", "umber", "willow"]}
+{"dropped": 4, "ids": ["doc0016"], "q": "q035", "terms": ["t16", "jigsaw", "whiskey"]}
+{"dropped": 3, "ids": ["doc0154", "doc0114"], "q": "q036", "terms": ["t14", "uniform", "yankee"]}
+{"dropped": 2, "ids": ["doc0041", "doc0001", "doc0081"], "q": "q037", "terms": ["t01", "basalt", "marble"]}
+{"dropped": 4, "ids": ["doc0028"], "q": "q038", "terms": ["t08", "lotus", "jigsaw"]}
+{"dropped": 2, "ids": ["doc0168", "doc0068", "doc0088"], "q": "q039", "terms": ["t08", "xenon", "canopy"]}

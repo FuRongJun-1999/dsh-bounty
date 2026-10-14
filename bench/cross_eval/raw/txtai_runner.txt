@@ -1,0 +1,29 @@
+IMPL bench/cross_eval/systems/txtai_impl.py NAME txtai
+CAPS {"checkpoint": false, "fanout": true, "note": "fanout=True 指 txtai 内建线程/进程池（task/base.py:296-297 -> execute.py:239/258-262），作用域为同一 Task 内的多个 action，无元素级扇出；checkpoint=False（workflow/ 目录 grep checkpoint|resume|restart 0 命中，Workflow 无 save/load）；retry=False（Task(retries=3) -> TypeError: __init__() got unexpected keyword arguments: 'retries'）", "retry": false}
+RUN mode=normal ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+TXTAT_CAPABILITY checkpoint=unsupported evidence='txtai 9.14.0: grep -ri checkpoint|resume|restart txtai/workflow/ -> 0 hits; Workflow has no save/load'; recovery=rerun_whole_workflow first_pass_counts={'load': 1, 'index': 1, 'retrieve': 1}
+TXTAT_RESTART counts={'load': 2, 'index': 2, 'retrieve': 2, 'verify': 1, 'emit': 1} raw_trace=['load', 'index', 'retrieve', 'load', 'index', 'retrieve', 'verify', 'emit'] reexecuted=['load', 'index', 'retrieve']
+RUN mode=resume ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "load", "index", "retrieve", "verify", "emit"]
+FIRST_ERROR injected failure at verify
+REEXECUTED ["load", "index", "retrieve"]
+TXTAT_CAPABILITY retry=unsupported evidence="Task(retries=3) -> TypeError: __init__() got unexpected keyword arguments: 'retries'"; attempts=3 verify_entries=3 counts={'load': 3, 'index': 3, 'retrieve': 3, 'verify': 1, 'emit': 1}
+RUN mode=retry ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "load", "index", "retrieve", "load", "index", "retrieve", "verify", "emit"]
+ATTEMPTS 3
+ERROR_TEXT injected transient failure
+RUN mode=sequential ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+TXTAT_FANOUT mode=parallel actions=4 workers=4 retrieve_invocations=4 distinct_threads=2 thread_ids=[135565719627456, 135565728020160]
+RUN mode=parallel ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+TIMING normal {"min_ms": 41.664, "n": 7, "p50_ms": 52.629, "p95_ms": 56.784}
+TIMING sequential {"min_ms": 46.008, "n": 7, "p50_ms": 60.87, "p95_ms": 86.884}
+TIMING parallel {"min_ms": 40.163, "n": 7, "p50_ms": 56.315, "p95_ms": 71.955}
+SUMMARY_WRITTEN raw/txtai_summary.json

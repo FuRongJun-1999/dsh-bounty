@@ -1,0 +1,107 @@
+{
+ "caps": {
+  "checkpoint": false,
+  "fanout": true,
+  "note": "手写 ThreadPoolExecutor 扇出；无检查点、无内建重试",
+  "retry": false
+ },
+ "impl": "bench/cross_eval/harness/baseline.py",
+ "modes": {
+  "normal": {
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "normal",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "trace": [
+    "load",
+    "index",
+    "retrieve",
+    "verify",
+    "emit"
+   ]
+  },
+  "parallel": {
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "parallel",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "trace": [
+    "load",
+    "index",
+    "retrieve",
+    "verify",
+    "emit"
+   ]
+  },
+  "resume": {
+   "first_error": "injected failure at verify",
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "resume",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "steps_reexecuted_after_failure": [
+    "load",
+    "index",
+    "retrieve"
+   ],
+   "trace": [
+    "load",
+    "index",
+    "retrieve",
+    "retrieve",
+    "verify",
+    "emit"
+   ]
+  },
+  "retry": {
+   "attempts": 3,
+   "error_text": "injected transient failure",
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "retry",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd"
+  },
+  "sequential": {
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "sequential",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "trace": [
+    "load",
+    "index",
+    "retrieve",
+    "verify",
+    "emit"
+   ]
+  }
+ },
+ "name": "baseline",
+ "timing_normal": {
+  "min_ms": 55.585,
+  "n": 7,
+  "p50_ms": 62.665,
+  "p95_ms": 84.687
+ },
+ "timing_parallel": {
+  "min_ms": 44.601,
+  "n": 7,
+  "p50_ms": 53.518,
+  "p95_ms": 70.991
+ },
+ "timing_sequential": {
+  "min_ms": 46.087,
+  "n": 7,
+  "p50_ms": 54.883,
+  "p95_ms": 73.168
+ }
+}

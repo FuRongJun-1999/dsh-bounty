@@ -1,0 +1,24 @@
+IMPL bench/cross_eval/systems/llamaindex_impl.py NAME llamaindex
+CAPS {"checkpoint": true, "fanout": true, "note": "checkpoint=Context.to_dict()/from_dict()（引擎限定只能从 handler 代码取，同进程内恢复；跨进程需自行持久化索引与 payload）；retry=@step(retry_policy=retry_policy(...))，作用域是单个 step 的单次执行；fanout=@step 返回 list[Event] + @step(num_workers=N)，同步步体由引擎自动 run_in_executor 放默认线程池", "retry": true}
+RUN mode=normal ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+RUN mode=resume ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+FIRST_ERROR RuntimeError: injected failure at verify
+REEXECUTED ["verify", "emit"]
+RUN mode=retry ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+ATTEMPTS 3
+ERROR_TEXT injected transient failure
+RUN mode=sequential ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+RUN mode=parallel ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+TIMING normal {"min_ms": 151.262, "n": 7, "p50_ms": 167.71, "p95_ms": 352.817}
+TIMING sequential {"min_ms": 170.63, "n": 7, "p50_ms": 182.175, "p95_ms": 219.3}
+TIMING parallel {"min_ms": 188.942, "n": 7, "p50_ms": 220.433, "p95_ms": 241.642}
+SUMMARY_WRITTEN raw/llamaindex_summary.json

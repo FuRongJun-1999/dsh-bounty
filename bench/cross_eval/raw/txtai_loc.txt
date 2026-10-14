@@ -1,0 +1,11 @@
+### metrics.loc（非空且不以 # 开头的行数）
+loc(bench/cross_eval/systems/txtai_impl.py       ) = 230
+loc(bench/cross_eval/harness/baseline.py         ) = 66
+### 编排单元数：txtai_impl.py 里 Task( 出现次数
+12
+### txtai_impl.py 里五个步骤名的 Task 定义行
+### baseline.py 里模式函数定义
+20:def _load_index(cfg):
+25:def _fanout(index, queries, cfg, workers):
+33:def _finish(index, retrieved, cfg):
+39:def run(mode, cfg):

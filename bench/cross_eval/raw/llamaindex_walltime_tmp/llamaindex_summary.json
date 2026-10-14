@@ -1,0 +1,105 @@
+{
+ "caps": {
+  "checkpoint": true,
+  "fanout": true,
+  "note": "checkpoint=Context.to_dict()/from_dict()（引擎限定只能从 handler 代码取，同进程内恢复；跨进程需自行持久化索引与 payload）；retry=@step(retry_policy=retry_policy(...))，作用域是单个 step 的单次执行；fanout=@step 返回 list[Event] + @step(num_workers=N)，同步步体由引擎自动 run_in_executor 放默认线程池",
+  "retry": true
+ },
+ "impl": "bench/cross_eval/systems/llamaindex_impl.py",
+ "modes": {
+  "normal": {
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "normal",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "trace": [
+    "load",
+    "index",
+    "retrieve",
+    "verify",
+    "emit"
+   ]
+  },
+  "parallel": {
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "parallel",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "trace": [
+    "load",
+    "index",
+    "retrieve",
+    "verify",
+    "emit"
+   ]
+  },
+  "resume": {
+   "first_error": "RuntimeError: injected failure at verify",
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "resume",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "steps_reexecuted_after_failure": [
+    "verify",
+    "emit"
+   ],
+   "trace": [
+    "load",
+    "index",
+    "retrieve",
+    "verify",
+    "emit"
+   ]
+  },
+  "retry": {
+   "attempts": 3,
+   "error_text": "injected transient failure",
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "retry",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd"
+  },
+  "sequential": {
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "sequential",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "trace": [
+    "load",
+    "index",
+    "retrieve",
+    "verify",
+    "emit"
+   ]
+  }
+ },
+ "name": "llamaindex",
+ "timing_normal": {
+  "min_ms": 283.601,
+  "n": 7,
+  "p50_ms": 313.823,
+  "p95_ms": 452.878
+ },
+ "timing_parallel": {
+  "min_ms": 197.391,
+  "n": 7,
+  "p50_ms": 211.381,
+  "p95_ms": 286.579
+ },
+ "timing_sequential": {
+  "min_ms": 176.003,
+  "n": 7,
+  "p50_ms": 234.117,
+  "p95_ms": 346.811
+ }
+}

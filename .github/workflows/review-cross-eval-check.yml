@@ -1,0 +1,46 @@
+name: review-cross-eval-check
+
+# cross-eval 交付物守卫（智能体工作流方向 v0.1）。
+# 只读：不触网、不装第三方依赖、只跑仓内脚本与测试。
+# 说明：tests/test_check_reviews.py 的默认运行已含「正向 + 10 条定点变异 + 判据数自证」，
+#      因此这里不再单列一条 --mutate 腿（重复跑同一条断言不增加判别力）。
+
+on:
+  pull_request:
+    paths:
+      - "bench/cross_eval/**"
+      - "docs/reviews/**"
+      - "scripts/check_reviews.py"
+      - "tests/test_check_reviews.py"
+      - ".github/workflows/review-cross-eval-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: review-cross-eval-check-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONUTF8: "1"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 交付物守卫（12 条判据）
+        run: python -X utf8 scripts/check_reviews.py
+      - name: 守卫自证（正向 1 条 + 10 条定点变异 + 判据数）
+        run: python -X utf8 tests/test_check_reviews.py
+      - name: 跑完不许把仓搞脏
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git status --porcelain
+            echo "::error::工作区被测试弄脏"
+            exit 1
+          fi

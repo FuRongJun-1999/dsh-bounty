@@ -1,0 +1,22 @@
+### 版本（顶层 txtai 不导出 __version__，用 importlib.metadata）
+importlib.metadata.version(txtai)      = 9.14.0
+importlib.metadata.version(torch)      = 2.14.1
+importlib.metadata.version(rank_bm25)  = 0.2.2
+importlib.metadata.version(numpy)      = 2.5.4
+importlib.metadata.version(transformers) = 5.19.0
+### 每个新进程测 import 耗时（PYTHONPATH 已含 base+txtai），3 次取样
+sample=1 import_txtai_ms=7525.4
+sample=2 import_txtai_ms=7428.7
+sample=3 import_txtai_ms=7473.8
+### 对照：只 import torch（独立进程）
+sample=1 import_torch_only_ms=2394.8
+sample=2 import_torch_only_ms=2801.9
+sample=3 import_torch_only_ms=2353.8
+### 对照：只 import rank_bm25+numpy（基线的依赖面，独立进程）
+sample=1 import_rank_bm25_numpy_ms=215.0
+sample=2 import_rank_bm25_numpy_ms=177.4
+sample=3 import_rank_bm25_numpy_ms=208.3
+### 对照：只 import 本方案真正用到的 txtai 子模块（txtai.workflow）
+sample=1 import_txtai_workflow_ms=7896.8
+sample=2 import_txtai_workflow_ms=7862.7
+sample=3 import_txtai_workflow_ms=7916.2

@@ -3019,6 +3019,34 @@
       },
       "pr": 572,
       "id": "evt_1c7360c729cc"
+    },
+    {
+      "ts": "2026-10-14T06:30:00Z",
+      "issue": 300,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "结算 cyd471 的 dsh-bench 第二轮审计（申报件 #300，intake 输入件，无机器标记；源仓 FuRongJun-1999/dsh-bench，源仓 issue #9–#12）。【内容】4 条 P0/P1 缺陷报告（3×P0 + 4×P1 归 1 号），共 7 条发现，全部在 dsh-bench main HEAD e730aab 上。【维护者独立取证】维护者在隔离区克隆 dsh-bench@e730aab97271（浅克隆无、完整克隆，core.autocrlf=false + reset --hard 后工作树干净），逐条自己跑核验命令、不采信申报件的输出读数：① #9 —— `git grep -n -E 'b0_score|p_score|\"delta\"' -- scripts/validate_data.py scripts/verdict.py` 命中 0 行（与申报件「无输出」一致）；两处展示位逐行核实：build_site.py:296-307 排名表两列 `esc(show(r.get(\"b0_score\")))` / `esc(show(r.get(\"p_score\")))`，且排序键取 `interval.L`（L296）⇒ 区间不动而分数可任意改；build_site.py:428/435 报告页 `不装：%s 分；装了：%s 分；差 %s 分。` 三处均为 `r.get(...)` 直读手填值。⇒ 三个分数既不互相复核也不与区间复核，逐字成立。② #10 —— `report_ids` 在 build_site.py / validate_data.py 命中 0 行；插件页标签 build_site.py:531-532 直读 `p[\"tested_depth\"]` / `p[\"risk_level\"]` / `p[\"recommendation\"]`（来自 data/plugins/*.json），排期页 :581 与首页 :395 同样直读；而同一份 build_site.py 在报告页 :439 用的是决策层 `d.recommendation` / `d.rank_eligible` ⇒ 同一插件在报告页与插件页/排期页/首页可以给出相反结论。⇒ 成立。③ #11 —— comparability_groups()（build_site.py:331-337）分组键为 `(r[\"domain\"], c.get(\"model\"), c.get(\"host\"), c.get(\"taskset\"), c.get(\"budget_policy\"))` 五个自由文本；taskset_hash / scorer_hash / protocol_hash 仅出现在 :487 的展示行，不进分组键。⇒ 三个哈希全不同的两份报告进同一张表，成立。④ #12① —— `cross_scenario_claim_allowed` 全仓 3 处：定义 verdict.py:752，调用点仅 tests/test_verdict.py:287 与 :288，生产代码 0 处调用 ⇒ 样本量不进判定，成立。⑤ #12② —— 排名表（:296-307）只有 plugin_id 列，无版本列 ⇒ 同插件新旧版本同时进榜，成立。⑥ #12③ —— slug()（:76-78）为 `re.sub(r\"[^0-9A-Za-z\\u4e00-\\u9fff]+\", \"-\", str(text)).strip(\"-\")`，`mem.v1` 与 `mem-v1` 归一为同一 slug；:520 `(out_dir / name).write_text(...)` 无存在性检查 ⇒ 报告页撞名静默覆盖，成立。⑦ #12④ —— semantic_ledger()（validate_data.py:326-328）只做 `if led.get(\"tested_count\",0) < led.get(\"published_reports\",0)`，即只比账本内部两数大小，从不与盘上实际报告对账 ⇒ 账本 published_reports=0 与已发布报告并存可通过，成立。七条全部独立复现成立。【定档】影响 A（申报值，维护者认同）：dsh-bench 是测评站，其产物是「对他物的判定结论」，而本批 3 条 P0 分别使「数字成绩」「插件级推荐徽章」「排名可比前提」可被手填或前提失效 —— 逐字命中 IMPACT_CRITERIA A 档「量具失效（使评测结论不可信）」；另 4 条 P1 归 B。难度 hard（维护者上调，申报件自申 easy/medium/medium/easy、最高 medium）：合 1 项后按整体定一档，4 个独立 issue、7 条发现、跨 validate_data.py / build_site.py / verdict.py 三脚本，且含两类非单点面 —— 跨对象（插件 JSON ↔ 报告，需理解两份数据模型的关系）与跨报告（可比组语义，需对照手册 §13.7/§13.2 判可比性来源），与本仓同源仓先例 evt_b6854212af4b（dsh-bench 7 件合 1 项 ⇒ hard 6 / A）同量级；该上调可申诉。【归并·维护者裁定「另立一项」】申报件提请维护者在「并入 evt_b6854212af4b 重新定档」与「作为第二轮审计另立一项」之间裁定。维护者裁定另立，理由三条：（一）#288 回执第四节写的是「按『同人 × 同源仓 × 同批代码 = 1 项』合并 7 件为 1 项」——该句的宾语是「7 件」（即 7 个源仓 issue），故它是 **issue→工作项** 的组内归并规则，不是「跨申报件一律合并」的规则；申报件把「同批代码」读成跨两批申报件共享同一快照，是对该句的合理但非唯一读法，维护者在此明确其边界。（二）跨申报件的归并判据是「缺陷面是否相交」：本件 7 条发现所在面（成绩 b0/p/delta 复核、插件 JSON ↔ 报告对账、可比组哈希、样本量/版本/页面唯一性/账本对账）与 #288 的 7 条（判定门槛自带、发布闸不在发布路径、失效传播、安全暂停进榜、三张单/安全专项/工具四件事手填、证据链只查非空、校验器与生成器四处口径）**逐条不相交**；相邻最近的一对是 #288 的 #6（三张单/安全专项/工具四件事手填）与本件的 #9（三个分数手填），但 #9 的申报正文明确指出 semantic_report() 的 11 步复算覆盖了三张单/安全专项**却唯独不碰三个分数**，即 #9 恰是 #6 所在区域的**剩余缺口**，属新增面而非重复面。（三）同源仓既有先例支持按「申报批次」立目：evt_e3803bc0e812（#19，covers=[19,20,21,23,42]）、evt_1f800248cc47（#35）、evt_3d0e59a81dcf（#86，covers=[86,87,88,89]）为同一贡献者在同一源仓（memory）同一日（2026-10-12）的三个**独立工作项**，本仓从未按「同人×同源仓×同日」强行合并。★ 同时明确一条**反膨胀护栏**（写入本回执，供后续申报者预期）：同基线重复申报只有在「缺陷面不相交」时另立工作项；若缺陷面相交，则并入既有工作项并**只按新增面**评估，不重复计分。本件因七条面逐条不相交而另立。【查重】账本内 cyd471 既有 9 行，project=bench 仅 evt_b6854212af4b 一行（#288）；本件与其 covers 集合不相交（[288] vs [300]）；账本内 dsh-bench #9–#12 号段 0 命中；源仓侧 4 个 issue（#9–#12）与 #2–#8 号段不相交且 12 个 issue 当前全部 open（无修复落仓，不构成「已修」重复）。【举证瑕疵·不影响结论】申报件正文与 4 份源仓 issue 均只给出复现脚本的**运行输出**，脚本本体以「附录」指称但未内联、也未附文件，维护者无法原样复跑该脚本；维护者改以「自己重跑其自述的核验命令 + 逐行读关键函数体与调用点」的方式独立取证，七条机制全部证实。⇒ 属**举证形式瑕疵**（脚本不可获取），不属结论瑕疵，按本仓口径「举证瑕疵 ≠ 结论不成立」不扣分；建议后续申报件把自包含复现脚本以文件或内联代码块给出。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "covers": [
+        300
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_c6b2894337aa"
     }
   ]
 }

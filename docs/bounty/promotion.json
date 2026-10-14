@@ -51,19 +51,20 @@
     166,
     260,
     288,
-    289
+    289,
+    300
    ],
    "login": "cyd471",
    "projects": [],
-   "reputation_delta": 63,
+   "reputation_delta": 69,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 9,
+   "round_known": 10,
    "round_seen": [
     1
    ],
-   "settled": 9,
+   "settled": 10,
    "timeout": 0
   },
   {

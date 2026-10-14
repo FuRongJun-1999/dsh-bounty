@@ -37,18 +37,22 @@ footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
 <main>
 <a id="dsh-memory"></a>
 <h2>dsh-memory · 测评详情</h2>
-<p><span class="tag">版本 0.8.1</span><span class="tag">测评日 2026-10-13</span><span class="tag">总分 19 / 25</span><span class="tag">自评（作者同源）</span></p>
+<p><span class="tag">版本 0.8.1</span><span class="tag">测评日 2026-10-13</span><span class="tag">已测均值 4.0</span><span class="tag">覆盖率 4/5</span><span class="tag">自评（作者同源）</span></p>
 <div class="note"><b>利益相关声明</b>：本插件（FuRongJun-1999/dsh-memory）与本站维护者为<b>同一作者</b>，本条属<b>自评</b>。本条分值不应与其余他评条目等权看待；列出的证据与边界未因自评而减免，请优先按上方原始读数自行判断。另：本条「可验证性」部分依赖上游自带的第三方 LoCoMo 验证报告，本交付<b>未独立复算该报告</b>。</div>
 <p>来源：<a href="https://github.com/FuRongJun-1999/dsh-memory" rel="noopener noreferrer" target="_blank">https://github.com/FuRongJun-1999/dsh-memory</a></p>
 <p>版本面：<a href="https://raw.githubusercontent.com/FuRongJun-1999/dsh-memory/v0.8.1/package.json" rel="noopener noreferrer" target="_blank">https://raw.githubusercontent.com/FuRongJun-1999/dsh-memory/v0.8.1/package.json</a>（核对日 2026-10-13）</p>
 <h2>维度读数</h2>
-<table><tr><th>维度</th><th>分（1–5）</th></tr><tr><td>检索质量</td><td><b>4</b></td></tr><tr><td>记忆持久</td><td><b>4</b></td></tr><tr><td>注入预算</td><td><b>1</b></td></tr><tr><td>隐私与本地性</td><td><b>5</b></td></tr><tr><td>可验证性</td><td><b>5</b></td></tr></table>
-<p class="muted">无读数维度（记 1）：注入预算</p>
+<div class="note"><code>dim_basis</code> 为空的维度记 <code>null</code>（<b>无任何证据</b>）——<b>不参与</b>任何合计：既不计入已测维度均值，也不作为 <code>1</code> 计入分母，并在真源里进 <code>unmeasured_dims</code>。页面上的 <code>1..5</code> 都表示「<b>有基座</b>」（该维挂了 ≥1 条证据）：<code>1</code> 是最低档、<code>5</code> 是最高档；<b>1–4 级的机械门槛都只是「基座非空」</b>——数字读数<b>不是</b> 1–4 级的必要条件，某维有没有可核数字读数由<b>证据档位</b>列（none／prose／reading／repro）另行披露。两者不是一回事（v1 把「未知」与「最低档」混记成 1，使覆盖率低的记录被系统性低估）。</div>
+<p class="muted">判级依据是判据真源 <code>review/data/rubric.json</code> 的 <code>levels[维度][分数]</code>；「档位」由 <code>dim_basis</code> 指向的证据机械推导，只披露、不参与排序。</p>
+<table><tr><th>维度</th><th>分（1–5；未测记 <code>null</code>）</th><th>证据档位</th><th>支撑证据</th><th>dim_rationale（原文）</th></tr><tr><td>检索质量</td><td><b>4</b></td><td><code>reading</code></td><td>证据 1、证据 2</td><td>证据 1、2 并列给出上界 hit@10 99.8% 与自然问句诚实下界 40.2%，故记 4；未给 5 因两条均为转引、本机未跑检索侧命令，无 repro 档。</td></tr><tr><td>记忆持久</td><td><b>4</b></td><td><code>prose</code></td><td>证据 3</td><td>证据 3 给出写入三闸门／仅显式 forget 可删／派生物可重建三条结构性保证，故记 4；未给 5 因这是设计表述而非本机写入—重启—取回往返，无 repro 档。</td></tr><tr><td>注入预算</td><td>未测</td><td><code>none</code></td><td>—</td><td>未取得读数：README 未提供任何 token 用量或字节读数，按两轴规则记 null 并进 unmeasured_dims（不再借 1 参与求和）。</td></tr><tr><td>隐私与本地性</td><td><b>4</b></td><td><code>prose</code></td><td>证据 5</td><td>证据 5 为 README 关于零重依赖／纯词面可复现／明确不做向量嵌入的原文声明，故记 4；未给 5 因本机未复跑（该插件未安装、其源码仓本轮未离线取全），无 repro 档 —— 原 5 分建立在转引之上，按现行口径下调一级。</td></tr><tr><td>可验证性</td><td><b>4</b></td><td><code>repro</code></td><td>证据 1、证据 4</td><td>证据 1（基准数据随仓公开 ＋ 第三方独立验证报告，命中 4 级「第三方独立验证报告」一支）与证据 4（本机复跑<b>本记录的证据链与版本面</b>，逐字节可复算）共同支撑，故记 4；<b>未给 5</b> 因 5 级要的是<b>本机复跑该插件自己的运行入口</b>（如 <code>python -m md_cg.run_tests</code>），而本机未跑该插件（未安装、源码仓本轮未离线取全）——证据 4 是本站证据链探针，不触及该插件的运行时。</td></tr></table>
+<p class="muted"><code>dim_basis</code> 为空的维度（无任何证据，记 <code>null</code>，<b>不参与</b>合计）：注入预算</p>
+<p class="muted">已测均值 4.0（分母＝已测维度数 4，不是 5）；覆盖率 4/5。</p>
 <h2>可复跑证据（命令 ＋ 原始输出）</h2>
 <h3>证据 1 <span class="tag">公开文档转引</span></h3>
 <p class="muted">公开文档转引——引自下列快照，<b>不是</b>本站本机跑出来的读数。</p>
 <p><b>① 复跑命令</b></p>
-<pre># 在 dsh-memory 仓根（README「怎么跑」给出的模块式入口；
+<pre># **未执行**，仅记录该仓 README 给出的入口（本机未安装、未运行）：
+# 在 dsh-memory 仓根（README「怎么跑」给出的模块式入口；
 # README 注明直接 python md_cg/test_xxx.py 会 ImportError）
 python -m md_cg.run_tests
 python -m md_cg.bench_locomo_zh_public   # 中文：只读 data/benchmarks/locomo-zh-500/</pre>
@@ -61,11 +65,12 @@ python -m md_cg.bench_locomo_zh_public   # 中文：只读 data/benchmarks/locom
 # locomo-zh-500 中文（md_cg 完整主链路）：hit@1 94.6%  hit@5 / hit@10 99.2%</pre>
 <p><b>③ 出处快照</b>：<code>review/evidence/dsh-memory.README.md</code></p>
 <p><b>④ 逐字引文</b>（在快照里按字节子串核对）：</p>
-<ul><li><code>第三方独立验证</code></li><li><code>②路 96.8/99.8/99.8 **逐位一致**</code></li><li><code>中文 96.8/99.6</code></li><li><code>③ 英文原题直接原子匹配（不做归一化的对照）</code></li><li><code>机械词典查表归一端到端实测仅 57.6%</code></li><li><code>hit@5 / hit@10 99.2%</code></li></ul>
+<ul><li><code>第三方独立验证</code></li><li><code>②路 96.8/99.8/99.8 **逐位一致**</code></li><li><code>中文 96.8/99.6</code></li><li><code>③ 英文原题直接原子匹配（不做归一化的对照）</code></li><li><code>机械词典查表归一端到端实测仅 57.6%</code></li><li><code>hit@5 / hit@10 99.2%</code></li><li><code>给定中文标准关键词</code></li><li><code>端到端真实水平由 AI 归一质量决定（机械下界 57.6，AI 上界趋近 99.8）</code></li></ul>
 <h3>证据 2 <span class="tag">公开文档转引</span></h3>
 <p class="muted">公开文档转引——引自下列快照，<b>不是</b>本站本机跑出来的读数。</p>
 <p><b>① 复跑命令</b></p>
-<pre># 端到端 QA 同口径对照（与 Mem0/Letta 论文同设定）
+<pre># **未执行**，仅记录该仓 README 给出的入口（本机未安装、未运行）：
+# 端到端 QA 同口径对照（与 Mem0/Letta 论文同设定）
 # 口径真源见 docs/eval/端到端LoCoMoQA同口径对照_v1.0.md
 python -m md_cg.run_tests</pre>
 <p><b>② 原始输出</b>（公开文档 <a href="https://raw.githubusercontent.com/FuRongJun-1999/dsh-memory/main/README.md" rel="noopener noreferrer" target="_blank">https://raw.githubusercontent.com/FuRongJun-1999/dsh-memory/main/README.md</a> （抓取日 2026-10-13）· 表中标注为「与 Mem0/Letta 论文同设定」的自报口径）</p>
@@ -117,6 +122,8 @@ source : https://raw.githubusercontent.com/FuRongJun-1999/dsh-memory/v0.8.1/pack
 [OK] evidence[0] doc=dsh-memory.README.md &#x27;③ 英文原题直接原子匹配（不做归一化的对照）&#x27; → 第 290 行
 [OK] evidence[0] doc=dsh-memory.README.md &#x27;机械词典查表归一端到端实测仅 57.6%&#x27; → 第 280 行
 [OK] evidence[0] doc=dsh-memory.README.md &#x27;hit@5 / hit@10 99.2%&#x27; → 第 316 行
+[OK] evidence[0] doc=dsh-memory.README.md &#x27;给定中文标准关键词&#x27; → 第 280、282 行
+[OK] evidence[0] doc=dsh-memory.README.md &#x27;端到端真实水平由 AI 归一质量决定（机械下界 57.6，AI 上界趋近 99.8）&#x27; → 第 280 行
 [OK] evidence[1] doc=dsh-memory.README.md &#x27;端到端 LoCoMo QA 同口径对照&#x27; → 第 518 行
 [OK] evidence[1] doc=dsh-memory.README.md &#x27;检索注入 QA&#x27; → 第 518 行
 [OK] evidence[1] doc=dsh-memory.README.md &#x27;检索注入 QA **17.2%**&#x27; → 第 518 行
@@ -127,27 +134,41 @@ source : https://raw.githubusercontent.com/FuRongJun-1999/dsh-memory/v0.8.1/pack
 [OK] evidence[2] doc=dsh-memory.README.md &#x27;遗忘只能由显式 `cg(op=forget)` 发起、不做静默淘汰&#x27; → 第 37、209 行
 [OK] evidence[2] doc=dsh-memory.README.md &#x27;检索索引只是派生物、随时可重建&#x27; → 第 37、209 行
 [OK] evidence[3] doc=dsh-memory.README.md &#x27;第三方独立验证&#x27; → 第 215、282、357 行
+[OK] evidence[4] doc=dsh-memory.README.md &#x27;零重依赖、纯词面可复现&#x27; → 第 303 行
+[OK] evidence[4] doc=dsh-memory.README.md &#x27;引入嵌入模型依赖与索引体积&#x27; → 第 303 行
+[OK] evidence[4] doc=dsh-memory.README.md &#x27;当前明确不做&#x27; → 第 303 行
 
 ## ④ 本条记录引用到的快照指纹（逐个可离线复核）
 file   : review/evidence/dsh-memory.README.md
 sha256 : 07c8cb83c170963eac0ff8f671f744a44366aa69fb603071e2f8459f730babe9
 bytes  : 104373
 
-引文命中 16 条；未命中 0 条；引用快照 1 份
+引文命中 21 条；未命中 0 条；引用快照 1 份
 结论：本记录的证据链在本机逐字节成立
 </pre>
 <p><b>③ 出处快照</b>：<code>review/evidence/dsh-memory.README.md</code></p>
 <p><b>④ 逐字引文</b>（在快照里按字节子串核对）：</p>
 <ul><li><code>第三方独立验证</code></li></ul>
+<h3>证据 5 <span class="tag">公开文档转引</span></h3>
+<p class="muted">公开文档转引——引自下列快照，<b>不是</b>本站本机跑出来的读数。</p>
+<p><b>① 复跑命令</b></p>
+<pre># README「要不要上语义向量检索？」一节的原文表述（**本机未跑**）：
+# 检索：读取 README 中「零重依赖、纯词面可复现」「引入嵌入模型依赖」「当前明确不做」相关段落</pre>
+<p><b>② 原始输出</b>（公开文档 <a href="https://raw.githubusercontent.com/FuRongJun-1999/dsh-memory/main/README.md" rel="noopener noreferrer" target="_blank">https://raw.githubusercontent.com/FuRongJun-1999/dsh-memory/main/README.md</a> （抓取日 2026-10-13）· 该节讨论是否引入语义向量检索，结论是明确不做）</p>
+<pre># 以下为 README 原文表述（**本机未跑**）：
+# 向量嵌入会引入嵌入模型依赖与索引体积，与「零重依赖、纯词面可复现」的公开仓原则冲突，当前明确不做。</pre>
+<p><b>③ 出处快照</b>：<code>review/evidence/dsh-memory.README.md</code></p>
+<p><b>④ 逐字引文</b>（在快照里按字节子串核对）：</p>
+<ul><li><code>零重依赖、纯词面可复现</code></li><li><code>引入嵌入模型依赖与索引体积</code></li><li><code>当前明确不做</code></li></ul>
 <h2>结论</h2>
-<p><b>逐项指回读数</b>：①「检索质量 4」由证据 1 的 ②行 hit@10 99.8% 与证据 2 的自然问句诚实下界 hit@10 40.2% 共同支撑——<b>上界与下界差距极大</b>，故不给 5：99.8% 是「给定中文标准关键词」的检索侧上界，README 自己写明「端到端真实水平由 AI 归一质量决定（机械下界 57.6，AI 上界趋近 99.8）」。②「记忆持久 4」由证据 3 的三点结构性表述支撑（写入三闸门＋committed、仅显式 forget 可删、派生物可重建）；给 4 而非 5，因这三点是<b>设计表述</b>而非持久性基准读数。③「注入预算 1」＝<b>无读数档</b>：README 未提供任何 token 用量或耗时读数（见 unmeasured_dims）。④「隐私与本地性 5」：README 声明纯词面、零重依赖，并明确<b>不做</b>语义向量嵌入（避免引入嵌入模型依赖与索引体积）。⑤「可验证性 5」由基准数据随仓公开 ＋ 第三方独立验证报告共同支撑；<b>但该报告同时给出了批评</b>，见 boundary。</p>
+<p><b>逐项指回读数</b>：①「检索质量 4」由证据 1 的 ②行 hit@10 99.8% 与证据 2 的自然问句诚实下界 hit@10 40.2% 共同支撑——<b>上界与下界差距极大</b>，故不给 5：99.8% 是「给定中文标准关键词」的检索侧上界，README 自己写明「端到端真实水平由 AI 归一质量决定（机械下界 57.6，AI 上界趋近 99.8）」。②「记忆持久 4」由证据 3 的三点结构性表述支撑（写入三闸门＋committed、仅显式 forget 可删、派生物可重建）；给 4 而非 5，因这三点是<b>设计表述</b>而非持久性基准读数。③「注入预算」＝<b>未取得读数</b>：README 未提供任何 token／字节用量读数，故记 <code>null</code>、进 unmeasured_dims，<b>不参与</b>任何合计（见 unmeasured_dims）。④「隐私与本地性 4」：README 声明纯词面、零重依赖，并明确<b>不做</b>语义向量嵌入（避免引入嵌入模型依赖与索引体积）；<b>未给 5</b> 因本机未跑该插件自己的入口（未安装、源码仓本轮未离线取全），该维度的 repro 不成立。⑤「可验证性 4」由基准数据随仓公开 ＋ 第三方独立验证报告共同支撑；<b>未给 5</b> 因本机未跑该插件自己的运行入口（证据 4 只是本站证据链探针）；<b>但该报告同时给出了批评</b>，见 boundary。</p>
 <h2>边界 · 不适用条件</h2>
-<p><b>不适用条件</b>：①本条检索读数<b>只在自建 <code>locomo-zh-500</code> 语料上成立</b>——换语料需重跑，README 未声称跨语料泛化。②99.8% 依赖查询已被归一为「中文标准关键词」；<b>LLM 归一环节本身的质量未被单独评测</b>，机械归一端到端仅 57.6%。③证据 2 的 17.2% 是「检索注入 QA」口径，<b>不可</b>与证据 1 的 hit@10 混读成同一量。④<b>被引的第三方报告本身含批评面</b>：据该报告，99.8% 主要由中文摘要层挣得（去英文处理层 hit@10 反为 100.0%），英文归一化组件自身端到端为 81.0%，且报告的若干对照臂第三方<b>不可复现</b>（英文原题不入库）。本子站<b>未独立复算该报告</b>。⑤全部<b>转引</b>读数取自公开文档，非本机跑该插件所得。⑥版本面锚在<b>不可变 tag</b> <code>v0.8.1</code> 的 package.json（快照 <code>review/evidence/dsh-memory.package.json</code>），不再锚可变的 main——上游已被证实在不升版本号的情况下会改内容。⑦<b>证据 4 是本机复跑</b>，但它证明的是<b>本记录的证据链在本机成立</b>（快照 sha256、版本面版本、逐字引文按字节命中），<b>不</b>证明该插件的运行时行为。</p>
+<p><b>不适用条件</b>：①本条检索读数<b>只在自建 <code>locomo-zh-500</code> 语料上成立</b>——换语料需重跑，README 未声称跨语料泛化。②99.8% 依赖查询已被归一为「中文标准关键词」；<b>LLM 归一环节本身的质量未被单独评测</b>，机械归一端到端仅 57.6%。③证据 2 的 17.2% 是「检索注入 QA」口径，<b>不可</b>与证据 1 的 hit@10 混读成同一量。④<b>被引的第三方报告本身含批评面</b>：据该报告，99.8% 主要由中文摘要层挣得（去英文处理层 hit@10 反为 100.0%），英文归一化组件自身端到端为 81.0%，且报告的若干对照臂第三方<b>不可复现</b>（英文原题不入库）。本子站<b>未独立复算该报告</b>。⑤全部<b>转引</b>读数取自公开文档，非本机跑该插件所得。⑥版本面锚在<b>不可变 tag</b> <code>v0.8.1</code> 的 package.json（快照 <code>review/evidence/dsh-memory.package.json</code>），不再锚可变的 main——上游已被证实在不升版本号的情况下会改内容。⑦<b>证据 4 是本机复跑</b>，但它证明的是<b>本记录的证据链在本机成立</b>（快照 sha256、版本面版本、逐字引文按字节命中），<b>不</b>证明该插件的运行时行为。⑧<b>可验证性的口径</b>：本站把「可验证性」读作<b>该插件本身可被第三方复跑的程度</b>，不是本站证据链的自证程度——故 5 级只认「本机复跑该插件自己的运行入口」；本条的本机复跑（证据 4）是本站证据链探针，只支撑 4 级。</p>
 <h2>未测项（未测 ＋ 原因）</h2>
-<p><b>未测 ＋ 原因</b>：①本机<b>未重跑</b>上述任何基准——测评时本机 github.com/raw.githubusercontent.com 被 hosts 钉到 127.0.0.1，<b>无法克隆仓库</b>，故引用类读数只能取自公开文档原文（source 里给出 URL 与抓取日，<code>review/evidence/</code> 落字节快照可离线核对）。<b>证据 4 确是本机复跑</b>，但它的射程只到「引证忠实 ＋ 版本面一致」，<b>不等于</b>跑过该插件。②「注入预算」<b>未取得任何原始输出</b>——README 未提供 token 用量或耗时读数，故该维度记 1（无读数档），<b>不表示</b>该插件预算控制差。③跨语言（非中英）检索未测。④第三方报告的对照臂未复现。⑤<b>第三方可怎样复核运行时面</b>（本站没做，但路径是明确的）：<code>git clone https://github.com/FuRongJun-1999/dsh-memory</code> → <code>git checkout v0.8.1</code> → <code>python -m md_cg.run_tests md_cg</code>（README 自述该套件纯 stdlib；部分组需 Rust，可按组收窄）；公开基准另可 <code>python -m md_cg.bench_locomo_zh_public</code>，但它要读 <code>data/benchmarks/locomo-zh-500/</code>——该目录<b>不在</b> npm 包 <code>files</code> 里，必须用源码仓。本站把这份路径写出来，是为了让复核者不必猜；<b>不等于</b>本站跑过。</p>
+<p><b>未测 ＋ 原因</b>：①本机<b>未跑</b>该插件自己的检索侧基准（<code>python -m md_cg.run_tests</code>／<code>python -m md_cg.bench_locomo_zh_public</code>）：该插件本机未安装，且 dsh-memory 是纯 Python 包、本轮未把该仓源码离线取全（本机进程级出网不可用——直连 github.com／raw.githubusercontent.com 时 TLS 报 <code>schannel SEC_E_NO_CREDENTIALS</code>，<code>review/evidence/</code> 下的快照是经 <code>ghfast.top</code> 镜像逐文件取回的 README 与 package.json），故上述基准读数只能取自公开文档原文（source 里给出 URL 与抓取日，<code>review/evidence/</code> 落字节快照可离线核对）。<b>证据 4 确是本机复跑</b>，但它的射程只到「引证忠实 ＋ 版本面一致」，<b>不等于</b>跑过该插件。②「注入预算」<b>未取得任何原始输出</b>——README 未提供 token／字节用量读数（它有写入耗时一类的性能读数，但不属本维度），故该维度记 <code>null</code>、进 unmeasured_dims，<b>不参与</b>任何合计，<b>不表示</b>该插件预算控制差。③跨语言（非中英）检索未测。④第三方报告的对照臂未复现。⑤<b>第三方可怎样复核运行时面</b>（本站没做，但路径是明确的）：<code>git clone https://github.com/FuRongJun-1999/dsh-memory</code> → <code>git checkout v0.8.1</code> → <code>python -m md_cg.run_tests md_cg</code>（README 自述该套件纯 stdlib；部分组需 Rust，可按组收窄）；公开基准另可 <code>python -m md_cg.bench_locomo_zh_public</code>，但它要读 <code>data/benchmarks/locomo-zh-500/</code>——该目录<b>不在</b> npm 包 <code>files</code> 里，必须用源码仓。本站把这份路径写出来，是为了让复核者不必猜；<b>不等于</b>本站跑过。</p>
 <p><a href="board.html">← 回榜单</a></p>
 
 </main>
-<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> 机械生成——勿手改。本站只放可核验读数，<b>不涉资金</b>，<b>不采集用户隐私</b>。</footer>
+<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> ＋ <code>review/data/rubric.json</code> 机械生成——勿手改。本站只放可核验读数，<b>不涉资金</b>，<b>不采集用户隐私</b>。</footer>
 </body>
 </html>

@@ -130,6 +130,13 @@ def readme_snapshot_of(slug) -> str:
 # 只为报「在第几行命中」——判据是字节子串，行号只是给人看的位置线索。
 def line_numbers(text, needle) -> list:
     """needle 在 text 里的行号（1-based）。"""
+    # ★本笔：**needle 形状判据**。`needle` 来自被审计的 `review/data/plugins.json`
+    # 的 `quotes` 数组元素 —— 数字／None／数组（**全是合法 JSON**）⇒
+    # `TypeError: 'in <string>' requires string as left operand`。
+    # 本函数只负责「报行号」；引文**类型**的判据在 `render()` 里（那一层已判容器），
+    # 但**元素**类型未判 ⇒ 到不了类型判据就崩。此处字符串化即可（与 `render` 里
+    # 既有的 `qs = str(q)` 同款口径）。
+    needle = str(needle)
     out = []
     for i, line in enumerate(text.splitlines(), 1):
         if needle in line:

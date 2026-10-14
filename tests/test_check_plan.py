@@ -276,8 +276,20 @@ def run_checks():
     rc, out = cp.core(["--check"])
     ok("D14 --check 用仓内夹具、检出漂移 ⇒ 1", rc == 1 and "[check] 检出漂移" in out, f"rc={rc}")
     ok("D14b --check 数据源是仓内夹具（无网可跑）", "tests\\fixtures" in out or "tests/fixtures" in out, out[:120])
-    ok("D14c 缺输入时**响亮失败**（不拿样例冒充仓内实际状态）",
-       cp.core(["--dry-run"])[0] == 1 and "[error]" in cp.core(["--dry-run"])[1])
+    # D14c 缺输入 ⇒ 响亮失败。★ 判据必须**隔离默认输入路径**：`docs/bounty/issues-state.json` 是本地产物
+    #   （由 scripts/check_plan_snapshot.py 生成、不入仓），本机一旦残留它，「缺输入」就被悄悄换成「有输入」
+    #   ⇒ 同一 commit 在「干净检出」绿、在「跑过一次的检出」红。钉到不存在的路径后，结论只由显式输入决定。
+    _missing = os.path.join(os.path.dirname(os.path.abspath(__file__)), "__no_such_input__.json")
+    _saved = [(n, getattr(cp, n)) for n in ("DEFAULT_SNAPSHOT", "DEFAULT_LEDGER") if hasattr(cp, n)]
+    for _n, _v in _saved:
+        setattr(cp, _n, _missing)
+    try:
+        rc, out = cp.core(["--dry-run"])
+    finally:
+        for _n, _v in _saved:
+            setattr(cp, _n, _v)
+    ok("D14c 缺输入时**响亮失败**（不拿样例冒充仓内实际状态；默认输入路径已隔离）",
+       rc == 1 and "[error]" in out, f"rc={rc} out={out[:120]}")
     ok("D14d 用法错 ⇒ 2", cp.core([])[0] == 2)
     ok("D14e 显式坏输入 ⇒ 1", cp.core(["--check", "--issues", "__nope__.json"])[0] == 1)
 

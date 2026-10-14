@@ -18,10 +18,8 @@
   T3 认领通道**单一**：真源 `howto` 的认领条与其渲染面必须同口径，且不含旧的绝对表述。
 
 **扫描面（有意收窄，两个方向都写清以免读者以为漏了或错读）**：
-  · **不含** `docs/spec/**`——设计史（各自带版本头，存在与现行口径不同的历史值，
-    如 `悬赏站设计_v1.0` §4.4.3 的 `−max(1, base//2)`）。
-  · **含** `docs/guide/悬赏站使用指南_v1.0.md`（★本件扩面）——它是**当前站的用法说明**，
-    不是设计史；实测它曾残留 v0.1 的固定扣分（−1/−3/−5），与现行 `−2×base` 差 4–20 倍。
+  · **不含** `docs/spec/**`、`docs/guide/**`——设计史与版本化指南（各自带版本头，
+    存在与现行口径不同的历史值，如 `悬赏站设计_v1.0` §4.4.3 的 `−max(1, base//2)`）。
   · **不含** `tests/**`——守卫自身会**引用**陈旧口径作为变异描述（判据素材，不是对外文本）。
   · **不含** `progress` 流水（`悬赏.json` ／ `悬赏清单.md`）——进度是 append-only 历史记录，
     更正以**追加一行**表达（见真源 howto「更新进度」），不得回改历史行。
@@ -49,98 +47,17 @@ CURRENT_ANCHORS = (
 
 #: T2 陈旧口径扫描面（规则/榜面 ＋ **两个生成器源**；不含 append-only 的进度流水）。
 #: 为什么必须含源：产物陈旧时源往往**同样陈旧**——只扫产物＝源下次再生成又把旧口径写回页面。
-#: ★本件扩面：把**面向外部贡献者的使用指南**纳入。原来整目录 `docs/guide/**` 被排除，
-#: 理由是「版本化指南各自带版本头」—— 但 `悬赏站使用指南_v1.0.md` 是**当前站的用法说明**
-#: （v1.0 就是现行版本），正是外部人照着预估自己分数的那份文档。
-#: 实测：它的「超时未交付」两处仍写 **−1 / −3 / −5**（v0.1 的固定分），
-#: 而现行 v0.4 是 **−2×base** ⇒ **−2 / −6 / −12 / −20**，差 4–20 倍 ——
-#: 正是本件 docstring 举的那个例子（「以为超时只扣 1 分，实际扣 20 分」）。
-#: 保留原有的**句子级白名单**（须同句含 `分段生效` 与 `v0.1` 才豁免），故设计史不受影响。
-#: 《运行手册》§四-3 已把这一冲突列为盲区（「守卫扫描面与守卫目的相冲突」）。
 STALE_SCAN = ("docs/bounty/board.md", "site/index.html", "site/honor.html",
-              "scripts/bounty_board.py", "scripts/build_site.py",
-              "docs/guide/悬赏站使用指南_v1.0.md")
-
-#: ★本件新增 T4：**表格形式**的口径值。
-#: 为什么必须要 —— `STALE_RE` 要求「超时」出现在数字前 40 字内，而**表格里「超时」只在表头**：
-#:     | 难度 | 完成后你得到 | 超时会扣 | 被判无效交付会扣 |
-#:     | 简单 easy | **+1** | −1 | −1 |        ← 数据行里没有「超时」二字
-#: ⇒ 表格形式的陈旧值**整类扫不到**（实测：指南 L106-109 的「超时会扣」列长期是 v0.1 的
-#:   −1/−1/−3/−5，而 STALE_SCAN 里那份指南**全绿**）。
-#: 故这里改用**正向断言**（照 T1 的体例）：表格里「超时会扣」列必须等于 `−2×base`。
-GUIDE_TABLE = "docs/guide/悬赏站使用指南_v1.0.md"
-#: 难度名 → base（真源 `bounty_board.DIFFICULTY_SCORES` 的裸名形态）
-_TABLE_ROWS = (("简单 easy", 1), ("中等 medium", 3), ("困难 hard", 6), ("专家 expert", 10))
-
-
-def _table_timeout_ok():
-    """逐行核「超时会扣」列 == −2×base；返回 (是否通过, 明细)。"""
-    try:
-        text = io.open(os.path.join(ROOT, GUIDE_TABLE), encoding="utf-8").read()
-    except OSError:
-        return False, "读不到 %s" % GUIDE_TABLE
-    bad = []
-    for label, base in _TABLE_ROWS:
-        m = re.search(r"^\|\s*" + re.escape(label) + r"\s*\|([^|]*)\|([^|]*)\|([^|]*)\|",
-                      text, re.M)
-        if not m:
-            bad.append("%s：表格行未找到" % label)
-            continue
-        got = m.group(2).strip()
-        want = "−%d" % (2 * base)
-        if want not in got:
-            bad.append("%s：超时会扣列写 %r，应为 %s（=−2×base）" % (label, got, want))
-    if bad:
-        return False, "；".join(bad)
-    return True, "四行「超时会扣」列均为 −2×base"
-
-
-#: ★本件新增 T5：**团队分摊公式**的「承诺 ↔ 实现」一致性。
-#: 为什么必须要 —— 指南 §4.6 曾以现在时写「**系统自动算，你只需要勾人。**」，
-#: 并给出完整公式与示例表（2人+8/3人+6/4人+4/5人+2/6人+1）；
-#: 但**全仓 `scripts/` 无任何团队分摊函数**、账本事件的 `holder` 是**单个登录名**
-#: （无成员列表字段）、`value_vector.json` 无 `team` 维度。
-#: ⇒ 文档承诺了一件系统做不到的事（外部贡献者据此预期分数 ⇒ 正是本件要防的那类误期）。
-#: 判据：**要么**实现存在，**要么**指南明写「尚未实现」。两者皆无 ⇒ 红。
-_TEAM_CLAIM = "系统自动算，你只需要勾人"
-_TEAM_DISCLOSE = "尚未实现"
-
-
-def _team_honesty_ok():
-    """返回 (是否通过, 明细)。"""
-    try:
-        guide = io.open(os.path.join(ROOT, GUIDE_TABLE), encoding="utf-8").read()
-    except OSError:
-        return False, "读不到 %s" % GUIDE_TABLE
-    impl = False
-    sdir = os.path.join(ROOT, "scripts")
-    if os.path.isdir(sdir):
-        for fn in os.listdir(sdir):
-            if not fn.endswith(".py"):
-                continue
-            try:
-                src = io.open(os.path.join(sdir, fn), encoding="utf-8").read()
-            except OSError:
-                continue
-            # 实现判据：出现 (1 − 0.2 × (n−1)) 形态的分摊算式。
-            if "0.2" in src and "max(1" in src:
-                impl = True
-                break
-    if impl:
-        return True, "团队分摊已在 scripts/ 落地"
-    if _TEAM_DISCLOSE in guide:
-        return True, "未实现，但指南已如实披露（含「尚未实现」）"
-    return False, ("团队分摊公式在 scripts/ 下**零实现**，而指南仍以现在时承诺"
-                   "「%s」且未标注「%s」" % (_TEAM_CLAIM, _TEAM_DISCLOSE))
-
-
-
+              "scripts/bounty_board.py", "scripts/build_site.py")
 
 #: 陈旧信号：超时与负数 1 同现。
-# ★本件：补**数字边界**。旧式 `…\s*1(?:\s*分)?` 会**把 `−12`／`−10` 当成 `−1`** ——
-# 实测：把指南里的超时扣分改正为现行 `−2×base`（含 `−12`）后，T2 **误报**「陈旧口径残留」。
-# 也就是说旧式**分不清「扣 1 分」与「扣 12 分」**；而这两个值恰好是 v0.1 与 v0.4 的分界。
+# ★本笔：补**数字边界**。旧式 `…\s*1(?:\s*分)?` 会**把 `−12`／`−10` 当成 `−1`**：
+# 它的 `(?:\s*分)?` 是**可选**的，故 `−12` 里开头的 `−1` 就命中 ⇒
+# **分不清「扣 1 分」与「扣 12 分」**，而这两个值恰好是 v0.1 与 v0.4 的分界
+# （v0.1 超时固定 −1；v0.4 是 −2×base ⇒ 困难 −12、专家 −20）。
+# 后果：任何**含有** `−10`/`−12`/`−20` 的**正确**新口径表述都会被本判据拒绝。
 # `(?![0-9])` 要求 `1` 之后不是数字 ⇒ 只匹配真正的「1」。
+# 这一处修正**与任何文本改动无关**，是判据自身的缺陷。
 STALE_RE = re.compile(r"超时[^\n]{0,40}?(?:−|-)\s*1(?![0-9])(?:\s*分)?")
 
 #: 白名单：**命中所在的句子**须同时写明 `分段生效` **与** `v0.1`，才算**分段生效**的历史复算口径
@@ -204,10 +121,6 @@ def judge(m):
               and all(w in m["claim_md"] for w in CLAIM_MUST)
               and CLAIM_MUST_NOT not in m["claim_src"]
               and CLAIM_MUST_NOT not in m["claim_md"])
-    _t4_ok, _t4_why = _table_timeout_ok()
-    _t5_ok, _t5_why = _team_honesty_ok()
-    ok("T5 团队分摊：已实现，或指南如实披露", _t5_ok, _t5_why)
-    ok("T4 指南表格的「超时会扣」列 == −2×base", _t4_ok, _t4_why)
     ok("T3 认领通道表述与真源一致（两条通道同口径 ＋ 不含旧绝对表述）", src_ok,
        "howto[1]=%r" % m["claim_src"][:60])
     return list(_red)

@@ -19,7 +19,7 @@
   [D7] 确定性（同一账本 ⇒ 逐字节同一文本）
   [D8] 只收 `settle` 事件（deliver/claim 等不入表）
   [D9] 金额边界注记在（规格 V2/V4）
-  [D10] 依据里的竖线不破表
+  [D12] 主表列集固定（只列分类与编号）
 
 用法：
   python -X utf8 tests/test_daily_table.py            # 正向：全断言
@@ -40,7 +40,6 @@ SCRIPTS = os.path.join(REPO, "scripts")
 sys.path.insert(0, SCRIPTS)
 
 import daily_table as dt                                            # noqa: E402
-import bounty_board as bb                                           # noqa: E402
 
 IMPL = os.path.join(SCRIPTS, "daily_table.py")
 
@@ -105,25 +104,15 @@ def run_checks():
     # D9 金额边界
     ok("D9 金额边界注记在", "金额不进站" in dt.render([_ev(1, "a", 3)]))
 
-    # D10 竖线不破表
-    ok("D10 依据竖线转义", "a/b" in dt.render([_ev(1, "a", 3, reason="a|b")]))
-
-    # D11 base 列取**权威单点**（不另立第三份表）
-    # 旧实现在 `base is None` 分支内联了一份 {"easy":1,…,"expert":10} 的表 —— 那是
-    # 全仓**第三份**拷贝，且**无任何守卫**比对它与 `bb.DIFFICULTY_SCORES`
-    # （`test_bounty_list.py` 的 A15 只覆盖 bounty_board↔bounty_list 两份）。
-    # 而账本事件**不带 `difficulty_base`** ⇒ 该分支恒真、这份拷贝永远在热路径上。
-    _exp = {k.split(":", 1)[-1]: v for k, v in bb.DIFFICULTY_SCORES.items()}
-    ok("D11a base 表由 bounty_board.DIFFICULTY_SCORES 派生（非另立拷贝）",
-       getattr(dt, "_DIFF_BASE", None) == _exp,
-       f"{getattr(dt, '_DIFF_BASE', None)} vs {_exp}")
-    for _d, _v in sorted(_exp.items()):
-        _t = dt.render([_ev(1, "a", _v, difficulty=_d)])
-        ok(f"D11b 无 difficulty_base 时 difficulty={_d} ⇒ base 列渲染 {_v}",
-           f"| {_v} |" in _t, _t[:0])
-    _t = dt.render([_ev(1, "a", 6, difficulty="hard", difficulty_base=99)])
-    ok("D11c 有 difficulty_base 时以其为准（不覆盖账本既有字段）",
-       "| 99 |" in _t and "| 6 |" not in _t, _t[:0])
+    # D12 主表列集固定（精简后可读性）：只列分类与编号，不得回涨「依据」列
+    _t = dt.render([_ev(1, "a", 3, reason="a|b", difficulty="hard", project="memory")])
+    ok("D12 主表列集固定为 7 列",
+       "| # | 贡献者 | 项目 | 难度 | Δ | 影响 | 覆盖 issue |" in _t, _t[:0])
+    ok("D12b 主表不含「依据」列（reason 不进表）",
+       "| 依据 |" not in _t and "a/b" not in _t, _t[:0])
+    ok("D12c 主表不含「base」列（与难度/Δ 冗余）", "| base |" not in _t, _t[:0])
+    ok("D12d 按人合计/累计不复述编号列",
+       "| 贡献者 | 声誉分 | 项数 |" in _t and "| 贡献者 | 声誉分 | 项数 | 覆盖 issue |" not in _t)
 
 
 _MUTATIONS = (
@@ -140,18 +129,16 @@ _MUTATIONS = (
      "        if False:  # MUT",
      {"D8"}),
     ("M4 按人合计不累加（只记最后一条）",
-     "                row = per.setdefault(who, {\"d\": 0, \"n\": 0, \"is\": []})" + chr(10) +
+     "                row = per.setdefault(who, {\"d\": 0, \"n\": 0})" + chr(10) +
      "                row[\"d\"] += int(ev.get(\"delta\") or 0)",
-     "                row = per.setdefault(who, {\"d\": 0, \"n\": 0, \"is\": []})" + chr(10) +
+     "                row = per.setdefault(who, {\"d\": 0, \"n\": 0})" + chr(10) +
      "                row[\"d\"] = int(ev.get(\"delta\") or 0)  # MUT",
      {"D5"}),
-    # ★本笔新增：把**权威单点派生**改回**内联的第三份拷贝**（且值故意与权威不符）。
-    # 修前 daily_table 就是这么写的（内联表 + 零守卫）⇒ 本变异在那时**不红**。
-    ("M5 base 列改回内联拷贝（不取权威单点）",
-     "                    base = _DIFF_BASE.get(ev.get(\"difficulty\") or \"\", 1)",
-     "                    base = {\"easy\": 1, \"medium\": 3, \"hard\": 7, \"expert\": 10}.get(" + chr(10) +
-     "                        ev.get(\"difficulty\") or \"\", 1)  # MUT",
-     {"D11b"}),
+    # ★本笔：表体量闸——把「依据」列塞回主表 ⇒ D12b 必红（防表重新臃肿回 235 KB）。
+    ("M5 主表回涨「依据」列（体量回退）",
+     "\"| # | 贡献者 | 项目 | 难度 | Δ | 影响 | 覆盖 issue |\",",
+     "\"| # | 贡献者 | 项目 | 难度 | Δ | 影响 | 覆盖 issue | 依据 |\",  # MUT",
+     {"D12b"}),
 )
 
 #: 变异 → (被测函数名, 跑哪些断言组)

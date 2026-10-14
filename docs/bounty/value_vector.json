@@ -138,6 +138,21 @@
    "rounds": 1
   },
   {
+   "difficulty": "expert",
+   "difficulty_base": 10,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    283,
+    284
+   ],
+   "login": "WASD258-jpg",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 20,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -151,6 +166,21 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 18,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    93,
+    287
+   ],
+   "login": "WASD258-jpg",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 16,
    "rounds": 1
   },
   {
@@ -180,20 +210,6 @@
    ],
    "login": "LarryE135",
    "project": "hive_memory_bench",
-   "quality_E": null,
-   "reputation_delta": 10,
-   "rounds": 1
-  },
-  {
-   "difficulty": "expert",
-   "difficulty_base": 10,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    93
-   ],
-   "login": "WASD258-jpg",
-   "project": "memory",
    "quality_E": null,
    "reputation_delta": 10,
    "rounds": 1
@@ -338,6 +354,20 @@
    ],
    "login": "TanPowasd",
    "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    286
+   ],
+   "login": "ganzhe12138",
+   "project": "lingshu",
    "quality_E": null,
    "reputation_delta": 6,
    "rounds": 1

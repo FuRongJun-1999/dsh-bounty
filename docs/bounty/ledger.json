@@ -2448,6 +2448,119 @@
       "project": "bounty_site",
       "reason": "悬赏 #67（cross-eval 横向测评，expert 10）的**第二份独立交付**：智能体工作流方向（LangGraph / LlamaIndex Workflows / txtai ＋ 手写基线），PR #282（188 文件 / +8749 / −0），已 squash 合并为 43e73b8（保留作者）。【口径先例】同一悬赏的多份独立交付、被测对象不相交 ⇒ 各计一份。维护者既有裁定见 docs/bounty/悬赏清单.md:174-175，账本先例 evt_0291fd5c72bd（@acrot0, #104）与 evt_8804091ea390（@zijinmengxi, #161），两件均 covers=[65]、expert Δ10。本件被测对象为首轮交付（@WASD258-jpg：灵枢 / Mem0 / basic-memory，记忆系统方向）之外的**另一方向**，两者完全不相交 ⇒ 判据成立。【维护者独立取证（未采信报告者结论）】① 黄金产物 data/out_baseline.jsonl 实测 sha256=8454e1f3…40bd，与声明逐字一致（40 行）；② 四家 × 五模式共 20 份 raw/*_out_*.jsonl 与黄金产物**逐字节一致**（20/20）；③ 读数复算 sum(len(ids))=91（声明 91）✓；④ 工作负载属性复算：维护者**自实现 BM25Okapi（含负 idf 钳制）**独立算出「来源文档落在 top-5 内的查询 22/40」，与声明一致；不钳制则为 2/40 ⇒ 报告读数正确、非编造；⑤ 工作负载唯一性：四家实现均 import 同一 workload 模块并调用同 5 个纯函数 ⇒ 对照公平性成立；⑥ 零 LLM 判官 / 不触网：全量扫描无任何 LLM API 调用；API_KEY/OPENAI/ANTHROPIC 命中**全部是凭据扫描代码**（检查环境有无凭据，而非使用凭据），URL 仅为 pip 镜像安装命令；⑦ 守卫自证：scripts/check_reviews.py 12 条判据 R1–R12 rc=0；tests/test_check_reviews.py 10 条定点变异**各自恰好命中期望红项**（无多红/少红）；跑完仓不脏；⑧ 188 文件全部 added、**+8749/−0** ⇒ 无静默回退风险；⑨ docs/reviews/ 在 main 上原本 404 ⇒ 本件创建该目录，未覆盖既有产物；⑩ CI 双绿（review-cross-eval-check ＋ review-check）。【判据覆盖 #67 六条验收标准】R1 交付齐备／R7 可原样复跑命令／R5 读数须在 raw 逐字可寻（防编造）／R6 禁无读数判官词／R12 结论逐项可指 M1–M8／R8 声称与证据一致／R10 未测项显式／R11 不适用条件。【定档依据】difficulty=expert（10）：悬赏条目自带 difficulty:expert 且 score=10；涉测评方法论设计 ＋ 多方案实测 ＋ 可复跑证据链三面。impact=A（量具失效面）：本件是**评测量具**——读数若不可信，全站横向结论随之不可信；与 #65 两份独立交付同判 A。【租约说明（如实留痕）】#67 带 bounty:delivered 且**无 bounty:contest** ⇒ 独占租约，持有者 @WASD258-jpg（到期 2026-10-15T15:30:32Z）；非持有者不能 /claim 或 /deliver。本件按本仓既有「独立投递件」通道提交（近例 #99 引 #88/#89），维护者依先例受理；首轮交付仍在验收中、尚未计分。【已知集成提示】若首轮交付日后并入本仓 docs/reviews/，两件的 docs/reviews/测评方法论_v0.1.md 存在**同名冲突**，届时须按「两份独立交付」口径改名或分目录归档。",
       "ts": "2026-10-14T02:30:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        283
+      ],
+      "day": "2026-10-14",
+      "delta": 10,
+      "difficulty": "expert",
+      "formula": {
+        "base": 10,
+        "delta": 10,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 10.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "WASD258-jpg",
+      "id": "evt_ae309e4671b0",
+      "impact": "A",
+      "issue": 283,
+      "project": "lingshu",
+      "reason": "结算 WASD258-jpg 的 lingshu 缺陷发现件（申报件 #283，五条）。\n【内容】五条均为**既有修复的绕过或新引入缺陷**（母修复：#36 / #234 / #235 / #229 / #216），全部锚在 lingshu HEAD cb3a6ea（2026-10-11T14:25:09Z，即立案当日 HEAD）：\n①#517 delete_node 的「不可遗忘」判定与 DELETE 不在同一写事务 ⇒ 并发下 protect_node 成功返回后节点仍被硬删（连同关联边），protections 留孤儿行（P0 数据丢失）；\n②#519 insight_verify 无角色/层校验 ⇒ SUB 实例可把已终裁晋升进结构层的洞见翻成 refuted、追加伪造证据、注入任意标签（P0 权限绕过，绕过 #234 的共享层闸）；\n③#520 repro-bot 抽取器把 HTML 块属性里的 python 围栏当可执行块（P0 代码执行路径）；\n④#521 #229 新增的抑制通路单向、满额、无视边置信/复核 ⇒ 后写入的未复核反命题把先写入的真命题压出工作态，写入顺序决定真假（P0 边界，记忆可信性）；\n⑤#522 #216 的「否决内容重提须 override + 设计者密钥」可无密钥绕过：公开的 mark_rejected_path_consumed 一调即把否决负记忆置 consumed（闸只读 open），且 store.add_promotion_proposal 完全不读负记忆（P1，治理）。\n【维护者独立取证（未采信申报者脚本）】\nA. 行号与根因：在 cb3a6ea 的隔离工作树上逐条核验，**申报的 file:line 全部精确命中**（core.py:1434/1459/1473/2978、3487/3525、2604/2996/3050、3701/7863/2852/5035/7727；activation.py:189/199/220/381）。\nB. 根因链核验：#517 的 `_tx`（core.py:1098-1118）是**裸 `yield conn`**——只 commit/rollback，**不发 BEGIN IMMEDIATE**；故 :1459 的 `_is_forget_protected` 读在 autocommit 快照 t0，写事务直到 :1473 第一条 DML（`_strip_incident_edges`）才隐式开始 ⇒ 「判定与删除不原子」成立。\nC. #519 闸缺口核验：`insight_verify`（:3487-3571）全文**无 `verify_designer` 调用、无 `self.role != Role.PRIMARY`、无 `SHARED_LAYERS` 判据**；而对照方法 tag_node(:2604)、protect_node(:2996)、register_conflict(:3050) **均有** `if self.role != Role.PRIMARY:` 闸。全文件 `verify_designer` 调用点仅 :2740/:2931/:3173/:3785/:3850/:4923/:5046 —— 确实漏了本函数。\nD. **执行级独立复现（维护者自写脚本，不用申报者脚本）**：\n· #519：PRIMARY 经设计者密钥把洞见终裁晋升到 STRUCTURE（layer=MemoryLayer.STRUCTURE，tags=['insight-layer','insight_event','verified','V3']）；SUB 调 tag_node ⇒ PermissionError（#234 闸生效），但 SUB 调 insight_verify(REFUTED) ⇒ **未被拒**，节点变为 tags=['insight-layer','insight_event','refuted','REFUTED']、verification.status='refuted'、证据被追加为 ['证据A','伪造证据B'] ⇒ 申报成立。\n· #521：只走普通 add_perception（M5 自动矛盾账），两条仅差一个「不」字的陈述（bigram Jaccard 实测 0.9091 ≥ 静态阈值 0.85，且「不」在 _NEGATION_MARKERS 内 ⇒ 触发 register_conflict）。实测 TRUE 先写 ⇒ opposite_edges=[('FALSE','TRUE','opposite',0.3,0)]、工作态=[('FALSE',0.6667)]（TRUE 被压出）；FALSE 先写 ⇒ opposite_edges=[('TRUE','FALSE',...,0.3,0)]、工作态=[('TRUE',0.7778)]。**写入顺序改变工作态成员 = True**，边置信 0.3、verified=0、仅 src→dst 单向 ⇒ 申报成立。\n· #522：设计者终裁 REJECT 后 open rejected_paths=1；正常路径两道闸均生效（无 override ⇒ ValueError；override 无密钥 ⇒ PermissionError）；但**绕过①** 无密钥调 mark_rejected_path_consumed ⇒ 未被拒、open 1→0，随后重提**成功**（新提案 pp_98b45140）；**绕过②** 直接调 store.add_promotion_proposal ⇒ 建提案成功（pp_764adb19）且可走到 verify ⇒ 申报成立。并核实 action_logs 在否决与 consume 前后**均为 0 行**（列名为 action_type）⇒ 「全程 0 审计行」属实。\nE. **在库性核验（当前 main ccfee12，88 提交之后）**：四条仍未修——core.py 的 `_tx` 仍是裸 `yield conn`（:1098-1118）；`insight_verify`(:3650) 仍 0 次 role/SHARED_LAYERS/PermissionError；delete_node(:1451) 仍是 :1476 判定 → :1490/:1491 DML；`add_promotion_proposal`(:2958) 仍不查负记忆；activation.py 全文 `confidence`/`verified` 各 **0 次**、`_load_graph` 的 SELECT(:199) 仍只读四字段、抑制仍是 `supp[di]=max(supp[di], act[si]*m)` / `act=max(act-supp,0)`。\nF. #520 已由维护者于 2026-10-13T23:35:39Z 关闭（引用 0476bd3 = PR #555 合并），修复另案申报（dsh-bounty #256，@myYangyunfan，**未结算**）；本件只主张**发现与复现**，不主张修复部分。\nG. 去重核验：与本账号已结算的 #93–#97（lingshu #478–#490）**不重叠**（条目号段无交集）；本件四件此前无任何账本事件覆盖。\n【归并依据】同一作者、同一目标仓、同一批次（五条在 70 秒内立案）、同一形态（缺陷发现与复现申报）⇒ 按「一件工作 = 一条事件」合 1 项，covers=[283]；先例 evt_b8a76473ed74（同作者同仓，covers=[93,94,95,96,97]，expert Δ10）。\n【定档依据】difficulty=expert（10）：五条**全部是既有修复的绕过**——须先读懂母修复的意图再找出其未覆盖面，属比首次发现更难的类别；其中 P0×3（并发数据丢失 / 结构层权限绕过 / 隐藏块执行）、P0 边界×1（记忆可信性）、P1×1（治理）；维护者对五条逐条核验 file:line、对三条执行级独立复现；四条在当前 main 上仍存 ⇒ 可操作性高。已考量但未取 hard(6)：五条数量少于同作者 #93–#97，但类别难度更高（绕过 vs 首报）且 3 条为 P0。**定档可申诉**。\n【影响】impact=A：三条 P0 分别落在数据丢失、权限绕过、代码执行路径；#521 属语义错误（记忆可信性）⇒ 按「不做会怎样」判，属核心链路失效。已考量但未取 S：S 要求「不可逆损失或安全破坏，**且默认配置即可触发**」——#517 需并发窗口、#519 需 SUB 角色实例调用特定方法，均非单次默认调用即触发，故取 A（与 evt_b8a76473ed74 同判）。\n【未覆盖项（如实）】#520 的修复面不计入本件（另案 #256）；本件为发现类申报，**不含修复落地、不含守卫与定点变异**（申报者已在各 issue 自述）；五条的修复未由申报者落地。\n【租约说明】本件不涉悬赏租约，为普通缺陷申报件。",
+      "ts": "2026-10-14T03:10:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        284,
+        285
+      ],
+      "day": "2026-10-14",
+      "delta": 10,
+      "difficulty": "expert",
+      "formula": {
+        "base": 10,
+        "delta": 10,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 10.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "WASD258-jpg",
+      "id": "evt_08110a2f76d1",
+      "impact": "B",
+      "issue": 284,
+      "project": "lingshu",
+      "reason": "结算 WASD258-jpg 的 lingshu 特性交付（申报件 #284 + #285，合 1 项）。\n【内容】两件均为**设计级特性 PR**（非缺陷报告），全部开关默认关、未合入：\n· #284 → lingshu PR #447（head 031e194，基于 main@9a8fdf2，+3145/−12，35 文件）：六特性——FTS5 二元组倒排 + BM25、语境扩展（功能词停用 + 时序邻接平滑）、检索不刷新近因、矛盾感知（在 main 的 _assertion_divergence 之上分层）、证据账本、TMS 撤回传播；各带独立开关（LINGSHU_FTS / _FTS_CONTEXT / _RETRIEVAL_NO_TOUCH / _CONTRADICTION / _EVIDENCE_LEDGER / _TMS）与独立守卫测试。\n· #285 → lingshu PR #473（head cef7061，+3567/−13，38 文件）：检索结构锚定（LINGSHU_ANCHOR），问句点名容器时容器内排序优先。\n【维护者独立取证（未采信申报者脚本）】\nA. **缺省关逐项核实**：contradiction.py:28 ENV_FLAG=\"LINGSHU_CONTRADICTION\"、:47 `return os.environ.get(ENV_FLAG,\"\").strip()==\"1\"`；timeanchor 同类。六个开关缺省均关，关时零调用。\nB. **守卫实跑（TZ=UTC）**：#447 六个新守卫 **57 passed / 0 failed**（fts_retrieval 11、fts_context 9、retrieval_no_touch 4、contradiction_aware 7、evidence_ledger 18、tms 8）；#473 追加 test_structure_anchor.py **19 passed**。\nC. **pre-fix 基线对照（新守卫必须在修前转红，否则是空转断言）**：把 7 个新守卫逐一拷到 merge-base 9a8fdf2 的隔离工作树上实跑——fts_retrieval **5 failed/6 passed**、fts_context **1 error**、retrieval_no_touch **2 failed/2 passed**、contradiction_aware **1 error**、evidence_ledger **1 error**、tms **8 failed**、structure_anchor **1 error** ⇒ **7 个守卫全部转红，判别力成立**（本条比申报者自述的「变异哨兵」更强：是可执行对照，非文字声明）。\nD. **读数溯源**：bench/repro/results/RESULTS.md 逐行核对——hmb_B 证据保留 17.6→24.4（FTS5）→29.6（+语境扩展）、hmb_B_full 14.3→21.0→25.5、hmbscale_10000 11.1→7.3→10.3、locomo_10000 hit@10 0.076→1.0；申报件「locomo 5 万条干扰 0.03→0.99」溯源到 docs/plans/检索候选生成_FTS5_BM25_设计_v0.1.md:64（50k 行 0.030→0.992；RESULTS.md 只含 10k，因 FULL=1 未跑）⇒ **数字可追、非杜撰**。\nE. **未合入核验**：#447 与 #473 当前 mergeable_state 均为 **dirty**（main 后续 979eba9 / 498b633 造成），state=open、merged=False ⇒ 未合入、需再 rebase。\n【归并依据】**合 1 项，covers=[284,285]**：#473 相对其 merge-base(9a8fdf2) 的 diff **是 #447 diff 的严格超集**（35 文件全含 + test_structure_anchor.py / bench_anchor.py / RESULTS.md 增量），且 #473 自述「叠在 #447 之上、#447 未合入前不能单独合」⇒ 单独不推进基线，被测对象**相交**（非「不相交 ⇒ 各计一份」），故按「一件工作 = 一条事件」合 1 项；两件均记入 covers 使悬赏站均标已处理。\n【定档依据】difficulty=expert（10）：取条目内较高申报（#284 申请 expert、#285 申请 hard）；归并后本件含 7 项特性、73 文件改动、+6712 行、7 个守卫（76 断言）+ 一键复跑基准（bench/repro 含阴性结果）+ 6 个开关；影响面为检索与记忆一致性核心链路。**定档可申诉**。\n【影响】impact=B：按 IMPACT_CRITERIA「新系统交付、未合入的提案」判——两件均未合入（dirty）、全开关默认关。已考量但未取 A：特性默认关且未合入，当前生产路径不生效；bench/repro 的读数（hmb/locomo）维护者已逐行溯源，未发现量具失效。\n【未覆盖项（如实）】① 未合入、mergeable_state=dirty，合入前须再 rebase；② 申报件自述的「定点变异」为**文字声明式**（守卫文件内无变异代码，各文件「变异」字样仅 1 处，在 docstring）——维护者以 pre-fix 基线实跑替代之，结论不受影响；③ 「另一侧覆盖」指标无改善、检索不刷新近因在 hmb 上 recall 有升有降，申报者已如实自陈；④ 全量回归「全关 815 passed / 0 failed」维护者在本机启动复跑但未跑完（>25 分钟），**本件未以全量绿作为定档依据**。\n【租约说明】本件不涉悬赏租约，为特性申报件。",
+      "ts": "2026-10-14T03:20:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        286
+      ],
+      "day": "2026-10-14",
+      "delta": 6,
+      "difficulty": "hard",
+      "formula": {
+        "base": 6,
+        "delta": 6,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 6.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "ganzhe12138",
+      "id": "evt_8b7d1202d218",
+      "impact": "B",
+      "issue": 286,
+      "project": "lingshu",
+      "reason": "结算 ganzhe12138 的 lingshu 缺陷修复交付（申报件 #286，intake 输入件）。\n【内容】lingshu PR #437（head 6fdf7fd1，合并提交 **204b772**，merged_at=2026-10-14T00:25:50Z）：记忆 .md 落盘带 UTF-8 BOM（U+FEFF）时，tools/coggraph 的读取点用 encoding=\"utf-8\"，首字符被读成 ﻿ ⇒ ①export_coggraph.py::parse_md 的 FM_RE（^--- 换行）失配 ⇒ **整篇记忆计入 skipped_md 且退出码仍 0（静默）**；②derive_edges.py R5 正文读取的 FMHEAD 失配 ⇒ front matter（含 id/edges）混进正文参与互引匹配 ⇒ **凭空产出伪 R5 边**；③viewer_serve.tmpl::node_detail 的 startswith(\"---\") 判否 ⇒ 前言整段当正文展示；④session_chains.py 读 _audit.jsonl 首行 json.loads 抛异常被吞 ⇒ **首条 add 事件丢失、会话链少一个节点**。修法：四处读取点 encoding=\"utf-8\" → \"utf-8-sig\"，并登记 tests/test_coggraph_utf8_bom.py 进 gate.yml 的 SCRIPT_TESTS（22→23）。\n【维护者独立取证（未采信申报者脚本）】\nA. **合并实况核验**：204b772 的 stat 为 **7 files / +303/−4**（比申报件自述的 6 files/+200/−4 多出维护侧另补的两条守卫 tests/test_coggraph_derive_dedup_cap.py +39 与 tests/test_coggraph_viewer_security_guard.py +68）——与申报件「维护侧另补两条守卫」自述一致；tools/coggraph/export_coggraph.py **不在合并 diff 中**，与自述「第 4 处 main 已由 c22385c 独立修过、零净变更」一致 ⇒ 本件净落地 3 处。\nB. **读取点逐处核对（合并后树）**：export_coggraph.py:104 utf-8-sig、derive_edges.py:350 utf-8-sig、session_chains.py:95 utf-8-sig、viewer_serve.tmpl:39 utf-8-sig（四处全中）；各文件的**写出点**仍为 utf-8（json.dump 本不写 BOM）⇒ 与自述「只动读取编码」一致。\nC. **自带守卫实跑（修复形态）**：在 204b772 的隔离工作树上 python -X utf8 tests/test_coggraph_utf8_bom.py ⇒ **16/16 通过、VERDICT=PASS、rc=0** ⇒ 与自述逐位一致。\nD. **★ 缺陷形态对照（维护者自建，非采信）**：把本 PR 带入的 3 处 utf-8-sig 回退为 utf-8（另建副本，不改真树）⇒ 守卫 **15/16 通过、rc=1、唯一红 = D 组「BOM 首行事件未丢：会话 s1 含 2 节点」** ⇒ **与申报件转引的维护者读数逐位一致**，且证明该守卫有判别力（非空转断言）。\nE. **维护侧两条补充守卫实跑**：test_coggraph_derive_dedup_cap.py **4 passed rc=0**；test_coggraph_viewer_security_guard.py **17 passed rc=0**。\nF. **在库性**：204b772 已在 main 历史内（本机 ls_r8 克隆可解析），交付确已落地。\nG. **未测项核实**：申报件自陈「BOM 记忆在真实千级目录下的导出耗时变化未测」「未做跨仓回归（只跑 coggraph 族定向件与门禁元件）」——维护者同样未跑 lingshu 全量，**不代其补测**，如实记录。\n【归并依据】单件单申报件，covers=[286]。与本账号 lingshu 侧其余交付（#283/#284/#285）为不同作者、不同批次的独立交付 ⇒ 各计一份（「被测对象不相交 ⇒ 各计一份」）。\n【定档依据】difficulty=hard（6）：取申报件条目内自述申请（hard）。本件为**静默数据丢失**类缺陷——整篇记忆被跳过而退出码为 0，且同源四处读取点、连带伪 R5 边与会话链缺节点两类次生错误；交付含 189 行 standalone 守卫 + gate.yml 登记 + 维护侧另补两条守卫。已考量但未取 expert(10)：代码改动面小（+10/−4）、限于 tools/coggraph 工具层、无跨仓影响；广度与 #284 的 6 特性栈不可比。**定档可申诉**。\n【影响】impact=B：取申报件条目内自述（B），并与同子系统先例一致（evt_780f459b6c06 Beiwo992 lingshu coggraph 族 hard Δ6 impact=B）。coggraph 属工具/可视化层而非核心记忆读写链路；已考量但未取 A：不构成核心链路失效，亦非量具失效。\n【口径说明（如实）】申报件 intake 标记为 project=memory / target=FuRongJun-1999/lingshu——project 与源仓不一致。本账本 project 一律记**源仓标识**（round 6 evt_780f459b6c06、round 7 evt_25c0e6f7ea07 同口径），故本件记 project=lingshu；标记侧差异不影响定档与计分。\n【未覆盖项（如实）】千级目录 BOM 导出耗时未测；未做 lingshu 全量回归；R4 分日口径（#360 / #530）不在本件范围（main 已由他线落地）。\n【租约说明】本件为 intake 输入件（非悬赏），不涉悬赏租约；追溯性结算无轮次证据 ⇒ 取中性点 round=1，delta == base。",
+      "ts": "2026-10-14T03:30:00Z"
+    },
+    {
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "covers": [
+        287
+      ],
+      "day": "2026-10-14",
+      "delta": 6,
+      "difficulty": "hard",
+      "formula": {
+        "base": 6,
+        "delta": 6,
+        "den": 2,
+        "kind": "complete",
+        "num": 2,
+        "raw": 6.0,
+        "round": 1,
+        "rounds": 2,
+        "rule": "v1.0"
+      },
+      "holder": "WASD258-jpg",
+      "id": "evt_ea23a7466077",
+      "impact": "B",
+      "issue": 287,
+      "project": "memory",
+      "reason": "结算 WASD258-jpg 的 dsh-memory 特性交付（申报件 #287）。\n【内容】dsh-memory PR #299（head 3774604，基于 main e8a296d，+1484/−5，10 文件）：相对时间锚定（MDCG_TIME_ANCHOR，缺省关闭）——写入侧在节点无显式 temporal 时以 created_at 当日为参照，把正文首个时间表达归一成派生字段 temporal_anchor（区间 / 规则 id / 命中位置 / 参照日 / 口径版本）；查询侧问句含日期时加 time_anchor 路，区间有交集者稳定前置，meta.time_anchor 留痕。新增 md_cg/timeanchor.py（510 行）、md_cg/bench_timeanchor.py（357 行）、md_cg/test_time_anchor.py（378 行），并接线 mdcos.search_rrf / hotcache 缓存键 / config_registry_bulk / mdcg 写入面。\n【维护者独立取证（未采信申报者脚本）】\nA. **缺省关与接线核实**：timeanchor.py:47 FLAG=\"MDCG_TIME_ANCHOR\"、:69 tz_hours 缺省 0；hotcache.py:87 _ENV_SWITCHES 含两开关、:66 _KEYED_EXTRA 含 time_anchor；config_registry_bulk.py:367-368 登记两开关；mdcos.py:1926 注明「缺省关 ⇒ 不解析、不入键、零变更」。\nB. **守卫实跑**：在 PR head 上实跑 md_cg/test_time_anchor.py ⇒ **通过 73 / 失败 1**（申报件自述「74/0」）。失败项：node_interval：显式 temporal 优先于派生。\nC. **★ 缺陷根因（维护者定位并复现）**：失败为**真实的时区依赖**，非环境噪声——本机本地时区 UTC+8。根因链：md_cg/trust.py:276 的 parse_time 用 **time.mktime（本地时区）**把 \"2023-01-01\" 解析成 1672502400（= UTC+8 的 1/1 00:00），而 PR 新增的 timeanchor.ts_to_date(:79-86) **缺省 tz_hours=0（UTC）**，把同一秒渲染回 **2022-12-31**；node_interval(:484-496) 把两者合成 ⇒ 非 UTC 主机上**显式 temporal 日期整体偏移一天**。实测对照：TZ=UTC 时守卫 **74/0 rc=0** 且 parse_time(\"2023-01-01\")=1672531200 → node_interval=(2023-01-01, 2023-01-01)；UTC+8 时 1672502400 → (2022-12-31, 2022-12-31) ⇒ **平台相关，可复现**。基线（e8a296d）中不存在 ts→date 等价物（全仓 mktime/1970-1-1 检索确认），故该不一致由本 PR 引入。影响面不止测试：timeanchor.py:417/430 用 ts_to_date(_time.time())/ts_to_date(observed_ts) 取**参照日**，生产写入侧 apply_on_write 亦走同一函数。\nD. **量具未失效（如实，不夸大）**：bench_timeanchor.py 全程以 UTC 写 created_at（docstring「turn 以会话时刻（UTC）+ 序号秒为 created_at 写入」）且**不固定 MDCG_TIME_ANCHOR_TZ**，与 ts_to_date 的 UTC 缺省**自洽** ⇒ 申报件的日期正确率读数在跨机器上仍可复现，故**不判 A（量具失效）**。\nE. **未合入核验**：state=open、merged=False、mergeable=unknown（2026-10-14T01:31:50Z 新建，GitHub 尚未计算）⇒ 未合入。\nF. **读数可追**：LoCoMo locomo10.json @cbfbc1d、category-2 可解析日期 228/321；开关关 日期正确率 8.7% / 英文点名 hit@10 5.8% / 中文点名 5.8% / 原题面 65.0%；开关开 80.6% / 76.7% / 77.7% / 65.0%；去 6 族下界 70.9% / 64.1% / 72.8% / 65.0%；原题面 228/228 逐位相同。\n【归并依据】单件单申报件，covers=[287]，project=memory。与本账号 lingshu 侧交付（#283/#284/#285）为不同仓、不同被测对象 ⇒ 各计一份。\n【定档依据】difficulty=hard（6）：取申报者条目内自述申请（hard）。交付规模为 1 项特性、10 文件、+1484 行、510 行新模块 + 357 行基准 + 378 行守卫，跨 4 个既有模块接线（search_rrf / hotcache / config_registry / 写入面），含前后读数与跨仓适配（lingshu 可行性实验 → dsh-memory 真源重写，非代码搬运）。已考量但未取 expert(10)：单特性、单仓、单面（时间锚定），广度与 #284 的 6 特性栈不可比。**定档可申诉**。\n【影响】impact=B：按 IMPACT_CRITERIA「新系统交付、未合入的提案，或需特定路径才可触发的缺陷」判——未合入、缺省关；且 C 项缺陷需「显式 temporal 日期字符串 + 非 UTC 主机」这一特定路径才触发。已考量但未取 A：bench 全程 UTC 自洽（D 项）⇒ 量具未失效、核心链路未失效。\n【未覆盖项（如实）】① 申报件自述「守卫 74/0」在维护者机器（UTC+8）实为 **73/1**——本件已把该差异作为缺陷记入 C 项，而非计为举证瑕疵；② 申报件自述「5 个内存级变异 + 3 个盘上变异各自转红」，但 md_cg/test_time_anchor.py 内**只有 M1–M5 五个变异、全部内存级**（mutant() 用 exec 编译内存副本），全文件「--mutate」出现 **0 次**、无「盘上变异」实现，全仓「盘上」无该含义命中 ⇒ 「3 个盘上变异」**在交付物中不可得**，属**举证瑕疵**；因其不改变结论（5 个变异可执行、且守卫在 pre-fix 基线上因缺 timeanchor 模块而 AttributeError 转红），**按「举证瑕疵 ≠ 结论不成立」不据此扣分**；③ 全量回归未由维护者复跑（申报件自述与 origin/main 同机对照、既有失败两侧相同）；④ 申报件已如实自陈：test 非干净留出（6 族规则来自 lingshu 开发期见过的失败样例，去 6 族一行是下界）、中文点名是英文语料配中文写法问句、rebase 后只复跑时间锚定测试、存量节点开开关不回填。\n【租约说明】本件不涉悬赏租约，为特性申报件。",
+      "ts": "2026-10-14T03:40:00Z"
     }
   ]
 }

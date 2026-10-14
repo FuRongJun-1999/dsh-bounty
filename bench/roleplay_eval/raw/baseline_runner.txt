@@ -1,0 +1,46 @@
+READOUT baseline P0 turn=1 active=8 order=18,1,2,3,4,6,20,19 chars=1107 bytes=3297 dropped=-
+READOUT baseline P0 turn=2 active=13 order=18,1,2,3,4,5,6,10,11,12,13,20,19 chars=1230 bytes=3666 dropped=-
+READOUT baseline P0 turn=3 active=8 order=1,10,11,12,13,15,20,25 chars=1115 bytes=3301 dropped=-
+READOUT baseline P0 turn=4 active=7 order=1,10,13,14,15,20,25 chars=1089 bytes=3223 dropped=-
+READOUT baseline P0 turn=5 active=5 order=1,13,14,20,21 chars=1034 bytes=3102 dropped=-
+READOUT baseline P0 turn=6 active=4 order=1,7,20,21 chars=1009 bytes=3027 dropped=-
+TIMING baseline profile=P0 min_ms=44.4012 p50_ms=46.2834 p95_ms=66.0251
+DETERMINISM baseline repeats=8 identical=true sha=1d3e9e00eb0a55e6955aa3f3b432a8b143c4ffb07336e1c5c903787b82a02965
+SHA 347aabf737d2a1cdc7412d2fd25a186b04cc524e1ccd4209716465b376b797eb file=out/baseline_P0.json
+READOUT baseline P1 turn=1 active=8 order=18,1,2,3,4,6,20,19 chars=1107 bytes=3297 dropped=-
+READOUT baseline P1 turn=2 active=12 order=18,1,2,3,4,5,6,10,11,12,20,19 chars=1202 bytes=3582 dropped=-
+READOUT baseline P1 turn=3 active=7 order=1,10,11,12,15,20,25 chars=1087 bytes=3217 dropped=-
+READOUT baseline P1 turn=4 active=7 order=1,10,13,14,15,20,25 chars=1089 bytes=3223 dropped=-
+READOUT baseline P1 turn=5 active=5 order=1,13,14,20,21 chars=1034 bytes=3102 dropped=-
+READOUT baseline P1 turn=6 active=4 order=1,7,20,21 chars=1009 bytes=3027 dropped=-
+TIMING baseline profile=P1 min_ms=50.2471 p50_ms=72.3784 p95_ms=96.7965
+DETERMINISM baseline repeats=8 identical=true sha=96c7478ab73bc5e4ea5f1e7d3af3ee5bf61623fb16b802fe358d06101647f12e
+SHA dac05c269588691691b9717db37a924dc928d1a7720ce5d655f42e7155585a2c file=out/baseline_P1.json
+READOUT baseline P2 turn=1 active=2 order=1,20 chars=956 bytes=2868 dropped=-
+READOUT baseline P2 turn=2 active=4 order=1,10,11,20 chars=1002 bytes=3006 dropped=-
+READOUT baseline P2 turn=3 active=4 order=1,10,20,25 chars=1016 bytes=3004 dropped=-
+READOUT baseline P2 turn=4 active=5 order=1,10,13,14,20 chars=1031 bytes=3093 dropped=-
+READOUT baseline P2 turn=5 active=3 order=1,20,21 chars=980 bytes=2940 dropped=-
+READOUT baseline P2 turn=6 active=3 order=1,7,20 chars=985 bytes=2955 dropped=-
+TIMING baseline profile=P2 min_ms=44.2366 p50_ms=46.6111 p95_ms=69.4322
+DETERMINISM baseline repeats=8 identical=true sha=9cb0d9229dd025ab0944a6a197f7d93d124d1e0ddba33b662ea226a495b1ac5a
+SHA c6507cdc83b7072af6d2a4b0c7042ea642529456d46dfe9eb43db53651535e99 file=out/baseline_P2.json
+READOUT baseline P3 turn=1 active=7 order=18,1,2,3,4,6,19 chars=207 bytes=597 dropped=20
+READOUT baseline P3 turn=2 active=12 order=18,1,2,3,4,5,6,10,11,12,13,19 chars=330 bytes=966 dropped=20
+READOUT baseline P3 turn=3 active=7 order=1,10,11,12,13,15,25 chars=215 bytes=601 dropped=20
+READOUT baseline P3 turn=4 active=6 order=1,10,13,14,15,25 chars=189 bytes=523 dropped=20
+READOUT baseline P3 turn=5 active=4 order=1,13,14,21 chars=134 bytes=402 dropped=20
+READOUT baseline P3 turn=6 active=3 order=1,7,21 chars=109 bytes=327 dropped=20
+TIMING baseline profile=P3 min_ms=41.4117 p50_ms=42.3216 p95_ms=44.7103
+DETERMINISM baseline repeats=8 identical=true sha=9ab637004698e93762d5df05c8f907229585dec1acaa5e96357485b43caac0b2
+SHA 0a1ed70a7a4ddae03c43f3e2bea3b4c4f550c36879eed9c2fdce8d61661c5a62 file=out/baseline_P3.json
+READOUT baseline P4 turn=1 active=7 order=18,1,2,3,6,20,19 chars=1081 bytes=3219 dropped=-
+READOUT baseline P4 turn=2 active=7 order=18,1,2,3,6,20,19 chars=1081 bytes=3219 dropped=-
+READOUT baseline P4 turn=3 active=2 order=1,20 chars=956 bytes=2868 dropped=-
+READOUT baseline P4 turn=4 active=2 order=1,20 chars=956 bytes=2868 dropped=-
+READOUT baseline P4 turn=5 active=2 order=1,20 chars=956 bytes=2868 dropped=-
+READOUT baseline P4 turn=6 active=2 order=1,20 chars=956 bytes=2868 dropped=-
+TIMING baseline profile=P4 min_ms=42.7917 p50_ms=43.2326 p95_ms=44.8852
+DETERMINISM baseline repeats=8 identical=true sha=21c7ae0b21cc7cf465847b01a811210b2387728ac91e0cdd03c51e80e67364ee
+SHA bcf321d004d18841ee678347f6025a7be5eb5bd7de663cccac2ce2dadf77628a file=out/baseline_P4.json
+SUMMARY adapter=baseline profiles=5 failures=0

@@ -1,0 +1,13 @@
+# score.py kpi name=risuai baseline=baseline profiles=P0,P1,P2,P3,P4 bootstrap_iters=2000 bootstrap_seed=0 alpha=0.05
+# 配对单位=(profile,turn)；Δ 类 KPI（名字含 _delta）= 方案 − 基线；n<2 时 ci=[-,-]
+KPI M1_active_f1 value=0.960648 ci=[0.918981,1] n=6
+KPI M1_active_f1_delta value=-0.0393519 ci=[-0.0810185,0] n=6
+KPI M1_active_symdiff value=0.666667 ci=[0,1.33333] n=6
+KPI M2_order_inv value=25.6667 ci=[12.5,44] n=6
+KPI M2_order_inv_delta value=22.8333 ci=[11.6667,37.6667] n=6
+KPI M3_budget_dropped_delta value=0 ci=[0,0] n=6
+KPI M4_recursion_ablation_delta value=0 ci=[0,0] n=6
+KPI M5_depth_ablation_delta value=0.5 ci=[0,1.16667] n=6
+KPI M6_determinism value=1 ci=[1,1] n=5
+KPI M7_match_ablation_delta value=2 ci=[0.5,3.5] n=6
+KPI M8_total_active_uids value=175 ci=[140,212] n=30

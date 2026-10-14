@@ -1,0 +1,310 @@
+=== validate sillytavern_P0 ===
+OK C01-json out/sillytavern_P0.json bytes=14284
+OK C02-types 顶层键集等于 §3.2
+OK C03-capabilities keys=6
+OK C05-turn-id turns=6
+OK C04-turn-keys t0
+OK C05-turn-id turn=1 profile=P0 history_len=2
+OK C06-active-shape t0 active=9
+OK C07-order-consistency t0 order=19,20,8,3,2,1,18,6,4
+OK C08-blocks-shape t0 blocks=9
+OK C09-block-fields t0 sha/尺寸格式与自洽通过
+OK C10-block-content t0 全部块与夹具正文一致
+OK C11-totals t0 chars=1137 bytes=3387
+OK C12-dropped t0 dropped=-
+OK C04-turn-keys t1
+OK C05-turn-id turn=2 profile=P0 history_len=4
+OK C06-active-shape t1 active=14
+OK C07-order-consistency t1 order=19,13,20,12,11,8,3,2,1,18,10,6,5,4
+OK C08-blocks-shape t1 blocks=14
+OK C09-block-fields t1 sha/尺寸格式与自洽通过
+OK C10-block-content t1 全部块与夹具正文一致
+OK C11-totals t1 chars=1260 bytes=3756
+OK C12-dropped t1 dropped=-
+OK C04-turn-keys t2
+OK C05-turn-id turn=3 profile=P0 history_len=6
+OK C06-active-shape t2 active=9
+OK C07-order-consistency t2 order=13,25,20,15,12,11,8,1,10
+OK C08-blocks-shape t2 blocks=9
+OK C09-block-fields t2 sha/尺寸格式与自洽通过
+NOTE C10-block-content t2 未与夹具正文逐字对上: [25]
+OK C11-totals t2 chars=1131 bytes=3377
+OK C12-dropped t2 dropped=-
+OK C04-turn-keys t3
+OK C05-turn-id turn=4 profile=P0 history_len=8
+OK C06-active-shape t3 active=7
+OK C07-order-consistency t3 order=25,20,15,14,13,1,10
+OK C08-blocks-shape t3 blocks=7
+OK C09-block-fields t3 sha/尺寸格式与自洽通过
+NOTE C10-block-content t3 未与夹具正文逐字对上: [25]
+OK C11-totals t3 chars=1075 bytes=3209
+OK C12-dropped t3 dropped=-
+OK C04-turn-keys t4
+OK C05-turn-id turn=5 profile=P0 history_len=10
+OK C06-active-shape t4 active=5
+OK C07-order-consistency t4 order=21,20,14,13,1
+OK C08-blocks-shape t4 blocks=5
+OK C09-block-fields t4 sha/尺寸格式与自洽通过
+OK C10-block-content t4 全部块与夹具正文一致
+OK C11-totals t4 chars=1034 bytes=3102
+OK C12-dropped t4 dropped=-
+OK C04-turn-keys t5
+OK C05-turn-id turn=6 profile=P0 history_len=12
+OK C06-active-shape t5 active=4
+OK C07-order-consistency t5 order=21,20,7,1
+OK C08-blocks-shape t5 blocks=4
+OK C09-block-fields t5 sha/尺寸格式与自洽通过
+OK C10-block-content t5 全部块与夹具正文一致
+OK C11-totals t5 chars=1009 bytes=3027
+OK C12-dropped t5 dropped=-
+OK C13-unsupported n=5
+OK C14-errors n=0
+SUMMARY file=out/sillytavern_P0.json checks=58 fail=0
+=== validate sillytavern_P1 ===
+OK C01-json out/sillytavern_P1.json bytes=13854
+OK C02-types 顶层键集等于 §3.2
+OK C03-capabilities keys=6
+OK C05-turn-id turns=6
+OK C04-turn-keys t0
+OK C05-turn-id turn=1 profile=P1 history_len=2
+OK C06-active-shape t0 active=9
+OK C07-order-consistency t0 order=19,20,8,3,2,1,18,6,4
+OK C08-blocks-shape t0 blocks=9
+OK C09-block-fields t0 sha/尺寸格式与自洽通过
+OK C10-block-content t0 全部块与夹具正文一致
+OK C11-totals t0 chars=1137 bytes=3387
+OK C12-dropped t0 dropped=-
+OK C04-turn-keys t1
+OK C05-turn-id turn=2 profile=P1 history_len=4
+OK C06-active-shape t1 active=13
+OK C07-order-consistency t1 order=19,20,12,11,8,3,2,1,18,10,6,5,4
+OK C08-blocks-shape t1 blocks=13
+OK C09-block-fields t1 sha/尺寸格式与自洽通过
+OK C10-block-content t1 全部块与夹具正文一致
+OK C11-totals t1 chars=1232 bytes=3672
+OK C12-dropped t1 dropped=-
+OK C04-turn-keys t2
+OK C05-turn-id turn=3 profile=P1 history_len=6
+OK C06-active-shape t2 active=8
+OK C07-order-consistency t2 order=25,20,15,12,11,8,1,10
+OK C08-blocks-shape t2 blocks=8
+OK C09-block-fields t2 sha/尺寸格式与自洽通过
+NOTE C10-block-content t2 未与夹具正文逐字对上: [25]
+OK C11-totals t2 chars=1103 bytes=3293
+OK C12-dropped t2 dropped=-
+OK C04-turn-keys t3
+OK C05-turn-id turn=4 profile=P1 history_len=8
+OK C06-active-shape t3 active=7
+OK C07-order-consistency t3 order=25,20,15,14,13,1,10
+OK C08-blocks-shape t3 blocks=7
+OK C09-block-fields t3 sha/尺寸格式与自洽通过
+NOTE C10-block-content t3 未与夹具正文逐字对上: [25]
+OK C11-totals t3 chars=1075 bytes=3209
+OK C12-dropped t3 dropped=-
+OK C04-turn-keys t4
+OK C05-turn-id turn=5 profile=P1 history_len=10
+OK C06-active-shape t4 active=5
+OK C07-order-consistency t4 order=21,20,14,13,1
+OK C08-blocks-shape t4 blocks=5
+OK C09-block-fields t4 sha/尺寸格式与自洽通过
+OK C10-block-content t4 全部块与夹具正文一致
+OK C11-totals t4 chars=1034 bytes=3102
+OK C12-dropped t4 dropped=-
+OK C04-turn-keys t5
+OK C05-turn-id turn=6 profile=P1 history_len=12
+OK C06-active-shape t5 active=4
+OK C07-order-consistency t5 order=21,20,7,1
+OK C08-blocks-shape t5 blocks=4
+OK C09-block-fields t5 sha/尺寸格式与自洽通过
+OK C10-block-content t5 全部块与夹具正文一致
+OK C11-totals t5 chars=1009 bytes=3027
+OK C12-dropped t5 dropped=-
+OK C13-unsupported n=5
+OK C14-errors n=0
+SUMMARY file=out/sillytavern_P1.json checks=58 fail=0
+=== validate sillytavern_P2 ===
+OK C01-json out/sillytavern_P2.json bytes=8942
+OK C02-types 顶层键集等于 §3.2
+OK C03-capabilities keys=6
+OK C05-turn-id turns=6
+OK C04-turn-keys t0
+OK C05-turn-id turn=1 profile=P2 history_len=2
+OK C06-active-shape t0 active=3
+OK C07-order-consistency t0 order=20,8,1
+OK C08-blocks-shape t0 blocks=3
+OK C09-block-fields t0 sha/尺寸格式与自洽通过
+OK C10-block-content t0 全部块与夹具正文一致
+OK C11-totals t0 chars=986 bytes=2958
+OK C12-dropped t0 dropped=-
+OK C04-turn-keys t1
+OK C05-turn-id turn=2 profile=P2 history_len=4
+OK C06-active-shape t1 active=4
+OK C07-order-consistency t1 order=20,11,1,10
+OK C08-blocks-shape t1 blocks=4
+OK C09-block-fields t1 sha/尺寸格式与自洽通过
+OK C10-block-content t1 全部块与夹具正文一致
+OK C11-totals t1 chars=1002 bytes=3006
+OK C12-dropped t1 dropped=-
+OK C04-turn-keys t2
+OK C05-turn-id turn=3 profile=P2 history_len=6
+OK C06-active-shape t2 active=5
+OK C07-order-consistency t2 order=25,20,17,1,10
+OK C08-blocks-shape t2 blocks=5
+OK C09-block-fields t2 sha/尺寸格式与自洽通过
+NOTE C10-block-content t2 未与夹具正文逐字对上: [25]
+OK C11-totals t2 chars=1028 bytes=3068
+OK C12-dropped t2 dropped=-
+OK C04-turn-keys t3
+OK C05-turn-id turn=4 profile=P2 history_len=8
+OK C06-active-shape t3 active=5
+OK C07-order-consistency t3 order=20,14,13,1,10
+OK C08-blocks-shape t3 blocks=5
+OK C09-block-fields t3 sha/尺寸格式与自洽通过
+OK C10-block-content t3 全部块与夹具正文一致
+OK C11-totals t3 chars=1031 bytes=3093
+OK C12-dropped t3 dropped=-
+OK C04-turn-keys t4
+OK C05-turn-id turn=5 profile=P2 history_len=10
+OK C06-active-shape t4 active=3
+OK C07-order-consistency t4 order=21,20,1
+OK C08-blocks-shape t4 blocks=3
+OK C09-block-fields t4 sha/尺寸格式与自洽通过
+OK C10-block-content t4 全部块与夹具正文一致
+OK C11-totals t4 chars=980 bytes=2940
+OK C12-dropped t4 dropped=-
+OK C04-turn-keys t5
+OK C05-turn-id turn=6 profile=P2 history_len=12
+OK C06-active-shape t5 active=3
+OK C07-order-consistency t5 order=20,7,1
+OK C08-blocks-shape t5 blocks=3
+OK C09-block-fields t5 sha/尺寸格式与自洽通过
+OK C10-block-content t5 全部块与夹具正文一致
+OK C11-totals t5 chars=985 bytes=2955
+OK C12-dropped t5 dropped=-
+OK C13-unsupported n=5
+OK C14-errors n=0
+SUMMARY file=out/sillytavern_P2.json checks=59 fail=0
+=== validate sillytavern_P3 ===
+OK C01-json out/sillytavern_P3.json bytes=11411
+OK C02-types 顶层键集等于 §3.2
+OK C03-capabilities keys=6
+OK C05-turn-id turns=6
+OK C04-turn-keys t0
+OK C05-turn-id turn=1 profile=P3 history_len=2
+OK C06-active-shape t0 active=7
+OK C07-order-consistency t0 order=8,3,2,1,18,6,4
+OK C08-blocks-shape t0 blocks=7
+OK C09-block-fields t0 sha/尺寸格式与自洽通过
+OK C10-block-content t0 全部块与夹具正文一致
+OK C11-totals t0 chars=213 bytes=627
+OK C12-dropped t0 dropped=19,20
+OK C04-turn-keys t1
+OK C05-turn-id turn=2 profile=P3 history_len=4
+OK C06-active-shape t1 active=11
+OK C07-order-consistency t1 order=12,11,8,3,2,1,18,10,6,5,4
+OK C08-blocks-shape t1 blocks=11
+OK C09-block-fields t1 sha/尺寸格式与自洽通过
+OK C10-block-content t1 全部块与夹具正文一致
+OK C11-totals t1 chars=308 bytes=912
+OK C12-dropped t1 dropped=13,19,20
+OK C04-turn-keys t2
+OK C05-turn-id turn=3 profile=P3 history_len=6
+OK C06-active-shape t2 active=6
+OK C07-order-consistency t2 order=15,12,11,8,1,10
+OK C08-blocks-shape t2 blocks=6
+OK C09-block-fields t2 sha/尺寸格式与自洽通过
+OK C10-block-content t2 全部块与夹具正文一致
+OK C11-totals t2 chars=178 bytes=534
+OK C12-dropped t2 dropped=13,20,25
+OK C04-turn-keys t3
+OK C05-turn-id turn=4 profile=P3 history_len=8
+OK C06-active-shape t3 active=5
+OK C07-order-consistency t3 order=15,14,13,1,10
+OK C08-blocks-shape t3 blocks=5
+OK C09-block-fields t3 sha/尺寸格式与自洽通过
+OK C10-block-content t3 全部块与夹具正文一致
+OK C11-totals t3 chars=150 bytes=450
+OK C12-dropped t3 dropped=20,25
+OK C04-turn-keys t4
+OK C05-turn-id turn=5 profile=P3 history_len=10
+OK C06-active-shape t4 active=3
+OK C07-order-consistency t4 order=14,13,1
+OK C08-blocks-shape t4 blocks=3
+OK C09-block-fields t4 sha/尺寸格式与自洽通过
+OK C10-block-content t4 全部块与夹具正文一致
+OK C11-totals t4 chars=110 bytes=330
+OK C12-dropped t4 dropped=20,21
+OK C04-turn-keys t5
+OK C05-turn-id turn=6 profile=P3 history_len=12
+OK C06-active-shape t5 active=2
+OK C07-order-consistency t5 order=7,1
+OK C08-blocks-shape t5 blocks=2
+OK C09-block-fields t5 sha/尺寸格式与自洽通过
+OK C10-block-content t5 全部块与夹具正文一致
+OK C11-totals t5 chars=85 bytes=255
+OK C12-dropped t5 dropped=20,21
+OK C13-unsupported n=5
+OK C14-errors n=0
+SUMMARY file=out/sillytavern_P3.json checks=60 fail=0
+=== validate sillytavern_P4 ===
+OK C01-json out/sillytavern_P4.json bytes=13641
+OK C02-types 顶层键集等于 §3.2
+OK C03-capabilities keys=6
+OK C05-turn-id turns=6
+OK C04-turn-keys t0
+OK C05-turn-id turn=1 profile=P4 history_len=2
+OK C06-active-shape t0 active=9
+OK C07-order-consistency t0 order=19,20,8,3,2,1,18,6,4
+OK C08-blocks-shape t0 blocks=9
+OK C09-block-fields t0 sha/尺寸格式与自洽通过
+OK C10-block-content t0 全部块与夹具正文一致
+OK C11-totals t0 chars=1137 bytes=3387
+OK C12-dropped t0 dropped=-
+OK C04-turn-keys t1
+OK C05-turn-id turn=2 profile=P4 history_len=4
+OK C06-active-shape t1 active=13
+OK C07-order-consistency t1 order=19,13,20,12,8,3,2,1,18,10,6,5,4
+OK C08-blocks-shape t1 blocks=13
+OK C09-block-fields t1 sha/尺寸格式与自洽通过
+OK C10-block-content t1 全部块与夹具正文一致
+OK C11-totals t1 chars=1235 bytes=3681
+OK C12-dropped t1 dropped=-
+OK C04-turn-keys t2
+OK C05-turn-id turn=3 profile=P4 history_len=6
+OK C06-active-shape t2 active=8
+OK C07-order-consistency t2 order=13,25,20,15,12,8,1,10
+OK C08-blocks-shape t2 blocks=8
+OK C09-block-fields t2 sha/尺寸格式与自洽通过
+NOTE C10-block-content t2 未与夹具正文逐字对上: [25]
+OK C11-totals t2 chars=1106 bytes=3302
+OK C12-dropped t2 dropped=-
+OK C04-turn-keys t3
+OK C05-turn-id turn=4 profile=P4 history_len=8
+OK C06-active-shape t3 active=7
+OK C07-order-consistency t3 order=25,20,15,14,13,1,10
+OK C08-blocks-shape t3 blocks=7
+OK C09-block-fields t3 sha/尺寸格式与自洽通过
+NOTE C10-block-content t3 未与夹具正文逐字对上: [25]
+OK C11-totals t3 chars=1075 bytes=3209
+OK C12-dropped t3 dropped=-
+OK C04-turn-keys t4
+OK C05-turn-id turn=5 profile=P4 history_len=10
+OK C06-active-shape t4 active=5
+OK C07-order-consistency t4 order=21,20,14,13,1
+OK C08-blocks-shape t4 blocks=5
+OK C09-block-fields t4 sha/尺寸格式与自洽通过
+OK C10-block-content t4 全部块与夹具正文一致
+OK C11-totals t4 chars=1034 bytes=3102
+OK C12-dropped t4 dropped=-
+OK C04-turn-keys t5
+OK C05-turn-id turn=6 profile=P4 history_len=12
+OK C06-active-shape t5 active=3
+OK C07-order-consistency t5 order=21,20,1
+OK C08-blocks-shape t5 blocks=3
+OK C09-block-fields t5 sha/尺寸格式与自洽通过
+OK C10-block-content t5 全部块与夹具正文一致
+OK C11-totals t5 chars=980 bytes=2940
+OK C12-dropped t5 dropped=-
+OK C13-unsupported n=5
+OK C14-errors n=0
+SUMMARY file=out/sillytavern_P4.json checks=58 fail=0

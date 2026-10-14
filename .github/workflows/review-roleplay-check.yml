@@ -1,0 +1,47 @@
+name: review-roleplay-check
+
+# 角色扮演方向横评交付物守卫（v0.1）。
+# 只读：不触网、不装第三方依赖、只跑仓内脚本与测试。
+# 说明：tests/test_check_reviews_roleplay.py 的默认运行已含「正向 + 15 条定点变异 + 判据数自证」，
+#      因此这里不再单列一条 --mutate 腿（重复跑同一条断言不增加判别力）。
+
+on:
+  pull_request:
+    paths:
+      - "bench/roleplay_eval/**"
+      - "docs/reviews/**"
+      - "scripts/check_reviews_roleplay.py"
+      - "tests/test_check_reviews_roleplay.py"
+      - ".github/workflows/review-roleplay-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: review-roleplay-check-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONUTF8: "1"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 交付物守卫（13 条判据）
+        run: python -X utf8 scripts/check_reviews_roleplay.py
+      - name: 守卫自证（正向 1 条 + 15 条定点变异 + 判据数）
+        run: python -X utf8 tests/test_check_reviews_roleplay.py
+      - name: 跑完不许把仓搞脏
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git status --porcelain
+            echo "::error::工作区被测试弄脏"
+            exit 1
+          fi

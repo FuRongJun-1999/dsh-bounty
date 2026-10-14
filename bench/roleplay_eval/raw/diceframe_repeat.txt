@@ -1,0 +1,11 @@
+# adapter=diceframe warmup=1 samples=7
+# profile=P0
+DETERMINISM diceframe repeats=8 identical=true sha=e983df23c1dbb66169a06a13778131c4d11fcd80bbaf548a9629165094595507
+# profile=P1
+DETERMINISM diceframe repeats=8 identical=true sha=025a18b329ae728b87674c3c3e54e024f43d3a091d0cd99505916419fd0e3f5b
+# profile=P2
+DETERMINISM diceframe repeats=8 identical=true sha=9ece59bbd8106fef04360995f7628829f6207cd673d58ada819be54bc66fbcd9
+# profile=P3
+DETERMINISM diceframe repeats=8 identical=true sha=78726efb884811b3ab61dd5b9b34dd9846d29c90496f459c8742cfb3455ffc1d
+# profile=P4
+DETERMINISM diceframe repeats=8 identical=true sha=01094e144f06654f012cfb3eedc07f8e1311e4f86b7afdb0ad7345e0b1db9bc7

@@ -1,0 +1,1157 @@
+{
+ "adapter": "sillytavern",
+ "command": [
+  "node",
+  "D:\\A-part-of-new-software\\PROJIECT\\_bounty67\\bench\\roleplay_eval\\adapters\\sillytavern\\run.mjs"
+ ],
+ "data": "data",
+ "determinism": {
+  "P0": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "4bedb7143038ef1e332328cb0b172d20cf9577aa170e46941593a5d655cd6358"
+  },
+  "P1": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "8bd2acdc5b88a7e5540810e0e287cf0bd720ace991f41d38ab02e690f7dc43ab"
+  },
+  "P2": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "f84d8deb4873df3b7bbc4c12fb89a90be03b3095798dc0ad564ebfc5923de929"
+  },
+  "P3": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "c9aaeea232804460d447e3b9084d85942bad8090adc4d9d819d0695078ff609c"
+  },
+  "P4": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "3b02affe3d0742c79286a994359e42d9d595294e9772ac7cc45883a00f7198dd"
+  }
+ },
+ "kpi": {
+  "baseline": "baseline",
+  "bootstrap": {
+   "alpha": 0.05,
+   "iters": 2000,
+   "seed": 0,
+   "statistic": "mean-of-paired-difference"
+  },
+  "ci_undefined_metrics": [],
+  "delta_all_zero": false,
+  "delta_ci_zero": false,
+  "metrics": [
+   {
+    "ci_hi": 0.993827,
+    "ci_lo": 0.95098,
+    "definition": "方案 P0 激活集 vs 基线 P0 的同 turn F1 均值：2|A∩B|/(|A|+|B|)",
+    "kind": "absolute",
+    "line": "KPI M1_active_f1 value=0.974219 ci=[0.95098,0.993827] n=6",
+    "metric": "M1_active_f1",
+    "n": 6,
+    "value": 0.974219
+   },
+   {
+    "ci_hi": -0.006173,
+    "ci_lo": -0.04902,
+    "definition": "M1 的 Δ 形式：F1 − 1；两侧集合相同即为 0",
+    "kind": "delta",
+    "line": "KPI M1_active_f1_delta value=-0.0257807 ci=[-0.0490196,-0.00617284] n=6",
+    "metric": "M1_active_f1_delta",
+    "n": 6,
+    "value": -0.025781
+   },
+   {
+    "ci_hi": 0.833333,
+    "ci_lo": 0.166667,
+    "definition": "方案 P0 与基线 P0 的激活集对称差大小均值",
+    "kind": "delta",
+    "line": "KPI M1_active_symdiff value=0.5 ci=[0.166667,0.833333] n=6",
+    "metric": "M1_active_symdiff",
+    "n": 6,
+    "value": 0.5
+   },
+   {
+    "ci_hi": 38.333333,
+    "ci_lo": 11.666667,
+    "definition": "同一激活集（两侧注入顺序的交集）上方案侧逆序对数均值",
+    "kind": "absolute",
+    "line": "KPI M2_order_inv value=22.6667 ci=[11.6667,38.3333] n=6",
+    "metric": "M2_order_inv",
+    "n": 6,
+    "value": 22.666667
+   },
+   {
+    "ci_hi": 32.166667,
+    "ci_lo": 10.666667,
+    "definition": "同一激活集上方案逆序对数 − 基线逆序对数，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M2_order_inv_delta value=19.8333 ci=[10.6667,32.1667] n=6",
+    "metric": "M2_order_inv_delta",
+    "n": 6,
+    "value": 19.833333
+   },
+   {
+    "ci_hi": 1.666667,
+    "ci_lo": 1.0,
+    "definition": "P0 vs P3 的 dropped_uids 对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M3_budget_dropped_delta value=1.33333 ci=[1,1.66667] n=6",
+    "metric": "M3_budget_dropped_delta",
+    "n": 6,
+    "value": 1.333333
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P1 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M4_recursion_ablation_delta value=0 ci=[0,0] n=6",
+    "metric": "M4_recursion_ablation_delta",
+    "n": 6,
+    "value": 0.0
+   },
+   {
+    "ci_hi": 1.166667,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P2 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M5_depth_ablation_delta value=0.5 ci=[0,1.16667] n=6",
+    "metric": "M5_depth_ablation_delta",
+    "n": 6,
+    "value": 0.5
+   },
+   {
+    "ci_hi": 1.0,
+    "ci_lo": 1.0,
+    "definition": "读 raw/<name>_summary.json 的 determinism：identical=true 记 1，逐 profile 求均值",
+    "kind": "absolute",
+    "line": "KPI M6_determinism value=1 ci=[1,1] n=5",
+    "metric": "M6_determinism",
+    "n": 5,
+    "value": 1.0
+   },
+   {
+    "ci_hi": -2.0,
+    "ci_lo": -4.666667,
+    "definition": "P0 vs P4 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M7_match_ablation_delta value=-3.33333 ci=[-4.66667,-2] n=6",
+    "metric": "M7_match_ablation_delta",
+    "n": 6,
+    "value": -3.333333
+   },
+   {
+    "ci_hi": 232.0,
+    "ci_lo": 163.0,
+    "definition": "所选 profiles × 全部 turn 的方案激活条目数之和（CI 为逐行计数均值 CI × 行数）",
+    "kind": "absolute",
+    "line": "KPI M8_total_active_uids value=196 ci=[163,232] n=30",
+    "metric": "M8_total_active_uids",
+    "n": 30,
+    "value": 196.0
+   }
+  ],
+  "missing": [],
+  "profiles": [
+   "P0",
+   "P1",
+   "P2",
+   "P3",
+   "P4"
+  ],
+  "unit": "paired-(profile,turn)"
+ },
+ "profiles": {
+  "P0": {
+   "capabilities": {
+    "at_depth": true,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "cjk-treated-as-boundary"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/sillytavern_P0.json",
+   "out_sha256": "c159fe6a5be43e58833965bbd67fbd5f8e23106fa6a168ada5b7c44fc6e4466b",
+   "readout_lines": [
+    "READOUT sillytavern P0 turn=1 active=9 order=19,20,8,3,2,1,18,6,4 chars=1137 bytes=3387 dropped=-",
+    "READOUT sillytavern P0 turn=2 active=14 order=19,13,20,12,11,8,3,2,1,18,10,6,5,4 chars=1260 bytes=3756 dropped=-",
+    "READOUT sillytavern P0 turn=3 active=9 order=13,25,20,15,12,11,8,1,10 chars=1131 bytes=3377 dropped=-",
+    "READOUT sillytavern P0 turn=4 active=7 order=25,20,15,14,13,1,10 chars=1075 bytes=3209 dropped=-",
+    "READOUT sillytavern P0 turn=5 active=5 order=21,20,14,13,1 chars=1034 bytes=3102 dropped=-",
+    "READOUT sillytavern P0 turn=6 active=4 order=21,20,7,1 chars=1009 bytes=3027 dropped=-"
+   ],
+   "stdout_sha256": "4bedb7143038ef1e332328cb0b172d20cf9577aa170e46941593a5d655cd6358",
+   "timing": {
+    "min_ms": 3718.143,
+    "p50_ms": 3950.473,
+    "p95_ms": 4114.209,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3387,
+     "chars": 1137,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      20,
+      8,
+      3,
+      2,
+      1,
+      18,
+      6,
+      4
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      10,
+      11,
+      12,
+      13,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3756,
+     "chars": 1260,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      13,
+      20,
+      12,
+      11,
+      8,
+      3,
+      2,
+      1,
+      18,
+      10,
+      6,
+      5,
+      4
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      8,
+      10,
+      11,
+      12,
+      13,
+      15,
+      20,
+      25
+     ],
+     "bytes": 3377,
+     "chars": 1131,
+     "dropped_uids": [],
+     "inject_order": [
+      13,
+      25,
+      20,
+      15,
+      12,
+      11,
+      8,
+      1,
+      10
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      13,
+      14,
+      15,
+      20,
+      25
+     ],
+     "bytes": 3209,
+     "chars": 1075,
+     "dropped_uids": [],
+     "inject_order": [
+      25,
+      20,
+      15,
+      14,
+      13,
+      1,
+      10
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      20,
+      21
+     ],
+     "bytes": 3102,
+     "chars": 1034,
+     "dropped_uids": [],
+     "inject_order": [
+      21,
+      20,
+      14,
+      13,
+      1
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      20,
+      21
+     ],
+     "bytes": 3027,
+     "chars": 1009,
+     "dropped_uids": [],
+     "inject_order": [
+      21,
+      20,
+      7,
+      1
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "group_weight",
+     "reason": "st-group-winner-is-weighted-random-not-max-weight"
+    },
+    {
+     "field": "recursion.delay",
+     "reason": "contract-defines-no-delay-rule-and-st-semantics-differs"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-marker-not-an-engine-field"
+    },
+    {
+     "field": "budget_chars",
+     "reason": "st-budget-is-token-share-of-max-context-not-chars"
+    },
+    {
+     "field": "whole_words_cjk",
+     "reason": "st-whole-word-boundary-treats-cjk-as-non-word-char"
+    }
+   ]
+  },
+  "P1": {
+   "capabilities": {
+    "at_depth": true,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "cjk-treated-as-boundary"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/sillytavern_P1.json",
+   "out_sha256": "9bf9fa3a65159a2d24729ec434831f553745466f3d3d56a9f2c9812c21334c82",
+   "readout_lines": [
+    "READOUT sillytavern P1 turn=1 active=9 order=19,20,8,3,2,1,18,6,4 chars=1137 bytes=3387 dropped=-",
+    "READOUT sillytavern P1 turn=2 active=13 order=19,20,12,11,8,3,2,1,18,10,6,5,4 chars=1232 bytes=3672 dropped=-",
+    "READOUT sillytavern P1 turn=3 active=8 order=25,20,15,12,11,8,1,10 chars=1103 bytes=3293 dropped=-",
+    "READOUT sillytavern P1 turn=4 active=7 order=25,20,15,14,13,1,10 chars=1075 bytes=3209 dropped=-",
+    "READOUT sillytavern P1 turn=5 active=5 order=21,20,14,13,1 chars=1034 bytes=3102 dropped=-",
+    "READOUT sillytavern P1 turn=6 active=4 order=21,20,7,1 chars=1009 bytes=3027 dropped=-"
+   ],
+   "stdout_sha256": "8bd2acdc5b88a7e5540810e0e287cf0bd720ace991f41d38ab02e690f7dc43ab",
+   "timing": {
+    "min_ms": 3583.697,
+    "p50_ms": 3707.681,
+    "p95_ms": 4003.654,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3387,
+     "chars": 1137,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      20,
+      8,
+      3,
+      2,
+      1,
+      18,
+      6,
+      4
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      10,
+      11,
+      12,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3672,
+     "chars": 1232,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      20,
+      12,
+      11,
+      8,
+      3,
+      2,
+      1,
+      18,
+      10,
+      6,
+      5,
+      4
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      8,
+      10,
+      11,
+      12,
+      15,
+      20,
+      25
+     ],
+     "bytes": 3293,
+     "chars": 1103,
+     "dropped_uids": [],
+     "inject_order": [
+      25,
+      20,
+      15,
+      12,
+      11,
+      8,
+      1,
+      10
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      13,
+      14,
+      15,
+      20,
+      25
+     ],
+     "bytes": 3209,
+     "chars": 1075,
+     "dropped_uids": [],
+     "inject_order": [
+      25,
+      20,
+      15,
+      14,
+      13,
+      1,
+      10
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      20,
+      21
+     ],
+     "bytes": 3102,
+     "chars": 1034,
+     "dropped_uids": [],
+     "inject_order": [
+      21,
+      20,
+      14,
+      13,
+      1
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      20,
+      21
+     ],
+     "bytes": 3027,
+     "chars": 1009,
+     "dropped_uids": [],
+     "inject_order": [
+      21,
+      20,
+      7,
+      1
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "group_weight",
+     "reason": "st-group-winner-is-weighted-random-not-max-weight"
+    },
+    {
+     "field": "recursion.delay",
+     "reason": "contract-defines-no-delay-rule-and-st-semantics-differs"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-marker-not-an-engine-field"
+    },
+    {
+     "field": "budget_chars",
+     "reason": "st-budget-is-token-share-of-max-context-not-chars"
+    },
+    {
+     "field": "whole_words_cjk",
+     "reason": "st-whole-word-boundary-treats-cjk-as-non-word-char"
+    }
+   ]
+  },
+  "P2": {
+   "capabilities": {
+    "at_depth": true,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "cjk-treated-as-boundary"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/sillytavern_P2.json",
+   "out_sha256": "49e3782c83f63cf6f69b9ffddfadc8ade6aefccff320137e6e667046dc9b56b7",
+   "readout_lines": [
+    "READOUT sillytavern P2 turn=1 active=3 order=20,8,1 chars=986 bytes=2958 dropped=-",
+    "READOUT sillytavern P2 turn=2 active=4 order=20,11,1,10 chars=1002 bytes=3006 dropped=-",
+    "READOUT sillytavern P2 turn=3 active=5 order=25,20,17,1,10 chars=1028 bytes=3068 dropped=-",
+    "READOUT sillytavern P2 turn=4 active=5 order=20,14,13,1,10 chars=1031 bytes=3093 dropped=-",
+    "READOUT sillytavern P2 turn=5 active=3 order=21,20,1 chars=980 bytes=2940 dropped=-",
+    "READOUT sillytavern P2 turn=6 active=3 order=20,7,1 chars=985 bytes=2955 dropped=-"
+   ],
+   "stdout_sha256": "f84d8deb4873df3b7bbc4c12fb89a90be03b3095798dc0ad564ebfc5923de929",
+   "timing": {
+    "min_ms": 3483.79,
+    "p50_ms": 3706.982,
+    "p95_ms": 3980.578,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      8,
+      20
+     ],
+     "bytes": 2958,
+     "chars": 986,
+     "dropped_uids": [],
+     "inject_order": [
+      20,
+      8,
+      1
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      11,
+      20
+     ],
+     "bytes": 3006,
+     "chars": 1002,
+     "dropped_uids": [],
+     "inject_order": [
+      20,
+      11,
+      1,
+      10
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      17,
+      20,
+      25
+     ],
+     "bytes": 3068,
+     "chars": 1028,
+     "dropped_uids": [],
+     "inject_order": [
+      25,
+      20,
+      17,
+      1,
+      10
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      13,
+      14,
+      20
+     ],
+     "bytes": 3093,
+     "chars": 1031,
+     "dropped_uids": [],
+     "inject_order": [
+      20,
+      14,
+      13,
+      1,
+      10
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      20,
+      21
+     ],
+     "bytes": 2940,
+     "chars": 980,
+     "dropped_uids": [],
+     "inject_order": [
+      21,
+      20,
+      1
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      20
+     ],
+     "bytes": 2955,
+     "chars": 985,
+     "dropped_uids": [],
+     "inject_order": [
+      20,
+      7,
+      1
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "group_weight",
+     "reason": "st-group-winner-is-weighted-random-not-max-weight"
+    },
+    {
+     "field": "recursion.delay",
+     "reason": "contract-defines-no-delay-rule-and-st-semantics-differs"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-marker-not-an-engine-field"
+    },
+    {
+     "field": "budget_chars",
+     "reason": "st-budget-is-token-share-of-max-context-not-chars"
+    },
+    {
+     "field": "whole_words_cjk",
+     "reason": "st-whole-word-boundary-treats-cjk-as-non-word-char"
+    }
+   ]
+  },
+  "P3": {
+   "capabilities": {
+    "at_depth": true,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "cjk-treated-as-boundary"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/sillytavern_P3.json",
+   "out_sha256": "ecffde2099d2f76b649341ff6cde478b0ea4f77b6e4653561d8398d26ddd02d7",
+   "readout_lines": [
+    "READOUT sillytavern P3 turn=1 active=7 order=8,3,2,1,18,6,4 chars=213 bytes=627 dropped=19,20",
+    "READOUT sillytavern P3 turn=2 active=11 order=12,11,8,3,2,1,18,10,6,5,4 chars=308 bytes=912 dropped=13,19,20",
+    "READOUT sillytavern P3 turn=3 active=6 order=15,12,11,8,1,10 chars=178 bytes=534 dropped=13,20,25",
+    "READOUT sillytavern P3 turn=4 active=5 order=15,14,13,1,10 chars=150 bytes=450 dropped=20,25",
+    "READOUT sillytavern P3 turn=5 active=3 order=14,13,1 chars=110 bytes=330 dropped=20,21",
+    "READOUT sillytavern P3 turn=6 active=2 order=7,1 chars=85 bytes=255 dropped=20,21"
+   ],
+   "stdout_sha256": "c9aaeea232804460d447e3b9084d85942bad8090adc4d9d819d0695078ff609c",
+   "timing": {
+    "min_ms": 3775.477,
+    "p50_ms": 3909.105,
+    "p95_ms": 4022.808,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      18
+     ],
+     "bytes": 627,
+     "chars": 213,
+     "dropped_uids": [
+      19,
+      20
+     ],
+     "inject_order": [
+      8,
+      3,
+      2,
+      1,
+      18,
+      6,
+      4
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      10,
+      11,
+      12,
+      18
+     ],
+     "bytes": 912,
+     "chars": 308,
+     "dropped_uids": [
+      13,
+      19,
+      20
+     ],
+     "inject_order": [
+      12,
+      11,
+      8,
+      3,
+      2,
+      1,
+      18,
+      10,
+      6,
+      5,
+      4
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      8,
+      10,
+      11,
+      12,
+      15
+     ],
+     "bytes": 534,
+     "chars": 178,
+     "dropped_uids": [
+      13,
+      20,
+      25
+     ],
+     "inject_order": [
+      15,
+      12,
+      11,
+      8,
+      1,
+      10
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      13,
+      14,
+      15
+     ],
+     "bytes": 450,
+     "chars": 150,
+     "dropped_uids": [
+      20,
+      25
+     ],
+     "inject_order": [
+      15,
+      14,
+      13,
+      1,
+      10
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14
+     ],
+     "bytes": 330,
+     "chars": 110,
+     "dropped_uids": [
+      20,
+      21
+     ],
+     "inject_order": [
+      14,
+      13,
+      1
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7
+     ],
+     "bytes": 255,
+     "chars": 85,
+     "dropped_uids": [
+      20,
+      21
+     ],
+     "inject_order": [
+      7,
+      1
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "group_weight",
+     "reason": "st-group-winner-is-weighted-random-not-max-weight"
+    },
+    {
+     "field": "recursion.delay",
+     "reason": "contract-defines-no-delay-rule-and-st-semantics-differs"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-marker-not-an-engine-field"
+    },
+    {
+     "field": "budget_chars",
+     "reason": "st-budget-is-token-share-of-max-context-not-chars"
+    },
+    {
+     "field": "whole_words_cjk",
+     "reason": "st-whole-word-boundary-treats-cjk-as-non-word-char"
+    }
+   ]
+  },
+  "P4": {
+   "capabilities": {
+    "at_depth": true,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "cjk-treated-as-boundary"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/sillytavern_P4.json",
+   "out_sha256": "36e1febec07b632e6cecac289f708fd18a6cd1edb7cf6569f17da618dc516ee8",
+   "readout_lines": [
+    "READOUT sillytavern P4 turn=1 active=9 order=19,20,8,3,2,1,18,6,4 chars=1137 bytes=3387 dropped=-",
+    "READOUT sillytavern P4 turn=2 active=13 order=19,13,20,12,8,3,2,1,18,10,6,5,4 chars=1235 bytes=3681 dropped=-",
+    "READOUT sillytavern P4 turn=3 active=8 order=13,25,20,15,12,8,1,10 chars=1106 bytes=3302 dropped=-",
+    "READOUT sillytavern P4 turn=4 active=7 order=25,20,15,14,13,1,10 chars=1075 bytes=3209 dropped=-",
+    "READOUT sillytavern P4 turn=5 active=5 order=21,20,14,13,1 chars=1034 bytes=3102 dropped=-",
+    "READOUT sillytavern P4 turn=6 active=3 order=21,20,1 chars=980 bytes=2940 dropped=-"
+   ],
+   "stdout_sha256": "3b02affe3d0742c79286a994359e42d9d595294e9772ac7cc45883a00f7198dd",
+   "timing": {
+    "min_ms": 3894.245,
+    "p50_ms": 3921.933,
+    "p95_ms": 4199.573,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3387,
+     "chars": 1137,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      20,
+      8,
+      3,
+      2,
+      1,
+      18,
+      6,
+      4
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      10,
+      12,
+      13,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3681,
+     "chars": 1235,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      13,
+      20,
+      12,
+      8,
+      3,
+      2,
+      1,
+      18,
+      10,
+      6,
+      5,
+      4
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      8,
+      10,
+      12,
+      13,
+      15,
+      20,
+      25
+     ],
+     "bytes": 3302,
+     "chars": 1106,
+     "dropped_uids": [],
+     "inject_order": [
+      13,
+      25,
+      20,
+      15,
+      12,
+      8,
+      1,
+      10
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      13,
+      14,
+      15,
+      20,
+      25
+     ],
+     "bytes": 3209,
+     "chars": 1075,
+     "dropped_uids": [],
+     "inject_order": [
+      25,
+      20,
+      15,
+      14,
+      13,
+      1,
+      10
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      20,
+      21
+     ],
+     "bytes": 3102,
+     "chars": 1034,
+     "dropped_uids": [],
+     "inject_order": [
+      21,
+      20,
+      14,
+      13,
+      1
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      20,
+      21
+     ],
+     "bytes": 2940,
+     "chars": 980,
+     "dropped_uids": [],
+     "inject_order": [
+      21,
+      20,
+      1
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "group_weight",
+     "reason": "st-group-winner-is-weighted-random-not-max-weight"
+    },
+    {
+     "field": "recursion.delay",
+     "reason": "contract-defines-no-delay-rule-and-st-semantics-differs"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-marker-not-an-engine-field"
+    },
+    {
+     "field": "budget_chars",
+     "reason": "st-budget-is-token-share-of-max-context-not-chars"
+    },
+    {
+     "field": "whole_words_cjk",
+     "reason": "st-whole-word-boundary-treats-cjk-as-non-word-char"
+    }
+   ]
+  }
+ },
+ "timing_policy": {
+  "samples": 7,
+  "scope": "process-start-to-exit-full-6-turns",
+  "warmup": 1
+ }
+}

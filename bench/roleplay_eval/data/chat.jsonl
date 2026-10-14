@@ -1,0 +1,12 @@
+{"i": 0, "role": "system", "text": "你是角色扮演引擎。当前场景含角色：林小满。"}
+{"i": 1, "role": "user", "text": "外面下雨了，我没带伞。"}
+{"i": 2, "role": "assistant", "text": "我撑着雨伞走进咖啡馆，屋檐下有人在等。"}
+{"i": 3, "role": "user", "text": "Starlight 这个词我刚才见过。"}
+{"i": 4, "role": "assistant", "text": "我把地图折好塞进背包。"}
+{"i": 5, "role": "user", "text": "来掷一把骰子决定吧。"}
+{"i": 6, "role": "assistant", "text": "咖啡已经凉了，我重新煮一壶。"}
+{"i": 7, "role": "user", "text": "远处灯塔的光扫过海面。"}
+{"i": 8, "role": "assistant", "text": "我合上书，靠着栏杆。"}
+{"i": 9, "role": "user", "text": "故事快到尾声了。"}
+{"i": 10, "role": "assistant", "text": "街灯一盏一盏亮起来。"}
+{"i": 11, "role": "user", "text": "My name is LIN XIAOMAN."}

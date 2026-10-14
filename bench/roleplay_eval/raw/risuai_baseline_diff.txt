@@ -1,0 +1,33 @@
+# score.py baseline-diff name=risuai baseline=baseline profiles=P0,P1,P2,P3,P4 metric=active_uids
+# 行语法 DIFF <a> <b> <profile> turn=<k> only_a=<uids> only_b=<uids> same=<n>；a=risuai b=baseline；空集合写 -
+# only_a=a 侧独有 only_b=b 侧独有 same=交集大小
+DIFF risuai baseline P0 turn=1 only_a=- only_b=- same=8
+DIFF risuai baseline P0 turn=2 only_a=- only_b=- same=13
+DIFF risuai baseline P0 turn=3 only_a=16,17 only_b=- same=8
+DIFF risuai baseline P0 turn=4 only_a=16,17 only_b=- same=7
+DIFF risuai baseline P0 turn=5 only_a=- only_b=- same=5
+DIFF risuai baseline P0 turn=6 only_a=- only_b=- same=4
+DIFF risuai baseline P1 turn=1 only_a=- only_b=- same=8
+DIFF risuai baseline P1 turn=2 only_a=- only_b=- same=12
+DIFF risuai baseline P1 turn=3 only_a=16,17 only_b=- same=7
+DIFF risuai baseline P1 turn=4 only_a=16,17 only_b=- same=7
+DIFF risuai baseline P1 turn=5 only_a=- only_b=- same=5
+DIFF risuai baseline P1 turn=6 only_a=- only_b=- same=4
+DIFF risuai baseline P2 turn=1 only_a=- only_b=- same=2
+DIFF risuai baseline P2 turn=2 only_a=- only_b=- same=4
+DIFF risuai baseline P2 turn=3 only_a=17 only_b=- same=4
+DIFF risuai baseline P2 turn=4 only_a=- only_b=- same=5
+DIFF risuai baseline P2 turn=5 only_a=- only_b=- same=3
+DIFF risuai baseline P2 turn=6 only_a=- only_b=- same=3
+DIFF risuai baseline P3 turn=1 only_a=- only_b=- same=7
+DIFF risuai baseline P3 turn=2 only_a=- only_b=- same=12
+DIFF risuai baseline P3 turn=3 only_a=16,17 only_b=- same=7
+DIFF risuai baseline P3 turn=4 only_a=16,17 only_b=- same=6
+DIFF risuai baseline P3 turn=5 only_a=- only_b=- same=4
+DIFF risuai baseline P3 turn=6 only_a=- only_b=- same=3
+DIFF risuai baseline P4 turn=1 only_a=- only_b=2,3,6,18,19 same=2
+DIFF risuai baseline P4 turn=2 only_a=11 only_b=2,3,6,18,19 same=2
+DIFF risuai baseline P4 turn=3 only_a=11 only_b=- same=2
+DIFF risuai baseline P4 turn=4 only_a=- only_b=- same=2
+DIFF risuai baseline P4 turn=5 only_a=- only_b=- same=2
+DIFF risuai baseline P4 turn=6 only_a=- only_b=- same=2

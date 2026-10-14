@@ -1,0 +1,46 @@
+READOUT risuai P0 turn=1 active=8 order=19,20,6,4,3,2,1,18 chars=1107 bytes=3297 dropped=-
+READOUT risuai P0 turn=2 active=13 order=19,20,13,12,11,10,6,5,4,3,2,1,18 chars=1230 bytes=3666 dropped=-
+READOUT risuai P0 turn=3 active=10 order=25,20,17,16,15,13,12,11,10,1 chars=1162 bytes=3442 dropped=-
+READOUT risuai P0 turn=4 active=9 order=25,20,17,16,15,14,13,10,1 chars=1136 bytes=3364 dropped=-
+READOUT risuai P0 turn=5 active=5 order=21,20,14,13,1 chars=1034 bytes=3102 dropped=-
+READOUT risuai P0 turn=6 active=4 order=21,20,7,1 chars=1009 bytes=3027 dropped=-
+TIMING risuai profile=P0 min_ms=4101.29 p50_ms=4157.86 p95_ms=4193.69
+DETERMINISM risuai repeats=8 identical=true sha=6fc15aeecf08590cedbaeeeed3604e738e1c95458bf367ee5a1410690a504784
+SHA 2695853eecc20558546c7373781288ffa9282b69357da381878abc60ab3b0622 file=out/risuai_P0.json
+READOUT risuai P1 turn=1 active=8 order=19,20,6,4,3,2,1,18 chars=1107 bytes=3297 dropped=-
+READOUT risuai P1 turn=2 active=12 order=19,20,12,11,10,6,5,4,3,2,1,18 chars=1202 bytes=3582 dropped=-
+READOUT risuai P1 turn=3 active=9 order=25,20,17,16,15,12,11,10,1 chars=1134 bytes=3358 dropped=-
+READOUT risuai P1 turn=4 active=9 order=25,20,17,16,15,14,13,10,1 chars=1136 bytes=3364 dropped=-
+READOUT risuai P1 turn=5 active=5 order=21,20,14,13,1 chars=1034 bytes=3102 dropped=-
+READOUT risuai P1 turn=6 active=4 order=21,20,7,1 chars=1009 bytes=3027 dropped=-
+TIMING risuai profile=P1 min_ms=4081.13 p50_ms=4126.73 p95_ms=4146.57
+DETERMINISM risuai repeats=8 identical=true sha=e94a9bc78ebde6f2c51a01e017cd1e69ce2f87045d177034d9bbd3fca2506077
+SHA 94a1aad4ef381d35815edc29d90d7f30780a3afb8f565120ca9045e5083d3740 file=out/risuai_P1.json
+READOUT risuai P2 turn=1 active=2 order=20,1 chars=956 bytes=2868 dropped=-
+READOUT risuai P2 turn=2 active=4 order=20,11,10,1 chars=1002 bytes=3006 dropped=-
+READOUT risuai P2 turn=3 active=5 order=25,20,17,10,1 chars=1042 bytes=3082 dropped=-
+READOUT risuai P2 turn=4 active=5 order=20,14,13,10,1 chars=1031 bytes=3093 dropped=-
+READOUT risuai P2 turn=5 active=3 order=21,20,1 chars=980 bytes=2940 dropped=-
+READOUT risuai P2 turn=6 active=3 order=20,7,1 chars=985 bytes=2955 dropped=-
+TIMING risuai profile=P2 min_ms=4007.95 p50_ms=4043.87 p95_ms=4121.57
+DETERMINISM risuai repeats=8 identical=true sha=ce1c0ac35045afa89d12ea63d1546948cd3b487d9f1f28f6f3391353131dd592
+SHA f48a42a27c95f35e83c7b8346097d960415897c054ba69684be4699fb17531c4 file=out/risuai_P2.json
+READOUT risuai P3 turn=1 active=7 order=19,6,4,3,2,1,18 chars=207 bytes=597 dropped=20
+READOUT risuai P3 turn=2 active=12 order=19,13,12,11,10,6,5,4,3,2,1,18 chars=330 bytes=966 dropped=20
+READOUT risuai P3 turn=3 active=9 order=25,17,16,15,13,12,11,10,1 chars=262 bytes=742 dropped=20
+READOUT risuai P3 turn=4 active=8 order=25,17,16,15,14,13,10,1 chars=236 bytes=664 dropped=20
+READOUT risuai P3 turn=5 active=4 order=21,14,13,1 chars=134 bytes=402 dropped=20
+READOUT risuai P3 turn=6 active=3 order=21,7,1 chars=109 bytes=327 dropped=20
+TIMING risuai profile=P3 min_ms=4039.19 p50_ms=4096.53 p95_ms=4256.69
+DETERMINISM risuai repeats=8 identical=true sha=a99a03def2a86ec08132dcface8f87adc019fa214fd9d0800e49591d4c568f19
+SHA bab860589b87bae7789e8ad1205a6103202ad13dbbedd91bf86cfff5eb06a318 file=out/risuai_P3.json
+READOUT risuai P4 turn=1 active=2 order=20,1 chars=956 bytes=2868 dropped=-
+READOUT risuai P4 turn=2 active=3 order=20,11,1 chars=981 bytes=2943 dropped=-
+READOUT risuai P4 turn=3 active=3 order=20,11,1 chars=981 bytes=2943 dropped=-
+READOUT risuai P4 turn=4 active=2 order=20,1 chars=956 bytes=2868 dropped=-
+READOUT risuai P4 turn=5 active=2 order=20,1 chars=956 bytes=2868 dropped=-
+READOUT risuai P4 turn=6 active=2 order=20,1 chars=956 bytes=2868 dropped=-
+TIMING risuai profile=P4 min_ms=4038.68 p50_ms=4095.37 p95_ms=4129.73
+DETERMINISM risuai repeats=8 identical=true sha=77440788a90d1687eab87cb855853799477c2eb57e8f5782a2ea2ac909372ed4
+SHA 14bfdfc1e6562acde25523fa0a5bc4b3ebd2ac20e59be42faeac0064d41f43d7 file=out/risuai_P4.json
+SUMMARY adapter=risuai profiles=5 failures=0

@@ -1,0 +1,13 @@
+# score.py kpi name=sillytavern baseline=baseline profiles=P0,P1,P2,P3,P4 bootstrap_iters=2000 bootstrap_seed=0 alpha=0.05
+# 配对单位=(profile,turn)；Δ 类 KPI（名字含 _delta）= 方案 − 基线；n<2 时 ci=[-,-]
+KPI M1_active_f1 value=0.974219 ci=[0.95098,0.993827] n=6
+KPI M1_active_f1_delta value=-0.0257807 ci=[-0.0490196,-0.00617284] n=6
+KPI M1_active_symdiff value=0.5 ci=[0.166667,0.833333] n=6
+KPI M2_order_inv value=22.6667 ci=[11.6667,38.3333] n=6
+KPI M2_order_inv_delta value=19.8333 ci=[10.6667,32.1667] n=6
+KPI M3_budget_dropped_delta value=1.33333 ci=[1,1.66667] n=6
+KPI M4_recursion_ablation_delta value=0 ci=[0,0] n=6
+KPI M5_depth_ablation_delta value=0.5 ci=[0,1.16667] n=6
+KPI M6_determinism value=1 ci=[1,1] n=5
+KPI M7_match_ablation_delta value=-3.33333 ci=[-4.66667,-2] n=6
+KPI M8_total_active_uids value=196 ci=[163,232] n=30

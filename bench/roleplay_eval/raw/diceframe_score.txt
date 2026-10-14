@@ -1,0 +1,89 @@
+SCORE name=diceframe baseline=baseline profiles=P0,P1,P2,P3,P4 out_dir=out raw_dir=raw
+SOURCE diceframe P0 file=out/diceframe_P0.json turns=6
+SOURCE diceframe P1 file=out/diceframe_P1.json turns=6
+SOURCE diceframe P2 file=out/diceframe_P2.json turns=6
+SOURCE diceframe P3 file=out/diceframe_P3.json turns=6
+SOURCE diceframe P4 file=out/diceframe_P4.json turns=6
+SOURCE baseline P0 file=out/baseline_P0.json turns=6
+SOURCE baseline P1 file=out/baseline_P1.json turns=6
+SOURCE baseline P2 file=out/baseline_P2.json turns=6
+SOURCE baseline P3 file=out/baseline_P3.json turns=6
+SOURCE baseline P4 file=out/baseline_P4.json turns=6
+DIFF diceframe baseline P0 turn=1 only_a=- only_b=- same=8
+DIFF diceframe baseline P0 turn=2 only_a=9 only_b=- same=13
+DIFF diceframe baseline P0 turn=3 only_a=9,16 only_b=15 same=7
+DIFF diceframe baseline P0 turn=4 only_a=16 only_b=10,15 same=5
+DIFF diceframe baseline P0 turn=5 only_a=- only_b=- same=5
+DIFF diceframe baseline P0 turn=6 only_a=- only_b=- same=4
+DIFF diceframe baseline P1 turn=1 only_a=- only_b=- same=8
+DIFF diceframe baseline P1 turn=2 only_a=9 only_b=- same=12
+DIFF diceframe baseline P1 turn=3 only_a=9,16 only_b=15 same=6
+DIFF diceframe baseline P1 turn=4 only_a=16 only_b=10,15 same=5
+DIFF diceframe baseline P1 turn=5 only_a=- only_b=- same=5
+DIFF diceframe baseline P1 turn=6 only_a=- only_b=- same=4
+DIFF diceframe baseline P2 turn=1 only_a=- only_b=- same=2
+DIFF diceframe baseline P2 turn=2 only_a=- only_b=10 same=3
+DIFF diceframe baseline P2 turn=3 only_a=- only_b=10 same=3
+DIFF diceframe baseline P2 turn=4 only_a=- only_b=10 same=4
+DIFF diceframe baseline P2 turn=5 only_a=- only_b=- same=3
+DIFF diceframe baseline P2 turn=6 only_a=- only_b=- same=3
+DIFF diceframe baseline P3 turn=1 only_a=- only_b=- same=7
+DIFF diceframe baseline P3 turn=2 only_a=9 only_b=- same=12
+DIFF diceframe baseline P3 turn=3 only_a=9,16 only_b=15 same=6
+DIFF diceframe baseline P3 turn=4 only_a=16 only_b=10,15 same=4
+DIFF diceframe baseline P3 turn=5 only_a=- only_b=- same=4
+DIFF diceframe baseline P3 turn=6 only_a=- only_b=- same=3
+DIFF diceframe baseline P4 turn=1 only_a=- only_b=- same=7
+DIFF diceframe baseline P4 turn=2 only_a=- only_b=- same=7
+DIFF diceframe baseline P4 turn=3 only_a=- only_b=- same=2
+DIFF diceframe baseline P4 turn=4 only_a=- only_b=- same=2
+DIFF diceframe baseline P4 turn=5 only_a=- only_b=- same=2
+DIFF diceframe baseline P4 turn=6 only_a=- only_b=- same=2
+DIFF diceframe@P0 diceframe@P3 P0vsP3 turn=1 only_a=20 only_b=- same=7
+DIFF diceframe@P0.dropped diceframe@P3.dropped P0vsP3 turn=1 only_a=- only_b=20 same=0
+DIFF diceframe@P0 diceframe@P3 P0vsP3 turn=2 only_a=20 only_b=- same=13
+DIFF diceframe@P0.dropped diceframe@P3.dropped P0vsP3 turn=2 only_a=- only_b=20 same=0
+DIFF diceframe@P0 diceframe@P3 P0vsP3 turn=3 only_a=20 only_b=- same=8
+DIFF diceframe@P0.dropped diceframe@P3.dropped P0vsP3 turn=3 only_a=- only_b=20 same=0
+DIFF diceframe@P0 diceframe@P3 P0vsP3 turn=4 only_a=20 only_b=- same=5
+DIFF diceframe@P0.dropped diceframe@P3.dropped P0vsP3 turn=4 only_a=- only_b=20 same=0
+DIFF diceframe@P0 diceframe@P3 P0vsP3 turn=5 only_a=20 only_b=- same=4
+DIFF diceframe@P0.dropped diceframe@P3.dropped P0vsP3 turn=5 only_a=- only_b=20 same=0
+DIFF diceframe@P0 diceframe@P3 P0vsP3 turn=6 only_a=20 only_b=- same=3
+DIFF diceframe@P0.dropped diceframe@P3.dropped P0vsP3 turn=6 only_a=- only_b=20 same=0
+DIFF diceframe@P0 diceframe@P1 P0vsP1 turn=1 only_a=- only_b=- same=8
+DIFF diceframe@P0 diceframe@P1 P0vsP1 turn=2 only_a=13 only_b=- same=13
+DIFF diceframe@P0 diceframe@P1 P0vsP1 turn=3 only_a=13 only_b=- same=8
+DIFF diceframe@P0 diceframe@P1 P0vsP1 turn=4 only_a=- only_b=- same=6
+DIFF diceframe@P0 diceframe@P1 P0vsP1 turn=5 only_a=- only_b=- same=5
+DIFF diceframe@P0 diceframe@P1 P0vsP1 turn=6 only_a=- only_b=- same=4
+DIFF diceframe@P0 diceframe@P2 P0vsP2 turn=1 only_a=2,3,4,6,18,19 only_b=- same=2
+DIFF diceframe@P0 diceframe@P2 P0vsP2 turn=2 only_a=2,3,4,5,6,9,10,12,13,18,19 only_b=- same=3
+DIFF diceframe@P0 diceframe@P2 P0vsP2 turn=3 only_a=9,10,11,12,13,16 only_b=- same=3
+DIFF diceframe@P0 diceframe@P2 P0vsP2 turn=4 only_a=16,25 only_b=- same=4
+DIFF diceframe@P0 diceframe@P2 P0vsP2 turn=5 only_a=13,14 only_b=- same=3
+DIFF diceframe@P0 diceframe@P2 P0vsP2 turn=6 only_a=21 only_b=- same=3
+DIFF diceframe@P0 diceframe@P4 P0vsP4 turn=1 only_a=4 only_b=- same=7
+DIFF diceframe@P0 diceframe@P4 P0vsP4 turn=2 only_a=4,5,9,10,11,12,13 only_b=- same=7
+DIFF diceframe@P0 diceframe@P4 P0vsP4 turn=3 only_a=9,10,11,12,13,16,25 only_b=- same=2
+DIFF diceframe@P0 diceframe@P4 P0vsP4 turn=4 only_a=13,14,16,25 only_b=- same=2
+DIFF diceframe@P0 diceframe@P4 P0vsP4 turn=5 only_a=13,14,21 only_b=- same=2
+DIFF diceframe@P0 diceframe@P4 P0vsP4 turn=6 only_a=7,21 only_b=- same=2
+KPI M1_active_f1 value=0.925954 ci=[0.846154,0.993827] n=6
+KPI M1_active_f1_delta value=-0.0740461 ci=[-0.153846,-0.00617284] n=6
+KPI M1_active_symdiff value=1.16667 ci=[0.166667,2.33333] n=6
+KPI M2_order_inv value=11.3333 ci=[3.16667,23.5] n=6
+KPI M2_order_inv_delta value=8.5 ci=[2.83333,17.5] n=6
+KPI M3_budget_dropped_delta value=0 ci=[0,0] n=6
+KPI M4_recursion_ablation_delta value=0 ci=[0,0] n=6
+KPI M5_depth_ablation_delta value=0.666667 ci=[0,1.33333] n=6
+KPI M6_determinism value=1 ci=[1,1] n=5
+KPI M7_match_ablation_delta value=0.166667 ci=[-0.333333,0.666667] n=6
+KPI M8_total_active_uids value=170 ci=[135,206] n=30
+NOTE KPI metric=M1_active_f1 kind=absolute value=0.925954 口径说明=集合与自身比较时 F1 恒为 1；Δ 形式见 M1_active_f1_delta
+SELFCHECK name=diceframe baseline=baseline delta_metrics=7 all_zero=false ci_zero=false ci_na=-
+WROTE kind=baseline_diff file=raw/diceframe_baseline_diff.txt added=0 lines=33 sha256=c1e0b410986a932bfed278e4377bf106c01b90f881b76d9b5325f1d7465ccf20
+WROTE kind=ablation_diff file=raw/diceframe_diff.txt added=0 lines=34 sha256=10b6a0624bd5fab3b5fbf41e0d8520b5e089ea4d72fddef22cb84e8ea1ca27f9
+WROTE kind=kpi file=raw/diceframe_kpi.txt added=0 lines=13 sha256=66c137fb3d72a9b4b061e7022a8931593131ffa1bd956f3297d66531032a41e8
+WROTE kind=summary file=raw/diceframe_summary.json sha256=cf8bb3d6a63b24b01eba6645fe0a45c5a8328992f586fbc82075838f102746eb
+SUMMARY name=diceframe baseline=baseline baseline_diff_lines=30 ablation_diff_lines=30 kpi_lines=11 missing_profiles=0 delta_all_zero=false

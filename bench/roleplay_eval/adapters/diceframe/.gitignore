@@ -1,0 +1,4 @@
+# upstream/ 是 fetch_upstream.sh 按锁定 sha 重建的只读源码快照，不进版本库。
+# .venv/ 是 setup.sh 建的虚拟环境，不进版本库。
+upstream/
+.venv/

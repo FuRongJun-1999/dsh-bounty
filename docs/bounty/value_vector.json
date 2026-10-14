@@ -345,6 +345,25 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    55,
+    122,
+    332,
+    333,
+    334,
+    335
+   ],
+   "login": "qweqqxq11",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 19,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -389,24 +408,6 @@
    ],
    "login": "WASD258-jpg",
    "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 16,
-   "rounds": 1
-  },
-  {
-   "difficulty": "easy",
-   "difficulty_base": 1,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    55,
-    122,
-    332,
-    333,
-    334
-   ],
-   "login": "qweqqxq11",
-   "project": "bench",
    "quality_E": null,
    "reputation_delta": 16,
    "rounds": 1
@@ -472,6 +473,24 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 12,
+   "rounds": 1
+  },
+  {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    327,
+    328,
+    329,
+    330,
+    331
+   ],
+   "login": "qweqqxq11",
+   "project": "catgirl_protocol_interface",
+   "quality_E": null,
+   "reputation_delta": 11,
    "rounds": 1
   },
   {

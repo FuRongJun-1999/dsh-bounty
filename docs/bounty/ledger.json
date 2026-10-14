@@ -5669,6 +5669,180 @@
         "delta": 6
       },
       "id": "evt_793ab750248b"
+    },
+    {
+      "ts": "2026-10-14T23:36:59Z",
+      "issue": 327,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆，非采信申报读数）：`catgirl-protocol-interface` @ `02d466e532b1`、`dsh-bench` @ `e730aab97271`，均以 `git clone` 取得后在本机读源码/AST 复算。【`instance.py`：`_verify_premises` 恒回 `all_verified=True`，调用方的 `verified/pending` 判别式恒取 verified】**逐字核对**：`instance.py:1089 def _verify_premises(self, fact, condition_space)`，其返回体 **L1093 `\"all_verified\": True`** 硬编码；唯一调用点 **L1062** `premises = self._verify_premises(fact, condition_space)`，判别式在 **L1068 `\"verification_status\": \"verified\" if premises.get(\"all_verified\", False) else \"pending\"`** ⇒ 反查全文件 `all_verified` 仅出现在 L1068/L1093 两处 ⇒ **`pending` 分支在现行代码下不可达** ✓。另经 AST 判定：`fact` 与 `condition_space` 在该函数体内**零引用**（见下件）。**危害语义**：对外可见的验证结论与被验证的事实**完全无关** ⇒ 「声称验证了而没有任何验证发生」。。受理。**本件无 `<!-- intake:v1 -->` 机器标记**，但正文「交付信号」段**逐字写明了「难度自申请」与「影响等级建议」**，故按「申报正文内自声明优先」沿用，维护者未改档；`project` 亦沿用申报文末的 `project:` 值。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        327
+      ],
+      "project": "catgirl_protocol_interface",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4250a381b66b"
+    },
+    {
+      "ts": "2026-10-14T23:36:59Z",
+      "issue": 328,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆，非采信申报读数）：`catgirl-protocol-interface` @ `02d466e532b1`、`dsh-bench` @ `e730aab97271`，均以 `git clone` 取得后在本机读源码/AST 复算。【`instance.py`：一批链处理函数共 17 个形参零引用 —— 调用方逐个传参、被调方一个不读】**AST 机械复算（决定性，我自跑而非采信）**：对 `instance.py` 做「形参名在该函数体 AST 内 0 次出现」的遍历，**排除 `self`** 后得 **9 个函数 / 合计 17 个零引用形参**：`_identify_condition_space` L1072 `text`；`_verify_premises` L1089 `fact`/`condition_space`；`_process_chain_message` L1099 `history`/`source`；`_process_record_chain` L1116 `signals`/`chain_id`/`step`；`_process_reflection_chain` L1123 `signals`；`_process_verification_chain` L1161 `text`；`_process_designer_chain` L1193 `text`；`_process_output_chain` L1238 `text`/`signals`/`step`；**`_process_life_chain` L1249 `text`/`chain_id`/`step`**。⇒ **合计 17 与申报完全一致**，且申报所给 8 个函数的**行号逐字命中**。**★ 两处如实更正（均不影响结论）**：① 申报写「8 个函数」，实测为 **9 个** —— 申报**漏列** `_process_life_chain`（L1249，3 个形参）；② 申报给 `_process_reflection_chain` 列了 `signals`/`chain_id`，实测该函数体只零引用 `signals`，`chain_id` **有被读**。按本仓「举证瑕疵 ≠ 结论不成立」照常受理，两处更正已记明。**对照先例**（申报所引）：同文件 `_process_verification_chain` 确实读 `signals`（`trust = signals.get('trust', 0.5)`）⇒ 证明「读 signals」在本文件有先例、不读的是缺陷不是约定。。受理。**本件无 `<!-- intake:v1 -->` 机器标记**，但正文「交付信号」段**逐字写明了「难度自申请」与「影响等级建议」**，故按「申报正文内自声明优先」沿用，维护者未改档；`project` 亦沿用申报文末的 `project:` 值。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        328
+      ],
+      "project": "catgirl_protocol_interface",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_3e53617d0be6"
+    },
+    {
+      "ts": "2026-10-14T23:36:59Z",
+      "issue": 329,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "维护者独立复核（隔离克隆，非采信申报读数）：`catgirl-protocol-interface` @ `02d466e532b1`、`dsh-bench` @ `e730aab97271`，均以 `git clone` 取得后在本机读源码/AST 复算。【`verify.py`：`_fallback_verify` 的 `condition_space` 形参零引用，其 `checks` 三项硬编码 True】**逐字核对**：`verify.py:326 def _fallback_verify(self, fact, condition_space)`；**L335** `\"checks\": {\"zero_law\": True, \"existence_priority\": True, \"structure_conflict\": True}`（另一支 L343 为 `False/False/True`，即 `structure_conflict` **两支恒 True**）。**AST 判定**：`_fallback_verify` 的零引用形参为 `['self', 'condition_space']` ⇒ **`condition_space` 在函数体内零出现** ✓。一个以「条件空间」为语义输入的回退验证，对条件空间不做任何检查。。受理。**本件无 `<!-- intake:v1 -->` 机器标记**，但正文「交付信号」段**逐字写明了「难度自申请」与「影响等级建议」**，故按「申报正文内自声明优先」沿用，维护者未改档；`project` 亦沿用申报文末的 `project:` 值。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        329
+      ],
+      "project": "catgirl_protocol_interface",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_1056deb35048"
+    },
+    {
+      "ts": "2026-10-14T23:36:59Z",
+      "issue": 330,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆，非采信申报读数）：`catgirl-protocol-interface` @ `02d466e532b1`、`dsh-bench` @ `e730aab97271`，均以 `git clone` 取得后在本机读源码/AST 复算。【`verify.py`：验证结果**缺 `passed` 字段即判通过**（`data.get(\"passed\", True)`）—— 默认值是「通过」】**逐字核对（一行定案）**：`verify.py:190` `\"passed\": data.get(\"passed\", True),` —— **fail-open 默认**：被判对象未给 `passed` 键时，本函数判**通过** ✓。方向与通行惯例相反（验证器默认应为未通过/未判定）。**申报所引的同文件对照**亦成立：同文件另有多处 `.get(..., \"未识别\")` 类**中性默认** ⇒ 作者懂「给默认值」，唯独 `passed` 给了「通过」方向。**危害**：`passed=True` 让上游当作「验证通过」继续流转，而真实情况是**验证结论根本没返回**。。受理。**本件无 `<!-- intake:v1 -->` 机器标记**，但正文「交付信号」段**逐字写明了「难度自申请」与「影响等级建议」**，故按「申报正文内自声明优先」沿用，维护者未改档；`project` 亦沿用申报文末的 `project:` 值。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        330
+      ],
+      "project": "catgirl_protocol_interface",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_00ff2131b39e"
+    },
+    {
+      "ts": "2026-10-14T23:36:59Z",
+      "issue": 331,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "维护者独立复核（隔离克隆，非采信申报读数）：`catgirl-protocol-interface` @ `02d466e532b1`、`dsh-bench` @ `e730aab97271`，均以 `git clone` 取得后在本机读源码/AST 复算。【`api_bridge.py`：`handle_osi_request` 的 `method` 形参零引用 —— 接口按路径分派，HTTP 方法被丢弃】**AST 机械复算**：`api_bridge.py` 全文零引用形参扫描结果为 **1 个函数 / 1 个形参** —— `handle_osi_request` **L18** `['method']` ✓（`method` 在函数体内 0 次出现），与申报逐字一致。**语义**：一个名为 `handle_*_request(path, method, data)` 的请求处理器不看请求方法 ⇒ `GET /osi/search` 与 `DELETE /osi/search` 走同一分支。**申报已如实标注边界**「未核该 handler 的路由注册处是否在上游按方法分派（若是则本件只是冗余形参）」——该边界我方**同样未核**，故按申报影响档 B 沿用。。受理。**本件无 `<!-- intake:v1 -->` 机器标记**，但正文「交付信号」段**逐字写明了「难度自申请」与「影响等级建议」**，故按「申报正文内自声明优先」沿用，维护者未改档；`project` 亦沿用申报文末的 `project:` 值。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        331
+      ],
+      "project": "catgirl_protocol_interface",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_91c2705d3272"
+    },
+    {
+      "ts": "2026-10-14T23:36:59Z",
+      "issue": 335,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆，非采信申报读数）：`catgirl-protocol-interface` @ `02d466e532b1`、`dsh-bench` @ `e730aab97271`，均以 `git clone` 取得后在本机读源码/AST 复算。【`scripts/verdict.py`：`select_valid_runs` **缺 `valid` 字段即判「有效运行」**（`r.get(\"valid\", True)`）—— 剔除器方向与职责相反】**逐字核对 + 实跑（决定性）**：`dsh-bench/scripts/verdict.py:724-729`：`def select_valid_runs(runs)` / docstring「**剔除无效运行（判分器故障/环境崩）**，返回 (有效运行, 被剔除的运行)。」/ `for r in runs:` / **L728 `(valid if r.get(\"valid\", True) else dropped).append(r)`** —— 字段缺失时**保留**该运行。**实跑**：`select_valid_runs([{}])` ⇒ `valid=[{}], dropped=[]`（无 `valid` 键的运行进了「有效」）；`select_valid_runs([{\"valid\": False}])` ⇒ `valid=[], dropped=[{\"valid\": False}]` ⇒ **方向确与函数职责相反（fail-open 而非 fail-closed）** ✓。。受理。**本件无 `<!-- intake:v1 -->` 机器标记**，但正文「交付信号」段**逐字写明了「难度自申请」与「影响等级建议」**，故按「申报正文内自声明优先」沿用，维护者未改档；`project` 亦沿用申报文末的 `project:` 值。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        335
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_f7dee8b8ac72"
     }
   ]
 }

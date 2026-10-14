@@ -437,6 +437,34 @@ def main(argv=None):
             check("A1 正向：临时沙箱全绿（rc=0 且无 RED 行）",
                   rc == 0 and red == [] and "RED " not in out and ran == "13",
                   "rc=%s 红项=%s" % (rc, red))
+            # A1b/A1c/A1d（#396）：R8 的 raw 路径解析必须「大小写精确」。
+            # 为什么放这里：Windows 大小写不敏感 ⇒ 旧写法在本机能碰巧找到文件，只有 Linux 才暴露；
+            # 故断言必须与文件系统无关，否则「本地绿 / CI 红」永远抓不住。
+            import importlib.util as _ilu
+            _spec = _ilu.spec_from_file_location("crr_mod", guard_path(root))
+            _mod = _ilu.module_from_spec(_spec)
+            _spec.loader.exec_module(_mod)
+            _src = open(guard_path(root), encoding="utf-8").read()
+            check("A1c 旧写法（显示名直接拼路径）已不在源码",
+                  'os.path.join(raw, "%s_summary.json" % name)' not in _src)
+            _rawabs = os.path.join(d0, "bench", "roleplay_eval", "raw")
+            _actual = set(os.listdir(_rawabs))
+            _bad = []
+            for _rfn, _disp in _mod.SCHEME_REPORTS.items():
+                _pp = _mod.find_summary(_rawabs, _disp)
+                if _pp is None or os.path.basename(_pp) not in _actual:
+                    _bad.append("%s->%s" % (_disp, _pp))
+            check("A1b R8 路径解析大小写精确（沙箱）", not _bad, "非精确=%s" % _bad)
+            _rraw = os.path.join(root, "bench", "roleplay_eval", "raw")
+            if os.path.isdir(_rraw):
+                _ract = set(os.listdir(_rraw))
+                _rbad = []
+                for _rfn2, _disp2 in _mod.SCHEME_REPORTS.items():
+                    _q = _mod.find_summary(_rraw, _disp2)
+                    if _q is None or os.path.basename(_q) not in _ract:
+                        _rbad.append("%s->%s" % (_disp2, _q))
+                check("A1d 真仓库 raw/ 三条方案 summary 均可精确解析（#396）", not _rbad,
+                      "非精确=%s" % _rbad)
     finally:
         if not args.keep:
             shutil.rmtree(d0, ignore_errors=True)

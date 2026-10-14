@@ -37,26 +37,30 @@ footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
 <main>
 <h2>这是什么</h2>
 <p>灵枢悬赏站的<b>插件测评子站</b>：把「某个插件到底行不行」拆成<b>可复跑的读数</b>——每条测评都给命令与原始输出，判定逐项可指回读数。</p>
-<div class="note"><b>不涉资金</b>：本子站只放可核验读数，不做排名激励、不涉任何支付／钱包／链上概念。本子站的测评分（每维 1–5，总分 ≤ 25）是<b>本子站自己的读数刻度</b>，与 <code>scripts/bounty_board.py</code> 的悬赏声誉分（easy 1 ／ medium 3 ／ hard 6 ／ expert 10）<b>不是同一个量</b>，两者不可换算、不可相加。悬赏侧口径真源见 <code>docs/bounty/README.md</code> §四。</div>
+<div class="note"><b>不涉资金</b>：本子站只放可核验读数，不做排名激励、不涉任何支付／钱包／链上概念。本子站的测评分（每维 1–5 整数，<b><code>dim_basis</code> 为空（无任何证据）的维度记 <code>null</code></b>；榜面报的是<b>已测维度均值</b>，不再是五维求和）是<b>本子站自己的读数刻度</b>，与 <code>scripts/bounty_board.py</code> 的悬赏声誉分（easy 1 ／ medium 3 ／ hard 6 ／ expert 10）<b>不是同一个量</b>，两者不可换算、不可相加。悬赏侧口径真源见 <code>docs/bounty/README.md</code> §四。</div>
 <h2>怎么读表</h2>
 <ol>
-<li>先看 <a href="board.html">榜单</a>：总分 = 五个维度各自 1–5 分求和（≤ 25）。</li>
-<li>再点进<b>测评详情</b>：维度表 ＋ 每条证据的<b>命令与原始输出</b> ＋ 结论 ＋ 边界。</li>
-<li>凡未取得读数的项，在「未测」节<b>显式写「未测 ＋ 原因」</b>——不要把它读成 0 分。</li>
-<li>想看口径怎么定的，去 <a href="method.html">方法说明</a>。</li>
+<li>先看 <a href="board.html">榜单</a>：榜面报<b>已测维度均值</b>与<b>覆盖率</b>（已测维度数 ／ 5），<b>不再是</b>五维求和；他评榜／证据不足／自评分三段列。</li>
+<li>再点进<b>测评详情</b>：每维的<b>分 ＋ 证据档位 ＋ rationale</b>，以及每条证据的<b>命令与原始输出</b>、结论、边界。</li>
+<li><code>dim_basis</code> 为空（<b>无任何证据</b>）的项，在「未测」节<b>显式写「未测 ＋ 原因」</b>；真源里记 <code>null</code>，<b>不要</b>把它读成 0 分或最低分。页面上的 <code>1..5</code> 都表示<b>有基座</b>：<code>1</code> 是最低档——<b>1–4 级的机械门槛都只是「基座非空」</b>，数字读数不是 1–4 级的必要条件（有没有可核数字读数由<b>证据档位</b>列另行披露）。</li>
+<li>想看口径怎么定的（五维各量什么、两轴怎么分），去 <a href="method.html">方法说明</a>。</li>
 </ol>
+<h2>分数总览（已测均值 ＋ 覆盖率）</h2>
+<div class="note"><code>dim_basis</code> 为空的维度记 <code>null</code>（<b>无任何证据</b>）——<b>不参与</b>任何合计：既不计入已测维度均值，也不作为 <code>1</code> 计入分母，并在真源里进 <code>unmeasured_dims</code>。页面上的 <code>1..5</code> 都表示「<b>有基座</b>」（该维挂了 ≥1 条证据）：<code>1</code> 是最低档、<code>5</code> 是最高档；<b>1–4 级的机械门槛都只是「基座非空」</b>——数字读数<b>不是</b> 1–4 级的必要条件，某维有没有可核数字读数由<b>证据档位</b>列（none／prose／reading／repro）另行披露。两者不是一回事（v1 把「未知」与「最低档」混记成 1，使覆盖率低的记录被系统性低估）。</div>
+<table><tr><th>分段</th><th>插件</th><th>版本</th><th>已测均值</th><th>覆盖率</th></tr><tr><td>他评榜</td><td><a href="detail_dsh-auto-memory.html">dsh-auto-memory</a></td><td>0.7.1</td><td><b>3.8</b></td><td>5/5</td></tr><tr><td>他评榜</td><td><a href="detail_dsh-mnemon.html">dsh-mnemon</a></td><td>0.5.28</td><td><b>3.0</b></td><td>3/5</td></tr><tr><td>自评</td><td><a href="detail_dsh-memory.html">dsh-memory</a></td><td>0.8.1</td><td><b>4.0</b></td><td>4/5</td></tr></table>
 <h2>引用纪律</h2>
 <ul>
 <li>每条证据必须写清 <b>命令 ＋ 原始输出 ＋ 来源</b>：三项缺一，生成器直接 fail-closed 拒绝出站。</li>
-<li>证据**分两档**，逐条在详情页顶部标出：<code>本机复跑</code>（由具名探针跑出，输出被 <code>evidence_check.py --repro</code> 逐字节复算）与 <code>公开文档转引</code>（取自公开文档原文读数，来源里给出 URL 与抓取日期——<b>不得</b>被读成本站本机重跑）。</li>
-<li>**每条记录至少 1 条「本机复跑」**——只靠转引不算「命令 ＋ 原始输出」。这条由生成器强制。</li>
+<li>证据<b>分两档</b>，逐条在详情页顶部标出：<code>本机复跑</code>（由具名探针跑出，输出被 <code>evidence_check.py --repro</code> 逐字节复算）与 <code>公开文档转引</code>（取自公开文档原文读数，来源里给出 URL 与抓取日期——<b>不得</b>被读成本站本机重跑）。</li>
+<li><b>每条记录至少 1 条「本机复跑」</b>——只靠转引不算「命令 ＋ 原始输出」。这条由生成器强制。</li>
+<li>每个非 <code>null</code> 维度都要有 <code>dim_basis</code>（指向具体证据）与 <code>dim_rationale</code>（写清为什么不是更高一级）；判级依据取自 <code>review/data/rubric.json</code>。</li>
 </ul>
 <h2>复现步骤</h2>
-<table><tr><th>项</th><th>内容</th></tr><tr><td>环境</td><td>Python 3.12（与同仓其他脚本一致；<code>python -X utf8</code> 走 UTF-8）。</td></tr><tr><td>依赖</td><td><b>零第三方依赖</b>——只用 Python 标准库（argparse／html／json／os／re／sys）。</td></tr><tr><td>生成</td><td><code>python -X utf8 scripts/review_build.py</code>（写 <code>review/site/</code>）。</td></tr><tr><td>守卫</td><td><code>python -X utf8 tests/test_review_build.py</code>（末行「通过 N / 失败 0」）。</td></tr><tr><td>变异</td><td><code>python -X utf8 tests/test_review_build.py --mutate</code>（逐条恰好命中期望红项）。</td></tr><tr><td>预期耗时</td><td>生成 &lt; 1 秒；守卫 &lt; 5 秒；变异自证（逐条重跑守卫）&lt; 60 秒。</td></tr><tr><td>不触网</td><td>以上命令<b>全程不发网络请求</b>；CI 里同样成立。</td></tr></table>
+<table><tr><th>项</th><th>内容</th></tr><tr><td>环境</td><td>Python 3.12（与同仓其他脚本一致；<code>python -X utf8</code> 走 UTF-8）。</td></tr><tr><td>依赖</td><td><b>零第三方依赖</b>——只用 Python 标准库（argparse／html／json／os／re／sys）。</td></tr><tr><td>生成</td><td><code>python -X utf8 scripts/review_build.py</code>（写 <code>review/site/</code>）。</td></tr><tr><td>判据复核</td><td><code>python -X utf8 scripts/review_build.py --rubric-report</code>（逐维：分数 ↔ 档位 ↔ 支撑证据下标 ↔ 该级 must 是否满足 ↔ rationale）。</td></tr><tr><td>守卫</td><td><code>python -X utf8 tests/test_review_build.py</code>（末行「通过 N / 失败 0」）。</td></tr><tr><td>变异</td><td><code>python -X utf8 tests/test_review_build.py --mutate</code>（逐条恰好命中期望红项）。</td></tr><tr><td>预期耗时</td><td>生成 &lt; 1 秒；守卫 &lt; 5 秒；变异自证（逐条重跑守卫）&lt; 60 秒。</td></tr><tr><td>不触网</td><td>以上命令<b>全程不发网络请求</b>；CI 里同样成立。</td></tr></table>
 <h2>下一步</h2>
-<p><a href="board.html">去榜单看总分排序</a> ｜ <a href="method.html">读方法说明与评分刻度</a></p>
+<p><a href="board.html">去榜单看已测维度均值与覆盖率</a> ｜ <a href="method.html">读方法说明：五维各量什么、两轴怎么分</a></p>
 
 </main>
-<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> 机械生成——勿手改。本站只放可核验读数，<b>不涉资金</b>，<b>不采集用户隐私</b>。</footer>
+<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> ＋ <code>review/data/rubric.json</code> 机械生成——勿手改。本站只放可核验读数，<b>不涉资金</b>，<b>不采集用户隐私</b>。</footer>
 </body>
 </html>

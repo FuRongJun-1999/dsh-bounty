@@ -3707,6 +3707,146 @@
       },
       "day": "2026-10-14",
       "id": "evt_320ead6ff7f2"
+    },
+    {
+      "ts": "2026-10-14T08:50:00Z",
+      "issue": 323,
+      "covers": [
+        323
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "lingshu",
+      "impact": "A",
+      "reason": "lingshu `_novelty` 核心词新颖比例在长句上系统性失效（申报件 #323，intake 输入件，target FuRongJun-1999/lingshu）。本仓 marker 自填 project=memory，但缺陷本体、缺陷 issue 与 target 仓均在 lingshu（lingshu#573），维护者按 target 仓定 project=lingshu —— 属申报者笔误，按「举证瑕疵 ≠ 结论不成立」不扣分。维护者独立取证（隔离克隆 D:/ext-iso/r19_ls，HEAD == origin/main == 9dd0beb063f4；逐字跑申报者自带复现，另自建对照/反面对照探针）：① 申报读数逐字复现 —— 写入「数据库 prod-01 的连接端口是 5432」后查「…6379」，`gate._novelty` = 0.2400，与申报的 0.2400 完全一致；`NOVEL_TRIGGER = 0.75`（longterm_gate.py:430）⇒ 不触发 prefeed。② 申报的增量发现成立 —— 对照组（同模板、核心词真的变了：「…端口是 5432」→「…端口昨天炸了」）novelty = 0.4211，同样不触发，证实「不只是标识符特有问题，而是该比例判据在长句上普遍失效」。③ 反面对照成立 —— 逐字相同输入 novelty = 0.0000（≤0.25，申报验收标准第 4 条满足）。④ 机理边界与申报自陈一致 —— 短句「端口 5432」→「端口 6379」novelty = 1.0000 触发，长句单字变 0.1935 不触发 ⇒ 对长度 L 的句子单点修改最多贡献 4/L 的新颖比例，L>6 时必然低于 0.75。⑤ 申报引用的自陈未修逐字属实 —— `_core_grams` docstring（longterm_gate.py:134-135）原文「未修：模板相同、仅 ASCII token 不同的输入仍按比例计新（不足 0.75 触发）」。与既有账本行的边界：evt_e01f66bb610b（#109）reason 虽含 longterm_gate，但讲的是「零引用参数」（参数面），与本件（判据面）缺陷面不相交 ⇒ 各计一份。【定档依据】难度 hard 6：采纳申报自定 hard —— 需给出判据上限的量化模型并设计替代判据（申报给出三种候选），非单行改动。影响 A：按「不做会怎样」判 —— prefeed 对收款账号轮换／服务器 IP 变更／剂量调整／外链域名被换／CVE 编号更新这些最需强化的变化结构性看不见，属核心链路语义错误；实测确证为现行失效（非健壮性缺口）。全件为纯缺陷报告（无 PR，申报者明确待维护者裁定修法后再开 PR），按「未合入提案可计分」先例 evt_ea3c2972eb97 受理。档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-14",
+      "id": "evt_7b6f57f76248"
+    },
+    {
+      "ts": "2026-10-14T08:51:00Z",
+      "issue": 324,
+      "covers": [
+        324
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "lingshu",
+      "impact": "A",
+      "reason": "lingshu `import_all` 绕过 `add_node` 的 importance 值域钳制（申报件 #324，intake 输入件，target FuRongJun-1999/lingshu；marker 自填 project=memory，按 target 仓定 lingshu，属笔误不扣分）。维护者独立取证（隔离克隆 @ 9dd0beb063f4，逐字跑申报者自带复现 + 自建对照探针）：① 申报读数逐字复现 —— export_all 后把两行 importance 改成 1e6 / -5 再 import_all，回报 `integrity_ok: True`、`discarded_keys: {}`、`action_logs: 0`，恢复后落库值 `[('正常记忆', 1000000.0), ('边界记忆', -5.0)]` **原样未钳**，与申报完全一致。② 对照组确证路径分叉 —— 走正常写入路径 `add_context(importance=1e6)` 落库 1.0、`add_context(importance=-5)` 落库 0.0、`add_context(importance=0.7)` 落库 0.7 ⇒ **同一份越界值，走新建 4/4 被归一、走恢复 0/4 被放过**。③ 申报引用的自陈边界逐字属实 —— `add_node` docstring（core.py:1326-1327）原文「②`import_all` 绕过本方法直接 `INSERT OR REPLACE`，其备份行的 `importance` **不在**本闸范围内」。④ 无痕确证 —— import_all 回报中 action_logs 计入 0、discarded_keys 为空 ⇒ 事后无法追查越界值来源。与既有账本行的边界：evt_b8a76473ed74（#93）reason 虽含 import_all，但讲的是「无密钥改写并降级结构层」（权限面），与本件（值域面）缺陷面不相交 ⇒ 各计一份。【定档依据】难度 hard 6：采纳申报自定 hard —— 本件揭示 #164 选定的「唯一写入汇聚点」并非全部写入面（恢复路径从旁路过），修法需覆盖 importance/confidence 同族字段并配可查字段，属结构性发现而非单行改动。影响 A：按「不做会怎样」判 —— 恢复路径值域裸奔 ⇒ recall 线性加权被单条记忆劫持（实测 30 万分压过结构层规定）、`integrity_ok=True` 名不副实（运维据此认为备份干净而实际已污染），属核心链路失效与量具失效；实测确证为现行失效。全件为纯缺陷报告（无 PR）。档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-14",
+      "id": "evt_510dc6bb5200"
+    },
+    {
+      "ts": "2026-10-14T08:52:00Z",
+      "issue": 326,
+      "covers": [
+        326
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "lingshu",
+      "impact": "B",
+      "reason": "lingshu `load_shapes` 的 pos_origin 被 PR 描述声明为「必需字段」却在代码里取默认 bbox_center（申报件 #326，intake 输入件，target FuRongJun-1999/lingshu；marker 自填 project=memory，按 target 仓定 lingshu，属笔误不扣分）。维护者独立取证（隔离克隆 @ 9dd0beb063f4，逐字跑申报者自带复现 + 自建 docstring 探针）：① 逐字复现 —— 漏写 pos_origin 的 shapes 文件加载后，部件坐标与显式写 bbox_center **逐位完全相同**（[(-0.877,-0.778,0.27),(-0.823,-0.722,0.33),(0.977,0.878,-0.37)]），与显式写 anchor 不一致；枢轴锚点自 (0.246,0.244,-0.260) 挪到 (-0.877,-0.778,0.27)，位移约 1.2。② 契约不一致确证 —— 源码 `pos_origin = doc.get(\"pos_origin\", \"bbox_center\")`（shapes.py:284）确为取默认；`:285-286` 对**非法值** fail-closed（raise ValueError）⇒ 只有**缺失**才落默认。③ docstring 未声明缺失行为确证 —— 实测 `load_shapes` docstring 段内「缺失/缺省/默认」出现 **0** 次（doc_mentions_missing = False），读代码无法得知这一分歧。④ 申报引用的 PR #468 描述「pos_origin 是必需字段」与代码相反。【定档依据】难度 medium 3：采纳申报自定 medium —— 单点契约修正（改为 raise 或补声明）＋ docstring 补齐 ＋ 一条守卫。影响 B：按「不做会怎样」判 —— 触发需身体侧导出文件**漏写**该字段（需特定路径），且默认方向恰是 PR 点名要防的那条（把关节枢轴锚点挪走致机构整体错位）；不构成现行失效，属契约缺口。全件为纯缺陷报告（无 PR）。档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-14",
+      "id": "evt_0fef23d95b3b"
+    },
+    {
+      "ts": "2026-10-14T08:53:00Z",
+      "issue": 349,
+      "covers": [
+        349
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "lingshu",
+      "impact": "B",
+      "reason": "lingshu 坐标边界守卫 `scan_clamp_copies` 对 `min(max(...))` 改写整类漏报 ＋ 白名单常量定义未接线（申报件 #349，intake 输入件，target FuRongJun-1999/lingshu；marker 自填 project=memory，按 target 仓定 lingshu，属笔误不扣分）。维护者独立取证（隔离克隆 @ 9dd0beb063f4）：① 判死档单形状确证 —— `_find_margin_clamps` 的 inline 档（coord_contract.py:396-419）逐字为 `if not (_is_builtin(node, \"max\") and len(node.args)==2): continue` 后接 `if not (_is_builtin(inner, \"min\") and len(inner.args)==2): continue` ⇒ **只认 `max(lo, min(hi, v))` 一种顺序**，`min(max(...))` 形态直接 continue ⇒ 整类漏报成立（不只是正则档，**AST 判死档同样漏**）。② CLAMP_RE 未接线确证 —— 全源码中 `CLAMP_RE` 出现 **1** 次（即定义处 L129），而 `SUSPECT_RE` 出现 2 次（定义 L131 ＋ 使用）⇒ 申报的「定义后从未被读取」属实。③ 白名单未接线 ＋ 真源被自报确证 —— 实测 `scan_clamp_copies(lingshu)` 返回 6 条命中，其中 `world/coord_contract.py:86 clamp_xz` 以 `call-arithmetic` 计 **2** 处，而 `CANONICAL_CALL_SITES`（L139）把该站点登记为「合法落点」且处数写 **1**，`CANONICAL_FILE`（L137）注释称其为「边界算式的唯一合法落点」，但返回的 hits **未做任何过滤** ⇒ 真源把自己报成判死命中，且登记处数与实际不符。申报自己已给出边界（若维护者认为该守卫只承诺覆盖单形状，第①点退化为 SPEC 收窄措辞），但第②③点是独立事实错误。【定档依据】难度 medium 3：采纳申报自定 medium —— 需补对称形态判据 ＋ 接线白名单 ＋ 补 D 组同级断言。影响 B：按「不做会怎样」判 —— 属守卫/契约面，**不改产品运行时行为**（申报自陈），触发需特定改写形态；不是现行功能失效，但守卫漏报使该缺陷类失去机械检查（先例 evt_9dc38a268944 对「健壮性缺口/面未启用」取 C，本件因守卫是 SPEC 明写的 hard rule 且白名单未接线属独立事实错误，取 B）。全件为纯缺陷报告（无 PR）。档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-14",
+      "id": "evt_13e8b24f7336"
+    },
+    {
+      "ts": "2026-10-14T08:54:00Z",
+      "issue": 360,
+      "covers": [
+        360
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "lingshu",
+      "impact": "B",
+      "reason": "lingshu `get_nodes_in_range` 是 #267 逐行容错的漏网站点（申报件 #360，intake 输入件，target FuRongJun-1999/lingshu；marker 自填 project=memory，按 target 仓定 lingshu，属笔误不扣分）。维护者独立取证（隔离克隆 @ 9dd0beb063f4，四种破坏逐条构造并实测双路径）：① 路径分叉确证 —— 同一张坏行下 `store.query_nodes_by_time(0, 1e12)` 全部 OK len=1（经 `_tolerant_nodes` 容错跳过坏行），而 `store.get_nodes_in_range(0, 1e12)` 与 engine 门面 `get_timeline(0, 1e12)` 全部抛异常：tags=NULL → ValueError、layer=bogus → ValueError、condition_space 非 JSON → JSONDecodeError、semantic_coordinates 截断 → ValueError ⇒ **同一条路径正常、另一条整条查询抛异常**，与申报结论一致（申报报 tags=NULL 为 TypeError、semantic 为 JSONDecodeError，异常类型与我的探针构造有关，同为「抛异常」这一事实一致）。② 代码锚点确证 —— `query_nodes_by_time`（core.py:1803）确实经 `nodes, skipped = self._tolerant_nodes(c.fetchall())` 并刷新 `last_skipped_rows`；`get_nodes_in_range`（core.py:3364）确实直接 `[STNode.from_row(tuple(r)) for r in c.fetchall()]` 裸调，无容错。③ 关联根因确证 —— `_tolerant_nodes` docstring 自述覆盖面为 query_nodes / get_recent_context / search_content，而 #267 的诉求是「知识层所有批量读取」，本件为其漏网同族站点。【定档依据】难度 medium 3：采纳申报自定 medium —— 修法为一行改经 `_tolerant_nodes` ＋ 刷新 last_skipped_rows，但需核同族站点并补「跳过集合必须一致」的守卫。影响 B：按「不做会怎样」判 —— 触发需库中**存在坏行**（手工改库 / import_all 原样 INSERT / 外部写入方裸 sqlite，需特定路径），且公开门面 get_timeline 在坏行下整条抛异常；属需特定路径才可触发的缺陷，非现行失效。全件为纯缺陷报告（无 PR）。档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-14",
+      "id": "evt_8bbc2a6c889c"
     }
   ]
 }

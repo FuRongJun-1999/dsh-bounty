@@ -44,6 +44,29 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    295,
+    296,
+    297,
+    298,
+    299,
+    323,
+    324,
+    326,
+    349,
+    360
+   ],
+   "login": "Yinfeng818",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 45,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -152,24 +175,6 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 25,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    295,
-    296,
-    297,
-    298,
-    299
-   ],
-   "login": "Yinfeng818",
-   "project": "lingshu",
-   "quality_E": null,
-   "reputation_delta": 24,
    "rounds": 1
   },
   {

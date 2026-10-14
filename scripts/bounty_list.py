@@ -42,7 +42,16 @@ def esc(s):
 
 def render(doc):
     L = []
-    items = sorted(doc["items"], key=sort_key)
+    # ★本笔：**元素形状判据**。`items` 来自真源 `docs/bounty/悬赏.json`（**手写台账**），
+    # 元素非对象 ⇒ `sort_key` 的 `it["score"]` 抛 `TypeError`／`KeyError`。
+    # 本件是**生成器**：`--check` 那条 CI 闸（`bounty_list.py --check`）会因此在
+    # 漂移检测前就崩，拿不到「产物与真源一致／漂移」这个结论。
+    _items = doc.get("items") or []
+    _good = [it for it in _items if isinstance(it, dict)]
+    _badn = len(_items) - len(_good)
+    if _badn:
+        sys.stderr.write("[警告] 真源 items 里有 %d 条非对象条目，已跳过（须修真源）\n" % _badn)
+    items = sorted(_good, key=sort_key)
     L.append("# 灵枢悬赏 · 任务清单")
     L.append("")
     L.append("> **本文件由 `scripts/bounty_list.py` 机械生成——请勿手改**（手改会在下次生成时被覆盖）。")

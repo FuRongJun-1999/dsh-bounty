@@ -11,7 +11,7 @@
       "source_url": "来源仓库 URL（须 http(s)://）",
       "reviewed_at": "测评日 YYYY-MM-DD（= 证据抓取日；产物不含时刻，保证确定性）",
       "dimensions": "五维读数：检索质量／记忆持久／注入预算／隐私与本地性／可验证性，各 1–5 整数",
-      "unmeasured_dims": "**未取得读数的维度名列表**——列在这里的维度必须恰好记 1（无读数档），守卫强制",
+      "unmeasured_dims": "**`dim_basis` 为空的维度名列表（无任何证据）**——与 `dimensions` 里记 `null` 的维度**双向一致**（记 `null` ⇔ 列在这里；有分数的维度不得列进来），守卫强制",
       "evidence": "[{kind, cmd, output, source, doc, quotes, probe?}] —— 来源档位／命令／原始输出／来源／出处快照／逐字引文；缺一即 fail-closed",
       "evidence.kind": "**本机复跑** = 由 `scripts/evidence_probe.py` 的具名探针在本机跑出，`output` 与该探针 stdout **逐字节相同**，并由 `scripts/evidence_check.py --repro` 每次复算；**公开文档转引** = 引用公开 README／文档的原文读数（来源里给 URL 与抓取日）。**每条记录至少 1 条「本机复跑」**",
       "evidence.probe": "探针 id（`kind` 为「本机复跑」时必填；转引条目**不许**填）——见 `python -X utf8 scripts/evidence_probe.py --list`",
@@ -23,7 +23,7 @@
     "硬约束": [
       "记录数 < 3 ⇒ 生成器 fail-closed（验收标准要求 ≥3 个插件）",
       "维度值域 1–5 整数；越界即点名拒绝",
-      "**凡列在 unmeasured_dims 里的维度必须恰好为 1**（1 = 无读数档；2–5 只在有读数时使用）",
+      "**`dimensions` 里记 `null` 的维度必须恰好在 `unmeasured_dims` 里，且有分数的维度不得列进去**（两处双向一致）——`null` = **`dim_basis` 为空（无任何证据）**、**不参与**任何合计；页面上的 `1..5` 都表示**有基座**（该维挂了 ≥1 条证据），`1` 是最低档——**1–4 级的机械门槛都只是「基座非空」**，数字读数不是 1–4 级的必要条件（有没有可核数字读数由**证据档位**列另行披露）；两者不是一回事",
       "每条 evidence 的 kind／cmd／output／source／doc／quotes 均不得为空；`quotes` 每条不少于 6 字符（短串在长文档里几乎必然命中，属无信息量引文）",
       "**每条记录至少 1 条 `kind == 本机复跑` 的证据**——只判 output 是非空字符串等于没有判据",
       "`version_source` 必须锚在不可变引用（tag／commit）；`version` 必须能由 `review/evidence/<slug>.package.json` 快照复核到",
@@ -31,6 +31,7 @@
       "打分只依据本文件列出的证据——不打「凭印象」的分"
     ]
   },
+  "rubric_version": "2.0",
   "records": [
     {
       "name": "dsh-memory",
@@ -44,16 +45,40 @@
       "dimensions": {
         "检索质量": 4,
         "记忆持久": 4,
-        "注入预算": 1,
-        "隐私与本地性": 5,
-        "可验证性": 5
+        "注入预算": null,
+        "隐私与本地性": 4,
+        "可验证性": 4
+      },
+      "dim_basis": {
+        "检索质量": [
+          0,
+          1
+        ],
+        "记忆持久": [
+          2
+        ],
+        "注入预算": [],
+        "隐私与本地性": [
+          4
+        ],
+        "可验证性": [
+          0,
+          3
+        ]
+      },
+      "dim_rationale": {
+        "检索质量": "证据 1、2 并列给出上界 hit@10 99.8% 与自然问句诚实下界 40.2%，故记 4；未给 5 因两条均为转引、本机未跑检索侧命令，无 repro 档。",
+        "记忆持久": "证据 3 给出写入三闸门／仅显式 forget 可删／派生物可重建三条结构性保证，故记 4；未给 5 因这是设计表述而非本机写入—重启—取回往返，无 repro 档。",
+        "注入预算": "未取得读数：README 未提供任何 token 用量或字节读数，按两轴规则记 null 并进 unmeasured_dims（不再借 1 参与求和）。",
+        "隐私与本地性": "证据 5 为 README 关于零重依赖／纯词面可复现／明确不做向量嵌入的原文声明，故记 4；未给 5 因本机未复跑（该插件未安装、其源码仓本轮未离线取全），无 repro 档 —— 原 5 分建立在转引之上，按现行口径下调一级。",
+        "可验证性": "证据 1（基准数据随仓公开 ＋ 第三方独立验证报告，命中 4 级「第三方独立验证报告」一支）与证据 4（本机复跑**本记录的证据链与版本面**，逐字节可复算）共同支撑，故记 4；**未给 5** 因 5 级要的是**本机复跑该插件自己的运行入口**（如 `python -m md_cg.run_tests`），而本机未跑该插件（未安装、源码仓本轮未离线取全）——证据 4 是本站证据链探针，不触及该插件的运行时。"
       },
       "unmeasured_dims": [
         "注入预算"
       ],
       "evidence": [
         {
-          "cmd": "# 在 dsh-memory 仓根（README「怎么跑」给出的模块式入口；\n# README 注明直接 python md_cg/test_xxx.py 会 ImportError）\npython -m md_cg.run_tests\npython -m md_cg.bench_locomo_zh_public   # 中文：只读 data/benchmarks/locomo-zh-500/",
+          "cmd": "# **未执行**，仅记录该仓 README 给出的入口（本机未安装、未运行）：\n# 在 dsh-memory 仓根（README「怎么跑」给出的模块式入口；\n# README 注明直接 python md_cg/test_xxx.py 会 ImportError）\npython -m md_cg.run_tests\npython -m md_cg.bench_locomo_zh_public   # 中文：只读 data/benchmarks/locomo-zh-500/",
           "output": "# 以下为 README 原文读数（**本机未跑该命令**，见 source）：\n# ③ 英文自由表达检索：hit@1 50.0%  hit@5 74.6%  hit@10 81.2%\n# ② 中文标准关键词检索：hit@1 96.8%  hit@10 99.8%\n# ④ 机械词典查表归一端到端：hit@10 57.6%\n# ①-对照-不做归一化：hit@10 78.2-81.2%\n# locomo-zh-500 中文（md_cg 完整主链路）：hit@1 94.6%  hit@5 / hit@10 99.2%",
           "source": "公开文档 https://raw.githubusercontent.com/FuRongJun-1999/dsh-memory/main/README.md （抓取日 2026-10-13）· 原文声明该组数字「英文主路线 ② 96.8/99.8/99.8 逐位一致」由**第三方独立验证报告**给出；报告全文见仓库内 docs/eval/第三方验证报告_LoCoMo_灵枢_.md",
           "doc": "dsh-memory.README.md",
@@ -63,12 +88,14 @@
             "中文 96.8/99.6",
             "③ 英文原题直接原子匹配（不做归一化的对照）",
             "机械词典查表归一端到端实测仅 57.6%",
-            "hit@5 / hit@10 99.2%"
+            "hit@5 / hit@10 99.2%",
+            "给定中文标准关键词",
+            "端到端真实水平由 AI 归一质量决定（机械下界 57.6，AI 上界趋近 99.8）"
           ],
           "kind": "公开文档转引"
         },
         {
-          "cmd": "# 端到端 QA 同口径对照（与 Mem0/Letta 论文同设定）\n# 口径真源见 docs/eval/端到端LoCoMoQA同口径对照_v1.0.md\npython -m md_cg.run_tests",
+          "cmd": "# **未执行**，仅记录该仓 README 给出的入口（本机未安装、未运行）：\n# 端到端 QA 同口径对照（与 Mem0/Letta 论文同设定）\n# 口径真源见 docs/eval/端到端LoCoMoQA同口径对照_v1.0.md\npython -m md_cg.run_tests",
           "output": "# 以下为 README 原文读数（**本机未跑**）：\n# 检索注入 QA：17.2%\n# full-context：16.4%\n# 对照：自然问句诚实下界 hit@10 40.2% vs 派生题面 92.0%",
           "source": "公开文档 https://raw.githubusercontent.com/FuRongJun-1999/dsh-memory/main/README.md （抓取日 2026-10-13）· 表中标注为「与 Mem0/Letta 论文同设定」的自报口径",
           "doc": "dsh-memory.README.md",
@@ -98,17 +125,29 @@
           "kind": "本机复跑",
           "probe": "record.dsh-memory",
           "cmd": "python -X utf8 scripts/evidence_probe.py record.dsh-memory\n# 逐字节复算（CI 用的那道闸）：\npython -X utf8 scripts/evidence_check.py --repro",
-          "output": "# 探针 record.dsh-memory · 只读已提交快照与真源，不触网\n\n## ① 正文快照（本记录的主引文出处面）\nfile   : review/evidence/dsh-memory.README.md\nsha256 : 07c8cb83c170963eac0ff8f671f744a44366aa69fb603071e2f8459f730babe9\nbytes  : 104373\n\n## ② 版本面快照（不可变 tag 上的 package.json）\nfile   : review/evidence/dsh-memory.package.json\nsha256 : 2e65ef81302a803649bdd79cb9504dc5d37de3ccd287dd6b48b367917983d770\nbytes  : 3669\nversion: 0.8.1（真源声明 0.8.1）\nsource : https://raw.githubusercontent.com/FuRongJun-1999/dsh-memory/v0.8.1/package.json\n[OK] 版本面：快照里的 version == 真源声明的 version\n\n## ③ 逐字引文（**按每条证据自己声明的 doc** 做字节子串核对）\n[OK] evidence[0] doc=dsh-memory.README.md '第三方独立验证' → 第 215、282、357 行\n[OK] evidence[0] doc=dsh-memory.README.md '②路 96.8/99.8/99.8 **逐位一致**' → 第 282 行\n[OK] evidence[0] doc=dsh-memory.README.md '中文 96.8/99.6' → 第 316、357 行\n[OK] evidence[0] doc=dsh-memory.README.md '③ 英文原题直接原子匹配（不做归一化的对照）' → 第 290 行\n[OK] evidence[0] doc=dsh-memory.README.md '机械词典查表归一端到端实测仅 57.6%' → 第 280 行\n[OK] evidence[0] doc=dsh-memory.README.md 'hit@5 / hit@10 99.2%' → 第 316 行\n[OK] evidence[1] doc=dsh-memory.README.md '端到端 LoCoMo QA 同口径对照' → 第 518 行\n[OK] evidence[1] doc=dsh-memory.README.md '检索注入 QA' → 第 518 行\n[OK] evidence[1] doc=dsh-memory.README.md '检索注入 QA **17.2%**' → 第 518 行\n[OK] evidence[1] doc=dsh-memory.README.md 'full-context 16.4%' → 第 518 行\n[OK] evidence[1] doc=dsh-memory.README.md '自然问句诚实下界 hit@10 **40.2%**' → 第 518 行\n[OK] evidence[1] doc=dsh-memory.README.md '派生题面 92.0%' → 第 518 行\n[OK] evidence[2] doc=dsh-memory.README.md 'committed' → 第 37、158、159、180 行\n[OK] evidence[2] doc=dsh-memory.README.md '遗忘只能由显式 `cg(op=forget)` 发起、不做静默淘汰' → 第 37、209 行\n[OK] evidence[2] doc=dsh-memory.README.md '检索索引只是派生物、随时可重建' → 第 37、209 行\n[OK] evidence[3] doc=dsh-memory.README.md '第三方独立验证' → 第 215、282、357 行\n\n## ④ 本条记录引用到的快照指纹（逐个可离线复核）\nfile   : review/evidence/dsh-memory.README.md\nsha256 : 07c8cb83c170963eac0ff8f671f744a44366aa69fb603071e2f8459f730babe9\nbytes  : 104373\n\n引文命中 16 条；未命中 0 条；引用快照 1 份\n结论：本记录的证据链在本机逐字节成立\n",
+          "output": "# 探针 record.dsh-memory · 只读已提交快照与真源，不触网\n\n## ① 正文快照（本记录的主引文出处面）\nfile   : review/evidence/dsh-memory.README.md\nsha256 : 07c8cb83c170963eac0ff8f671f744a44366aa69fb603071e2f8459f730babe9\nbytes  : 104373\n\n## ② 版本面快照（不可变 tag 上的 package.json）\nfile   : review/evidence/dsh-memory.package.json\nsha256 : 2e65ef81302a803649bdd79cb9504dc5d37de3ccd287dd6b48b367917983d770\nbytes  : 3669\nversion: 0.8.1（真源声明 0.8.1）\nsource : https://raw.githubusercontent.com/FuRongJun-1999/dsh-memory/v0.8.1/package.json\n[OK] 版本面：快照里的 version == 真源声明的 version\n\n## ③ 逐字引文（**按每条证据自己声明的 doc** 做字节子串核对）\n[OK] evidence[0] doc=dsh-memory.README.md '第三方独立验证' → 第 215、282、357 行\n[OK] evidence[0] doc=dsh-memory.README.md '②路 96.8/99.8/99.8 **逐位一致**' → 第 282 行\n[OK] evidence[0] doc=dsh-memory.README.md '中文 96.8/99.6' → 第 316、357 行\n[OK] evidence[0] doc=dsh-memory.README.md '③ 英文原题直接原子匹配（不做归一化的对照）' → 第 290 行\n[OK] evidence[0] doc=dsh-memory.README.md '机械词典查表归一端到端实测仅 57.6%' → 第 280 行\n[OK] evidence[0] doc=dsh-memory.README.md 'hit@5 / hit@10 99.2%' → 第 316 行\n[OK] evidence[0] doc=dsh-memory.README.md '给定中文标准关键词' → 第 280、282 行\n[OK] evidence[0] doc=dsh-memory.README.md '端到端真实水平由 AI 归一质量决定（机械下界 57.6，AI 上界趋近 99.8）' → 第 280 行\n[OK] evidence[1] doc=dsh-memory.README.md '端到端 LoCoMo QA 同口径对照' → 第 518 行\n[OK] evidence[1] doc=dsh-memory.README.md '检索注入 QA' → 第 518 行\n[OK] evidence[1] doc=dsh-memory.README.md '检索注入 QA **17.2%**' → 第 518 行\n[OK] evidence[1] doc=dsh-memory.README.md 'full-context 16.4%' → 第 518 行\n[OK] evidence[1] doc=dsh-memory.README.md '自然问句诚实下界 hit@10 **40.2%**' → 第 518 行\n[OK] evidence[1] doc=dsh-memory.README.md '派生题面 92.0%' → 第 518 行\n[OK] evidence[2] doc=dsh-memory.README.md 'committed' → 第 37、158、159、180 行\n[OK] evidence[2] doc=dsh-memory.README.md '遗忘只能由显式 `cg(op=forget)` 发起、不做静默淘汰' → 第 37、209 行\n[OK] evidence[2] doc=dsh-memory.README.md '检索索引只是派生物、随时可重建' → 第 37、209 行\n[OK] evidence[3] doc=dsh-memory.README.md '第三方独立验证' → 第 215、282、357 行\n[OK] evidence[4] doc=dsh-memory.README.md '零重依赖、纯词面可复现' → 第 303 行\n[OK] evidence[4] doc=dsh-memory.README.md '引入嵌入模型依赖与索引体积' → 第 303 行\n[OK] evidence[4] doc=dsh-memory.README.md '当前明确不做' → 第 303 行\n\n## ④ 本条记录引用到的快照指纹（逐个可离线复核）\nfile   : review/evidence/dsh-memory.README.md\nsha256 : 07c8cb83c170963eac0ff8f671f744a44366aa69fb603071e2f8459f730babe9\nbytes  : 104373\n\n引文命中 21 条；未命中 0 条；引用快照 1 份\n结论：本记录的证据链在本机逐字节成立\n",
           "source": "本机复跑（命令见左）：原始输出就是该探针的 stdout，由 `scripts/evidence_check.py --repro` 逐字节复算。它证明的是**本记录的证据链在本机成立**——正文快照 sha256、版本面快照里的 version、以及每一条逐字引文都按字节命中；**不**构成对插件运行时行为的判定（那需要装它、跑它）。",
           "doc": "dsh-memory.README.md",
           "quotes": [
             "第三方独立验证"
           ]
+        },
+        {
+          "kind": "公开文档转引",
+          "cmd": "# README「要不要上语义向量检索？」一节的原文表述（**本机未跑**）：\n# 检索：读取 README 中「零重依赖、纯词面可复现」「引入嵌入模型依赖」「当前明确不做」相关段落",
+          "output": "# 以下为 README 原文表述（**本机未跑**）：\n# 向量嵌入会引入嵌入模型依赖与索引体积，与「零重依赖、纯词面可复现」的公开仓原则冲突，当前明确不做。",
+          "source": "公开文档 https://raw.githubusercontent.com/FuRongJun-1999/dsh-memory/main/README.md （抓取日 2026-10-13）· 该节讨论是否引入语义向量检索，结论是明确不做",
+          "doc": "dsh-memory.README.md",
+          "quotes": [
+            "零重依赖、纯词面可复现",
+            "引入嵌入模型依赖与索引体积",
+            "当前明确不做"
+          ]
         }
       ],
-      "conclusion": "**逐项指回读数**：①「检索质量 4」由证据 1 的 ②行 hit@10 99.8% 与证据 2 的自然问句诚实下界 hit@10 40.2% 共同支撑——**上界与下界差距极大**，故不给 5：99.8% 是「给定中文标准关键词」的检索侧上界，README 自己写明「端到端真实水平由 AI 归一质量决定（机械下界 57.6，AI 上界趋近 99.8）」。②「记忆持久 4」由证据 3 的三点结构性表述支撑（写入三闸门＋committed、仅显式 forget 可删、派生物可重建）；给 4 而非 5，因这三点是**设计表述**而非持久性基准读数。③「注入预算 1」＝**无读数档**：README 未提供任何 token 用量或耗时读数（见 unmeasured_dims）。④「隐私与本地性 5」：README 声明纯词面、零重依赖，并明确**不做**语义向量嵌入（避免引入嵌入模型依赖与索引体积）。⑤「可验证性 5」由基准数据随仓公开 ＋ 第三方独立验证报告共同支撑；**但该报告同时给出了批评**，见 boundary。",
-      "boundary": "**不适用条件**：①本条检索读数**只在自建 `locomo-zh-500` 语料上成立**——换语料需重跑，README 未声称跨语料泛化。②99.8% 依赖查询已被归一为「中文标准关键词」；**LLM 归一环节本身的质量未被单独评测**，机械归一端到端仅 57.6%。③证据 2 的 17.2% 是「检索注入 QA」口径，**不可**与证据 1 的 hit@10 混读成同一量。④**被引的第三方报告本身含批评面**：据该报告，99.8% 主要由中文摘要层挣得（去英文处理层 hit@10 反为 100.0%），英文归一化组件自身端到端为 81.0%，且报告的若干对照臂第三方**不可复现**（英文原题不入库）。本子站**未独立复算该报告**。⑤全部**转引**读数取自公开文档，非本机跑该插件所得。⑥版本面锚在**不可变 tag** `v0.8.1` 的 package.json（快照 `review/evidence/dsh-memory.package.json`），不再锚可变的 main——上游已被证实在不升版本号的情况下会改内容。⑦**证据 4 是本机复跑**，但它证明的是**本记录的证据链在本机成立**（快照 sha256、版本面版本、逐字引文按字节命中），**不**证明该插件的运行时行为。",
-      "unmeasured": "**未测 ＋ 原因**：①本机**未重跑**上述任何基准——测评时本机 github.com/raw.githubusercontent.com 被 hosts 钉到 127.0.0.1，**无法克隆仓库**，故引用类读数只能取自公开文档原文（source 里给出 URL 与抓取日，`review/evidence/` 落字节快照可离线核对）。**证据 4 确是本机复跑**，但它的射程只到「引证忠实 ＋ 版本面一致」，**不等于**跑过该插件。②「注入预算」**未取得任何原始输出**——README 未提供 token 用量或耗时读数，故该维度记 1（无读数档），**不表示**该插件预算控制差。③跨语言（非中英）检索未测。④第三方报告的对照臂未复现。⑤**第三方可怎样复核运行时面**（本站没做，但路径是明确的）：`git clone https://github.com/FuRongJun-1999/dsh-memory` → `git checkout v0.8.1` → `python -m md_cg.run_tests md_cg`（README 自述该套件纯 stdlib；部分组需 Rust，可按组收窄）；公开基准另可 `python -m md_cg.bench_locomo_zh_public`，但它要读 `data/benchmarks/locomo-zh-500/`——该目录**不在** npm 包 `files` 里，必须用源码仓。本站把这份路径写出来，是为了让复核者不必猜；**不等于**本站跑过。",
+      "conclusion": "**逐项指回读数**：①「检索质量 4」由证据 1 的 ②行 hit@10 99.8% 与证据 2 的自然问句诚实下界 hit@10 40.2% 共同支撑——**上界与下界差距极大**，故不给 5：99.8% 是「给定中文标准关键词」的检索侧上界，README 自己写明「端到端真实水平由 AI 归一质量决定（机械下界 57.6，AI 上界趋近 99.8）」。②「记忆持久 4」由证据 3 的三点结构性表述支撑（写入三闸门＋committed、仅显式 forget 可删、派生物可重建）；给 4 而非 5，因这三点是**设计表述**而非持久性基准读数。③「注入预算」＝**未取得读数**：README 未提供任何 token／字节用量读数，故记 `null`、进 unmeasured_dims，**不参与**任何合计（见 unmeasured_dims）。④「隐私与本地性 4」：README 声明纯词面、零重依赖，并明确**不做**语义向量嵌入（避免引入嵌入模型依赖与索引体积）；**未给 5** 因本机未跑该插件自己的入口（未安装、源码仓本轮未离线取全），该维度的 repro 不成立。⑤「可验证性 4」由基准数据随仓公开 ＋ 第三方独立验证报告共同支撑；**未给 5** 因本机未跑该插件自己的运行入口（证据 4 只是本站证据链探针）；**但该报告同时给出了批评**，见 boundary。",
+      "boundary": "**不适用条件**：①本条检索读数**只在自建 `locomo-zh-500` 语料上成立**——换语料需重跑，README 未声称跨语料泛化。②99.8% 依赖查询已被归一为「中文标准关键词」；**LLM 归一环节本身的质量未被单独评测**，机械归一端到端仅 57.6%。③证据 2 的 17.2% 是「检索注入 QA」口径，**不可**与证据 1 的 hit@10 混读成同一量。④**被引的第三方报告本身含批评面**：据该报告，99.8% 主要由中文摘要层挣得（去英文处理层 hit@10 反为 100.0%），英文归一化组件自身端到端为 81.0%，且报告的若干对照臂第三方**不可复现**（英文原题不入库）。本子站**未独立复算该报告**。⑤全部**转引**读数取自公开文档，非本机跑该插件所得。⑥版本面锚在**不可变 tag** `v0.8.1` 的 package.json（快照 `review/evidence/dsh-memory.package.json`），不再锚可变的 main——上游已被证实在不升版本号的情况下会改内容。⑦**证据 4 是本机复跑**，但它证明的是**本记录的证据链在本机成立**（快照 sha256、版本面版本、逐字引文按字节命中），**不**证明该插件的运行时行为。⑧**可验证性的口径**：本站把「可验证性」读作**该插件本身可被第三方复跑的程度**，不是本站证据链的自证程度——故 5 级只认「本机复跑该插件自己的运行入口」；本条的本机复跑（证据 4）是本站证据链探针，只支撑 4 级。",
+      "unmeasured": "**未测 ＋ 原因**：①本机**未跑**该插件自己的检索侧基准（`python -m md_cg.run_tests`／`python -m md_cg.bench_locomo_zh_public`）：该插件本机未安装，且 dsh-memory 是纯 Python 包、本轮未把该仓源码离线取全（本机进程级出网不可用——直连 github.com／raw.githubusercontent.com 时 TLS 报 `schannel SEC_E_NO_CREDENTIALS`，`review/evidence/` 下的快照是经 `ghfast.top` 镜像逐文件取回的 README 与 package.json），故上述基准读数只能取自公开文档原文（source 里给出 URL 与抓取日，`review/evidence/` 落字节快照可离线核对）。**证据 4 确是本机复跑**，但它的射程只到「引证忠实 ＋ 版本面一致」，**不等于**跑过该插件。②「注入预算」**未取得任何原始输出**——README 未提供 token／字节用量读数（它有写入耗时一类的性能读数，但不属本维度），故该维度记 `null`、进 unmeasured_dims，**不参与**任何合计，**不表示**该插件预算控制差。③跨语言（非中英）检索未测。④第三方报告的对照臂未复现。⑤**第三方可怎样复核运行时面**（本站没做，但路径是明确的）：`git clone https://github.com/FuRongJun-1999/dsh-memory` → `git checkout v0.8.1` → `python -m md_cg.run_tests md_cg`（README 自述该套件纯 stdlib；部分组需 Rust，可按组收窄）；公开基准另可 `python -m md_cg.bench_locomo_zh_public`，但它要读 `data/benchmarks/locomo-zh-500/`——该目录**不在** npm 包 `files` 里，必须用源码仓。本站把这份路径写出来，是为了让复核者不必猜；**不等于**本站跑过。",
       "disclosure": "**利益相关声明**：本插件（FuRongJun-1999/dsh-memory）与本站维护者为**同一作者**，本条属**自评**。本条分值不应与其余他评条目等权看待；列出的证据与边界未因自评而减免，请优先按上方原始读数自行判断。另：本条「可验证性」部分依赖上游自带的第三方 LoCoMo 验证报告，本交付**未独立复算该报告**。"
     },
     {
@@ -121,11 +160,32 @@
       "source_url": "https://github.com/omdsh-dev/dsh-mnemon",
       "reviewed_at": "2026-10-13",
       "dimensions": {
-        "检索质量": 1,
-        "记忆持久": 4,
-        "注入预算": 1,
+        "检索质量": null,
+        "记忆持久": 3,
+        "注入预算": null,
         "隐私与本地性": 3,
         "可验证性": 3
+      },
+      "dim_basis": {
+        "检索质量": [],
+        "记忆持久": [
+          3
+        ],
+        "注入预算": [],
+        "隐私与本地性": [
+          3
+        ],
+        "可验证性": [
+          0,
+          1
+        ]
+      },
+      "dim_rationale": {
+        "检索质量": "未取得读数：README 未提供任何命中率或对照读数，按两轴规则记 null（不再借 1 参与求和）。",
+        "记忆持久": "证据 4 给出落盘形态（Runtime memory and Project Documents are local files）与删除／保留语义（Turning a component off does not erase its memory、Use ZIP backup to carry it.），命中 3 级，故记 3；**未给 4** 因 4 级要的是「**派生物可重建**」或「**写入即提交**」一类的结构性保证，而快照里没有这两类表述——「三层记忆结构」（README 原文为 Three kinds of memory／Runtime memory, Project Documents and Memory Spaces）只是分类，ZIP backup 只是备份口径，二者都不构成该类保证；同数据集中 dsh-auto-memory 的同类落盘证据亦记 3。未给 5 因本机未跑写入—重启—取回往返，无 repro 档。",
+        "注入预算": "未取得读数：README 未提供任何 token 用量读数，按两轴规则记 null。",
+        "隐私与本地性": "证据 4 明确「Runtime memory and Project Documents are local files; Mnemon Native is local.」（并声明「Local by default」），同时列出多家第三方 Provider、声明「Third-party Providers use their own services and scopes」，数据是否出本地取决于所选 Provider，风险边界可见，故记 3；未给 4 因未能排除外部服务依赖。",
+        "可验证性": "证据 1、2 给出 `pnpm verify` 一类的确定性机械验证入口（可核其在），故记 3；未给 4 因 README 不公开任何量化对照读数，且该维度的证据（证据 1、2）里没有本机复跑条目（档位 prose）——本记录唯一的本机复跑（证据 3）是本站证据链探针，不触及该插件的运行入口。"
       },
       "unmeasured_dims": [
         "检索质量",
@@ -133,7 +193,7 @@
       ],
       "evidence": [
         {
-          "cmd": "# 仓库自述的验证入口（Node.js ^22.19.0 || >=24.0.0 ＋ pnpm）\npnpm install --frozen-lockfile\npnpm verify\npnpm verify:plugins",
+          "cmd": "# 仓库自述的验证入口（Node.js ^22.19.0 || >=24.0.0 ＋ pnpm）——**未执行**，仅记录该仓 README 给出的入口（本机未安装、未运行）\npnpm install --frozen-lockfile\npnpm verify\npnpm verify:plugins",
           "output": "# README「Develop and verify」小节的原文（**无读数，仅命令**）：\n#   pnpm install --frozen-lockfile\n#   pnpm verify\n#   pnpm verify:plugins\n# README 同节声明：「Mechanical tests are not claims about model accuracy or live cloud Providers.」",
           "source": "公开文档 https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/main/README.md （抓取日 2026-10-13）· **本机未安装未运行**",
           "doc": "dsh-mnemon.README.md",
@@ -145,14 +205,14 @@
           "kind": "公开文档转引"
         },
         {
-          "cmd": "# 端到端演示 WebUI（README 给的可跑入口；--live-model 需 DEEPSEEK_API_KEY）\nnode scripts/serve-e2e.mjs --docs-demo",
+          "cmd": "# 端到端演示 WebUI（README 给的可跑入口；--live-model 需 DEEPSEEK_API_KEY）——**未执行**，仅记录该仓 README 给出的入口（本机未运行）\nnode scripts/serve-e2e.mjs --docs-demo",
           "output": "# README 原文（**无读数，仅入口与前置**）：\n#   node scripts/serve-e2e.mjs  starts a disposable real WebUI;\n#   add --docs-demo for the seeded project behind these screenshots,\n#   and --live-model to have the DeepSeek API answer, with the key read from DEEPSEEK_API_KEY.",
           "source": "公开文档 https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/main/README.md （抓取日 2026-10-13）· **本机未运行**",
           "doc": "dsh-mnemon.README.md",
           "quotes": [
-            "Local by default",
-            "Third-party Providers use their own services",
-            "ZIP backup"
+            "starts a disposable real WebUI",
+            "add `--docs-demo` for the seeded project behind these screenshots",
+            "with the key read from `DEEPSEEK_API_KEY`"
           ],
           "kind": "公开文档转引"
         },
@@ -160,17 +220,31 @@
           "kind": "本机复跑",
           "probe": "record.dsh-mnemon",
           "cmd": "python -X utf8 scripts/evidence_probe.py record.dsh-mnemon\n# 逐字节复算（CI 用的那道闸）：\npython -X utf8 scripts/evidence_check.py --repro",
-          "output": "# 探针 record.dsh-mnemon · 只读已提交快照与真源，不触网\n\n## ① 正文快照（本记录的主引文出处面）\nfile   : review/evidence/dsh-mnemon.README.md\nsha256 : 8cff64efd44b873161a68205a07900b038db70ebd908fc339d0808b8a26b9eda\nbytes  : 16830\n\n## ② 版本面快照（不可变 tag 上的 package.json）\nfile   : review/evidence/dsh-mnemon.package.json\nsha256 : 9dd752495cc6aca737a616800febabd32e4263e87b74401f1d70ffe3c6207d46\nbytes  : 9184\nversion: 0.5.28（真源声明 0.5.28）\nsource : https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/v0.5.28/package.json\n[OK] 版本面：快照里的 version == 真源声明的 version\n\n## ③ 逐字引文（**按每条证据自己声明的 doc** 做字节子串核对）\n[OK] evidence[0] doc=dsh-mnemon.README.md 'pnpm install --frozen-lockfile' → 第 143 行\n[OK] evidence[0] doc=dsh-mnemon.README.md 'pnpm verify:plugins' → 第 145 行\n[OK] evidence[0] doc=dsh-mnemon.README.md 'Mechanical tests are not claims about model accuracy' → 第 148 行\n[OK] evidence[1] doc=dsh-mnemon.README.md 'Local by default' → 第 39 行\n[OK] evidence[1] doc=dsh-mnemon.README.md 'Third-party Providers use their own services' → 第 132 行\n[OK] evidence[1] doc=dsh-mnemon.README.md 'ZIP backup' → 第 39、133 行\n[OK] evidence[2] doc=dsh-mnemon.README.md 'Mechanical tests are not claims about model accuracy' → 第 148 行\n\n## ④ 本条记录引用到的快照指纹（逐个可离线复核）\nfile   : review/evidence/dsh-mnemon.README.md\nsha256 : 8cff64efd44b873161a68205a07900b038db70ebd908fc339d0808b8a26b9eda\nbytes  : 16830\n\n引文命中 7 条；未命中 0 条；引用快照 1 份\n结论：本记录的证据链在本机逐字节成立\n",
+          "output": "# 探针 record.dsh-mnemon · 只读已提交快照与真源，不触网\n\n## ① 正文快照（本记录的主引文出处面）\nfile   : review/evidence/dsh-mnemon.README.md\nsha256 : 8cff64efd44b873161a68205a07900b038db70ebd908fc339d0808b8a26b9eda\nbytes  : 16830\n\n## ② 版本面快照（不可变 tag 上的 package.json）\nfile   : review/evidence/dsh-mnemon.package.json\nsha256 : 9dd752495cc6aca737a616800febabd32e4263e87b74401f1d70ffe3c6207d46\nbytes  : 9184\nversion: 0.5.28（真源声明 0.5.28）\nsource : https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/v0.5.28/package.json\n[OK] 版本面：快照里的 version == 真源声明的 version\n\n## ③ 逐字引文（**按每条证据自己声明的 doc** 做字节子串核对）\n[OK] evidence[0] doc=dsh-mnemon.README.md 'pnpm install --frozen-lockfile' → 第 143 行\n[OK] evidence[0] doc=dsh-mnemon.README.md 'pnpm verify:plugins' → 第 145 行\n[OK] evidence[0] doc=dsh-mnemon.README.md 'Mechanical tests are not claims about model accuracy' → 第 148 行\n[OK] evidence[1] doc=dsh-mnemon.README.md 'starts a disposable real WebUI' → 第 148 行\n[OK] evidence[1] doc=dsh-mnemon.README.md 'add `--docs-demo` for the seeded project behind these screenshots' → 第 148 行\n[OK] evidence[1] doc=dsh-mnemon.README.md 'with the key read from `DEEPSEEK_API_KEY`' → 第 148 行\n[OK] evidence[2] doc=dsh-mnemon.README.md 'Mechanical tests are not claims about model accuracy' → 第 148 行\n[OK] evidence[3] doc=dsh-mnemon.README.md 'Runtime memory and Project Documents are local files' → 第 132 行\n[OK] evidence[3] doc=dsh-mnemon.README.md 'Third-party Providers use their own services and scopes' → 第 132 行\n[OK] evidence[3] doc=dsh-mnemon.README.md 'Turning a component off does not erase its memory' → 第 133 行\n[OK] evidence[3] doc=dsh-mnemon.README.md 'Use ZIP backup to carry it.' → 第 133 行\n[OK] evidence[3] doc=dsh-mnemon.README.md 'Local by default with Mnemon Native' → 第 39 行\n\n## ④ 本条记录引用到的快照指纹（逐个可离线复核）\nfile   : review/evidence/dsh-mnemon.README.md\nsha256 : 8cff64efd44b873161a68205a07900b038db70ebd908fc339d0808b8a26b9eda\nbytes  : 16830\n\n引文命中 12 条；未命中 0 条；引用快照 1 份\n结论：本记录的证据链在本机逐字节成立\n",
           "source": "本机复跑（命令见左）：原始输出就是该探针的 stdout，由 `scripts/evidence_check.py --repro` 逐字节复算。它证明的是**本记录的证据链在本机成立**——正文快照 sha256、版本面快照里的 version、以及每一条逐字引文都按字节命中；**不**构成对插件运行时行为的判定。",
           "doc": "dsh-mnemon.README.md",
           "quotes": [
             "Mechanical tests are not claims about model accuracy"
           ]
+        },
+        {
+          "kind": "公开文档转引",
+          "cmd": "# **未执行**，仅记录该仓 README「Data and trust」一节的原文（本机未安装、未运行）：\n# 检索：读取 README 中「本地文件 / Third-party Providers / 关闭组件不删记忆 / ZIP backup」相关段落",
+          "output": "# 以下为 README 原文表述（**本机未跑、无读数**）：\n#   Runtime memory and Project Documents are local files; Mnemon Native is local.\n#   Third-party Providers use their own services and scopes.\n#   Turning a component off does not erase its memory, and changing the storage location does not move data.\n#   Use ZIP backup to carry it.",
+          "source": "公开文档 https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/main/README.md （抓取日 2026-10-13）· 结构性表述，**不是**基准读数（本机未安装该插件，故未运行）",
+          "doc": "dsh-mnemon.README.md",
+          "quotes": [
+            "Runtime memory and Project Documents are local files",
+            "Third-party Providers use their own services and scopes",
+            "Turning a component off does not erase its memory",
+            "Use ZIP backup to carry it.",
+            "Local by default with Mnemon Native"
+          ]
         }
       ],
-      "conclusion": "**逐项指回读数**：①「可验证性 3」：证据 1、2 给出的是**命令入口**而非读数——能跑，但 README **不公开任何量化对照组**（无基线 vs 方案对照、无 hit@k、无 token 预算读数），故不给更高分；也不给 1，因 `pnpm verify` 本身是一套可复现的机械验证套件（与「没有对照读数」是两件事）。②「隐私与本地性 3」：README 明确「Local by default with Mnemon Native」，但同时列出多家第三方 Provider，并声明「Third-party Providers use their own services and scopes」——数据是否出本地**取决于所选 Provider**，故给中档。③「记忆持久 4」：三层记忆结构（Runtime memory／Project Documents／Memory Spaces）＋ ZIP 备份口径在 README 里有明确描述。④「检索质量 1」与「注入预算 1」＝**无读数档**：README 未提供该两维度的任何读数（见 unmeasured_dims）。",
-      "boundary": "**不适用条件**：①本条**只依据 README 文本**——未安装、未运行，故**不构成**对其运行时行为的判定。②「检索质量」与「注入预算」记 1 是**无读数档**，不是实测结论；README 未提供任何在该两维度上的读数。③多家 Provider 各自的检索/删除/枚举能力 README 声明「differ by backend」，本条未逐家核验。④对本条的判定**只对公开可复现的文档表述成立**，不对其云端服务的实际行为作判定（未测）。⑤版本面锚在**不可变 tag** `v0.5.28` 的 package.json（快照 `review/evidence/dsh-mnemon.package.json`）。⑥**证据 3 是本机复跑**，只证明本记录的证据链在本机成立，**不**构成运行时判定。",
-      "unmeasured": "**未测 ＋ 原因**：①本机**未安装、未运行** `pnpm verify` / `node scripts/serve-e2e.mjs`——其前置为 Node ^22.19 ＋ pnpm ＋ 完整依赖安装，而本机到 github.com 被 hosts 拦截，**无法取依赖**。②全部量化维度（hit@k／token 预算／延迟）**未取得任何原始输出**——README 未公开，故「检索质量」「注入预算」记 1（无读数档）。③多家第三方 Provider **未逐家验证**。④`--live-model` 路径需 `DEEPSEEK_API_KEY`，本条**未提供密钥、未运行**。⑤`pnpm verify:plugins`（`scripts/verify-plugin-artifacts.mjs`）**证明性地需要公网 npm registry 与真实 DSH 运行时**：该脚本内明文 `fetch('https://registry.npmjs.org/' + name)`、`npm pack`、`npm install --registry`，并以 `--upgrade-registry https://registry.npmjs.org` 驱动 `scripts/verify-headless-profile.mjs`。这与本站「复跑不触网」的约束直接冲突，故本条**未运行**，也不把它的输出当作任何维度的读数。"
+      "conclusion": "**逐项指回读数**：①「可验证性 3」：证据 1、2 给出的是**命令入口**而非读数——能跑，但 README **不公开任何量化对照组**（无基线 vs 方案对照、无 hit@k、无 token 预算读数），故不给更高分；也不给 1，因 `pnpm verify` 本身是一套可复现的机械验证套件（与「没有对照读数」是两件事）。②「隐私与本地性 3」：README 明确「Local by default with Mnemon Native」，但同时列出多家第三方 Provider，并声明「Third-party Providers use their own services and scopes」——数据是否出本地**取决于所选 Provider**，故给中档。③「记忆持久 3」：证据 4 给出落盘形态（Runtime memory and Project Documents are local files）与删除／保留语义（Turning a component off does not erase its memory、Use ZIP backup to carry it.）——这是分类与备份口径，够不上 4 级要的「派生物可重建／写入即提交」类结构性保证。④「检索质量」与「注入预算」＝**未取得读数**（记 `null`、进 unmeasured_dims、**不参与**任何合计）：README 未提供该两维度的任何读数。",
+      "boundary": "**不适用条件**：①本条**只依据 README 文本**——未安装、未运行，故**不构成**对其运行时行为的判定。②「检索质量」与「注入预算」记 `null`（未取得读数、**不参与**任何合计），不是实测结论；README 未提供任何在该两维度上的读数。③多家 Provider 各自的检索/删除/枚举能力 README 声明「differ by backend」，本条未逐家核验。④对本条的判定**只对公开可复现的文档表述成立**，不对其云端服务的实际行为作判定（未测）。⑤版本面锚在**不可变 tag** `v0.5.28` 的 package.json（快照 `review/evidence/dsh-mnemon.package.json`）。⑥**证据 3 是本机复跑**，只证明本记录的证据链在本机成立，**不**构成运行时判定。⑦**可验证性的口径**：本站把「可验证性」读作**该插件本身可被第三方复跑的程度**，不是本站证据链的自证程度——故 5 级只认「本机复跑该插件自己的运行入口」。",
+      "unmeasured": "**未测 ＋ 原因**：①本机**未安装、未运行** `pnpm verify` / `node scripts/serve-e2e.mjs`——其前置为 Node ^22.19 ＋ pnpm ＋ 该仓完整的 pnpm 工作区依赖安装；本机进程级出网不可用（直连 github.com 时 TLS 报 `schannel SEC_E_NO_CREDENTIALS`，本轮只通 `ghfast.top` 镜像通道），**未执行 `pnpm install --frozen-lockfile`**，故本条未运行（**如实写明：不是「跑了但失败」，是从未执行**）。②全部量化维度（hit@k／token 预算／延迟）**未取得任何原始输出**——README 未公开，故「检索质量」「注入预算」记 `null`、进 unmeasured_dims、**不参与**任何合计。③多家第三方 Provider **未逐家验证**。④`--live-model` 路径需 `DEEPSEEK_API_KEY`，本条**未提供密钥、未运行**。⑤`pnpm verify:plugins`（`scripts/verify-plugin-artifacts.mjs`）**证明性地需要公网 npm registry 与真实 DSH 运行时**：该脚本内明文 `fetch('https://registry.npmjs.org/' + name)`、`npm pack`、`npm install --registry`，并以 `--upgrade-registry https://registry.npmjs.org` 驱动 `scripts/verify-headless-profile.mjs`。这与本站「复跑不触网」的约束直接冲突，故本条**未运行**，也不把它的输出当作任何维度的读数。"
     },
     {
       "name": "dsh-auto-memory",
@@ -185,8 +259,34 @@
         "检索质量": 2,
         "记忆持久": 3,
         "注入预算": 5,
-        "隐私与本地性": 5,
-        "可验证性": 4
+        "隐私与本地性": 4,
+        "可验证性": 5
+      },
+      "dim_basis": {
+        "检索质量": [
+          1
+        ],
+        "记忆持久": [
+          2
+        ],
+        "注入预算": [
+          0,
+          4
+        ],
+        "隐私与本地性": [
+          2
+        ],
+        "可验证性": [
+          3,
+          4
+        ]
+      },
+      "dim_rationale": {
+        "检索质量": "证据 2 记下 README 自报的截断为位置序而非相关度序、半预算下探针保留率随 N 增长下降，故记 2；未给 3 因只有单一下界侧描述，无上界与对照，够不上 3 级要求的「口径写明的命中率读数」；未给 4 同理（无上界／基线对照）。",
+        "记忆持久": "证据 3 逐字节确认落盘为普通 Markdown 文件（其引文含「none — just plain Markdown files」），故记 3；未给 4 因只有落盘形态确认，无跨会话往返读数、也无「派生物可重建」一类结构性保证；未给 5 因本机未跑写入—重启—取回往返；该维度档位显示的 `repro` 来自证据 3 这条**本站证据链探针**（它跑在该插件的快照与真源上，**不**跑该插件的运行时入口）——按本站口径，`repro` 只表示「基座里有本机复跑条目」，**不**表示持久性往返已测。",
+        "注入预算": "证据 5 是本机用**插件自己的**注入段构造函数 `renderMemoryIndexText()`（v0.7.1 的 src/prompt.ts）实跑的多规模点读数：空库 0 bytes，20／50／100／200 四点 bounded 为 3966／4050／3979／3968 （均 ≤4050 bytes），并额外量出同一函数在无预算上限下的 4596／9673／17943／34836 —— 四点 bounded 均严格小于 unbounded，证明截断确实生效；证据 1 给出 README 自报的同一组规模点与空库基线。故记 5：多规模点用量读数确由**本机复跑**产出（非转引他处自报），且逐字节可复算（探针 budget.dsh-auto-memory ＋ evidence_check --repro）。**如实写明两点**：①本机四点精确字节数与 README 自报的 4065／4048／4018／3940 逐点不一致（差 −99／+2／−39／+28 字节，最大 2.44%，且大小顺序不同——README 单调递减、本机非单调）；②该差异**不能**归因于「合成记忆集或 cwd 与 README 不一致」：本机用的是该仓 evals/l0/helpers.ts 自带的 makeMemories（seed=1000+n）与 index-budget.spec.ts 里同一个 cwd（D:\\work\\eval-budget）、同一 maxBytes=4096。两个可能来源本机均**未排除**：(a) README 该表（evals/README 标注 baseline 2026-09-25）早于现行代码——v0.7.1 的索引行序已是三因子排序，而不是该节写的 name 字典序，行序变则截断保留集变、字节数随之漂移；(b) 本机对上游源码是**转写**而非克隆（出网不可用，无法对上游字节取指纹）。因此 5 分只依据「定性口径本机成立 ＋ 多规模点读数确由本机复跑产出」，那四个**精确**数字判为不可复现。",
+        "隐私与本地性": "证据 3 逐字节确认其存储为普通 Markdown 文件且声明不需要外部服务，故记 4；未给 5 因挂在该维度上的本机复跑证据只覆盖证据链与版本面，未实际检视运行时落盘产物，不满足该维度的 repro 实质。",
+        "可验证性": "证据 4（本机实跑该插件自己的免密钥入口 `node scripts/demo.mjs`，退出码 0，完整 stdout 逐字节落盘并逐条核对）与证据 5（本机用该插件自己的注入段构造函数 `src/prompt.ts::renderMemoryIndexText()` 跑出的多规模点读数）都是**跑在该插件自己代码路径上的本机复跑**，原始输出逐字节可复算（探针 demo／budget ＋ `evidence_check.py --repro` 每次复算），满足 5 级；本条与 dsh-memory 的分别正在于此：对 dsh-memory，本站只复跑了自己的证据链探针，未跑该插件的入口。"
       },
       "unmeasured_dims": [],
       "evidence": [
@@ -196,12 +296,12 @@
           "source": "公开文档 https://raw.githubusercontent.com/AskTheWay/dsh-auto-memory/main/README.md （抓取日 2026-10-13）",
           "doc": "dsh-auto-memory.README.md",
           "quotes": [
+            "Injection budget holds at any scale",
             "(4065/4048/4018/3940 bytes measured)",
-            "(4065/4048/4018/3940 bytes measured)",
-            "(4065/4048/4018/3940 bytes measured)",
-            "(4065/4048/4018/3940 bytes measured)",
+            "injected section stays ≤ 4 KB",
             "empty store injects **0 bytes**",
-            "injected section stays ≤ 4 KB"
+            "overshooting by ~800 bytes",
+            "This evaluation layer already caught a real bug"
           ],
           "kind": "公开文档转引"
         },
@@ -224,30 +324,48 @@
           "kind": "本机复跑",
           "probe": "record.dsh-auto-memory",
           "cmd": "python -X utf8 scripts/evidence_probe.py record.dsh-auto-memory\n# 逐字节复算（CI 用的那道闸）：\npython -X utf8 scripts/evidence_check.py --repro",
-          "output": "# 探针 record.dsh-auto-memory · 只读已提交快照与真源，不触网\n\n## ① 正文快照（本记录的主引文出处面）\nfile   : review/evidence/dsh-auto-memory.README.md\nsha256 : 8c2970f5643c653371da0c9ef3c4128d542f2396369d513ccb9052692a1da389\nbytes  : 13892\n\n## ② 版本面快照（不可变 tag 上的 package.json）\nfile   : review/evidence/dsh-auto-memory.package.json\nsha256 : cae1b6c542100609de42e9fa8c221fca0324f314f12c940a2982530bcca0670e\nbytes  : 2420\nversion: 0.7.1（真源声明 0.7.1）\nsource : https://raw.githubusercontent.com/AskTheWay/dsh-auto-memory/v0.7.1/package.json\n[OK] 版本面：快照里的 version == 真源声明的 version\n\n## ③ 逐字引文（**按每条证据自己声明的 doc** 做字节子串核对）\n[OK] evidence[0] doc=dsh-auto-memory.README.md '(4065/4048/4018/3940 bytes measured)' → 第 213 行\n[OK] evidence[0] doc=dsh-auto-memory.README.md '(4065/4048/4018/3940 bytes measured)' → 第 213 行\n[OK] evidence[0] doc=dsh-auto-memory.README.md '(4065/4048/4018/3940 bytes measured)' → 第 213 行\n[OK] evidence[0] doc=dsh-auto-memory.README.md '(4065/4048/4018/3940 bytes measured)' → 第 213 行\n[OK] evidence[0] doc=dsh-auto-memory.README.md 'empty store injects **0 bytes**' → 第 214 行\n[OK] evidence[0] doc=dsh-auto-memory.README.md 'injected section stays ≤ 4 KB' → 第 213 行\n[OK] evidence[1] doc=dsh-auto-memory.README.md 'stale-zero-read' → 第 216 行\n[OK] evidence[1] doc=dsh-auto-memory.README.md 'zero files lost' → 第 216 行\n[OK] evidence[1] doc=dsh-auto-memory.README.md 'one read revives' → 第 216 行\n[OK] evidence[1] doc=dsh-auto-memory.README.md 'Known limitation' → 第 217 行\n[OK] evidence[1] doc=dsh-auto-memory.README.md '78 tests' → 第 226 行\n[OK] evidence[1] doc=dsh-auto-memory.README.md 'none — just plain Markdown files' → 第 155 行\n[OK] evidence[2] doc=dsh-auto-memory.README.md 'none — just plain Markdown files' → 第 155 行\n[OK] evidence[3] doc=dsh-auto-memory.demo.stdout.txt '全部删除后注入段长度 = 0' → 第 68 行\n[OK] evidence[3] doc=dsh-auto-memory.demo.stdout.txt '[REDACTED:github-token]' → 第 5、16、32 行\n[OK] evidence[3] doc=dsh-auto-memory.demo.stdout.txt '索引中还有 legacy-note 吗: 不在' → 第 62 行\n\n## ④ 本条记录引用到的快照指纹（逐个可离线复核）\nfile   : review/evidence/dsh-auto-memory.README.md\nsha256 : 8c2970f5643c653371da0c9ef3c4128d542f2396369d513ccb9052692a1da389\nbytes  : 13892\nfile   : review/evidence/dsh-auto-memory.demo.stdout.txt\nsha256 : 6a8157a3bf6996c9532c599417fa836367c325fb33666b6ce600d644a2907bcc\nbytes  : 3869\n\n引文命中 16 条；未命中 0 条；引用快照 2 份\n结论：本记录的证据链在本机逐字节成立\n",
+          "output": "# 探针 record.dsh-auto-memory · 只读已提交快照与真源，不触网\n\n## ① 正文快照（本记录的主引文出处面）\nfile   : review/evidence/dsh-auto-memory.README.md\nsha256 : 8c2970f5643c653371da0c9ef3c4128d542f2396369d513ccb9052692a1da389\nbytes  : 13892\n\n## ② 版本面快照（不可变 tag 上的 package.json）\nfile   : review/evidence/dsh-auto-memory.package.json\nsha256 : cae1b6c542100609de42e9fa8c221fca0324f314f12c940a2982530bcca0670e\nbytes  : 2420\nversion: 0.7.1（真源声明 0.7.1）\nsource : https://raw.githubusercontent.com/AskTheWay/dsh-auto-memory/v0.7.1/package.json\n[OK] 版本面：快照里的 version == 真源声明的 version\n\n## ③ 逐字引文（**按每条证据自己声明的 doc** 做字节子串核对）\n[OK] evidence[0] doc=dsh-auto-memory.README.md 'Injection budget holds at any scale' → 第 212 行\n[OK] evidence[0] doc=dsh-auto-memory.README.md '(4065/4048/4018/3940 bytes measured)' → 第 213 行\n[OK] evidence[0] doc=dsh-auto-memory.README.md 'injected section stays ≤ 4 KB' → 第 213 行\n[OK] evidence[0] doc=dsh-auto-memory.README.md 'empty store injects **0 bytes**' → 第 214 行\n[OK] evidence[0] doc=dsh-auto-memory.README.md 'overshooting by ~800 bytes' → 第 224 行\n[OK] evidence[0] doc=dsh-auto-memory.README.md 'This evaluation layer already caught a real bug' → 第 223 行\n[OK] evidence[1] doc=dsh-auto-memory.README.md 'stale-zero-read' → 第 216 行\n[OK] evidence[1] doc=dsh-auto-memory.README.md 'zero files lost' → 第 216 行\n[OK] evidence[1] doc=dsh-auto-memory.README.md 'one read revives' → 第 216 行\n[OK] evidence[1] doc=dsh-auto-memory.README.md 'Known limitation' → 第 217 行\n[OK] evidence[1] doc=dsh-auto-memory.README.md '78 tests' → 第 226 行\n[OK] evidence[1] doc=dsh-auto-memory.README.md 'none — just plain Markdown files' → 第 155 行\n[OK] evidence[2] doc=dsh-auto-memory.README.md 'none — just plain Markdown files' → 第 155 行\n[OK] evidence[2] doc=dsh-auto-memory.README.md 'Memories are ordinary files under `$DSH_HOME/memory/` — hand-editable,' → 第 157 行\n[OK] evidence[2] doc=dsh-auto-memory.README.md 'grep-able, git-friendly, yours.' → 第 158 行\n[OK] evidence[3] doc=dsh-auto-memory.demo.stdout.txt '全部删除后注入段长度 = 0' → 第 68 行\n[OK] evidence[3] doc=dsh-auto-memory.demo.stdout.txt '[REDACTED:github-token]' → 第 5、16、32 行\n[OK] evidence[3] doc=dsh-auto-memory.demo.stdout.txt '索引中还有 legacy-note 吗: 不在' → 第 62 行\n[OK] evidence[4] doc=dsh-auto-memory.budget.stdout.txt 'plugin name/version: dsh-auto-memory 0.7.1' → 第 2 行\n[OK] evidence[4] doc=dsh-auto-memory.budget.stdout.txt '0 条 → 0 bytes' → 第 18 行\n[OK] evidence[4] doc=dsh-auto-memory.budget.stdout.txt '20 条 → 3966 bytes' → 第 19 行\n[OK] evidence[4] doc=dsh-auto-memory.budget.stdout.txt '50 条 → 4050 bytes' → 第 20 行\n[OK] evidence[4] doc=dsh-auto-memory.budget.stdout.txt '200 条 → 3968 bytes' → 第 22 行\n[OK] evidence[4] doc=dsh-auto-memory.budget.stdout.txt '参考量(bounded = 插件的同一函数在 maxBytes=4096 下的输出):' → 第 24 行\n\n## ④ 本条记录引用到的快照指纹（逐个可离线复核）\nfile   : review/evidence/dsh-auto-memory.README.md\nsha256 : 8c2970f5643c653371da0c9ef3c4128d542f2396369d513ccb9052692a1da389\nbytes  : 13892\nfile   : review/evidence/dsh-auto-memory.budget.stdout.txt\nsha256 : 8757de0a8b0ef14f34fcf4b58f216681308c61304445c0c035d3ca2d0950140a\nbytes  : 1445\nfile   : review/evidence/dsh-auto-memory.demo.stdout.txt\nsha256 : 6a8157a3bf6996c9532c599417fa836367c325fb33666b6ce600d644a2907bcc\nbytes  : 3869\n\n引文命中 24 条；未命中 0 条；引用快照 3 份\n结论：本记录的证据链在本机逐字节成立\n",
           "source": "本机复跑（命令见左）：原始输出就是该探针的 stdout，由 `scripts/evidence_check.py --repro` 逐字节复算。它证明的是**本记录的证据链在本机成立**——正文快照 sha256、版本面快照里的 version、以及每一条逐字引文都按字节命中；**不**构成对插件运行时行为的判定。",
           "doc": "dsh-auto-memory.README.md",
           "quotes": [
-            "none — just plain Markdown files"
+            "none — just plain Markdown files",
+            "Memories are ordinary files under `$DSH_HOME/memory/` — hand-editable,",
+            "grep-able, git-friendly, yours."
           ]
         },
         {
           "kind": "本机复跑",
           "probe": "demo.dsh-auto-memory",
-          "cmd": "git clone https://github.com/AskTheWay/dsh-auto-memory && cd dsh-auto-memory\ngit checkout v0.7.1\nnpm install          # 该 demo 的运行期依赖：yaml、@deepseek-ai/dsh-atomic-write\nnode scripts/demo.mjs <记忆根目录>   # Node >= 23.6（原生 .ts 类型擦除）\n# 本记录对已提交实跑记录做逐条核对：\npython -X utf8 scripts/evidence_probe.py demo.dsh-auto-memory",
+          "cmd": "# 实际执行过的步骤（**本机进程级出网不可用**：直连 github.com 时 TLS 报 schannel SEC_E_NO_CREDENTIALS；故 `git clone` 与 `npm install` **从未、也不可能**在本机执行）：\n# ① 用 ghfast.top 镜像**逐文件**取 v0.7.1 源码，形态：\n#    https://ghfast.top/https://raw.githubusercontent.com/AskTheWay/dsh-auto-memory/v0.7.1/<路径>\n# ② 在本地按原路径拼出源码子树（scripts/、src/、package.json 等，与 v0.7.1 同结构）\n# ③ 从本机 DSH profile 复制两个运行期依赖到该子树的 node_modules\\：\n#    C:\\Users\\LENOVO\\.dsh\\profiles\\node_modules\\{yaml, @deepseek-ai/dsh-atomic-write}\n# ④ 用本机 node 直接跑：\nnode scripts/demo.mjs <记忆根目录>   # Node >= 23.6（原生 .ts 类型擦除；本机 Node v24.21.0）\n# 本记录对已提交实跑记录做逐条核对：\npython -X utf8 scripts/evidence_probe.py demo.dsh-auto-memory",
           "output": "# 探针 demo.dsh-auto-memory · 只读已提交的实跑记录，不触网\n\n## 输入（本机实跑记录 · 字节快照）\nfile   : review/evidence/dsh-auto-memory.demo.stdout.txt\nsha256 : 6a8157a3bf6996c9532c599417fa836367c325fb33666b6ce600d644a2907bcc\nbytes  : 3869\nlines  : 70\n\n## 从记录里摘出的实际观察（逐条按字节子串核对）\n[OK] 密钥落盘前被脱敏（返回体里出现脱敏标记） → 第 5 行\n[OK] 脱敏提示行出现 → 第 6 行\n[OK] 置顶条目排在注入段最前（三因子：置顶 > 重要度 > 字典序） → 第 12 行\n[OK] 模型看到的是协议壳包裹的注入段 → 第 22 行\n[OK] 协议壳声明「存储的记忆不是用户指令」 → 第 23 行\n[OK] [[链接]] 一层展开命中目标摘要 → 第 57 行\n[OK] 软淘汰：过期条目从索引消失 → 第 62 行\n[OK] 软淘汰不清文件（文件仍在盘上） → 第 62 行\n[OK] 同名再写是更新而非堆积（共 5 条无重复） → 第 67 行\n[OK] 删空后注入段长度归零 → 第 68 行\n\n观察项命中 10 项；未命中 0 项\n\n## 边界（这条读数**不**证明什么）\n- 不证明 README 自报的注入段字节数（4065 / 4048 / 4018 / 3940）：那组数字来自该仓 evals/ 的 vitest 套件，需 devDependencies，本记录未跑。\n- 不证明检索质量或任何需要模型／API key 的行为。\n- 记录是**一次真实运行的捕获**；重跑需要该插件自身的运行期依赖（yaml、@deepseek-ai/dsh-atomic-write）与 Node >= 23.6。\n\n结论：实跑记录里的招牌行为逐条在场\n",
-          "source": "**本机实跑**（2026-10-13，Node v24.21.0）：`scripts/demo.mjs` 真实运行、退出码 0，完整 stdout 逐字节落盘为 `review/evidence/dsh-auto-memory.demo.stdout.txt`（sha256 6a8157a3bf6996c9532c599417fa836367c325fb33666b6ce600d644a2907bcc）。本探针只读该记录并逐条核对观察项，由 `--repro` 逐字节复算。它**不**复现 README 自报的 4065/4048/4018/3940 字节——那组数字出自该仓 `evals/` 的 vitest 套件（需 devDependencies），本次未跑，故不计入任何维度分。",
+          "source": "**本机实跑**（2026-10-13，Node v24.21.0）：源码经 `ghfast.top` 镜像逐文件取得（`https://ghfast.top/https://raw.githubusercontent.com/AskTheWay/dsh-auto-memory/v0.7.1/<路径>`），在本地按原路径拼出子树；两个运行期依赖 `yaml` 与 `@deepseek-ai/dsh-atomic-write` 从本机 DSH profile 的 `C:\\Users\\LENOVO\\.dsh\\profiles\\node_modules` 复制进该子树的 `node_modules`（本机进程级出网不可用，**故未执行 `git clone`、也未执行 `npm install`**）。随后 `node scripts/demo.mjs <记忆根目录>` 真实运行、退出码 0，完整 stdout 逐字节落盘为 `review/evidence/dsh-auto-memory.demo.stdout.txt`（sha256 6a8157a3bf6996c9532c599417fa836367c325fb33666b6ce600d644a2907bcc）。本探针只读该记录并逐条核对观察项，由 `--repro` 逐字节复算。它**不**复现 README 自报的 4065/4048/4018/3940 字节——那组数字出自该仓 `evals/` 的 vitest 套件（需 devDependencies），本次未跑，故不计入任何维度分。",
           "doc": "dsh-auto-memory.demo.stdout.txt",
           "quotes": [
             "全部删除后注入段长度 = 0",
             "[REDACTED:github-token]",
             "索引中还有 legacy-note 吗: 不在"
           ]
+        },
+        {
+          "kind": "本机复跑",
+          "cmd": "cd F:\\DeepSeek Harness Work\\测试\\review-量具修正\\probe-budget\n# 前置：repo\\ 下按原路径拼出 v0.7.1 的 src/{prompt,store,types,matching}.ts 与 evals/l0/helpers.ts；\n#       repo\\node_modules\\ 下复制 yaml 与 @deepseek-ai/dsh-atomic-write（本机 DSH profile，不触网）\n\"C:\\Users\\LENOVO\\.dsh\\dsh-runtimes\\dsh-primary-runtime\\dependencies\\node\\bin\\node.exe\" probe.mjs\n# 本记录对已提交的字节快照做逐条核对：\npython -X utf8 scripts/evidence_probe.py budget.dsh-auto-memory",
+          "output": "# 探针 budget.dsh-auto-memory · 只读已提交的实跑快照，不触网\n\n## 输入（本机实跑记录 · 字节快照）\nfile   : review/evidence/dsh-auto-memory.budget.stdout.txt\nsha256 : 8757de0a8b0ef14f34fcf4b58f216681308c61304445c0c035d3ca2d0950140a\nbytes  : 1445\nlines  : 29\n\n## ① 测量口径（逐条按字节子串核对）\n[OK] 插件名与版本在场 → 第 2 行\n[OK] 量的是插件自身的注入段构造函数 → 第 5 行\n[OK] 合成记忆来自插件自身的 L0 构造器 → 第 6 行\n[OK] 四个种子显式登记（可复算） → 第 7 行\n[OK] cwd 与预算口径与该仓 spec 对齐 → 第 8 行\n[OK] Node 版本在场 → 第 4 行\n[OK] unbounded 参考量表在场 → 第 24 行\n\n## ② 被测源码指纹（快照逐文件登记，缺一即 NG）\n[OK] src/prompt.ts sha256=4084dd297cb84b5423c0f3730bd5cf3d7b6d90592d8bf383b1bc5af38d1b76c1\n[OK] src/store.ts sha256=582fd3446a43d3f6bbc52bf7afeedb772badb64ed7e3a761bbb20aa4782dea2b\n[OK] src/types.ts sha256=c8bec8f6c855e7ab5c779bbfdc137845a2b0f54f9d501263352ae9b64ae20068\n[OK] src/matching.ts sha256=75bf5b0e88e772b90a35bb464ea74b2da0ed26d589dbbb360ef92e66d2869639\n[OK] evals/l0/helpers.ts sha256=18cca81965803abb387c986b4689d9a9d5bbc2e815329608f0e0a4f5c688d4d8\n\n## ③ 从快照解析出的读数\n[OK] 五个规模点读数齐备（0／20／50／100／200）\nbounded N=0   → 0 bytes\nbounded N=20  → 3966 bytes\nbounded N=50  → 4050 bytes\nbounded N=100 → 3979 bytes\nbounded N=200 → 3968 bytes\nunbounded N=20  → 4596 bytes（实际发生截断 yes）\nunbounded N=50  → 9673 bytes（实际发生截断 yes）\nunbounded N=100 → 17943 bytes（实际发生截断 yes）\nunbounded N=200 → 34836 bytes（实际发生截断 yes）\n[OK] 五个 bounded 读数均 ≤ maxBytes=4096\n[OK] 空库注入恰为 0 bytes\n[OK] 四点 bounded 均严格小于 unbounded，且截断标记均为 yes\n[OK] 快照内部自洽：参考量表与读数行逐点一致\n\n## ④ 与 README 自报数字逐条对照\n[OK] README 自报四点字节数的原句 在 README 快照里逐字在场 → 第 213 行\n[OK] README 自报空库 0 字节的原句 在 README 快照里逐字在场 → 第 214 行\n\nN\t本机\tREADME\t差(字节)\t差(%)\t判定\n0\t0\t0\t+0\t+0.00%\t一致\n20\t3966\t4065\t-99\t-2.44%\t不一致\n50\t4050\t4048\t+2\t+0.05%\t不一致\n100\t3979\t4018\t-39\t-0.97%\t不一致\n200\t3968\t3940\t+28\t+0.71%\t不一致\n\n五点中一致 1 点；不一致 4 点\nREADME 四点序列 4065→4048→4018→3940（单调递减）／本机四点序列 3966→4050→3979→3968（非单调）\n\n## 边界（这条读数**不**证明什么）\n- 不证明 README 自报的 4065／4048／4018／3940 可由 v0.7.1 源码复现：本机用**同一注入段构造函数**、同一合成记忆构造器与 seed、同一 cwd 与 maxBytes，量到的是 3966／4050／3979／3968，与该表逐点不同。\n- 差异来源本机**两个方向都未排除**：① 该表（evals/README 标注 baseline 2026-09-25）可能早于现行代码——v0.7.1 的索引行序已是三因子（快照所量行序按feedback→user→project→reference 分组，不是 README 同节写的 name 字典序），行序变则截断保留集变，字节数随之漂移；② 本机对上游源码是**转写**而非克隆（本机出网不可用，无法对上游字节取指纹），转写差异不能排除。\n- 定性主张本机成立：四点 bounded 均 ≤ 4096、空库恰 0 bytes、四点 bounded 均严格小于 unbounded（截断确实生效）。不成立的是那四个**精确**数字。\n- 不证明检索质量或任何需要模型／API key 的行为。\n- 本探针证明的是「这份快照现在仍产出同一段读数」；它不是「重跑插件」——重跑需要该插件自身的运行期依赖与 Node >= 23.6，且需按快照里登记的 seed／cwd／maxBytes 复算。\n\n读数项命中 19 项；未命中 0 项\n结论：快照里的测量口径与读数逐条在场，且定性口径（≤4096／空库 0／截断生效）本机成立\n",
+          "source": "**本机实跑**（2026-10-14，Node v24.21.0）：在 `probe-budget\\` 下按 v0.7.1 的原路径拼出 `src/{prompt,store,types,matching}.ts` 与 `evals/l0/helpers.ts`（转写自 https://raw.githubusercontent.com/AskTheWay/dsh-auto-memory/v0.7.1/ ，各文件 sha256 见快照），并把运行期依赖 `yaml`、`@deepseek-ai/dsh-atomic-write` 从本机 DSH profile 的 node_modules 复制进 `repo\\node_modules\\`（本机进程级出网不可用，故不 clone、不 install）。测量脚本 `probe.mjs` 只调用**该插件自己的**注入段构造函数 `src/prompt.ts::renderMemoryIndexText()`，合成记忆只用该仓 `evals/l0/helpers.ts` 的 `makeMemories/seedStore`，参数（seed=1000+n、cwd=D:\\work\\eval-budget、maxBytes=4096、enableUserScope=false）与其 `evals/l0/index-budget.spec.ts` 逐字对齐；未重写任何拼接／截断逻辑。同输入连续两次运行 stdout **逐字节相同**（sha256 8757de0a…），退出码 0，完整 stdout 逐字节落盘为本快照。它证明的是「这五个规模点读数确由本机用该插件的代码跑出」，**不**证明 README 自报的 4065／4048／4018／3940 可复现——见 dim_rationale 与 boundary。",
+          "doc": "dsh-auto-memory.budget.stdout.txt",
+          "probe": "budget.dsh-auto-memory",
+          "quotes": [
+            "plugin name/version: dsh-auto-memory 0.7.1",
+            "0 条 → 0 bytes",
+            "20 条 → 3966 bytes",
+            "50 条 → 4050 bytes",
+            "200 条 → 3968 bytes",
+            "参考量(bounded = 插件的同一函数在 maxBytes=4096 下的输出):"
+          ]
         }
       ],
-      "conclusion": "**逐项指回读数**：①「注入预算 5」由证据 1 支撑——20/50/100/200 条四个规模点的字节数**单调收在 ≤4 KB**（4065→3940），空库注入恰为 **0 bytes**；这是三条里**唯一给出多规模点原始字节读数**的一件。②「隐私与本地性 5」：README 原文「Memories are ordinary files under `$DSH_HOME/memory/` — hand-editable, grep-able, git-friendly, yours.」，且对照表声明不需要外部服务／数据库／嵌入（`none — just plain Markdown files`）。③「可验证性 4」：证据 2 给出确定性评测层（无 LLM）＋ 78 条测试 ＋ `node scripts/demo.mjs` 免密钥免浏览器入口；**未给 5** 因证据 1 的字节读数未附逐条命令的完整原始 stdout。④「检索质量 2」：证据 2 里 README **自报**截断为位置序而非相关度序、半预算下探针保留率随 N 增长从 ~38% 掉到 ~10%——这是该维度最低分的直接依据；README 同节又称后续版本已改善（pinned ≥80%、three-factor ≥90%），**两个方向都已并列列出**，本条按 0.3.0 baseline 口径判，故记 2 而非 1。⑤「记忆持久 3」：纯 Markdown 文件落盘（$DSH_HOME/memory/）本身是稳定形态，但 README 未给出持久性／崩溃恢复类读数，故记中档。",
-      "boundary": "**不适用条件**：①「注入预算 5」只对**注入段的字节上界**成立，**不**蕴含检索质量——同一条 README 自报位置序截断是已知限制（后续版本称已改善，本子站未独立复算）。②证据 2 的 ~38%→10%、≥80%、≥90% 均为 README **自报且标注为 baseline**。③「78 tests／15 kB installed」是 README 自述规模，**不是**运行期读数；registry 的 unpackedSize 是另一口径（本子站未据其改分）。④纯文件式方案在**多进程并发写**与**跨机器共享**条件下不成立——README 未声明支持，本子站亦未测。⑤版本面锚在**不可变 tag** `v0.7.1` 的 package.json（快照 `review/evidence/dsh-auto-memory.package.json`）。注意上游 main 已**不升版本号**把 README 从「78 tests／15 kB」改成「106 tests／~32 kB」，故一切规模类读数以 `v0.7.1` 为准。⑥**证据 3／4 是本机复跑**；其中证据 4 的底料是**一次真实运行**的 stdout（`node scripts/demo.mjs`，退出码 0，Node v24.21.0），覆盖「脱敏／三因子排序／协议壳注入／链接展开／软淘汰／删空归零」六类行为。但它**不**证明 4065/4048/4018/3940 那组字节数（出自该仓 `evals/` 的 vitest 套件，需 devDependencies，未跑），也**不**证明检索质量。⑦实跑记录的条目顺序来自一次 `readdir`，跨文件系统重跑时顺序可能不同——故它是**捕获**，不是可确定性重放的产物；可确定性复算的是探针对该记录的读数。",
-      "unmeasured": "**未测 ＋ 原因**：①本机**未跑** `evals/` 的 vitest 套件（`npm test`）——需 devDependencies 与完整 `@deepseek-ai/*` 依赖树，本机无出网无法安装，故 README 自报的注入段字节数（4065/4048/4018/3940）**未取得本机 stdout**，证据 1 的 output 仍是原文摘录。**已实跑**的是免密钥的 `node scripts/demo.mjs`（见证据 4）：它复现的是**行为面**，不产出那组字节读数。②「记忆持久」的崩溃恢复／并发写读数**未取得**——README 未公开，故该维度只给中档 3。③「检索质量 2」依据的是 README **自报**的截断位置序与半预算保留率，本子站**未独立复算**。"
+      "conclusion": "**逐项指回读数**：①「注入预算 5」由证据 1（README 自报）与证据 5（本机复跑）共同支撑——**该维度的多规模点读数由本机复跑产出**（不是转引他处自报）：用插件自己的注入段构造函数量得 20／50／100／200 条 bounded 为 3966／4050／3979／3968 bytes（均 ≤4096）、空库恰 **0 bytes**，逐字节可复算；这是三条里**唯一给出多规模点原始字节读数**的一件（README 自报的 4065／4048／4018／3940 与本机逐点不一致，见⑥）。②「隐私与本地性 4」：README 原文「Memories are ordinary files under `$DSH_HOME/memory/` — hand-editable, grep-able, git-friendly, yours.」，且对照表声明不需要外部服务／数据库／嵌入（`none — just plain Markdown files`）。③「可验证性 5」：证据 4（本机实跑该插件自己的免密钥入口 `node scripts/demo.mjs`，退出码 0）与证据 5（本机用该插件自己的注入段构造函数跑出的多规模点字节读数）都跑在**该插件自己的代码路径**上，原始输出逐字节可复算——读者可照本子站记录原样重现该插件的运行；证据 3（本站证据链探针）只作旁证。④「检索质量 2」：证据 2 里 README **自报**截断为位置序而非相关度序、半预算下探针保留率随 N 增长从 ~38% 掉到 ~10%——这是该维度最低分的直接依据；README 同节又称后续版本已改善（pinned ≥80%、three-factor ≥90%），**两个方向都已并列列出**，本条按 0.3.0 baseline 口径判，故记 2 而非 1。⑤「记忆持久 3」：纯 Markdown 文件落盘（$DSH_HOME/memory/）本身是稳定形态，但 README 未给出持久性／崩溃恢复类读数，故记中档。⑥**新增（本机复跑，证据 5）**：用插件自己的注入段构造函数实跑，空库恰 0 bytes、20／50／100／200 四点 bounded 为 3966／4050／3979／3968（均 ≤4 KB），同函数无预算上限时为 4596／9673／17943／34836 —— 截断确实生效，定性口径本机成立。但四点**精确**字节数与 README 自报的 4065／4048／4018／3940 逐点不一致（差 −99／+2／−39／+28 字节，最大 2.44%，大小顺序也不同）；该差异不能归因于合成记忆集或 cwd（二者本机与其 evals/l0 spec 逐字对齐），来源两项均未排除（baseline 表早于现行三因子排序／本机转写无法取上游指纹）。",
+      "boundary": "**不适用条件**：①「注入预算 5」只对**注入段的字节上界**成立，**不**蕴含检索质量——同一条 README 自报位置序截断是已知限制（后续版本称已改善，本子站未独立复算）。②证据 2 的 ~38%→10%、≥80%、≥90% 均为 README **自报且标注为 baseline**。③「78 tests／15 kB installed」是 README 自述规模，**不是**运行期读数；registry 的 unpackedSize 是另一口径（本子站未据其改分）。④纯文件式方案在**多进程并发写**与**跨机器共享**条件下不成立——README 未声明支持，本子站亦未测。⑤版本面锚在**不可变 tag** `v0.7.1` 的 package.json（快照 `review/evidence/dsh-auto-memory.package.json`）。故一切规模类读数以 `v0.7.1` 快照为准。**如实补注**：本子站离线，无法复核上游 main 的现状；而这份 `v0.7.1` 快照**自身就同时含两个口径**——第 100 行「total install stays ~32 kB with zero runtime deps」与第 226 行「78 tests…0 runtime deps beyond `yaml`. 15 kB installed.」——故「上游 main 在不升版本号的情况下改过文案」这一说法**不能由本仓快照复核**，上述两处差异是快照内部不同小节的口径差；本记录不据其改分（规模类数字一律按 README 自述、不作运行期读数）。⑥**证据 3／4／5 是本机复跑**；其中证据 4 的底料是**一次真实运行**的 stdout（`node scripts/demo.mjs`，退出码 0，Node v24.21.0），覆盖「脱敏／三因子排序／协议壳注入／链接展开／软淘汰／删空归零」六类行为。但它**不**证明 4065/4048/4018/3940 那组字节数（出自该仓 `evals/` 的 vitest 套件，需 devDependencies，未跑），也**不**证明检索质量。⑦实跑记录的条目顺序来自一次 `readdir`，跨文件系统重跑时顺序可能不同——故它是**捕获**，不是可确定性重放的产物；可确定性复算的是探针对该记录的读数。⑧**证据 5 的边界（注入预算）**：它证明「多规模点读数由本机用该插件的代码跑出 ＋ 逐字节可复算」，**不**证明 README 自报的 4065／4048／4018／3940 那四个精确数字可复现——本机在与其 evals/l0 spec 逐字对齐的输入（seed=1000+n、cwd=D:\\work\\eval-budget、maxBytes=4096）下量到 3966／4050／3979／3968。成立的是**定性**口径（四点 ≤4096、空库 0 bytes、四点 bounded 均严格小于 unbounded 即截断生效）。故本条的「注入预算 5」应读作「该维度有本机复跑证据且读数最好的一档」，不可读作「README 那四个数字已被复现」。另：本机量的是**转写**的上游源码（出网不可用，无法对上游字节取指纹），转写差异无法排除。⑨**可验证性的口径**：本站把「可验证性」读作**该插件本身可被第三方复跑的程度**，不是本站证据链的自证程度——故 5 级只认「本机复跑该插件自己的运行入口」；本条的证据 4（`node scripts/demo.mjs`）与证据 5（注入段构造函数）都是跑在该插件自己代码路径上的本机复跑，故记 5；证据 3（本站证据链探针）只作旁证。",
+      "unmeasured": "**未测 ＋ 原因**：①本机**未跑** `evals/` 的 vitest 套件（`npm test`）——需 devDependencies 与完整 `@deepseek-ai/*` 依赖树；本机进程级出网不可用（直连 github.com 时 TLS 报 `schannel SEC_E_NO_CREDENTIALS`），**未执行 `git clone` 与 `npm install`**（源码经镜像逐文件取回、运行期依赖从本机 DSH profile 的 `node_modules` 复制，见证据 3／4／5 的 source）。故 README 自报的注入段字节数（4065/4048/4018/3940）**未取得本机 stdout**，证据 1 的 output 仍是原文摘录。**已实跑**的是免密钥的 `node scripts/demo.mjs`（见证据 4，行为面）与本机字节预算探针（见证据 5，用插件自己的注入段构造函数量到 3966／4050／3979／3968 bytes）——两者都不产出 README 那组数字。②「记忆持久」的崩溃恢复／并发写读数**未取得**——README 未公开，故该维度只给中档 3。③「检索质量 2」依据的是 README **自报**的截断位置序与半预算保留率，本子站**未独立复算**。"
     }
   ]
 }

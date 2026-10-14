@@ -37,18 +37,21 @@ footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
 <main>
 <a id="dsh-mnemon"></a>
 <h2>dsh-mnemon · 测评详情</h2>
-<p><span class="tag">版本 0.5.28</span><span class="tag">测评日 2026-10-13</span><span class="tag">总分 12 / 25</span><span class="tag">他评</span></p>
+<p><span class="tag">版本 0.5.28</span><span class="tag">测评日 2026-10-13</span><span class="tag">已测均值 3.0</span><span class="tag">覆盖率 3/5</span><span class="tag">他评</span></p>
 
 <p>来源：<a href="https://github.com/omdsh-dev/dsh-mnemon" rel="noopener noreferrer" target="_blank">https://github.com/omdsh-dev/dsh-mnemon</a></p>
 <p>版本面：<a href="https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/v0.5.28/package.json" rel="noopener noreferrer" target="_blank">https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/v0.5.28/package.json</a>（核对日 2026-10-13）</p>
 <h2>维度读数</h2>
-<table><tr><th>维度</th><th>分（1–5）</th></tr><tr><td>检索质量</td><td><b>1</b></td></tr><tr><td>记忆持久</td><td><b>4</b></td></tr><tr><td>注入预算</td><td><b>1</b></td></tr><tr><td>隐私与本地性</td><td><b>3</b></td></tr><tr><td>可验证性</td><td><b>3</b></td></tr></table>
-<p class="muted">无读数维度（记 1）：检索质量、注入预算</p>
+<div class="note"><code>dim_basis</code> 为空的维度记 <code>null</code>（<b>无任何证据</b>）——<b>不参与</b>任何合计：既不计入已测维度均值，也不作为 <code>1</code> 计入分母，并在真源里进 <code>unmeasured_dims</code>。页面上的 <code>1..5</code> 都表示「<b>有基座</b>」（该维挂了 ≥1 条证据）：<code>1</code> 是最低档、<code>5</code> 是最高档；<b>1–4 级的机械门槛都只是「基座非空」</b>——数字读数<b>不是</b> 1–4 级的必要条件，某维有没有可核数字读数由<b>证据档位</b>列（none／prose／reading／repro）另行披露。两者不是一回事（v1 把「未知」与「最低档」混记成 1，使覆盖率低的记录被系统性低估）。</div>
+<p class="muted">判级依据是判据真源 <code>review/data/rubric.json</code> 的 <code>levels[维度][分数]</code>；「档位」由 <code>dim_basis</code> 指向的证据机械推导，只披露、不参与排序。</p>
+<table><tr><th>维度</th><th>分（1–5；未测记 <code>null</code>）</th><th>证据档位</th><th>支撑证据</th><th>dim_rationale（原文）</th></tr><tr><td>检索质量</td><td>未测</td><td><code>none</code></td><td>—</td><td>未取得读数：README 未提供任何命中率或对照读数，按两轴规则记 null（不再借 1 参与求和）。</td></tr><tr><td>记忆持久</td><td><b>3</b></td><td><code>prose</code></td><td>证据 4</td><td>证据 4 给出落盘形态（Runtime memory and Project Documents are local files）与删除／保留语义（Turning a component off does not erase its memory、Use ZIP backup to carry it.），命中 3 级，故记 3；<b>未给 4</b> 因 4 级要的是「<b>派生物可重建</b>」或「<b>写入即提交</b>」一类的结构性保证，而快照里没有这两类表述——「三层记忆结构」（README 原文为 Three kinds of memory／Runtime memory, Project Documents and Memory Spaces）只是分类，ZIP backup 只是备份口径，二者都不构成该类保证；同数据集中 dsh-auto-memory 的同类落盘证据亦记 3。未给 5 因本机未跑写入—重启—取回往返，无 repro 档。</td></tr><tr><td>注入预算</td><td>未测</td><td><code>none</code></td><td>—</td><td>未取得读数：README 未提供任何 token 用量读数，按两轴规则记 null。</td></tr><tr><td>隐私与本地性</td><td><b>3</b></td><td><code>prose</code></td><td>证据 4</td><td>证据 4 明确「Runtime memory and Project Documents are local files; Mnemon Native is local.」（并声明「Local by default」），同时列出多家第三方 Provider、声明「Third-party Providers use their own services and scopes」，数据是否出本地取决于所选 Provider，风险边界可见，故记 3；未给 4 因未能排除外部服务依赖。</td></tr><tr><td>可验证性</td><td><b>3</b></td><td><code>prose</code></td><td>证据 1、证据 2</td><td>证据 1、2 给出 <code>pnpm verify</code> 一类的确定性机械验证入口（可核其在），故记 3；未给 4 因 README 不公开任何量化对照读数，且该维度的证据（证据 1、2）里没有本机复跑条目（档位 prose）——本记录唯一的本机复跑（证据 3）是本站证据链探针，不触及该插件的运行入口。</td></tr></table>
+<p class="muted"><code>dim_basis</code> 为空的维度（无任何证据，记 <code>null</code>，<b>不参与</b>合计）：检索质量、注入预算</p>
+<p class="muted">已测均值 3.0（分母＝已测维度数 3，不是 5）；覆盖率 3/5。</p>
 <h2>可复跑证据（命令 ＋ 原始输出）</h2>
 <h3>证据 1 <span class="tag">公开文档转引</span></h3>
 <p class="muted">公开文档转引——引自下列快照，<b>不是</b>本站本机跑出来的读数。</p>
 <p><b>① 复跑命令</b></p>
-<pre># 仓库自述的验证入口（Node.js ^22.19.0 || &gt;=24.0.0 ＋ pnpm）
+<pre># 仓库自述的验证入口（Node.js ^22.19.0 || &gt;=24.0.0 ＋ pnpm）——**未执行**，仅记录该仓 README 给出的入口（本机未安装、未运行）
 pnpm install --frozen-lockfile
 pnpm verify
 pnpm verify:plugins</pre>
@@ -64,7 +67,7 @@ pnpm verify:plugins</pre>
 <h3>证据 2 <span class="tag">公开文档转引</span></h3>
 <p class="muted">公开文档转引——引自下列快照，<b>不是</b>本站本机跑出来的读数。</p>
 <p><b>① 复跑命令</b></p>
-<pre># 端到端演示 WebUI（README 给的可跑入口；--live-model 需 DEEPSEEK_API_KEY）
+<pre># 端到端演示 WebUI（README 给的可跑入口；--live-model 需 DEEPSEEK_API_KEY）——**未执行**，仅记录该仓 README 给出的入口（本机未运行）
 node scripts/serve-e2e.mjs --docs-demo</pre>
 <p><b>② 原始输出</b>（公开文档 <a href="https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/main/README.md" rel="noopener noreferrer" target="_blank">https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/main/README.md</a> （抓取日 2026-10-13）· <b>本机未运行</b>）</p>
 <pre># README 原文（**无读数，仅入口与前置**）：
@@ -73,7 +76,7 @@ node scripts/serve-e2e.mjs --docs-demo</pre>
 #   and --live-model to have the DeepSeek API answer, with the key read from DEEPSEEK_API_KEY.</pre>
 <p><b>③ 出处快照</b>：<code>review/evidence/dsh-mnemon.README.md</code></p>
 <p><b>④ 逐字引文</b>（在快照里按字节子串核对）：</p>
-<ul><li><code>Local by default</code></li><li><code>Third-party Providers use their own services</code></li><li><code>ZIP backup</code></li></ul>
+<ul><li><code>starts a disposable real WebUI</code></li><li><code>add `--docs-demo` for the seeded project behind these screenshots</code></li><li><code>with the key read from `DEEPSEEK_API_KEY`</code></li></ul>
 <h3>证据 3 <span class="tag">本机复跑</span></h3>
 <p class="muted">本机复跑（探针 <code>record.dsh-mnemon</code>）——复算：<code>python -X utf8 scripts/evidence_probe.py record.dsh-mnemon</code>；`python -X utf8 scripts/evidence_check.py --repro` 会逐字节比对。</p>
 <p><b>① 复跑命令</b></p>
@@ -100,31 +103,50 @@ source : https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/v0.5.28/package.
 [OK] evidence[0] doc=dsh-mnemon.README.md &#x27;pnpm install --frozen-lockfile&#x27; → 第 143 行
 [OK] evidence[0] doc=dsh-mnemon.README.md &#x27;pnpm verify:plugins&#x27; → 第 145 行
 [OK] evidence[0] doc=dsh-mnemon.README.md &#x27;Mechanical tests are not claims about model accuracy&#x27; → 第 148 行
-[OK] evidence[1] doc=dsh-mnemon.README.md &#x27;Local by default&#x27; → 第 39 行
-[OK] evidence[1] doc=dsh-mnemon.README.md &#x27;Third-party Providers use their own services&#x27; → 第 132 行
-[OK] evidence[1] doc=dsh-mnemon.README.md &#x27;ZIP backup&#x27; → 第 39、133 行
+[OK] evidence[1] doc=dsh-mnemon.README.md &#x27;starts a disposable real WebUI&#x27; → 第 148 行
+[OK] evidence[1] doc=dsh-mnemon.README.md &#x27;add `--docs-demo` for the seeded project behind these screenshots&#x27; → 第 148 行
+[OK] evidence[1] doc=dsh-mnemon.README.md &#x27;with the key read from `DEEPSEEK_API_KEY`&#x27; → 第 148 行
 [OK] evidence[2] doc=dsh-mnemon.README.md &#x27;Mechanical tests are not claims about model accuracy&#x27; → 第 148 行
+[OK] evidence[3] doc=dsh-mnemon.README.md &#x27;Runtime memory and Project Documents are local files&#x27; → 第 132 行
+[OK] evidence[3] doc=dsh-mnemon.README.md &#x27;Third-party Providers use their own services and scopes&#x27; → 第 132 行
+[OK] evidence[3] doc=dsh-mnemon.README.md &#x27;Turning a component off does not erase its memory&#x27; → 第 133 行
+[OK] evidence[3] doc=dsh-mnemon.README.md &#x27;Use ZIP backup to carry it.&#x27; → 第 133 行
+[OK] evidence[3] doc=dsh-mnemon.README.md &#x27;Local by default with Mnemon Native&#x27; → 第 39 行
 
 ## ④ 本条记录引用到的快照指纹（逐个可离线复核）
 file   : review/evidence/dsh-mnemon.README.md
 sha256 : 8cff64efd44b873161a68205a07900b038db70ebd908fc339d0808b8a26b9eda
 bytes  : 16830
 
-引文命中 7 条；未命中 0 条；引用快照 1 份
+引文命中 12 条；未命中 0 条；引用快照 1 份
 结论：本记录的证据链在本机逐字节成立
 </pre>
 <p><b>③ 出处快照</b>：<code>review/evidence/dsh-mnemon.README.md</code></p>
 <p><b>④ 逐字引文</b>（在快照里按字节子串核对）：</p>
 <ul><li><code>Mechanical tests are not claims about model accuracy</code></li></ul>
+<h3>证据 4 <span class="tag">公开文档转引</span></h3>
+<p class="muted">公开文档转引——引自下列快照，<b>不是</b>本站本机跑出来的读数。</p>
+<p><b>① 复跑命令</b></p>
+<pre># **未执行**，仅记录该仓 README「Data and trust」一节的原文（本机未安装、未运行）：
+# 检索：读取 README 中「本地文件 / Third-party Providers / 关闭组件不删记忆 / ZIP backup」相关段落</pre>
+<p><b>② 原始输出</b>（公开文档 <a href="https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/main/README.md" rel="noopener noreferrer" target="_blank">https://raw.githubusercontent.com/omdsh-dev/dsh-mnemon/main/README.md</a> （抓取日 2026-10-13）· 结构性表述，<b>不是</b>基准读数（本机未安装该插件，故未运行））</p>
+<pre># 以下为 README 原文表述（**本机未跑、无读数**）：
+#   Runtime memory and Project Documents are local files; Mnemon Native is local.
+#   Third-party Providers use their own services and scopes.
+#   Turning a component off does not erase its memory, and changing the storage location does not move data.
+#   Use ZIP backup to carry it.</pre>
+<p><b>③ 出处快照</b>：<code>review/evidence/dsh-mnemon.README.md</code></p>
+<p><b>④ 逐字引文</b>（在快照里按字节子串核对）：</p>
+<ul><li><code>Runtime memory and Project Documents are local files</code></li><li><code>Third-party Providers use their own services and scopes</code></li><li><code>Turning a component off does not erase its memory</code></li><li><code>Use ZIP backup to carry it.</code></li><li><code>Local by default with Mnemon Native</code></li></ul>
 <h2>结论</h2>
-<p><b>逐项指回读数</b>：①「可验证性 3」：证据 1、2 给出的是<b>命令入口</b>而非读数——能跑，但 README <b>不公开任何量化对照组</b>（无基线 vs 方案对照、无 hit@k、无 token 预算读数），故不给更高分；也不给 1，因 <code>pnpm verify</code> 本身是一套可复现的机械验证套件（与「没有对照读数」是两件事）。②「隐私与本地性 3」：README 明确「Local by default with Mnemon Native」，但同时列出多家第三方 Provider，并声明「Third-party Providers use their own services and scopes」——数据是否出本地<b>取决于所选 Provider</b>，故给中档。③「记忆持久 4」：三层记忆结构（Runtime memory／Project Documents／Memory Spaces）＋ ZIP 备份口径在 README 里有明确描述。④「检索质量 1」与「注入预算 1」＝<b>无读数档</b>：README 未提供该两维度的任何读数（见 unmeasured_dims）。</p>
+<p><b>逐项指回读数</b>：①「可验证性 3」：证据 1、2 给出的是<b>命令入口</b>而非读数——能跑，但 README <b>不公开任何量化对照组</b>（无基线 vs 方案对照、无 hit@k、无 token 预算读数），故不给更高分；也不给 1，因 <code>pnpm verify</code> 本身是一套可复现的机械验证套件（与「没有对照读数」是两件事）。②「隐私与本地性 3」：README 明确「Local by default with Mnemon Native」，但同时列出多家第三方 Provider，并声明「Third-party Providers use their own services and scopes」——数据是否出本地<b>取决于所选 Provider</b>，故给中档。③「记忆持久 3」：证据 4 给出落盘形态（Runtime memory and Project Documents are local files）与删除／保留语义（Turning a component off does not erase its memory、Use ZIP backup to carry it.）——这是分类与备份口径，够不上 4 级要的「派生物可重建／写入即提交」类结构性保证。④「检索质量」与「注入预算」＝<b>未取得读数</b>（记 <code>null</code>、进 unmeasured_dims、<b>不参与</b>任何合计）：README 未提供该两维度的任何读数。</p>
 <h2>边界 · 不适用条件</h2>
-<p><b>不适用条件</b>：①本条<b>只依据 README 文本</b>——未安装、未运行，故<b>不构成</b>对其运行时行为的判定。②「检索质量」与「注入预算」记 1 是<b>无读数档</b>，不是实测结论；README 未提供任何在该两维度上的读数。③多家 Provider 各自的检索/删除/枚举能力 README 声明「differ by backend」，本条未逐家核验。④对本条的判定<b>只对公开可复现的文档表述成立</b>，不对其云端服务的实际行为作判定（未测）。⑤版本面锚在<b>不可变 tag</b> <code>v0.5.28</code> 的 package.json（快照 <code>review/evidence/dsh-mnemon.package.json</code>）。⑥<b>证据 3 是本机复跑</b>，只证明本记录的证据链在本机成立，<b>不</b>构成运行时判定。</p>
+<p><b>不适用条件</b>：①本条<b>只依据 README 文本</b>——未安装、未运行，故<b>不构成</b>对其运行时行为的判定。②「检索质量」与「注入预算」记 <code>null</code>（未取得读数、<b>不参与</b>任何合计），不是实测结论；README 未提供任何在该两维度上的读数。③多家 Provider 各自的检索/删除/枚举能力 README 声明「differ by backend」，本条未逐家核验。④对本条的判定<b>只对公开可复现的文档表述成立</b>，不对其云端服务的实际行为作判定（未测）。⑤版本面锚在<b>不可变 tag</b> <code>v0.5.28</code> 的 package.json（快照 <code>review/evidence/dsh-mnemon.package.json</code>）。⑥<b>证据 3 是本机复跑</b>，只证明本记录的证据链在本机成立，<b>不</b>构成运行时判定。⑦<b>可验证性的口径</b>：本站把「可验证性」读作<b>该插件本身可被第三方复跑的程度</b>，不是本站证据链的自证程度——故 5 级只认「本机复跑该插件自己的运行入口」。</p>
 <h2>未测项（未测 ＋ 原因）</h2>
-<p><b>未测 ＋ 原因</b>：①本机<b>未安装、未运行</b> <code>pnpm verify</code> / <code>node scripts/serve-e2e.mjs</code>——其前置为 Node ^22.19 ＋ pnpm ＋ 完整依赖安装，而本机到 github.com 被 hosts 拦截，<b>无法取依赖</b>。②全部量化维度（hit@k／token 预算／延迟）<b>未取得任何原始输出</b>——README 未公开，故「检索质量」「注入预算」记 1（无读数档）。③多家第三方 Provider <b>未逐家验证</b>。④<code>--live-model</code> 路径需 <code>DEEPSEEK_API_KEY</code>，本条<b>未提供密钥、未运行</b>。⑤<code>pnpm verify:plugins</code>（<code>scripts/verify-plugin-artifacts.mjs</code>）<b>证明性地需要公网 npm registry 与真实 DSH 运行时</b>：该脚本内明文 <code>fetch(&#x27;https://registry.npmjs.org/&#x27; + name)</code>、<code>npm pack</code>、<code>npm install --registry</code>，并以 <code>--upgrade-registry https://registry.npmjs.org</code> 驱动 <code>scripts/verify-headless-profile.mjs</code>。这与本站「复跑不触网」的约束直接冲突，故本条<b>未运行</b>，也不把它的输出当作任何维度的读数。</p>
+<p><b>未测 ＋ 原因</b>：①本机<b>未安装、未运行</b> <code>pnpm verify</code> / <code>node scripts/serve-e2e.mjs</code>——其前置为 Node ^22.19 ＋ pnpm ＋ 该仓完整的 pnpm 工作区依赖安装；本机进程级出网不可用（直连 github.com 时 TLS 报 <code>schannel SEC_E_NO_CREDENTIALS</code>，本轮只通 <code>ghfast.top</code> 镜像通道），<b>未执行 <code>pnpm install --frozen-lockfile</code></b>，故本条未运行（<b>如实写明：不是「跑了但失败」，是从未执行</b>）。②全部量化维度（hit@k／token 预算／延迟）<b>未取得任何原始输出</b>——README 未公开，故「检索质量」「注入预算」记 <code>null</code>、进 unmeasured_dims、<b>不参与</b>任何合计。③多家第三方 Provider <b>未逐家验证</b>。④<code>--live-model</code> 路径需 <code>DEEPSEEK_API_KEY</code>，本条<b>未提供密钥、未运行</b>。⑤<code>pnpm verify:plugins</code>（<code>scripts/verify-plugin-artifacts.mjs</code>）<b>证明性地需要公网 npm registry 与真实 DSH 运行时</b>：该脚本内明文 <code>fetch(&#x27;https://registry.npmjs.org/&#x27; + name)</code>、<code>npm pack</code>、<code>npm install --registry</code>，并以 <code>--upgrade-registry https://registry.npmjs.org</code> 驱动 <code>scripts/verify-headless-profile.mjs</code>。这与本站「复跑不触网」的约束直接冲突，故本条<b>未运行</b>，也不把它的输出当作任何维度的读数。</p>
 <p><a href="board.html">← 回榜单</a></p>
 
 </main>
-<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> 机械生成——勿手改。本站只放可核验读数，<b>不涉资金</b>，<b>不采集用户隐私</b>。</footer>
+<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> ＋ <code>review/data/rubric.json</code> 机械生成——勿手改。本站只放可核验读数，<b>不涉资金</b>，<b>不采集用户隐私</b>。</footer>
 </body>
 </html>

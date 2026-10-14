@@ -88,6 +88,16 @@
       "fetched_at": "2026-10-13",
       "via": "本机实跑捕获：node v24.21.0 scripts/demo.mjs（v0.7.1 源码 + 运行期依赖 yaml、@deepseek-ai/dsh-atomic-write），退出码 0，stdout 逐字节落盘",
       "license_note": "运行产物记录，版权归原仓库；仅用于「这条读数确实是跑出来的」这一件事实"
+    },
+    {
+      "file": "dsh-auto-memory.budget.stdout.txt",
+      "kind": "RUN",
+      "source_url": "https://github.com/AskTheWay/dsh-auto-memory/tree/v0.7.1",
+      "sha256": "8757de0a8b0ef14f34fcf4b58f216681308c61304445c0c035d3ca2d0950140a",
+      "bytes": 1445,
+      "fetched_at": "2026-10-14",
+      "via": "本机实跑捕获：node v24.21.0 跑探针脚本 probe.mjs——它只调用该插件 v0.7.1 自身的注入段构造函数 src/prompt.ts::renderMemoryIndexText()，合成记忆用该仓 evals/l0/helpers.ts 的 makeMemories/seedStore（seed=1000+n、cwd=D:\\work\\eval-budget、maxBytes=4096，与其 evals/l0/index-budget.spec.ts 逐字对齐），运行期依赖 yaml 与 @deepseek-ai/dsh-atomic-write 复制自本机 DSH profile（不触网）。同输入连续两次运行 stdout 逐字节相同，退出码 0",
+      "license_note": "运行产物记录，版权归原仓库；仅用于「这条读数确实是跑出来的」这一件事实。快照第 16 行钉住测量脚本 probe.mjs 自身的 sha256（该脚本不在本仓，故此项不可由本仓离线复核，仅作「量的是这一版脚本」的指纹）"
     }
   ]
 }

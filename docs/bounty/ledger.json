@@ -3221,6 +3221,267 @@
         "delta": 6
       },
       "id": "evt_a43182468048"
+    },
+    {
+      "issue": 306,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "dsh-bounty 生成器/校验器元素形状判据（PR #302）：rescore / role_revocations / latest_marker 对非对象、非字符串元素不再崩栈。rescore 是 docs/bounty/README.md 写明的公开可复算入口（本仓《运行手册》§六「账本复算自检」依赖其返回值），latest_marker 的 docstring 明写「坏 JSON 一律跳过，不抛」而旧实现对「坏元素」没有守住。维护者隔离克隆独立取证：新增守卫 tests/test_bounty_board_element_shape.py 20 断言在 PR 树 20/0 绿、在 pre-fix 基线 751e45c 上 4/12 红（判别力成立）；PR 净改动 2 文件 +78/-1，删除行 1（MARKER_RE 行，属判据重写）；全量 35 件套件 PR 树 0 红、与基线同集。【定档依据】难度 medium：单笔修复 + 自带守卫，与 evt_044a8c677b84（bounty_site 单笔修复+守卫 medium 3）同形。影响 C：按「不做会怎样」判 —— 触发需要账本出现非对象元素，当前账本 108 条全为合法对象，属健壮性缺口而非现行失效；同仓同类先例 evt_9dc38a268944（#238 榜单生成器元素形状，维护者定 C）。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "pr": 302,
+      "covers": [
+        306
+      ],
+      "project": "bounty_site",
+      "impact": "C",
+      "day": "2026-10-14",
+      "ts": "2026-10-14T07:40:16Z",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_43c24a2e9b8e"
+    },
+    {
+      "issue": 308,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "dsh-bounty check_plan 状态镜像元素形状判据（PR #304）：镜像 issues 非对象 ⇒ fail-closed 退 1（ScanError），不再裸 AttributeError。read_state 的 docstring 承诺「1 = 账本/快照读不了（结构坏、缺文件而显式指定）」，而既有 isinstance(store, dict) 只判顶层、不判 issues 这一层。维护者独立取证：新增守卫 tests/test_check_plan_store_shape.py 10 断言在 PR 树 10/0 绿、pre-fix 基线 751e45c 上 4/6 红；PR 净改动 3 文件 +74/-2；全量套件 0 新红。【定档依据】难度 medium、影响 C，同 #306（同类先例 evt_9dc38a268944）；本件申报件 #308 自陈「未验：现有台账里是否存在此类坏元素（现状全为合法值）」，与 evt_9dc38a268944 的 C 级判据同形。附记：本 PR 对既有守卫 tests/test_check_plan_shape_guards.py 的改动属**正当同步**（给 issues_from_store 新容器判据补去锚点，否则 E 组反向证明空转），非覆盖削减。（追溯性结算 ⇒ round=1，delta == base）",
+      "pr": 304,
+      "covers": [
+        308
+      ],
+      "project": "bounty_site",
+      "impact": "C",
+      "day": "2026-10-14",
+      "ts": "2026-10-14T07:41:16Z",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_454229d67436"
+    },
+    {
+      "issue": 309,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "dsh-bounty evidence_probe 元素形状判据（PR #305）：line_numbers 的 needle 非字符串不再崩栈（TypeError: in <string> requires string as left operand）。needle 来自被审计的 review/data/plugins.json 的 quotes 数组元素；render() 已判 quotes 的容器类型但元素类型未判。维护者独立取证：新增守卫 tests/test_evidence_probe_line_numbers.py 8 断言在 PR 树 8/0 绿、pre-fix 基线 2/6 红；PR 净改动 2 文件 +41/-0（零删除行）；全量套件 0 新红。【定档依据】难度 medium、影响 C，同 #306（同类先例 evt_9dc38a268944）。申报件 #309 自定 B，维护者按同仓同类先例下调为 C 并写明依据 —— 触发需 plugins.json 的 quotes 出现非字符串元素，当前数据全为合法值；档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "pr": 305,
+      "covers": [
+        309
+      ],
+      "project": "bounty_site",
+      "impact": "C",
+      "day": "2026-10-14",
+      "ts": "2026-10-14T07:42:16Z",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_f80f270d72b2"
+    },
+    {
+      "issue": 312,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "dsh-bounty 站点生成器漂移闸（PR #311）：build_site.py 加 --check —— site/*.html 是已提交、已发布的产物，此前**零漂移闸**（--check 不被 argparse 识别，rc=2）。同仓三道闸里唯站点生成器没有：《运行手册》§六明列 bounty_list.py --check、review_build.py --check，而 tests/test_build_site.py 只在临时目录跑两遍互比、从不读盘上已提交的 site/。维护者独立取证：新增守卫 tests/test_build_site_check.py 14 断言在 PR 树 14/0 绿、pre-fix 基线 751e45c 上 5/9 红（A 组 rc=2）；--check 与 --print 显式互斥；同时查产物目录多出文件（照 review_build 的 stray_files 判据）；PR 净改动 2 文件 +171/-1；全量套件 0 新红；合并后实测 site/ 未漂移。【定档依据】难度 medium：单件生成器加闸 + 守卫，与 evt_044a8c677b84（bounty_site 口径单点化+守卫 medium 3）同形。影响 A：产物漂移无任何守卫会红 ⇒ 站点的「已提交产物」这一发布面失去可信判据，属量具失效（使「产物与真源一致」这一结论不可信），与 #291（CI 覆盖面补全，维护者定 A）同类。（追溯性结算 ⇒ round=1，delta == base）",
+      "pr": 311,
+      "covers": [
+        312
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-14",
+      "ts": "2026-10-14T07:43:16Z",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6bbc2f498da7"
+    },
+    {
+      "issue": 314,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "dsh-bounty 贡献表漂移闸升级（PR #313）：daily_table.py 的 --check 由「渲染两遍互比」升级为**读盘比对** —— 旧 --check 检验的是确定性，不是漂移，故改渲染逻辑后盘上 docs/bounty/贡献表.md 会静默陈旧而 --check 自己绿。维护者独立取证：新增守卫 tests/test_daily_table_check_drift.py 10 断言在 PR 树 10/0 绿、pre-fix 基线 751e45c 上 5/4 红；D 组反向证明（去掉漂移判据 ⇒ 同一篡改产物 rc=0，证明判别力）；不给 --out 时行为与旧版逐位一致（向后兼容）；PR 净改动 2 文件 +124/-2；全量套件 0 新红；合并后实测盘上贡献表.md 与真源逐字节一致。【定档依据】难度 medium、影响 A —— 与 #312 同族（量具失效：名为漂移闸而实际只做确定性自检 ⇒ 给出假绿），先例 #291 与 evt_044a8c677b84。（追溯性结算 ⇒ round=1，delta == base）",
+      "pr": 313,
+      "covers": [
+        314
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-14",
+      "ts": "2026-10-14T07:44:16Z",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_bfcd9b4c97f3"
+    },
+    {
+      "issue": 316,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "dsh-bounty 四导出产物漂移闸（PR #315）：bounty_board.py 加 --products-check —— board.md / value_vector.json / promotion.json / roles.json 四个 --*-out 分支各自 return 0，此前**没有任何判据回头看盘上产物是否与现渲染一致**。新闸只读不写：缺件/漂移各自点名，一致 0、漂移 1。维护者独立取证：新增守卫 tests/test_bounty_board_products_check.py 12 断言在 PR 树 12/0 绿、pre-fix 基线 751e45c 上 4/7 红；E 组反向证明（短路漂移判据 ⇒ rc=0）；PR 净改动 2 文件 +180/-1；全量套件 0 新红；合并后实测四产物一致。【定档依据】难度 medium、影响 A，与 #312/#314 同族（量具失效），先例 #291。附记：本 PR 的 scripts/bounty_board.py 净改动**逐字包含** PR #302 的三处形状判据（同人、同 base 751e45c、无祖先关系但作者分支携带了 #302 的改动）—— 该部分不另计分，计入 #306 那一项；本项只计 --products-check 这一独立缺陷面。（追溯性结算 ⇒ round=1，delta == base）",
+      "pr": 315,
+      "covers": [
+        316
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-14",
+      "ts": "2026-10-14T07:45:16Z",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_9f7331b8e847"
+    },
+    {
+      "issue": 318,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "dsh-bounty 判据自身缺陷修复（PR #317）：tests/test_rule_text.py 的 STALE_RE 补数字边界 —— 旧式 超时[^\n]{0,40}?(?:−|-)\\s*1(?:\\s*分)? 的 (?:s*分)? 是**可选**的，故 −12 / −10 里开头的 −1 就命中 ⇒ 分不清「扣 1 分」与「扣 12 分」，而这两个值恰是 v0.1（超时固定 −1）与 v0.4（−2×base ⇒ 困难 −12、专家 −20）的分界，后果是任何含 −10/−12/−20 的**正确**新口径表述都会被本判据拒绝。维护者独立复核正则语义：−1 命中、−12 命中（旧）/不命中（新）、−10 命中（旧）/不命中（新），判别成立。PR 净改动 1 文件 +8/-1，删除行 1（旧正则），仅改判据、不动任何文本（作者自纠：先改的指南文件已 revert，因该文档属另一产品的规格交付物）。维护者扩面反证：把指南文件加进 STALE_SCAN 后旧式命中 2 处、新式同样命中 2 处（即该判据扩面后仍有效）。【定档依据】难度 easy 1：单文件单行正则改动，无新增守卫，采纳申报件 #318 自定 easy。影响 B：判据缺陷只在文本含 −10/−12/−20 时误拒（需特定路径才可触发），当前 STALE_SCAN 五份产物里不含该形态，属判据缺陷而非现行失效。全量套件 0 新红（基线与 PR 树均 0 红）。档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "pr": 317,
+      "covers": [
+        318
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-14",
+      "ts": "2026-10-14T07:46:16Z",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_f14094299790"
+    },
+    {
+      "issue": 320,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "dsh-bounty 「静默回退」检查器（PR #319）：新增 scripts/check_marker_reverts.py —— 把《运行手册》§二-8「看删除行（防静默回退）」这一人工步骤机械化为可跑脚本（§七点名要求做成可跑脚本的那类）。维护者独立取证：新增守卫 tests/test_marker_reverts.py 16 断言在 PR 树 16/0 绿、pre-fix 基线 3cab36a 上红（脚本文件不存在，FileNotFoundError）；PR 净改动 2 文件 +279/-0（零删除行）；全量套件 0 新红。【定档依据】难度 medium：新增单脚本 + 守卫（+279 行），与 #291（CI 加固 medium 3）同形。影响 A：本件补的是评审链路自身的判据面 —— 无此判据则「静默回退」这一缺陷类无任何机械检查，而 §二-8 正是本仓点名的核心评审步骤；先例 #291（维护者定 A）。（追溯性结算 ⇒ round=1，delta == base）",
+      "pr": 319,
+      "covers": [
+        320
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-14",
+      "ts": "2026-10-14T07:47:16Z",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5bfb11129389"
+    },
+    {
+      "issue": 322,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "dsh-bounty 「修复有没有守卫」检查器（PR #321）：新增 scripts/check_fix_has_guard.py —— 把《运行手册》§八-2「修复有没有守卫」的人工判据机械化为可跑脚本（第一层筛选：改了实现面却未改 tests/ ⇒ 疑似零守卫修复）。维护者独立取证：新增守卫 tests/test_fix_has_guard.py 15 断言在 PR 树 15/0 绿、pre-fix 基线 3cab36a 上红（脚本不存在）；E 组反向证明（把实现面目录表清空 ⇒ 同一零守卫 diff 漏报，证明判别力）；PR 净改动 2 文件 +291/-0（零删除行）；全量套件 0 新红。作者自陈诚实边界：本脚本判的是「文件的覆盖面」不是「判据的有效性」，第二层仍需人工 —— 与 §八-2 原文的处置一致。【定档依据】难度 medium、影响 A，同 #320；先例 #291。（追溯性结算 ⇒ round=1，delta == base）",
+      "pr": 321,
+      "covers": [
+        322
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-14",
+      "ts": "2026-10-14T07:48:16Z",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_da2504bb0af6"
     }
   ]
 }

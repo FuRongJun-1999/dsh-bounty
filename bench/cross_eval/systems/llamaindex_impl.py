@@ -24,6 +24,9 @@
               ContextStateError（实测原文见 raw/llamaindex_probe3.txt）。
 
 五步一律调用 harness/workload.py 的纯函数，与基线/其它引擎共用同一检索器。
+
+读数口径（与 harness/spec.md「读数项」一致）：本模块的 `trace` 由**真实执行序列**
+`SEQ` 推导（`_bump` 每次真实进入一个 step 就追加一条，含重复），**不是**字面量自述。
 """
 import asyncio
 import json
@@ -81,10 +84,13 @@ _VERIFY_RETRY_POLICY = retry_policy(
 
 # ---- 模块级执行计数表：每个 step 入口自增，用来产出真实执行轨迹 ----
 EXEC = {}
+# ---- 模块级真实执行序列（resume 档两遍合并）：trace 由它推导，不用字面量自述 ----
+SEQ = []
 
 
 def _bump(name):
     EXEC[name] = EXEC.get(name, 0) + 1
+    SEQ.append(name)
 
 
 # ---- 进程内产物登记处：BM25Okapi 对象不可 JSON 序列化，按 run_id 存进程内 ----
@@ -295,7 +301,9 @@ async def _run_resume(cfg, run_id, workers):
     reexec = _trace()
     return {"ok": True, "first_error": first_error,
             "steps_reexecuted_after_failure": reexec,
-            "trace": ["load", "index", "retrieve", "verify", "emit"],
+            # trace = 真实执行序列（SEQ 由 _bump 逐次追加，两遍合并，含重复），
+            # 不再是 ["load","index","retrieve","verify","emit"] 这样的字面量自述。
+            "trace": list(SEQ),
             "counts_before_failure": {k: failed_after.get(k, 0) for k in _STEP_ORDER},
             "counts_after_resume": {k: EXEC.get(k, 0) for k in _STEP_ORDER},
             "results": stop["results"], "out": cfg["out"]}
@@ -308,6 +316,7 @@ def run(mode, cfg):
     workers = int(cfg.get("workers", 4) or 4) if mode == "parallel" else 1
     run_id = _next_run_id(mode)
     EXEC.clear()
+    SEQ.clear()
     _new_art(cfg, run_id)
     try:
         if mode == "resume":

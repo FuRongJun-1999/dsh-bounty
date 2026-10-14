@@ -2761,6 +2761,34 @@
         "delta": 6
       },
       "id": "evt_da1d67d58916"
+    },
+    {
+      "ts": "2026-10-14T04:05:49Z",
+      "issue": 290,
+      "covers": [
+        290
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ganzhe12138",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
+      "impact": "A",
+      "reason": "dsh-memory 冲突台账「半截行」修复（源仓 issue #225；PR #300）。**本条申报的是「修复」这一交付面**——报告面已于本仓 #260（holder @cyd471）独立结算，二者分属两人，按既有口径另立工作项、不重复计（先例：covers 269/270/271 两行 —— @LarryE135 报告 + @acrot0 修复，reason 原文「报告与修复分属两人、不重复计」）。维护者隔离克隆独立复现：pre-fix 基线（main 796902d4）上把 _consistency.jsonl 末行造成半截中文后，mdcg_remember（gated=True/False 两路）与 mdcg_health / mdcg_consistency(action=history) 全部抛 UnicodeDecodeError；sustain.heal 回报 ok=True 且 applied=True，**之后写入面照旧不可用**。判别力证据（维护者独立执行）：把 PR 自带守卫 md_cg/test_issue225_consistency_torn_log.py 单独拷到未打补丁的基线上 ⇒ rc=1 变红（S6c 调用点=0 / S7a UnicodeDecodeError / S7b / S7e 换行数 5≠6）；整合树上 rc=0。落地核验：main 上该守卫 blob sha = 49e079900c64bbfb008a10d0ea7743fbdf1f2467（与 PR head 逐字节一致）；md_cg/consistency.py 修法标记齐备（_records×7、errors=\"replace\"×3、ends_mid_line×2）。删除行审查：相对 merge-base 删 44 行，全部是三处重复的严格 utf-8 读取器收敛到 _records 单点的重构，无静默回退。★举证瑕疵（如实记录、不据此扣分）：「merge commit 72b74fc8」实为 CI 的 merge-ref 合成提交（Merge 1b27e5b9 into 8c28a7f4，status=diverged，不在 main 上）；真实落地为维护者 squash 提交 ae50df98（作者保留为 @ganzhe12138）。结论不受影响。定档：申报件机器标记自申 difficulty:hard / impact:A，采纳。影响 A 的依据是**静默丢数据 + 自愈假报成功**——新记忆 0 条落盘且无痕，同时 heal 报成功而写入面仍死，审计读数与实际状态相反，逐字命中 A 档「核心链路失效」。追溯性结算无轮次证据 ⇒ 中性点 round=1，delta == base。档位可申诉。",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_e3397a8dc586"
     }
   ]
 }

@@ -49,15 +49,16 @@
    "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
-    12,
-    24,
-    45,
-    267
+    175,
+    263,
+    264,
+    266,
+    290
    ],
-   "login": "LarryE135",
-   "project": "bounty_site",
+   "login": "ganzhe12138",
+   "project": "memory",
    "quality_E": null,
-   "reputation_delta": 28,
+   "reputation_delta": 34,
    "rounds": 1
   },
   {
@@ -66,13 +67,13 @@
    "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
-    175,
-    263,
-    264,
-    266
+    12,
+    24,
+    45,
+    267
    ],
-   "login": "ganzhe12138",
-   "project": "memory",
+   "login": "LarryE135",
+   "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 28,
    "rounds": 1

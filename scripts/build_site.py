@@ -36,12 +36,13 @@
 
 确定性：**输出不含生成时刻**（同一账本 ⇒ 逐字节同一 HTML），便于守卫逐字节比对。
 
-退出码：0 = 生成成功；2 = 输入/环境错误（账本坏 JSON、tasks 结构不符——fail-closed）。
+退出码：0 = 生成成功（或 `--check` 未检出漂移）；1 = `--check` 检出产物漂移；2 = 输入/环境错误（账本坏 JSON、tasks 结构不符——fail-closed）。
 """
 from __future__ import annotations
 
 import argparse
 import html
+import io
 import json
 import os
 import re
@@ -451,6 +452,39 @@ def build(ledger_path, out_dir, tasks=None, print_only=False) -> list:
     return made
 
 
+# 生效条件：out_dir 为产物目录、ledger_path 为账本路径、tasks 为可选快照时返回
+# (漂移列表, 多余文件列表)——**只读，不写盘**。
+# 为什么需要它：`tests/test_build_site.py` 只在**临时目录**里跑两遍互比（确定性自检），
+# **从不读盘上已提交的 `site/`** —— 改渲染逻辑后，已提交产物会**静默漂移**而没有任何守卫会红。
+# 同仓 `review_build.py --check` / `bounty_list.py --check` 都读盘比对，本件把站点生成器补齐
+# （《运行手册》§四-1 自认的盲区正是这一类）。
+def check(out_dir, ledger_path, tasks=None) -> tuple:
+    """产物漂移检测：返回 (漂移项, 多余文件)。只读不写。"""
+    events = bb.load_ledger(ledger_path)
+    want = {"index.html": render_index(events),
+            "board.html": render_board(events, tasks),
+            "honor.html": render_honor(events),
+            "rules.html": render_rules()}
+    drift, stray = [], []
+    if not os.path.isdir(out_dir):
+        return ["产物目录不存在：%s" % out_dir], []
+    for name in sorted(want):
+        fp = os.path.join(out_dir, name)
+        if not os.path.isfile(fp):
+            drift.append("缺页：%s" % name)
+            continue
+        got = io.open(fp, encoding="utf-8").read()
+        if got != want[name]:
+            drift.append("漂移：%s（盘上 %d 字节 ／ 现渲染 %d 字节）"
+                         % (name, len(got.encode("utf-8")), len(want[name].encode("utf-8"))))
+    # 产物目录里不在应存在集合内的文件 —— `--check` 必须能发现它们，
+    # 否则「一致」是假的安全感（与 review_build 的同款判据）。
+    for n in sorted(os.listdir(out_dir)):
+        if os.path.isfile(os.path.join(out_dir, n)) and n not in want:
+            stray.append(n)
+    return drift, stray
+
+
 # 生效条件：path 为 tasks 快照 JSON 路径时返回任务列表（须为数组或 {"tasks":[...]}；结构不符抛 BoardError）。
 def load_tasks(path):
     """读 issue 面快照（本地文件；本生成器不联网）。"""
@@ -479,9 +513,29 @@ def main(argv=None) -> int:
                     help="issue 面快照 JSON（可选；不给则悬赏板从账本推演）")
     ap.add_argument("--print", dest="print_only", action="store_true",
                     help="只打印不落盘")
+    # ★本件：漂移闸（体例对齐 `scripts/review_build.py --check` 与 `bounty_list.py --check`）。
+    ap.add_argument("--check", dest="check_only", action="store_true",
+                    help="只校验产物与真源一致（0=一致 / 1=检出漂移）；不写盘")
     args = ap.parse_args(argv)
+    # 互斥标志：显式拒收，免去「谁优先」的隐式口径（同 review_build 的处理）。
+    if args.check_only and args.print_only:
+        sys.stderr.write("[错误] `--check` 与 `--print` 互斥：前者只校验产物，后者只打印不落盘；"
+                         "请二选一\n")
+        return 2
     try:
         tasks = load_tasks(args.tasks)
+        if args.check_only:
+            drift, stray = check(args.out, args.ledger, tasks)
+            if not drift and not stray:
+                print("产物与真源一致：%s（4 页）" % args.out)
+                return 0
+            for d in drift:
+                sys.stderr.write("[漂移] %s\n" % d)
+            for n in stray:
+                sys.stderr.write("[多余] %s 不在应存在集合内\n" % n)
+            sys.stderr.write("[check] 检出 %d 处漂移 / %d 个多余文件 ⇒ 退出 1\n"
+                             % (len(drift), len(stray)))
+            return 1
         made = build(args.ledger, args.out, tasks=tasks,
                      print_only=args.print_only)
         events = bb.load_ledger(args.ledger)

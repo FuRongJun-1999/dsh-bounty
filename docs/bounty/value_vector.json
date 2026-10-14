@@ -25,10 +25,10 @@
    "rounds": 1
   },
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
+   "difficulty": "easy",
+   "difficulty_base": 1,
    "evidence_strength": true,
-   "impact_grade": "B",
+   "impact_grade": "C",
    "issues": [
     295,
     296,
@@ -40,12 +40,18 @@
     326,
     349,
     360,
-    365
+    365,
+    417,
+    421,
+    422,
+    426,
+    428,
+    429
    ],
    "login": "Yinfeng818",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 48,
+   "reputation_delta": 54,
    "rounds": 1
   },
   {

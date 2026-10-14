@@ -34,12 +34,13 @@
     35,
     86,
     144,
+    260,
     289
    ],
    "login": "cyd471",
    "project": "memory",
    "quality_E": null,
-   "reputation_delta": 42,
+   "reputation_delta": 48,
    "rounds": 1
   },
   {
@@ -55,6 +56,23 @@
    ],
    "login": "LarryE135",
    "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 28,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    175,
+    263,
+    264,
+    266
+   ],
+   "login": "ganzhe12138",
+   "project": "memory",
    "quality_E": null,
    "reputation_delta": 28,
    "rounds": 1

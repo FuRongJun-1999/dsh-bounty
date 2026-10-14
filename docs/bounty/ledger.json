@@ -2621,6 +2621,146 @@
       },
       "day": "2026-10-14",
       "id": "evt_cbbd72d5e76e"
+    },
+    {
+      "ts": "2026-10-14T12:20:00Z",
+      "issue": 175,
+      "covers": [
+        175
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ganzhe12138",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
+      "impact": "A",
+      "reason": "dsh-memory 元守卫 check_guard_coverage.py 的反向判据面越权（源仓 issue #234 第①项；PR #231）。维护者隔离克隆独立复现（当前 main 7212e521）：守卫本体 rc=4、配对测试 scripts/test_check_guard_coverage.py rc=1（[FAIL] 真仓无未登记孤儿（退出码 0））。逐键枚举 package.json 证实根因：正向判据面只认 gate/prepublishOnly/test + workflow run:，反向判据面遍历**全部** script 键；两向差集恰为 ['lib/index.js']——它是 prepare 脚本**错误文案**里的字面量（构建产物、被 .gitignore 忽略、干净克隆上必然不存在），却被判「被点名却缺失」⇒ 退 4 ⇒ 该测试在 CI python-tests 里恒红。申报人于 2026-10-13T15:1xZ 主动收窄本件（原含两处病灶，现只保留病灶 1，病灶 2 让给 PR #233）——主动去重、避免同病灶重复计分，属对计分口径的正确理解，特记。定档：申报件机器标记自申 difficulty:hard / impact:A，采纳；影响 A 的依据是**量具失效**——失效的是仓库自己的机器闸，元守卫对被点名的执行面失去判据对象且其配对测试恒红。追溯性结算无轮次证据 ⇒ 中性点 round=1，delta == base。档位可申诉。",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_75753495e4af"
+    },
+    {
+      "ts": "2026-10-14T12:21:00Z",
+      "issue": 260,
+      "covers": [
+        260
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
+      "impact": "A",
+      "reason": "dsh-memory 插件令牌与冲突台账两条（源仓 issue #224 + #225）。维护者隔离克隆独立复现（当前 main 7212e521）：#225 **命中** —— 把 _consistency.jsonl 的末行造成半截中文（与磁盘写满/断电同形）后，mdcg_remember（gated=True 与 gated=False 两条路径）与 mdcg_health / mdcg_consistency(action=history) 全部抛 UnicodeDecodeError；截断后写入的 2 条新记忆**落盘 0 条**；sustain heal 回报 ok=True 且 actions 含 {code:'seal_half_lines', detail:'修补 1 个半截日志行', applied:True}，**之后写入面照旧不可用** —— 申报人「heal 修不好」的读数逐字复现。#224 本轮只做源级核对（TS 侧 src/lib/token_store.ts 密钥环不复核 + issueToken 不传 --tenant、子进程 env 不含 config.env；服务端 md_cg/tokens.py 按设计 fail-closed ⇒ mcp_server return 3），**未做端到端复现**，如实标注。定档：本件无机器标记，由维护者定档 —— 难度取申报人自申最高档（#224 hard / #225 medium ⇒ hard）；影响取最严（#224 建议 B / #225 建议 A ⇒ A）：写面永久不可用 + 静默丢数据 + 自愈假报成功，逐字命中 A 档「核心链路失效」。追溯性结算 ⇒ 中性点 round=1，delta == base。档位可申诉。",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_e03e806340b8"
+    },
+    {
+      "ts": "2026-10-14T12:22:00Z",
+      "issue": 263,
+      "covers": [
+        263
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ganzhe12138",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
+      "impact": "A",
+      "reason": "dsh-memory 分支派生写丢密级（源仓 issue #243；PR #244）。维护者隔离克隆独立复现（当前 main 7212e521，branches.py 全文件零处 sensitivity）：声明 private 的主支节点落盘为密文（盘上明文 0 命中，对照成立）后——① branches.fork 产出的副本 secret_doc@br1 密级降为 **internal**，且盘上出现**明文**文件（knowledge/cond_medical_<hash>/secret_doc@br1.md）；② branches.rewrite 后仍为 internal + 明文；③ 分支副本明文文件在 merge 后**仍留在盘上**（merge 本身未再降主支密级——主支保 private，这是维护者 8c28a7f4 的 #297 修复「同 id 改写继承既有密级」的连带保护，非本件修复）；④ branches.rewrite 可经 **extra 直接传 sensitivity='public' 改档成功（实测副本 sensitivity 变 public），而该函数 docstring 自称归属与血缘「调用方不可改」——越权面与自述矛盾。共 6/9 项命中。根因：fork(L107-124) / rewrite(L175-193) / merge(L231-239) 三处 cg.add 均不传 sensitivity，MdCGSecure.add 缺省归一为 internal，而 crypto.ENCRYPTED_LEVELS 只含 private/secret。定档：申报件机器标记自申 difficulty:hard / impact:A，采纳；影响 A 的依据是**安全面**（声明 private 的正文以明文落盘且副本可被访客读）。追溯性结算 ⇒ 中性点 round=1，delta == base。档位可申诉。",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_000266ea8775"
+    },
+    {
+      "ts": "2026-10-14T12:23:00Z",
+      "issue": 264,
+      "covers": [
+        264
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ganzhe12138",
+      "difficulty": "expert",
+      "delta": 10,
+      "project": "memory",
+      "impact": "A",
+      "reason": "dsh-memory 证据包通路丢密级（源仓 issue #258，已 closed；PR #260）。**报告成立且已驱动修复**：维护者在申报后自行实现修复 b1617bac（2026-10-14 08:40，「fix(#258): 跨节点证据包带密级——导入侧 fail-closed，含加密档不归档明文」），md_cg/evidence.py +117、md_cg/identity.py +6、新增守卫 md_cg/test_issue258_pack_sensitivity.py +464。维护者独立核对当前 main：evidence.py 已含 _node_sensitivity / _item_sensitivity / SENSITIVITY_ORDER / archive_skipped 四组修复符号，identity.observe 已带 sensitivity 形参 —— 与申报件的修法要点逐条对应。**修复提交的 docstring 与新增守卫文件名直接点名 #258（=申报人的源仓 issue 号）**，证明该修复由本报告驱动，非独立发现。申报人 PR #260 未合并（维护者选择自行实现），且因 b1617bac 已改 evidence.py 而**转为 dirty（与 main 冲突）**，故本 PR 不再合并（见同轮 PR 裁决）。定档：申报件机器标记自申 difficulty:expert / impact:A，采纳；expert 的依据是缺陷横跨export→import→identity.observe→cg.add 整条链，修复需引入 fail-closed 判据 + 归档闸两处新设计（非单点补丁）；影响 A 的依据是安全面（private 观测在对端落成 internal 明文，且整包明文 JSON 落收件箱）。「已修不影响计分」——修复抹掉的是缺陷，不是贡献。追溯性结算 ⇒ 中性点 round=1，delta == base。档位可申诉。",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
+      },
+      "id": "evt_a944ed56b184"
+    },
+    {
+      "ts": "2026-10-14T12:24:00Z",
+      "issue": 266,
+      "covers": [
+        266
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ganzhe12138",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
+      "impact": "A",
+      "reason": "dsh-memory coldverify 队列跨实例静默丢条目（源仓 issue #265，已 closed；PR #268）。**报告成立且已驱动修复**：维护者在申报后自行实现修复 e8a296d8（2026-10-14 09:13，「fix(#265): 冷路径队列改追加+只删自己消费的——多实例共用同根不再丢条目」），md_cg/coldverify.py +124、新增守卫 md_cg/test_issue265_coldverify_multiproc.py +438。维护者独立核对当前 main：coldverify.py 的 _persist docstring 已明确写出「issue #265：全量覆写正是丢条目的根因，故入队改走 _append_persisted（追加）、消费改走 _drop_persisted（只删自己消费的）。本方法保留给 clear() 的显式重置，并补上跨进程锁 + 原子替换」—— 与申报件的根因（_persist 全量覆写 + 每实例各持内存队列）逐条对应，且 docstring **直接点名 #265**。申报人 PR #268 未合并（维护者选择自行实现），且因 e8a296d8 已改 coldverify.py 而**转为 dirty（与 main 冲突）**，故本 PR 不再合并。定档：申报件机器标记自申 difficulty:hard / impact:A，采纳；影响 A 的依据是**静默丢数据 + 两侧 rc=0 都报成功**（无痕、无告警、审计读数与实际相反）。「已修不影响计分」。追溯性结算 ⇒ 中性点 round=1，delta == base。档位可申诉。",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_da1d67d58916"
     }
   ]
 }

@@ -43,6 +43,38 @@
    ],
    "invalid": 0,
    "issues": [
+    19,
+    35,
+    86,
+    144,
+    146,
+    166,
+    260,
+    288,
+    289
+   ],
+   "login": "cyd471",
+   "projects": [],
+   "reputation_delta": 63,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 9,
+   "round_seen": [
+    1
+   ],
+   "settled": 9,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     12,
     24,
     36,
@@ -74,26 +106,25 @@
    ],
    "invalid": 0,
    "issues": [
-    19,
-    35,
-    86,
-    144,
-    146,
-    166,
-    288,
-    289
+    59,
+    67,
+    175,
+    263,
+    264,
+    266,
+    286
    ],
-   "login": "cyd471",
+   "login": "ganzhe12138",
    "projects": [],
-   "reputation_delta": 57,
+   "reputation_delta": 50,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 8,
+   "round_known": 7,
    "round_seen": [
     1
    ],
-   "settled": 8,
+   "settled": 7,
    "timeout": 0
   },
   {
@@ -267,34 +298,6 @@
     1
    ],
    "settled": 4,
-   "timeout": 0
-  },
-  {
-   "blockers": [
-    "声誉分 22 < 24"
-   ],
-   "disputes": 0,
-   "eligible": false,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    59,
-    67,
-    286
-   ],
-   "login": "ganzhe12138",
-   "projects": [],
-   "reputation_delta": 22,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 3,
-   "round_seen": [
-    1
-   ],
-   "settled": 3,
    "timeout": 0
   },
   {

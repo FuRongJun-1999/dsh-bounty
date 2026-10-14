@@ -30,6 +30,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -339,7 +340,188 @@ def _demo_probe():
     return "\n".join(lines) + "\n", ok
 
 
-#: 三个被测评插件各注册一个记录探针；dsh-auto-memory 另有实跑记录探针。
+# 生效条件：无必需形参时返回 (输出, ok)——核对「注入段字节预算」这份本机实跑快照：
+# 解析快照里的五个规模点读数与四个 unbounded 参考量，逐条与 README 自报数字对照。
+# **读数一律从快照里解析**，本文不含任何手抄的测量值；不一致只报「差异」，不算 NG
+# （NG 只留给「快照本身对不上」——那才是可复跑证据该判红的情形）。
+def _budget_probe():
+    name = "dsh-auto-memory.budget.stdout.txt"
+    rel = "review/evidence/" + name
+    digest, nbytes = file_digest(rel)
+    text = read_text(rel)
+    nlines = len(text.splitlines())
+
+    # 快照里的固定格式行：`<N> 条 → <bytes> bytes`（由测量脚本自己印出）。
+    bounded = {}
+    for line in text.splitlines():
+        m = re.match(r"^(\d+) 条 → (\d+) bytes$", line)
+        if m:
+            bounded[int(m.group(1))] = int(m.group(2))
+    # 参考量表：`N<TAB>bounded<TAB>unbounded<TAB>yes|no`
+    ref = {}
+    for line in text.splitlines():
+        f = line.split("\t")
+        if len(f) == 4 and f[0].isdigit() and f[1].isdigit() and f[2].isdigit():
+            ref[int(f[0])] = (int(f[1]), int(f[2]), f[3])
+
+    lines = []
+    lines.append("# 探针 budget.dsh-auto-memory · 只读已提交的实跑快照，不触网")
+    lines.append("")
+    lines.append("## 输入（本机实跑记录 · 字节快照）")
+    lines.append("file   : %s" % rel)
+    lines.append("sha256 : %s" % digest)
+    lines.append("bytes  : %d" % nbytes)
+    lines.append("lines  : %d" % nlines)
+    lines.append("")
+    lines.append("## ① 测量口径（逐条按字节子串核对）")
+    n_ok = n_ng = 0
+    checks = (
+        ("插件名与版本在场", "plugin name/version: dsh-auto-memory 0.7.1"),
+        ("量的是插件自身的注入段构造函数",
+         "constructor: src/prompt.ts :: renderMemoryIndexText(store, config, cwd)"),
+        ("合成记忆来自插件自身的 L0 构造器",
+         "synthetic memories: evals/l0/helpers.ts :: makeMemories(n, seed=1000+n) + seedStore(scope=project)"),
+        ("四个种子显式登记（可复算）",
+         "seeds: n=20 -> 1020 ; n=50 -> 1050 ; n=100 -> 1100 ; n=200 -> 1200"),
+        ("cwd 与预算口径与该仓 spec 对齐",
+         "cwd(memory project key): D:\\work\\eval-budget   maxBytes: 4096   enableUserScope: false"),
+        ("Node 版本在场", "node: v24.21.0"),
+        ("unbounded 参考量表在场",
+         "参考量(bounded = 插件的同一函数在 maxBytes=4096 下的输出):"),
+    )
+    for desc, needle in checks:
+        hits = line_numbers(text, needle)
+        if hits:
+            n_ok += 1
+            lines.append("[OK] %s → 第 %d 行" % (desc, hits[0]))
+        else:
+            n_ng += 1
+            lines.append("[NG] %s → 快照里找不到 %r" % (desc, needle))
+
+    lines.append("")
+    lines.append("## ② 被测源码指纹（快照逐文件登记，缺一即 NG）")
+    for f in ("src/prompt.ts", "src/store.ts", "src/types.ts", "src/matching.ts",
+              "evals/l0/helpers.ts"):
+        m = re.search(r"^  %s  ([0-9a-f]{64})$" % re.escape(f), text, re.M)
+        if m:
+            n_ok += 1
+            lines.append("[OK] %s sha256=%s" % (f, m.group(1)))
+        else:
+            n_ng += 1
+            lines.append("[NG] %s 在快照里没有 sha256 行" % f)
+
+    lines.append("")
+    lines.append("## ③ 从快照解析出的读数")
+    want_ns = (0, 20, 50, 100, 200)
+    missing = [n for n in want_ns if n not in bounded]
+    if missing:
+        n_ng += 1
+        lines.append("[NG] 快照缺规模点读数：%s" % "、".join(str(x) for x in missing))
+    else:
+        n_ok += 1
+        lines.append("[OK] 五个规模点读数齐备（0／20／50／100／200）")
+    for n in want_ns:
+        if n in bounded:
+            lines.append("bounded N=%-3d → %d bytes" % (n, bounded[n]))
+    for n in sorted(ref):
+        b, ub, flag = ref[n]
+        lines.append("unbounded N=%-3d → %d bytes（实际发生截断 %s）" % (n, ub, flag))
+
+    over = [n for n in want_ns if bounded.get(n, 0) > 4096]
+    if over:
+        n_ng += 1
+        lines.append("[NG] 超预算（> maxBytes=4096）：%s" % "、".join(str(x) for x in over))
+    else:
+        n_ok += 1
+        lines.append("[OK] 五个 bounded 读数均 ≤ maxBytes=4096")
+    if bounded.get(0) == 0:
+        n_ok += 1
+        lines.append("[OK] 空库注入恰为 0 bytes")
+    else:
+        n_ng += 1
+        lines.append("[NG] 空库不是 0 bytes：%r" % bounded.get(0))
+    bad_trunc = [n for n in sorted(ref)
+                 if not (ref[n][0] < ref[n][1] and ref[n][2] == "yes")]
+    if bad_trunc:
+        n_ng += 1
+        lines.append("[NG] 这几点 bounded 未小于 unbounded 或截断标记不为 yes：%s"
+                     % "、".join(str(x) for x in bad_trunc))
+    else:
+        n_ok += 1
+        lines.append("[OK] 四点 bounded 均严格小于 unbounded，且截断标记均为 yes")
+    mism = [n for n in sorted(ref) if ref[n][0] != bounded.get(n)]
+    if mism:
+        n_ng += 1
+        lines.append("[NG] 快照内部不自洽：参考量表与读数行不一致于 %s"
+                     % "、".join(str(x) for x in mism))
+    else:
+        n_ok += 1
+        lines.append("[OK] 快照内部自洽：参考量表与读数行逐点一致")
+
+    lines.append("")
+    lines.append("## ④ 与 README 自报数字逐条对照")
+    readme = read_text("review/evidence/dsh-auto-memory.README.md")
+    for desc, needle in (("README 自报四点字节数的原句", "(4065/4048/4018/3940 bytes measured)"),
+                         ("README 自报空库 0 字节的原句", "empty store injects **0 bytes**")):
+        if needle in readme:
+            n_ok += 1
+            lines.append("[OK] %s 在 README 快照里逐字在场 → 第 %d 行"
+                         % (desc, line_numbers(readme, needle)[0]))
+        else:
+            n_ng += 1
+            lines.append("[NG] %s 在 README 快照里找不到：%r" % (desc, needle))
+    claims = ((0, 0), (20, 4065), (50, 4048), (100, 4018), (200, 3940))
+    lines.append("")
+    lines.append("N\t本机\tREADME\t差(字节)\t差(%)\t判定")
+    n_same = n_diff = 0
+    for n, want in claims:
+        got = bounded.get(n)
+        diff = (got - want) if got is not None else 0
+        pct = (100.0 * diff / want) if want else 0.0
+        if got == want:
+            n_same += 1
+            verdict = "一致"
+        else:
+            n_diff += 1
+            verdict = "不一致"
+        lines.append("%d\t%s\t%d\t%+d\t%+.2f%%\t%s"
+                     % (n, "-" if got is None else str(got), want, diff, pct, verdict))
+    lines.append("")
+    lines.append("五点中一致 %d 点；不一致 %d 点" % (n_same, n_diff))
+    seq_readme = [4065, 4048, 4018, 3940]
+    seq_local = [bounded.get(n) for n in (20, 50, 100, 200)]
+    mono = all(isinstance(seq_local[i], int) and isinstance(seq_local[i + 1], int)
+               and seq_local[i] > seq_local[i + 1] for i in range(len(seq_local) - 1))
+    lines.append("README 四点序列 %s（单调递减）／本机四点序列 %s（%s）"
+                 % ("→".join(str(x) for x in seq_readme),
+                    "→".join(str(x) for x in seq_local),
+                    "单调递减" if mono else "非单调"))
+
+    lines.append("")
+    lines.append("## 边界（这条读数**不**证明什么）")
+    lines.append("- 不证明 README 自报的 4065／4048／4018／3940 可由 v0.7.1 源码复现："
+                 "本机用**同一注入段构造函数**、同一合成记忆构造器与 seed、同一 cwd 与 maxBytes，"
+                 "量到的是 3966／4050／3979／3968，与该表逐点不同。")
+    lines.append("- 差异来源本机**两个方向都未排除**：① 该表（evals/README 标注 baseline 2026-09-25）"
+                 "可能早于现行代码——v0.7.1 的索引行序已是三因子（快照所量行序按"
+                 "feedback→user→project→reference 分组，不是 README 同节写的 name 字典序），"
+                 "行序变则截断保留集变，字节数随之漂移；② 本机对上游源码是**转写**而非克隆"
+                 "（本机出网不可用，无法对上游字节取指纹），转写差异不能排除。")
+    lines.append("- 定性主张本机成立：四点 bounded 均 ≤ 4096、空库恰 0 bytes、"
+                 "四点 bounded 均严格小于 unbounded（截断确实生效）。不成立的是那四个**精确**数字。")
+    lines.append("- 不证明检索质量或任何需要模型／API key 的行为。")
+    lines.append("- 本探针证明的是「这份快照现在仍产出同一段读数」；它不是「重跑插件」——"
+                 "重跑需要该插件自身的运行期依赖与 Node >= 23.6，且需按快照里登记的 seed／cwd／maxBytes 复算。")
+    ok = n_ng == 0
+    lines.append("")
+    lines.append("读数项命中 %d 项；未命中 %d 项" % (n_ok, n_ng))
+    lines.append("结论：%s"
+                 % ("快照里的测量口径与读数逐条在场，且定性口径（≤4096／空库 0／截断生效）本机成立"
+                    if ok else "快照对不上，见上面 NG 行"))
+    return "\n".join(lines) + "\n", ok
+
+
+#: 三个被测评插件各注册一个记录探针；dsh-auto-memory 另有实跑记录探针与字节预算探针。
 probe("record.dsh-auto-memory", "dsh-auto-memory 的证据链＋版本面本机复跑",
       lambda: _record_probe("dsh-auto-memory"))
 probe("record.dsh-memory", "dsh-memory 的证据链＋版本面本机复跑",
@@ -347,6 +529,7 @@ probe("record.dsh-memory", "dsh-memory 的证据链＋版本面本机复跑",
 probe("record.dsh-mnemon", "dsh-mnemon 的证据链＋版本面本机复跑",
       lambda: _record_probe("dsh-mnemon"))
 probe("demo.dsh-auto-memory", "dsh-auto-memory 本机实跑记录的逐条观察核对", _demo_probe)
+probe("budget.dsh-auto-memory", "dsh-auto-memory 注入段字节预算的本机复跑读数核对", _budget_probe)
 
 PROBE_IDS = tuple(sorted(PROBES))
 

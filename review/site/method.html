@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>方法说明 · 灵枢插件测评</title>
+<style>
+:root{--fg:#1c1e21;--dim:#606770;--line:#e4e6eb;--acc:#1d76db;--bg:#fff;--soft:#f5f6f7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);line-height:1.7;
+ font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{border-bottom:1px solid var(--line);padding:18px 24px;background:var(--soft)}
+header h1{margin:0 0 8px;font-size:20px}
+header h1 a{color:var(--fg);text-decoration:none}
+nav a{margin-right:16px;color:var(--dim);text-decoration:none;font-size:15px}
+nav a.on{color:var(--acc);font-weight:700;border-bottom:2px solid var(--acc)}
+main{max-width:880px;margin:0 auto;padding:24px}
+h2{font-size:18px;margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+h3{font-size:15px;margin:20px 0 6px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+code{background:var(--soft);padding:1px 5px;border-radius:3px;font-size:13px}
+pre{background:var(--soft);padding:12px;border-radius:5px;overflow:auto;font-size:13px}
+.note{background:#fff8e1;border-left:4px solid #f0ad4e;padding:10px 14px;margin:14px 0}
+.muted{color:var(--dim)}
+.tag{display:inline-block;background:var(--soft);border:1px solid var(--line);
+ border-radius:10px;padding:0 8px;font-size:12px;margin-right:6px}
+footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
+ color:var(--dim);font-size:13px}
+
+</style>
+</head>
+<body>
+<header><h1><a href="index.html">灵枢插件测评</a></h1>
+<nav><a class="" href="index.html">首页</a><a class="" href="board.html">榜单</a><a class="on" href="method.html">方法说明</a></nav></header>
+<main>
+<h2>〇、口径先说清</h2>
+<div class="note">本子站的测评分（每维 1–5 整数，<b><code>dim_basis</code> 为空（无任何证据）的维度记 <code>null</code></b>；榜面报的是<b>已测维度均值</b>，不再是五维求和）是<b>本子站自己的读数刻度</b>，与 <code>scripts/bounty_board.py</code> 的悬赏声誉分（easy 1 ／ medium 3 ／ hard 6 ／ expert 10）<b>不是同一个量</b>，两者不可换算、不可相加。悬赏侧口径真源见 <code>docs/bounty/README.md</code> §四。</div>
+<h2>一、怎么读一条测评</h2>
+<p>一条测评 = ①维度读数（每维：<b>分</b>＋<b>证据档位</b>＋<b>rationale</b>） ②每条证据的<b>命令 ＋ 原始输出 ＋ 来源</b> ③结论 ④边界 ⑤未测项。缺任何一项，生成器在落盘前就拒绝（fail-closed）；落盘期失败（磁盘／权限）同样点名并以退出码 2 收场，不留半截站。</p>
+<p>每个非 <code>null</code> 维度必须带 <code>dim_basis</code>（指向具体证据的下标）与 <code>dim_rationale</code>（写清这个分指回哪条具名证据、以及<b>为什么不是更高一级</b>）；详情页把 rationale 原文一并印出。</p>
+<p><b>零 LLM 判官</b>：本子站的每一条判定都能指回一条读数——哪条读数支撑哪条结论逐项可指。禁用「看起来更好」「体验更佳」一类表述；生成器本身也<b>不调用任何模型</b>、不发任何网络请求。</p>
+<h2>二、五维各量什么</h2>
+<p>下面逐维给出<b>判据真源</b> <code>review/data/rubric.json</code> 的 5 级定义：「该级的表现水平判据」是人读的界线（写清了与相邻级的区别），「该级的必需证据特征」是生成器<b>机械判定</b>的硬条件——真源里某维记了某级、而 <code>dim_basis</code> 满足不了该级 must 时，生成器<b>逐条点名拒绝</b>、不落盘。</p>
+<h3>检索质量</h3>
+<table><tr><th>级</th><th>该级的表现水平判据（人读）</th><th>该级的必需证据特征（机判）</th></tr><tr><td>1</td><td><b>有基座</b>（该维 <code>dim_basis</code> 非空，最低档）：该维度上公开可得的信息最少——可能只有文字描述、<b>没有任何命中率类数字读数</b>，或仅能判定「该插件未公开检索口径」。数字读数<b>不是</b> 1–4 级的必要条件（1–4 级的机械门槛只是「基座非空」），某维有没有可核数字读数由<b>证据档位</b>列另行披露。这只表示公开可得的信息最少，<b>不表示</b>该插件检索能力差。</td><td>has_any</td></tr><tr><td>2</td><td>有 ≥1 条命中率读数，但读数<b>只覆盖单一场景</b>（单一语料／单一查询构造），或读数属自报而未附口径说明。</td><td>has_any</td></tr><tr><td>3</td><td>有 ≥1 条命中率读数且口径写明（语料、查询构造、k 值），但读数<b>只有上界</b>，未给出下界或对照组。</td><td>has_any</td></tr><tr><td>4</td><td>有口径写明的命中率读数，且<b>同时给出上界与下界</b>（或基线 vs 方案对照），使读者能看出真实区间的宽度。</td><td>has_any</td></tr><tr><td>5</td><td>上述读数之外，<b>本机复跑</b>过检索侧命令并复现出同量级读数（<code>--repro</code> 逐字节可复算）。</td><td>has_any／has_repro</td></tr></table>
+<h3>记忆持久</h3>
+<table><tr><th>级</th><th>该级的表现水平判据（人读）</th><th>该级的必需证据特征（机判）</th></tr><tr><td>1</td><td><b>有基座</b>（该维 <code>dim_basis</code> 非空，最低档）：该维度上公开可得的信息最少——可能只有结构化描述、<b>没有任何持久性／崩溃恢复类读数</b>。数字读数<b>不是</b> 1–4 级的必要条件（1–4 级的机械门槛只是「基座非空」），某维有没有可核数字读数由<b>证据档位</b>列另行披露。这只表示信息最少，<b>不表示</b>持久性差。</td><td>has_any</td></tr><tr><td>2</td><td>有明确的落盘形态描述（如「普通 Markdown 文件落在 &lt;路径&gt;」），但无任何跨会话验证读数。</td><td>has_any</td></tr><tr><td>3</td><td>落盘形态 + 删除／保留语义有明确描述（何种操作可删、何种不可），读者可据此推断持久边界。</td><td>has_any</td></tr><tr><td>4</td><td>上述之外，给出了<b>派生物可重建</b>或<b>写入即提交</b>一类的结构性保证，使数据丢失面可被读者自行界定。</td><td>has_any</td></tr><tr><td>5</td><td><b>本机复跑</b>过写入—重启—再取回的往返，且该往返的原始输出逐字节可复算。</td><td>has_any／has_repro</td></tr></table>
+<h3>注入预算</h3>
+<table><tr><th>级</th><th>该级的表现水平判据（人读）</th><th>该级的必需证据特征（机判）</th></tr><tr><td>1</td><td><b>有基座</b>（该维 <code>dim_basis</code> 非空，最低档）：该维度上公开可得的信息最少——可能只有文字描述、<b>没有任何 token／字节用量读数</b>。数字读数<b>不是</b> 1–4 级的必要条件（1–4 级的机械门槛只是「基座非空」），某维有没有可核数字读数由<b>证据档位</b>列另行披露。这只表示信息最少，<b>不表示</b>该插件注入开销大。</td><td>has_any</td></tr><tr><td>2</td><td>有单一规模点的用量读数（如「空库注入 0 bytes」），无法看出随规模的增长行为。</td><td>has_any</td></tr><tr><td>3</td><td>有 ≥2 个规模点的用量读数，可看出单调性方向。</td><td>has_any</td></tr><tr><td>4</td><td>有跨量级的多规模点读数（如 20／50／100／200 条），且给出空库基线，读者可自行核对增长曲线。</td><td>has_any</td></tr><tr><td>5</td><td>上述多规模点读数由<b>本机复跑</b>产出（而非转引他处自报），且逐字节可复算。</td><td>has_any／has_repro</td></tr></table>
+<h3>隐私与本地性</h3>
+<table><tr><th>级</th><th>该级的表现水平判据（人读）</th><th>该级的必需证据特征（机判）</th></tr><tr><td>1</td><td><b>有基座</b>（该维 <code>dim_basis</code> 非空，最低档）：该维度上公开可得的信息最少——可能只有文字描述，<b>看不出数据落在哪</b>（既未声明本地存储，也未说明是否外发）。数字读数<b>不是</b> 1–4 级的必要条件（1–4 级的机械门槛只是「基座非空」），某维有没有可核数字读数由<b>证据档位</b>列另行披露。这只表示信息最少，<b>不表示</b>该插件隐私性差。</td><td>has_any</td></tr><tr><td>2</td><td>声明了数据落盘位置或「本地优先」，但未排除外部服务／数据库／嵌入接口依赖。</td><td>has_any</td></tr><tr><td>3</td><td><b>有条件的本地性</b>：明确支持本地，但同时列出可选的第三方 Provider，且说明数据是否出本地取决于所选 Provider（风险边界可被读者看见）。</td><td>has_any</td></tr><tr><td>4</td><td>无条件本地：明确声明不需要外部服务／数据库／嵌入接口，且存储形态为读者可直接查看与编辑的普通文件。</td><td>has_any</td></tr><tr><td>5</td><td>上述声明由<b>本机复跑</b>佐证：在本机实际落盘并列出产物，证明其确为普通本地文件、且未触及网络（逐字节可复算）。</td><td>has_any／has_repro</td></tr></table>
+<h3>可验证性</h3>
+<table><tr><th>级</th><th>该级的表现水平判据（人读）</th><th>该级的必需证据特征（机判）</th></tr><tr><td>1</td><td><b>有基座</b>（该维 <code>dim_basis</code> 非空，最低档）：该维度上公开可得的信息最少——<b>没有任何可跑的命令入口或评测套件</b>，读者无法自行复现任何判定。数字读数<b>不是</b> 1–4 级的必要条件（1–4 级的机械门槛只是「基座非空」），某维有没有可核数字读数由<b>证据档位</b>列另行披露。这只表示信息最少，<b>不表示</b>该插件可验证性差。</td><td>has_any</td></tr><tr><td>2</td><td>有命令入口，但<b>无任何对照读数</b>（无基线 vs 方案、无 hit@k、无预算读数）——能跑，跑出来的东西没有判据可比。</td><td>has_any</td></tr><tr><td>3</td><td>有可复跑的机械验证套件（确定性、非 LLM 判官），且其存在本身可被核实（如 <code>pnpm verify</code> 一类入口）。</td><td>has_any</td></tr><tr><td>4</td><td>上述之外，其<b>证据链／版本面</b>由本机复跑佐证，<b>或</b>有<b>基准数据随仓公开</b>、或存在<b>第三方独立验证报告</b>（含其对本插件的批评意见一并列出）。</td><td>has_any</td></tr><tr><td>5</td><td><b>本机复跑</b>过该插件自己的运行入口（不是本站的证据链探针），原始输出逐字节可复算——读者可照本子站记录原样重现该插件的运行。</td><td>has_any／has_repro</td></tr></table>
+<h3>证据特征：名字 → 机械判据</h3>
+<table><tr><th>特征名</th><th>判据</th></tr><tr><td><code>has_any</code></td><td><code>dim_basis</code> 至少指向 1 条证据</td></tr><tr><td><code>has_reading</code></td><td><code>dim_basis</code> 指向的证据里，至少 1 条的 <code>output</code> 含可核的数字读数（数字 ＋ 单位／百分比／<code>hit@k</code> 形态）</td></tr><tr><td><code>has_repro</code></td><td><code>dim_basis</code> 指向的证据里，至少 1 条 <code>kind</code> 为「本机复跑」（其 <code>output</code> 与探针 stdout 逐字节相同，由 <code>evidence_check.py --repro</code> 每次复算）</td></tr></table>
+<p class="muted">分域（每维）：</p>
+<table><tr><th>维度</th><th>分域</th></tr><tr><td>检索质量</td><td>1–5；<code>null</code> = 无任何证据</td></tr><tr><td>记忆持久</td><td>1–5；<code>null</code> = 无任何证据</td></tr><tr><td>注入预算</td><td>1–5；<code>null</code> = 无任何证据</td></tr><tr><td>隐私与本地性</td><td>1–5；<code>null</code> = 无任何证据</td></tr><tr><td>可验证性</td><td>1–5；<code>null</code> = 无任何证据</td></tr></table>
+<h2>三、未测项怎么处理</h2>
+<div class="note"><b>未测项</b>：凡本子站未取得原始输出的维度或子项，一律在详情页「未测」节<b>显式写「未测 ＋ 原因」</b>——留空、或用「应该没问题」代替，视为未交付。<code>dim_basis</code> 为空的维度（<b>无任何证据</b>）在真源里记 <code>null</code>、并进 <code>unmeasured_dims</code>，<b>不参与</b>任何合计；页面上的 <code>1..5</code> 都表示<b>有基座</b>，<code>1</code> 是最低档，与「未测」是两回事——<b>1–4 级的机械门槛都只是「基座非空」</b>，数字读数<b>不是</b> 1–4 级的必要条件（有没有可核数字读数由<b>证据档位</b>列另行披露）；旧口径把「未知」与「最低档」混记成同一个 1 再求和，正是本次要废掉的口径。</div>
+<h2>四、证据来源的两档（<b>本子站把「可复跑」从「转引」里切出去</b>）</h2>
+<table><tr><th>来源档</th><th>字段</th><th>含义与判据</th></tr><tr><td><code>本机复跑</code></td><td><code>kind</code> ＋ <code>probe</code></td><td>由 <code>scripts/evidence_probe.py</code> 的具名探针在本机跑出；<code>output</code> 必须与该探针的 stdout <b>逐字节相同</b>——由 <code>python -X utf8 scripts/evidence_check.py --repro</code> 每次复算，差一个字节即点名判红。<b>每条记录至少 1 条</b>（生成器强制）。</td></tr><tr><td><code>公开文档转引</code></td><td><code>source</code>（URL ＋ 抓取日）</td><td>原始输出取自该公开文档的原文读数（<b>不是</b>本站本机重跑）；URL 与抓取日期随证据一并公开，可自行核验。<b>不得</b>挂 <code>probe</code>。</td></tr></table>
+<div class="note"><b>本机复跑证明了什么、没证明什么</b>：它证明「我们引的字节就是这些字节」「这条命令现在仍然跑得出这段输出」；它<b>不</b>证明被测评插件的运行时行为。<code>dim_basis</code> 为空（<b>无任何证据</b>）的维度，一律记 <code>null</code>（＝未测）并进 <code>unmeasured_dims</code>，再在「未测」节写明原因；<code>1..5</code> 都用于<b>有基座</b>的维度，<code>1</code> 是最低档——<b>1–4 级的机械门槛都只是「基座非空」</b>，数字读数不是 1–4 级的必要条件（有没有可核数字读数由<b>证据档位</b>列另行披露）。</div>
+<h2>五、两个正交的轴：表现水平 × 证据档位</h2>
+<p><b>轴一 · 表现水平</b>：<code>dimensions[维度]</code> = 1–5 整数（判据见上表「该级的表现水平判据」）；<code>null</code> = 该维<b>无法判级</b>（无任何证据）。</p>
+<p><b>轴二 · 证据档位</b>：none／prose／reading／repro——由 <code>dim_basis</code> 指向的证据<b>机械推导</b>（见下表与 <code>has_reading</code> 的判据）。</p>
+<p>两轴<b>正交</b>：一个维度可以「档位高而水平低」（有可核读数，但读数本身是最低档），也可以「档位低而判断仍有据」（只有结构化描述、没有数字）。把两轴压成一个数，正是本子站 v1 的两个已确认缺陷：</p>
+<ol>
+<li><b>「未取得读数」伪装成 <code>1</code> 参与求和</b>——旧口径把 <code>1</code> 同时当作「未知」与「最低档」，于是合计分不开「这一维没测」与「这一维测了但很差」，<b>覆盖率低的记录被系统性低估</b>（未测维度越多，被计入的那个 1 越多、合计越吃亏）。新口径：未测维度记 <code>null</code>、进 <code>unmeasured_dims</code>，<b>不参与</b>任何合计。</li>
+<li><b>合一了「表现水平」与「证据强度」两个正交的轴</b>——旧口径里，证据强度只能从分数高低里间接猜。新口径：档位在榜面单独披露，与分数并列可读。</li>
+</ol>
+<p><b>为什么是「分列」而不是「降权」</b>：降权要乘一个系数（例如按覆盖率或档位打几折），那个系数在真源里<b>没有任何读数</b>支撑——定它就是<b>新造读数</b>。本子站只放可核读数：均值、覆盖率、档位<b>摆出来</b>，要不要折价由读者自己判。</p>
+<p><b>5 级的硬条件</b>：该维度必须有<b>本机复跑证据</b>（<code>has_repro</code>）。这不是本次新增的要求——本子站 v1 起就写在方法页（「5 = 该维度上有可复跑证据且读数最好的一档」），本次只是把它落成 <code>rubric.json</code> 的 <code>levels[维度]["5"].must = [has_any, has_repro]</code>，由生成器机械判定，不满足即<b>逐条点名拒绝</b>。</p>
+<div class="note">每个维度按 <b>1–5 整数</b>打分，判级依据是<b>判据真源</b> <code>review/data/rubric.json</code> 的<code>levels[维度][分数]</code>（5 = 该维度上有可复跑证据且读数最好的一档）。<b><code>dim_basis</code> 为空的维度记 <code>null</code></b>（<b>无任何证据</b>）——它不进均值、也不作为 1 计入分母；<code>1..5</code> 都表示<b>有基座</b>（该维挂了 ≥1 条证据）：<code>1</code> 是最低档、<code>5</code> 是最高档，<b>1–4 级的机械门槛都只是「基座非空」</b>。榜面报的是<b>已测维度均值</b>（保留 2 位）与<b>覆盖率</b>（已测维度数 ／ 5），<b>不再是</b>五维求和。打分<b>只依据页面上列出的证据</b>——禁用「体验更好」「看起来更强」一类不可判表述。</div>
+<div class="note"><code>dim_basis</code> 为空的维度记 <code>null</code>（<b>无任何证据</b>）——<b>不参与</b>任何合计：既不计入已测维度均值，也不作为 <code>1</code> 计入分母，并在真源里进 <code>unmeasured_dims</code>。页面上的 <code>1..5</code> 都表示「<b>有基座</b>」（该维挂了 ≥1 条证据）：<code>1</code> 是最低档、<code>5</code> 是最高档；<b>1–4 级的机械门槛都只是「基座非空」</b>——数字读数<b>不是</b> 1–4 级的必要条件，某维有没有可核数字读数由<b>证据档位</b>列（none／prose／reading／repro）另行披露。两者不是一回事（v1 把「未知」与「最低档」混记成 1，使覆盖率低的记录被系统性低估）。</div>
+<table><tr><th>档位</th><th>含义与判据</th></tr><tr><td><code>none</code></td><td>该维 <code>dim_basis</code> 为空——<b>未取得任何证据</b>（真源里该维记 <code>null</code>，并进 <code>unmeasured_dims</code>）。</td></tr><tr><td><code>prose</code></td><td>有证据，但 <code>output</code> 里<b>没有可核的数字读数</b>（判据见 <code>has_reading</code>：数字 ＋ 单位／百分比／<code>hit@k</code> 形态）。</td></tr><tr><td><code>reading</code></td><td>≥1 条证据的 <code>output</code> 含<b>可核的数字读数</b>；但该维 basis 里没有本机复跑条目。</td></tr><tr><td><code>repro</code></td><td>≥1 条证据的 <code>kind</code> 为<b>本机复跑</b>（其 <code>output</code> 与探针 stdout 逐字节相同，由 <code>evidence_check.py --repro</code> 每次复算）。</td></tr></table>
+<div class="note">证据档位由 <code>dim_basis</code> 指向的证据<b>机械推导</b>：<code>none</code>（无证据）／<code>prose</code>（有证据但无数字读数）／<code>reading</code>（有可核数字读数）／<code>repro</code>（有本机复跑证据）。档位在榜面上<b>只披露、不参与排序</b>：它不折进分数、也不改变名次——要不要按证据强度折价由读者自己判，本站不替读者打折（打折需要新造一个系数，那属于<b>新造读数</b>）。</div>
+<h2>六、复现步骤</h2>
+<table><tr><th>项</th><th>内容</th></tr><tr><td>环境</td><td>Python 3.12（与同仓其他脚本一致；<code>python -X utf8</code> 走 UTF-8）。</td></tr><tr><td>依赖</td><td><b>零第三方依赖</b>——只用 Python 标准库（argparse／html／json／os／re／sys）。</td></tr><tr><td>生成</td><td><code>python -X utf8 scripts/review_build.py</code>（写 <code>review/site/</code>）。</td></tr><tr><td>判据复核</td><td><code>python -X utf8 scripts/review_build.py --rubric-report</code>（逐维：分数 ↔ 档位 ↔ 支撑证据下标 ↔ 该级 must 是否满足 ↔ rationale）。</td></tr><tr><td>守卫</td><td><code>python -X utf8 tests/test_review_build.py</code>（末行「通过 N / 失败 0」）。</td></tr><tr><td>变异</td><td><code>python -X utf8 tests/test_review_build.py --mutate</code>（逐条恰好命中期望红项）。</td></tr><tr><td>预期耗时</td><td>生成 &lt; 1 秒；守卫 &lt; 5 秒；变异自证（逐条重跑守卫）&lt; 60 秒。</td></tr><tr><td>不触网</td><td>以上命令<b>全程不发网络请求</b>；CI 里同样成立。</td></tr></table>
+
+</main>
+<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> ＋ <code>review/data/rubric.json</code> 机械生成——勿手改。本站只放可核验读数，<b>不涉资金</b>，<b>不采集用户隐私</b>。</footer>
+</body>
+</html>

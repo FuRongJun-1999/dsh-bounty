@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>榜单 · 灵枢插件测评</title>
+<style>
+:root{--fg:#1c1e21;--dim:#606770;--line:#e4e6eb;--acc:#1d76db;--bg:#fff;--soft:#f5f6f7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);line-height:1.7;
+ font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{border-bottom:1px solid var(--line);padding:18px 24px;background:var(--soft)}
+header h1{margin:0 0 8px;font-size:20px}
+header h1 a{color:var(--fg);text-decoration:none}
+nav a{margin-right:16px;color:var(--dim);text-decoration:none;font-size:15px}
+nav a.on{color:var(--acc);font-weight:700;border-bottom:2px solid var(--acc)}
+main{max-width:880px;margin:0 auto;padding:24px}
+h2{font-size:18px;margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+h3{font-size:15px;margin:20px 0 6px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:14px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+code{background:var(--soft);padding:1px 5px;border-radius:3px;font-size:13px}
+pre{background:var(--soft);padding:12px;border-radius:5px;overflow:auto;font-size:13px}
+.note{background:#fff8e1;border-left:4px solid #f0ad4e;padding:10px 14px;margin:14px 0}
+.muted{color:var(--dim)}
+.tag{display:inline-block;background:var(--soft);border:1px solid var(--line);
+ border-radius:10px;padding:0 8px;font-size:12px;margin-right:6px}
+footer{border-top:1px solid var(--line);margin-top:36px;padding:16px 24px;
+ color:var(--dim);font-size:13px}
+
+</style>
+</head>
+<body>
+<header><h1><a href="index.html">灵枢插件测评</a></h1>
+<nav><a class="" href="index.html">首页</a><a class="on" href="board.html">榜单</a><a class="" href="method.html">方法说明</a></nav></header>
+<main>
+<h2>榜单 · 已测维度均值降序</h2>
+<div class="note">本子站的测评分（每维 1–5 整数，<b><code>dim_basis</code> 为空（无任何证据）的维度记 <code>null</code></b>；榜面报的是<b>已测维度均值</b>，不再是五维求和）是<b>本子站自己的读数刻度</b>，与 <code>scripts/bounty_board.py</code> 的悬赏声誉分（easy 1 ／ medium 3 ／ hard 6 ／ expert 10）<b>不是同一个量</b>，两者不可换算、不可相加。悬赏侧口径真源见 <code>docs/bounty/README.md</code> §四。</div>
+<p>计分口径：每个维度按 <b>1–5 整数</b>打分，判级依据是<b>判据真源</b> <code>review/data/rubric.json</code> 的<code>levels[维度][分数]</code>（5 = 该维度上有可复跑证据且读数最好的一档）。<b><code>dim_basis</code> 为空的维度记 <code>null</code></b>（<b>无任何证据</b>）——它不进均值、也不作为 1 计入分母；<code>1..5</code> 都表示<b>有基座</b>（该维挂了 ≥1 条证据）：<code>1</code> 是最低档、<code>5</code> 是最高档，<b>1–4 级的机械门槛都只是「基座非空」</b>。榜面报的是<b>已测维度均值</b>（保留 2 位）与<b>覆盖率</b>（已测维度数 ／ 5），<b>不再是</b>五维求和。打分<b>只依据页面上列出的证据</b>——禁用「体验更好」「看起来更强」一类不可判表述。</p>
+<div class="note"><code>dim_basis</code> 为空的维度记 <code>null</code>（<b>无任何证据</b>）——<b>不参与</b>任何合计：既不计入已测维度均值，也不作为 <code>1</code> 计入分母，并在真源里进 <code>unmeasured_dims</code>。页面上的 <code>1..5</code> 都表示「<b>有基座</b>」（该维挂了 ≥1 条证据）：<code>1</code> 是最低档、<code>5</code> 是最高档；<b>1–4 级的机械门槛都只是「基座非空」</b>——数字读数<b>不是</b> 1–4 级的必要条件，某维有没有可核数字读数由<b>证据档位</b>列（none／prose／reading／repro）另行披露。两者不是一回事（v1 把「未知」与「最低档」混记成 1，使覆盖率低的记录被系统性低估）。</div>
+<h3>他评榜</h3>
+<p class="muted">他评且<b>覆盖率 ≥ 3/5</b> 的记录，按已测维度均值降序排（同均值按覆盖率降序，再按插件名升序）。</p>
+<table><tr><th>#</th><th>插件</th><th>版本</th><th>已测均值</th><th>覆盖率</th><th>性质</th><th>证据（本机复跑 / 转引）</th><th>档位（五维计数）</th><th>来源</th></tr><tr><td>1</td><td><a href="detail_dsh-auto-memory.html">dsh-auto-memory</a></td><td>0.7.1</td><td><b>3.8</b></td><td>5/5</td><td>他评</td><td>3 / 2</td><td>repro 4 ／ reading 1</td><td><a href="https://github.com/AskTheWay/dsh-auto-memory" rel="noopener noreferrer" target="_blank">https://github.com/AskTheWay/dsh-auto-memory</a></td></tr><tr><td>2</td><td><a href="detail_dsh-mnemon.html">dsh-mnemon</a></td><td>0.5.28</td><td><b>3.0</b></td><td>3/5</td><td>他评</td><td>1 / 3</td><td>prose 3 ／ none 2</td><td><a href="https://github.com/omdsh-dev/dsh-mnemon" rel="noopener noreferrer" target="_blank">https://github.com/omdsh-dev/dsh-mnemon</a></td></tr></table>
+<h3>证据不足，暂不排名</h3>
+<p class="muted">他评但<b>覆盖率 &lt; 3/5</b> 的记录：已测维度太少，均值由一两个读数决定，与满覆盖的记录并排会诱导误读，故门槛是<b>覆盖率 ≥ 3/5</b> 才进他评榜。它们不是「更差」，只是<b>证据更少</b>——请按明细自己判。</p>
+<p class="muted">（本段暂无记录）</p>
+<h3>自评（作者同源）</h3>
+<p class="muted">当前 1 条自评，<b>不论覆盖率单列于此</b>。<b>为什么分列</b>：自评与他评<b>不可等权混排</b>——同一支笔既写被评对象又写尺子时，名次会被读成独立评比的结论。<b>为什么不降权</b>：降权要乘一个系数（例如按自评身份打八折），而那个系数在真源里<b>没有任何读数</b>支撑——定它就是<b>新造读数</b>；本子站只放可核读数、不发明刻度。每条自评的详情页顶部都有利益相关声明。</p>
+<table><tr><th>#</th><th>插件</th><th>版本</th><th>已测均值</th><th>覆盖率</th><th>性质</th><th>证据（本机复跑 / 转引）</th><th>档位（五维计数）</th><th>来源</th></tr><tr><td>1</td><td><a href="detail_dsh-memory.html">dsh-memory</a></td><td>0.8.1</td><td><b>4.0</b></td><td>4/5</td><td>自评</td><td>1 / 4</td><td>repro 1 ／ reading 1 ／ prose 2 ／ none 1</td><td><a href="https://github.com/FuRongJun-1999/dsh-memory" rel="noopener noreferrer" target="_blank">https://github.com/FuRongJun-1999/dsh-memory</a></td></tr></table>
+<h2>证据档位（只披露，不参与排序）</h2>
+<div class="note">证据档位由 <code>dim_basis</code> 指向的证据<b>机械推导</b>：<code>none</code>（无证据）／<code>prose</code>（有证据但无数字读数）／<code>reading</code>（有可核数字读数）／<code>repro</code>（有本机复跑证据）。档位在榜面上<b>只披露、不参与排序</b>：它不折进分数、也不改变名次——要不要按证据强度折价由读者自己判，本站不替读者打折（打折需要新造一个系数，那属于<b>新造读数</b>）。</div>
+<p class="muted">榜面「档位（五维计数）」列照的类型（强→弱）：<code>repro</code> = 该维有本机复跑证据；<code>reading</code> = 该维有可核数字读数；<code>prose</code> = 该维有证据但无数字读数；<code>none</code> = 该维无证据（即该维记 <code>null</code>、不参与合计）。</p>
+<h2>怎么看这个榜</h2>
+<p>榜面的「已测均值」只是<b><code>dim_basis</code> 非空（有基座）的那些维度</b>的均值，不是「谁更好」的总判决——<code>dim_basis</code> 为空的维度（无任何证据）记 <code>null</code>、<b>不参与</b>合计，故均值必须与<b>覆盖率</b>一起读：同样是 4.5，覆盖 5/5 与覆盖 3/5 是两件事。不同插件面向的用法不同，请点进详情页对着<b>证据命令</b>自己判。</p>
+<p>同均值时按覆盖率降序、再按插件名升序排（次序稳定、可复现）。</p>
+
+</main>
+<footer>本页由 <code>scripts/review_build.py</code> 从 <code>review/data/plugins.json</code> ＋ <code>review/data/rubric.json</code> 机械生成——勿手改。本站只放可核验读数，<b>不涉资金</b>，<b>不采集用户隐私</b>。</footer>
+</body>
+</html>

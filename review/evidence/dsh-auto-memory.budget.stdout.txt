@@ -1,0 +1,29 @@
+dsh-auto-memory injection-section byte budget probe
+plugin name/version: dsh-auto-memory 0.7.1
+plugin source: https://raw.githubusercontent.com/AskTheWay/dsh-auto-memory/v0.7.1/
+node: v24.21.0
+constructor: src/prompt.ts :: renderMemoryIndexText(store, config, cwd)
+synthetic memories: evals/l0/helpers.ts :: makeMemories(n, seed=1000+n) + seedStore(scope=project)
+seeds: n=20 -> 1020 ; n=50 -> 1050 ; n=100 -> 1100 ; n=200 -> 1200
+cwd(memory project key): D:\work\eval-budget   maxBytes: 4096   enableUserScope: false
+runtime deps: node_modules/yaml 与 node_modules/@deepseek-ai/dsh-atomic-write（复制自本机 DSH profile，不触网）
+sha256:
+  src/prompt.ts  4084dd297cb84b5423c0f3730bd5cf3d7b6d90592d8bf383b1bc5af38d1b76c1
+  src/store.ts  582fd3446a43d3f6bbc52bf7afeedb772badb64ed7e3a761bbb20aa4782dea2b
+  src/types.ts  c8bec8f6c855e7ab5c779bbfdc137845a2b0f54f9d501263352ae9b64ae20068
+  src/matching.ts  75bf5b0e88e772b90a35bb464ea74b2da0ed26d589dbbb360ef92e66d2869639
+  evals/l0/helpers.ts  18cca81965803abb387c986b4689d9a9d5bbc2e815329608f0e0a4f5c688d4d8
+  probe.mjs  72716478befdcf8895802d84c8916431931b6accd95c9912c312bd23f962d138
+---
+0 条 → 0 bytes
+20 条 → 3966 bytes
+50 条 → 4050 bytes
+100 条 → 3979 bytes
+200 条 → 3968 bytes
+---
+参考量(bounded = 插件的同一函数在 maxBytes=4096 下的输出):
+N	bounded	unbounded	实际发生截断
+20	3966	4596	yes
+50	4050	9673	yes
+100	3979	17943	yes
+200	3968	34836	yes

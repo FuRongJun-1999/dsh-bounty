@@ -1,0 +1,104 @@
+name: 插件测评子站 · 产物与证据一致性
+
+# 目的：把「产物与真源一致」「引文忠实」「本机复跑读数现在仍跑得出」三件事做成**机器判**的门禁——
+#   ① review/site/ 必须与 review/data/plugins.json 逐字节一致（禁手改产物）
+#   ② review/evidence/ 的快照必须与 manifest.json 的 sha256＋字节数一致，且每条 evidence 的
+#      逐字引文必须真的在它声明的快照里（禁编造引文）
+#   ③ 每条「本机复跑」证据的 output 必须与 scripts/evidence_probe.py 的探针 stdout **逐字节相同**
+#      （这是「命令＋原始输出」第一次有机器判据——差一个字节就点名判红）
+# 三道都是纯 stdlib、**不触网**，故适合做 CI 闸。
+#
+# 为什么还要 `workflow_dispatch`：fork 首次提 PR 时，Actions 可能需要维护者批准才会跑；
+# 手工触发是必要的兜底（PR 正文与 /deliver 评论仍须自带本机读数——验收四闸②要的是读数本身）。
+
+on:
+  push:
+    paths:
+      - "review/**"
+      - "scripts/review_build.py"
+      - "scripts/evidence_probe.py"
+      - "scripts/evidence_check.py"
+      - "tests/test_review_build.py"
+      - "tests/test_evidence_check.py"
+      - ".github/workflows/review-check.yml"
+  pull_request:
+    paths:
+      - "review/**"
+      - "scripts/review_build.py"
+      - "scripts/evidence_probe.py"
+      - "scripts/evidence_check.py"
+      - "tests/test_review_build.py"
+      - "tests/test_evidence_check.py"
+      - ".github/workflows/review-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUTF8: "1"
+  PYTHONIOENCODING: "utf-8"
+  # 守卫会被跑很多遍；不许在仓内落 __pycache__（否则 git 状态变脏、且补丁不再是「全为新增」）。
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  review-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 产物与真源一致（禁手改产物）
+        run: python -X utf8 scripts/review_build.py --check
+
+      - name: 生成器守卫（逐条判据；末行须「失败 0」）
+        run: python -X utf8 tests/test_review_build.py
+
+      - name: 生成器定点变异自证（逐条须恰好命中期望红项）
+        run: python -X utf8 tests/test_review_build.py --mutate
+
+      - name: 证据链对账（快照 ←→ 清单 ←→ 测评数据；不触网）
+        run: python -X utf8 scripts/evidence_check.py
+
+      - name: 本机复跑逐字节复算（证据的 output 必须等于探针 stdout）
+        run: python -X utf8 scripts/evidence_check.py --repro
+
+      - name: 探针全量复跑（每个探针都须自报 OK）
+        run: python -X utf8 scripts/evidence_probe.py --all
+
+      - name: 证据链守卫（逐条判据）
+        run: python -X utf8 tests/test_evidence_check.py
+
+      - name: 证据链定点变异自证
+        run: python -X utf8 tests/test_evidence_check.py --mutate
+
+      - name: 闸门语义自检（--check 漂移时确实转 1）
+        run: |
+          python -X utf8 scripts/review_build.py
+          printf '<!-- drift -->\n' >> review/site/board.html
+          if python -X utf8 scripts/review_build.py --check; then
+            echo "::error::--check 在产物被改动后仍返回 0（闸门失效）"
+            exit 1
+          fi
+          echo "OK：--check 在产物漂移时返回非 0"
+
+      - name: 闸门语义自检（--check 与 --print 互斥须转 2）
+        run: |
+          if python -X utf8 scripts/review_build.py --check --print; then
+            echo "::error::--check 与 --print 同时给出时未拒收"
+            exit 1
+          fi
+          echo "OK：互斥标志被拒收"
+
+      - name: 不给交付物留脏（守卫不得在仓内落任何未跟踪文件）
+        run: |
+          git checkout -- review/site >/dev/null 2>&1 || true
+          dirty="$(git status --porcelain)"
+          if [ -n "$dirty" ]; then
+            echo "::error::跑到这里有未跟踪/被改动的文件——守卫或生成器把仓搞脏了："
+            echo "$dirty"
+            exit 1
+          fi
+          echo "OK：全部闸门跑完后工作区干净（无 __pycache__、无残留沙箱）"

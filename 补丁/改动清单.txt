@@ -1,0 +1,59 @@
+量具修正 · 改动清单
+==============================================================================
+基线：上游已合并状态（= 可提交文件\仓库内文件\ 的 22 个文件，本会话已逐字节核对）
+补丁：量具修正.patch
+
+新增 2 个：
+  + review\data\rubric.json
+  + review\evidence\dsh-auto-memory.budget.stdout.txt
+修改 14 个：
+  M review\data\plugins.json
+  M review\evidence\manifest.json
+  M review\README.md
+  M review\site\board.html
+  M review\site\detail_dsh-auto-memory.html
+  M review\site\detail_dsh-memory.html
+  M review\site\detail_dsh-mnemon.html
+  M review\site\index.html
+  M review\site\method.html
+  M scripts\evidence_check.py
+  M scripts\evidence_probe.py
+  M scripts\review_build.py
+  M tests\test_evidence_check.py
+  M tests\test_review_build.py
+
+== 前像 sha256（套用补丁前，目标树上这些文件必须逐条相等）==
+365b8f8a250141c2d4cc55142584c27de229aae896978998ff2ae1ceb19a92a7  review\data\plugins.json
+（新增，无前像）  review\data\rubric.json
+（新增，无前像）  review\evidence\dsh-auto-memory.budget.stdout.txt
+ead716a292d4c32cf5f5ea54d9806d0b7f5ed03b358ad23aba369ff54271f7d5  review\evidence\manifest.json
+022d502c4d46a4e7adc65ff0dab58c27eabcaccccc7416ec0cd502a93905a5a3  review\README.md
+9aa0014c6799f542c34d75385df3eea263a4b23cb9bceeff0c0434396f4347ab  review\site\board.html
+5c8002ad1a79cfce90800a179c13e3eb1c51bc661e1fa50b2093f41ed9217531  review\site\detail_dsh-auto-memory.html
+06d45bc64d3739071f6007ff75158c1e025ee084a82a16c141542b35e30f0131  review\site\detail_dsh-memory.html
+c5310d42952e4a9ae40219cd9324f2b28bad7946540301ac317cedadc12ee6ee  review\site\detail_dsh-mnemon.html
+344643c127d06b0279149e915e141aa842d6db6576ac340c26077564865c352e  review\site\index.html
+874ba9e4abeb8b7fd8cb5b0b11222fbc425de45847f05699f032764a653dc27f  review\site\method.html
+794176aa2a53c1b06e6f77c4f680766618f5f2d714189d48075ac3970bbe6472  scripts\evidence_check.py
+83a9070f0530c05655f139d0ff61ec42576d2da1b0c9927429f64228ac7606ee  scripts\evidence_probe.py
+15148abe16e7a0f19793425e93469587205ab0cdee04c8259276b70c93546e88  scripts\review_build.py
+ef0cd14ce99335f4d57ca423d0f44db895b7e998320d9fa01a56e14efbfd4778  tests\test_evidence_check.py
+86b14fe68f5ac008ce8b9ac34000a361fe9bddbc6b0a28a005ea212849e1fdf9  tests\test_review_build.py
+
+== 改后 sha256（套用后应逐条相等）==
+1a501c54dcd9d16dceee7c8077577fc1c0594784470698689566b65fad927459  review\data\plugins.json
+f9fba6114c0981042ba1671a3a240bec2117bd1d6dc589bf3a9287b52724ec2e  review\data\rubric.json
+8757de0a8b0ef14f34fcf4b58f216681308c61304445c0c035d3ca2d0950140a  review\evidence\dsh-auto-memory.budget.stdout.txt
+525893fa2b1d489a075b7f91bf9e828a55274b05bd3f00c5913a1a9a672af749  review\evidence\manifest.json
+5db3f26d7c4513312392d53b37b844a3267dc561bc1d2c0427c84a5ac5a6f4b5  review\README.md
+c6e225fe143790416056f61d28d6ed26d8d0ceb7d5faebb05281f549f8024cd8  review\site\board.html
+621ceb22dfa0b684cca61a091cee08c3db69fc877d755b33fb3bfb81a54d98ff  review\site\detail_dsh-auto-memory.html
+1c760313673930757367d5066d958b48c527fb2f071755c1c5f59941117d2576  review\site\detail_dsh-memory.html
+3d093ba373931f2e99266f0c366937ff11393e15d1003c7d6f1bed55c9b45b2c  review\site\detail_dsh-mnemon.html
+40a60b814df79f2898e2d3c9b654a1a3d99b70897ac0f29cee658c6c87806397  review\site\index.html
+1a475dbc6e976f6b9a200180a60015f7ec0a57d4c2bdc4c8c264c71e17cdb037  review\site\method.html
+2862c4cc44ed413c553993d8f01899fb7bd68b53b636c5ea0ef6cfd107aa9814  scripts\evidence_check.py
+a8dc8c06f82149f6c48782b6e561d3d7cd19d258637fbca518573715a82335a2  scripts\evidence_probe.py
+501e413aeb6b5861f99a215a381fe760c00859ef412d0d4a05de1c43146a89d4  scripts\review_build.py
+7a0eece8e32776a63d2ee794ccd6ebeaf8e67458dbde1edf7ab8b0747de8aee5  tests\test_evidence_check.py
+f42313f111f95847b2472ba4a6b4c453cfdcc0562ab84bf3bdf7e6b1d17e9b5a  tests\test_review_build.py

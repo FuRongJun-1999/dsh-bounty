@@ -3482,6 +3482,231 @@
         "delta": 3
       },
       "id": "evt_da2504bb0af6"
+    },
+    {
+      "ts": "2026-10-14T08:10:00Z",
+      "issue": 339,
+      "covers": [
+        339,
+        340
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "chinese_programming",
+      "impact": "A",
+      "reason": "ChineseProgramming 词法表缺比较词（归并件：申报件 #339 ＋ #340）。归并依据：两件同指 core/lexer.py 的同一张 KEYWORD_MAP / SORTED_KW，同一修法（增词＋枚举＋parser 映射），且 #340 正文自陈「与上一条同源」⇒ 缺陷面相交，合为 1 个工作项（先例 evt_7c1459f50994 将 8 件并 1 项）。维护者独立取证（隔离克隆 D:/ext-iso/r20_cp @ e61b8d9d8427，按 GitHub API 取该仓 main 现行文件、本机实跑）：① #340 的机制逐字复现 —— Lexer('若 甲 大于等于 3 则：').tokenize() 得 [RUO, IDENTIFIER(甲), DAYU(大于), DENGYU(等于), NUMBER, ZE]，即「大于等于」被切成相邻两 token、parser 只认第一个 ⇒ 边界值（甲=3）判为「不大于」；KEYWORD_MAP 对「大于等于/小于等于/大于或等于/小于或等于」四词 0 命中。② #339 的三词（不等于/不大于/不小于）在 KEYWORD_MAP 与 SORTED_KW 中确实全缺（0 命中），根因成立；但其申报的机制不成立 —— 实测得单个 IDENTIFIER('不小于')，不是申报所称的 IDENTIFIER('不') ＋ XIAOYU('小于') 被 parser 并成「<」；申报的预期读数（现行得 XIAOYU）亦与实测不符。③ 申报者自带的复现代码在本机 rc=1（AttributeError: 'list' object has no attribute 'type'）—— Lexer(...).tokenize() 返回 (tokens, errors) 二元组而非列表，复现脚本本身有误；维护者改用正确解包后取证。【定档依据】难度 medium 3：归并件取已复现的那半为准（#340 复合比较词退化，申报 medium），修法为同一张表的机械补齐（7 词＋枚举＋映射），不涉算法或架构；#339 申报的 hard 因其「语义反转」机制未复现而不计入定档。影响 A：按「不做会怎样」判 —— 缺词导致静默语义退化（不报错、不告警、编译成功而判据与字面不符），属核心链路语义错误。全件为纯缺陷报告（无 PR），按「未合入提案可计分」先例 evt_ea3c2972eb97 受理。档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-14",
+      "id": "evt_8fe44950465d"
+    },
+    {
+      "ts": "2026-10-14T08:11:00Z",
+      "issue": 341,
+      "covers": [
+        341
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "chinese_programming",
+      "impact": "A",
+      "reason": "ChineseProgramming core/parser.py 共享错误列表契约被静默破坏：Parser.__init__ 用 self.errors: List[str] = errors or []（L286），parse_tokens 亦用 Parser(tokens, errors or [])（L999）—— errors or [] 对空列表求值为新列表，故调用方传入的 [] 不会被写入。维护者独立取证（隔离克隆 @ e61b8d9d8427）：实测 shared=[]; p=Parser([], shared) ⇒ (p.errors is shared) 为 False，调用方列表保持 []；逐字跑申报者自带复现（from core.parser import Parser; errs=[]; p=Parser(...)）rc=0 并打印「调用方列表： [] ｜ parser 内部： []」，与申报一致。该路径正是 api.compile_source L130 parse_tokens(tokens, []) 的实际调用形态 ⇒ 契约在唯一实际调用点上失效。【定档依据】难度 medium 3：单行契约缺陷＋一处调用点，采纳申报自定 medium。影响 A：按「不做会怎样」判 —— 错误上报链是编译器的核心链路，共享列表不共享 ⇒ 调用方永远拿不到解析错误；实测确证为现行失效，非健壮性缺口。全件为纯缺陷报告（无 PR）。档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-14",
+      "id": "evt_a13debe87adb"
+    },
+    {
+      "ts": "2026-10-14T08:12:00Z",
+      "issue": 342,
+      "covers": [
+        342
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "chinese_programming",
+      "impact": "A",
+      "reason": "ChineseProgramming 术曰步骤内容被静默丢弃：步骤内的赋值/调用不进入 AST、也不进产物。维护者独立取证（隔离克隆 @ e61b8d9d8427）：逐字跑申报者自带复现 —— compile_source('程序：\\n    术曰 甲：\\n        1。甲 = 0.9；\\n') ⇒ success=True、errors=[]，产物里没有 0.9；另测得术曰形态下顶层 AST 只余 IDENTIFIER 节点、无 SHUYUE/STEP 节点，产物 161 行全为样板、零用户逻辑。【定档依据】难度 hard 6：采纳申报件自定 hard —— 缺陷位于九章算术步骤解析（_parse_step_content 与步号循环 L378-448 两处）这一结构性路径，需通读 lexer/parser/codegen 三段才能定位，非单行改动。影响 A：按「不做会怎样」判 —— 用户写下的赋值被静默吞掉且编译报 success，属核心链路语义错误（数据丢失）。全件为纯缺陷报告（无 PR）。档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-14",
+      "id": "evt_7ccacfff87ac"
+    },
+    {
+      "ts": "2026-10-14T08:13:00Z",
+      "issue": 343,
+      "covers": [
+        343
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "chinese_programming",
+      "impact": "C",
+      "reason": "ChineseProgramming core/parser.py 步号解析 int(float(...)) 裸调（L387、L431 两处，无 try/except）：数值 token 溢出或非法时 int(float('1e309')) 抛 OverflowError 将直穿编译入口。维护者独立取证（隔离克隆 @ e61b8d9d8427）：① 源码锚点确认 —— int(float(self.current_token.value)) 在 L387 与 L431 各一处，均无异常保护；② 申报的触发未复现 —— 逐字跑申报者自带复现（'程序：\\n    术曰 甲：\\n        1' ＋ '0'*309 ＋ '。打印 1；\\n'）rc=0、success=True、errors=[]，无任何异常；维护者另扫 20/309/400 位数字三种长度，均 success=True 且无异常（该分支在当前实现下未被走到，与同批 #342「步骤内容丢弃」互为印证）。【定档依据】难度 medium 3：采纳申报自定 medium，单点健壮性补强（两处加 try/except ＋ 诊断），无算法改动。影响 C：按「不做会怎样」判 —— 触发需构造超长数值 token 且当前实现根本走不到该分支，属健壮性缺口、非现行失效；先例 evt_9dc38a268944（同为 zhangdeishuai1、同为「结构缺口＋可达路径」、medium Δ3 / C）。受理而非驳回：申报的代码事实（两处裸调）成立且已核实，「触发未复现」只下调影响等级，不否定缺陷本身。全件为纯缺陷报告（无 PR）。档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-14",
+      "id": "evt_1d71ec0a839d"
+    },
+    {
+      "ts": "2026-10-14T08:14:00Z",
+      "issue": 345,
+      "covers": [
+        345
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "chinese_programming",
+      "impact": "B",
+      "reason": "ChineseProgramming 体解析语义分叉：_parse_condition 的 then_body（L494）与 else_body（L501）、_parse_func_def 的函数体（L557）均用 _parse_single_statement()，而循环体（L518）用 _parse_statement_or_block()。维护者独立取证（隔离克隆 @ e61b8d9d8427）：① 分叉属实 —— 四处调用点逐一读出，循环体确为 _parse_statement_or_block（支持分号续接多条），其余三处为单语句；② 申报的危害后果未复现 —— 申报称「若 甲 大于 3 则 A；B。 的 B 漂移到顶层无条件执行」，逐字跑其自带复现后产物中根本不含 B（条件体与顶层皆无），即 B 是被完全丢弃而非泄漏到顶层；维护者另以受支持的赋值语句构造（若 甲 大于 3 则 甲 = 1；甲 = 2。）复核，产物只在 L152 出现一条 甲 = 2.0，且该行与不加条件时的对照产物逐字节相同 ⇒ 条件体整体未被生成。③ 该掩盖效应的来源经定位为同批 #348 ② 的 codegen 缺分支（codegen.py 对 LOOP_STMT / BLOCK / FUNC_DEF 0 命中），两件因果相连但缺陷面不相交（本件在 parser 调用点、#348 在 codegen 分支表）⇒ 各计一份。【定档依据】难度 hard 6：采纳申报自定 hard —— 需比对四处调用点与循环体语义并读懂 _parse_statement_or_block 的 len==1 兼容分支，属结构性发现。影响 B：按「不做会怎样」判 —— 分叉本身成立，但其危害在当前实现下被 codegen 缺分支掩盖，需特定路径（codegen 补齐后）才可触发，属未合入的提案/需特定路径；不上 A。全件为纯缺陷报告（无 PR）。档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-14",
+      "id": "evt_0cf3a1e327f5"
+    },
+    {
+      "ts": "2026-10-14T08:15:00Z",
+      "issue": 346,
+      "covers": [
+        346
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "chinese_programming",
+      "impact": "A",
+      "reason": "ChineseProgramming core/api.py 语法错误被彻底丢弃：L130 parse_tokens(tokens, []) 的返回值（parser.parse() ⇒ ProgramNode）被赋给 ast，而 L135 syntax_errors = getattr(ast, 'errors', []) —— ProgramNode 无 errors 属性 ⇒ getattr 恒返回 []。维护者独立取证（隔离克隆 @ e61b8d9d8427）：① ProgramNode() 实测 hasattr(pn,'errors') 为 False；② parse_tokens 实测返回 parser.parse()（L997-1000），其类型为 ProgramNode（L78）；③ 逐字跑申报者自带复现 —— compile_source('程序：\\n    若 则 打印 1。\\n')（缺条件）⇒ success=True、errors=[]，含语法错误的源码静默通过，与申报一致。【定档依据】难度 medium 3：单处属性误用，采纳申报自定 medium。影响 A：按「不做会怎样」判 —— 编译器对语法错误静默通过，用户拿到 success=True 的坏产物，属核心链路失效；实测确证为现行失效。全件为纯缺陷报告（无 PR）。档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-14",
+      "id": "evt_2525d34b5bee"
+    },
+    {
+      "ts": "2026-10-14T08:16:00Z",
+      "issue": 347,
+      "covers": [
+        347
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "project": "chinese_programming",
+      "impact": "C",
+      "reason": "ChineseProgramming core/api.py 生成器错误不回收：result.warnings.extend(gen.warnings)（L170）有，而无 result.errors.extend(gen.errors)，而 CodeGenerator 自身确有 self.errors（codegen.py L84 初始化、L94 重置）。维护者独立取证（隔离克隆 @ e61b8d9d8427）：AST 级核对 compile_source 源码 ⇒ gen.errors 0 命中、gen.warnings 1 命中，结构不对称确认；CodeGenerator 源码中 self.errors 存在。【定档依据】难度 medium 3：采纳申报自定 medium，单行补齐。影响 C：按「不做会怎样」判 —— 通读 codegen.py 的语句分发链（L281-304）后确认，当前所有未覆盖分支走的都是 self.warnings.append(...)，self.errors 被置空后从无任何路径向其写入 ⇒ 目前不存在可丢的生成器错误，属面未启用、非现行失效；先例 evt_9dc38a268944 与同项目先例 evt_17c9be0e9c98（chinese_programming、medium Δ3 / C）。全件为纯缺陷报告（无 PR）。档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "day": "2026-10-14",
+      "id": "evt_b5fa3eb394db"
+    },
+    {
+      "ts": "2026-10-14T08:17:00Z",
+      "issue": 348,
+      "covers": [
+        348
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "chinese_programming",
+      "impact": "A",
+      "reason": "ChineseProgramming 产物级生成面两处：① _write_footer（codegen.py L267-277）无条件写 main()，而全仓无 def main（codegen.py 的 def 清单中无 main，实测生成产物 'def main' in code 为 False）⇒ 任何程序产物在 if __name__ == '__main__': 下调用未定义函数，运行必 NameError；② codegen 对 LOOP_STMT / BLOCK / FUNC_DEF / RETURN_STMT 全部 0 命中，语句分发链（L281-304）的 else 分支只 self.warnings.append(...) ⇒ 循环/函数/块只警告不生成，语义缺失。维护者独立取证（隔离克隆 @ e61b8d9d8427）：① 实测 compile_source('程序：\\n    打印 \"hi\"。\\n') 产物 'def main' in code 为 False、main() 调用存在；② 实测 当 甲 大于 3 执行 甲 = 1。 与 定义 f（x）：返回 x。 均 success=True、errors=[]，只产 warnings（未处理的语句类型），产物零用户逻辑；AST 核对「当」循环顶层节点退化为 IDENTIFIER 而非 LOOP_STMT；③ 申报的第 ③ 点（\"\\n\".join(self.output) 叠双空行）经反证不成立 —— 实测产物中「含换行符的条目数」为 0（_writeln 以 self.output.append(...) 逐行入表、不带尾随换行），\"\\n\".join 恰是正确写法；申报所称的 4 处连续空行来自 _writeln('') 显式调用，非双写所致；④ 申报第 ① 点的函数名有误（称 footer 写 protocol_procedure()，实测写的是 main()；protocol_procedure 仅出现在 _gen_shuyue 内部，且实测产物中 0 命中）—— 但「footer 调用了一个从未定义的函数」这一缺陷家族成立，属举证瑕疵而非结论不成立。【定档依据】难度 hard 6：采纳申报自定 hard —— 需通读 codegen 全部分支链＋逐类构造产物比对。影响 A：按「不做会怎样」判 —— ① 使所有产物不可运行（不可逆的功能失效），② 使循环/函数/块语义缺失且只给 warning，均属核心链路失效。全件为纯缺陷报告（无 PR）。档位可申诉。（追溯性结算 ⇒ round=1，delta == base）",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-14",
+      "id": "evt_320ead6ff7f2"
     }
   ]
 }

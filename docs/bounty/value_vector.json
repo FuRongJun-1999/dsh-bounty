@@ -91,6 +91,27 @@
    "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
+    339,
+    341,
+    342,
+    343,
+    345,
+    346,
+    347,
+    348
+   ],
+   "login": "zhangdeishuai1",
+   "project": "chinese_programming",
+   "quality_E": null,
+   "reputation_delta": 33,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
     12,
     24,
     45,

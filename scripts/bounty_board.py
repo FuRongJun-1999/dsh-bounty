@@ -229,10 +229,21 @@ def _as_int(x, default: int = 0) -> int:
 def rescore(events):
     bad = []
     for ev in events or []:
+        # ★本笔（#389）：事件本身非对象（如损坏账本里的字符串）时不得崩栈——
+        # 转成结构化 bad，与既有条目同款四元组形状。
+        if not isinstance(ev, dict):
+            bad.append((None, "malformed event: 不是对象（实为 %s）" % type(ev).__name__, None, None))
+            continue
         f = ev.get("formula")
         if not f:
             if _as_int(ev.get("delta")) != 0:
                 bad.append((ev.get("id"), "missing formula", ev.get("delta"), None))
+            continue
+        # ★本笔（#389）：formula 非对象（如字符串/列表）时不得崩栈——
+        # 转成结构化 bad，理由前缀与既有 "malformed formula" 同款。
+        if not isinstance(f, dict):
+            bad.append((ev.get("id"), "malformed formula: 不是对象（实为 %s）" % type(f).__name__,
+                        ev.get("delta"), None))
             continue
         if f.get("rule") != SCORE_RULE:
             bad.append((ev.get("id"), "unknown rule " + str(f.get("rule")), ev.get("delta"), None))
@@ -728,8 +739,9 @@ def _do_claim(st, actor, now, cfg, active_claims):
     if not ok_conc:
         return _decide(st, "/claim", why_conc, now, actor, "concurrency_limit")
     due = fmt_ts(now + timedelta(hours=cfg.claim_hours))
+    _td, _ = timeout_delta(base_of(st.difficulty))
     bullets = [f"持有者：@{actor}",
-               f"到期：{due}（逾期自动回板 `bounty:open` 并记 {SCORE_TIMEOUT} 分）",
+               f"到期：{due}（逾期自动回板 `bounty:open` 并记 {_td} 分 = −2×base）",
                "交付：评论 `/deliver <PR 链接或证据块>`；放弃：`/withdraw`"]
     return _accept(st, "/claim", now, actor, "claimed", actor, due, 0,
                    f"@{actor} 认领，锁至 {due}", bullets)

@@ -2593,6 +2593,34 @@
       },
       "day": "2026-10-14",
       "id": "evt_b6854212af4b"
+    },
+    {
+      "ts": "2026-10-14T12:00:00Z",
+      "issue": 289,
+      "covers": [
+        289
+      ],
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "hard",
+      "delta": 6,
+      "project": "memory",
+      "impact": "A",
+      "reason": "dsh-memory 密级/一致性缺陷审计 5 件（源仓 issue #294–#298；3×P0 级 + 1×争议 P0 + 1×P1），维护者隔离克隆逐条独立复现（基线 bfc40c1，与申报声明一致，行号锚点逐行命中）：① #294（P0，缺省配置可触发）：声明 private 的写入被冲突闸判 REJECT 后，飞轮把正文建单——实测工单 sensitivity='internal'、正文与文件名均含明文、工单 id=unr_<正文 slug>；无令牌访客 stg(op=timeline) 与 mdcg_get 双命中明文（5/5 项命中）。同一脚本在 main 7212e521（维护侧 10:37 已修）上 7/7 通过、工单 id 变哈希 ⇒ 修复有效；② #296（有条件 P0，缺省安装）：全库共享 contextual 频率桶 60 秒满 8 次后，实测第 9–12 条 DEFER(limiter=rate)、正文不落盘不入队、_forgetting.jsonl 不含正文 ⇒ 永久无痕丢失；③ #298（P1，缺省配置）：_consistency.jsonl 落 pos/neg 原文（=生效条件与不适用条件），record 令牌（clearance internal）经 mdcg_consistency(action=history) 读到，而同一节点 mdcg_get 返回 not_found（MdCGSecure 未覆写 consistency_history，全仓无 clearance 过滤）；④ #297（争议 P0）：维护侧 09:46 已修（8c28a7f4 + 1b05eb4b），源仓 issue 已 closed；⑤ #295（有条件 P0）：**部分复现**——链条前半段独立确证（A 根节点被提交进共享 lib.git；B 轮 Δ 把 A 的 a_secret 判 added、同 id user_profile 判 changed 并 accepted），但两组条件（同 id 冲突 / 补足素材）下 reconcile.committed=false ⇒ merge_cycle 未被调用 ⇒ replay_to_main 未执行，故「B 库读到 A 的记忆」这一步**未复现**；申报人读数 merged=False 与我一致，其 B 库读到 a_secret 依赖 committed=true（其 accepted 含 iterate 产出的 concept_*），该前置待补证。按「同人 × 同源仓 × 同批提交 = 1 项」合并 5 件（先例：evt_406e92b60606 #144+#162 共 7 件含 2×P0 ⇒ hard 6 A；evt_3d0e59a81dcf #86–#89 4 件 ⇒ expert 10 A），难度取申报人自申最高档 hard、影响 A（private/restricted 明文跨主体可读 + 永久无痕丢数据 ⇒ 核心链路失效）。追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base。档位可申诉。",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "day": "2026-10-14",
+      "id": "evt_cbbd72d5e76e"
     }
   ]
 }

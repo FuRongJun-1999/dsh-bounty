@@ -2818,6 +2818,34 @@
         "delta": 3
       },
       "id": "evt_728a37cb995f"
+    },
+    {
+      "ts": "2026-10-14T05:20:00Z",
+      "issue": 292,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "结算 hawkongz 的 dsh-memory 测试判据面复验交付（申报件 #292，intake 输入件）。【内容】本件是 dsh-memory #284 发现链的上游复验 + 增量定因：①现行 main 上逐条复跑三态分列（已修/仍成立/未裁）；②新增定因——CI 上 `PASS md_cg.test_logref` 无法区分「真跑 92 条断言通过」与「正文链路未跑」。【维护者独立取证】（a）两臂对照：zstandard 在时 `python -X utf8 -m md_cg.test_logref` rc=1、结果 PASS 81 / FAIL 8；用影子包模拟 CI 缺依赖时 rc=0 且打印 SKIP（`md_cg.test_logref` 走 `_anchor_selfcheck()` 弱通过；`scripts/test_dsh_log_index_token.py:194-201` 为裸 return 0 无自证）。⇒ 「跑过」与「从未执行」在退出码上同形。（b）因果 A/B 只改一个变量（`md_cg.security._whitelist_roots` 的返回值＝白名单根）：arm OFF rc=1 / PASS 81 / FAIL 8，arm ON（根=系统临时根）rc=0 / PASS 92 / FAIL 0 ⇒ 白名单回落单独解释了全部 8 项失败；对照实验证实外部设 `MDCG_INGEST_ROOT` 无效（rc 仍为 1），与申报件所述夹具侧 clean_env 删除校验变量一致。（c）机制逐条核实：8 个 workflow 中仅 `discipline-check.yml` 与 `python-tests.yml` 装 `pyyaml`，全仓无 requirements/pyproject/setup.py、package.json 无 dependencies ⇒ zstandard 非任何声明依赖；`scripts/run_tests.py` 的 PASS 判据是 `_run_one` 返回的 `rc==0`（L368），且 L369-372 **只在失败时**打印输出尾部，故「SKIP 缺依赖」那行从不出现在 CI 日志；`_SKIPS` 登记表 7 项（L257-269）**不含**这两条守卫，⇒ 汇总里的「跳过」计数也不含它们，读者无法从 CI 察觉该件从未执行。【定档】影响 A：失效的是仓库自己的**测试判据**——CI 上「跑过且通过」与「从未执行」同形，使 python-tests 的绿对这两条守卫零信息量，逐字命中 IMPACT_CRITERIA A 档「量具失效（使评测结论不可信）」；难度 medium（申报值，维护者认同）：交付为复验报告 + 只读定因，未新增守卫、不改代码。【查重】悬赏站 issue 池按 zstandard / test_logref / dsh_log_index 检索均 0 命中（唯一命中即本件）；账本内 hawkongz 0 命中、无同面行；与 #175（元守卫反向判据面越权 + Windows 分隔符硬编码）不同面。【举证瑕疵·不影响结论】申报件 §七自陈未在 CI runner 上直接执行 import zstandard、未在 Linux 复跑 A/B、未验证补装后 CI 转红——均已在文中显式标注为推断而非实测；维护者认同该自陈，且本件的可复核部分（b）（c）已独立实测通过。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "covers": [
+        292
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5a2f7abce687"
     }
   ]
 }

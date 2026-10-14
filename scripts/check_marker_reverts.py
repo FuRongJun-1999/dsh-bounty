@@ -58,9 +58,13 @@ def git(args, cwd=None):
     try:
         proc = subprocess.run(["git", *args], capture_output=True, text=True,
                               encoding="utf-8", cwd=cwd)
+    except FileNotFoundError:
+        raise RevertError("调不起 git（未安装或不在 PATH？）：%s" % " ".join(args)) from None
     except OSError as exc:
-        raise RevertError("调不起 git（未安装或不在 PATH？）：%s — %s: %s"
-                          % (" ".join(args), type(exc).__name__, exc)) from None
+        # ★ 旧文案一律归因「git 未安装或不在 PATH」，但目录无效也会走到这里（实测 WinError 267
+        #   NotADirectoryError）⇒ 错误归因会把排查引偏。按真实原因分述。
+        raise RevertError("git 调用失败（仓目录无效或无权限？cwd=%r）：%s — %s: %s"
+                          % (cwd, " ".join(args), type(exc).__name__, exc)) from None
     if proc.returncode:
         raise RevertError("git %s 失败：%s" % (" ".join(args), proc.stderr.strip()[:300]))
     return proc.stdout
@@ -115,6 +119,14 @@ def main(argv=None) -> int:
     global MARKERS
     if args.markers:
         MARKERS = tuple(x.strip() for x in args.markers.split(",") if x.strip())
+        if not MARKERS:
+            # ★ fail-closed：标记表为空 ⇒ `any(mk in body for mk in ())` 恒 False
+            #   ⇒ 扫描永不命中 ⇒ 本闸静默降级成橡皮章，还会打印「未发现疑似静默回退」。
+            #   这与本脚本存在的理由（§七：关键步骤必须**有牙齿**）直接冲突，
+            #   且落在 docstring 的「2 = 输入/环境错误」里 ⇒ 拒绝以 0 退出。
+            sys.stderr.write("[error] --markers 解析后为空（取值 %r）⇒ 标记表为空，扫描恒不命中，"
+                             "拒绝退 0（§七：无牙齿的判据不得报通过）\n" % args.markers)
+            return 2
 
     cwd = args.repo or None
     try:

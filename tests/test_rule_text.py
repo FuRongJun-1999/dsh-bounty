@@ -95,6 +95,47 @@ def _table_timeout_ok():
     return True, "四行「超时会扣」列均为 −2×base"
 
 
+#: ★本件新增 T5：**团队分摊公式**的「承诺 ↔ 实现」一致性。
+#: 为什么必须要 —— 指南 §4.6 曾以现在时写「**系统自动算，你只需要勾人。**」，
+#: 并给出完整公式与示例表（2人+8/3人+6/4人+4/5人+2/6人+1）；
+#: 但**全仓 `scripts/` 无任何团队分摊函数**、账本事件的 `holder` 是**单个登录名**
+#: （无成员列表字段）、`value_vector.json` 无 `team` 维度。
+#: ⇒ 文档承诺了一件系统做不到的事（外部贡献者据此预期分数 ⇒ 正是本件要防的那类误期）。
+#: 判据：**要么**实现存在，**要么**指南明写「尚未实现」。两者皆无 ⇒ 红。
+_TEAM_CLAIM = "系统自动算，你只需要勾人"
+_TEAM_DISCLOSE = "尚未实现"
+
+
+def _team_honesty_ok():
+    """返回 (是否通过, 明细)。"""
+    try:
+        guide = io.open(os.path.join(ROOT, GUIDE_TABLE), encoding="utf-8").read()
+    except OSError:
+        return False, "读不到 %s" % GUIDE_TABLE
+    impl = False
+    sdir = os.path.join(ROOT, "scripts")
+    if os.path.isdir(sdir):
+        for fn in os.listdir(sdir):
+            if not fn.endswith(".py"):
+                continue
+            try:
+                src = io.open(os.path.join(sdir, fn), encoding="utf-8").read()
+            except OSError:
+                continue
+            # 实现判据：出现 (1 − 0.2 × (n−1)) 形态的分摊算式。
+            if "0.2" in src and "max(1" in src:
+                impl = True
+                break
+    if impl:
+        return True, "团队分摊已在 scripts/ 落地"
+    if _TEAM_DISCLOSE in guide:
+        return True, "未实现，但指南已如实披露（含「尚未实现」）"
+    return False, ("团队分摊公式在 scripts/ 下**零实现**，而指南仍以现在时承诺"
+                   "「%s」且未标注「%s」" % (_TEAM_CLAIM, _TEAM_DISCLOSE))
+
+
+
+
 #: 陈旧信号：超时与负数 1 同现。
 # ★本件：补**数字边界**。旧式 `…\s*1(?:\s*分)?` 会**把 `−12`／`−10` 当成 `−1`** ——
 # 实测：把指南里的超时扣分改正为现行 `−2×base`（含 `−12`）后，T2 **误报**「陈旧口径残留」。
@@ -164,6 +205,8 @@ def judge(m):
               and CLAIM_MUST_NOT not in m["claim_src"]
               and CLAIM_MUST_NOT not in m["claim_md"])
     _t4_ok, _t4_why = _table_timeout_ok()
+    _t5_ok, _t5_why = _team_honesty_ok()
+    ok("T5 团队分摊：已实现，或指南如实披露", _t5_ok, _t5_why)
     ok("T4 指南表格的「超时会扣」列 == −2×base", _t4_ok, _t4_why)
     ok("T3 认领通道表述与真源一致（两条通道同口径 ＋ 不含旧绝对表述）", src_ok,
        "howto[1]=%r" % m["claim_src"][:60])

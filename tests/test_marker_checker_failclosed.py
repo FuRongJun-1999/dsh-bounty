@@ -31,10 +31,11 @@ def check(name, ok, detail=""):
     print('[%s] %s%s' % ("OK " if ok else "NG ", name, (" — " + detail) if detail else ""))
 
 
-def py(args, cwd=None):
+def py(args, cwd=None, env=None):
+    env = dict(env or os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8")
     r = subprocess.run([sys.executable, "-X", "utf8"] + args, cwd=cwd or _REPO,
                        capture_output=True, text=True, encoding="utf-8", errors="replace",
-                       env=dict(os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8"), timeout=180)
+                       env=env, timeout=180)
     return r.returncode, (r.stdout or "") + (r.stderr or "")
 
 
@@ -62,17 +63,23 @@ check('默认标记表 ⇒ 照常打印「未发现」', "未发现疑似静默�
 rc, out = py([GH] + SAME)
 check('check_fix_has_guard 空 diff ⇒ 退 0', rc == 0, "rc=%s" % rc)
 
-# ── ③ 错误归因：--repo 无效目录不许归因 PATH ───────────────────────────────
-print('— ③ --repo 指向无效目录 ⇒ 按真实原因报（不得归因 PATH）—')
+# ── ③ 错误归因：git 缺席 ／ 仓目录无效 必须分述（跨平台一致） ───────────────
+#    CI 实证（2026-10-14）：cwd 无效在 **Linux 抛 FileNotFoundError**、Windows 抛 OSError(WinError 267)
+#    ⇒ 靠异常类型区分「git 缺席」在 Linux 上必然错判；判据改成 shutil.which 探测，本件两条分支都钉。
+print('— ③ 归因分述：git 缺席 vs 仓目录无效（不得混为一谈）—')
 bad = os.path.join(_REPO, "no-such-dir-xyz")
 for script in (MR, GH):
     base = os.path.basename(script)
     rc, out = py([script] + SAME + ["--repo", bad])
-    check('%s ⇒ 退 2' % base, rc == 2, "rc=%s" % rc)
-    check('%s ⇒ 不再归因「未安装或不在 PATH」' % base,
-          "未安装或不在 PATH" not in out, out.strip()[:100])
-    check('%s ⇒ 指向真实原因「仓目录无效或无权限」' % base,
+    check('%s 无效 --repo ⇒ 退 2' % base, rc == 2, "rc=%s" % rc)
+    check('%s 无效 --repo ⇒ 归因「仓目录无效或无权限」' % base,
           "仓目录无效或无权限" in out, out.strip()[:100])
+    check('%s 无效 --repo ⇒ 不归因「未安装或不在 PATH」' % base,
+          "未安装或不在 PATH" not in out, out.strip()[:100])
+    rc2, out2 = py([script] + SAME + ["--repo", _REPO], env=dict(os.environ, PATH=""))
+    check('%s git 不在 PATH ⇒ 退 2' % base, rc2 == 2, "rc=%s" % rc2)
+    check('%s git 不在 PATH ⇒ 才归因「未安装或不在 PATH」' % base,
+          "未安装或不在 PATH" in out2, out2.strip()[:100])
 
 # ── ④ 反向证明：旧的全归因写法已不在源码里（防悄悄改回） ────────────────────
 print('— ④ 反向证明：旧的全归因写法已不在源码 —')

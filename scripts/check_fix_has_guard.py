@@ -39,6 +39,7 @@
 import argparse
 import json
 import os
+import shutil
 import subprocess
 import sys
 
@@ -56,11 +57,12 @@ def git(args, cwd=None):
     try:
         proc = subprocess.run(["git", *args], capture_output=True, text=True,
                               encoding="utf-8", cwd=cwd)
-    except FileNotFoundError:
-        raise GuardCheckError("调不起 git（未安装或不在 PATH？）：%s" % " ".join(args)) from None
     except OSError as exc:
-        # ★ 旧文案一律归因「git 未安装或不在 PATH」，但目录无效也会走到这里（实测 WinError 267
-        #   NotADirectoryError）⇒ 错误归因会把排查引偏。按真实原因分述。
+        # ★ 旧文案一律归因「git 未安装或不在 PATH」，但目录无效也会走到这里（WinError 267）⇒ 错误归因会把排查引偏。
+        # ★ CI 实证：cwd 无效在 Linux 抛 FileNotFoundError（与「git 缺席」同类型）⇒ 不能用异常类型判断，
+        #   显式探测 shutil.which("git")：真缺席才说 PATH，否则说仓库/权限。
+        if shutil.which("git") is None:
+            raise GuardCheckError("调不起 git（未安装或不在 PATH？）：%s" % " ".join(args)) from None
         raise GuardCheckError("git 调用失败（仓目录无效或无权限？cwd=%r）：%s — %s: %s"
                               % (cwd, " ".join(args), type(exc).__name__, exc)) from None
     if proc.returncode:

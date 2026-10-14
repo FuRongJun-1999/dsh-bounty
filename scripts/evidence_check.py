@@ -174,10 +174,17 @@ def audit(root=None, want_repro=True) -> tuple:
     ev_dir = os.path.join(base, "review", "evidence")
     manifest = load_json(os.path.join(ev_dir, "manifest.json"))
     index = manifest_index(manifest)
-    data = load_json(os.path.join(base, "review", "data", "plugins.json"))
-    recs = data.get("records")
+    # ★本笔：**根形状判据 ＋ 报错点名真实路径**。旧实现 `data.get("records")` ——
+    # `review/data/plugins.json` 的**根**若不是对象（字符串／数组／null／数字，**都是合法 JSON**），
+    # 抛 `AttributeError: 'str' object has no attribute 'get'`，而下一行就是结构判据
+    # （`isinstance(recs, list)` ⇒ ValueError ⇒ main 收成 fail-closed）——缺的只是**根**这一面。
+    # 另：旧报错串用的是模块级常量 `PLUGINS`，`--root` 指到别的仓时**点名的是错文件**（本函数
+    # 的 `base` 才是真读的那个），故改为点名实读路径。
+    _plug = os.path.join(base, "review", "data", "plugins.json")
+    data = load_json(_plug)
+    recs = data.get("records") if isinstance(data, dict) else None
     if not isinstance(recs, list):
-        raise ValueError("测评数据结构不符（须含 records 数组）：%s" % PLUGINS)
+        raise ValueError("测评数据结构不符（须含 records 数组）：%s" % _plug)
 
     rows, bad = [], []
 

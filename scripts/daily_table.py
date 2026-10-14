@@ -112,6 +112,20 @@ def group_by_day(events):
             continue
         if ev.get("action") != "settle":
             continue
+        # ★本笔：**delta 形状判据**（fail-closed）。旧实现在 `render()` 里四处
+        # `int(ev.get("delta") or 0)` ⇒ `delta` 是**非数字字符串**（合法 JSON）时抛
+        # 裸 `ValueError: invalid literal for int() with base 10`，而本模块的契约是
+        # 「账本不可读／结构不符 ⇒ DailyTableError ⇒ main 收成 rc=1 ＋ 可读报错」。
+        # 判据放在**唯一入口**（结算事件的收集点），四处取值点不必各判一次；
+        # 取值为假值（缺省／0／""）时与旧实现 `or 0` 逐位一致，不改口径。
+        _delta = ev.get("delta")
+        if _delta:
+            try:
+                int(_delta)
+            except (TypeError, ValueError):
+                raise DailyTableError(
+                    "账本事件的 delta 不是整数：%r（事件 %s；见 docs/bounty/ledger.json）"
+                    % (_delta, ev.get("id") or ev.get("ts") or "?"))
         d = (ev.get("day") or (ev.get("ts") or "")[:10] or "未标日")
         days.setdefault(d, []).append(ev)
     return days

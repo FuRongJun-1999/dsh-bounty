@@ -5843,6 +5843,64 @@
         "delta": 3
       },
       "id": "evt_f7dee8b8ac72"
+    },
+    {
+      "ts": "2026-10-14T23:51:10Z",
+      "issue": 408,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "维护者独立复核（非采信申报读数）：`dsh-memory` 以 `git show 96be12cfab82:<path>` 取**锚定提交**的源码（★本轮实测本机该仓 HEAD 已推进到 `620ed054`、工作树另有未提交改动，故**一律不用 `git grep`（它搜工作树）**；逐文件哈希对照证明 `writepipe.py`/`fsutil.py`/`consolidate.py`/`mdcg.py` 两树逐字节一致，唯 `mcp_server.py` 不一致——`620ed054` 改的正是它）。【dsh-memory #294 追评：校验闸 REJECT → 负记忆出口透传原始入参 sensitivity，目标节点已是 private 却按 internal 明文落盘】**同根两出口口径分叉（决定性）**：`md_cg/mdcg.py` 的 falsified 支（`verify` 证伪 → 负记忆）在 **L5215-5223** 逐字写着「issue #214（同根出口）：证伪存根取**原节点 frontmatter 的密级**」并传 `sensitivity=(node.get(\"frontmatter\") or {}).get(\"sensitivity\")` —— 即**继承目标节点已登记密级**；而 `md_cg/writepipe.py` 的 REJECT 支在 **L485-489** 调 `cg.add_rejected(..., sensitivity=a.get(\"sensitivity\"))` —— 传的是**调用方本次声明的值**，未声明即 `None`。**缺省链**：`md_cg/mdcos.py:5886-5887` `def add_rejected(..., sensitivity: str = None, ...)` / `sens = sensitivity or DEFAULT_SENSITIVITY` ⇒ `None` ⇒ `internal`。⇒ 当调用方「同 id 改写既有 `private` 节点但**不重传** `sensitivity`」时（#297 明确支持的日常用法），负记忆以 **internal 明文**落盘 ⇒ 与同根另一出口的继承口径**分叉**。**申报所引「同批已修好的其它出口」经核实确实存在**（即 `mdcg.py:5222-5223` 的继承写法）。**旁证**：`writepipe.py:478-484` 的注释自述本支修的是「**调用方声明的**密级必须原样透传（issue #214）」，并写明「未声明（None）时行为不变：仍按 internal（#87 已裁的缺省）」——即修的是**声明透传**、未触及**继承**。**证据强度**：源码级判据复核；申报的真库实跑读数（T3/T4 对照、无令牌访客可读）**未复跑**。。受理。难度与影响等级沿用本件正文「归属与档位」段的自申请。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        408
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_240bba18504c"
+    },
+    {
+      "ts": "2026-10-14T23:51:10Z",
+      "issue": 409,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "维护者独立复核（非采信申报读数）：`dsh-memory` 以 `git show 96be12cfab82:<path>` 取**锚定提交**的源码（★本轮实测本机该仓 HEAD 已推进到 `620ed054`、工作树另有未提交改动，故**一律不用 `git grep`（它搜工作树）**；逐文件哈希对照证明 `writepipe.py`/`fsutil.py`/`consolidate.py`/`mdcg.py` 两树逐字节一致，唯 `mcp_server.py` 不一致——`620ed054` 改的正是它）。【dsh-memory #82 追评：四个写入口不量主正文字段，单条 1.26 MB、连发 8 次 10 MB 落盘】**工具面闸的作用域（决定性）**：`md_cg/mcp_server.py` 里 `oversize_response` **全文只有两处非测试命中**——`writepipe.py:213 def oversize_response` 与 `writepipe.py:327 _over = oversize_response(_nid, a)`（写链内），以及 `mcp_server.py:3592 from .writepipe import oversize_response as _oversize212` / **L3593 `_ov212 = _oversize212(nid, a)` / L3595 `return _ov212`**。而 L3592-3595 位于 `def _dispatch`（L3548-4006）内、**紧跟 L3585 的「同一内容走 `cg(op=write)` 被 writepipe 入口的 MAX_WRITE_BYTES 闸硬拒」注释** ⇒ 该闸只加在 **`mdcg_remember` 支**。三个具名入口是**其后的独立支**：`mdcg_rejected` L3874、`mdcg_unresolved` L3879、`mdcg_propose` L3883 —— 三个分支体内**均无** `oversize_response` 调用（全文再无第二处）。⇒ 「这批入口不做尺寸闸」**成立**。**★ 一处表述更正**：申报称「4 个入口**连 `oversize_response` 都不调用**」，其中 `cg(op=goal)` 实为**经 writepipe 写链**（`mcp_server.py:2477-2478 from .writepipe import default_pipeline; return default_pipeline().execute(cg, a)`）⇒ 它**会**走到 `writepipe.py:327`；准确表述应为「**闸存在但字段集未覆盖这些入口的主正文字段**」。按本仓「举证瑕疵 ≠ 结论不成立」不扣分，更正已记明。**证据强度**：源码级作用域复核；申报的运行时读数（5 个 >1 MiB 落盘文件、`record` 连发 8 次 10 MB、参考补丁反面证明）**未复跑**——故影响档沿用申报建议 B。。受理。难度与影响等级沿用本件正文「归属与档位」段的自申请。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        409
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_716e23cc588f"
     }
   ]
 }

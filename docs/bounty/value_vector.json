@@ -185,6 +185,24 @@
    "rounds": 1
   },
   {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    36,
+    106,
+    273,
+    408,
+    409
+   ],
+   "login": "LarryE135",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 34,
+   "rounds": 1
+  },
+  {
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
@@ -260,22 +278,6 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 25,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    36,
-    106,
-    273
-   ],
-   "login": "LarryE135",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 22,
    "rounds": 1
   },
   {

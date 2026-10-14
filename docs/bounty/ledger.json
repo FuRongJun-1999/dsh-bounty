@@ -4210,6 +4210,93 @@
         "delta": 6
       },
       "id": "evt_bf4a7e633bcf"
+    },
+    {
+      "ts": "2026-10-14T14:34:22Z",
+      "issue": 386,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "acrot0",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "dsh-bounty round-27 #386（acrot0）：把 CI 的定点变异自证腿从「只跑 1 件」扩到「全部 11 件逐件真跑」，并新增 tests/run_mutation_guards.py 作为唯一入口。  【缺陷面】round-26 独立核实：仓内 11 个 tests/test_*.py 支持 --mutate，而 .github/workflows/bounty-board-check.yml 只对其中 3 件调用 --mutate；其余 8 件中 test_check_reviews.py / test_check_reviews_roleplay.py 的默认运行已含全部变异（自覆盖），真正失守的是 test_check_plan.py / test_bounty_list.py / test_build_site.py / test_daily_table.py / test_game.py / test_rule_text.py 共 6 件——它们的变异锚点一旦因实现漂移而失效，CI 完全看不见。此缺口已在 round-24 兑现为真实事故（test_check_plan.py 的 M1/M2 锚点陈旧，直到 #383 才被修）。  【判别力实证（本轮亲跑，决定性）】把 PR 新增的 tests/run_mutation_guards.py 原样放进三个工作树后单跑：pre-#383 基线 e3f991f8ce4d ⇒ rc=1「执行 11 件 · 通过 10 · 失败 1」（正是 test_check_plan.py 的陈旧锚点被抓出）；main@4d05955b8cd3 ⇒ rc=0「执行 12 件 · 通过 12」；PR386 分支 ⇒ rc=0「执行 11 件 · 通过 11」。即：该守卫在修前基线变红、在修后基线变绿——这是「新增守卫具备判别力」的最强证据形式。  【自证设计核实】FLOOR=10 与 SPECIAL_ARGS={\"test_check_reviews_roleplay.py\": [\"--mutate=R8b\"]} 均 fail-closed（参检件数低于下界、特例表过期都走 ::error:: 而非静默）；TIMEOUT_S=300 逐件设上限；discover() 以「文件正文含 --mutate」为收录判据。  【风险点已排除】#386 的 merge-base 是 e3f991f8ce4d（叠在未合并的 #383 之上），其 tests/test_check_plan.py 因此不含 #381 的 D14c 隔离段。经三方合并（git merge --squash，merge-base 参与）后核实：合并结果的 tests/test_check_plan.py 与合并前 main 逐字节一致，D14c 未被回退。  【定档依据】medium=3：新增 92 行独立运行器 + workflow 一步，属中等实现量，无架构性改动。影响 A：不做则仓内 6 件守卫的变异锚点漂移对 CI 永久不可见——按 IMPACT_CRITERIA「量具失效」判，而非按实现难度判。判级可申诉。",
+      "pr": 386,
+      "covers": [
+        386
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b4c7da292d87"
+    },
+    {
+      "ts": "2026-10-14T14:34:22Z",
+      "issue": 387,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "dsh-bounty round-27 #387（zijinmengxi）：review 子站「未测维度不再计入合计」——把「无读数」与「最低分」在真源、生成器、站点三层彻底分离，并补覆盖率列、逐维证据档位、判据表。  【缺陷面（本轮亲验，决定性）】main 的 scripts/review_build.py:368-370 total_score() = sum(int(v) for v in d[\"dimensions\"].values())，把 review/data/plugins.json 硬约束强制记 1 的未测维度也加了进去；实读 main 生成的站点：detail_dsh-memory.html 印「总分 19 / 25」而该记录的「注入预算」列在 unmeasured_dims（虚增 1）；dsh-mnemon 的「检索质量」「注入预算」两维未测，虚增 2。读者读到的是一个被系统性抬高的对外评分——语义错误。  【修法核实】PR 把未测维改记 null、新增 measured_dims()/measured_mean()/measured_total()/coverage() 与 MIN_RANKED_COVERAGE=3，并保留 total_score 作为 measured_total 的旧名别名（无已测维度 → None）；真源新增双向一致性判据：记 null ⇔ 列在 unmeasured_dims，两处不一致即报错。  【门禁实证（本轮亲跑）】review_build.py --check rc=0（产物与真源一致，6 页 3 插件）；tests/test_review_build.py rc=0 通过 68/失败 0、--mutate rc=0 通过 25/失败 0；tests/test_evidence_check.py rc=0 通过 30/失败 0、--mutate rc=0 通过 12/失败 0；scripts/check_reviews.py rc=0 通过 12/失败 0；scripts/evidence_check.py --repro rc=0 全部一致；全量套件 46 件 0 红。  【定档依据】hard=6：生成器 +743/-102、真源 +155/-37、新增 review/data/rubric.json、测试 +905/-94，且核心是把一个已发布口径做语义切分。影响 A：对外发布的评分合计长期虚高，属「语义错误」。判级可申诉。",
+      "pr": 387,
+      "covers": [
+        387
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_d478f8f2378b"
+    },
+    {
+      "ts": "2026-10-14T14:34:22Z",
+      "issue": 388,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "dsh-bounty round-27 #388（zijinmengxi）：cross-eval 守卫与证据链收口——R5 归属化 + R8 fail-closed + section_body 结构化 + 新增 R13/R14（件内自申 5 件缺陷）。  【缺陷面（本轮逐条亲验）】① R5 免检牌：CMD_PREFIX 原先含裸 \"#\" ⇒ 伪造的读数行加一个 # 前缀即免检（PR 的 L136-137 注释直陈此事，并已把 \"#\" 移出）。② R5 跨引擎混池：raw_pool(raw_dir) 无 engine 形参 ⇒ 某引擎报告里的读数可以指到另一引擎的 raw 文件，归属判据形同不存在；PR 改为 raw_pool(raw_dir, engine) 按证据桶分文件表。③ R8 fail-open（A/B 实证，决定性）：main 的 check_reviews.py:255-256 为 `if not isinstance(rec, dict) or not rec.get(\"sha256\"): continue`，缺 sha256 的记录被静默跳过，连 matches_golden=false 也看不见。本轮做定点对照：在 langgraph_summary.json 的 normal 记录上删 sha256 并置 matches_golden=false（报告未披露）——main ⇒ rc=0「通过 12 / 失败 0」静默放行；pr388 ⇒ rc=1「通过 13 / 失败 1」红项 [R8]。④ section_body 用 text.find() 在全文找标题，围栏里的样例 `## …` 也被当标题 ⇒ 在 §5 尾巴埋一个假 `## 6.` 头即可让判据切到假节；PR 引入 scan_lines() 作为 R5/R7/R9/R10/R11/R12 共用的唯一围栏状态机。⑤ 判据面从 12 条扩到 14 条并补齐判据-变异矩阵。  【与已结算工作项的关系】其中 ① ② 两条对应 round-24 已结算的报告面 evt_59cab098f266（covers=[374]，证据池三条绕过面）。按「报告面与修复面各计一次、不重复计同一缺陷面」的口径，本条只记修复面，covers 记 PR 号 [388] 以与 [374] 区隔；③ ④ ⑤ 三条不在 [374] 覆盖面内，为本轮新增缺陷面。  【门禁实证（本轮亲跑）】scripts/check_reviews.py rc=0 通过 14/失败 0；tests/test_check_reviews.py rc=0 通过 36/失败 0；tests/test_check_reviews_citation.py 通过 17/0；tests/test_check_reviews_sections.py 通过 24/0；tests/test_check_reviews_manifest.py 通过 17/0；合并后全量 52 件中唯一红项 tests/test_check_reviews_failclosed.py 已定性为 Windows 伪影（见下）。  【CI 红项的独立定性】GitHub 上 review-roleplay-check 对 fix/cross-eval-guard-hardening 报红，日志为「红项 R8：缺 raw/SillyTavern_summary.json」「缺 raw/RisuAI_summary.json」。本轮查实：scripts/check_reviews_roleplay.py:51-55 的 SCHEME_REPORTS 把显示名（SillyTavern / RisuAI）直接当文件名前缀拼 \"%s_summary.json\"，而仓内 git 索引里实际是小写 sillytavern_summary.json / risuai_summary.json（diceframe 恰好小写故幸免）；Windows 大小写不敏感故本机绿、Linux CI 敏感故红。该文件在 main 与 pr388 上逐字节相同（均 13752 字节），且 review-roleplay-check 的 3 次历史运行（38573740835 / 38570687601 / 38539295870）全为 failure ⇒ 这是 main 上的既存缺陷，不由本 PR 引入，也不由本 PR 修复；已另行立项。同理 tests/test_check_reviews_failclosed.py 的 B 组 8 红经 CI 日志核实为「通过 21 / 失败 0」全绿，本机红源于 tempfile.mkdtemp() 落 C 盘而仓在 D 盘触发 os.path.relpath 跨盘 ValueError，属环境伪影。  【定档依据】hard=6：scripts/check_reviews.py +377/-65、新增/重写多份守卫与测试，且改动的是一个「静默放行」的量具。影响 A：不做则守卫对缺 sha256 的记录永久 fail-open，按 IMPACT_CRITERIA「量具失效」判。判级可申诉。",
+      "pr": 388,
+      "covers": [
+        388
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_6afd9112dc4b"
     }
   ]
 }

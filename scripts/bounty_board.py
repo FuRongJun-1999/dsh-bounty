@@ -799,8 +799,9 @@ def _do_claim(st, actor, now, cfg, active_claims):
     if not ok_conc:
         return _decide(st, "/claim", why_conc, now, actor, "concurrency_limit")
     due = fmt_ts(now + timedelta(hours=cfg.claim_hours))
+    _td, _ = timeout_delta(base_of(st.difficulty))
     bullets = [f"持有者：@{actor}",
-               f"到期：{due}（逾期自动回板 `bounty:open` 并记 {SCORE_TIMEOUT} 分）",
+               f"到期：{due}（逾期自动回板 `bounty:open` 并记 {_td} 分 = −2×base）",
                "交付：评论 `/deliver <PR 链接或证据块>`；放弃：`/withdraw`"]
     # 回避闸（缺陷 #269A）：本 issue 当时无持有者 ⇒ 评价者可先 `/appraise` 再自 `/claim`。
     # 作废动作**不在此处落地**——统一由 `_accept` 的「等级不得随人迁移」不变量处置

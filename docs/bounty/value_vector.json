@@ -25,8 +25,8 @@
    "rounds": 1
   },
   {
-   "difficulty": "difficulty:medium",
-   "difficulty_base": 1,
+   "difficulty": "medium",
+   "difficulty_base": 3,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
@@ -68,8 +68,8 @@
    "rounds": 1
   },
   {
-   "difficulty": "difficulty:expert",
-   "difficulty_base": 1,
+   "difficulty": "expert",
+   "difficulty_base": 10,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
@@ -109,8 +109,8 @@
    "rounds": 1
   },
   {
-   "difficulty": "difficulty:hard",
-   "difficulty_base": 1,
+   "difficulty": "hard",
+   "difficulty_base": 6,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
@@ -287,8 +287,8 @@
    "rounds": 1
   },
   {
-   "difficulty": "difficulty:hard",
-   "difficulty_base": 1,
+   "difficulty": "hard",
+   "difficulty_base": 6,
    "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
@@ -519,8 +519,8 @@
    "rounds": 1
   },
   {
-   "difficulty": "difficulty:hard",
-   "difficulty_base": 1,
+   "difficulty": "hard",
+   "difficulty_base": 6,
    "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
@@ -703,8 +703,8 @@
    "rounds": 1
   },
   {
-   "difficulty": "difficulty:hard",
-   "difficulty_base": 1,
+   "difficulty": "hard",
+   "difficulty_base": 6,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [

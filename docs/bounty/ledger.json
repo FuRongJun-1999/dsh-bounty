@@ -4886,6 +4886,180 @@
         "delta": 1
       },
       "id": "evt_38cab5d36554"
+    },
+    {
+      "ts": "2026-10-14T22:44:25Z",
+      "issue": 423,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆 FuRongJun-1999/lingshu @ 55a137fc3e31，非采信申报读数）：export_coggraph.py L186-193 改名分支无 id_seen 回写（id_seen 赋值仅在 L193 的 else 支）；三份同 id 同内容模拟复现 ids=[dup, dup#sha, dup#sha] 即同 id 双节点；L211 edge_types / L249 n_edges 在 L254-255 悬空剔除之前计数，而 L268 counts.edges 在之后 ⇒ 三个边数互不相等。受理。影响等级沿用申报自评，维护者未改档。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生为 lingshu（申报标记的 project 字段系模板硬编码，与本仓先例一致地按 target 派生）。",
+      "pr": null,
+      "covers": [
+        423
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_d3cf6defbbb1"
+    },
+    {
+      "ts": "2026-10-14T22:44:25Z",
+      "issue": 424,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆 FuRongJun-1999/lingshu @ 55a137fc3e31，非采信申报读数）：naming_report.py L71-77 的 deg 在 L74-75 有 title 相等过滤，而 L89-92 的 r5_in 无同一道过滤；L101 q2 / L102 q3 均以 r5_in 为判据 ⇒ 同文件两处「被提及」口径不一致。受理。影响等级沿用申报自评，维护者未改档。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生为 lingshu（申报标记的 project 字段系模板硬编码，与本仓先例一致地按 target 派生）。",
+      "pr": null,
+      "covers": [
+        424
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_cbc23d139a61"
+    },
+    {
+      "ts": "2026-10-14T22:44:25Z",
+      "issue": 425,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆 FuRongJun-1999/lingshu @ 55a137fc3e31，非采信申报读数）：真 regex 试裸名：gamma/alpha/rho/tau/discount/lr 裸名 R3C 全不认，而同文件 R2C 认 gamma/lambda/decay*/halflife ⇒ 词表自相矛盾；L486 key=(line,rule) ⇒ 同行第 2/3 条同类违规被丢；L355-363 _is_depth0 返回 d==0，L375-380 以此为闸 ⇒ (v * 0.9) 与 ((v) * 0.9) 真跑均逃逸、v * 0.9 被认。受理。影响等级沿用申报自评，维护者未改档。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生为 lingshu（申报标记的 project 字段系模板硬编码，与本仓先例一致地按 target 派生）。",
+      "pr": null,
+      "covers": [
+        425
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ffc1a5fe5b41"
+    },
+    {
+      "ts": "2026-10-14T22:44:25Z",
+      "issue": 427,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "维护者独立复核（隔离克隆 FuRongJun-1999/lingshu @ 55a137fc3e31，非采信申报读数）：L149 any(tok in body for tok in AUDIT_TOKENS) 为纯子串；逐形态真跑：fingerprint = None / footprint / printing 命中 print、catalog / dialog / logic / logger 命中 log、error_count += 1 命中 error —— 均判「已记录」而放行，pass / result = None 判静默 ⇒ 同样 10 个 handler 写 pass 红、写 fingerprint = None 绿。受理。影响等级沿用申报自评，维护者未改档。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生为 lingshu（申报标记的 project 字段系模板硬编码，与本仓先例一致地按 target 派生）。",
+      "pr": null,
+      "covers": [
+        427
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_b0276320d6b9"
+    },
+    {
+      "ts": "2026-10-14T22:44:25Z",
+      "issue": 419,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆 FuRongJun-1999/lingshu @ 55a137fc3e31，非采信申报读数）：L128 _FENCE_OPEN 的 \\s 含 tab（认得出），但 L250-255 _dedent 只剥 \" \"、L360 indent 只数空格、L378 以 indent=0 调用 ⇒ 真跑 1 tab 得 indent=0、2空格+1tab 得 indent=2，前导 tab 原样落盘 ⇒ IndentationError。受理。影响等级沿用申报自评，维护者未改档。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生为 lingshu（申报标记的 project 字段系模板硬编码，与本仓先例一致地按 target 派生）。",
+      "pr": null,
+      "covers": [
+        419
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_61cec9ee7cf5"
+    },
+    {
+      "ts": "2026-10-14T22:44:25Z",
+      "issue": 412,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆 FuRongJun-1999/lingshu @ 55a137fc3e31，非采信申报读数）：shapes.py L307 逐字硬编码 pos_origin=\"bbox_center\"；L188 _SHAPE_SOURCES 只记来源串、不记口径（pos_origin 全文件仅出现于 258/284/285/286/295/307，无按类别入账）；L254-259 register_shape(recenter=...) 的注释明写归零会挪走关节枢轴；L284-296 load_shapes 按 pos_origin 决定是否 _recenter_parts ⇒ 导出侧恒写 bbox_center 与库中 anchor 口径冲突。受理。影响等级沿用申报自评，维护者未改档。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。难度档与影响等级均可申诉。project 按目标仓派生为 lingshu（申报标记的 project 字段系模板硬编码，与本仓先例一致地按 target 派生）。",
+      "pr": null,
+      "covers": [
+        412
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_007a633ff6cf"
     }
   ]
 }

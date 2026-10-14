@@ -126,6 +126,14 @@ def render(doc):
 def validate(doc):
     """真源自校验：错即 fail-closed（退出码 2），绝不产出半截文档。"""
     errs = []
+    # ★本笔：**根形状判据**。旧实现第一行就 `doc.get("items")`——真源 `docs/bounty/悬赏.json`
+    # 的**根**若是 `[]`／`null`／数字／字符串（**都是合法 JSON**），本行抛
+    # `AttributeError: 'list' object has no attribute 'get'`，于是本函数的契约
+    # （docstring：「真源自校验：错即 fail-closed（退出码 2），绝不产出半截文档」）
+    # **拿不到退出码 2，换成裸栈**；而 `--check` 那条 CI 闸正是以本函数为判据面。
+    # `items` 的**元素**形状已有判据（见下），缺的是**根**这一面。
+    if not isinstance(doc, dict):
+        return ["真源根不是对象（%s）：%r —— 须为 {\"items\": [...]}" % (type(doc).__name__, doc)]
     if not isinstance(doc.get("items"), list) or not doc["items"]:
         errs.append("items 缺失或为空")
     seen = set()

@@ -1,0 +1,1207 @@
+{
+ "adapter": "risuai",
+ "command": [
+  "node",
+  "D:\\A-part-of-new-software\\PROJIECT\\_bounty67\\bench\\roleplay_eval\\adapters\\risuai\\run.mjs"
+ ],
+ "data": "data",
+ "determinism": {
+  "P0": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "6fc15aeecf08590cedbaeeeed3604e738e1c95458bf367ee5a1410690a504784"
+  },
+  "P1": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "e94a9bc78ebde6f2c51a01e017cd1e69ce2f87045d177034d9bbd3fca2506077"
+  },
+  "P2": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "ce1c0ac35045afa89d12ea63d1546948cd3b487d9f1f28f6f3391353131dd592"
+  },
+  "P3": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "a99a03def2a86ec08132dcface8f87adc019fa214fd9d0800e49591d4c568f19"
+  },
+  "P4": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "77440788a90d1687eab87cb855853799477c2eb57e8f5782a2ea2ac909372ed4"
+  }
+ },
+ "kpi": {
+  "baseline": "baseline",
+  "bootstrap": {
+   "alpha": 0.05,
+   "iters": 2000,
+   "seed": 0,
+   "statistic": "mean-of-paired-difference"
+  },
+  "ci_undefined_metrics": [],
+  "delta_all_zero": false,
+  "delta_ci_zero": false,
+  "metrics": [
+   {
+    "ci_hi": 1.0,
+    "ci_lo": 0.918981,
+    "definition": "方案 P0 激活集 vs 基线 P0 的同 turn F1 均值：2|A∩B|/(|A|+|B|)",
+    "kind": "absolute",
+    "line": "KPI M1_active_f1 value=0.960648 ci=[0.918981,1] n=6",
+    "metric": "M1_active_f1",
+    "n": 6,
+    "value": 0.960648
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": -0.081019,
+    "definition": "M1 的 Δ 形式：F1 − 1；两侧集合相同即为 0",
+    "kind": "delta",
+    "line": "KPI M1_active_f1_delta value=-0.0393519 ci=[-0.0810185,0] n=6",
+    "metric": "M1_active_f1_delta",
+    "n": 6,
+    "value": -0.039352
+   },
+   {
+    "ci_hi": 1.333333,
+    "ci_lo": 0.0,
+    "definition": "方案 P0 与基线 P0 的激活集对称差大小均值",
+    "kind": "delta",
+    "line": "KPI M1_active_symdiff value=0.666667 ci=[0,1.33333] n=6",
+    "metric": "M1_active_symdiff",
+    "n": 6,
+    "value": 0.666667
+   },
+   {
+    "ci_hi": 44.0,
+    "ci_lo": 12.5,
+    "definition": "同一激活集（两侧注入顺序的交集）上方案侧逆序对数均值",
+    "kind": "absolute",
+    "line": "KPI M2_order_inv value=25.6667 ci=[12.5,44] n=6",
+    "metric": "M2_order_inv",
+    "n": 6,
+    "value": 25.666667
+   },
+   {
+    "ci_hi": 37.666667,
+    "ci_lo": 11.666667,
+    "definition": "同一激活集上方案逆序对数 − 基线逆序对数，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M2_order_inv_delta value=22.8333 ci=[11.6667,37.6667] n=6",
+    "metric": "M2_order_inv_delta",
+    "n": 6,
+    "value": 22.833333
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P3 的 dropped_uids 对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M3_budget_dropped_delta value=0 ci=[0,0] n=6",
+    "metric": "M3_budget_dropped_delta",
+    "n": 6,
+    "value": 0.0
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P1 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M4_recursion_ablation_delta value=0 ci=[0,0] n=6",
+    "metric": "M4_recursion_ablation_delta",
+    "n": 6,
+    "value": 0.0
+   },
+   {
+    "ci_hi": 1.166667,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P2 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M5_depth_ablation_delta value=0.5 ci=[0,1.16667] n=6",
+    "metric": "M5_depth_ablation_delta",
+    "n": 6,
+    "value": 0.5
+   },
+   {
+    "ci_hi": 1.0,
+    "ci_lo": 1.0,
+    "definition": "读 raw/<name>_summary.json 的 determinism：identical=true 记 1，逐 profile 求均值",
+    "kind": "absolute",
+    "line": "KPI M6_determinism value=1 ci=[1,1] n=5",
+    "metric": "M6_determinism",
+    "n": 5,
+    "value": 1.0
+   },
+   {
+    "ci_hi": 3.5,
+    "ci_lo": 0.5,
+    "definition": "P0 vs P4 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M7_match_ablation_delta value=2 ci=[0.5,3.5] n=6",
+    "metric": "M7_match_ablation_delta",
+    "n": 6,
+    "value": 2.0
+   },
+   {
+    "ci_hi": 212.0,
+    "ci_lo": 140.0,
+    "definition": "所选 profiles × 全部 turn 的方案激活条目数之和（CI 为逐行计数均值 CI × 行数）",
+    "kind": "absolute",
+    "line": "KPI M8_total_active_uids value=175 ci=[140,212] n=30",
+    "metric": "M8_total_active_uids",
+    "n": 30,
+    "value": 175.0
+   }
+  ],
+  "missing": [],
+  "profiles": [
+   "P0",
+   "P1",
+   "P2",
+   "P3",
+   "P4"
+  ],
+  "unit": "paired-(profile,turn)"
+ },
+ "profiles": {
+  "P0": {
+   "capabilities": {
+    "at_depth": true,
+    "group": false,
+    "probability": false,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/risuai_P0.json",
+   "out_sha256": "2695853eecc20558546c7373781288ffa9282b69357da381878abc60ab3b0622",
+   "readout_lines": [
+    "READOUT risuai P0 turn=1 active=8 order=19,20,6,4,3,2,1,18 chars=1107 bytes=3297 dropped=-",
+    "READOUT risuai P0 turn=2 active=13 order=19,20,13,12,11,10,6,5,4,3,2,1,18 chars=1230 bytes=3666 dropped=-",
+    "READOUT risuai P0 turn=3 active=10 order=25,20,17,16,15,13,12,11,10,1 chars=1162 bytes=3442 dropped=-",
+    "READOUT risuai P0 turn=4 active=9 order=25,20,17,16,15,14,13,10,1 chars=1136 bytes=3364 dropped=-",
+    "READOUT risuai P0 turn=5 active=5 order=21,20,14,13,1 chars=1034 bytes=3102 dropped=-",
+    "READOUT risuai P0 turn=6 active=4 order=21,20,7,1 chars=1009 bytes=3027 dropped=-"
+   ],
+   "stdout_sha256": "6fc15aeecf08590cedbaeeeed3604e738e1c95458bf367ee5a1410690a504784",
+   "timing": {
+    "min_ms": 4101.292,
+    "p50_ms": 4157.861,
+    "p95_ms": 4193.687,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3297,
+     "chars": 1107,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      20,
+      6,
+      4,
+      3,
+      2,
+      1,
+      18
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      10,
+      11,
+      12,
+      13,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3666,
+     "chars": 1230,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      20,
+      13,
+      12,
+      11,
+      10,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1,
+      18
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      11,
+      12,
+      13,
+      15,
+      16,
+      17,
+      20,
+      25
+     ],
+     "bytes": 3442,
+     "chars": 1162,
+     "dropped_uids": [],
+     "inject_order": [
+      25,
+      20,
+      17,
+      16,
+      15,
+      13,
+      12,
+      11,
+      10,
+      1
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      13,
+      14,
+      15,
+      16,
+      17,
+      20,
+      25
+     ],
+     "bytes": 3364,
+     "chars": 1136,
+     "dropped_uids": [],
+     "inject_order": [
+      25,
+      20,
+      17,
+      16,
+      15,
+      14,
+      13,
+      10,
+      1
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      20,
+      21
+     ],
+     "bytes": 3102,
+     "chars": 1034,
+     "dropped_uids": [],
+     "inject_order": [
+      21,
+      20,
+      14,
+      13,
+      1
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      20,
+      21
+     ],
+     "bytes": 3027,
+     "chars": 1009,
+     "dropped_uids": [],
+     "inject_order": [
+      21,
+      20,
+      7,
+      1
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "probability",
+     "reason": "upstream-decorator-uses-Math.random-lorebook.svelte.ts:494"
+    },
+    {
+     "field": "case_sensitive",
+     "reason": "upstream-folds-case-unconditionally-lorebook.svelte.ts:182"
+    },
+    {
+     "field": "group",
+     "reason": "no-group-field-in-loreBook-database.svelte.ts:1338"
+    },
+    {
+     "field": "group_weight",
+     "reason": "no-group-field-in-loreBook-database.svelte.ts:1338"
+    },
+    {
+     "field": "recursion.prevent",
+     "reason": "no-upstream-field"
+    },
+    {
+     "field": "recursion.delay",
+     "reason": "no-upstream-field"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-side-marker-no-upstream-field"
+    },
+    {
+     "field": "budget_chars",
+     "reason": "upstream-budget-counts-tokens-not-chars"
+    },
+    {
+     "field": "recursive_max_depth",
+     "reason": "upstream-loops-to-fixpoint-without-depth-cap"
+    },
+    {
+     "field": "seed",
+     "reason": "no-effect-because-probability-unsupported"
+    }
+   ]
+  },
+  "P1": {
+   "capabilities": {
+    "at_depth": true,
+    "group": false,
+    "probability": false,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/risuai_P1.json",
+   "out_sha256": "94a1aad4ef381d35815edc29d90d7f30780a3afb8f565120ca9045e5083d3740",
+   "readout_lines": [
+    "READOUT risuai P1 turn=1 active=8 order=19,20,6,4,3,2,1,18 chars=1107 bytes=3297 dropped=-",
+    "READOUT risuai P1 turn=2 active=12 order=19,20,12,11,10,6,5,4,3,2,1,18 chars=1202 bytes=3582 dropped=-",
+    "READOUT risuai P1 turn=3 active=9 order=25,20,17,16,15,12,11,10,1 chars=1134 bytes=3358 dropped=-",
+    "READOUT risuai P1 turn=4 active=9 order=25,20,17,16,15,14,13,10,1 chars=1136 bytes=3364 dropped=-",
+    "READOUT risuai P1 turn=5 active=5 order=21,20,14,13,1 chars=1034 bytes=3102 dropped=-",
+    "READOUT risuai P1 turn=6 active=4 order=21,20,7,1 chars=1009 bytes=3027 dropped=-"
+   ],
+   "stdout_sha256": "e94a9bc78ebde6f2c51a01e017cd1e69ce2f87045d177034d9bbd3fca2506077",
+   "timing": {
+    "min_ms": 4081.125,
+    "p50_ms": 4126.727,
+    "p95_ms": 4146.573,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3297,
+     "chars": 1107,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      20,
+      6,
+      4,
+      3,
+      2,
+      1,
+      18
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      10,
+      11,
+      12,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3582,
+     "chars": 1202,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      20,
+      12,
+      11,
+      10,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1,
+      18
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      11,
+      12,
+      15,
+      16,
+      17,
+      20,
+      25
+     ],
+     "bytes": 3358,
+     "chars": 1134,
+     "dropped_uids": [],
+     "inject_order": [
+      25,
+      20,
+      17,
+      16,
+      15,
+      12,
+      11,
+      10,
+      1
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      13,
+      14,
+      15,
+      16,
+      17,
+      20,
+      25
+     ],
+     "bytes": 3364,
+     "chars": 1136,
+     "dropped_uids": [],
+     "inject_order": [
+      25,
+      20,
+      17,
+      16,
+      15,
+      14,
+      13,
+      10,
+      1
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      20,
+      21
+     ],
+     "bytes": 3102,
+     "chars": 1034,
+     "dropped_uids": [],
+     "inject_order": [
+      21,
+      20,
+      14,
+      13,
+      1
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      20,
+      21
+     ],
+     "bytes": 3027,
+     "chars": 1009,
+     "dropped_uids": [],
+     "inject_order": [
+      21,
+      20,
+      7,
+      1
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "probability",
+     "reason": "upstream-decorator-uses-Math.random-lorebook.svelte.ts:494"
+    },
+    {
+     "field": "case_sensitive",
+     "reason": "upstream-folds-case-unconditionally-lorebook.svelte.ts:182"
+    },
+    {
+     "field": "group",
+     "reason": "no-group-field-in-loreBook-database.svelte.ts:1338"
+    },
+    {
+     "field": "group_weight",
+     "reason": "no-group-field-in-loreBook-database.svelte.ts:1338"
+    },
+    {
+     "field": "recursion.prevent",
+     "reason": "no-upstream-field"
+    },
+    {
+     "field": "recursion.delay",
+     "reason": "no-upstream-field"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-side-marker-no-upstream-field"
+    },
+    {
+     "field": "budget_chars",
+     "reason": "upstream-budget-counts-tokens-not-chars"
+    },
+    {
+     "field": "recursive_max_depth",
+     "reason": "upstream-loops-to-fixpoint-without-depth-cap"
+    },
+    {
+     "field": "seed",
+     "reason": "no-effect-because-probability-unsupported"
+    }
+   ]
+  },
+  "P2": {
+   "capabilities": {
+    "at_depth": true,
+    "group": false,
+    "probability": false,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/risuai_P2.json",
+   "out_sha256": "f48a42a27c95f35e83c7b8346097d960415897c054ba69684be4699fb17531c4",
+   "readout_lines": [
+    "READOUT risuai P2 turn=1 active=2 order=20,1 chars=956 bytes=2868 dropped=-",
+    "READOUT risuai P2 turn=2 active=4 order=20,11,10,1 chars=1002 bytes=3006 dropped=-",
+    "READOUT risuai P2 turn=3 active=5 order=25,20,17,10,1 chars=1042 bytes=3082 dropped=-",
+    "READOUT risuai P2 turn=4 active=5 order=20,14,13,10,1 chars=1031 bytes=3093 dropped=-",
+    "READOUT risuai P2 turn=5 active=3 order=21,20,1 chars=980 bytes=2940 dropped=-",
+    "READOUT risuai P2 turn=6 active=3 order=20,7,1 chars=985 bytes=2955 dropped=-"
+   ],
+   "stdout_sha256": "ce1c0ac35045afa89d12ea63d1546948cd3b487d9f1f28f6f3391353131dd592",
+   "timing": {
+    "min_ms": 4007.945,
+    "p50_ms": 4043.865,
+    "p95_ms": 4121.573,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      20,
+      1
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      11,
+      20
+     ],
+     "bytes": 3006,
+     "chars": 1002,
+     "dropped_uids": [],
+     "inject_order": [
+      20,
+      11,
+      10,
+      1
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      17,
+      20,
+      25
+     ],
+     "bytes": 3082,
+     "chars": 1042,
+     "dropped_uids": [],
+     "inject_order": [
+      25,
+      20,
+      17,
+      10,
+      1
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      13,
+      14,
+      20
+     ],
+     "bytes": 3093,
+     "chars": 1031,
+     "dropped_uids": [],
+     "inject_order": [
+      20,
+      14,
+      13,
+      10,
+      1
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      20,
+      21
+     ],
+     "bytes": 2940,
+     "chars": 980,
+     "dropped_uids": [],
+     "inject_order": [
+      21,
+      20,
+      1
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      20
+     ],
+     "bytes": 2955,
+     "chars": 985,
+     "dropped_uids": [],
+     "inject_order": [
+      20,
+      7,
+      1
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "probability",
+     "reason": "upstream-decorator-uses-Math.random-lorebook.svelte.ts:494"
+    },
+    {
+     "field": "case_sensitive",
+     "reason": "upstream-folds-case-unconditionally-lorebook.svelte.ts:182"
+    },
+    {
+     "field": "group",
+     "reason": "no-group-field-in-loreBook-database.svelte.ts:1338"
+    },
+    {
+     "field": "group_weight",
+     "reason": "no-group-field-in-loreBook-database.svelte.ts:1338"
+    },
+    {
+     "field": "recursion.prevent",
+     "reason": "no-upstream-field"
+    },
+    {
+     "field": "recursion.delay",
+     "reason": "no-upstream-field"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-side-marker-no-upstream-field"
+    },
+    {
+     "field": "budget_chars",
+     "reason": "upstream-budget-counts-tokens-not-chars"
+    },
+    {
+     "field": "recursive_max_depth",
+     "reason": "upstream-loops-to-fixpoint-without-depth-cap"
+    },
+    {
+     "field": "seed",
+     "reason": "no-effect-because-probability-unsupported"
+    }
+   ]
+  },
+  "P3": {
+   "capabilities": {
+    "at_depth": true,
+    "group": false,
+    "probability": false,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/risuai_P3.json",
+   "out_sha256": "bab860589b87bae7789e8ad1205a6103202ad13dbbedd91bf86cfff5eb06a318",
+   "readout_lines": [
+    "READOUT risuai P3 turn=1 active=7 order=19,6,4,3,2,1,18 chars=207 bytes=597 dropped=20",
+    "READOUT risuai P3 turn=2 active=12 order=19,13,12,11,10,6,5,4,3,2,1,18 chars=330 bytes=966 dropped=20",
+    "READOUT risuai P3 turn=3 active=9 order=25,17,16,15,13,12,11,10,1 chars=262 bytes=742 dropped=20",
+    "READOUT risuai P3 turn=4 active=8 order=25,17,16,15,14,13,10,1 chars=236 bytes=664 dropped=20",
+    "READOUT risuai P3 turn=5 active=4 order=21,14,13,1 chars=134 bytes=402 dropped=20",
+    "READOUT risuai P3 turn=6 active=3 order=21,7,1 chars=109 bytes=327 dropped=20"
+   ],
+   "stdout_sha256": "a99a03def2a86ec08132dcface8f87adc019fa214fd9d0800e49591d4c568f19",
+   "timing": {
+    "min_ms": 4039.187,
+    "p50_ms": 4096.527,
+    "p95_ms": 4256.693,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      18,
+      19
+     ],
+     "bytes": 597,
+     "chars": 207,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      19,
+      6,
+      4,
+      3,
+      2,
+      1,
+      18
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      10,
+      11,
+      12,
+      13,
+      18,
+      19
+     ],
+     "bytes": 966,
+     "chars": 330,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      19,
+      13,
+      12,
+      11,
+      10,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1,
+      18
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      11,
+      12,
+      13,
+      15,
+      16,
+      17,
+      25
+     ],
+     "bytes": 742,
+     "chars": 262,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      25,
+      17,
+      16,
+      15,
+      13,
+      12,
+      11,
+      10,
+      1
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      13,
+      14,
+      15,
+      16,
+      17,
+      25
+     ],
+     "bytes": 664,
+     "chars": 236,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      25,
+      17,
+      16,
+      15,
+      14,
+      13,
+      10,
+      1
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      21
+     ],
+     "bytes": 402,
+     "chars": 134,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      21,
+      14,
+      13,
+      1
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      21
+     ],
+     "bytes": 327,
+     "chars": 109,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      21,
+      7,
+      1
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "probability",
+     "reason": "upstream-decorator-uses-Math.random-lorebook.svelte.ts:494"
+    },
+    {
+     "field": "case_sensitive",
+     "reason": "upstream-folds-case-unconditionally-lorebook.svelte.ts:182"
+    },
+    {
+     "field": "group",
+     "reason": "no-group-field-in-loreBook-database.svelte.ts:1338"
+    },
+    {
+     "field": "group_weight",
+     "reason": "no-group-field-in-loreBook-database.svelte.ts:1338"
+    },
+    {
+     "field": "recursion.prevent",
+     "reason": "no-upstream-field"
+    },
+    {
+     "field": "recursion.delay",
+     "reason": "no-upstream-field"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-side-marker-no-upstream-field"
+    },
+    {
+     "field": "budget_chars",
+     "reason": "upstream-budget-counts-tokens-not-chars"
+    },
+    {
+     "field": "recursive_max_depth",
+     "reason": "upstream-loops-to-fixpoint-without-depth-cap"
+    },
+    {
+     "field": "seed",
+     "reason": "no-effect-because-probability-unsupported"
+    }
+   ]
+  },
+  "P4": {
+   "capabilities": {
+    "at_depth": true,
+    "group": false,
+    "probability": false,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/risuai_P4.json",
+   "out_sha256": "14bfdfc1e6562acde25523fa0a5bc4b3ebd2ac20e59be42faeac0064d41f43d7",
+   "readout_lines": [
+    "READOUT risuai P4 turn=1 active=2 order=20,1 chars=956 bytes=2868 dropped=-",
+    "READOUT risuai P4 turn=2 active=3 order=20,11,1 chars=981 bytes=2943 dropped=-",
+    "READOUT risuai P4 turn=3 active=3 order=20,11,1 chars=981 bytes=2943 dropped=-",
+    "READOUT risuai P4 turn=4 active=2 order=20,1 chars=956 bytes=2868 dropped=-",
+    "READOUT risuai P4 turn=5 active=2 order=20,1 chars=956 bytes=2868 dropped=-",
+    "READOUT risuai P4 turn=6 active=2 order=20,1 chars=956 bytes=2868 dropped=-"
+   ],
+   "stdout_sha256": "77440788a90d1687eab87cb855853799477c2eb57e8f5782a2ea2ac909372ed4",
+   "timing": {
+    "min_ms": 4038.678,
+    "p50_ms": 4095.367,
+    "p95_ms": 4129.725,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      20,
+      1
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      11,
+      20
+     ],
+     "bytes": 2943,
+     "chars": 981,
+     "dropped_uids": [],
+     "inject_order": [
+      20,
+      11,
+      1
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      11,
+      20
+     ],
+     "bytes": 2943,
+     "chars": 981,
+     "dropped_uids": [],
+     "inject_order": [
+      20,
+      11,
+      1
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      20,
+      1
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      20,
+      1
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      20,
+      1
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "probability",
+     "reason": "upstream-decorator-uses-Math.random-lorebook.svelte.ts:494"
+    },
+    {
+     "field": "case_sensitive",
+     "reason": "upstream-folds-case-unconditionally-lorebook.svelte.ts:182"
+    },
+    {
+     "field": "group",
+     "reason": "no-group-field-in-loreBook-database.svelte.ts:1338"
+    },
+    {
+     "field": "group_weight",
+     "reason": "no-group-field-in-loreBook-database.svelte.ts:1338"
+    },
+    {
+     "field": "recursion.prevent",
+     "reason": "no-upstream-field"
+    },
+    {
+     "field": "recursion.delay",
+     "reason": "no-upstream-field"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-side-marker-no-upstream-field"
+    },
+    {
+     "field": "budget_chars",
+     "reason": "upstream-budget-counts-tokens-not-chars"
+    },
+    {
+     "field": "recursive_max_depth",
+     "reason": "upstream-loops-to-fixpoint-without-depth-cap"
+    },
+    {
+     "field": "seed",
+     "reason": "no-effect-because-probability-unsupported"
+    }
+   ]
+  }
+ },
+ "timing_policy": {
+  "samples": 7,
+  "scope": "process-start-to-exit-full-6-turns",
+  "warmup": 1
+ }
+}

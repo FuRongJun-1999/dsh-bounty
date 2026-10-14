@@ -1,0 +1,11 @@
+# adapter=risuai warmup=1 samples=7
+# profile=P0
+DETERMINISM risuai repeats=8 identical=true sha=6fc15aeecf08590cedbaeeeed3604e738e1c95458bf367ee5a1410690a504784
+# profile=P1
+DETERMINISM risuai repeats=8 identical=true sha=e94a9bc78ebde6f2c51a01e017cd1e69ce2f87045d177034d9bbd3fca2506077
+# profile=P2
+DETERMINISM risuai repeats=8 identical=true sha=ce1c0ac35045afa89d12ea63d1546948cd3b487d9f1f28f6f3391353131dd592
+# profile=P3
+DETERMINISM risuai repeats=8 identical=true sha=a99a03def2a86ec08132dcface8f87adc019fa214fd9d0800e49591d4c568f19
+# profile=P4
+DETERMINISM risuai repeats=8 identical=true sha=77440788a90d1687eab87cb855853799477c2eb57e8f5782a2ea2ac909372ed4

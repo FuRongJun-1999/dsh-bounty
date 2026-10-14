@@ -1,0 +1,139 @@
+{
+ "adapter": "perturb",
+ "created_by": "harness/score.py",
+ "determinism": {},
+ "kpi": {
+  "baseline": "baseline",
+  "bootstrap": {
+   "alpha": 0.05,
+   "iters": 2000,
+   "seed": 0,
+   "statistic": "mean-of-paired-difference"
+  },
+  "ci_undefined_metrics": [],
+  "delta_all_zero": false,
+  "delta_ci_zero": false,
+  "metrics": [
+   {
+    "ci_hi": 1.0,
+    "ci_lo": 0.875,
+    "definition": "方案 P0 激活集 vs 基线 P0 的同 turn F1 均值：2|A∩B|/(|A|+|B|)",
+    "kind": "absolute",
+    "line": "KPI M1_active_f1 value=0.958333 ci=[0.875,1] n=6",
+    "metric": "M1_active_f1",
+    "n": 6,
+    "value": 0.958333
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": -0.125,
+    "definition": "M1 的 Δ 形式：F1 − 1；两侧集合相同即为 0",
+    "kind": "delta",
+    "line": "KPI M1_active_f1_delta value=-0.0416667 ci=[-0.125,0] n=6",
+    "metric": "M1_active_f1_delta",
+    "n": 6,
+    "value": -0.041667
+   },
+   {
+    "ci_hi": 2.0,
+    "ci_lo": 0.0,
+    "definition": "方案 P0 与基线 P0 的激活集对称差大小均值",
+    "kind": "delta",
+    "line": "KPI M1_active_symdiff value=0.666667 ci=[0,2] n=6",
+    "metric": "M1_active_symdiff",
+    "n": 6,
+    "value": 0.666667
+   },
+   {
+    "ci_hi": 9.333333,
+    "ci_lo": 0.0,
+    "definition": "同一激活集（两侧注入顺序的交集）上方案侧逆序对数均值",
+    "kind": "absolute",
+    "line": "KPI M2_order_inv value=4.33333 ci=[0,9.33333] n=6",
+    "metric": "M2_order_inv",
+    "n": 6,
+    "value": 4.333333
+   },
+   {
+    "ci_hi": 7.5,
+    "ci_lo": 0.0,
+    "definition": "同一激活集上方案逆序对数 − 基线逆序对数，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M2_order_inv_delta value=2.5 ci=[0,7.5] n=6",
+    "metric": "M2_order_inv_delta",
+    "n": 6,
+    "value": 2.5
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P3 的 dropped_uids 对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M3_budget_dropped_delta value=0 ci=[0,0] n=6",
+    "metric": "M3_budget_dropped_delta",
+    "n": 6,
+    "value": 0.0
+   },
+   {
+    "ci_hi": 2.0,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P1 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M4_recursion_ablation_delta value=0.666667 ci=[0,2] n=6",
+    "metric": "M4_recursion_ablation_delta",
+    "n": 6,
+    "value": 0.666667
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P2 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M5_depth_ablation_delta value=0 ci=[0,0] n=6",
+    "metric": "M5_depth_ablation_delta",
+    "n": 6,
+    "value": 0.0
+   },
+   {
+    "ci_hi": null,
+    "ci_lo": null,
+    "definition": "读 raw/<name>_summary.json 的 determinism：identical=true 记 1，逐 profile 求均值",
+    "kind": "absolute",
+    "line": "KPI M6_determinism value=0 ci=[-,-] n=0",
+    "metric": "M6_determinism",
+    "n": 0,
+    "value": 0.0
+   },
+   {
+    "ci_hi": 2.0,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P4 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M7_match_ablation_delta value=0.666667 ci=[0,2] n=6",
+    "metric": "M7_match_ablation_delta",
+    "n": 6,
+    "value": 0.666667
+   },
+   {
+    "ci_hi": 203.0,
+    "ci_lo": 137.0,
+    "definition": "所选 profiles × 全部 turn 的方案激活条目数之和（CI 为逐行计数均值 CI × 行数）",
+    "kind": "absolute",
+    "line": "KPI M8_total_active_uids value=170 ci=[137,203] n=30",
+    "metric": "M8_total_active_uids",
+    "n": 30,
+    "value": 170.0
+   }
+  ],
+  "missing": [],
+  "profiles": [
+   "P0",
+   "P1",
+   "P2",
+   "P3",
+   "P4"
+  ],
+  "unit": "paired-(profile,turn)"
+ },
+ "note": "no runner summary for this name; determinism unmeasured"
+}

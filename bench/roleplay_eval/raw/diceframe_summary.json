@@ -1,0 +1,1079 @@
+{
+ "adapter": "diceframe",
+ "command": [
+  "D:\\A-part-of-new-software\\PROJIECT\\_bounty67\\bench\\roleplay_eval\\adapters\\diceframe\\.venv\\Scripts\\python.exe",
+  "-X",
+  "utf8",
+  "adapters/diceframe/run.py"
+ ],
+ "data": "data",
+ "determinism": {
+  "P0": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "e983df23c1dbb66169a06a13778131c4d11fcd80bbaf548a9629165094595507"
+  },
+  "P1": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "025a18b329ae728b87674c3c3e54e024f43d3a091d0cd99505916419fd0e3f5b"
+  },
+  "P2": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "9ece59bbd8106fef04360995f7628829f6207cd673d58ada819be54bc66fbcd9"
+  },
+  "P3": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "78726efb884811b3ab61dd5b9b34dd9846d29c90496f459c8742cfb3455ffc1d"
+  },
+  "P4": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "01094e144f06654f012cfb3eedc07f8e1311e4f86b7afdb0ad7345e0b1db9bc7"
+  }
+ },
+ "kpi": {
+  "baseline": "baseline",
+  "bootstrap": {
+   "alpha": 0.05,
+   "iters": 2000,
+   "seed": 0,
+   "statistic": "mean-of-paired-difference"
+  },
+  "ci_undefined_metrics": [],
+  "delta_all_zero": false,
+  "delta_ci_zero": false,
+  "metrics": [
+   {
+    "ci_hi": 0.993827,
+    "ci_lo": 0.846154,
+    "definition": "方案 P0 激活集 vs 基线 P0 的同 turn F1 均值：2|A∩B|/(|A|+|B|)",
+    "kind": "absolute",
+    "line": "KPI M1_active_f1 value=0.925954 ci=[0.846154,0.993827] n=6",
+    "metric": "M1_active_f1",
+    "n": 6,
+    "value": 0.925954
+   },
+   {
+    "ci_hi": -0.006173,
+    "ci_lo": -0.153846,
+    "definition": "M1 的 Δ 形式：F1 − 1；两侧集合相同即为 0",
+    "kind": "delta",
+    "line": "KPI M1_active_f1_delta value=-0.0740461 ci=[-0.153846,-0.00617284] n=6",
+    "metric": "M1_active_f1_delta",
+    "n": 6,
+    "value": -0.074046
+   },
+   {
+    "ci_hi": 2.333333,
+    "ci_lo": 0.166667,
+    "definition": "方案 P0 与基线 P0 的激活集对称差大小均值",
+    "kind": "delta",
+    "line": "KPI M1_active_symdiff value=1.16667 ci=[0.166667,2.33333] n=6",
+    "metric": "M1_active_symdiff",
+    "n": 6,
+    "value": 1.166667
+   },
+   {
+    "ci_hi": 23.5,
+    "ci_lo": 3.166667,
+    "definition": "同一激活集（两侧注入顺序的交集）上方案侧逆序对数均值",
+    "kind": "absolute",
+    "line": "KPI M2_order_inv value=11.3333 ci=[3.16667,23.5] n=6",
+    "metric": "M2_order_inv",
+    "n": 6,
+    "value": 11.333333
+   },
+   {
+    "ci_hi": 17.5,
+    "ci_lo": 2.833333,
+    "definition": "同一激活集上方案逆序对数 − 基线逆序对数，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M2_order_inv_delta value=8.5 ci=[2.83333,17.5] n=6",
+    "metric": "M2_order_inv_delta",
+    "n": 6,
+    "value": 8.5
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P3 的 dropped_uids 对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M3_budget_dropped_delta value=0 ci=[0,0] n=6",
+    "metric": "M3_budget_dropped_delta",
+    "n": 6,
+    "value": 0.0
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P1 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M4_recursion_ablation_delta value=0 ci=[0,0] n=6",
+    "metric": "M4_recursion_ablation_delta",
+    "n": 6,
+    "value": 0.0
+   },
+   {
+    "ci_hi": 1.333333,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P2 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M5_depth_ablation_delta value=0.666667 ci=[0,1.33333] n=6",
+    "metric": "M5_depth_ablation_delta",
+    "n": 6,
+    "value": 0.666667
+   },
+   {
+    "ci_hi": 1.0,
+    "ci_lo": 1.0,
+    "definition": "读 raw/<name>_summary.json 的 determinism：identical=true 记 1，逐 profile 求均值",
+    "kind": "absolute",
+    "line": "KPI M6_determinism value=1 ci=[1,1] n=5",
+    "metric": "M6_determinism",
+    "n": 5,
+    "value": 1.0
+   },
+   {
+    "ci_hi": 0.666667,
+    "ci_lo": -0.333333,
+    "definition": "P0 vs P4 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M7_match_ablation_delta value=0.166667 ci=[-0.333333,0.666667] n=6",
+    "metric": "M7_match_ablation_delta",
+    "n": 6,
+    "value": 0.166667
+   },
+   {
+    "ci_hi": 206.0,
+    "ci_lo": 135.0,
+    "definition": "所选 profiles × 全部 turn 的方案激活条目数之和（CI 为逐行计数均值 CI × 行数）",
+    "kind": "absolute",
+    "line": "KPI M8_total_active_uids value=170 ci=[135,206] n=30",
+    "metric": "M8_total_active_uids",
+    "n": 30,
+    "value": 170.0
+   }
+  ],
+  "missing": [],
+  "profiles": [
+   "P0",
+   "P1",
+   "P2",
+   "P3",
+   "P4"
+  ],
+  "unit": "paired-(profile,turn)"
+ },
+ "profiles": {
+  "P0": {
+   "capabilities": {
+    "at_depth": false,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/diceframe_P0.json",
+   "out_sha256": "83f0bc564b5d16cc4c5dad50d6aada7c6660e617f31ca64341493ec1c0de4715",
+   "readout_lines": [
+    "READOUT diceframe P0 turn=1 active=8 order=19,4,3,1,2,6,20,18 chars=1107 bytes=3297 dropped=-",
+    "READOUT diceframe P0 turn=2 active=14 order=19,9,13,10,4,3,11,12,1,2,6,5,20,18 chars=1253 bytes=3735 dropped=-",
+    "READOUT diceframe P0 turn=3 active=9 order=9,13,10,11,12,1,16,25,20 chars=1140 bytes=3376 dropped=-",
+    "READOUT diceframe P0 turn=4 active=6 order=13,1,14,16,25,20 chars=1070 bytes=3166 dropped=-",
+    "READOUT diceframe P0 turn=5 active=5 order=13,1,21,14,20 chars=1034 bytes=3102 dropped=-",
+    "READOUT diceframe P0 turn=6 active=4 order=1,21,7,20 chars=1009 bytes=3027 dropped=-"
+   ],
+   "stdout_sha256": "e983df23c1dbb66169a06a13778131c4d11fcd80bbaf548a9629165094595507",
+   "timing": {
+    "min_ms": 569.313,
+    "p50_ms": 591.446,
+    "p95_ms": 630.937,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3297,
+     "chars": 1107,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      4,
+      3,
+      1,
+      2,
+      6,
+      20,
+      18
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9,
+      10,
+      11,
+      12,
+      13,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3735,
+     "chars": 1253,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      9,
+      13,
+      10,
+      4,
+      3,
+      11,
+      12,
+      1,
+      2,
+      6,
+      5,
+      20,
+      18
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      9,
+      10,
+      11,
+      12,
+      13,
+      16,
+      20,
+      25
+     ],
+     "bytes": 3376,
+     "chars": 1140,
+     "dropped_uids": [],
+     "inject_order": [
+      9,
+      13,
+      10,
+      11,
+      12,
+      1,
+      16,
+      25,
+      20
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      16,
+      20,
+      25
+     ],
+     "bytes": 3166,
+     "chars": 1070,
+     "dropped_uids": [],
+     "inject_order": [
+      13,
+      1,
+      14,
+      16,
+      25,
+      20
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      20,
+      21
+     ],
+     "bytes": 3102,
+     "chars": 1034,
+     "dropped_uids": [],
+     "inject_order": [
+      13,
+      1,
+      21,
+      14,
+      20
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      20,
+      21
+     ],
+     "bytes": 3027,
+     "chars": 1009,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      21,
+      7,
+      20
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "depth",
+     "reason": "st-depth-in-engine-unmapped-fields"
+    },
+    {
+     "field": "position",
+     "reason": "st-position-anchor-no-canonical-prompt-slot"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-marker-not-an-engine-field"
+    },
+    {
+     "field": "macro_expand",
+     "reason": "engine-src-has-no-macro-expander"
+    }
+   ]
+  },
+  "P1": {
+   "capabilities": {
+    "at_depth": false,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/diceframe_P1.json",
+   "out_sha256": "12956901b3c5e7007dbaeb82a661e8911eac7f15b9fb6895dc49ec58bc5544fd",
+   "readout_lines": [
+    "READOUT diceframe P1 turn=1 active=8 order=19,4,3,1,2,6,20,18 chars=1107 bytes=3297 dropped=-",
+    "READOUT diceframe P1 turn=2 active=13 order=19,9,10,4,3,11,12,1,2,6,5,20,18 chars=1225 bytes=3651 dropped=-",
+    "READOUT diceframe P1 turn=3 active=8 order=9,10,11,12,1,16,25,20 chars=1112 bytes=3292 dropped=-",
+    "READOUT diceframe P1 turn=4 active=6 order=13,1,14,16,25,20 chars=1070 bytes=3166 dropped=-",
+    "READOUT diceframe P1 turn=5 active=5 order=13,1,21,14,20 chars=1034 bytes=3102 dropped=-",
+    "READOUT diceframe P1 turn=6 active=4 order=1,21,7,20 chars=1009 bytes=3027 dropped=-"
+   ],
+   "stdout_sha256": "025a18b329ae728b87674c3c3e54e024f43d3a091d0cd99505916419fd0e3f5b",
+   "timing": {
+    "min_ms": 566.467,
+    "p50_ms": 585.316,
+    "p95_ms": 609.859,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3297,
+     "chars": 1107,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      4,
+      3,
+      1,
+      2,
+      6,
+      20,
+      18
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9,
+      10,
+      11,
+      12,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3651,
+     "chars": 1225,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      9,
+      10,
+      4,
+      3,
+      11,
+      12,
+      1,
+      2,
+      6,
+      5,
+      20,
+      18
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      9,
+      10,
+      11,
+      12,
+      16,
+      20,
+      25
+     ],
+     "bytes": 3292,
+     "chars": 1112,
+     "dropped_uids": [],
+     "inject_order": [
+      9,
+      10,
+      11,
+      12,
+      1,
+      16,
+      25,
+      20
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      16,
+      20,
+      25
+     ],
+     "bytes": 3166,
+     "chars": 1070,
+     "dropped_uids": [],
+     "inject_order": [
+      13,
+      1,
+      14,
+      16,
+      25,
+      20
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      20,
+      21
+     ],
+     "bytes": 3102,
+     "chars": 1034,
+     "dropped_uids": [],
+     "inject_order": [
+      13,
+      1,
+      21,
+      14,
+      20
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      20,
+      21
+     ],
+     "bytes": 3027,
+     "chars": 1009,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      21,
+      7,
+      20
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "depth",
+     "reason": "st-depth-in-engine-unmapped-fields"
+    },
+    {
+     "field": "position",
+     "reason": "st-position-anchor-no-canonical-prompt-slot"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-marker-not-an-engine-field"
+    },
+    {
+     "field": "macro_expand",
+     "reason": "engine-src-has-no-macro-expander"
+    }
+   ]
+  },
+  "P2": {
+   "capabilities": {
+    "at_depth": false,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/diceframe_P2.json",
+   "out_sha256": "942b83cdbfb5161fc80dd4f91b3e38921532e3c9cb33b8b0c8de4dc65fda20f4",
+   "readout_lines": [
+    "READOUT diceframe P2 turn=1 active=2 order=1,20 chars=956 bytes=2868 dropped=-",
+    "READOUT diceframe P2 turn=2 active=3 order=11,1,20 chars=981 bytes=2943 dropped=-",
+    "READOUT diceframe P2 turn=3 active=3 order=1,25,20 chars=995 bytes=2941 dropped=-",
+    "READOUT diceframe P2 turn=4 active=4 order=13,1,14,20 chars=1010 bytes=3030 dropped=-",
+    "READOUT diceframe P2 turn=5 active=3 order=1,21,20 chars=980 bytes=2940 dropped=-",
+    "READOUT diceframe P2 turn=6 active=3 order=1,7,20 chars=985 bytes=2955 dropped=-"
+   ],
+   "stdout_sha256": "9ece59bbd8106fef04360995f7628829f6207cd673d58ada819be54bc66fbcd9",
+   "timing": {
+    "min_ms": 566.021,
+    "p50_ms": 578.185,
+    "p95_ms": 619.697,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      20
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      11,
+      20
+     ],
+     "bytes": 2943,
+     "chars": 981,
+     "dropped_uids": [],
+     "inject_order": [
+      11,
+      1,
+      20
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      20,
+      25
+     ],
+     "bytes": 2941,
+     "chars": 995,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      25,
+      20
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      20
+     ],
+     "bytes": 3030,
+     "chars": 1010,
+     "dropped_uids": [],
+     "inject_order": [
+      13,
+      1,
+      14,
+      20
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      20,
+      21
+     ],
+     "bytes": 2940,
+     "chars": 980,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      21,
+      20
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      20
+     ],
+     "bytes": 2955,
+     "chars": 985,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      7,
+      20
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "depth",
+     "reason": "st-depth-in-engine-unmapped-fields"
+    },
+    {
+     "field": "position",
+     "reason": "st-position-anchor-no-canonical-prompt-slot"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-marker-not-an-engine-field"
+    },
+    {
+     "field": "macro_expand",
+     "reason": "engine-src-has-no-macro-expander"
+    }
+   ]
+  },
+  "P3": {
+   "capabilities": {
+    "at_depth": false,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/diceframe_P3.json",
+   "out_sha256": "f0d58f0c5591976ddd7d9e0a4a538f8ee64f279160cc6fe1b3a4ad38694b59fd",
+   "readout_lines": [
+    "READOUT diceframe P3 turn=1 active=7 order=19,4,3,1,2,6,18 chars=207 bytes=597 dropped=20",
+    "READOUT diceframe P3 turn=2 active=13 order=19,9,13,10,4,3,11,12,1,2,6,5,18 chars=353 bytes=1035 dropped=20",
+    "READOUT diceframe P3 turn=3 active=8 order=9,13,10,11,12,1,16,25 chars=240 bytes=676 dropped=20",
+    "READOUT diceframe P3 turn=4 active=5 order=13,1,14,16,25 chars=170 bytes=466 dropped=20",
+    "READOUT diceframe P3 turn=5 active=4 order=13,1,21,14 chars=134 bytes=402 dropped=20",
+    "READOUT diceframe P3 turn=6 active=3 order=1,21,7 chars=109 bytes=327 dropped=20"
+   ],
+   "stdout_sha256": "78726efb884811b3ab61dd5b9b34dd9846d29c90496f459c8742cfb3455ffc1d",
+   "timing": {
+    "min_ms": 579.445,
+    "p50_ms": 595.724,
+    "p95_ms": 619.64,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      18,
+      19
+     ],
+     "bytes": 597,
+     "chars": 207,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      19,
+      4,
+      3,
+      1,
+      2,
+      6,
+      18
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9,
+      10,
+      11,
+      12,
+      13,
+      18,
+      19
+     ],
+     "bytes": 1035,
+     "chars": 353,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      19,
+      9,
+      13,
+      10,
+      4,
+      3,
+      11,
+      12,
+      1,
+      2,
+      6,
+      5,
+      18
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      9,
+      10,
+      11,
+      12,
+      13,
+      16,
+      25
+     ],
+     "bytes": 676,
+     "chars": 240,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      9,
+      13,
+      10,
+      11,
+      12,
+      1,
+      16,
+      25
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      16,
+      25
+     ],
+     "bytes": 466,
+     "chars": 170,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      13,
+      1,
+      14,
+      16,
+      25
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      21
+     ],
+     "bytes": 402,
+     "chars": 134,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      13,
+      1,
+      21,
+      14
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      21
+     ],
+     "bytes": 327,
+     "chars": 109,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      1,
+      21,
+      7
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "depth",
+     "reason": "st-depth-in-engine-unmapped-fields"
+    },
+    {
+     "field": "position",
+     "reason": "st-position-anchor-no-canonical-prompt-slot"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-marker-not-an-engine-field"
+    },
+    {
+     "field": "macro_expand",
+     "reason": "engine-src-has-no-macro-expander"
+    }
+   ]
+  },
+  "P4": {
+   "capabilities": {
+    "at_depth": false,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": true,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/diceframe_P4.json",
+   "out_sha256": "882518585bbdc716c4c60164e603ddc26597675da1ed6345ac9c114a2b319293",
+   "readout_lines": [
+    "READOUT diceframe P4 turn=1 active=7 order=19,3,1,2,6,20,18 chars=1081 bytes=3219 dropped=-",
+    "READOUT diceframe P4 turn=2 active=7 order=19,3,1,2,6,20,18 chars=1081 bytes=3219 dropped=-",
+    "READOUT diceframe P4 turn=3 active=2 order=1,20 chars=956 bytes=2868 dropped=-",
+    "READOUT diceframe P4 turn=4 active=2 order=1,20 chars=956 bytes=2868 dropped=-",
+    "READOUT diceframe P4 turn=5 active=2 order=1,20 chars=956 bytes=2868 dropped=-",
+    "READOUT diceframe P4 turn=6 active=2 order=1,20 chars=956 bytes=2868 dropped=-"
+   ],
+   "stdout_sha256": "01094e144f06654f012cfb3eedc07f8e1311e4f86b7afdb0ad7345e0b1db9bc7",
+   "timing": {
+    "min_ms": 567.737,
+    "p50_ms": 573.173,
+    "p95_ms": 578.964,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      6,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3219,
+     "chars": 1081,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      3,
+      1,
+      2,
+      6,
+      20,
+      18
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      6,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3219,
+     "chars": 1081,
+     "dropped_uids": [],
+     "inject_order": [
+      19,
+      3,
+      1,
+      2,
+      6,
+      20,
+      18
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      20
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      20
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      20
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      20
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "depth",
+     "reason": "st-depth-in-engine-unmapped-fields"
+    },
+    {
+     "field": "position",
+     "reason": "st-position-anchor-no-canonical-prompt-slot"
+    },
+    {
+     "field": "capability_probe",
+     "reason": "fixture-marker-not-an-engine-field"
+    },
+    {
+     "field": "macro_expand",
+     "reason": "engine-src-has-no-macro-expander"
+    }
+   ]
+  }
+ },
+ "timing_policy": {
+  "samples": 7,
+  "scope": "process-start-to-exit-full-6-turns",
+  "warmup": 1
+ }
+}

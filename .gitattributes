@@ -12,3 +12,8 @@
 * text=auto eol=lf
 
 # 产物目录里没有二进制件；若将来有，在此按路径排除（`-text`）。
+
+# 角色扮演横评（bench/roleplay_eval/）的 raw/ 是「逐字 stdout 证据」：报告里的 sha256 与逐字
+# 读数行都以**工作区字节**为准，测量机为 Windows（部分捕获含 CRLF）。此处关闭归一化
+# （-text），保证任何平台检出后字节与测量机一致，读数 sha256 才可复现。
+bench/roleplay_eval/raw/** -text

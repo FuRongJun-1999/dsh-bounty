@@ -1,0 +1,67 @@
+{
+  "profiles": [
+    {
+      "budget_chars": 4000,
+      "case_sensitive": false,
+      "label": "默认",
+      "name": "P0",
+      "purpose": "主读数（改后/方案）",
+      "recursive": true,
+      "recursive_max_depth": 3,
+      "scan_depth": 4,
+      "seed": 20261014,
+      "whole_words": false
+    },
+    {
+      "budget_chars": 4000,
+      "case_sensitive": false,
+      "label": "关递归",
+      "name": "P1",
+      "purpose": "消融对：recursive",
+      "recursive": false,
+      "recursive_max_depth": 3,
+      "scan_depth": 4,
+      "seed": 20261014,
+      "whole_words": false
+    },
+    {
+      "budget_chars": 4000,
+      "case_sensitive": false,
+      "label": "浅扫",
+      "name": "P2",
+      "purpose": "消融对：scan_depth",
+      "recursive": true,
+      "recursive_max_depth": 3,
+      "scan_depth": 1,
+      "seed": 20261014,
+      "whole_words": false
+    },
+    {
+      "budget_chars": 600,
+      "case_sensitive": false,
+      "label": "紧预算",
+      "name": "P3",
+      "purpose": "消融对：budget（溢出策略）",
+      "recursive": true,
+      "recursive_max_depth": 3,
+      "scan_depth": 4,
+      "seed": 20261014,
+      "whole_words": false
+    },
+    {
+      "budget_chars": 4000,
+      "case_sensitive": true,
+      "label": "大小写＋全词",
+      "name": "P4",
+      "purpose": "消融对：匹配口径",
+      "recursive": true,
+      "recursive_max_depth": 3,
+      "scan_depth": 4,
+      "seed": 20261014,
+      "whole_words": true
+    }
+  ],
+  "recursive_max_depth": 3,
+  "schema": "roleplay-eval-profiles/1",
+  "seed": 20261014
+}

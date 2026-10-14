@@ -1,0 +1,16 @@
+# RisuAI 适配器 M8 代价读数（本机实测）
+# 机器：Windows + MSYS2/Git-Bash；node v24.16.0；npm 11.13.0；python 3.13.13；本机无 pnpm
+UPSTREAM commit=454e5e207747399f43a4788f5f08ecd5aa291550
+FETCH url=https://codeload.github.com/kwaroran/Risuai/tar.gz/454e5e207747399f43a4788f5f08ecd5aa291550
+FETCH tgz_bytes=41703593 blob_ok_package.json=eeb47ce1606584e68265ef4e823873b6ee5951c0 upstream_files_excl_node_modules=597 wall_s=8
+SETUP cmd=npx --yes pnpm@10.34.1 install --frozen-lockfile rc=0 wall_ms=11500 pnpm_self_report=6.2s pnpm_entries=425 store=warm
+SETUP_NOTE 本机 pnpm 内容寻址仓已有全部包（尖兵同机装过一次），故本次 11.5 s；冷仓同机实测见 spike/risu-roleplay/SPIKE.md 的 74.0 s
+NODE_MODULES bytes=909970803 files=33317 mib=867.8
+UPSTREAM_TOTAL bytes=1016041177 files=33916 mib=969.0
+NONET engine=node--permission-no-allow-net rc=0 out_sha256=2695853eecc20558546c7373781288ffa9282b69357da381878abc60ab3b0622 ref_sha256=2695853eecc20558546c7373781288ffa9282b69357da381878abc60ab3b0622
+VITEST selftest_stdout=Test Files 1 passed (1) / Tests 2 passed (2) / Duration 3.15s (transform 2.01s, setup 25ms, import 2.34s, tests 392ms, environment 268ms)
+VITEST engine_cmd=npx --no-install vitest run src/ts/poc/rp67_adapter.test.ts
+VITEST run=1 rc=0 wall_ms=4561
+VITEST run=2 rc=0 wall_ms=4937
+VITEST run=3 rc=0 wall_ms=5246
+RUNNER cmd=python -X utf8 harness/runner.py --adapter risuai --profiles P0,P1,P2,P3,P4 wall_s=164.6 repeats_per_profile=8

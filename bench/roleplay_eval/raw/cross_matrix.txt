@@ -1,0 +1,221 @@
+# cross.py 跨方案对照矩阵（角色扮演横评 · 世界书触发＋上下文预算）
+# 输入 out/<name>_<P>.json 的 turns[].active_uids（方案名按基线与三家的固定顺序）
+# 行语法 CROSS <profile> turn=<k> <name>=<uid,uid> …；uid 升序；空集合写 -；只列有该档读数的方案
+# 行语法 CROSSPAIR <a> <b> <profile> turn=<k> only_a=<uids> only_b=<uids> same=<n>；空集合写 -
+# only_a=a 侧独有 only_b=b 侧独有 same=交集大小
+# 在位方案：baseline,diceframe,risuai,sillytavern
+# 缺席方案：-
+
+# ---- CROSS：逐 (profile, turn) 四家激活集 ----
+CROSS P0 turn=1 baseline=1,2,3,4,6,18,19,20 diceframe=1,2,3,4,6,18,19,20 risuai=1,2,3,4,6,18,19,20 sillytavern=1,2,3,4,6,8,18,19,20
+CROSS P0 turn=2 baseline=1,2,3,4,5,6,10,11,12,13,18,19,20 diceframe=1,2,3,4,5,6,9,10,11,12,13,18,19,20 risuai=1,2,3,4,5,6,10,11,12,13,18,19,20 sillytavern=1,2,3,4,5,6,8,10,11,12,13,18,19,20
+CROSS P0 turn=3 baseline=1,10,11,12,13,15,20,25 diceframe=1,9,10,11,12,13,16,20,25 risuai=1,10,11,12,13,15,16,17,20,25 sillytavern=1,8,10,11,12,13,15,20,25
+CROSS P0 turn=4 baseline=1,10,13,14,15,20,25 diceframe=1,13,14,16,20,25 risuai=1,10,13,14,15,16,17,20,25 sillytavern=1,10,13,14,15,20,25
+CROSS P0 turn=5 baseline=1,13,14,20,21 diceframe=1,13,14,20,21 risuai=1,13,14,20,21 sillytavern=1,13,14,20,21
+CROSS P0 turn=6 baseline=1,7,20,21 diceframe=1,7,20,21 risuai=1,7,20,21 sillytavern=1,7,20,21
+CROSS P1 turn=1 baseline=1,2,3,4,6,18,19,20 diceframe=1,2,3,4,6,18,19,20 risuai=1,2,3,4,6,18,19,20 sillytavern=1,2,3,4,6,8,18,19,20
+CROSS P1 turn=2 baseline=1,2,3,4,5,6,10,11,12,18,19,20 diceframe=1,2,3,4,5,6,9,10,11,12,18,19,20 risuai=1,2,3,4,5,6,10,11,12,18,19,20 sillytavern=1,2,3,4,5,6,8,10,11,12,18,19,20
+CROSS P1 turn=3 baseline=1,10,11,12,15,20,25 diceframe=1,9,10,11,12,16,20,25 risuai=1,10,11,12,15,16,17,20,25 sillytavern=1,8,10,11,12,15,20,25
+CROSS P1 turn=4 baseline=1,10,13,14,15,20,25 diceframe=1,13,14,16,20,25 risuai=1,10,13,14,15,16,17,20,25 sillytavern=1,10,13,14,15,20,25
+CROSS P1 turn=5 baseline=1,13,14,20,21 diceframe=1,13,14,20,21 risuai=1,13,14,20,21 sillytavern=1,13,14,20,21
+CROSS P1 turn=6 baseline=1,7,20,21 diceframe=1,7,20,21 risuai=1,7,20,21 sillytavern=1,7,20,21
+CROSS P2 turn=1 baseline=1,20 diceframe=1,20 risuai=1,20 sillytavern=1,8,20
+CROSS P2 turn=2 baseline=1,10,11,20 diceframe=1,11,20 risuai=1,10,11,20 sillytavern=1,10,11,20
+CROSS P2 turn=3 baseline=1,10,20,25 diceframe=1,20,25 risuai=1,10,17,20,25 sillytavern=1,10,17,20,25
+CROSS P2 turn=4 baseline=1,10,13,14,20 diceframe=1,13,14,20 risuai=1,10,13,14,20 sillytavern=1,10,13,14,20
+CROSS P2 turn=5 baseline=1,20,21 diceframe=1,20,21 risuai=1,20,21 sillytavern=1,20,21
+CROSS P2 turn=6 baseline=1,7,20 diceframe=1,7,20 risuai=1,7,20 sillytavern=1,7,20
+CROSS P3 turn=1 baseline=1,2,3,4,6,18,19 diceframe=1,2,3,4,6,18,19 risuai=1,2,3,4,6,18,19 sillytavern=1,2,3,4,6,8,18
+CROSS P3 turn=2 baseline=1,2,3,4,5,6,10,11,12,13,18,19 diceframe=1,2,3,4,5,6,9,10,11,12,13,18,19 risuai=1,2,3,4,5,6,10,11,12,13,18,19 sillytavern=1,2,3,4,5,6,8,10,11,12,18
+CROSS P3 turn=3 baseline=1,10,11,12,13,15,25 diceframe=1,9,10,11,12,13,16,25 risuai=1,10,11,12,13,15,16,17,25 sillytavern=1,8,10,11,12,15
+CROSS P3 turn=4 baseline=1,10,13,14,15,25 diceframe=1,13,14,16,25 risuai=1,10,13,14,15,16,17,25 sillytavern=1,10,13,14,15
+CROSS P3 turn=5 baseline=1,13,14,21 diceframe=1,13,14,21 risuai=1,13,14,21 sillytavern=1,13,14
+CROSS P3 turn=6 baseline=1,7,21 diceframe=1,7,21 risuai=1,7,21 sillytavern=1,7
+CROSS P4 turn=1 baseline=1,2,3,6,18,19,20 diceframe=1,2,3,6,18,19,20 risuai=1,20 sillytavern=1,2,3,4,6,8,18,19,20
+CROSS P4 turn=2 baseline=1,2,3,6,18,19,20 diceframe=1,2,3,6,18,19,20 risuai=1,11,20 sillytavern=1,2,3,4,5,6,8,10,12,13,18,19,20
+CROSS P4 turn=3 baseline=1,20 diceframe=1,20 risuai=1,11,20 sillytavern=1,8,10,12,13,15,20,25
+CROSS P4 turn=4 baseline=1,20 diceframe=1,20 risuai=1,20 sillytavern=1,10,13,14,15,20,25
+CROSS P4 turn=5 baseline=1,20 diceframe=1,20 risuai=1,20 sillytavern=1,13,14,20,21
+CROSS P4 turn=6 baseline=1,20 diceframe=1,20 risuai=1,20 sillytavern=1,20,21
+
+# ---- CROSSPAIR：两两对照（baseline↔三家、三家彼此） ----
+CROSSPAIR baseline diceframe P0 turn=1 only_a=- only_b=- same=8
+CROSSPAIR baseline diceframe P0 turn=2 only_a=- only_b=9 same=13
+CROSSPAIR baseline diceframe P0 turn=3 only_a=15 only_b=9,16 same=7
+CROSSPAIR baseline diceframe P0 turn=4 only_a=10,15 only_b=16 same=5
+CROSSPAIR baseline diceframe P0 turn=5 only_a=- only_b=- same=5
+CROSSPAIR baseline diceframe P0 turn=6 only_a=- only_b=- same=4
+CROSSPAIR baseline diceframe P1 turn=1 only_a=- only_b=- same=8
+CROSSPAIR baseline diceframe P1 turn=2 only_a=- only_b=9 same=12
+CROSSPAIR baseline diceframe P1 turn=3 only_a=15 only_b=9,16 same=6
+CROSSPAIR baseline diceframe P1 turn=4 only_a=10,15 only_b=16 same=5
+CROSSPAIR baseline diceframe P1 turn=5 only_a=- only_b=- same=5
+CROSSPAIR baseline diceframe P1 turn=6 only_a=- only_b=- same=4
+CROSSPAIR baseline diceframe P2 turn=1 only_a=- only_b=- same=2
+CROSSPAIR baseline diceframe P2 turn=2 only_a=10 only_b=- same=3
+CROSSPAIR baseline diceframe P2 turn=3 only_a=10 only_b=- same=3
+CROSSPAIR baseline diceframe P2 turn=4 only_a=10 only_b=- same=4
+CROSSPAIR baseline diceframe P2 turn=5 only_a=- only_b=- same=3
+CROSSPAIR baseline diceframe P2 turn=6 only_a=- only_b=- same=3
+CROSSPAIR baseline diceframe P3 turn=1 only_a=- only_b=- same=7
+CROSSPAIR baseline diceframe P3 turn=2 only_a=- only_b=9 same=12
+CROSSPAIR baseline diceframe P3 turn=3 only_a=15 only_b=9,16 same=6
+CROSSPAIR baseline diceframe P3 turn=4 only_a=10,15 only_b=16 same=4
+CROSSPAIR baseline diceframe P3 turn=5 only_a=- only_b=- same=4
+CROSSPAIR baseline diceframe P3 turn=6 only_a=- only_b=- same=3
+CROSSPAIR baseline diceframe P4 turn=1 only_a=- only_b=- same=7
+CROSSPAIR baseline diceframe P4 turn=2 only_a=- only_b=- same=7
+CROSSPAIR baseline diceframe P4 turn=3 only_a=- only_b=- same=2
+CROSSPAIR baseline diceframe P4 turn=4 only_a=- only_b=- same=2
+CROSSPAIR baseline diceframe P4 turn=5 only_a=- only_b=- same=2
+CROSSPAIR baseline diceframe P4 turn=6 only_a=- only_b=- same=2
+CROSSPAIR baseline risuai P0 turn=1 only_a=- only_b=- same=8
+CROSSPAIR baseline risuai P0 turn=2 only_a=- only_b=- same=13
+CROSSPAIR baseline risuai P0 turn=3 only_a=- only_b=16,17 same=8
+CROSSPAIR baseline risuai P0 turn=4 only_a=- only_b=16,17 same=7
+CROSSPAIR baseline risuai P0 turn=5 only_a=- only_b=- same=5
+CROSSPAIR baseline risuai P0 turn=6 only_a=- only_b=- same=4
+CROSSPAIR baseline risuai P1 turn=1 only_a=- only_b=- same=8
+CROSSPAIR baseline risuai P1 turn=2 only_a=- only_b=- same=12
+CROSSPAIR baseline risuai P1 turn=3 only_a=- only_b=16,17 same=7
+CROSSPAIR baseline risuai P1 turn=4 only_a=- only_b=16,17 same=7
+CROSSPAIR baseline risuai P1 turn=5 only_a=- only_b=- same=5
+CROSSPAIR baseline risuai P1 turn=6 only_a=- only_b=- same=4
+CROSSPAIR baseline risuai P2 turn=1 only_a=- only_b=- same=2
+CROSSPAIR baseline risuai P2 turn=2 only_a=- only_b=- same=4
+CROSSPAIR baseline risuai P2 turn=3 only_a=- only_b=17 same=4
+CROSSPAIR baseline risuai P2 turn=4 only_a=- only_b=- same=5
+CROSSPAIR baseline risuai P2 turn=5 only_a=- only_b=- same=3
+CROSSPAIR baseline risuai P2 turn=6 only_a=- only_b=- same=3
+CROSSPAIR baseline risuai P3 turn=1 only_a=- only_b=- same=7
+CROSSPAIR baseline risuai P3 turn=2 only_a=- only_b=- same=12
+CROSSPAIR baseline risuai P3 turn=3 only_a=- only_b=16,17 same=7
+CROSSPAIR baseline risuai P3 turn=4 only_a=- only_b=16,17 same=6
+CROSSPAIR baseline risuai P3 turn=5 only_a=- only_b=- same=4
+CROSSPAIR baseline risuai P3 turn=6 only_a=- only_b=- same=3
+CROSSPAIR baseline risuai P4 turn=1 only_a=2,3,6,18,19 only_b=- same=2
+CROSSPAIR baseline risuai P4 turn=2 only_a=2,3,6,18,19 only_b=11 same=2
+CROSSPAIR baseline risuai P4 turn=3 only_a=- only_b=11 same=2
+CROSSPAIR baseline risuai P4 turn=4 only_a=- only_b=- same=2
+CROSSPAIR baseline risuai P4 turn=5 only_a=- only_b=- same=2
+CROSSPAIR baseline risuai P4 turn=6 only_a=- only_b=- same=2
+CROSSPAIR baseline sillytavern P0 turn=1 only_a=- only_b=8 same=8
+CROSSPAIR baseline sillytavern P0 turn=2 only_a=- only_b=8 same=13
+CROSSPAIR baseline sillytavern P0 turn=3 only_a=- only_b=8 same=8
+CROSSPAIR baseline sillytavern P0 turn=4 only_a=- only_b=- same=7
+CROSSPAIR baseline sillytavern P0 turn=5 only_a=- only_b=- same=5
+CROSSPAIR baseline sillytavern P0 turn=6 only_a=- only_b=- same=4
+CROSSPAIR baseline sillytavern P1 turn=1 only_a=- only_b=8 same=8
+CROSSPAIR baseline sillytavern P1 turn=2 only_a=- only_b=8 same=12
+CROSSPAIR baseline sillytavern P1 turn=3 only_a=- only_b=8 same=7
+CROSSPAIR baseline sillytavern P1 turn=4 only_a=- only_b=- same=7
+CROSSPAIR baseline sillytavern P1 turn=5 only_a=- only_b=- same=5
+CROSSPAIR baseline sillytavern P1 turn=6 only_a=- only_b=- same=4
+CROSSPAIR baseline sillytavern P2 turn=1 only_a=- only_b=8 same=2
+CROSSPAIR baseline sillytavern P2 turn=2 only_a=- only_b=- same=4
+CROSSPAIR baseline sillytavern P2 turn=3 only_a=- only_b=17 same=4
+CROSSPAIR baseline sillytavern P2 turn=4 only_a=- only_b=- same=5
+CROSSPAIR baseline sillytavern P2 turn=5 only_a=- only_b=- same=3
+CROSSPAIR baseline sillytavern P2 turn=6 only_a=- only_b=- same=3
+CROSSPAIR baseline sillytavern P3 turn=1 only_a=19 only_b=8 same=6
+CROSSPAIR baseline sillytavern P3 turn=2 only_a=13,19 only_b=8 same=10
+CROSSPAIR baseline sillytavern P3 turn=3 only_a=13,25 only_b=8 same=5
+CROSSPAIR baseline sillytavern P3 turn=4 only_a=25 only_b=- same=5
+CROSSPAIR baseline sillytavern P3 turn=5 only_a=21 only_b=- same=3
+CROSSPAIR baseline sillytavern P3 turn=6 only_a=21 only_b=- same=2
+CROSSPAIR baseline sillytavern P4 turn=1 only_a=- only_b=4,8 same=7
+CROSSPAIR baseline sillytavern P4 turn=2 only_a=- only_b=4,5,8,10,12,13 same=7
+CROSSPAIR baseline sillytavern P4 turn=3 only_a=- only_b=8,10,12,13,15,25 same=2
+CROSSPAIR baseline sillytavern P4 turn=4 only_a=- only_b=10,13,14,15,25 same=2
+CROSSPAIR baseline sillytavern P4 turn=5 only_a=- only_b=13,14,21 same=2
+CROSSPAIR baseline sillytavern P4 turn=6 only_a=- only_b=21 same=2
+CROSSPAIR diceframe risuai P0 turn=1 only_a=- only_b=- same=8
+CROSSPAIR diceframe risuai P0 turn=2 only_a=9 only_b=- same=13
+CROSSPAIR diceframe risuai P0 turn=3 only_a=9 only_b=15,17 same=8
+CROSSPAIR diceframe risuai P0 turn=4 only_a=- only_b=10,15,17 same=6
+CROSSPAIR diceframe risuai P0 turn=5 only_a=- only_b=- same=5
+CROSSPAIR diceframe risuai P0 turn=6 only_a=- only_b=- same=4
+CROSSPAIR diceframe risuai P1 turn=1 only_a=- only_b=- same=8
+CROSSPAIR diceframe risuai P1 turn=2 only_a=9 only_b=- same=12
+CROSSPAIR diceframe risuai P1 turn=3 only_a=9 only_b=15,17 same=7
+CROSSPAIR diceframe risuai P1 turn=4 only_a=- only_b=10,15,17 same=6
+CROSSPAIR diceframe risuai P1 turn=5 only_a=- only_b=- same=5
+CROSSPAIR diceframe risuai P1 turn=6 only_a=- only_b=- same=4
+CROSSPAIR diceframe risuai P2 turn=1 only_a=- only_b=- same=2
+CROSSPAIR diceframe risuai P2 turn=2 only_a=- only_b=10 same=3
+CROSSPAIR diceframe risuai P2 turn=3 only_a=- only_b=10,17 same=3
+CROSSPAIR diceframe risuai P2 turn=4 only_a=- only_b=10 same=4
+CROSSPAIR diceframe risuai P2 turn=5 only_a=- only_b=- same=3
+CROSSPAIR diceframe risuai P2 turn=6 only_a=- only_b=- same=3
+CROSSPAIR diceframe risuai P3 turn=1 only_a=- only_b=- same=7
+CROSSPAIR diceframe risuai P3 turn=2 only_a=9 only_b=- same=12
+CROSSPAIR diceframe risuai P3 turn=3 only_a=9 only_b=15,17 same=7
+CROSSPAIR diceframe risuai P3 turn=4 only_a=- only_b=10,15,17 same=5
+CROSSPAIR diceframe risuai P3 turn=5 only_a=- only_b=- same=4
+CROSSPAIR diceframe risuai P3 turn=6 only_a=- only_b=- same=3
+CROSSPAIR diceframe risuai P4 turn=1 only_a=2,3,6,18,19 only_b=- same=2
+CROSSPAIR diceframe risuai P4 turn=2 only_a=2,3,6,18,19 only_b=11 same=2
+CROSSPAIR diceframe risuai P4 turn=3 only_a=- only_b=11 same=2
+CROSSPAIR diceframe risuai P4 turn=4 only_a=- only_b=- same=2
+CROSSPAIR diceframe risuai P4 turn=5 only_a=- only_b=- same=2
+CROSSPAIR diceframe risuai P4 turn=6 only_a=- only_b=- same=2
+CROSSPAIR diceframe sillytavern P0 turn=1 only_a=- only_b=8 same=8
+CROSSPAIR diceframe sillytavern P0 turn=2 only_a=9 only_b=8 same=13
+CROSSPAIR diceframe sillytavern P0 turn=3 only_a=9,16 only_b=8,15 same=7
+CROSSPAIR diceframe sillytavern P0 turn=4 only_a=16 only_b=10,15 same=5
+CROSSPAIR diceframe sillytavern P0 turn=5 only_a=- only_b=- same=5
+CROSSPAIR diceframe sillytavern P0 turn=6 only_a=- only_b=- same=4
+CROSSPAIR diceframe sillytavern P1 turn=1 only_a=- only_b=8 same=8
+CROSSPAIR diceframe sillytavern P1 turn=2 only_a=9 only_b=8 same=12
+CROSSPAIR diceframe sillytavern P1 turn=3 only_a=9,16 only_b=8,15 same=6
+CROSSPAIR diceframe sillytavern P1 turn=4 only_a=16 only_b=10,15 same=5
+CROSSPAIR diceframe sillytavern P1 turn=5 only_a=- only_b=- same=5
+CROSSPAIR diceframe sillytavern P1 turn=6 only_a=- only_b=- same=4
+CROSSPAIR diceframe sillytavern P2 turn=1 only_a=- only_b=8 same=2
+CROSSPAIR diceframe sillytavern P2 turn=2 only_a=- only_b=10 same=3
+CROSSPAIR diceframe sillytavern P2 turn=3 only_a=- only_b=10,17 same=3
+CROSSPAIR diceframe sillytavern P2 turn=4 only_a=- only_b=10 same=4
+CROSSPAIR diceframe sillytavern P2 turn=5 only_a=- only_b=- same=3
+CROSSPAIR diceframe sillytavern P2 turn=6 only_a=- only_b=- same=3
+CROSSPAIR diceframe sillytavern P3 turn=1 only_a=19 only_b=8 same=6
+CROSSPAIR diceframe sillytavern P3 turn=2 only_a=9,13,19 only_b=8 same=10
+CROSSPAIR diceframe sillytavern P3 turn=3 only_a=9,13,16,25 only_b=8,15 same=4
+CROSSPAIR diceframe sillytavern P3 turn=4 only_a=16,25 only_b=10,15 same=3
+CROSSPAIR diceframe sillytavern P3 turn=5 only_a=21 only_b=- same=3
+CROSSPAIR diceframe sillytavern P3 turn=6 only_a=21 only_b=- same=2
+CROSSPAIR diceframe sillytavern P4 turn=1 only_a=- only_b=4,8 same=7
+CROSSPAIR diceframe sillytavern P4 turn=2 only_a=- only_b=4,5,8,10,12,13 same=7
+CROSSPAIR diceframe sillytavern P4 turn=3 only_a=- only_b=8,10,12,13,15,25 same=2
+CROSSPAIR diceframe sillytavern P4 turn=4 only_a=- only_b=10,13,14,15,25 same=2
+CROSSPAIR diceframe sillytavern P4 turn=5 only_a=- only_b=13,14,21 same=2
+CROSSPAIR diceframe sillytavern P4 turn=6 only_a=- only_b=21 same=2
+CROSSPAIR risuai sillytavern P0 turn=1 only_a=- only_b=8 same=8
+CROSSPAIR risuai sillytavern P0 turn=2 only_a=- only_b=8 same=13
+CROSSPAIR risuai sillytavern P0 turn=3 only_a=16,17 only_b=8 same=8
+CROSSPAIR risuai sillytavern P0 turn=4 only_a=16,17 only_b=- same=7
+CROSSPAIR risuai sillytavern P0 turn=5 only_a=- only_b=- same=5
+CROSSPAIR risuai sillytavern P0 turn=6 only_a=- only_b=- same=4
+CROSSPAIR risuai sillytavern P1 turn=1 only_a=- only_b=8 same=8
+CROSSPAIR risuai sillytavern P1 turn=2 only_a=- only_b=8 same=12
+CROSSPAIR risuai sillytavern P1 turn=3 only_a=16,17 only_b=8 same=7
+CROSSPAIR risuai sillytavern P1 turn=4 only_a=16,17 only_b=- same=7
+CROSSPAIR risuai sillytavern P1 turn=5 only_a=- only_b=- same=5
+CROSSPAIR risuai sillytavern P1 turn=6 only_a=- only_b=- same=4
+CROSSPAIR risuai sillytavern P2 turn=1 only_a=- only_b=8 same=2
+CROSSPAIR risuai sillytavern P2 turn=2 only_a=- only_b=- same=4
+CROSSPAIR risuai sillytavern P2 turn=3 only_a=- only_b=- same=5
+CROSSPAIR risuai sillytavern P2 turn=4 only_a=- only_b=- same=5
+CROSSPAIR risuai sillytavern P2 turn=5 only_a=- only_b=- same=3
+CROSSPAIR risuai sillytavern P2 turn=6 only_a=- only_b=- same=3
+CROSSPAIR risuai sillytavern P3 turn=1 only_a=19 only_b=8 same=6
+CROSSPAIR risuai sillytavern P3 turn=2 only_a=13,19 only_b=8 same=10
+CROSSPAIR risuai sillytavern P3 turn=3 only_a=13,16,17,25 only_b=8 same=5
+CROSSPAIR risuai sillytavern P3 turn=4 only_a=16,17,25 only_b=- same=5
+CROSSPAIR risuai sillytavern P3 turn=5 only_a=21 only_b=- same=3
+CROSSPAIR risuai sillytavern P3 turn=6 only_a=21 only_b=- same=2
+CROSSPAIR risuai sillytavern P4 turn=1 only_a=- only_b=2,3,4,6,8,18,19 same=2
+CROSSPAIR risuai sillytavern P4 turn=2 only_a=11 only_b=2,3,4,5,6,8,10,12,13,18,19 same=2
+CROSSPAIR risuai sillytavern P4 turn=3 only_a=11 only_b=8,10,12,13,15,25 same=2
+CROSSPAIR risuai sillytavern P4 turn=4 only_a=- only_b=10,13,14,15,25 same=2
+CROSSPAIR risuai sillytavern P4 turn=5 only_a=- only_b=13,14,21 same=2
+CROSSPAIR risuai sillytavern P4 turn=6 only_a=- only_b=21 same=2

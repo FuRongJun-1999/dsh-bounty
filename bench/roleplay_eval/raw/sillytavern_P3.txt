@@ -1,0 +1,14 @@
+CAPS sillytavern {"at_depth":true,"group":true,"probability":true,"recursive":true,"regex_key":true,"whole_words_cjk":"cjk-treated-as-boundary"}
+READOUT sillytavern P3 turn=1 active=7 order=8,3,2,1,18,6,4 chars=213 bytes=627 dropped=19,20
+READOUT sillytavern P3 turn=2 active=11 order=12,11,8,3,2,1,18,10,6,5,4 chars=308 bytes=912 dropped=13,19,20
+READOUT sillytavern P3 turn=3 active=6 order=15,12,11,8,1,10 chars=178 bytes=534 dropped=13,20,25
+READOUT sillytavern P3 turn=4 active=5 order=15,14,13,1,10 chars=150 bytes=450 dropped=20,25
+READOUT sillytavern P3 turn=5 active=3 order=14,13,1 chars=110 bytes=330 dropped=20,21
+READOUT sillytavern P3 turn=6 active=2 order=7,1 chars=85 bytes=255 dropped=20,21
+UNSUPPORTED sillytavern field=group_weight reason=st-group-winner-is-weighted-random-not-max-weight
+UNSUPPORTED sillytavern field=recursion.delay reason=contract-defines-no-delay-rule-and-st-semantics-differs
+UNSUPPORTED sillytavern field=capability_probe reason=fixture-marker-not-an-engine-field
+UNSUPPORTED sillytavern field=budget_chars reason=st-budget-is-token-share-of-max-context-not-chars
+UNSUPPORTED sillytavern field=whole_words_cjk reason=st-whole-word-boundary-treats-cjk-as-non-word-char
+ENGINE_NOTE sillytavern profile=P3 max_context=2458 budget_tokens=615 anchor_max_context=16384 budget_delta_vs_p0=-3481
+ENGINE_NOTE sillytavern anchor_probe=256:binding,512:binding,1024:binding,2048:binding,4096:binding,8192:binding,16384:non-binding

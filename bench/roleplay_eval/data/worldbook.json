@@ -1,0 +1,684 @@
+{
+  "entries": [
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "常驻角色摘要",
+      "constant": true,
+      "content": "常驻摘要：本节只记环境与叙事语气，不含任何触发词，每轮无条件注入。正文只作计数与排序用途。本条仅作占位说明用途。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 1
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "角色基础",
+      "constant": false,
+      "content": "角色基础：年龄十七，短发，常穿藏青外套，语速偏快。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "林小满"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 2
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "角色别名",
+      "constant": false,
+      "content": "角色别名：本名与简称两种写法指同一人，键表各占一列。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "林小满",
+        "小满"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 3
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "雨天场景",
+      "constant": false,
+      "content": "阴天场景：路面反光，屋檐滴水，人物把外套领口立起来。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "林小满"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "after_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [
+        "下雨"
+      ],
+      "selective": true,
+      "selective_logic": "and_any",
+      "uid": 4
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "雨伞与咖啡馆",
+      "constant": false,
+      "content": "室内支线：门铃响两声，柜台后的人抬头看过来。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "林小满"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "after_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [
+        "雨伞",
+        "咖啡馆"
+      ],
+      "selective": true,
+      "selective_logic": "and_all",
+      "uid": 5
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "排除警察线",
+      "constant": false,
+      "content": "支线排除项：窗口里没有反向二级键时，本条才进候选。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "林小满"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "after_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [
+        "警察"
+      ],
+      "selective": true,
+      "selective_logic": "not_any",
+      "uid": 6
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "罗马字名",
+      "constant": false,
+      "content": "拉丁转写条目：原文用大写，键表用小写，靠档位决定比较口径。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "lin xiaoman"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 7
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "单字「雨」",
+      "constant": false,
+      "content": "单字全词条目：只在开启全词匹配的档位里才可能与中文正文对上。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "雨"
+      ],
+      "match_whole_words": true,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 8
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "咖啡馆·浅扫",
+      "constant": false,
+      "content": "浅扫条目：只看最近一条消息，扫不到就退出候选。",
+      "depth": 1,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "咖啡馆"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "at_depth",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 9
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "咖啡馆·深扫",
+      "constant": false,
+      "content": "深扫条目：回溯最近六条消息，命中窗口更宽。",
+      "depth": 6,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "咖啡馆"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "at_depth",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 10
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "英文词条",
+      "constant": false,
+      "content": "英文条目：键为小写，原文首字母大写，考大小写口径。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "starlight"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 11
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "递归源",
+      "constant": false,
+      "content": "递归源条目：正文里写着「灯塔」两字，用来带出递归目标。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "咖啡馆"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 12
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "递归目标",
+      "constant": false,
+      "content": "递归目标条目：由上一层正文带出，窗口里没有它也会进候选。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "灯塔"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 13
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "递归排除",
+      "constant": false,
+      "content": "递归排除条目：只在直接命中时参与，递归轮次里被排除。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "灯塔"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": true,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 14
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "道具·高权重",
+      "constant": false,
+      "content": "同组道具甲：权重一百，同组择一时胜出。",
+      "depth": null,
+      "enabled": true,
+      "group": "props",
+      "group_weight": 100,
+      "keys": [
+        "地图"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 15
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "道具·低权重",
+      "constant": false,
+      "content": "同组道具乙：权重五十，同组择一时被甲挤掉。",
+      "depth": null,
+      "enabled": true,
+      "group": "props",
+      "group_weight": 50,
+      "keys": [
+        "地图"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 16
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "概率条目",
+      "constant": false,
+      "content": "概率条目：命中后仍要过一次随机判定，判不过就不注入。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "骰子"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 50,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 17
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "顺序·高",
+      "constant": false,
+      "content": "顺序条目甲：order 两百，排在顺序条目乙之前。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "林小满"
+      ],
+      "match_whole_words": false,
+      "order": 200,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 18
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "顺序·低",
+      "constant": false,
+      "content": "顺序条目乙：order 十，排在顺序条目甲之后。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "林小满"
+      ],
+      "match_whole_words": false,
+      "order": 10,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 19
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "超长常驻",
+      "constant": true,
+      "content": "石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从湖面推过来，带着凉气。远处有钟声，一下，又一下。石阶顺着坡道往上，两侧是矮墙与青苔。风从",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 20
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "尾声线索",
+      "constant": false,
+      "content": "末轮线索条目：只在最后两条消息进窗时才可能命中。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "尾声"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 21
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "停用条目",
+      "constant": false,
+      "content": "停用条目：enabled 为假，任何档位都不许注入本条。",
+      "depth": null,
+      "enabled": false,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "林小满"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 22
+    },
+    {
+      "capability_probe": false,
+      "case_sensitive": false,
+      "comment": "空键选择性",
+      "constant": false,
+      "content": "空键条目：主键列表为空，本基线判定为永不命中。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [
+        "下雨"
+      ],
+      "selective": true,
+      "selective_logic": "and_any",
+      "uid": 23
+    },
+    {
+      "capability_probe": true,
+      "case_sensitive": false,
+      "comment": "能力探针·正则键",
+      "constant": false,
+      "content": "正则键探针：键串写成两个斜杠包住，本基线按字面串比较。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "/地.图/"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 24
+    },
+    {
+      "capability_probe": true,
+      "case_sensitive": false,
+      "comment": "能力探针·正则内容",
+      "constant": false,
+      "content": "内容宏探针：{{roll:d6}} 与 {{user}} 原样保留，不做替换。",
+      "depth": null,
+      "enabled": true,
+      "group": null,
+      "group_weight": 100,
+      "keys": [
+        "骰子"
+      ],
+      "match_whole_words": false,
+      "order": 100,
+      "position": "before_char",
+      "probability": 100,
+      "recursion": {
+        "delay": false,
+        "exclude": false,
+        "prevent": false
+      },
+      "secondary_keys": [],
+      "selective": false,
+      "selective_logic": "and_any",
+      "uid": 25
+    }
+  ],
+  "schema": "roleplay-eval-worldbook/1"
+}

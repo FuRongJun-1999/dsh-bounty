@@ -1,0 +1,13 @@
+# score.py kpi name=diceframe baseline=baseline profiles=P0,P1,P2,P3,P4 bootstrap_iters=2000 bootstrap_seed=0 alpha=0.05
+# 配对单位=(profile,turn)；Δ 类 KPI（名字含 _delta）= 方案 − 基线；n<2 时 ci=[-,-]
+KPI M1_active_f1 value=0.925954 ci=[0.846154,0.993827] n=6
+KPI M1_active_f1_delta value=-0.0740461 ci=[-0.153846,-0.00617284] n=6
+KPI M1_active_symdiff value=1.16667 ci=[0.166667,2.33333] n=6
+KPI M2_order_inv value=11.3333 ci=[3.16667,23.5] n=6
+KPI M2_order_inv_delta value=8.5 ci=[2.83333,17.5] n=6
+KPI M3_budget_dropped_delta value=0 ci=[0,0] n=6
+KPI M4_recursion_ablation_delta value=0 ci=[0,0] n=6
+KPI M5_depth_ablation_delta value=0.666667 ci=[0,1.33333] n=6
+KPI M6_determinism value=1 ci=[1,1] n=5
+KPI M7_match_ablation_delta value=0.166667 ci=[-0.333333,0.666667] n=6
+KPI M8_total_active_uids value=170 ci=[135,206] n=30

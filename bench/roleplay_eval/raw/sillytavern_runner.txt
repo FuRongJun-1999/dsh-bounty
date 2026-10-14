@@ -1,0 +1,46 @@
+READOUT sillytavern P0 turn=1 active=9 order=19,20,8,3,2,1,18,6,4 chars=1137 bytes=3387 dropped=-
+READOUT sillytavern P0 turn=2 active=14 order=19,13,20,12,11,8,3,2,1,18,10,6,5,4 chars=1260 bytes=3756 dropped=-
+READOUT sillytavern P0 turn=3 active=9 order=13,25,20,15,12,11,8,1,10 chars=1131 bytes=3377 dropped=-
+READOUT sillytavern P0 turn=4 active=7 order=25,20,15,14,13,1,10 chars=1075 bytes=3209 dropped=-
+READOUT sillytavern P0 turn=5 active=5 order=21,20,14,13,1 chars=1034 bytes=3102 dropped=-
+READOUT sillytavern P0 turn=6 active=4 order=21,20,7,1 chars=1009 bytes=3027 dropped=-
+TIMING sillytavern profile=P0 min_ms=3718.14 p50_ms=3950.47 p95_ms=4114.21
+DETERMINISM sillytavern repeats=8 identical=true sha=4bedb7143038ef1e332328cb0b172d20cf9577aa170e46941593a5d655cd6358
+SHA c159fe6a5be43e58833965bbd67fbd5f8e23106fa6a168ada5b7c44fc6e4466b file=out/sillytavern_P0.json
+READOUT sillytavern P1 turn=1 active=9 order=19,20,8,3,2,1,18,6,4 chars=1137 bytes=3387 dropped=-
+READOUT sillytavern P1 turn=2 active=13 order=19,20,12,11,8,3,2,1,18,10,6,5,4 chars=1232 bytes=3672 dropped=-
+READOUT sillytavern P1 turn=3 active=8 order=25,20,15,12,11,8,1,10 chars=1103 bytes=3293 dropped=-
+READOUT sillytavern P1 turn=4 active=7 order=25,20,15,14,13,1,10 chars=1075 bytes=3209 dropped=-
+READOUT sillytavern P1 turn=5 active=5 order=21,20,14,13,1 chars=1034 bytes=3102 dropped=-
+READOUT sillytavern P1 turn=6 active=4 order=21,20,7,1 chars=1009 bytes=3027 dropped=-
+TIMING sillytavern profile=P1 min_ms=3583.7 p50_ms=3707.68 p95_ms=4003.65
+DETERMINISM sillytavern repeats=8 identical=true sha=8bd2acdc5b88a7e5540810e0e287cf0bd720ace991f41d38ab02e690f7dc43ab
+SHA 9bf9fa3a65159a2d24729ec434831f553745466f3d3d56a9f2c9812c21334c82 file=out/sillytavern_P1.json
+READOUT sillytavern P2 turn=1 active=3 order=20,8,1 chars=986 bytes=2958 dropped=-
+READOUT sillytavern P2 turn=2 active=4 order=20,11,1,10 chars=1002 bytes=3006 dropped=-
+READOUT sillytavern P2 turn=3 active=5 order=25,20,17,1,10 chars=1028 bytes=3068 dropped=-
+READOUT sillytavern P2 turn=4 active=5 order=20,14,13,1,10 chars=1031 bytes=3093 dropped=-
+READOUT sillytavern P2 turn=5 active=3 order=21,20,1 chars=980 bytes=2940 dropped=-
+READOUT sillytavern P2 turn=6 active=3 order=20,7,1 chars=985 bytes=2955 dropped=-
+TIMING sillytavern profile=P2 min_ms=3483.79 p50_ms=3706.98 p95_ms=3980.58
+DETERMINISM sillytavern repeats=8 identical=true sha=f84d8deb4873df3b7bbc4c12fb89a90be03b3095798dc0ad564ebfc5923de929
+SHA 49e3782c83f63cf6f69b9ffddfadc8ade6aefccff320137e6e667046dc9b56b7 file=out/sillytavern_P2.json
+READOUT sillytavern P3 turn=1 active=7 order=8,3,2,1,18,6,4 chars=213 bytes=627 dropped=19,20
+READOUT sillytavern P3 turn=2 active=11 order=12,11,8,3,2,1,18,10,6,5,4 chars=308 bytes=912 dropped=13,19,20
+READOUT sillytavern P3 turn=3 active=6 order=15,12,11,8,1,10 chars=178 bytes=534 dropped=13,20,25
+READOUT sillytavern P3 turn=4 active=5 order=15,14,13,1,10 chars=150 bytes=450 dropped=20,25
+READOUT sillytavern P3 turn=5 active=3 order=14,13,1 chars=110 bytes=330 dropped=20,21
+READOUT sillytavern P3 turn=6 active=2 order=7,1 chars=85 bytes=255 dropped=20,21
+TIMING sillytavern profile=P3 min_ms=3775.48 p50_ms=3909.11 p95_ms=4022.81
+DETERMINISM sillytavern repeats=8 identical=true sha=c9aaeea232804460d447e3b9084d85942bad8090adc4d9d819d0695078ff609c
+SHA ecffde2099d2f76b649341ff6cde478b0ea4f77b6e4653561d8398d26ddd02d7 file=out/sillytavern_P3.json
+READOUT sillytavern P4 turn=1 active=9 order=19,20,8,3,2,1,18,6,4 chars=1137 bytes=3387 dropped=-
+READOUT sillytavern P4 turn=2 active=13 order=19,13,20,12,8,3,2,1,18,10,6,5,4 chars=1235 bytes=3681 dropped=-
+READOUT sillytavern P4 turn=3 active=8 order=13,25,20,15,12,8,1,10 chars=1106 bytes=3302 dropped=-
+READOUT sillytavern P4 turn=4 active=7 order=25,20,15,14,13,1,10 chars=1075 bytes=3209 dropped=-
+READOUT sillytavern P4 turn=5 active=5 order=21,20,14,13,1 chars=1034 bytes=3102 dropped=-
+READOUT sillytavern P4 turn=6 active=3 order=21,20,1 chars=980 bytes=2940 dropped=-
+TIMING sillytavern profile=P4 min_ms=3894.24 p50_ms=3921.93 p95_ms=4199.57
+DETERMINISM sillytavern repeats=8 identical=true sha=3b02affe3d0742c79286a994359e42d9d595294e9772ac7cc45883a00f7198dd
+SHA 36e1febec07b632e6cecac289f708fd18a6cd1edb7cf6569f17da618dc516ee8 file=out/sillytavern_P4.json
+SUMMARY adapter=sillytavern profiles=5 failures=0

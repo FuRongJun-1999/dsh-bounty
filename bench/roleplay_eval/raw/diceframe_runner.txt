@@ -1,0 +1,46 @@
+READOUT diceframe P0 turn=1 active=8 order=19,4,3,1,2,6,20,18 chars=1107 bytes=3297 dropped=-
+READOUT diceframe P0 turn=2 active=14 order=19,9,13,10,4,3,11,12,1,2,6,5,20,18 chars=1253 bytes=3735 dropped=-
+READOUT diceframe P0 turn=3 active=9 order=9,13,10,11,12,1,16,25,20 chars=1140 bytes=3376 dropped=-
+READOUT diceframe P0 turn=4 active=6 order=13,1,14,16,25,20 chars=1070 bytes=3166 dropped=-
+READOUT diceframe P0 turn=5 active=5 order=13,1,21,14,20 chars=1034 bytes=3102 dropped=-
+READOUT diceframe P0 turn=6 active=4 order=1,21,7,20 chars=1009 bytes=3027 dropped=-
+TIMING diceframe profile=P0 min_ms=569.313 p50_ms=591.446 p95_ms=630.937
+DETERMINISM diceframe repeats=8 identical=true sha=e983df23c1dbb66169a06a13778131c4d11fcd80bbaf548a9629165094595507
+SHA 83f0bc564b5d16cc4c5dad50d6aada7c6660e617f31ca64341493ec1c0de4715 file=out/diceframe_P0.json
+READOUT diceframe P1 turn=1 active=8 order=19,4,3,1,2,6,20,18 chars=1107 bytes=3297 dropped=-
+READOUT diceframe P1 turn=2 active=13 order=19,9,10,4,3,11,12,1,2,6,5,20,18 chars=1225 bytes=3651 dropped=-
+READOUT diceframe P1 turn=3 active=8 order=9,10,11,12,1,16,25,20 chars=1112 bytes=3292 dropped=-
+READOUT diceframe P1 turn=4 active=6 order=13,1,14,16,25,20 chars=1070 bytes=3166 dropped=-
+READOUT diceframe P1 turn=5 active=5 order=13,1,21,14,20 chars=1034 bytes=3102 dropped=-
+READOUT diceframe P1 turn=6 active=4 order=1,21,7,20 chars=1009 bytes=3027 dropped=-
+TIMING diceframe profile=P1 min_ms=566.467 p50_ms=585.316 p95_ms=609.859
+DETERMINISM diceframe repeats=8 identical=true sha=025a18b329ae728b87674c3c3e54e024f43d3a091d0cd99505916419fd0e3f5b
+SHA 12956901b3c5e7007dbaeb82a661e8911eac7f15b9fb6895dc49ec58bc5544fd file=out/diceframe_P1.json
+READOUT diceframe P2 turn=1 active=2 order=1,20 chars=956 bytes=2868 dropped=-
+READOUT diceframe P2 turn=2 active=3 order=11,1,20 chars=981 bytes=2943 dropped=-
+READOUT diceframe P2 turn=3 active=3 order=1,25,20 chars=995 bytes=2941 dropped=-
+READOUT diceframe P2 turn=4 active=4 order=13,1,14,20 chars=1010 bytes=3030 dropped=-
+READOUT diceframe P2 turn=5 active=3 order=1,21,20 chars=980 bytes=2940 dropped=-
+READOUT diceframe P2 turn=6 active=3 order=1,7,20 chars=985 bytes=2955 dropped=-
+TIMING diceframe profile=P2 min_ms=566.021 p50_ms=578.185 p95_ms=619.697
+DETERMINISM diceframe repeats=8 identical=true sha=9ece59bbd8106fef04360995f7628829f6207cd673d58ada819be54bc66fbcd9
+SHA 942b83cdbfb5161fc80dd4f91b3e38921532e3c9cb33b8b0c8de4dc65fda20f4 file=out/diceframe_P2.json
+READOUT diceframe P3 turn=1 active=7 order=19,4,3,1,2,6,18 chars=207 bytes=597 dropped=20
+READOUT diceframe P3 turn=2 active=13 order=19,9,13,10,4,3,11,12,1,2,6,5,18 chars=353 bytes=1035 dropped=20
+READOUT diceframe P3 turn=3 active=8 order=9,13,10,11,12,1,16,25 chars=240 bytes=676 dropped=20
+READOUT diceframe P3 turn=4 active=5 order=13,1,14,16,25 chars=170 bytes=466 dropped=20
+READOUT diceframe P3 turn=5 active=4 order=13,1,21,14 chars=134 bytes=402 dropped=20
+READOUT diceframe P3 turn=6 active=3 order=1,21,7 chars=109 bytes=327 dropped=20
+TIMING diceframe profile=P3 min_ms=579.445 p50_ms=595.724 p95_ms=619.64
+DETERMINISM diceframe repeats=8 identical=true sha=78726efb884811b3ab61dd5b9b34dd9846d29c90496f459c8742cfb3455ffc1d
+SHA f0d58f0c5591976ddd7d9e0a4a538f8ee64f279160cc6fe1b3a4ad38694b59fd file=out/diceframe_P3.json
+READOUT diceframe P4 turn=1 active=7 order=19,3,1,2,6,20,18 chars=1081 bytes=3219 dropped=-
+READOUT diceframe P4 turn=2 active=7 order=19,3,1,2,6,20,18 chars=1081 bytes=3219 dropped=-
+READOUT diceframe P4 turn=3 active=2 order=1,20 chars=956 bytes=2868 dropped=-
+READOUT diceframe P4 turn=4 active=2 order=1,20 chars=956 bytes=2868 dropped=-
+READOUT diceframe P4 turn=5 active=2 order=1,20 chars=956 bytes=2868 dropped=-
+READOUT diceframe P4 turn=6 active=2 order=1,20 chars=956 bytes=2868 dropped=-
+TIMING diceframe profile=P4 min_ms=567.737 p50_ms=573.173 p95_ms=578.964
+DETERMINISM diceframe repeats=8 identical=true sha=01094e144f06654f012cfb3eedc07f8e1311e4f86b7afdb0ad7345e0b1db9bc7
+SHA 882518585bbdc716c4c60164e603ddc26597675da1ed6345ac9c114a2b319293 file=out/diceframe_P4.json
+SUMMARY adapter=diceframe profiles=5 failures=0

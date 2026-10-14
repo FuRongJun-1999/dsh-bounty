@@ -1,0 +1,11 @@
+# adapter=baseline warmup=1 samples=7
+# profile=P0
+DETERMINISM baseline repeats=8 identical=true sha=1d3e9e00eb0a55e6955aa3f3b432a8b143c4ffb07336e1c5c903787b82a02965
+# profile=P1
+DETERMINISM baseline repeats=8 identical=true sha=96c7478ab73bc5e4ea5f1e7d3af3ee5bf61623fb16b802fe358d06101647f12e
+# profile=P2
+DETERMINISM baseline repeats=8 identical=true sha=9cb0d9229dd025ab0944a6a197f7d93d124d1e0ddba33b662ea226a495b1ac5a
+# profile=P3
+DETERMINISM baseline repeats=8 identical=true sha=9ab637004698e93762d5df05c8f907229585dec1acaa5e96357485b43caac0b2
+# profile=P4
+DETERMINISM baseline repeats=8 identical=true sha=21c7ae0b21cc7cf465847b01a811210b2387728ac91e0cdd03c51e80e67364ee

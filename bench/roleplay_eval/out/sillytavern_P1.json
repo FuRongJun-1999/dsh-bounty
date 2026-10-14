@@ -1,0 +1,660 @@
+{
+ "adapter": "sillytavern",
+ "adapter_version": "st-roleplay-eval-adapter/0.1",
+ "capabilities": {
+  "at_depth": true,
+  "group": true,
+  "probability": true,
+  "recursive": true,
+  "regex_key": true,
+  "whole_words_cjk": "cjk-treated-as-boundary"
+ },
+ "engine_env": {
+  "anchor_world_file": "upstream/data/default-user/worlds/roleplay_eval_p0.json",
+  "browser": "CHROME_PATH",
+  "engine_version": "1.19.0",
+  "entry": "bench/roleplay_eval/adapters/sillytavern/run.mjs",
+  "network": "local-server-and-local-chromium-only",
+  "node": "v24.16.0",
+  "server": "node server.js --port 8123",
+  "world_file": "upstream/data/default-user/worlds/roleplay_eval.json",
+  "world_info_engine": "public/scripts/world-info.js"
+ },
+ "errors": [],
+ "turns": [
+  {
+   "active_uids": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    8,
+    18,
+    19,
+    20
+   ],
+   "blocks": [
+    {
+     "bytes": 60,
+     "chars": 24,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "f8298cec2e7120a7c104ff033d811c59f075580a1ba84e3e1f89330a4771f5a2",
+     "uid": 19
+    },
+    {
+     "bytes": 2700,
+     "chars": 900,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "f1af40a3451ca39351f93ea168877acb2dd191897ba4ae1da14355ec6f28b4f9",
+     "uid": 20
+    },
+    {
+     "bytes": 90,
+     "chars": 30,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "e0bf1b4f4f0fe9755f9e98d31174765f8997d02b338acd7146f3c0cc1d88ee4a",
+     "uid": 8
+    },
+    {
+     "bytes": 78,
+     "chars": 26,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "6b8dabf1323f50c7351dcbc0254308c51421abcb32db90fadd78d86e9d9d66d6",
+     "uid": 3
+    },
+    {
+     "bytes": 75,
+     "chars": 25,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "a58b16aa5956727253bc5b70c4840301bbacf51827f6a8c65a2f6613ba2d623e",
+     "uid": 2
+    },
+    {
+     "bytes": 168,
+     "chars": 56,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "7c8eebabaf1158177d08084f016241372266bb9e7422159de7f0677a65761d66",
+     "uid": 1
+    },
+    {
+     "bytes": 63,
+     "chars": 25,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "27a453b35062090007dbabe15a8a3353d689abac9958034e273f470f2489d471",
+     "uid": 18
+    },
+    {
+     "bytes": 75,
+     "chars": 25,
+     "depth": null,
+     "position": "after_char",
+     "sha256": "c806253d100ec56f6e14130244f231a53e5aae05251d06eaa652279060f0f76c",
+     "uid": 6
+    },
+    {
+     "bytes": 78,
+     "chars": 26,
+     "depth": null,
+     "position": "after_char",
+     "sha256": "f97cf98689c8d2dd8585af467684b0c6560bdf322900b7b2e9172f7f639c3cd9",
+     "uid": 4
+    }
+   ],
+   "engine_notes": [
+    "budget_tokens=4096",
+    "dropped_by_budget_only=-",
+    "max_context=16384",
+    "unbounded_active=9",
+    "unbounded_max_context=1000000",
+    "unbounded_tokens=2019"
+   ],
+   "history_len": 2,
+   "inject_order": [
+    19,
+    20,
+    8,
+    3,
+    2,
+    1,
+    18,
+    6,
+    4
+   ],
+   "profile": "P1",
+   "totals": {
+    "active": 9,
+    "bytes": 3387,
+    "chars": 1137,
+    "dropped_uids": []
+   },
+   "turn": 1
+  },
+  {
+   "active_uids": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    8,
+    10,
+    11,
+    12,
+    18,
+    19,
+    20
+   ],
+   "blocks": [
+    {
+     "bytes": 60,
+     "chars": 24,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "f8298cec2e7120a7c104ff033d811c59f075580a1ba84e3e1f89330a4771f5a2",
+     "uid": 19
+    },
+    {
+     "bytes": 2700,
+     "chars": 900,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "f1af40a3451ca39351f93ea168877acb2dd191897ba4ae1da14355ec6f28b4f9",
+     "uid": 20
+    },
+    {
+     "bytes": 81,
+     "chars": 27,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "53e2beced154add9cf90a5438d515f51993480b38d15bcccbccf9e9192619705",
+     "uid": 12
+    },
+    {
+     "bytes": 75,
+     "chars": 25,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "23a494989b362c021fae227a903a68ce6b3ebbefdd1b1c995e2e1db6681c28e8",
+     "uid": 11
+    },
+    {
+     "bytes": 90,
+     "chars": 30,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "e0bf1b4f4f0fe9755f9e98d31174765f8997d02b338acd7146f3c0cc1d88ee4a",
+     "uid": 8
+    },
+    {
+     "bytes": 78,
+     "chars": 26,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "6b8dabf1323f50c7351dcbc0254308c51421abcb32db90fadd78d86e9d9d66d6",
+     "uid": 3
+    },
+    {
+     "bytes": 75,
+     "chars": 25,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "a58b16aa5956727253bc5b70c4840301bbacf51827f6a8c65a2f6613ba2d623e",
+     "uid": 2
+    },
+    {
+     "bytes": 168,
+     "chars": 56,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "7c8eebabaf1158177d08084f016241372266bb9e7422159de7f0677a65761d66",
+     "uid": 1
+    },
+    {
+     "bytes": 63,
+     "chars": 25,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "27a453b35062090007dbabe15a8a3353d689abac9958034e273f470f2489d471",
+     "uid": 18
+    },
+    {
+     "bytes": 63,
+     "chars": 21,
+     "depth": 6,
+     "position": "at_depth",
+     "sha256": "0c2823740261dae392d70562bac412352af4e641769b4a1056033e4a749a8585",
+     "uid": 10
+    },
+    {
+     "bytes": 75,
+     "chars": 25,
+     "depth": null,
+     "position": "after_char",
+     "sha256": "c806253d100ec56f6e14130244f231a53e5aae05251d06eaa652279060f0f76c",
+     "uid": 6
+    },
+    {
+     "bytes": 66,
+     "chars": 22,
+     "depth": null,
+     "position": "after_char",
+     "sha256": "6fca15618294247ce820f95af91819d989fea460cfb4b085f72b62bb73f87b82",
+     "uid": 5
+    },
+    {
+     "bytes": 78,
+     "chars": 26,
+     "depth": null,
+     "position": "after_char",
+     "sha256": "f97cf98689c8d2dd8585af467684b0c6560bdf322900b7b2e9172f7f639c3cd9",
+     "uid": 4
+    }
+   ],
+   "engine_notes": [
+    "budget_tokens=4096",
+    "dropped_by_budget_only=-",
+    "max_context=16384",
+    "unbounded_active=13",
+    "unbounded_max_context=1000000",
+    "unbounded_tokens=2158"
+   ],
+   "history_len": 4,
+   "inject_order": [
+    19,
+    20,
+    12,
+    11,
+    8,
+    3,
+    2,
+    1,
+    18,
+    10,
+    6,
+    5,
+    4
+   ],
+   "profile": "P1",
+   "totals": {
+    "active": 13,
+    "bytes": 3672,
+    "chars": 1232,
+    "dropped_uids": []
+   },
+   "turn": 2
+  },
+  {
+   "active_uids": [
+    1,
+    8,
+    10,
+    11,
+    12,
+    15,
+    20,
+    25
+   ],
+   "blocks": [
+    {
+     "bytes": 59,
+     "chars": 25,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "13763707e2e7b428680fc46cbadcdf49eb692cc893429dc4985e624e81aeeb87",
+     "uid": 25
+    },
+    {
+     "bytes": 2700,
+     "chars": 900,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "f1af40a3451ca39351f93ea168877acb2dd191897ba4ae1da14355ec6f28b4f9",
+     "uid": 20
+    },
+    {
+     "bytes": 57,
+     "chars": 19,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "3e6b0be7d8935d20b9cfb06593d18aa7eca2c0209266596ea4892e6c721df7fb",
+     "uid": 15
+    },
+    {
+     "bytes": 81,
+     "chars": 27,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "53e2beced154add9cf90a5438d515f51993480b38d15bcccbccf9e9192619705",
+     "uid": 12
+    },
+    {
+     "bytes": 75,
+     "chars": 25,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "23a494989b362c021fae227a903a68ce6b3ebbefdd1b1c995e2e1db6681c28e8",
+     "uid": 11
+    },
+    {
+     "bytes": 90,
+     "chars": 30,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "e0bf1b4f4f0fe9755f9e98d31174765f8997d02b338acd7146f3c0cc1d88ee4a",
+     "uid": 8
+    },
+    {
+     "bytes": 168,
+     "chars": 56,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "7c8eebabaf1158177d08084f016241372266bb9e7422159de7f0677a65761d66",
+     "uid": 1
+    },
+    {
+     "bytes": 63,
+     "chars": 21,
+     "depth": 6,
+     "position": "at_depth",
+     "sha256": "0c2823740261dae392d70562bac412352af4e641769b4a1056033e4a749a8585",
+     "uid": 10
+    }
+   ],
+   "engine_notes": [
+    "budget_tokens=4096",
+    "dropped_by_budget_only=-",
+    "max_context=16384",
+    "unbounded_active=8",
+    "unbounded_max_context=1000000",
+    "unbounded_tokens=1976"
+   ],
+   "history_len": 6,
+   "inject_order": [
+    25,
+    20,
+    15,
+    12,
+    11,
+    8,
+    1,
+    10
+   ],
+   "profile": "P1",
+   "totals": {
+    "active": 8,
+    "bytes": 3293,
+    "chars": 1103,
+    "dropped_uids": []
+   },
+   "turn": 3
+  },
+  {
+   "active_uids": [
+    1,
+    10,
+    13,
+    14,
+    15,
+    20,
+    25
+   ],
+   "blocks": [
+    {
+     "bytes": 59,
+     "chars": 25,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "965f6f8351c68252c9988056485ee607aa57a519c63dce2b29ee9b3b891e94f8",
+     "uid": 25
+    },
+    {
+     "bytes": 2700,
+     "chars": 900,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "f1af40a3451ca39351f93ea168877acb2dd191897ba4ae1da14355ec6f28b4f9",
+     "uid": 20
+    },
+    {
+     "bytes": 57,
+     "chars": 19,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "3e6b0be7d8935d20b9cfb06593d18aa7eca2c0209266596ea4892e6c721df7fb",
+     "uid": 15
+    },
+    {
+     "bytes": 78,
+     "chars": 26,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "3dc1256962f13db948603618397a22252a835c702e271f44da60aca3ac4fc832",
+     "uid": 14
+    },
+    {
+     "bytes": 84,
+     "chars": 28,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "ded6b627cce1980d88fa6dfbcd403c4a2f91043de60c345419a3e2d9300d44b2",
+     "uid": 13
+    },
+    {
+     "bytes": 168,
+     "chars": 56,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "7c8eebabaf1158177d08084f016241372266bb9e7422159de7f0677a65761d66",
+     "uid": 1
+    },
+    {
+     "bytes": 63,
+     "chars": 21,
+     "depth": 6,
+     "position": "at_depth",
+     "sha256": "0c2823740261dae392d70562bac412352af4e641769b4a1056033e4a749a8585",
+     "uid": 10
+    }
+   ],
+   "engine_notes": [
+    "budget_tokens=4096",
+    "dropped_by_budget_only=-",
+    "max_context=16384",
+    "unbounded_active=7",
+    "unbounded_max_context=1000000",
+    "unbounded_tokens=1943"
+   ],
+   "history_len": 8,
+   "inject_order": [
+    25,
+    20,
+    15,
+    14,
+    13,
+    1,
+    10
+   ],
+   "profile": "P1",
+   "totals": {
+    "active": 7,
+    "bytes": 3209,
+    "chars": 1075,
+    "dropped_uids": []
+   },
+   "turn": 4
+  },
+  {
+   "active_uids": [
+    1,
+    13,
+    14,
+    20,
+    21
+   ],
+   "blocks": [
+    {
+     "bytes": 72,
+     "chars": 24,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "d460dac92da358363e99364d91ba1722fd319e1d72eb81b0750ef96d30cb495f",
+     "uid": 21
+    },
+    {
+     "bytes": 2700,
+     "chars": 900,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "f1af40a3451ca39351f93ea168877acb2dd191897ba4ae1da14355ec6f28b4f9",
+     "uid": 20
+    },
+    {
+     "bytes": 78,
+     "chars": 26,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "3dc1256962f13db948603618397a22252a835c702e271f44da60aca3ac4fc832",
+     "uid": 14
+    },
+    {
+     "bytes": 84,
+     "chars": 28,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "ded6b627cce1980d88fa6dfbcd403c4a2f91043de60c345419a3e2d9300d44b2",
+     "uid": 13
+    },
+    {
+     "bytes": 168,
+     "chars": 56,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "7c8eebabaf1158177d08084f016241372266bb9e7422159de7f0677a65761d66",
+     "uid": 1
+    }
+   ],
+   "engine_notes": [
+    "budget_tokens=4096",
+    "dropped_by_budget_only=-",
+    "max_context=16384",
+    "unbounded_active=5",
+    "unbounded_max_context=1000000",
+    "unbounded_tokens=1882"
+   ],
+   "history_len": 10,
+   "inject_order": [
+    21,
+    20,
+    14,
+    13,
+    1
+   ],
+   "profile": "P1",
+   "totals": {
+    "active": 5,
+    "bytes": 3102,
+    "chars": 1034,
+    "dropped_uids": []
+   },
+   "turn": 5
+  },
+  {
+   "active_uids": [
+    1,
+    7,
+    20,
+    21
+   ],
+   "blocks": [
+    {
+     "bytes": 72,
+     "chars": 24,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "d460dac92da358363e99364d91ba1722fd319e1d72eb81b0750ef96d30cb495f",
+     "uid": 21
+    },
+    {
+     "bytes": 2700,
+     "chars": 900,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "f1af40a3451ca39351f93ea168877acb2dd191897ba4ae1da14355ec6f28b4f9",
+     "uid": 20
+    },
+    {
+     "bytes": 87,
+     "chars": 29,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "2a572f3515b37486701bbe72fffdbf1fd6a0bc3853f02135d822b611117c5e24",
+     "uid": 7
+    },
+    {
+     "bytes": 168,
+     "chars": 56,
+     "depth": null,
+     "position": "before_char",
+     "sha256": "7c8eebabaf1158177d08084f016241372266bb9e7422159de7f0677a65761d66",
+     "uid": 1
+    }
+   ],
+   "engine_notes": [
+    "budget_tokens=4096",
+    "dropped_by_budget_only=-",
+    "max_context=16384",
+    "unbounded_active=4",
+    "unbounded_max_context=1000000",
+    "unbounded_tokens=1842"
+   ],
+   "history_len": 12,
+   "inject_order": [
+    21,
+    20,
+    7,
+    1
+   ],
+   "profile": "P1",
+   "totals": {
+    "active": 4,
+    "bytes": 3027,
+    "chars": 1009,
+    "dropped_uids": []
+   },
+   "turn": 6
+  }
+ ],
+ "unsupported": [
+  {
+   "field": "group_weight",
+   "reason": "st-group-winner-is-weighted-random-not-max-weight"
+  },
+  {
+   "field": "recursion.delay",
+   "reason": "contract-defines-no-delay-rule-and-st-semantics-differs"
+  },
+  {
+   "field": "capability_probe",
+   "reason": "fixture-marker-not-an-engine-field"
+  },
+  {
+   "field": "budget_chars",
+   "reason": "st-budget-is-token-share-of-max-context-not-chars"
+  },
+  {
+   "field": "whole_words_cjk",
+   "reason": "st-whole-word-boundary-treats-cjk-as-non-word-char"
+  }
+ ],
+ "upstream_commit": "06bde939fb1e9c4c8d8641d810f0a916b5bce127",
+ "upstream_repo": "https://github.com/SillyTavern/SillyTavern"
+}

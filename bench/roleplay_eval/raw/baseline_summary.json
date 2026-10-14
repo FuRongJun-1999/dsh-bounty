@@ -1,0 +1,1079 @@
+{
+ "adapter": "baseline",
+ "command": [
+  "C:\\Users\\Zs\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+  "-X",
+  "utf8",
+  "adapters/baseline/run.py"
+ ],
+ "data": "data",
+ "determinism": {
+  "P0": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "1d3e9e00eb0a55e6955aa3f3b432a8b143c4ffb07336e1c5c903787b82a02965"
+  },
+  "P1": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "96c7478ab73bc5e4ea5f1e7d3af3ee5bf61623fb16b802fe358d06101647f12e"
+  },
+  "P2": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "9cb0d9229dd025ab0944a6a197f7d93d124d1e0ddba33b662ea226a495b1ac5a"
+  },
+  "P3": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "9ab637004698e93762d5df05c8f907229585dec1acaa5e96357485b43caac0b2"
+  },
+  "P4": {
+   "identical": true,
+   "repeats": 8,
+   "sha": "21c7ae0b21cc7cf465847b01a811210b2387728ac91e0cdd03c51e80e67364ee"
+  }
+ },
+ "kpi": {
+  "baseline": "baseline",
+  "bootstrap": {
+   "alpha": 0.05,
+   "iters": 2000,
+   "seed": 0,
+   "statistic": "mean-of-paired-difference"
+  },
+  "ci_undefined_metrics": [],
+  "delta_all_zero": true,
+  "delta_ci_zero": true,
+  "metrics": [
+   {
+    "ci_hi": 1.0,
+    "ci_lo": 1.0,
+    "definition": "方案 P0 激活集 vs 基线 P0 的同 turn F1 均值：2|A∩B|/(|A|+|B|)",
+    "kind": "absolute",
+    "line": "KPI M1_active_f1 value=1 ci=[1,1] n=6",
+    "metric": "M1_active_f1",
+    "n": 6,
+    "value": 1.0
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": 0.0,
+    "definition": "M1 的 Δ 形式：F1 − 1；两侧集合相同即为 0",
+    "kind": "delta",
+    "line": "KPI M1_active_f1_delta value=0 ci=[0,0] n=6",
+    "metric": "M1_active_f1_delta",
+    "n": 6,
+    "value": 0.0
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": 0.0,
+    "definition": "方案 P0 与基线 P0 的激活集对称差大小均值",
+    "kind": "delta",
+    "line": "KPI M1_active_symdiff value=0 ci=[0,0] n=6",
+    "metric": "M1_active_symdiff",
+    "n": 6,
+    "value": 0.0
+   },
+   {
+    "ci_hi": 6.5,
+    "ci_lo": 0.0,
+    "definition": "同一激活集（两侧注入顺序的交集）上方案侧逆序对数均值",
+    "kind": "absolute",
+    "line": "KPI M2_order_inv value=2.83333 ci=[0,6.5] n=6",
+    "metric": "M2_order_inv",
+    "n": 6,
+    "value": 2.833333
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": 0.0,
+    "definition": "同一激活集上方案逆序对数 − 基线逆序对数，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M2_order_inv_delta value=0 ci=[0,0] n=6",
+    "metric": "M2_order_inv_delta",
+    "n": 6,
+    "value": 0.0
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P3 的 dropped_uids 对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M3_budget_dropped_delta value=0 ci=[0,0] n=6",
+    "metric": "M3_budget_dropped_delta",
+    "n": 6,
+    "value": 0.0
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P1 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M4_recursion_ablation_delta value=0 ci=[0,0] n=6",
+    "metric": "M4_recursion_ablation_delta",
+    "n": 6,
+    "value": 0.0
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P2 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M5_depth_ablation_delta value=0 ci=[0,0] n=6",
+    "metric": "M5_depth_ablation_delta",
+    "n": 6,
+    "value": 0.0
+   },
+   {
+    "ci_hi": 1.0,
+    "ci_lo": 1.0,
+    "definition": "读 raw/<name>_summary.json 的 determinism：identical=true 记 1，逐 profile 求均值",
+    "kind": "absolute",
+    "line": "KPI M6_determinism value=1 ci=[1,1] n=5",
+    "metric": "M6_determinism",
+    "n": 5,
+    "value": 1.0
+   },
+   {
+    "ci_hi": 0.0,
+    "ci_lo": 0.0,
+    "definition": "P0 vs P4 的激活集对称差大小：方案 − 基线，逐 turn 配对",
+    "kind": "delta",
+    "line": "KPI M7_match_ablation_delta value=0 ci=[0,0] n=6",
+    "metric": "M7_match_ablation_delta",
+    "n": 6,
+    "value": 0.0
+   },
+   {
+    "ci_hi": 203.0,
+    "ci_lo": 137.0,
+    "definition": "所选 profiles × 全部 turn 的方案激活条目数之和（CI 为逐行计数均值 CI × 行数）",
+    "kind": "absolute",
+    "line": "KPI M8_total_active_uids value=170 ci=[137,203] n=30",
+    "metric": "M8_total_active_uids",
+    "n": 30,
+    "value": 170.0
+   }
+  ],
+  "missing": [],
+  "profiles": [
+   "P0",
+   "P1",
+   "P2",
+   "P3",
+   "P4"
+  ],
+  "unit": "paired-(profile,turn)"
+ },
+ "profiles": {
+  "P0": {
+   "capabilities": {
+    "at_depth": true,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": false,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/baseline_P0.json",
+   "out_sha256": "347aabf737d2a1cdc7412d2fd25a186b04cc524e1ccd4209716465b376b797eb",
+   "readout_lines": [
+    "READOUT baseline P0 turn=1 active=8 order=18,1,2,3,4,6,20,19 chars=1107 bytes=3297 dropped=-",
+    "READOUT baseline P0 turn=2 active=13 order=18,1,2,3,4,5,6,10,11,12,13,20,19 chars=1230 bytes=3666 dropped=-",
+    "READOUT baseline P0 turn=3 active=8 order=1,10,11,12,13,15,20,25 chars=1115 bytes=3301 dropped=-",
+    "READOUT baseline P0 turn=4 active=7 order=1,10,13,14,15,20,25 chars=1089 bytes=3223 dropped=-",
+    "READOUT baseline P0 turn=5 active=5 order=1,13,14,20,21 chars=1034 bytes=3102 dropped=-",
+    "READOUT baseline P0 turn=6 active=4 order=1,7,20,21 chars=1009 bytes=3027 dropped=-"
+   ],
+   "stdout_sha256": "1d3e9e00eb0a55e6955aa3f3b432a8b143c4ffb07336e1c5c903787b82a02965",
+   "timing": {
+    "min_ms": 44.401,
+    "p50_ms": 46.283,
+    "p95_ms": 66.025,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3297,
+     "chars": 1107,
+     "dropped_uids": [],
+     "inject_order": [
+      18,
+      1,
+      2,
+      3,
+      4,
+      6,
+      20,
+      19
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      10,
+      11,
+      12,
+      13,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3666,
+     "chars": 1230,
+     "dropped_uids": [],
+     "inject_order": [
+      18,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      10,
+      11,
+      12,
+      13,
+      20,
+      19
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      11,
+      12,
+      13,
+      15,
+      20,
+      25
+     ],
+     "bytes": 3301,
+     "chars": 1115,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      10,
+      11,
+      12,
+      13,
+      15,
+      20,
+      25
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      13,
+      14,
+      15,
+      20,
+      25
+     ],
+     "bytes": 3223,
+     "chars": 1089,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      10,
+      13,
+      14,
+      15,
+      20,
+      25
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      20,
+      21
+     ],
+     "bytes": 3102,
+     "chars": 1034,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      13,
+      14,
+      20,
+      21
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      20,
+      21
+     ],
+     "bytes": 3027,
+     "chars": 1009,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      7,
+      20,
+      21
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "regex_key",
+     "reason": "baseline-literal-key"
+    },
+    {
+     "field": "macro_expand",
+     "reason": "baseline-no-macro"
+    },
+    {
+     "field": "tokenizer",
+     "reason": "baseline-no-tokenizer"
+    },
+    {
+     "field": "upstream_commit",
+     "reason": "baseline-local-no-upstream"
+    }
+   ]
+  },
+  "P1": {
+   "capabilities": {
+    "at_depth": true,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": false,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/baseline_P1.json",
+   "out_sha256": "dac05c269588691691b9717db37a924dc928d1a7720ce5d655f42e7155585a2c",
+   "readout_lines": [
+    "READOUT baseline P1 turn=1 active=8 order=18,1,2,3,4,6,20,19 chars=1107 bytes=3297 dropped=-",
+    "READOUT baseline P1 turn=2 active=12 order=18,1,2,3,4,5,6,10,11,12,20,19 chars=1202 bytes=3582 dropped=-",
+    "READOUT baseline P1 turn=3 active=7 order=1,10,11,12,15,20,25 chars=1087 bytes=3217 dropped=-",
+    "READOUT baseline P1 turn=4 active=7 order=1,10,13,14,15,20,25 chars=1089 bytes=3223 dropped=-",
+    "READOUT baseline P1 turn=5 active=5 order=1,13,14,20,21 chars=1034 bytes=3102 dropped=-",
+    "READOUT baseline P1 turn=6 active=4 order=1,7,20,21 chars=1009 bytes=3027 dropped=-"
+   ],
+   "stdout_sha256": "96c7478ab73bc5e4ea5f1e7d3af3ee5bf61623fb16b802fe358d06101647f12e",
+   "timing": {
+    "min_ms": 50.247,
+    "p50_ms": 72.378,
+    "p95_ms": 96.796,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3297,
+     "chars": 1107,
+     "dropped_uids": [],
+     "inject_order": [
+      18,
+      1,
+      2,
+      3,
+      4,
+      6,
+      20,
+      19
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      10,
+      11,
+      12,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3582,
+     "chars": 1202,
+     "dropped_uids": [],
+     "inject_order": [
+      18,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      10,
+      11,
+      12,
+      20,
+      19
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      11,
+      12,
+      15,
+      20,
+      25
+     ],
+     "bytes": 3217,
+     "chars": 1087,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      10,
+      11,
+      12,
+      15,
+      20,
+      25
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      13,
+      14,
+      15,
+      20,
+      25
+     ],
+     "bytes": 3223,
+     "chars": 1089,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      10,
+      13,
+      14,
+      15,
+      20,
+      25
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      20,
+      21
+     ],
+     "bytes": 3102,
+     "chars": 1034,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      13,
+      14,
+      20,
+      21
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      20,
+      21
+     ],
+     "bytes": 3027,
+     "chars": 1009,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      7,
+      20,
+      21
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "regex_key",
+     "reason": "baseline-literal-key"
+    },
+    {
+     "field": "macro_expand",
+     "reason": "baseline-no-macro"
+    },
+    {
+     "field": "tokenizer",
+     "reason": "baseline-no-tokenizer"
+    },
+    {
+     "field": "upstream_commit",
+     "reason": "baseline-local-no-upstream"
+    }
+   ]
+  },
+  "P2": {
+   "capabilities": {
+    "at_depth": true,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": false,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/baseline_P2.json",
+   "out_sha256": "c6507cdc83b7072af6d2a4b0c7042ea642529456d46dfe9eb43db53651535e99",
+   "readout_lines": [
+    "READOUT baseline P2 turn=1 active=2 order=1,20 chars=956 bytes=2868 dropped=-",
+    "READOUT baseline P2 turn=2 active=4 order=1,10,11,20 chars=1002 bytes=3006 dropped=-",
+    "READOUT baseline P2 turn=3 active=4 order=1,10,20,25 chars=1016 bytes=3004 dropped=-",
+    "READOUT baseline P2 turn=4 active=5 order=1,10,13,14,20 chars=1031 bytes=3093 dropped=-",
+    "READOUT baseline P2 turn=5 active=3 order=1,20,21 chars=980 bytes=2940 dropped=-",
+    "READOUT baseline P2 turn=6 active=3 order=1,7,20 chars=985 bytes=2955 dropped=-"
+   ],
+   "stdout_sha256": "9cb0d9229dd025ab0944a6a197f7d93d124d1e0ddba33b662ea226a495b1ac5a",
+   "timing": {
+    "min_ms": 44.237,
+    "p50_ms": 46.611,
+    "p95_ms": 69.432,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      20
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      11,
+      20
+     ],
+     "bytes": 3006,
+     "chars": 1002,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      10,
+      11,
+      20
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      20,
+      25
+     ],
+     "bytes": 3004,
+     "chars": 1016,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      10,
+      20,
+      25
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      13,
+      14,
+      20
+     ],
+     "bytes": 3093,
+     "chars": 1031,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      10,
+      13,
+      14,
+      20
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      20,
+      21
+     ],
+     "bytes": 2940,
+     "chars": 980,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      20,
+      21
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      20
+     ],
+     "bytes": 2955,
+     "chars": 985,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      7,
+      20
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "regex_key",
+     "reason": "baseline-literal-key"
+    },
+    {
+     "field": "macro_expand",
+     "reason": "baseline-no-macro"
+    },
+    {
+     "field": "tokenizer",
+     "reason": "baseline-no-tokenizer"
+    },
+    {
+     "field": "upstream_commit",
+     "reason": "baseline-local-no-upstream"
+    }
+   ]
+  },
+  "P3": {
+   "capabilities": {
+    "at_depth": true,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": false,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/baseline_P3.json",
+   "out_sha256": "0a1ed70a7a4ddae03c43f3e2bea3b4c4f550c36879eed9c2fdce8d61661c5a62",
+   "readout_lines": [
+    "READOUT baseline P3 turn=1 active=7 order=18,1,2,3,4,6,19 chars=207 bytes=597 dropped=20",
+    "READOUT baseline P3 turn=2 active=12 order=18,1,2,3,4,5,6,10,11,12,13,19 chars=330 bytes=966 dropped=20",
+    "READOUT baseline P3 turn=3 active=7 order=1,10,11,12,13,15,25 chars=215 bytes=601 dropped=20",
+    "READOUT baseline P3 turn=4 active=6 order=1,10,13,14,15,25 chars=189 bytes=523 dropped=20",
+    "READOUT baseline P3 turn=5 active=4 order=1,13,14,21 chars=134 bytes=402 dropped=20",
+    "READOUT baseline P3 turn=6 active=3 order=1,7,21 chars=109 bytes=327 dropped=20"
+   ],
+   "stdout_sha256": "9ab637004698e93762d5df05c8f907229585dec1acaa5e96357485b43caac0b2",
+   "timing": {
+    "min_ms": 41.412,
+    "p50_ms": 42.322,
+    "p95_ms": 44.71,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      18,
+      19
+     ],
+     "bytes": 597,
+     "chars": 207,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      18,
+      1,
+      2,
+      3,
+      4,
+      6,
+      19
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      10,
+      11,
+      12,
+      13,
+      18,
+      19
+     ],
+     "bytes": 966,
+     "chars": 330,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      18,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      10,
+      11,
+      12,
+      13,
+      19
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      11,
+      12,
+      13,
+      15,
+      25
+     ],
+     "bytes": 601,
+     "chars": 215,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      1,
+      10,
+      11,
+      12,
+      13,
+      15,
+      25
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      10,
+      13,
+      14,
+      15,
+      25
+     ],
+     "bytes": 523,
+     "chars": 189,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      1,
+      10,
+      13,
+      14,
+      15,
+      25
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      13,
+      14,
+      21
+     ],
+     "bytes": 402,
+     "chars": 134,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      1,
+      13,
+      14,
+      21
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      7,
+      21
+     ],
+     "bytes": 327,
+     "chars": 109,
+     "dropped_uids": [
+      20
+     ],
+     "inject_order": [
+      1,
+      7,
+      21
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "regex_key",
+     "reason": "baseline-literal-key"
+    },
+    {
+     "field": "macro_expand",
+     "reason": "baseline-no-macro"
+    },
+    {
+     "field": "tokenizer",
+     "reason": "baseline-no-tokenizer"
+    },
+    {
+     "field": "upstream_commit",
+     "reason": "baseline-local-no-upstream"
+    }
+   ]
+  },
+  "P4": {
+   "capabilities": {
+    "at_depth": true,
+    "group": true,
+    "probability": true,
+    "recursive": true,
+    "regex_key": false,
+    "whole_words_cjk": "no_match_cjk"
+   },
+   "errors": [],
+   "exit_code": 0,
+   "out": "out/baseline_P4.json",
+   "out_sha256": "bcf321d004d18841ee678347f6025a7be5eb5bd7de663cccac2ce2dadf77628a",
+   "readout_lines": [
+    "READOUT baseline P4 turn=1 active=7 order=18,1,2,3,6,20,19 chars=1081 bytes=3219 dropped=-",
+    "READOUT baseline P4 turn=2 active=7 order=18,1,2,3,6,20,19 chars=1081 bytes=3219 dropped=-",
+    "READOUT baseline P4 turn=3 active=2 order=1,20 chars=956 bytes=2868 dropped=-",
+    "READOUT baseline P4 turn=4 active=2 order=1,20 chars=956 bytes=2868 dropped=-",
+    "READOUT baseline P4 turn=5 active=2 order=1,20 chars=956 bytes=2868 dropped=-",
+    "READOUT baseline P4 turn=6 active=2 order=1,20 chars=956 bytes=2868 dropped=-"
+   ],
+   "stdout_sha256": "21c7ae0b21cc7cf465847b01a811210b2387728ac91e0cdd03c51e80e67364ee",
+   "timing": {
+    "min_ms": 42.792,
+    "p50_ms": 43.233,
+    "p95_ms": 44.885,
+    "samples": 7,
+    "warmup": 1
+   },
+   "turns": [
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      6,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3219,
+     "chars": 1081,
+     "dropped_uids": [],
+     "inject_order": [
+      18,
+      1,
+      2,
+      3,
+      6,
+      20,
+      19
+     ],
+     "turn": 1
+    },
+    {
+     "active_uids": [
+      1,
+      2,
+      3,
+      6,
+      18,
+      19,
+      20
+     ],
+     "bytes": 3219,
+     "chars": 1081,
+     "dropped_uids": [],
+     "inject_order": [
+      18,
+      1,
+      2,
+      3,
+      6,
+      20,
+      19
+     ],
+     "turn": 2
+    },
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      20
+     ],
+     "turn": 3
+    },
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      20
+     ],
+     "turn": 4
+    },
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      20
+     ],
+     "turn": 5
+    },
+    {
+     "active_uids": [
+      1,
+      20
+     ],
+     "bytes": 2868,
+     "chars": 956,
+     "dropped_uids": [],
+     "inject_order": [
+      1,
+      20
+     ],
+     "turn": 6
+    }
+   ],
+   "unsupported": [
+    {
+     "field": "regex_key",
+     "reason": "baseline-literal-key"
+    },
+    {
+     "field": "macro_expand",
+     "reason": "baseline-no-macro"
+    },
+    {
+     "field": "tokenizer",
+     "reason": "baseline-no-tokenizer"
+    },
+    {
+     "field": "upstream_commit",
+     "reason": "baseline-local-no-upstream"
+    }
+   ]
+  }
+ },
+ "timing_policy": {
+  "samples": 7,
+  "scope": "process-start-to-exit-full-6-turns",
+  "warmup": 1
+ }
+}

@@ -1,0 +1,11 @@
+# adapter=sillytavern warmup=1 samples=7
+# profile=P0
+DETERMINISM sillytavern repeats=8 identical=true sha=4bedb7143038ef1e332328cb0b172d20cf9577aa170e46941593a5d655cd6358
+# profile=P1
+DETERMINISM sillytavern repeats=8 identical=true sha=8bd2acdc5b88a7e5540810e0e287cf0bd720ace991f41d38ab02e690f7dc43ab
+# profile=P2
+DETERMINISM sillytavern repeats=8 identical=true sha=f84d8deb4873df3b7bbc4c12fb89a90be03b3095798dc0ad564ebfc5923de929
+# profile=P3
+DETERMINISM sillytavern repeats=8 identical=true sha=c9aaeea232804460d447e3b9084d85942bad8090adc4d9d819d0695078ff609c
+# profile=P4
+DETERMINISM sillytavern repeats=8 identical=true sha=3b02affe3d0742c79286a994359e42d9d595294e9772ac7cc45883a00f7198dd

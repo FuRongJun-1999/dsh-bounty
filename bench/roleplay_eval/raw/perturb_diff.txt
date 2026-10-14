@@ -1,0 +1,34 @@
+# score.py ablation-diff name=perturb baseline=baseline profiles=P0,P1,P2,P3,P4
+# a=<name>@<high> b=<name>@<low> profile=<high>vs<low>；横轴=同名方案两档之间的差异
+# P0vsP3=budget（active 口径另加一行 .dropped 口径） P0vsP1=recursive P0vsP2=scan_depth P0vsP4=match_profile
+# 行语法同 baseline-diff；空集合写 -
+DIFF perturb@P0 perturb@P3 P0vsP3 turn=1 only_a=5,20,25 only_b=18,19 same=5
+DIFF perturb@P0.dropped perturb@P3.dropped P0vsP3 turn=1 only_a=- only_b=20 same=0
+DIFF perturb@P0 perturb@P3 P0vsP3 turn=2 only_a=20 only_b=- same=12
+DIFF perturb@P0.dropped perturb@P3.dropped P0vsP3 turn=2 only_a=- only_b=20 same=0
+DIFF perturb@P0 perturb@P3 P0vsP3 turn=3 only_a=20 only_b=- same=7
+DIFF perturb@P0.dropped perturb@P3.dropped P0vsP3 turn=3 only_a=- only_b=20 same=0
+DIFF perturb@P0 perturb@P3 P0vsP3 turn=4 only_a=20 only_b=- same=6
+DIFF perturb@P0.dropped perturb@P3.dropped P0vsP3 turn=4 only_a=- only_b=20 same=0
+DIFF perturb@P0 perturb@P3 P0vsP3 turn=5 only_a=20 only_b=- same=4
+DIFF perturb@P0.dropped perturb@P3.dropped P0vsP3 turn=5 only_a=- only_b=20 same=0
+DIFF perturb@P0 perturb@P3 P0vsP3 turn=6 only_a=20 only_b=- same=3
+DIFF perturb@P0.dropped perturb@P3.dropped P0vsP3 turn=6 only_a=- only_b=20 same=0
+DIFF perturb@P0 perturb@P1 P0vsP1 turn=1 only_a=5,25 only_b=18,19 same=6
+DIFF perturb@P0 perturb@P1 P0vsP1 turn=2 only_a=13 only_b=- same=12
+DIFF perturb@P0 perturb@P1 P0vsP1 turn=3 only_a=13 only_b=- same=7
+DIFF perturb@P0 perturb@P1 P0vsP1 turn=4 only_a=- only_b=- same=7
+DIFF perturb@P0 perturb@P1 P0vsP1 turn=5 only_a=- only_b=- same=5
+DIFF perturb@P0 perturb@P1 P0vsP1 turn=6 only_a=- only_b=- same=4
+DIFF perturb@P0 perturb@P2 P0vsP2 turn=1 only_a=2,3,4,5,6,25 only_b=- same=2
+DIFF perturb@P0 perturb@P2 P0vsP2 turn=2 only_a=2,3,4,5,6,12,13,18,19 only_b=- same=4
+DIFF perturb@P0 perturb@P2 P0vsP2 turn=3 only_a=11,12,13,15 only_b=- same=4
+DIFF perturb@P0 perturb@P2 P0vsP2 turn=4 only_a=15,25 only_b=- same=5
+DIFF perturb@P0 perturb@P2 P0vsP2 turn=5 only_a=13,14 only_b=- same=3
+DIFF perturb@P0 perturb@P2 P0vsP2 turn=6 only_a=21 only_b=- same=3
+DIFF perturb@P0 perturb@P4 P0vsP4 turn=1 only_a=4,5,25 only_b=18,19 same=5
+DIFF perturb@P0 perturb@P4 P0vsP4 turn=2 only_a=4,5,10,11,12,13 only_b=- same=7
+DIFF perturb@P0 perturb@P4 P0vsP4 turn=3 only_a=10,11,12,13,15,25 only_b=- same=2
+DIFF perturb@P0 perturb@P4 P0vsP4 turn=4 only_a=10,13,14,15,25 only_b=- same=2
+DIFF perturb@P0 perturb@P4 P0vsP4 turn=5 only_a=13,14,21 only_b=- same=2
+DIFF perturb@P0 perturb@P4 P0vsP4 turn=6 only_a=7,21 only_b=- same=2

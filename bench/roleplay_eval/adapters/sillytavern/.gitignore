@@ -1,0 +1,3 @@
+# upstream/ 是 fetch_upstream.sh 按锁定 sha 重建的只读源码快照，不进版本库。
+upstream/
+server.log

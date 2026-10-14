@@ -1,0 +1,13 @@
+# score.py kpi name=perturb baseline=baseline profiles=P0,P1,P2,P3,P4 bootstrap_iters=2000 bootstrap_seed=0 alpha=0.05
+# 配对单位=(profile,turn)；Δ 类 KPI（名字含 _delta）= 方案 − 基线；n<2 时 ci=[-,-]
+KPI M1_active_f1 value=0.958333 ci=[0.875,1] n=6
+KPI M1_active_f1_delta value=-0.0416667 ci=[-0.125,0] n=6
+KPI M1_active_symdiff value=0.666667 ci=[0,2] n=6
+KPI M2_order_inv value=4.33333 ci=[0,9.33333] n=6
+KPI M2_order_inv_delta value=2.5 ci=[0,7.5] n=6
+KPI M3_budget_dropped_delta value=0 ci=[0,0] n=6
+KPI M4_recursion_ablation_delta value=0.666667 ci=[0,2] n=6
+KPI M5_depth_ablation_delta value=0 ci=[0,0] n=6
+KPI M6_determinism value=0 ci=[-,-] n=0
+KPI M7_match_ablation_delta value=0.666667 ci=[0,2] n=6
+KPI M8_total_active_uids value=170 ci=[137,203] n=30

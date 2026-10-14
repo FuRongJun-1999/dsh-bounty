@@ -1,0 +1,89 @@
+# independent_recompute.py 独立复算报告（不采信任何已有读数，全部从原始文件重算）
+# root=D:/A-part-of-new-software/PROJIECT/_bounty67/bench/roleplay_eval
+# 口径披露：CONTRACT §2 十条规则之外的 6 处边界取值
+#   ① 全词匹配：键首尾均为字母数字或下划线时用 \b 语义，否则退回普通包含
+#   ② 空次级键：and_all 为假、not_any 为真
+#   ③ 递归额外文本＝当前已激活条目正文；constant 条目不参与递归触发
+#   ④ 递归轮次主键在「窗口文本＋已激活正文」上判，二级键仍只在窗口文本上判
+#   ⑤ 概率条目每 turn 重置 random.Random(seed)，按 uid 升序各取一次
+#   ⑥ 预算判定式 used + chars <= budget_chars，取等号保留
+
+# 发现的方案：diceframe,risuai,sillytavern
+
+# A. 夹具复算：临时目录重跑 make_fixture.py，比对 data/ 三产物 sha256
+RECOMPUTE fixture file=data/worldbook.json sha_repo=e5614804d895d0aee40a0d696589dccb844801773b9e6f8a85709e0f5407b093 sha_rerun=e5614804d895d0aee40a0d696589dccb844801773b9e6f8a85709e0f5407b093 match=true
+RECOMPUTE fixture file=data/chat.jsonl sha_repo=e36f47a523868089d7c93dcb9744aec4dcf5b565b1c3ea799877fd4b3ac9efa5 sha_rerun=e36f47a523868089d7c93dcb9744aec4dcf5b565b1c3ea799877fd4b3ac9efa5 match=true
+RECOMPUTE fixture file=data/profiles.json sha_repo=0856ea6d318153ba9f46ca6e02ff307f6c2174129917850e3e771360a494dd1c sha_rerun=0856ea6d318153ba9f46ca6e02ff307f6c2174129917850e3e771360a494dd1c match=true
+RECOMPUTE fixture generator_exit=0 tmp=系统临时目录（已删除）
+
+# B. 基线语义独立复算：P0..P4 × turn1..6 的 active_uids / inject_order / dropped_uids
+RECOMPUTE baseline P0 turn=1 match=true
+RECOMPUTE baseline P0 turn=2 match=true
+RECOMPUTE baseline P0 turn=3 match=true
+RECOMPUTE baseline P0 turn=4 match=true
+RECOMPUTE baseline P0 turn=5 match=true
+RECOMPUTE baseline P0 turn=6 match=true
+RECOMPUTE baseline P1 turn=1 match=true
+RECOMPUTE baseline P1 turn=2 match=true
+RECOMPUTE baseline P1 turn=3 match=true
+RECOMPUTE baseline P1 turn=4 match=true
+RECOMPUTE baseline P1 turn=5 match=true
+RECOMPUTE baseline P1 turn=6 match=true
+RECOMPUTE baseline P2 turn=1 match=true
+RECOMPUTE baseline P2 turn=2 match=true
+RECOMPUTE baseline P2 turn=3 match=true
+RECOMPUTE baseline P2 turn=4 match=true
+RECOMPUTE baseline P2 turn=5 match=true
+RECOMPUTE baseline P2 turn=6 match=true
+RECOMPUTE baseline P3 turn=1 match=true
+RECOMPUTE baseline P3 turn=2 match=true
+RECOMPUTE baseline P3 turn=3 match=true
+RECOMPUTE baseline P3 turn=4 match=true
+RECOMPUTE baseline P3 turn=5 match=true
+RECOMPUTE baseline P3 turn=6 match=true
+RECOMPUTE baseline P4 turn=1 match=true
+RECOMPUTE baseline P4 turn=2 match=true
+RECOMPUTE baseline P4 turn=3 match=true
+RECOMPUTE baseline P4 turn=4 match=true
+RECOMPUTE baseline P4 turn=5 match=true
+RECOMPUTE baseline P4 turn=6 match=true
+
+# C. 注入正文溯源：out/<name>_P*.json 的 blocks 与 data/worldbook.json 同 uid 内容比对
+PROVENANCE diceframe P0 blocks=46 mismatch=0
+PROVENANCE diceframe P1 blocks=44 mismatch=0
+PROVENANCE diceframe P2 blocks=18 mismatch=0
+PROVENANCE diceframe P3 blocks=40 mismatch=0
+PROVENANCE diceframe P4 blocks=22 mismatch=0
+PROVENANCE risuai P0 blocks=49 mismatch=0
+PROVENANCE risuai P1 blocks=47 mismatch=0
+PROVENANCE risuai P2 blocks=22 mismatch=0
+PROVENANCE risuai P3 blocks=43 mismatch=0
+PROVENANCE risuai P4 blocks=14 mismatch=0
+PROVENANCE sillytavern P0 blocks=48 mismatch=2
+  DETAIL provenance sillytavern P0 turn3:uid25(expected 39/73/9740957ad59c got 25/59/13763707e2e7) | turn4:uid25(expected 39/73/9740957ad59c got 25/59/965f6f8351c6)
+  FACT sillytavern uid=25 世界书原文 chars=39 bytes=73 sha=9740957ad59c12c1；out 中观测到 3 种取值：chars=25 bytes=59 sha=13763707e2e7b428 ; chars=25 bytes=59 sha=965f6f8351c68252 ; chars=25 bytes=59 sha=b19b9fb41ca55742
+PROVENANCE sillytavern P1 blocks=46 mismatch=2
+  DETAIL provenance sillytavern P1 turn3:uid25(expected 39/73/9740957ad59c got 25/59/13763707e2e7) | turn4:uid25(expected 39/73/9740957ad59c got 25/59/965f6f8351c6)
+  FACT sillytavern uid=25 世界书原文 chars=39 bytes=73 sha=9740957ad59c12c1；out 中观测到 3 种取值：chars=25 bytes=59 sha=13763707e2e7b428 ; chars=25 bytes=59 sha=965f6f8351c68252 ; chars=25 bytes=59 sha=b19b9fb41ca55742
+PROVENANCE sillytavern P2 blocks=23 mismatch=1
+  DETAIL provenance sillytavern P2 turn3:uid25(expected 39/73/9740957ad59c got 25/59/b19b9fb41ca5)
+  FACT sillytavern uid=25 世界书原文 chars=39 bytes=73 sha=9740957ad59c12c1；out 中观测到 3 种取值：chars=25 bytes=59 sha=13763707e2e7b428 ; chars=25 bytes=59 sha=965f6f8351c68252 ; chars=25 bytes=59 sha=b19b9fb41ca55742
+PROVENANCE sillytavern P3 blocks=34 mismatch=0
+PROVENANCE sillytavern P4 blocks=45 mismatch=2
+  DETAIL provenance sillytavern P4 turn3:uid25(expected 39/73/9740957ad59c got 25/59/13763707e2e7) | turn4:uid25(expected 39/73/9740957ad59c got 25/59/965f6f8351c6)
+  FACT sillytavern uid=25 世界书原文 chars=39 bytes=73 sha=9740957ad59c12c1；out 中观测到 3 种取值：chars=25 bytes=59 sha=13763707e2e7b428 ; chars=25 bytes=59 sha=965f6f8351c68252 ; chars=25 bytes=59 sha=b19b9fb41ca55742
+
+# D. 差异与指标独立复算：方案 vs baseline 的逐 turn 对称差 ＋ M1/M2
+RECOMPUTE diceframe baseline_diff lines=30 mismatch=0 match=true
+RECOMPUTE M1_active_f1 diceframe reported=0.925954 recomputed=0.925954 same_text=true absdiff=1.43e-07 n_reported=6 n_recomputed=6 match=true
+RECOMPUTE M2_order_inv diceframe reported=11.3333 recomputed=11.333333 same_text=true absdiff=3.33e-05 n_reported=6 n_recomputed=6 match=true
+RECOMPUTE risuai baseline_diff lines=30 mismatch=0 match=true
+RECOMPUTE M1_active_f1 risuai reported=0.960648 recomputed=0.960648 same_text=true absdiff=1.48e-07 n_reported=6 n_recomputed=6 match=true
+RECOMPUTE M2_order_inv risuai reported=25.6667 recomputed=25.666667 same_text=true absdiff=3.33e-05 n_reported=6 n_recomputed=6 match=true
+RECOMPUTE sillytavern baseline_diff lines=30 mismatch=0 match=true
+RECOMPUTE M1_active_f1 sillytavern reported=0.974219 recomputed=0.974219 same_text=true absdiff=3.17e-07 n_reported=6 n_recomputed=6 match=true
+RECOMPUTE M2_order_inv sillytavern reported=22.6667 recomputed=22.666667 same_text=true absdiff=3.33e-05 n_reported=6 n_recomputed=6 match=true
+
+# 说明：make_fixture.py 的产物路径固定为 <仓库>/data/，无法指向任意目录；
+#       本器把该脚本复制进系统临时目录的 harness/ 下重跑，使其相对路径落回临时目录。
+RECOMPUTE-SUMMARY match_true=42 match_false=0 exit=0

@@ -107,7 +107,9 @@ DIFFICULTY_SCORES = {"difficulty:easy": 1, "difficulty:medium": 3,
 SCORE_DEFAULT = 1
 
 #: 授权角色名（账本 `role` 事件的 role 取值）。名单（Config.maintainers/reviewers）是**启动面**，
-#: 账本 role 事件是**权威面**——两者取并集，撤销以账本为准。
+#: 账本 role 事件是**权威面**——授权面 = 启动面 ∪ 账本 grant，**再减去账本最新态为 revoke 的主体**
+#: （见 `role_revocations` 与 `handle_issue_comment` 的 is_rev/is_maint）。
+#: 例外：GitHub 关联身份（OWNER/MEMBER/COLLABORATOR）是**平台事实**，账本 revoke 不撤销它。
 ROLE_NAMES = ("reviewer", "maintainer")
 #: 须回避的角色动作：actor 不得与本 issue 当前持有者同一人（自审自结闸；对维护者与审核员**一律**生效）。
 #: **本表是死常量**：评委决定的实现是各 `_do_*` 里的显式 `needs_recusal` 调用，没有读本表的代码路径
@@ -293,6 +295,12 @@ MARKER_RE = re.compile(r"<!--\s*bounty:v1\s+(\{.*?\})\s*-->", re.DOTALL)
 _URL_RE = re.compile(r"https?://[^\s<>()\[\]`\"']+")
 #: 证据块判据：围栏代码块（``` 或 ~~~，行首可有空白）。
 _FENCE_RE = re.compile(r"^\s*(?:`{3,}|~{3,})", re.M)
+#: `formula` 的**轮次来源标记**（「一次过闸占比」判据的前提是轮次来源可辨）：
+#:   `"live"` = 状态机产出（`/deliver` 轮次计数 ⇒ `round = rounds-1` 是**返工事实**）；
+#:   缺省/其它 = 追溯性结算（维护者补记，`round=1` 是**中性点约定**，非返工事实）。
+#: 见 `promotion_report`：只把来源可辨的轮次计入占比分母，占位不进分母。
+ROUND_MODE_LIVE = "live"
+
 #: 交付链接指向本仓 PR 的形态：`/pull/<n>`。
 _PULL_RE = re.compile(r"(?:^|/)pull/(\d+)(?:$|[/?#])")
 
@@ -1072,6 +1080,9 @@ def _do_settle(st, actor, now, cfg, is_maintainer):
     _cr = _norm_criteria(st.criteria)
     _ep, _et = (int(_cr[0]), int(_cr[1])) if len(_cr) == 2 else (None, None)
     score, formula = quality_delta(_base, st.rounds, e_pass=_ep, e_total=_et)
+    # ★本笔：给 formula 打**轮次来源标记**——状态机产出的轮次是返工事实，追溯性补记的
+    # round=1 只是中性点约定。`promotion_report` 靠它区分（缺陷 #267）。
+    formula = dict(formula or {}, mode=ROUND_MODE_LIVE)
     diff = st.difficulty.split(":", 1)[-1] if st.difficulty else ""
     _en = f"；E = {_ep}/{_et}" if _et else ""
     note = (f"{diff}（base {_base}{_en}）" if diff
@@ -1254,6 +1265,31 @@ def roles_from_events(events):
     return out
 
 
+# 生效条件：events 为账本事件列表时返回 {role: {登录名}}——**同一 (subject, role) 的最新一条 role
+# 事件说了算**，最新一条是 `revoke` 则进集合。用于把「账本是权威面」落到授权判定上：启动面
+# 名单（`Config.reviewers`）与账本 grant **都可被账本 revoke 撤销**（缺陷 #268）。纯函数、零 IO。
+def role_revocations(events):
+    latest = {}
+    for ev in events or []:
+        if ev.get("action") != "role":
+            continue
+        who = (ev.get("subject") or "").strip()
+        role = (ev.get("role") or "").strip()
+        op = (ev.get("op") or "").strip()
+        if not who or role not in ROLE_NAMES or op not in ("grant", "revoke"):
+            continue
+        ts = ev.get("ts") or ""
+        key = (role, who)
+        if key in latest and (latest[key][0] or "") > ts:
+            continue
+        latest[key] = (ts, op)
+    out = {r: set() for r in ROLE_NAMES}
+    for (role, who), (_ts, op) in latest.items():
+        if op == "revoke":
+            out[role].add(who)
+    return out
+
+
 # 生效条件：events 为账本事件列表、meta_by_issue 为 {issue号: {project: ...}} 时返回晋升审核员的
 # **复合判据**评估——按人聚合声誉分/已结算项数/一次过闸（round=0）占比/无效交付/超时/争议提起，
 # 逐条对照 PROMOTION_RULES，给出 eligible ＋ blockers ＋ evidence_gaps。纯函数、零 IO。
@@ -1270,6 +1306,7 @@ def promotion_report(events, meta_by_issue=None):
         row = per.setdefault(who, {
             "login": who, "reputation_delta": 0, "settled": 0, "round0": 0,
             "round_known": 0, "round_seen": set(), "invalid": 0, "timeout": 0, "disputes": 0,
+            "live_known": 0, "live_round0": 0,
             "projects": set(), "issues": []})
         row["reputation_delta"] += int(ev.get("delta") or 0)
         if act == "settle":
@@ -1285,6 +1322,11 @@ def promotion_report(events, meta_by_issue=None):
             row["round_seen"].add(int(f["round"]))
             if int(f["round"]) == 0:
                 row["round0"] += 1
+            # ★本笔：另立一份**只收来源可辨（状态机）轮次**的计数（缺陷 #267）。
+            if f.get("mode") == ROUND_MODE_LIVE:
+                row["live_known"] += 1
+                if int(f["round"]) == 0:
+                    row["live_round0"] += 1
         try:
             ino = int(ev.get("issue") or 0)
         except (TypeError, ValueError):
@@ -1305,16 +1347,28 @@ def promotion_report(events, meta_by_issue=None):
             blockers.append("无效交付 %d 项 > %d" % (row["invalid"], R["max_invalid"]))
         if row["timeout"] > R["max_timeout"]:
             blockers.append("超时未交付 %d 项 > %d" % (row["timeout"], R["max_timeout"]))
-        #: 区分度前置：追溯性结算的 round 恒为 1（中性占位，非真实返工次数）⇒
-        #: 「一次过闸占比」在该数据上**无区分度**，属不适用（记缺口、不阻塞）；
-        #: 一旦出现 round=0（一次过闸）或 round>=2（多次返工），判据自动生效。
-        if not row["round_known"]:
+        #: 区分度前置（**轮次来源可辨**是判据的前提，缺陷 #267）：
+        #:   · 有状态机事件（`formula.mode == "live"`）⇒ 只用它算占比——轮次是返工事实；
+        #:     追溯性事件记缺口、**不进分母**（否则中性占位会稀释占比、且判据非单调）。
+        #:   · 只有追溯性事件 ⇒ 沿用既有口径：round 全为 1 时无区分度（中性占位），
+        #:     出现 round=0（一次过闸）或 round>=2（多次返工）才算有区分度。
+        ratio_src = None
+        if row["live_known"]:
+            ratio = row["live_round0"] / row["live_known"]
+            ratio_src = ROUND_MODE_LIVE
+            if row["round_known"] > row["live_known"]:
+                gaps.append("另有 %d 条追溯性结算无状态机轮次证据，未计入占比分母"
+                            % (row["round_known"] - row["live_known"]))
+            if ratio < R["min_round0_ratio"]:
+                blockers.append("一次过闸占比 %.2f < %.2f" % (ratio, R["min_round0_ratio"]))
+        elif not row["round_known"]:
             gaps.append("无 round 数据（一次过闸占比不可判）——该条判据不适用")
         elif len(row["round_seen"] - {1}) == 0:
             gaps.append("round 全为中性占位（追溯性结算无状态机轮次证据）——"
                         "一次过闸占比无区分度，该条判据不适用")
         else:
             ratio = row["round0"] / row["round_known"]
+            ratio_src = "retro"
             if ratio < R["min_round0_ratio"]:
                 blockers.append("一次过闸占比 %.2f < %.2f" % (ratio, R["min_round0_ratio"]))
         if row["disputes"]:
@@ -1323,7 +1377,8 @@ def promotion_report(events, meta_by_issue=None):
             "login": who, "reputation_delta": row["reputation_delta"],
             "settled": row["settled"], "round0": row["round0"],
             "round_known": row["round_known"],
-            "round0_ratio": (row["round0"] / row["round_known"]) if row["round_known"] else None,
+            "round0_ratio": ratio if ratio_src else None,
+            "round0_ratio_source": ratio_src,
             "round_seen": sorted(row["round_seen"]),
             "invalid": row["invalid"], "timeout": row["timeout"],
             "disputes": row["disputes"],
@@ -1933,12 +1988,20 @@ def handle_issue_comment(payload, cfg: Config, client, apply=False, out=print):
     st = build_state(number, labels, client.comments(number),
                      author=(issue.get("user") or {}).get("login"))
     assoc = (comment.get("author_association") or "").upper()
-    is_maint = (actor in cfg.maintainers
-                or assoc in ("OWNER", "MEMBER", "COLLABORATOR"))
     # 审核员面 = 账本 `role` 事件（权威面）∪ `BOUNTY_REVIEWERS`（启动面）。
     # 账本缺失 → load_ledger 返回 []，审核员面为空（**fail-closed**：不因读不到账本就放宽授权）。
-    _roles = roles_from_events(load_ledger(cfg.ledger_path))
+    _ledger = load_ledger(cfg.ledger_path)
+    _roles = roles_from_events(_ledger)
+    _revoked = role_revocations(_ledger)
+    is_maint = (actor in cfg.maintainers
+                or actor in _roles['maintainer']
+                or assoc in ("OWNER", "MEMBER", "COLLABORATOR"))
+    # 账本最新态为 revoke 的主体不再授权；**GitHub 关联身份是平台事实**，账本撤销不覆盖它
+    # （站内授权与平台身份分离——否则一条账本事件即可锁死仓主）。
+    if assoc not in ("OWNER", "MEMBER", "COLLABORATOR"):
+        is_maint = is_maint and actor not in _revoked['maintainer']
     is_rev = actor in cfg.reviewers or actor in _roles['reviewer']
+    is_rev = is_rev and actor not in _revoked['reviewer']
     pr_meta = None
     if cmd == "/deliver":
         prn = extract_pr_number(cmd_payload, client.repo)

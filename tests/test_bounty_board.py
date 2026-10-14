@@ -992,6 +992,88 @@ def group_reviewers():
     ok("R30 出现 round=0/>=2 → 有区分度，判据自动生效",
        mx["eligible"] is False and any("一次过闸" in x for x in mx["blockers"]),
        str(mx["blockers"]))
+    # ---- ★本笔新增（缺陷 #267：轮次来源可辨 ⇒ 判据单调）----
+    def _live(who, delta, rnd, ino):
+        return {"ts": "2026-10-12T00:00:00Z", "issue": ino, "action": "settle",
+                "actor": "m", "holder": who, "delta": delta,
+                "formula": {"kind": "complete", "round": rnd, "mode": "live"}}
+    rep = bb.promotion_report([_live("lx", 20, 1, i) for i in (1, 2, 3, 4)])
+    lx = _pick(rep, "lx")
+    ok("R36 真模式 round=1（返工一次）计入占比分母 ⇒ 阻塞（不再当占位）",
+       lx["eligible"] is False and any("一次过闸" in x for x in lx["blockers"]),
+       str(lx["blockers"]))
+    ok("R37 轮次来源可审计（round0_ratio_source=live）",
+       lx.get("round0_ratio_source") == "live", lx.get("round0_ratio_source"))
+    _xr = [_live("xr", 20, 1, i) for i in (1, 2, 3, 4)]
+    _yr = [_live("yr", 30, 0, 5)] + [_live("yr", 20, 1, i) for i in (6, 7, 8)]
+    rep = bb.promotion_report(_xr + _yr)
+    xg = _pick(rep, "xr")
+    yg = _pick(rep, "yr")
+    ok("R38 单调性：全返工者（低分）与偶尔一次过闸者（高分）**都不得达标**"
+       "——修前低分者反被判「无区分度」而达标（判据非单调、可博弈）",
+       xg["eligible"] is False and yg["eligible"] is False,
+       (xg["eligible"], str(xg["blockers"]), yg["eligible"], str(yg["blockers"])))
+    rep = bb.promotion_report([_live("mix2", 20, 0, 1), _sev("mix2", 20, 2, ino=2)])
+    m2 = _pick(rep, "mix2")
+    ok("R39 live 与追溯混合 ⇒ 只用 live 算占比，追溯事件记缺口（不进分母）",
+       m2["round0_ratio"] == 1.0 and m2.get("round0_ratio_source") == "live"
+       and any("追溯性结算" in x for x in m2["evidence_gaps"]),
+       (m2["round0_ratio"], m2["evidence_gaps"]))
+    _st267 = mk_state(state="verified", holder="solo")
+    _d267 = bb._do_settle(_st267, "FuRongJun-1999", NOW, CFG, is_maintainer=True)
+    ok("R40 真模式 /settle 的 formula 带 mode=live（轮次来源可辨，非默认）",
+       _d267.ok is True and (_d267.event.get("formula") or {}).get("mode") == "live",
+       (_d267.event.get("formula") or {}).get("mode"))
+
+    # ---- ★本笔新增（缺陷 #268：账本 role 是权威面）----
+    def _role_ev(sub, role, op, ts):
+        e = {"ts": ts, "issue": 0, "action": "role", "actor": "FuRongJun-1999",
+             "subject": sub, "role": role, "op": op, "reason": "夹具"}
+        e["id"] = bb.event_id(e)
+        return e
+    _rv = bb.role_revocations([_role_ev("rev1", "reviewer", "grant", "2026-10-12T00:00:00Z"),
+                               _role_ev("rev1", "reviewer", "revoke", "2026-10-12T01:00:00Z")])
+    ok("R41 账本最新态为 revoke → 进撤销集",
+       "rev1" in _rv["reviewer"], sorted(_rv["reviewer"]))
+    _rv2 = bb.role_revocations([_role_ev("g1", "maintainer", "grant", "2026-10-12T00:00:00Z")])
+    ok("R42 账本最新态为 grant → 不在撤销集",
+       "g1" not in _rv2["maintainer"], sorted(_rv2["maintainer"]))
+    _rv3 = bb.role_revocations([_role_ev("r2", "reviewer", "revoke", "2026-10-12T00:00:00Z"),
+                                _role_ev("r2", "reviewer", "grant", "2026-10-12T01:00:00Z")])
+    ok("R43 撤销后再授予 → 以最晚一条为准（不在撤销集）",
+       "r2" not in _rv3["reviewer"], sorted(_rv3["reviewer"]))
+    _vst268 = '<!-- bounty:v1 {"state":"delivered","holder":"zoe","rounds":1,"seq":1} -->'
+    _l1 = os.path.join(tempfile.mkdtemp(prefix="bounty_r268_"), "ledger.json")
+    bb.write_ledger(_l1, [_role_ev("rev1", "reviewer", "grant", "2026-10-12T00:00:00Z"),
+                          _role_ev("rev1", "reviewer", "revoke", "2026-10-12T01:00:00Z")])
+    _c1, _e1 = _route_cfg(_issue_payload("/verify pass 读数齐全", actor="rev1"),
+                          _FakeClient(comments=[_vst268]),
+                          bb.Config(reviewers=("rev1",), ledger_path=_l1))
+    ok("R44 启动面名单里的审核员被账本 revoke ⇒ 真模式 /verify 拒（撤销以账本为准）",
+       _e1 and (_e1[0].get("reason") or "").startswith("not_maintainer"),
+       (_e1[0].get("reason") if _e1 else None))
+    _l2 = os.path.join(tempfile.mkdtemp(prefix="bounty_r268b_"), "ledger.json")
+    bb.write_ledger(_l2, [_role_ev("mt2", "maintainer", "grant", "2026-10-12T00:00:00Z")])
+    _c2, _e2 = _route_cfg(_issue_payload("/verify pass 读数齐全", actor="mt2"),
+                          _FakeClient(comments=[_vst268]),
+                          bb.Config(ledger_path=_l2))
+    ok("R45 账本 grant maintainer ⇒ 真模式 /verify 放行（不再是死数据）",
+       _e2 and _e2[0].get("action") == "verify",
+       (_e2[0].get("action") if _e2 else None, _e2[0].get("reason") if _e2 else None))
+    bb.write_ledger(_l2, [_role_ev("mt2", "maintainer", "grant", "2026-10-12T00:00:00Z"),
+                          _role_ev("mt2", "maintainer", "revoke", "2026-10-12T01:00:00Z")])
+    _c3, _e3 = _route_cfg(_issue_payload("/verify pass 读数齐全", actor="mt2", assoc="COLLABORATOR"),
+                          _FakeClient(comments=[_vst268]),
+                          bb.Config(ledger_path=_l2))
+    ok("R46 账本 revoke 不撤销 GitHub 关联身份（平台事实 ≠ 站内授权）",
+       _e3 and _e3[0].get("action") == "verify",
+       (_e3[0].get("action") if _e3 else None, _e3[0].get("reason") if _e3 else None))
+    _c4, _e4 = _route_cfg(_issue_payload("/verify pass 读数齐全", actor="mt2"),
+                          _FakeClient(comments=[_vst268]),
+                          bb.Config(maintainers=("mt2",), ledger_path=_l2))
+    ok("R47 启动面维护者被账本 revoke ⇒ /verify 拒（无平台身份时撤销生效）",
+       _e4 and (_e4[0].get("reason") or "").startswith("not_maintainer"),
+       (_e4[0].get("reason") if _e4 else None))
 
 # --- 准入闸：悬赏只能由维护者发布（标签闸之外的第二道；作者是兜底）---
 def group_admission():
@@ -1109,7 +1191,7 @@ _MUTATIONS = (
      "        _td, _tf = -1, None  # MUT", {"G9"}),
     ("M13 去 formula 快照（复算链断）",
      "    if formula is not None:",
-     "    if False:  # MUT", {"G7", "G19", "G20", "G23", "G24", "G26"}),
+     "    if False:  # MUT", {"G7", "G19", "G20", "G23", "G24", "G26", "R40"}),
     ("M14 舍入改内置 round（银行家）",
      "    return int(math.floor(x + 0.5))",
      "    return int(round(x))  # MUT", {"G18"}),
@@ -1188,8 +1270,8 @@ _MUTATIONS = (
       '        if info["op"] == "grant":',
       '        if True:  # MUT', {"R12", "R13"}),
      ("M38 无 round 数据不记「不适用」缺口",
-      '        if not row["round_known"]:' + chr(10) + '            gaps.append("无 round 数据（一次过闸占比不可判）——该条判据不适用")',
-      '        if False:  # MUT' + chr(10) + '            gaps.append("无 round 数据（一次过闸占比不可判）——该条判据不适用")', {"R22"}),
+      '        elif not row["round_known"]:' + chr(10) + '            gaps.append("无 round 数据（一次过闸占比不可判）——该条判据不适用")',
+      '        elif False:  # MUT' + chr(10) + '            gaps.append("无 round 数据（一次过闸占比不可判）——该条判据不适用")', {"R22"}),
      ("M39 无效交付不阻塞晋升",
       '        if row["invalid"] > R["max_invalid"]:',
       '        if False:  # MUT', {"R19"}),
@@ -1235,6 +1317,25 @@ _MUTATIONS = (
     ("M51 关真模式审核员面（账本 role 授权失效）",
      "    is_rev = actor in cfg.reviewers or actor in _roles['reviewer']",
      '    is_rev = actor in cfg.reviewers  # MUT', {"I8"}),
+    # ---- ★本笔新增（缺陷 #267 轮次来源可辨 / #268 账本 role 是权威面）----
+    ("M52 关账本 revoke 对审核员面的撤销（启动面名单撤销失效）",
+     "    is_rev = is_rev and actor not in _revoked['reviewer']",
+     '    is_rev = is_rev  # MUT', {"R44"}),
+    ("M53 关账本 grant maintainer 的授权（角色只导出、不授权）",
+     "                or actor in _roles['maintainer']",
+     '                or False  # MUT', {"R45"}),
+    ("M54 关账本 revoke 对维护者面的撤销",
+     "        is_maint = is_maint and actor not in _revoked['maintainer']",
+     '        is_maint = is_maint  # MUT', {"R47"}),
+    ("M55 关「轮次来源可辨」分支（把追溯占位与真轮次混算）",
+     '        if row["live_known"]:',
+     '        if False:  # MUT', {"R36", "R37", "R38", "R39"}),
+    ("M56 关 role_revocations 的撤销收集（撤销集恒空）",
+     '        if op == "revoke":',
+     '        if False:  # MUT', {"R41", "R44", "R47"}),
+    ("M57 不打轮次来源标记（formula 无 mode）",
+     '    formula = dict(formula or {}, mode=ROUND_MODE_LIVE)',
+     '    formula = formula  # MUT', {"R40"}),
 )
 
 
@@ -1284,7 +1385,10 @@ _MUT_TARGETS = (("M0", "parse_command"), ("M1", "_check_bounty_label"),
                 ("M45", "_guard_admitted_bounty"), ("M46", "_guard_admitted_bounty"),
                 ("M47", "_do_select"), ("M48", "needs_recusal"),
                 ("M49", "_do_select"), ("M50", "_accept"),
-                ("M51", "handle_issue_comment"))
+                ("M51", "handle_issue_comment"),
+                ("M52", "handle_issue_comment"), ("M53", "handle_issue_comment"),
+                ("M54", "handle_issue_comment"), ("M55", "promotion_report"),
+                ("M56", "role_revocations"), ("M57", "_do_settle"))
 
 
 def _anchor_preflight():

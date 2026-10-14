@@ -110,6 +110,24 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    295,
+    296,
+    297,
+    298,
+    299
+   ],
+   "login": "Yinfeng818",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 24,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -417,6 +435,20 @@
    ],
    "login": "ganzhe12138",
    "project": "scvm",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    294
+   ],
+   "login": "hawkongz",
+   "project": "lingshu",
    "quality_E": null,
    "reputation_delta": 6,
    "rounds": 1

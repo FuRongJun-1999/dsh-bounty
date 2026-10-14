@@ -2846,6 +2846,179 @@
         "delta": 3
       },
       "id": "evt_5a2f7abce687"
+    },
+    {
+      "ts": "2026-10-14T06:00:00Z",
+      "issue": 294,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "结算 hawkongz 的 lingshu 缺陷复验交付（申报件 #294，intake 输入件，target FuRongJun-1999/lingshu）。【内容】对 7 条已立案的 lingshu 缺陷做报送前复跑：6 条仍复现、1 条（lingshu #496）已由第三方 PR #535 修复；申报件如实分列，不把已修项当现行缺陷主张。【维护者独立取证】被测 commit 214717bcd5d6（= FuRongJun-1999/lingshu main，2026-10-14T04:03:50Z）。① 门禁面：#485 —— gate.yml 的 SCRIPT_TESTS 收录后 pytest 腿对整文件加 --ignore（L189-190），AST 核验该件 5 个顶层 test_* 与 main() 的被调用集交集为空 ⇒ 这些断言在 CI 两条腿下都不执行；#491 —— _test_files() 实测为非递归 listdir + 前缀名匹配（L95-96），子目录件与异名件从 pytest 收集面、SCRIPT_TESTS、覆盖守卫三个视野同时消失。② 检索面：#492 在干净树复跑逐项吻合 —— sqlite 3.49.1 上限 50000，q=49998B 三入口全 OK，q=49999B 起 recall_skill 与 search_skills 抛 OperationalError: LIKE or GLOB pattern too complex 而 search_content 仍 OK；AST 核验 _like_fragments 全仓生产代码仅 1 处调用（L2642，search_content），_escape_like 有 2 处（L2648 与 L2951 search_skills）⇒ 切分未接上 search_skills 这条路径；空表不报错、1 行即报错，与申报件所述触发前提一致。③ 恢复面：#493 实测 6 组（4 实验 + 2 对照）—— 设 cap=300/500/1000 导入后运行期 _context_max 恒为 200 而盘面 engine_meta.context_max 为 300/500/1000，导入后首条 add_context 使情境层从 imported 掉到 200（delta 分别 -100/-300/-400/-800），最早节点被裁掉；未设 cap 的 N=150/199 两条 delta=+1 且最早节点存活 ⇒ 不是导入必然裁剪，而是导入未回灌上限；AST 核验 _load_context_max 全仓仅 __init__ 1 处调用（L4162）、import_all 体内 0 命中。④ 持久化面：#494 实测 5 码点 —— 4 个孤立代理（U+D800/U+D83D/U+DC00/U+DFFF）经 ingest_frame(state_hint) 全部静默写进 nodes.state_attributes，随后 _write_influence 抛 UnicodeEncodeError: surrogates not allowed；代理对 U+1F600 两轮面均无异常（对照组）。⑤ 安全面：#495 —— 第一版探针用 AEIS_DESIGNER_KEY/ANTHROPIC_API_KEY/GITHUB_TOKEN/HIVE_API_KEY 等族外名，全部不透传，一度判未复现；改用沿前缀族探针后，LINGSHU_API_KEY/LINGSHU_SERVICE_TOKEN/LINGSHU_DB_PASSWORD/LINGSHU_SECRET/PYTHON_API_KEY/PYTHON_TOKEN/PYTHON_SECRET_KEY/LC_PASSWORD/LC_TOKEN 共 9 个凭据形状名全部透传，与申报件声称的 9 个逐字相同，族外 10 个对照全部正确剔除；被测 _ENV_ALLOW_PREFIXES = (PYTHON, LINGSHU_, LC_) 只做 startswith、不看名字里的凭据词元，而同文件 L124-130 自己写下了「前缀过宽会把凭据形状名整体放行」这条判据并据此排除了 HIVE_ —— 该原则对 HIVE_ 执行、对另外三个前缀未执行。【定档】影响 A：7 条中 2 条（#485/#491）是 CI 门禁自身的量具失效（守卫在两条腿下都不执行，「跑过且通过」与「从未执行」同形），2 条（#493/#494）是静默数据损坏与持久化毒行，1 条（#495）是凭据面 fail-open，逐字命中 IMPACT_CRITERIA A 档「核心链路失效」「量具失效」；难度 hard（申报值，维护者认同）：跨 ci/core/world/gen 四个面，需 AST 调用点核验 + 多组对照复跑 + 跨盘符隔离复现。【归并】7 条同批、同一会话账号、同一次复跑，按 #288（7 findings 一件）与 #289（5 findings 一件）先例合为一件工作项。【查重】与同提交者在本仓既有两件 #183（lingshu #6/#7/#8/#9/#10/#15/#16）与 #184（已落仓 3 个修复 PR）的编号集合两两交集为空，已逐条比对；账本内 hawkongz 仅 #292 一行、不同面。【举证瑕疵·不影响结论】申报件对 #496 如实标注为「已由第三方修复」而非我方，未虚报；#492 自陈未找到仓内自动路径会把 >=49999B 文本喂给 recall_skill（调用方在仓外），维护者认同该边界。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "covers": [
+        294
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_97ea958e3f4b"
+    },
+    {
+      "ts": "2026-10-14T06:05:00Z",
+      "issue": 295,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "结算 Yinfeng818 的 lingshu 通道可信度查询面交付（申报件 #295，intake 输入件；lingshu issue #539 / PR #554）。【内容】ChannelCredibilityRegistry 查询面三道缺口 + 修复 PR + 12 项守卫。【维护者独立取证】base cb3a6ea2dbd9（合并前）vs merge 1ebdc38c9092（合并后）单变量对照，同一探针两臂：① 分母无守卫 —— 持久化 a=0,b=0 时 credibility() 与 registry() 均抛 ZeroDivisionError（一次炸全表），a=-5,b=5（a+b=0）同样抛；修复后两者均回落先验 0.5。② NaN fail-open —— a=NaN,b=5 时 channel_state() 报 status=ok 且快照原样带出 NaN；修复后回落先验且快照 a/b 一并报先验（2.0/2.0），调用方不会再除出 NaN。③ 未知通道不可区分 —— visual/visaul/Visual/空串一律 cred=0.5 status=ok 且无 known 键；修复后 known=True/False/False/False 可区分。【净改动】merge^1..merge 精确读数 = 3 files +189/-6（channel_credibility.py +44/-5、tests/test_channel_cred_query_surface.py +144、intake 登记 sha +1/-1），与申报件声称的 3 files +189/-6 逐字相同。【判别力】把 PR 自带守卫复制进 pre-fix 基线跑 ⇒ 8 红；修复后原样跑 ⇒ 12 绿。★ 最强证据。【定档】影响 A（维护者上调，申报件自报 B）：缺口③ 在默认路径即成立且是 fail-open 语义错误 —— 拼错通道名与「通道真的健康」逐位不可区分，调用方无从判断；缺口① 是查询面未捕获异常且一次炸全表。二者合起来逐字命中 IMPACT_CRITERIA A 档「核心链路失效、语义错误」，故由 B 上调为 A（档位可申诉）。难度 hard（申报值，维护者认同）：三处语义面 + 新增 _sanitize fail-closed 只丢中毒通道不牵连其他 + additive 的 known 键。【归并】独立工作项 —— base cb3a6ea2dbd9 与该提交者其余各件的 base 均不同，基线各自推进；按 evt_0291fd5c72bd 与 evt_8804091ea390 先例「同一批的多份独立交付、被测对象不相交 ⇒ 各计一份」。【查重】账本内 Yinfeng818 无既有行；channel_credibility 面在账本内 0 命中。【举证瑕疵·不影响结论】申报件声称 3 files +189/-6 实测逐字吻合，无瑕疵；其自陈未在 Linux 复跑，维护者认同该边界。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "covers": [
+        295
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "pr": 554,
+      "id": "evt_03f0e062839a"
+    },
+    {
+      "ts": "2026-10-14T06:10:00Z",
+      "issue": 296,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "结算 Yinfeng818 的 lingshu 路线生成定序交付（申报件 #296，intake 输入件；lingshu issue #561 / PR #562）。【内容】_branch_candidates 返回未排序即被 [:max_branches] 截断，高置信边被低置信边挤出 + 修复 PR + 6 项守卫。【维护者独立取证】base 204b772240ed（合并前）vs merge ccfee12766c9（合并后）单变量对照：修复后 _branch_candidates 返回前执行 candidates.sort(key=lambda c: (-c[1], str(c[0])))（可信度降序、同分按 target_id 升序），切断对因果边 DB 返回序的依赖。diff 逐行核验确认该 sort 行由本 PR 引入，且 docstring 同步写明 #561 的病灶。【净改动】merge^1..merge 精确读数 = 3 files +140/-2（prediction.py +11/-1、tests/test_prediction_branch_order.py +128、intake 登记 sha +1/-1）。【判别力】把 PR 自带守卫复制进 pre-fix 基线跑 ⇒ 5 failed / 1 passed、rc=1；修复后原样跑 ⇒ 6 passed、rc=0 —— 与申报件声称的「pristine 5 failed / 1 passed，退出码 1；修复后 6 passed，退出码 0」逐字相同。第 6 项 test_guard_is_discriminating 是判别力锚定：把修前语义「取 DB 序前 3」直接写进用例，确认它确实把 0.99 的强边挤掉，而修后语义能选上，两端都跑。【定档】影响 B（申报值，维护者认同）：失效的是预测引擎的路线选择，属语义错误但落在探索性功能面，且需候选数超过 max_branches 才触发，命中 IMPACT_CRITERIA B 档「需特定路径才可触发的缺陷」；难度 hard（申报值，维护者认同）：修法虽只有 1 行，但定因需跨「候选产生 / 截断位置 / docstring 分层声明」三处做语义推理，并需构造仅改变插入序的对照证明非确定性。【归并】独立工作项 —— base 204b772240ed 与其余各件不同，基线各自推进。【查重】prediction 面在账本内 0 命中；与 #395（DFS visited 集与路线数指数增长）正交，申报件已自行声明。【举证瑕疵·不影响结论】申报件表内只列 2 files +139/-1，实测 merge 另含 intake 登记文件 +1/-1（申报件漏列）—— 属漏列登记件，prediction.py +11/-1 与守卫 +128 与声称逐字吻合，不影响结论、不据此扣分。【方法】核验 PR 净改动必须用 merge^1..merge；base..merge（两点）会把同期上游提交一并算进来，base...head（三点）在 fork 未同步时会把大量上游改动算成 PR 的。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "covers": [
+        296
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "pr": 562,
+      "id": "evt_65f643352033"
+    },
+    {
+      "ts": "2026-10-14T06:15:00Z",
+      "issue": 297,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "结算 Yinfeng818 的 lingshu 边验证可逆性交付（申报件 #297，intake 输入件；lingshu issue #563 / PR #564）。【内容】edges.verified 只写不撤 —— 全仓无 unverify 原语，误标后该边永久免衰减且不可回退；补 unverify_edge 一个方法 + 148 行守卫。【维护者独立取证】base ccfee12766c9（合并前）vs merge f48d34f59e7b（合并后）：修复新增 @_transactional 装饰的 unverify_edge(edge_id) -> bool，过共享层角色闸（#234）、返回 bool（拒/不存在 ⇒ False，与 delete_node/restore_node 契约一致）、落一条 action_logs（action=edge_unverified）可审计；UPDATE edges SET verified=0, last_verified=NULL。【净改动】merge^1..merge 精确读数 = 3 files +186/-1（core.py +37、tests/test_edge_unverify.py +148、intake 登记 sha +1/-1）—— 与申报件「净改动只有三处」吻合。【判别力】把 PR 自带守卫复制进 pre-fix 基线跑 ⇒ 8 红（含 AttributeError: 无 unverify_edge）；修复后原样跑 ⇒ 8 绿。★ 最强证据。【定档】影响 B（申报值，维护者认同）：失效的是边的可逆性治理面，误标后永久免衰减属核心链路语义错误，但需先发生误标才显现，命中 IMPACT_CRITERIA B 档「需特定路径才可触发的缺陷」；难度 medium（申报值，维护者认同）：新增一个方法 + 守卫，语义边界（拒/不存在/本就未验证三态）明确。判据来源为仓内 docs/plans/待裁清单_v0.1.md 的 D-43「需要（全仓现无 unverify ⇒ 一旦误标无法回退）」—— 维护者已就该需求作过裁定，本件是其落仓。【归并】独立工作项 —— base ccfee12766c9 恰为 #296 的 merge commit，说明本件是在 #296 落仓后的新基线上另起，基线推进、被测对象（edges 治理面）与 #296（prediction 面）不相交。【查重】unverify 面在账本内 0 命中；与 #117（一次命中把非参与边一并标 verified）同族但不同面 —— #117 是误标来源，本件是纠错入口。【举证瑕疵·不影响结论】申报件自行说明 compare 显示 +3369/-427 中绝大部分是上游同期 commit 的既有改动（fork 未同步所致），并声明本 PR 净改动只有三处；维护者用 merge^1..merge 口径核实其声明准确 —— 该自陈是如实边界而非夸大。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "covers": [
+        297
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "pr": 564,
+      "id": "evt_f0e31477376a"
+    },
+    {
+      "ts": "2026-10-14T06:20:00Z",
+      "issue": 298,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "结算 Yinfeng818 的 lingshu D-003 终裁身份互斥交付（申报件 #298，intake 输入件；lingshu issue #565 / PR #566）。【内容】adjudicate_promotion 零身份互斥 —— 提议人或复核人可自己终裁自己的提案，节点照进不可逆的 structure 层；同仓 A-2 流水线的 adjudicate_verifier_standard 已查身份，两条流水线口径不一致。【维护者独立取证】base f8f074770118（合并前）vs merge 214717bcd5d6（合并后）：base 的 adjudicate_promotion 段内 adjudicator 命中为 False（四项判据 —— 密钥闸 D-007、状态门、节点存续门 #167、内容哈希闸 #140 —— 无一涉及身份）；merge 段内命中为 True，新增 SELECT 扩列 requester, verified_by 与判定 if adjudicated_by and adjudicated_by in (x for x in (requester, verified_by) if x)，注释明写「C-4/D-02 落实为 adjudicator not in (proposer, independent_reviewer, cs_reviewer)，本件按同一口径对齐，避免两条流水线行为不一致」。【净改动】merge^1..merge 精确读数 = 3 files +133/-3（core.py +12/-2、tests/test_adjudicate_identity_guard.py +120、intake 登记 sha +1/-1）—— 与申报件「净改动只有三处」吻合。【判别力】把 PR 自带守卫复制进 pre-fix 基线跑 ⇒ 5 红（含 test_adjudicate_promotion_rejects_requester / rejects_verifier / test_both_pipelines_share_the_same_rule / test_rejection_does_not_write_structure_layer / test_guard_is_discriminating，现场断言 assert structure != structure）；修复后原样跑 ⇒ 7 绿。★ 最强证据。【定档】影响 A（申报值，维护者认同）：失效的是层晋升治理的终裁步 —— 提议人或复核人可自审自批，节点进不可逆的 structure 层，且同一系统内两条流水线口径相反（A-2 已查、D-003 未查），逐字命中 IMPACT_CRITERIA A 档「核心链路失效、语义错误」；难度 hard（申报值，维护者认同）：需跨两条流水线比对口径差、扩 SELECT 列、写出与非空值相撞才拒的边界判定，并配两端都跑的判别力锚定。【归并】独立工作项 —— base f8f074770118 与其余各件不同。【查重】adjudicate 面在账本内 0 命中；与 #167（节点存续门）同在 adjudicate_promotion 但不同判据。【举证瑕疵·不影响结论】申报件自行说明 compare 的 +3350/-429 绝大部分是 fork 未同步的既有改动，维护者用 merge^1..merge 核实其「净改动只有三处」的声明准确。★ 另需记录：214717bcd5d6 同时是 #294 的被测 commit —— 本件的修复已进入 #294 的复跑树，两件不构成重复计分（#294 报的是另外 7 条 lingshu issue）。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "covers": [
+        298
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "pr": 566,
+      "id": "evt_fea6ce3de5db"
+    },
+    {
+      "ts": "2026-10-14T06:25:00Z",
+      "issue": 299,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "结算 Yinfeng818 的 lingshu 结构层 extra_tags 交付（申报件 #299，intake 输入件；lingshu issue #571 / PR #572）。【内容】#329 收口引入的新缺陷 —— _write_structure_record 的 extra_tags 在 PRIMARY 角色分支被静默丢弃（SUB 分支正常落库）。【维护者独立取证】base 693c3dfe480a（合并前）vs merge 9dd0beb063f4（合并后，= 核验时 FuRongJun-1999/lingshu 的 main）：base 分支为 self.store.tag_node(n.id, tag) 只事后补 tag 一个；merge 改为 for t in tags: self.store.tag_node(n.id, t)，即把 tags = [tag] + list(extra_tags or []) 逐个补上，不动 add_structure_node 的公共签名（其签名为 (content, importance=0.8, condition_space=None)，无 tags 形参，节点标签硬编码 [structure]）。【净改动】merge^1..merge 精确读数 = 3 files +118/-2（core.py +8/-1、tests/test_structure_record_extra_tags.py +109、intake 登记 sha +1/-1）—— 与申报件「净改动只有三处」吻合。【判别力】把 PR 自带守卫复制进 pre-fix 基线跑 ⇒ 4 failed / 3 passed（含 test_extra_tags_land_on_primary_structure_record / test_both_roles_keep_the_same_extra_tags / test_multiple_extra_tags_all_land / test_guard_is_discriminating）；修复后原样跑 ⇒ 7 绿。★ 最强证据。【定档】影响 B（申报值，维护者认同）：失效形态是静默丢弃（无报错、无日志），但触发需以 PRIMARY 角色调用并传 extra_tags，命中 IMPACT_CRITERIA B 档「需特定路径才可触发的缺陷」；难度 medium（申报值，维护者认同）：+8/-1 实现、+109 守卫，修法沿用既有的事后补写机制（tag_node 幂等）。【归并】独立工作项 —— base 693c3dfe480a 与其余各件不同。【查重】_write_structure_record 面在账本内 0 命中；与 #329（结构层记录收口）同族但方向相反 —— #329 是收口动作本身，本件是该收口引入的分支遗漏，属回归。【举证瑕疵·不影响结论】★ 申报件在本件交付物表内写「合并状态：未合并 —— PR 处于 open，等维护者裁定」，维护者核验时该 PR 已由维护者合并（merged_at=2026-10-14T05:04:14Z，merge commit 9dd0beb063f4 = 当前 main）。这是申报件撰写后发生的状态推进（申报件 04:58 撰写、05:04 合并），非申报件误报；维护者按合并后事实登记，并保留其「待审」自陈。★ 另：该件未合并即已具备完整判别力证据（守卫在 pre-fix 基线上 4 红），符合「未合入提案可计分」的既有先例（evt_ea3c2972eb97）。（追溯性结算，无轮次证据 ⇒ 取中性点 round=1，delta == base）",
+      "covers": [
+        299
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-14",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "pr": 572,
+      "id": "evt_1c7360c729cc"
     }
   ]
 }

@@ -303,6 +303,34 @@
    "timeout": 0
   },
   {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    295,
+    296,
+    297,
+    298,
+    299
+   ],
+   "login": "Yinfeng818",
+   "projects": [],
+   "reputation_delta": 24,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 5,
+   "round_seen": [
+    1
+   ],
+   "settled": 5,
+   "timeout": 0
+  },
+  {
    "blockers": [
     "声誉分 22 < 24"
    ],
@@ -444,6 +472,33 @@
   },
   {
    "blockers": [
+    "声誉分 9 < 24"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    292,
+    294
+   ],
+   "login": "hawkongz",
+   "projects": [],
+   "reputation_delta": 9,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 2,
+   "round_seen": [
+    1
+   ],
+   "settled": 2,
+   "timeout": 0
+  },
+  {
+   "blockers": [
     "声誉分 6 < 24",
     "已结算 1 项 < 2"
    ],
@@ -565,33 +620,6 @@
     154
    ],
    "login": "123WP-a",
-   "projects": [],
-   "reputation_delta": 3,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 1,
-   "round_seen": [
-    1
-   ],
-   "settled": 1,
-   "timeout": 0
-  },
-  {
-   "blockers": [
-    "声誉分 3 < 24",
-    "已结算 1 项 < 2"
-   ],
-   "disputes": 0,
-   "eligible": false,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    292
-   ],
-   "login": "hawkongz",
    "projects": [],
    "reputation_delta": 3,
    "round0": 0,

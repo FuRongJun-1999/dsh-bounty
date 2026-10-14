@@ -56,9 +56,13 @@ def git(args, cwd=None):
     try:
         proc = subprocess.run(["git", *args], capture_output=True, text=True,
                               encoding="utf-8", cwd=cwd)
+    except FileNotFoundError:
+        raise GuardCheckError("调不起 git（未安装或不在 PATH？）：%s" % " ".join(args)) from None
     except OSError as exc:
-        raise GuardCheckError("调不起 git（未安装或不在 PATH？）：%s — %s: %s"
-                              % (" ".join(args), type(exc).__name__, exc)) from None
+        # ★ 旧文案一律归因「git 未安装或不在 PATH」，但目录无效也会走到这里（实测 WinError 267
+        #   NotADirectoryError）⇒ 错误归因会把排查引偏。按真实原因分述。
+        raise GuardCheckError("git 调用失败（仓目录无效或无权限？cwd=%r）：%s — %s: %s"
+                              % (cwd, " ".join(args), type(exc).__name__, exc)) from None
     if proc.returncode:
         raise GuardCheckError("git %s 失败：%s" % (" ".join(args), proc.stderr.strip()[:300]))
     return proc.stdout

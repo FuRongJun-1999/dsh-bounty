@@ -6,11 +6,15 @@
 `review/data/plugins.json`。
 体例取自同仓 `tests/test_build_site.py`／`tests/test_bounty_list.py`／`tests/test_review_build.py`。
 
-本件要证的核心命题：**引文是忠实的，且「本机复跑」的读数是可复算的**。故断言分四面：
+本件要证的核心命题：**引文是忠实的，且「本机复跑」的读数是可复算的**。故断言分五面：
   [S] 快照面：sha256 完整性 / 字节数 / 清单字段 / **反向遍历**（多出来的快照要点名）/
       缺件点名 / 清单坏结构 fail-closed / **本机复跑逐字节复算**
   [C] 出处面：每条 evidence 都写 doc、且 doc 在清单里
   [Q] 引文面：quotes 逐字命中且不短于下限；**篡改任一处都必须被点名**（这是本件存在的理由）
+  [A] 基座面：**评分基座对账**（`evidence_check.py` 的 ③b 段）——`dim_basis` 指向的证据须过
+      快照／引文／复跑三道闸、下标不得越界、5 分维必须挂本机复跑、`null` 与 `unmeasured_dims`
+      双向一致、顶层 `rubric_version` 必须在场；并**逐记录逐维**对照 `review_build.dim_tiers()`——
+      两份**独立实现**在同一份真源上必须给出同一张档位表（谁单独改口径，另一份就打脸）。
 
 用法：
   python -X utf8 tests/test_evidence_check.py            # 正向：全部断言，末行「通过 N / 失败 M」
@@ -22,6 +26,7 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import io
 import json
 import os
@@ -40,29 +45,66 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)                               # <仓根>
 CHECK_REL = "scripts/evidence_check.py"
 PROBE_REL = "scripts/evidence_probe.py"
+BUILD_REL = "scripts/review_build.py"
 MANIFEST_REL = "review/evidence/manifest.json"
 DATA_REL = "review/data/plugins.json"
 EVID_REL = "review/evidence"
 SCAN = "scripts"
+
+#: 已提交真源的确切路径——整轮自证里**只读**（变异绝不写回交付物）。
+COMMITTED_DATA = os.path.join(ROOT, *DATA_REL.split("/"))
+#: **[A] 组**读的真源路径，**允许被环境变量覆盖**。
+#: 定点变异自证把 `EVIDENCE_DATA_SRC` 指向一份**临时副本**，于是两件事同时成立：
+#:   ① 数据面变异永远不落到已提交真源上（交付物不会被自证过程改脏）；
+#:   ② 只有 [A] 组读它——[S]/[C]/[Q] 组读 `ROOT` 下那份已提交真源，
+#:      故数据面变异才可能让红项集合**恰好一条**（多红即语义纠缠）。
+DATA_SRC = os.environ.get("EVIDENCE_DATA_SRC") or COMMITTED_DATA
+
+#: 维度数——**守卫侧独立声明**（本件不 import 被守卫对象，也不问生成器）：
+#: 若写成 `len(review_build.DIMENSIONS)`，两份实现一起漂移就看不出来了，
+#: A19 的「15 格」也会跟着缩水而永远通过。五维口径见 `review/data/plugins.json` 的 `_schema`。
+N_DIMS = 5
 
 QUIET = "--quiet" in sys.argv
 _red = []
 #: 实跑断言计数：末行 N 由它给出（不手写常数），`--quiet` 也回报给父进程。
 _RUN = [0]
 
-# 生效条件：无必需形参时返回一个可写的沙箱根——**先试 `tempfile.mkdtemp()`，失败才回退**。
-# 为什么要真写一次：本机 DSH 沙箱下 `mkdtemp()` 能建出目录，但目录**内**不可写（`WinError 5`）；
-# 只看 mkdtemp 是否抛异常会把「不可写的临时目录」当可用。
+# 生效条件：base 为已存在的目录时，在其中建一个**唯一名**空目录并返回它。
+# ★ **刻意不用 `tempfile.mkdtemp()`**——本机 DSH 沙箱下它建出来的目录是**废的**：
+#   往里建子目录报 `WinError 5`、连 `os.rmdir()` 它自己都报 `WinError 5`，
+#   `icacls` 连 DACL 都读不出来（`Failed processing 1 files`，rc=5）。
+#   同一进程、同一父目录下的最小对照（都实测过）：
+#       os.mkdir(d, 0o700)          → 子目录建不进去、d 也删不掉   ← `mkdtemp()` 内部就是这一句
+#       os.mkdir(d) / os.makedirs(d)→ 一切正常，整棵树 `rmtree` 删得干净
+#       os.chmod(d, 0o700)（建完再改）→ 不影响（Windows 上 chmod 只翻只读位）
+#   即：**`os.mkdir` 的 mode 实参**在 Windows 上落成了一个拒绝项。故这里一律用
+#   `os.makedirs()` 建目录——权限收窄由沙箱自己管，判据不该为此在环境里留清不掉的东西。
+def _unique_scratch_dir(base):
+    for _ in range(64):
+        d = os.path.join(base, "evidence_guard_%s" % uuid.uuid4().hex[:8])
+        try:
+            os.makedirs(d)
+        except FileExistsError:                    # 撞名就换一个（`mkdtemp` 语义）
+            continue
+        return d
+    raise OSError("建不出唯一名沙箱目录：%s" % base)
+
+
+# 生效条件：无必需形参时返回一个可写的沙箱根——**先试系统临时目录，失败才回退**。
+# 为什么要真写**并且真删**一次：本机 DSH 沙箱下「建得出来」不等于「用得起来」——
+# 目录内可能不可写（`WinError 5`）、还可能删不掉；只看 mkdtemp 是否抛异常会把这种位置当可用。
+# 探针里的 `rmtree` **不再 ignore_errors**：删不掉就说明这个位置用完也清不掉，直接换地方。
 def _pick_scratch_root():
     env = os.environ.get("REVIEW_SCRATCH_ROOT")
     if env:
         return env
     cand = ""
     try:
-        cand = tempfile.mkdtemp(prefix="evidence_guard_")
+        cand = _unique_scratch_dir(tempfile.gettempdir())
         probe = os.path.join(cand, "write_probe")
-        os.makedirs(os.path.join(probe, "x"), exist_ok=True)
-        shutil.rmtree(probe, ignore_errors=True)
+        os.makedirs(os.path.join(probe, "x"))      # 目录内可写
+        shutil.rmtree(probe)                       # 目录内**删得掉**（删不掉即换地方）
         return cand
     except OSError as exc:
         if cand:
@@ -86,6 +128,22 @@ RUN_TOKEN = uuid.uuid4().hex[:12]
 _N = [0]
 
 
+# 生效条件：无必需形参时尽力删掉沙箱根，返回「是不是真的删掉了」——**不静默**。
+# 为什么不再 `ignore_errors=True` 了事：删除失败曾经被静默吞掉——本机沙箱下 `mkdtemp()`
+# 建的沙箱根根本删不掉（成因与修法见 `_unique_scratch_dir()`），于是「清过了」是假的，
+# 每跑一次就在环境里攒一个空壳而无人知晓。改用 `os.makedirs()` 之后已能删干净；
+# 这一层是**兜底**：万一还有别的拒绝面，至少让命令行上有人看见这一行。
+def _drop_scratch_root() -> bool:
+    shutil.rmtree(SCRATCH_ROOT, ignore_errors=True)
+    try:
+        os.lstat(SCRATCH_ROOT)
+    except FileNotFoundError:
+        return True                                # 真删掉了
+    except OSError:
+        return False                               # 还在（连 stat 都被拒）
+    return False
+
+
 def ok(name, cond, detail=""):
     _RUN[0] += 1
     if not cond:
@@ -96,18 +154,28 @@ def ok(name, cond, detail=""):
                            "" if cond or not detail else "  · " + detail))
 
 
-# 生效条件：无必需形参时返回一个全新可写的沙箱仓根（含探针、校验件、真源与**全部**快照）。
+# 生效条件：无必需形参时返回一个全新可写的沙箱仓根（含探针、校验件、**整目录真源**与全部快照）。
 # 为什么必须复制**全部**快照而不是只复制 `.md`：快照目录现在还有 `*.package.json`（版本面）
 # 与 `*.stdout.txt`（实跑记录）。只拷 `.md` 会让校验件的哈希核对、字节核对、反向遍历与
 # 复算闸一起报错——那不是判据在判，是夹具缺件（早先版本就只拷 `.md`，一加新快照就崩）。
+# 同理，真源必须**整目录**拷 `review/data/**`：`rubric.json`（判据真源）与 `plugins.json`
+# 是配套的，只拷一件就是夹具缺件。`review_build.py` 也进沙箱——[A] 组要拿**同一份真源**
+# 同时问两个独立实现，沙箱里那一份实现才与沙箱里那一份真源配套。
 def make_sandbox():
     _N[0] += 1
     root = os.path.join(SCRATCH_ROOT, "ev_%s_%d" % (RUN_TOKEN, _N[0]))
-    for rel in (CHECK_REL, PROBE_REL, MANIFEST_REL, DATA_REL):
+    for rel in (CHECK_REL, PROBE_REL, BUILD_REL, MANIFEST_REL):
         src = os.path.join(ROOT, *rel.split("/"))
         dst = os.path.join(root, *rel.split("/"))
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         shutil.copy(src, dst)
+    src_data = os.path.join(ROOT, "review", "data")
+    dst_data = os.path.join(root, "review", "data")
+    os.makedirs(dst_data, exist_ok=True)
+    for name in os.listdir(src_data):
+        src = os.path.join(src_data, name)
+        if os.path.isfile(src):
+            shutil.copy(src, os.path.join(dst_data, name))
     src_ev = os.path.join(ROOT, *EVID_REL.split("/"))
     dst_ev = os.path.join(root, *EVID_REL.split("/"))
     os.makedirs(dst_ev, exist_ok=True)
@@ -138,6 +206,66 @@ def _write_json(root, rel, obj):
     with io.open(os.path.join(root, *rel.split("/")), "w",
                  encoding="utf-8", newline="\n") as fh:
         fh.write(json.dumps(obj, ensure_ascii=False, indent=2))
+
+
+# ---------------------------------------------------------------- [A] 组取数的三个小工具
+
+# 生效条件：name 为模块名、path 为实现文件路径时载入并返回该模块。
+# 一律从**沙箱里那一份**载入：变异体守卫据此读到变异后的实现（否则判据空转）。
+def _load_module(name, path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+# 生效条件：root 为沙箱仓根、want_repro 为「要不要连复算闸一起判」时返回 audit() 的 (rows, bad)。
+# 为什么直接读返回值、不解析 stdout：本组判的就是对账的**结果**（点名集合与档位表），
+# 文本输出只是它的一个投影；拿投影当判据，改一行措辞就能让判据空转。
+def _audit(root, want_repro=True):
+    return _load_module("evidence_check_for_guard",
+                        os.path.join(root, *CHECK_REL.split("/"))).audit(
+        root, want_repro=want_repro)
+
+
+# 生效条件：bad 为不一致行列表、needle 为判据点名文本时返回其中含该文本的行。
+def _hits(bad, needle):
+    return [b for b in bad if needle in b]
+
+
+# 生效条件：mutate 为 None 时返回「plugins.json 取 DATA_SRC」的沙箱；否则在**已提交真源**上改一处再落进沙箱。
+# 为什么要分两支（如实声明这是刻意的）：
+#   · 正向判据必须看 `DATA_SRC`——变异模式下它被换成改过一处的临时副本，
+#     「该报的报」才会随数据面变异转红；
+#   · 反向（篡改）判据一律从**已提交真源**出发——否则一个数据面变异会让每条断言的反向用例
+#     一起读到同一处坏数据，红项集合再也不可能「恰好一条」。
+def _data_root(mutate=None):
+    root = make_sandbox()
+    if mutate is None:
+        shutil.copy(DATA_SRC, os.path.join(root, *DATA_REL.split("/")))
+    else:
+        with io.open(COMMITTED_DATA, encoding="utf-8") as fh:
+            doc = json.load(fh)
+        mutate(doc)
+        _write_json(root, DATA_REL, doc)
+    return root
+
+
+#: `basis` 对账行的 detail 形如「分数 4 ／ 档位 reading ／ 基座 2 条」——档位从这里读**它报的值**。
+_ROW_TIER_RE = re.compile(r"档位\s+(none|prose|reading|repro)\s*／")
+
+
+# 生效条件：rows 为 audit() 的对账行时返回 evidence_check **自己报的**档位表 {slug: {维度: 档位}}。
+def _ec_tiers(rows):
+    out = {}
+    for r in rows:
+        if r.get("kind") != "basis":
+            continue
+        slug, _, dim = str(r.get("id") or "").partition("#")
+        m = _ROW_TIER_RE.search(str(r.get("detail") or ""))
+        if slug and dim and m:
+            out.setdefault(slug, {})[dim] = m.group(1)
+    return out
 
 
 # ---------------------------------------------------------------- 探针状态
@@ -291,6 +419,117 @@ def group_quote():
        _tamper("quote-wrongdoc", _wrong_doc, _det_quote_unfaithful)[0])
 
 
+# ---------------------------------------------------------------- [A] 基座面（③b 段）
+
+#: [A] 组的判据全部针对 `evidence_check.audit()` 的返回 `(rows, bad)`，**不解析 stdout**：
+#: 一条断言必须有两面——坏数据 ⇒ `bad` 里出现**它自己那条**点名（该报的报）；
+#: 好数据 ⇒ 见 A20（`bad == []`，不该报的不报）。
+#: 为什么每条的「不报」面都只查**自己那条**点名文本，而不是整份 `bad`：
+#: 数据面变异一次只该让一条断言转红。若「不报」面写成 `bad == []`，任何一处变异都会
+#: 连带把**所有** A 组断言拖红，红项集合就不再「恰好相等」，定点变异失去分辨力。
+#: 「整份 bad 必须为空」由 A20 单独负责（它读**已提交真源**，故不受任何数据面变异影响）。
+def group_basis():
+    print("[A] 基座面（评分基座对账：与生成器**相互独立地**再判一遍）")
+    clean = make_sandbox()
+    rows0, bad0 = _audit(clean)
+    doc0 = _json(clean, DATA_REL)
+    n_rec = len(doc0["records"])
+    n_basis = len([r for r in rows0 if r.get("kind") == "basis"])
+    n_sum = len([r for r in rows0 if r.get("kind") == "basis-sum"])
+
+    # 以下正向判据一律看 `DATA_SRC`（变异模式下是改过一处的临时副本）。
+    root = _data_root()
+    rows, bad = _audit(root)
+    doc = _json(root, DATA_REL)
+
+    # A14：基座指向的证据必须同时通过**既有的**快照／引文／复跑三道闸。
+    # 反向用例接受「任意一道闸点名该 eid」——这正是它作为**三闸合并**判据的意义：
+    # 若引文闸被短路（既有变异 E5），复算闸仍会点名同一条证据（探针 stdout 里印着引文原文）。
+    # 「引文闸本身」的定点变异由 Q3／Q5 负责，两处刻意不重叠。
+    # 只统计**下标在范围内**的引用：越界是 A15 的判据面，不在本条里重复。
+    refs = []
+    for rec in doc["records"]:
+        evs = rec.get("evidence") or []
+        for dim, basis in (rec.get("dim_basis") or {}).items():
+            for i in _idx(basis):
+                if 0 <= i < len(evs):
+                    refs.append("%s#%d" % (rec.get("slug"), i))
+    dirty = sorted({e for e in refs if any(e in b for b in bad)})
+    broken_root = _data_root(_break_referenced_quote)
+    bad_broken = _audit(broken_root)[1]
+    eid_broken = _referenced_local_eid(doc0)
+    named = sorted({e for e in refs if any(e in b for b in bad_broken)})
+    ok("A14 basis-reconciled 基座引用的证据须过三道闸（好数据零点名；改坏一条即被点名）",
+       bool(refs) and not dirty and named == [eid_broken],
+       "基座引用 %d 条／好数据被点名=%s／改坏 %s 后被点名=%s"
+       % (len(refs), dirty[:3], eid_broken, named[:3]))
+
+    # A15：基座下标越界 ⇒ 点名（**与生成器独立实现**：生成器侧另有一套 `_basis_entries` 跳过越界）。
+    tgt15 = _first_basis_dim(doc0)
+    b15 = _audit(_data_root(_basis_index_oob), want_repro=False)[1]
+    n15 = _hits(b15, "评分基座下标越界")
+    ok("A15 basis-index-range 基座下标越界必点名（好数据无此点名；改成 99 后**恰好**点这一条）",
+       not _hits(bad, "评分基座下标越界")
+       and len(n15) == 1 and ("%s 的 %s" % tgt15) in n15[0] and "99" in n15[0],
+       "变异靶=%s ／ 坏数据点名=%s" % (tgt15, n15))
+
+    # A16：5 分维的基座里没有本机复跑 ⇒ 点名（**与生成器独立实现**：生成器读 rubric 的 must）。
+    tgt16 = _first_five_transcribed_dim(doc0)
+    b16 = _audit(_data_root(_five_no_local), want_repro=False)[1]
+    n16 = _hits(b16, "5 分无本机复跑")
+    ok("A16 five-needs-repro 5 分维基座无本机复跑 ⇒ 必点名（好数据无此点名）",
+       not _hits(bad, "5 分无本机复跑")
+       and len(n16) == 1 and ("%s 的 %s" % tgt16) in n16[0],
+       "变异靶=%s ／ 坏数据点名=%s" % (tgt16, n16))
+
+    # A17：**双向**一致——null 维必须在 unmeasured_dims；非 null 维不得在内。两个方向各一个反向用例。
+    tgt17a = _first_null_dim(doc0)
+    tgt17b = _first_scored_dim(doc0)
+    n17a = _hits(_audit(_data_root(_null_out_of_um), want_repro=False)[1], "未测维度未登记")
+    n17b = _hits(_audit(_data_root(_scored_into_um), want_repro=False)[1], "已评分维度被列为未测")
+    ok("A17 null-vs-unmeasured `null` 维须在 unmeasured_dims、非 null 维不得在内（两向都点名；好数据都不点名）",
+       not _hits(bad, "未测维度未登记") and not _hits(bad, "已评分维度被列为未测")
+       and len(n17a) == 1 and ("%s 的 %s" % tgt17a) in n17a[0]
+       and len(n17b) == 1 and ("%s 的 %s" % tgt17b) in n17b[0],
+       "null 向=%s ／ 有分向=%s" % (n17a, n17b))
+
+    # A18：顶层 rubric_version 必须在场（口径不自版本化就无法复审）。
+    n18 = _hits(_audit(_data_root(_drop_rubric_version), want_repro=False)[1],
+                "真源缺 rubric_version")
+    ok("A18 rubric-version-present 顶层 rubric_version 在场（好数据不点名；删掉后**恰好**点这一条）",
+       not _hits(bad, "真源缺 rubric_version") and len(n18) == 1
+       and str(doc0.get("rubric_version") or "").strip() != "",
+       "坏数据点名=%s" % n18)
+
+    # A19：**两份独立实现必须说同一件事**——把 `evidence_check` ③b 段**报出来的**档位表与
+    # `review_build.dim_tiers()` 逐记录逐维对照（现行真源 3 条记录 × 5 维 = 15 格）。
+    # 这条是本件唯一一处**跨实现**判据：两边各判一遍，谁单独改口径（改档位推导、改读数正则、
+    # 改维度名）都会被另一份打脸。对照的是「同一份真源」（DATA_SRC），故数据面变异同时被两边看到。
+    ec_tiers = _ec_tiers(rows)
+    rb = _load_module("review_build_for_guard", os.path.join(root, *BUILD_REL.split("/")))
+    cells, mism = 0, []
+    for rec in doc["records"]:
+        want = rb.dim_tiers(rec)
+        for dim in rb.DIMENSIONS:
+            cells += 1
+            got = ec_tiers.get(str(rec.get("slug")), {}).get(dim)
+            if got != want.get(dim):
+                mism.append("%s/%s：evidence_check=%s ／ review_build=%s"
+                            % (rec.get("slug"), dim, got, want.get(dim)))
+    ok("A19 tiers-agree 两份独立实现（evidence_check ③b ／ review_build.dim_tiers）在同一份真源上"
+       "逐记录逐维档位相同（%d 格全等）" % cells,
+       cells == n_rec * N_DIMS and not mism, "；".join(mism[:3]))
+
+    # A20：**不该报的不报**——已提交真源上 `audit()` 的 `bad` 必须为空（连复算闸一起判），
+    # 且对账行按「记录 × 五维」齐备（防「一行都没产出」被当成零点名而误判通过）。
+    # 与 S1 的关系（如实声明，不假装独立）：S1 判退出码，本条判 `bad` 这份**结构化**结果；
+    # 两者是同一判据的两个投影，刻意都留着——退出码可以被别的路径改写，`bad` 才是判据的原话。
+    ok("A20 audit-clean 已提交真源上 audit() 零点名（bad == []）且基座行按「记录 × 五维」齐备",
+       bad0 == [] and n_basis == n_rec * N_DIMS and n_sum == n_rec,
+       "bad=%s ／ 基座行 %d（应 %d）／ 汇总行 %d（应 %d）"
+       % (bad0[:2], n_basis, n_rec * N_DIMS, n_sum, n_rec))
+
+
 # ---------------------------------------------------------------- 篡改动作
 
 def _first_doc(root):
@@ -382,12 +621,147 @@ def _short_quote(root):
         0, str(e["quotes"][0])[:5]))
 
 
+# ------------------------------------------------- [A] 组用：基座面的数据变异（靶 ＋ 动作）
+
+#: 本机复跑的类型名（对账件与生成器同口径；两处漂移会被 A19 与 5 分判据一起打脸）。
+LOCAL_KIND = "本机复跑"
+
+
+# 生效条件：basis 为 `dim_basis` 的原值时返回其中**合法整数**下标（bool 不算 int）。
+def _idx(basis):
+    return [i for i in (basis if isinstance(basis, list) else [])
+            if isinstance(i, int) and not isinstance(i, bool)]
+
+
+def _rec(doc, slug):
+    for r in doc["records"]:
+        if r.get("slug") == slug:
+            return r
+    raise AssertionError("真源里没有记录 %s" % slug)
+
+
+# 下面这些「找靶」函数都遍历**真源自己的键序**（不另立一份维度表），故真源改维序也不空转。
+def _first_basis_dim(doc):
+    """第一个挂了证据的（记录, 维度）——A15 的变异靶。"""
+    for r in doc["records"]:
+        for dim in (r.get("dim_basis") or {}):
+            if _idx(r["dim_basis"][dim]):
+                return (r["slug"], dim)
+    raise AssertionError("真源里没有任何挂了证据的维度——A15 无从判起")
+
+
+def _first_five_transcribed_dim(doc):
+    """第一个「记 5 分且基座含非本机复跑条目」的（记录, 维度）——A16 的变异靶。"""
+    for r in doc["records"]:
+        evs = r.get("evidence") or []
+        for dim, score in (r.get("dimensions") or {}).items():
+            if score != 5:
+                continue
+            keep = [i for i in _idx((r.get("dim_basis") or {}).get(dim))
+                    if 0 <= i < len(evs)
+                    and str(evs[i].get("kind") or "") != LOCAL_KIND]
+            if keep:
+                return (r["slug"], dim)
+    raise AssertionError("真源里没有「5 分且基座含转引条目」的维度——A16 无从判起")
+
+
+def _first_null_dim(doc):
+    """第一个「记 `null` 且已登记在 unmeasured_dims」的（记录, 维度）——A17 的变异靶之一。"""
+    for r in doc["records"]:
+        um = r.get("unmeasured_dims")
+        if not isinstance(um, list):
+            continue
+        for dim, v in (r.get("dimensions") or {}).items():
+            if v is None and dim in um:
+                return (r["slug"], dim)
+    raise AssertionError("真源里没有「记 null 且在 unmeasured_dims」的维度——A17 无从判起")
+
+
+def _first_scored_dim(doc):
+    """第一个「有分数且**不在** unmeasured_dims」的（记录, 维度）——A17 的变异靶之二。"""
+    for r in doc["records"]:
+        um = r.get("unmeasured_dims") or []
+        for dim, v in (r.get("dimensions") or {}).items():
+            if v is not None and dim not in um:
+                return (r["slug"], dim)
+    raise AssertionError("真源里没有「有分数且不在 unmeasured_dims」的维度——A17 无从判起")
+
+
+def _referenced_local_eid(doc):
+    """第一个「被某个 dim_basis 引用、且 kind == 本机复跑」的证据 eid。"""
+    for r in doc["records"]:
+        evs = r.get("evidence") or []
+        for dim in (r.get("dim_basis") or {}):
+            for i in _idx(r["dim_basis"][dim]):
+                if 0 <= i < len(evs) and str(evs[i].get("kind") or "") == LOCAL_KIND:
+                    return "%s#%d" % (r["slug"], i)
+    raise AssertionError("真源里没有任何「被 dim_basis 引用」的本机复跑证据——A14 无从判起")
+
+
+# 生效条件：doc 为真源对象时就地改坏一处，只动**基座面**该动的那一格（其余判据面不受牵连）。
+def _basis_index_oob(doc):
+    """A15／`Mn-a`：把某维的基座下标改成越界值（证据只有个位数条，99 必然越界）。"""
+    slug, dim = _first_basis_dim(doc)
+    _rec(doc, slug)["dim_basis"][dim] = [99]
+
+
+def _five_no_local(doc):
+    """A16／`Mn-b`：把某个 5 分维的基座收成**纯转引**（保留第一条转引，去掉本机复跑）。"""
+    slug, dim = _first_five_transcribed_dim(doc)
+    r = _rec(doc, slug)
+    evs = r.get("evidence") or []
+    r["dim_basis"][dim] = [i for i in _idx(r["dim_basis"][dim])
+                           if str(evs[i].get("kind") or "") != LOCAL_KIND][:1]
+
+
+def _null_out_of_um(doc):
+    """A17／`Mn-c`：把一个记 `null` 的维度移出 `unmeasured_dims`（单向失配）。"""
+    slug, dim = _first_null_dim(doc)
+    _rec(doc, slug)["unmeasured_dims"].remove(dim)
+
+
+def _scored_into_um(doc):
+    """A17／`Mn-f`：把一个**有分数**的维度塞进 `unmeasured_dims`（反方向失配）。"""
+    slug, dim = _first_scored_dim(doc)
+    _rec(doc, slug)["unmeasured_dims"].append(dim)
+
+
+def _drop_rubric_version(doc):
+    """A18／`Mn-d`：删掉顶层 `rubric_version`（口径不自版本化）。"""
+    doc.pop("rubric_version", None)
+
+
+def _break_referenced_quote(doc):
+    """A14／`Mn-e`：把一条**被 dim_basis 引用**的「本机复跑」证据的首条引文改坏。
+
+    为什么挑「被基座引用的本机复跑证据」：这样坏掉的**不止**引文闸——探针 stdout 里印着
+    各条引文的原文，故复算闸也会点火（复算不一致）。两道闸都会点名同一条 eid，
+    于是 A14 这条**三闸合并**的判据在引文闸被短路时（既有变异 E5）依然成立。
+    """
+    eid = _referenced_local_eid(doc)
+    slug, _, i = eid.partition("#")
+    ev = _rec(doc, slug)["evidence"][int(i)]
+    ev["quotes"][0] = str(ev["quotes"][0]) + "（基座变异）"
+
+
+#: 数据面变异名 → 改真源那一处的动作（`MUTATIONS` 里以 `data:` 开头的锚点查这张表）。
+DATA_MUTATORS = {
+    "data:basis-index": _basis_index_oob,
+    "data:five-no-local": _five_no_local,
+    "data:null-out-of-um": _null_out_of_um,
+    "data:scored-into-um": _scored_into_um,
+    "data:no-rubric-version": _drop_rubric_version,
+    "data:basis-quote-broken": _break_referenced_quote,
+}
+
+
 def judge():
     del _red[:]
     TAMPER.clear()
     group_snapshot()
     group_cite()
     group_quote()
+    group_basis()
     return list(_red)
 
 
@@ -412,13 +786,31 @@ MUTATIONS = (
     ("E6", CHECK_REL,
      '                bad.append("引文未声明：%s 没写 quotes（从快照里摘了哪些话）" % eid)',
      '                pass  # MUT', {"Q4"}),
+    # ---- 数据面变异：锚点以 `data:` 开头，改的是 plugins.json 的**临时副本**（绝不写已提交真源）----
+    # 为什么 [A] 组必须配数据面变异：③b 段判的是**真源**里的基座与未测维度。改实现源码会同时
+    # 惊动 [S]／[C]／[Q] 组的复算与引文面（复算闸只认 output、引文闸只认 quotes），红项就
+    # 不可能「恰好一条」；只有改真源才能做到「只红 [A] 组那一条」。
+    # 元组形状与代码面一致（old/new 位给变异名与空串），由 old 以 "data:" 开头区分。
+    ("Mn-a", DATA_REL, "data:basis-index", "", {"A15"}),
+    ("Mn-b", DATA_REL, "data:five-no-local", "", {"A16"}),
+    ("Mn-c", DATA_REL, "data:null-out-of-um", "", {"A17"}),
+    ("Mn-d", DATA_REL, "data:no-rubric-version", "", {"A18"}),
+    # Mn-e／Mn-f 是按「每条新断言都要有一组数据面变异钉住」补齐的：
+    #   Mn-e 让 **A14** 转红（改坏一条被基座引用的证据）；Mn-f 让 **A17 的反方向**转红
+    #   （把有分数的维度塞进 unmeasured_dims）。
+    ("Mn-e", DATA_REL, "data:basis-quote-broken", "", {"A14"}),
+    ("Mn-f", DATA_REL, "data:scored-into-um", "", {"A17"}),
 )
 
 
 def _anchor_preflight():
+    """锚点自检：任一**代码面**锚点在当前实现里命中次数 ≠1 → ANCHOR-MISS（退出码 2）。
+
+    数据面变异（锚点以 `data:` 开头）不走这一步——它们改的是真源，不是实现源码。
+    """
     src = io.open(os.path.join(ROOT, *CHECK_REL.split("/")), encoding="utf-8").read()
     bad = [(mid, src.count(old)) for mid, _rel, old, _new, _exp in MUTATIONS
-           if src.count(old) != 1]
+           if not str(old).startswith("data:") and src.count(old) != 1]
     if not bad:
         return 0
     for mid, n in bad:
@@ -427,8 +819,34 @@ def _anchor_preflight():
     return 2
 
 
-def _run_quiet(root):
+# 生效条件：kind 为数据面变异名、target 为要改写的真源路径时，把 target 改坏一处。
+# 调用方传的必须是**临时副本**（见 `_mutate_mode`）——已提交真源整轮只读。
+def _apply_data_mutation(kind, target):
+    fn = DATA_MUTATORS.get(kind)
+    if fn is None:
+        raise ValueError("未知的数据面变异：%s" % kind)
+    with io.open(target, encoding="utf-8") as fh:
+        doc = json.load(fh)
+    fn(doc)
+    #: 原子替换：万一写的中途被打断，临时副本也不会变成半截 JSON。
+    _write_text_atomic(target, json.dumps(doc, ensure_ascii=False, indent=2) + "\n")
+
+
+# 生效条件：path 为文件路径、text 为完整内容时，先写同目录临时文件再 os.replace 原子替换。
+def _write_text_atomic(path, text):
+    tmp = path + ".tmp-mutation"
+    with io.open(tmp, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(text)
+    os.replace(tmp, path)
+
+
+def _run_quiet(root, data_src=None):
     """以 `--quiet` 在 root 下重跑本守卫，返回 (红项集合, 实跑断言数)。
+
+    显式传两个环境变量给子进程：
+      · `REVIEW_SCRATCH_ROOT` —— 子进程借住父进程的沙箱根，且**不清理**它（清理权在 `_SCRATCH_OWNER`）；
+      · `EVIDENCE_DATA_SRC` —— 让子进程的 [A] 组去读**临时真源副本**（数据面变异改的就是它），
+        已提交真源全程只读。
 
     **为什么要读回实跑数**：只看 `RED <id>` 行的话，若某变异让守卫吐完「恰好期望的那些红项」
     之后崩在中途，红项集合仍相等，变异被误判 PASS——判据空转。故子进程回报 `RAN <实跑数>`，
@@ -436,8 +854,9 @@ def _run_quiet(root):
     """
     env = dict(os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8",
                PYTHONDONTWRITEBYTECODE="1")
-    #: 子进程借住父进程的沙箱根，且**不清理**它（清理权在 `_SCRATCH_OWNER`）。
     env["REVIEW_SCRATCH_ROOT"] = SCRATCH_ROOT
+    if data_src:
+        env["EVIDENCE_DATA_SRC"] = data_src
     r = subprocess.run(
         [sys.executable, "-X", "utf8",
          os.path.join(root, "tests", "test_evidence_check.py"), "--quiet"],
@@ -452,36 +871,53 @@ def _mutate_mode():
     rc = _anchor_preflight()
     if rc:
         return rc
-    print("!! 定点变异自证：逐条短路一条判据，对应断言必须**恰好**转红\n")
-    base_red, base_ran = _run_quiet(ROOT)
-    print("  未变异基线：红项 %s（实跑断言 %d）"
-          % (sorted(base_red) or "无（应为无）", base_ran))
+    print("!! 定点变异自证：逐条短路一条判据／改坏真源一处，对应断言必须**恰好**转红\n")
+    #: 数据面变异用的**临时真源**：内容取自已提交真源，写的却是这份副本。
+    #: 每个数据面变异都从头重新拷一份——否则多个变异会累积在同一副本上，
+    #: 表的先后顺序变成隐含依赖（兄弟件 `test_review_build.py` 踩过这个坑）。
+    data_dir = os.path.join(SCRATCH_ROOT, "data_%s" % RUN_TOKEN)
+    os.makedirs(data_dir, exist_ok=True)
+    data_tmp = os.path.join(data_dir, "plugins.json")
+    shutil.copy(COMMITTED_DATA, data_tmp)
     bad = []
-    if base_red:
-        bad.append("基线即转红：%s" % sorted(base_red))
-    if base_ran != ASSERT_TOTAL:
-        bad.append("基线实跑断言数 %d ≠ 期望 %d——判据没跑全，变异自证不可信"
-                   % (base_ran, ASSERT_TOTAL))
-    for mid, rel, old, new, expect in MUTATIONS:
-        root = make_sandbox()
-        try:
-            for f in (CHECK_REL, "tests/test_evidence_check.py"):
-                dst = os.path.join(root, *f.split("/"))
-                os.makedirs(os.path.dirname(dst), exist_ok=True)
-                shutil.copy(os.path.join(ROOT, *f.split("/")), dst)
-            p = os.path.join(root, *rel.split("/"))
-            t = io.open(p, encoding="utf-8").read()
-            io.open(p, "w", encoding="utf-8", newline="\n").write(t.replace(old, new, 1))
-            red, ran = _run_quiet(root)
-            hit = (red == set(expect)) and (ran == ASSERT_TOTAL)
-            if not hit:
-                bad.append("%s：红项 %s ≠ 期望 %s，或实跑断言数 %d ≠ %d"
-                           % (mid, sorted(red), sorted(expect), ran, ASSERT_TOTAL))
-            print("  [%s] %s：红项 %d（期望 %d）实跑 %d%s"
-                  % ("PASS" if hit else "FAIL", mid, len(red), len(expect), ran,
-                     "" if hit else " 实=%s 期=%s" % (sorted(red), sorted(expect))))
-        finally:
-            shutil.rmtree(root, ignore_errors=True)
+    try:
+        base_red, base_ran = _run_quiet(ROOT, data_tmp)
+        print("  未变异基线：红项 %s（实跑断言 %d）"
+              % (sorted(base_red) or "无（应为无）", base_ran))
+        if base_red:
+            bad.append("基线即转红：%s" % sorted(base_red))
+        if base_ran != ASSERT_TOTAL:
+            bad.append("基线实跑断言数 %d ≠ 期望 %d——判据没跑全，变异自证不可信"
+                       % (base_ran, ASSERT_TOTAL))
+        for mid, rel, old, new, expect in MUTATIONS:
+            root = make_sandbox()
+            try:
+                for f in (CHECK_REL, "tests/test_evidence_check.py"):
+                    dst = os.path.join(root, *f.split("/"))
+                    os.makedirs(os.path.dirname(dst), exist_ok=True)
+                    shutil.copy(os.path.join(ROOT, *f.split("/")), dst)
+                if str(old).startswith("data:"):
+                    #: 数据面变异一律打在**临时副本**上；沙箱里那份已提交真源不动，
+                    #: 故 [S]／[C]／[Q] 组读到的仍是干净数据（红项才不会外溢）。
+                    shutil.copy(COMMITTED_DATA, data_tmp)
+                    _apply_data_mutation(old, data_tmp)
+                else:
+                    p = os.path.join(root, *rel.split("/"))
+                    t = io.open(p, encoding="utf-8").read()
+                    io.open(p, "w", encoding="utf-8", newline="\n").write(
+                        t.replace(old, new, 1))
+                red, ran = _run_quiet(root, data_tmp)
+                hit = (red == set(expect)) and (ran == ASSERT_TOTAL)
+                if not hit:
+                    bad.append("%s：红项 %s ≠ 期望 %s，或实跑断言数 %d ≠ %d"
+                               % (mid, sorted(red), sorted(expect), ran, ASSERT_TOTAL))
+                print("  [%s] %s：红项 %d（期望 %d）实跑 %d%s"
+                      % ("PASS" if hit else "FAIL", mid, len(red), len(expect), ran,
+                         "" if hit else " 实=%s 期=%s" % (sorted(red), sorted(expect))))
+            finally:
+                shutil.rmtree(root, ignore_errors=True)
+    finally:
+        shutil.rmtree(data_dir, ignore_errors=True)
     print("\n定点变异：%s" % ("PASS（逐条恰好命中期望红项）" if not bad
                               else "FAIL —— " + "；".join(bad)))
     print("通过 %d / 失败 %d（变异 %d 组）"
@@ -489,17 +925,24 @@ def _mutate_mode():
     return 0 if not bad else 1
 
 
-#: 断言总数不手写常数：S 组 13 ＋ C 组 5 ＋ Q 组 5。末行打印**实跑计数**，
+#: 断言总数不手写常数：S 组 13 ＋ C 组 5 ＋ Q 组 5 ＋ **A 组 7**（A14–A20）。末行打印**实跑计数**，
 #: 与它不等即判红（少跑不许伪装成通过）。`--quiet` 不跳过任何一条，故两处同值。
-ASSERT_TOTAL = 13 + 5 + 5
+ASSERT_TOTAL = 13 + 5 + 5 + 7
 
 
 def main():
-    if "--list" in sys.argv:
-        for mid, rel, _old, _new, exp in MUTATIONS:
-            print("  %s  target=%-28s expect_red=%s" % (mid, rel, sorted(exp)))
-        return 0
+    #: `--list` 也必须走下面这个 `try` 的 `finally`：沙箱根是**模块导入时**就建出来的
+    #: （`_pick_scratch_root()`），早退路径若在 `try` 之前 `return`，那个目录就永远没人清。
+    #: ★ 这只是**一半**原因；另一半在 `_pick_scratch_root()`／`_unique_scratch_dir()`：
+    #:   本机 DSH 沙箱下 `tempfile.mkdtemp()` 建出来的目录是废的（子目录建不进去、自己也删不掉），
+    #:   于是「探针失败 → 回退工作区」每跑一次都在临时目录里留一个清不掉空壳，而
+    #:   `rmtree(..., ignore_errors=True)` 把失败静默咽了下去。两处都已修：改用 `os.makedirs()`
+    #:   建沙箱目录（删得干净），并让清理失败**出声**（`_drop_scratch_root()`）。
     try:
+        if "--list" in sys.argv:
+            for mid, rel, _old, _new, exp in MUTATIONS:
+                print("  %s  target=%-28s expect_red=%s" % (mid, rel, sorted(exp)))
+            return 0
         if "--mutate" in sys.argv:
             return _mutate_mode()
         red = judge()
@@ -521,8 +964,11 @@ def main():
             print("红项：%s" % sorted(set(red)))
         return 1 if red else 0
     finally:
-        if _SCRATCH_OWNER:
-            shutil.rmtree(SCRATCH_ROOT, ignore_errors=True)
+        if _SCRATCH_OWNER and not _drop_scratch_root():
+            sys.stderr.write(
+                "[警告] 沙箱根清不掉：%s\n"
+                "       本机沙箱下「本进程建的目录」可能连创建者自己都删不掉"
+                "（环境限制，**不是**判据失败）；该目录已留给人工清理。\n" % SCRATCH_ROOT)
 
 
 if __name__ == "__main__":

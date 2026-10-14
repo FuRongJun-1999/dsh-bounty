@@ -1,0 +1,33 @@
+### du -sh 依赖足迹
+5.6G	/home/ubuntu/dm/pylibs/txtai
+70M	/home/ubuntu/dm/pylibs/base
+3.8M	/home/ubuntu/dm/pylibs/txtai/txtai
+1.2G	/home/ubuntu/dm/pylibs/txtai/torch
+3.2G	/home/ubuntu/dm/pylibs/txtai/nvidia
+43M	/home/ubuntu/dm/pylibs/base/numpy
+### 只算本方案真正 import 到的包（txtai 自身 + torch + transformers/huggingface_hub）
+3.8M	/home/ubuntu/dm/pylibs/txtai/txtai
+1.2G	/home/ubuntu/dm/pylibs/txtai/torch
+116M	/home/ubuntu/dm/pylibs/txtai/transformers
+7.2M	/home/ubuntu/dm/pylibs/txtai/huggingface_hub
+### 顶层目录清单（前 20，按大小）
+3.2G	/home/ubuntu/dm/pylibs/txtai/nvidia
+1.2G	/home/ubuntu/dm/pylibs/txtai/torch
+897M	/home/ubuntu/dm/pylibs/txtai/triton
+116M	/home/ubuntu/dm/pylibs/txtai/transformers
+74M	/home/ubuntu/dm/pylibs/txtai/sympy
+43M	/home/ubuntu/dm/pylibs/txtai/numpy
+41M	/home/ubuntu/dm/pylibs/txtai/faiss_cpu.libs
+27M	/home/ubuntu/dm/pylibs/txtai/numpy.libs
+27M	/home/ubuntu/dm/pylibs/txtai/cuda
+25M	/home/ubuntu/dm/pylibs/txtai/faiss
+19M	/home/ubuntu/dm/pylibs/txtai/networkx
+12M	/home/ubuntu/dm/pylibs/txtai/tokenizers
+11M	/home/ubuntu/dm/pylibs/txtai/hf_xet
+9.4M	/home/ubuntu/dm/pylibs/txtai/pygments
+7.2M	/home/ubuntu/dm/pylibs/txtai/huggingface_hub
+6.8M	/home/ubuntu/dm/pylibs/txtai/setuptools
+4.8M	/home/ubuntu/dm/pylibs/txtai/mpmath
+3.8M	/home/ubuntu/dm/pylibs/txtai/txtai
+3.7M	/home/ubuntu/dm/pylibs/txtai/torchgen
+3.5M	/home/ubuntu/dm/pylibs/txtai/regex

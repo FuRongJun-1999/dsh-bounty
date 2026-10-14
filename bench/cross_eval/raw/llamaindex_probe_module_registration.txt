@@ -1,0 +1,21 @@
+IMPL bench/cross_eval/systems/llamaindex_impl.py NAME llamaindex
+CAPS {"checkpoint": true, "fanout": true, "note": "checkpoint=Context.to_dict()/from_dict()（引擎限定只能从 handler 代码取，同进程内恢复；跨进程需自行持久化索引与 payload）；retry=@step(retry_policy=retry_policy(...))，作用域是单个 step 的单次执行；fanout=@step 返回 list[Event] + @step(num_workers=N)，同步步体由引擎自动 run_in_executor 放默认线程池", "retry": true}
+RUN mode=normal ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+RUN mode=resume EXCEPTION ImportError: Failed to import module impl_llamaindex_impl: No module named 'impl_llamaindex_impl'
+TRACEBACK Traceback (most recent call last): |   File "/home/ubuntu/dm/pylibs/llamaindex/workflows/context/utils.py", line 53, in import_module_from_qualified_name |     module = import_module(module_path[0]) |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ |   File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module |     return _bootstrap._gcd_import(name[level:], package, level) |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load |   File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked | ModuleNotFoundError: No module named 'impl_llamaindex_impl' |  | During handling of the above exception, another exception
+RUN mode=retry ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+ATTEMPTS 3
+ERROR_TEXT injected transient failure
+RUN mode=sequential ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+RUN mode=parallel ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+TIMING normal {"min_ms": 184.727, "n": 7, "p50_ms": 272.451, "p95_ms": 469.729}
+TIMING sequential {"min_ms": 144.709, "n": 7, "p50_ms": 165.033, "p95_ms": 218.945}
+TIMING parallel {"min_ms": 160.92, "n": 7, "p50_ms": 174.397, "p95_ms": 189.576}
+SUMMARY_WRITTEN raw/llamaindex_summary.json

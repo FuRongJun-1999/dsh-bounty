@@ -1,0 +1,45 @@
+{
+ "caps": {
+  "checkpoint": false,
+  "fanout": true,
+  "note": "手写 ThreadPoolExecutor 扇出；无检查点、无内建重试",
+  "retry": false
+ },
+ "impl": "bench/cross_eval/harness/baseline.py",
+ "modes": {
+  "normal": {
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "normal",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "trace": [
+    "load",
+    "index",
+    "retrieve",
+    "verify",
+    "emit"
+   ]
+  }
+ },
+ "name": "txtai_altbase_r3",
+ "timing_normal": {
+  "min_ms": 36.136,
+  "n": 7,
+  "p50_ms": 41.151,
+  "p95_ms": 46.478
+ },
+ "timing_parallel": {
+  "min_ms": 39.208,
+  "n": 7,
+  "p50_ms": 47.657,
+  "p95_ms": 54.876
+ },
+ "timing_sequential": {
+  "min_ms": 30.778,
+  "n": 7,
+  "p50_ms": 35.249,
+  "p95_ms": 105.015
+ }
+}

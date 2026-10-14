@@ -1,0 +1,26 @@
+IMPL bench/cross_eval/systems/langgraph_impl.py NAME langgraph
+CAPS {"checkpoint": true, "fanout": true, "note": "checkpoint=InMemorySaver(serde=JsonPlusSerializer(pickle_fallback=True))（langgraph/checkpoint/memory/__init__.py；默认 pickle_fallback=False 见 langgraph/checkpoint/serde/jsonplus.py:122，默认 serde 无法序列化 BM25Okapi）；retry=RetryPolicy(retry_on=RuntimeError)（langgraph/types.py；默认 default_retry_on 对 RuntimeError 返回 False，见 langgraph/_internal/_retry.py）；fanout=Send+config[max_concurrency]（langgraph/types.py）", "retry": true}
+RUN mode=normal ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+LANGGRAPH_EVIDENCE mode=resume engine=InMemorySaver first_error="injected failure at verify" checkpoint_next_after_failure=["verify"] node_exec_counts={"emit": 1, "index": 1, "load": 1, "retrieve": 1, "verify": 2} steps_reexecuted_after_failure=["verify"] steps_reused_from_checkpoint=["load", "index", "retrieve"] error_names_node=true error_node_line="During task with name 'verify' and id '9e39981b-8cae-10ee-2600-fb50c6338bab'"
+RUN mode=resume ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+FIRST_ERROR injected failure at verify
+REEXECUTED ["verify"]
+LANGGRAPH_EVIDENCE mode=retry engine=RetryPolicy(max_attempts=3,retry_on=RuntimeError) attempts=3 node_exec_counts={"emit": 1, "index": 1, "load": 1, "retrieve": 1, "verify": 3} retry_wall_ms=2908.459 trace=["load", "index", "retrieve", "verify", "emit"]
+RUN mode=retry ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+ATTEMPTS 3
+ERROR_TEXT injected transient failure
+RUN mode=sequential ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+LANGGRAPH_EVIDENCE mode=parallel engine=Send+max_concurrency workers=4 node_exec_counts={"emit": 1, "index": 1, "load": 1, "retrieve": 1, "retrieve_one": 40, "verify": 1} trace=["load", "index", "retrieve", "verify", "emit"]
+RUN mode=parallel ok=True
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TRACE ["load", "index", "retrieve", "verify", "emit"]
+TIMING normal {"min_ms": 44.855, "n": 7, "p50_ms": 55.075, "p95_ms": 62.937}
+TIMING sequential {"min_ms": 47.277, "n": 7, "p50_ms": 52.224, "p95_ms": 127.496}
+TIMING parallel {"min_ms": 54.712, "n": 7, "p50_ms": 68.85, "p95_ms": 75.392}
+SUMMARY_WRITTEN raw/langgraph_summary.json

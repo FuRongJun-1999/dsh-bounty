@@ -1,0 +1,13 @@
+AB_MODE=alternating rounds=9 workers=4 warmup=1
+AB baseline sequential {"all_ms": [38.813, 43.525, 46.125, 51.867, 51.986, 68.004, 69.414, 72.68, 117.964], "min_ms": 38.813, "n": 9, "p50_ms": 51.986, "p95_ms": 117.964}
+AB langgraph sequential {"all_ms": [48.651, 51.268, 52.498, 52.991, 58.419, 59.74, 63.617, 69.331, 139.976], "min_ms": 48.651, "n": 9, "p50_ms": 58.419, "p95_ms": 139.976}
+AB baseline parallel   {"all_ms": [44.972, 51.058, 55.924, 58.772, 65.431, 75.697, 84.181, 124.202, 176.839], "min_ms": 44.972, "n": 9, "p50_ms": 65.431, "p95_ms": 176.839}
+AB langgraph parallel   {"all_ms": [53.241, 67.821, 69.735, 75.266, 76.573, 79.207, 87.624, 97.506, 167.262], "min_ms": 53.241, "n": 9, "p50_ms": 76.573, "p95_ms": 167.262}
+AB_RATIO baseline parallel/sequential p50 = 1.259
+AB_RATIO langgraph parallel/sequential p50 = 1.311
+AB_RATIO langgraph/baseline sequential p50 = 1.124
+AB_RATIO langgraph/baseline parallel   p50 = 1.170
+AB_FANOUT max_concurrency=1  {"min_ms": 56.776, "n": 5, "p50_ms": 64.695}
+AB_FANOUT max_concurrency=4  {"min_ms": 70.294, "n": 5, "p50_ms": 81.394}
+AB_FANOUT max_concurrency=40 {"min_ms": 71.438, "n": 5, "p50_ms": 91.942}
+AB_FANOUT p50 ratio conc=4 / conc=1 = 1.258

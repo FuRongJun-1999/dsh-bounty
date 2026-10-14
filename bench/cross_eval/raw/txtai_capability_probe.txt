@@ -1,0 +1,78 @@
+### A. 源码检索：检查点 / 恢复 / 重试（txtai 9.14.0, /home/ubuntu/dm/pylibs/txtai/txtai）
+--- grep -rn -iE 'checkpoint|resume|restart' /home/ubuntu/dm/pylibs/txtai/txtai/workflow/ ---
+(0 命中)
+--- grep -rn -iE 'retry|retries|backoff' /home/ubuntu/dm/pylibs/txtai/txtai/workflow/ ---
+(0 命中)
+--- grep -rn -iE 'def save|def load|pickle|json.dump' /home/ubuntu/dm/pylibs/txtai/txtai/workflow/base.py ---
+(0 命中)
+--- Workflow 公开 API ---
+Workflow public attrs: ['chunk', 'finalize', 'initialize', 'process', 'schedule']
+hasattr save/load/checkpoint/resume: False False False False
+
+### B. 尝试过的做法 + 原始报错（真实调用，真实异常，不伪造）
+Task(retries=3) -> TypeError: __init__() got unexpected keyword arguments: 'retries'
+Task(retry=3) -> TypeError: __init__() got unexpected keyword arguments: 'retry'
+Task(on_error=...) -> TypeError: __init__() got unexpected keyword arguments: 'on_error'
+Workflow(checkpoint=True) -> TypeError: Workflow.__init__() got an unexpected keyword argument 'checkpoint'
+Workflow(resume=True) -> TypeError: Workflow.__init__() got an unexpected keyword argument 'resume'
+Workflow(checkpoint_dir=...) -> TypeError: Workflow.__init__() got an unexpected keyword argument 'checkpoint_dir'
+
+### C. M7 探针：某个 Task 抛异常时，引擎自己的错误文本/栈是否点名步骤
+--- engine traceback (task #2 of 3 raises RuntimeError("boom")) ---
+Traceback (most recent call last):
+  File "/mnt/d/lingshu-memory-plugin/cross-eval-20261014/bench/cross_eval/raw/txtai_probe_m7.py", line 13, in <module>
+    list(wf([(0, 'x', 'run')]))
+  File "/home/ubuntu/dm/pylibs/txtai/txtai/workflow/base.py", line 73, in __call__
+    yield from self.process(batch, executor)
+  File "/home/ubuntu/dm/pylibs/txtai/txtai/workflow/base.py", line 171, in process
+    elements = task(elements, executor)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/txtai/txtai/workflow/task/base.py", line 95, in __call__
+    return self.filteredrun(elements, executor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/txtai/txtai/workflow/task/base.py", line 122, in filteredrun
+    results = self.execute([self.prepare(element) for _, element in data], executor)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/txtai/txtai/workflow/task/base.py", line 297, in execute
+    outputs = executor.run(self.concurrency, self.process, outputs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/txtai/txtai/workflow/execute.py", line 61, in run
+    return [function(*arg) for arg in args]
+            ^^^^^^^^^^^^^^
+  File "/home/ubuntu/dm/pylibs/txtai/txtai/workflow/task/base.py", line 340, in process
+    outputs = action(inputs)
+              ^^^^^^^^^^^^^^
+  File "/mnt/d/lingshu-memory-plugin/cross-eval-20261014/bench/cross_eval/raw/txtai_probe_m7.py", line 8, in boom
+    raise RuntimeError('boom')
+RuntimeError: boom
+
+--- engine frames mention task name/index? ---
+contains Task-name marker : False
+last line                 : RuntimeError: boom
+
+### D. 并发原语作用域探针：单 action 任务是否并发（对照 4 action）
+每个 action sleep 0.30s；期望：4 action 串行 ~1200ms，4 action 并发 ~300ms
+1 action  concurrency=None               elapsed_ms=   300.3  invocations=1  distinct_threads=1
+4 action  concurrency=None (串行)          elapsed_ms=  1200.8  invocations=4  distinct_threads=1
+4 action  concurrency=thread w=4         elapsed_ms=   312.6  invocations=4  distinct_threads=4
+每个 action sleep 0.30s；期望：4 action 串行 ~1200ms，4 action 并发 ~300ms
+1 action  concurrency=None               elapsed_ms=   312.0  invocations=1  distinct_threads=1
+4 action  concurrency=None (串行)          elapsed_ms=  1236.8  invocations=4  distinct_threads=1
+4 action  concurrency=thread w=4         elapsed_ms=   348.4  invocations=4  distinct_threads=4
+4 action  concurrency=process w=4        -> RuntimeError: 
+每个 action sleep 0.30s；期望：4 action 串行 ~1200ms，4 action 并发 ~300ms
+1 action  concurrency=None               elapsed_ms=   311.1  invocations=1  distinct_threads=1
+4 action  concurrency=None (串行)          elapsed_ms=  1231.4  invocations=4  distinct_threads=1
+4 action  concurrency=thread w=4         elapsed_ms=   414.3  invocations=4  distinct_threads=4
+4 action  concurrency=process w=4        -> RuntimeError: 
+每个 action sleep 0.30s；期望：4 action 串行 ~1200ms，4 action 并发 ~300ms
+1 action  concurrency=None               elapsed_ms=   300.2  invocations=1  distinct_threads=1
+4 action  concurrency=None (串行)          elapsed_ms=  1204.2  invocations=4  distinct_threads=1
+4 action  concurrency=thread w=4         elapsed_ms=   358.0  invocations=4  distinct_threads=4
+4 action  concurrency=process w=4        -> RuntimeError: 
+每个 action sleep 0.30s；期望：4 action 串行 ~1200ms，4 action 并发 ~300ms
+1 action  concurrency=None               elapsed_ms=   300.2  invocations=1  distinct_threads=1
+4 action  concurrency=None (串行)          elapsed_ms=  1205.2  invocations=4  distinct_threads=1
+4 action  concurrency=thread w=4         elapsed_ms=   364.0  invocations=4  distinct_threads=4
+4 action  concurrency=process w=4        -> RuntimeError: 
+4 action  concurrency=process w=4        -> AttributeError: Can't pickle local object 'mk_actions.<locals>.mk.<locals>.<lambda>'

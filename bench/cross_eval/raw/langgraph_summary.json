@@ -1,0 +1,97 @@
+{
+ "caps": {
+  "checkpoint": true,
+  "fanout": true,
+  "note": "checkpoint=InMemorySaver(serde=JsonPlusSerializer(pickle_fallback=True))（langgraph/checkpoint/memory/__init__.py；默认 pickle_fallback=False 见 langgraph/checkpoint/serde/jsonplus.py:122，默认 serde 无法序列化 BM25Okapi）；retry=RetryPolicy(retry_on=RuntimeError)（langgraph/types.py；默认 default_retry_on 对 RuntimeError 返回 False，见 langgraph/_internal/_retry.py）；fanout=Send+config[max_concurrency]（langgraph/types.py）",
+  "retry": true
+ },
+ "impl": "bench/cross_eval/systems/langgraph_impl.py",
+ "modes": {
+  "normal": {
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "normal",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "trace": [
+    "load",
+    "index",
+    "retrieve",
+    "verify",
+    "emit"
+   ]
+  },
+  "parallel": {
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "parallel",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "trace": [
+    "load",
+    "index",
+    "retrieve",
+    "verify",
+    "emit"
+   ]
+  },
+  "resume": {
+   "first_error": "injected failure at verify",
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "resume",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "steps_reexecuted_after_failure": [
+    "verify"
+   ]
+  },
+  "retry": {
+   "attempts": 3,
+   "error_text": "injected transient failure",
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "retry",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd"
+  },
+  "sequential": {
+   "lines": 40,
+   "matches_golden": true,
+   "mode": "sequential",
+   "ok": true,
+   "sha256": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "sha256_golden": "8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd",
+   "trace": [
+    "load",
+    "index",
+    "retrieve",
+    "verify",
+    "emit"
+   ]
+  }
+ },
+ "name": "langgraph",
+ "timing_normal": {
+  "min_ms": 44.855,
+  "n": 7,
+  "p50_ms": 55.075,
+  "p95_ms": 62.937
+ },
+ "timing_parallel": {
+  "min_ms": 54.712,
+  "n": 7,
+  "p50_ms": 68.85,
+  "p95_ms": 75.392
+ },
+ "timing_sequential": {
+  "min_ms": 47.277,
+  "n": 7,
+  "p50_ms": 52.224,
+  "p95_ms": 127.496
+ }
+}

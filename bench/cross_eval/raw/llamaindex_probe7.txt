@@ -1,0 +1,36 @@
+NAME = 'llamaindex'
+CAPS = {"checkpoint": true, "retry": true, "fanout": true, "note": "checkpoint=Context.to_dict()/from_dict()（引擎限定只能从 handler 代码取，同进程内恢复；跨进程需自行持久化索引与 payload）；retry=@step(retry_policy=retry_policy(...))，作用域是单个 step 的单次执行；fanout=@step 返回 list[Event] + @step(num_workers=N)，同步步体由引擎自动 run_in_executor 放默认线程池"}
+---- MODE normal  wall=187.5 ms
+   ok=True
+   trace = ["load", "index", "retrieve", "verify", "emit"]
+   workers = 1
+   n_results=40
+   sha256=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd  golden_match=True
+---- MODE sequential  wall=143.4 ms
+   ok=True
+   trace = ["load", "index", "retrieve", "verify", "emit"]
+   workers = 1
+   n_results=40
+   sha256=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd  golden_match=True
+---- MODE parallel  wall=180.3 ms
+   ok=True
+   trace = ["load", "index", "retrieve", "verify", "emit"]
+   workers = 4
+   n_results=40
+   sha256=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd  golden_match=True
+---- MODE retry  wall=138.6 ms
+   ok=True
+   attempts = 3
+   error_text = "injected transient failure"
+   n_results=40
+   sha256=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd  golden_match=True
+---- MODE resume  wall=185.3 ms
+   ok=True
+   trace = ["load", "index", "retrieve", "verify", "emit"]
+   first_error = "RuntimeError: injected failure at verify"
+   steps_reexecuted_after_failure = ["verify", "emit"]
+   counts_before_failure = {"load": 1, "index": 1, "retrieve": 40, "verify": 3, "emit": 0}
+   counts_after_resume = {"load": 0, "index": 0, "retrieve": 0, "verify": 1, "emit": 1}
+   n_results=40
+   sha256=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd  golden_match=True
+PROBE_DONE

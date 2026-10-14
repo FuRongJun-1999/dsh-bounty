@@ -1,0 +1,163 @@
+### M2 读数工具原文（metrics.loc）
+def loc(path):
+    """非空、非注释行数（# 开头）。"""
+    n = 0
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            s = line.strip()
+            if s and not s.startswith("#"):
+                n += 1
+    return n
+### M2 代码规模（metrics.loc = 非空非注释行数）
+total_lines baseline.py = 77
+loc llamaindex_impl.py       = 238
+loc baseline.py              = 66
+loc workload.py              = 95
+### M2 编排单元数
+@step 数（llamaindex_impl.py）      = 7
+class 定义（llamaindex_impl.py）    = 8
+async def/def 步函数（llamaindex）  = 7
+@step 数（baseline.py）             = 0
+### 反伪造核对：本实现里是否存在手写并发/重试/检查点循环
+  ThreadPoolExecutor     出现次数 = 0
+  asyncio.to_thread      出现次数 = 0
+  Semaphore              出现次数 = 0
+  concurrent.futures     出现次数 = 0
+  while True             出现次数 = 0
+  for _attempt           出现次数 = 0
+  while attempt          出现次数 = 0
+  引擎 API 调用：retry_policy=3  stop_after_attempt=1  num_workers=3  collect_events=1  to_dict=5  from_dict=5
+
+### M3 冷启动 import 耗时（每次独立进程，/usr/bin/python3 -X utf8）
+cold_import_run1_ms = 3641.9
+cold_import_run2_ms = 4154.1
+cold_import_run3_ms = 2624.9
+cold_import_run4_ms = 3085.2
+cold_import_run5_ms = 3165.0
+engine_only_import_ms = 2202.5
+
+### M6 并发扇出 vs 串行（metrics.timeit，repeats=7 warmup=1）
+M6 sequential  {"min_ms": 167.293, "n": 7, "p50_ms": 223.631, "p95_ms": 269.292}
+M6 parallel    {"min_ms": 179.271, "n": 7, "p50_ms": 188.388, "p95_ms": 346.851}
+### M4/M5 明细（完整返回字典，results 略）
+DETAIL resume = {"counts_after_resume": {"emit": 1, "index": 0, "load": 0, "retrieve": 0, "verify": 1}, "counts_before_failure": {"emit": 0, "index": 1, "load": 1, "retrieve": 40, "verify": 3}, "first_error": "RuntimeError: injected failure at verify", "n_results": 40, "ok": true, "out": "/mnt/d/lingshu-memory-plugin/cross-eval-20261014/bench/cross_eval/raw/llamaindex_m6.jsonl", "steps_reexecuted_after_failure": ["verify", "emit"], "trace": ["load", "index", "retrieve", "verify", "emit"]}
+DETAIL retry = {"attempts": 3, "error_text": "injected transient failure", "n_results": 40, "ok": true, "out": "/mnt/d/lingshu-memory-plugin/cross-eval-20261014/bench/cross_eval/raw/llamaindex_m6.jsonl"}
+
+### M8 依赖足迹
+du -sh 70M	/home/ubuntu/dm/pylibs/base
+du -sh 247M	/home/ubuntu/dm/pylibs/llamaindex
+dist-info 
+### M8 零凭据可运行性：环境里是否有 LLM 凭据
+  （上面若没有任何 ENV_ 行 = 环境内无凭据变量）
+  network_check: 本次全部读数由本地进程产生，未发起任何网络请求
+META_DONE
+### M8 引擎发行版（dist-info 目录名，实际安装）
+/home/ubuntu/dm/pylibs/llamaindex/aiohappyeyeballs-2.7.1.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/aiohttp-3.14.5.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/aiosignal-1.4.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/aiosqlite-0.22.1.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/annotated_types-0.8.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/anyio-4.15.1.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/attrs-26.1.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/banks-2.5.1.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/certifi-2026.7.22.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/charset_normalizer-3.5.2.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/click-8.5.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/cloudpickle-3.1.2.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/colorama-0.4.6.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/dataclasses_json-0.6.7.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/defusedxml-0.7.1.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/deprecated-3.0.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/dirtyjson-1.0.8.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/filetype-1.2.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/frozenlist-1.8.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/fsspec-2026.9.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/greenlet-3.5.6.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/griffe-2.3.2.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/griffecli-2.3.2.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/griffelib-2.3.2.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/h11-0.16.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/httpcore-1.0.9.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/httpx-0.28.1.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/idna-3.20.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/jinja2-3.1.6.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/joblib-1.6.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/llama_index_core-0.14.25.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/llama_index_instrumentation-0.6.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/llama_index_workflows-2.26.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/markupsafe-3.0.4.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/marshmallow-3.26.2.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/multidict-7.1.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/mypy_extensions-1.1.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/nest_asyncio-1.6.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/networkx-3.7.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/nltk-3.10.3.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/numpy-2.5.4.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/packaging-26.3.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/pillow-12.3.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/platformdirs-4.13.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/propcache-0.5.4.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/pydantic-2.14.1.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/pydantic_core-2.50.1.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/pyyaml-6.0.3.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/regex-2026.9.29.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/requests-2.34.2.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/setuptools-84.0.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/sqlalchemy-2.1.4.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/tenacity-9.2.1.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/tiktoken-0.14.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/tinytag-2.3.2.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/tqdm-4.70.1.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/typing_extensions-4.16.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/typing_inspect-0.9.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/typing_inspection-0.4.4.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/urllib3-2.8.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/wrapt-2.5.0.dist-info
+/home/ubuntu/dm/pylibs/llamaindex/yarl-1.25.1.dist-info
+### M8 rank_bm25 / numpy（base target）
+/home/ubuntu/dm/pylibs/base/numpy-2.5.4.dist-info
+/home/ubuntu/dm/pylibs/base/rank_bm25-0.2.2.dist-info
+### M8 python 与平台
+Python 3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]
+Linux 6.18.33.2-microsoft-standard-WSL2 x86_64 GNU/Linux
+### M8 pip 安装来源（本方案未额外安装任何包）
+PIL
+__pycache__
+_distutils_hack
+_yaml
+aiohappyeyeballs
+aiohappyeyeballs-2.7.1.dist-info
+aiohttp
+aiohttp-3.14.5.dist-info
+aiosignal
+aiosignal-1.4.0.dist-info
+aiosqlite
+aiosqlite-0.22.1.dist-info
+annotated_types
+annotated_types-0.8.0.dist-info
+anyio
+anyio-4.15.1.dist-info
+attr
+attrs
+attrs-26.1.0.dist-info
+banks
+banks-2.5.1.dist-info
+bin
+certifi
+certifi-2026.7.22.dist-info
+charset_normalizer
+charset_normalizer-3.5.2.dist-info
+click
+click-8.5.0.dist-info
+cloudpickle
+cloudpickle-3.1.2.dist-info
+colorama
+colorama-0.4.6.dist-info
+dataclasses_json
+dataclasses_json-0.6.7.dist-info
+defusedxml
+defusedxml-0.7.1.dist-info
+deprecated
+deprecated-3.0.0.dist-info
+dirtyjson
+dirtyjson-1.0.8.dist-info

@@ -1,0 +1,31 @@
+### 交替计时：baseline 与 txtai 各 3 轮 normal（spec.md:39 要求交替进行）
+--- round 1 : baseline ---
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TIMING normal {"min_ms": 32.972, "n": 7, "p50_ms": 47.181, "p95_ms": 51.152}
+TIMING sequential {"min_ms": 46.689, "n": 7, "p50_ms": 50.17, "p95_ms": 59.653}
+TIMING parallel {"min_ms": 35.234, "n": 7, "p50_ms": 58.771, "p95_ms": 98.422}
+--- round 1 : txtai ---
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TIMING normal {"min_ms": 41.013, "n": 7, "p50_ms": 51.837, "p95_ms": 64.454}
+TIMING sequential {"min_ms": 33.967, "n": 7, "p50_ms": 43.321, "p95_ms": 122.812}
+TIMING parallel {"min_ms": 42.201, "n": 7, "p50_ms": 52.161, "p95_ms": 64.913}
+--- round 2 : baseline ---
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TIMING normal {"min_ms": 55.627, "n": 7, "p50_ms": 87.649, "p95_ms": 181.137}
+TIMING sequential {"min_ms": 50.39, "n": 7, "p50_ms": 56.528, "p95_ms": 64.428}
+TIMING parallel {"min_ms": 45.163, "n": 7, "p50_ms": 65.946, "p95_ms": 83.378}
+--- round 2 : txtai ---
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TIMING normal {"min_ms": 33.849, "n": 7, "p50_ms": 49.801, "p95_ms": 53.805}
+TIMING sequential {"min_ms": 42.354, "n": 7, "p50_ms": 46.226, "p95_ms": 61.865}
+TIMING parallel {"min_ms": 34.747, "n": 7, "p50_ms": 53.501, "p95_ms": 97.911}
+--- round 3 : baseline ---
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TIMING normal {"min_ms": 36.136, "n": 7, "p50_ms": 41.151, "p95_ms": 46.478}
+TIMING sequential {"min_ms": 30.778, "n": 7, "p50_ms": 35.249, "p95_ms": 105.015}
+TIMING parallel {"min_ms": 39.208, "n": 7, "p50_ms": 47.657, "p95_ms": 54.876}
+--- round 3 : txtai ---
+SHA 8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd golden=8454e1f355832b516ed47eb3d479ffa14aa8f93bfbef30c2378b4bafb90940bd match=True lines=40
+TIMING normal {"min_ms": 35.829, "n": 7, "p50_ms": 45.938, "p95_ms": 50.086}
+TIMING sequential {"min_ms": 32.641, "n": 7, "p50_ms": 42.511, "p95_ms": 55.703}
+TIMING parallel {"min_ms": 47.82, "n": 7, "p50_ms": 51.342, "p95_ms": 55.437}

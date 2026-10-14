@@ -1,0 +1,15 @@
+cold_import baseline   run1 = 130.7 ms  rc=0 ok=True
+cold_import llamaindex run1 = 3754.1 ms  rc=0 ok=True
+cold_import baseline   run2 = 134.3 ms  rc=0 ok=True
+cold_import llamaindex run2 = 3006.7 ms  rc=0 ok=True
+cold_import baseline   run3 = 106.2 ms  rc=0 ok=True
+cold_import llamaindex run3 = 3251.3 ms  rc=0 ok=True
+cold_import baseline   run4 = 119.1 ms  rc=0 ok=True
+cold_import llamaindex run4 = 3329.7 ms  rc=0 ok=True
+cold_import baseline   run5 = 127.1 ms  rc=0 ok=True
+cold_import llamaindex run5 = 3242.5 ms  rc=0 ok=True
+cold_import_baseline_ms = [130.7, 134.3, 106.2, 119.1, 127.1]
+cold_import_baseline_min_ms = 106.2
+cold_import_llamaindex_ms = [3754.1, 3006.7, 3251.3, 3329.7, 3242.5]
+cold_import_llamaindex_min_ms = 3006.7
+COLDIMPORT_DONE

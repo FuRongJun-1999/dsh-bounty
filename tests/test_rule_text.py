@@ -61,6 +61,40 @@ STALE_SCAN = ("docs/bounty/board.md", "site/index.html", "site/honor.html",
               "scripts/bounty_board.py", "scripts/build_site.py",
               "docs/guide/悬赏站使用指南_v1.0.md")
 
+#: ★本件新增 T4：**表格形式**的口径值。
+#: 为什么必须要 —— `STALE_RE` 要求「超时」出现在数字前 40 字内，而**表格里「超时」只在表头**：
+#:     | 难度 | 完成后你得到 | 超时会扣 | 被判无效交付会扣 |
+#:     | 简单 easy | **+1** | −1 | −1 |        ← 数据行里没有「超时」二字
+#: ⇒ 表格形式的陈旧值**整类扫不到**（实测：指南 L106-109 的「超时会扣」列长期是 v0.1 的
+#:   −1/−1/−3/−5，而 STALE_SCAN 里那份指南**全绿**）。
+#: 故这里改用**正向断言**（照 T1 的体例）：表格里「超时会扣」列必须等于 `−2×base`。
+GUIDE_TABLE = "docs/guide/悬赏站使用指南_v1.0.md"
+#: 难度名 → base（真源 `bounty_board.DIFFICULTY_SCORES` 的裸名形态）
+_TABLE_ROWS = (("简单 easy", 1), ("中等 medium", 3), ("困难 hard", 6), ("专家 expert", 10))
+
+
+def _table_timeout_ok():
+    """逐行核「超时会扣」列 == −2×base；返回 (是否通过, 明细)。"""
+    try:
+        text = io.open(os.path.join(ROOT, GUIDE_TABLE), encoding="utf-8").read()
+    except OSError:
+        return False, "读不到 %s" % GUIDE_TABLE
+    bad = []
+    for label, base in _TABLE_ROWS:
+        m = re.search(r"^\|\s*" + re.escape(label) + r"\s*\|([^|]*)\|([^|]*)\|([^|]*)\|",
+                      text, re.M)
+        if not m:
+            bad.append("%s：表格行未找到" % label)
+            continue
+        got = m.group(2).strip()
+        want = "−%d" % (2 * base)
+        if want not in got:
+            bad.append("%s：超时会扣列写 %r，应为 %s（=−2×base）" % (label, got, want))
+    if bad:
+        return False, "；".join(bad)
+    return True, "四行「超时会扣」列均为 −2×base"
+
+
 #: 陈旧信号：超时与负数 1 同现。
 # ★本件：补**数字边界**。旧式 `…\s*1(?:\s*分)?` 会**把 `−12`／`−10` 当成 `−1`** ——
 # 实测：把指南里的超时扣分改正为现行 `−2×base`（含 `−12`）后，T2 **误报**「陈旧口径残留」。
@@ -129,6 +163,8 @@ def judge(m):
               and all(w in m["claim_md"] for w in CLAIM_MUST)
               and CLAIM_MUST_NOT not in m["claim_src"]
               and CLAIM_MUST_NOT not in m["claim_md"])
+    _t4_ok, _t4_why = _table_timeout_ok()
+    ok("T4 指南表格的「超时会扣」列 == −2×base", _t4_ok, _t4_why)
     ok("T3 认领通道表述与真源一致（两条通道同口径 ＋ 不含旧绝对表述）", src_ok,
        "howto[1]=%r" % m["claim_src"][:60])
     return list(_red)

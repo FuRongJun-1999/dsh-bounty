@@ -10,11 +10,12 @@
         --out docs/bounty/贡献表.md
 
 边界（规格 V2/V4）：本站只出**声誉分**与两条独立的轴（难度 / 影响等级）；
-金额、汇率、合成权重不进站。`--check` 对渲染结果做确定性自检（跑两遍比对）。
+金额、汇率、合成权重不进站。`--check` 对渲染结果做确定性自检（跑两遍比对）；**给了 `--out` 时同时与盘上产物逐字节比对**（体例对齐 `review_build.py --check`）。
 """
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import os
 import sys
@@ -207,16 +208,34 @@ def main(argv=None) -> int:
     ap.add_argument("--ledger", default="docs/bounty/ledger.json", help="账本 JSON 路径")
     ap.add_argument("--out", default="", help="贡献表 markdown 输出路径")
     ap.add_argument("--check", action="store_true",
-                    help="确定性自检（渲染两遍比对，不写盘）")
+                    help="漂移检测：确定性自检 ＋（给 --out 时）与盘上产物逐字节比对；0=一致 / 1=漂移")
     args = ap.parse_args(argv)
     try:
         events = load_ledger(args.ledger)
         text = render(events)
         if args.check:
+            # ① 确定性自检（渲染两遍互比）—— 原有判据，保留。
             again = render(events)
             if text != again:
                 print("确定性自检失败：两次渲染不一致", file=sys.stderr)
                 return 1
+            # ② ★本件新增：**读盘上产物比对**（体例对齐 scripts/review_build.py --check）。
+            # 为什么必须补：旧 --check 只做「渲染两遍互比」——那是**确定性**，不是**漂移**。
+            # 改 render() 的渲染逻辑后，盘上已提交的 docs/bounty/贡献表.md 会**静默陈旧**，
+            # 而本件自身**不会红**、tests/test_daily_table.py 的断言又全在**合成账本**上跑
+            # ⇒ 源与产物漂移**无任何守卫拦得住**。这正是《运行手册》§四-1 自认的盲区
+            # （原文点名了本函数的 --check 与那份测试）。
+            # 向后兼容：不给 --out 时行为与旧版**逐位一致**（只做确定性自检）。
+            if args.out and os.path.isfile(args.out):
+                got = io.open(args.out, encoding="utf-8").read()
+                if got != text:
+                    print("产物漂移：%s（盘上 %d 字节 ／ 现渲染 %d 字节）"
+                          % (args.out, len(got.encode("utf-8")), len(text.encode("utf-8"))),
+                          file=sys.stderr)
+                    return 1
+                print("确定性自检通过，且产物与真源一致：%s（账本 %d 条事件）"
+                      % (args.out, len(events)))
+                return 0
             print(f"确定性自检通过（账本 {len(events)} 条事件）")
             return 0
         if not args.out:

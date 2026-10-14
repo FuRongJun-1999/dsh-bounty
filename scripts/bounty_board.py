@@ -80,6 +80,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import io
 import json
 import math
 import os
@@ -235,6 +236,14 @@ def _as_int(x, default: int = 0) -> int:
 def rescore(events):
     bad = []
     for ev in events or []:
+        # ★本笔：**元素形状判据**。`rescore` 是 `docs/bounty/README.md` 写明的
+        # **公开可复算入口**，职责是「逐条复算并断言」⇒ 非对象元素应**点名**，不是崩。
+        # 旧实现直接 `ev.get("formula")` ⇒ `AttributeError`，整份复算结果拿不到
+        # （而本仓 §六 的「账本复算自检」正依赖 `rescore(events)` 的返回值）。
+        if not isinstance(ev, dict):
+            bad.append((None, "malformed event: 不是对象（实为 %s）" % type(ev).__name__,
+                        None, None))
+            continue
         f = ev.get("formula")
         if not f:
             if _as_int(ev.get("delta")) != 0:
@@ -504,7 +513,15 @@ def latest_marker(comments):
     """评论流 → 最新的状态标记（权威记录）；无则 None。"""
     best = None
     for body in comments or ():
-        for m in MARKER_RE.finditer(body or ""):
+        # ★本笔：**元素形状判据**。`comments` 是**外部输入面**（issue 评论正文，
+        # 也来自 `--state` 镜像的 `markers`），元素非字符串（数字／None／数组，
+        # **全是合法 JSON**）⇒ `re.finditer(body)` 抛
+        # `TypeError: expected string or bytes-like object`，而本函数 docstring 明写
+        # 「含 None/坏 JSON」且 **「坏 JSON 一律跳过，不抛」** —— 旧实现对「坏 JSON」守住了，
+        # 对「坏元素」没有。同族的 `_seq`／`parse_command` 都做了字符串化。
+        if not isinstance(body, str):
+            body = str(body or "")
+        for m in MARKER_RE.finditer(body):
             try:
                 rec = json.loads(m.group(1))
             except ValueError:
@@ -1288,6 +1305,12 @@ def roles_from_events(events):
 def role_revocations(events):
     latest = {}
     for ev in events or []:
+        # ★本笔：**元素形状判据**。账本是 append-only 的**外部写入面**（维护者脚本／
+        # 第三方复算件都会写），元素非对象 ⇒ `AttributeError: 'str' object has no
+        # attribute 'get'`。同族的导出面（`score_board`／`value_vector`／`promotion_report`）
+        # 在 2026-10-14 的 `8c9faca` 里已补过一轮 —— **本函数与 `rescore` 是那一轮漏掉的**。
+        if not isinstance(ev, dict):
+            continue
         if ev.get("action") != "role":
             continue
         who = (ev.get("subject") or "").strip()
@@ -2104,6 +2127,13 @@ def main(argv=None) -> int:
                     help="从账本导出**价值向量** JSON（本站只做声誉分与价值评价，不含金额）")
     ap.add_argument("--promotion-out", default="",
                     help="从账本导出**晋升评估** JSON（复合判据：声誉分/一次过闸占比/负向记录）")
+    # ★本件：四个导出产物的**漂移闸**。四个 `--*-out` 此前**只写不校验** ——
+    # 改渲染/导出逻辑后，盘上已提交的 `docs/bounty/{board.md,value_vector.json,
+    # promotion.json,roles.json}` 会**静默陈旧**，无任何守卫会红
+    # （《运行手册》§四-1 自认的盲区正是这一类；同仓 `review_build.py --check` 是读盘比对的体例）。
+    ap.add_argument("--products-check", default="",
+                    help="对四个导出产物做漂移检测（给目录，默认 docs/bounty）；"
+                         "0=一致 / 1=漂移；只读不写")
     ap.add_argument("--roles-out", default="",
                     help="从账本导出**授权面** JSON（role 事件 → reviewer/maintainer 名单）")
     args = ap.parse_args(argv)
@@ -2120,6 +2150,38 @@ def main(argv=None) -> int:
             print(f"账本并入：读入 {len(events)} 条 → 账本现 {len(merged)} 条 → "
                   f"{args.ledger}")
             return 0
+
+        if args.products_check:
+            # ★本件：四产物漂移检测（只读）。
+            # 为什么必须有：四个 `--*-out` 分派各自 `return 0`，**没有任何一条判据**
+            # 回头看盘上产物是否与「现渲染」一致 ⇒ 生成器源改了、产物陈旧，全绿。
+            events = load_ledger(args.ledger)
+            base = args.products_check
+            want = {}
+            _p = os.path.join(base, "board.md")
+            want[_p] = render_board(events)
+            for _name, _doc in (("value_vector.json", value_vector(events)),
+                                ("promotion.json", promotion_report(events)),
+                                ("roles.json", roles_from_events(events))):
+                want[os.path.join(base, _name)] = (
+                    json.dumps(_doc, ensure_ascii=False, indent=1, sort_keys=True) + chr(10))
+            drift = []
+            for _path in sorted(want):
+                if not os.path.isfile(_path):
+                    drift.append("缺产物：%s" % _path)
+                    continue
+                _got = io.open(_path, encoding="utf-8").read()
+                if _got != want[_path]:
+                    drift.append("漂移：%s（盘上 %d 字节 ／ 现渲染 %d 字节）"
+                                 % (_path, len(_got.encode("utf-8")),
+                                    len(want[_path].encode("utf-8"))))
+            if not drift:
+                print("四个产物与真源一致：%s（账本 %d 条事件）" % (base, len(events)))
+                return 0
+            for _d in drift:
+                sys.stderr.write("[漂移] %s\n" % _d)
+            sys.stderr.write("[products-check] 检出 %d 处漂移 ⇒ 退出 1\n" % len(drift))
+            return 1
 
         if args.board_out:
             events = load_ledger(args.ledger)

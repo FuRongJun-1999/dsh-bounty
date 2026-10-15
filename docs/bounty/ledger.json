@@ -9372,6 +9372,64 @@
         "delta": 1
       },
       "id": "evt_9d05d1fa9449"
+    },
+    {
+      "ts": "2026-10-15T13:45:42Z",
+      "issue": 594,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: hive-memory-bench score_points field parameter zero usage (AST confirmed). easy/B. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        594
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_efe4b45eb3c2"
+    },
+    {
+      "ts": "2026-10-15T13:45:42Z",
+      "issue": 595,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: hive-memory-bench check_card receives units but never reads it (AST confirmed). easy/B. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        595
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_eb3f4310d21f"
     }
   ]
 }

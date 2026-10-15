@@ -7758,6 +7758,64 @@
         "delta": 3
       },
       "id": "evt_b826f63c0bd9"
+    },
+    {
+      "ts": "2026-10-15T08:50:34Z",
+      "issue": 504,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi (dsh-memory @ 39e75c16): aeis_core/core.py:887-899 decay_cycle CONTEXT branch ignores no_forget/archived exemption markers while protect_node (:1168-1174) promises decay-skip and forget_advisor (:4813/:4625/:4868) honors them. P1 broken protection promise. hard/B D6. retro round=1.",
+      "pr": null,
+      "covers": [
+        504
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_a049a6831e7c"
+    },
+    {
+      "ts": "2026-10-15T08:50:34Z",
+      "issue": 505,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (lingshu @ 9dd0beb): core.py:1747/2815/3324 query_nodes/get_recent_context/get_nodes_by_tag TypeError on limit=None while query_nodes_by_time(:1770-1800) handles it correctly. P2 consistency fix. medium/B D3. retro round=1. lingshu #658.",
+      "pr": null,
+      "covers": [
+        505
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_12944d445826"
     }
   ]
 }

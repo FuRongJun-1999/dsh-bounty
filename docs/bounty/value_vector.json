@@ -51,12 +51,13 @@
     499,
     500,
     502,
-    503
+    503,
+    505
    ],
    "login": "Yinfeng818",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 116,
+   "reputation_delta": 119,
    "rounds": 1
   },
   {
@@ -575,6 +576,22 @@
    "rounds": 1
   },
   {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    493,
+    501,
+    504
+   ],
+   "login": "Yinfeng818",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 10,
+   "rounds": 1
+  },
+  {
    "difficulty": "expert",
    "difficulty_base": 10,
    "evidence_strength": true,
@@ -929,21 +946,6 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 6,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    493,
-    501
-   ],
-   "login": "Yinfeng818",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 4,
    "rounds": 1
   },
   {

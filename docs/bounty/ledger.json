@@ -10271,6 +10271,35 @@
         "delta": 1
       },
       "id": "evt_24a3cf3d7765"
+    },
+    {
+      "ts": "2026-10-15T14:34:18Z",
+      "issue": 601,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "tang19-chao",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory mdcg_stale_servers _parse_ps parsing defect - CommandLine with newline breaks parsing. Self-declared medium/B. 16400 chars comprehensive report with pre/post-fix comparison and upstream review. New contributor tang19-chao. medium/B D3. retro round=1.",
+      "pr": null,
+      "covers": [
+        601
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_dae27ff3d21a"
     }
   ]
 }

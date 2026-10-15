@@ -7584,6 +7584,35 @@
         "delta": 3
       },
       "id": "evt_8c7690fbdbcc"
+    },
+    {
+      "ts": "2026-10-15T08:05:16Z",
+      "issue": 499,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (lingshu): export_coggraph.py n_edges (declaration attribution via owner_cnt) vs with_edge (edge endpoints via s/t check) - two different counting criteria for the same concept. Confirmed structurally. medium/B D3. retro round=1.",
+      "pr": null,
+      "covers": [
+        499
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_d3e860c209ab"
     }
   ]
 }

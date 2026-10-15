@@ -10329,6 +10329,499 @@
         "delta": 10
       },
       "id": "evt_40fd244416d1"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 307,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: bounty_site bounty_list items element shape fix: non-object no longer crashes, --check gate gets results. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        307
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4b9a894c818e"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 310,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: dsh-memory security audit 7 issues + 6 fix PRs with reproducible readings, targeted mutations, dedup boundaries. Substantial audit bundle. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        310
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_04d8fc67559f"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 325,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "acrot0",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: DSH core renderer process Section handle monotonically growing (14.2 GB / 41267 handles). P1 memory leak in DSH core. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        325
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_e1ecb9430aa4"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 336,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: awesome-ai-plugins validate-contribution.py: 12 bare except silently swallowing errors. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        336
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_0eb2f1a0e155"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 344,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: ChineseProgramming core/parser.py: parse loop unconditionally advances once more on None-returning branch. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        344
+      ],
+      "project": "chinese_programming",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8412145fafcb"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 407,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-bounty #403 verification: #279 removes impact grade from reviewer own subsequent /verify /settle. P1. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        407
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_9f2c3cdbb5d1"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 456,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu export_coggraph title not path-masked: TITLE_RE capture group written as-is to nodes[].title. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        456
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_b91181f38d14"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 461,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu naming_report --min-title length gate blocks nodes whose title itself is a canonical identifier word. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        461
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_fd8425b82085"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 574,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: locomo-zh-500 Chinese retrieval 4-way comparison. Benchmark evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        574
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_fee34c7ffac9"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 575,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 2-skill test: same review question blind dual-answer. Multi-agent world model skill evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        575
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_f6b5d306231e"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 576,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: meta-question: conditional format gain 3-way independent processing. Format evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        576
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_373f2739dfc0"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 577,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 3-way feature inventory vs multi-agent world model. Feature evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        577
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_37da04679c77"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 578,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: agent workflow 3-system comparison: hive vs Codex vs ZCode. Workflow evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        578
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5f9cba465e82"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 579,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: public evaluation set construction report: 17 cloud dialogue histories screened. Evaluation infrastructure. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        579
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5ad09d33cb37"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 584,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: JainkAI deep security audit: 1 P0 + 3 P1 + 9 P2. P0 fix upstream PR #1. Security audit. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        584
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_7707e2f68182"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 585,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: Yuki security audit + theory suggestions: 0 P0/P1, 5 hardening confirmed + 4 P2. Security audit. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        585
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_3c74a9696759"
+    },
+    {
+      "ts": "2026-10-15T14:47:47Z",
+      "issue": 586,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: billion-context-dsh deep verification + context-lab comparison. Workflow/context evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        586
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_878029f2b8c8"
     }
   ]
 }

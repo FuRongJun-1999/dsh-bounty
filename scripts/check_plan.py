@@ -68,13 +68,29 @@ LEDGER_TO_STATE = {
     "dispute": "disputed",
     "expire": "expired",
 }
-NO_STATE_ACTIONS = ("reject", "role")   # 文档用：这两类不态迁移（判据在 LEDGER_TO_STATE）
+#: 规格 v0.2 §二：「`reject` / `role` **不改态**（拒绝是尝试痕；role 是授权面）」。
+#: ★这两类**会**在事件里带 `to` —— `bounty_board._decide` 写的是 `from == to == 当时态`（:681）。
+#: 旧注释「判据在 LEDGER_TO_STATE」是**错**的：动作表里根本没有这两类，光看 `to` 在不在
+#: 就会把它们当成态迁移。
+NO_STATE_ACTIONS = ("reject", "role")
+#: 与上两类**同性质**（只留痕、不迁移态）的动作：`lose` = 落选分。
+#: `_do_select` 把它写成 `from == to == contest`，且与定标事件**同 `ts` 且排在其后**（:914）
+#: ⇒ 采信它的 `to` 会把定标后的 `delivered` 读回 `contest`。
+NON_TRANSITION_ACTIONS = NO_STATE_ACTIONS + ("lose",)
 
 
 # 生效条件：ev 为账本事件 dict 时返回它迁到的态（可能为空串）——
 # **优先取事件自带的 `to`**（真源，随结果变化），无 `to` 时回落到 `LEDGER_TO_STATE`（兼容）。
 def state_of_event(ev) -> str:
-    """事件迁到的态：`to` 优先，动作表回落。**两者皆无 ⇒ 空串**（调用方据此跳过）。"""
+    """事件迁到的态：`to` 优先，动作表回落。**两者皆无 ⇒ 空串**（调用方据此跳过）。
+
+    ★非迁移事件（`reject` / `role` / `lose`）**恒空串**：它们的 `to` 写的是「**当时**的态」，
+    不是迁移目标。旧实现采信它 ⇒ ① 任何能评论的人发一条会被拒的命令，就能把该号的
+    真实漂移从对账报告里抹掉（`--strict` 由 1 变 0，判据失明）；② 落选分把定标态读回 `contest`。
+    """
+    # ★本笔：规格 v0.2 §二 + 生产者实证（`bounty_board._decide:681` / `_do_select:914`）
+    if str(ev.get("action") or "") in NON_TRANSITION_ACTIONS:
+        return ""
     to = str(ev.get("to") or "")
     if to:
         return to

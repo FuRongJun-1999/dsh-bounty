@@ -6800,6 +6800,35 @@
         "delta": 6
       },
       "id": "evt_57374c35389a"
+    },
+    {
+      "ts": "2026-10-15T05:10:51Z",
+      "issue": 470,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi (lingshu @ b096cc8e4360): session_chains.py:152-153 time.localtime vs derive_edges.py:290 time.gmtime (same repo, same pipeline class). derive_edges.py:286-287 comment self-documents the localtime-to-gmtime change. khou-jing bu-yi-zhi que-ren. easy/C D1. retro round=1.",
+      "pr": null,
+      "covers": [
+        470
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_f38a5c57770f"
     }
   ]
 }

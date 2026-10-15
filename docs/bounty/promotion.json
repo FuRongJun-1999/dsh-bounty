@@ -84,19 +84,20 @@
     452,
     462,
     464,
-    467
+    467,
+    470
    ],
    "login": "Yinfeng818",
    "projects": [],
-   "reputation_delta": 95,
+   "reputation_delta": 96,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 36,
+   "round_known": 37,
    "round_seen": [
     1
    ],
-   "settled": 36,
+   "settled": 37,
    "timeout": 0
   },
   {

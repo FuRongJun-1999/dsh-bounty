@@ -19,7 +19,7 @@
 | 状态机守卫 | [`tests/test_bounty_board.py`](tests/test_bounty_board.py) | 142 条断言 ＋ 52 条定点变异（M0–M51，含审核员机制 `[R]` 组） |
 | **网站面生成器** | [`scripts/build_site.py`](scripts/build_site.py) | 静态站（纯 stdlib）；**荣誉榜由账本机械生成** |
 | **网站面守卫** | [`tests/test_build_site.py`](tests/test_build_site.py) | 24 条断言 ＋ 5 条定点变异（N0–N4） |
-| 账本／荣誉榜 | [`docs/bounty/ledger.json`](docs/bounty/ledger.json) ／ [`docs/bounty/board.md`](docs/bounty/board.md) | append-only 事件流 ／ 由账本机械生成 |
+| 账本／荣誉榜 | [`docs/bounty/ledger.json`](docs/bounty/ledger.json) ／ [`docs/bounty/board.md`](docs/bounty/board.md) | append-only 事件流 ／ 由账本机械生成；**已知勘误：**[`docs/bounty/勘误_covers幻影号.md`](docs/bounty/勘误_covers幻影号.md)（8 行 18 号记错仓，分数不变） |
 | **每日贡献表生成器** | [`scripts/daily_table.py`](scripts/daily_table.py) | 从账本按**结算日**渲染贡献表（确定性；`--check` 自检） |
 | **每日贡献表守卫** | [`tests/test_daily_table.py`](tests/test_daily_table.py) | 18 条断言 ＋ 5 条定点变异（M1–M5） |
 | **账本不变量自审** | [`scripts/check_ledger_invariants.py`](scripts/check_ledger_invariants.py) | **15 项**结构不变量逐项计数（id 可复算／形态／唯一、难度与影响闭集、必填、`covers` 形态、`ts` 形态、**`day == date(ts+8h)`**、公式自洽、项目非空、产物合计对账），非零项**逐条点名**；**不 import `bounty_board`**，id 公式独立重实现（当独立见证者，避免同错同绿） |

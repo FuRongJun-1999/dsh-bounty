@@ -7816,6 +7816,35 @@
         "delta": 3
       },
       "id": "evt_12944d445826"
+    },
+    {
+      "ts": "2026-10-15T08:59:41Z",
+      "issue": 506,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi (dsh-memory @ 39e75c16): freshness.py:244-265 protected_floor only checks explicit protected bit (1 of 3 truth sources in protect.py:139-176); layer(self/anchor) and score(importance>=0.70) get SCORE_FLOOR instead. 30d sort diff 1.56x / 1y 778x. P1 broken promise same family as #504. hard/B D6. retro round=1.",
+      "pr": null,
+      "covers": [
+        506
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_84526d594c47"
     }
   ]
 }

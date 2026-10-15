@@ -57,19 +57,20 @@
     502,
     503,
     504,
-    505
+    505,
+    506
    ],
    "login": "Yinfeng818",
    "projects": [],
-   "reputation_delta": 129,
+   "reputation_delta": 135,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 49,
+   "round_known": 50,
    "round_seen": [
     1
    ],
-   "settled": 49,
+   "settled": 50,
    "timeout": 0
   },
   {

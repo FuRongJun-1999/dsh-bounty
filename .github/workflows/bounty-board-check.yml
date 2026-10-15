@@ -122,7 +122,7 @@ jobs:
       #     （要合法减少，请在本行显式下调下界并在 PR 说明理由——让删减在 diff 里可见。）
       - name: 元守卫 · 变异条数不得减少
         run: |
-          MIN_MUTATIONS=58   # 2026-10-14 上级（主干 327996c 实测 58 条；原 45/6754363 已过时）
+          MIN_MUTATIONS=59   # 2026-10-15 本笔新增 M59「fail 退回不兜底计 1 轮」（实测 59）；上一档 58 见 2026-10-14（主干 327996c）
           got=$(python -X utf8 tests/test_bounty_board.py --list | grep -c '^  M[0-9]')
           echo "变异条数实测：$got（下界 $MIN_MUTATIONS）"
           if [ "$got" -lt "$MIN_MUTATIONS" ]; then

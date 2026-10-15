@@ -8367,6 +8367,64 @@
         "delta": 1
       },
       "id": "evt_70649a872e8e"
+    },
+    {
+      "ts": "2026-10-15T11:22:37Z",
+      "issue": 525,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi (dsh-bench @ f8947419): select_valid_runs production call sites 0 (AST confirmed), guard does not cover missing keys. Self-declared easy/B. Adjacent face from #335 receipt. retro round=1.",
+      "pr": null,
+      "covers": [
+        525
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_a391d842bca7"
+    },
+    {
+      "ts": "2026-10-15T11:22:37Z",
+      "issue": 526,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi (dsh-bench @ f8947419): half_width formula (U-L)/2 has 3 coexisting instances (named function with 0 calls + 2 inline). AST confirmed. easy/B D1. retro round=1.",
+      "pr": null,
+      "covers": [
+        526
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_f48b58027dc4"
     }
   ]
 }

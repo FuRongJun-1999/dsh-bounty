@@ -383,19 +383,20 @@
     332,
     333,
     334,
-    335
+    335,
+    525
    ],
    "login": "qweqqxq11",
    "projects": [],
-   "reputation_delta": 70,
+   "reputation_delta": 71,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 20,
+   "round_known": 21,
    "round_seen": [
     1
    ],
-   "settled": 20,
+   "settled": 21,
    "timeout": 0
   },
   {
@@ -419,19 +420,20 @@
     345,
     346,
     347,
-    348
+    348,
+    526
    ],
    "login": "zhangdeishuai1",
    "projects": [],
-   "reputation_delta": 55,
+   "reputation_delta": 56,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 13,
+   "round_known": 14,
    "round_seen": [
     1
    ],
-   "settled": 13,
+   "settled": 14,
    "timeout": 0
   },
   {

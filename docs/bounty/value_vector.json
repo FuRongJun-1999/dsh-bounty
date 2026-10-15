@@ -474,22 +474,23 @@
    "rounds": 1
   },
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
+   "difficulty": "easy",
+   "difficulty_base": 1,
    "evidence_strength": true,
-   "impact_grade": "A",
+   "impact_grade": "B",
    "issues": [
     55,
     122,
     332,
     333,
     334,
-    335
+    335,
+    525
    ],
    "login": "qweqqxq11",
    "project": "bench",
    "quality_E": null,
-   "reputation_delta": 19,
+   "reputation_delta": 20,
    "rounds": 1
   },
   {
@@ -694,6 +695,21 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 9,
+   "rounds": 1
+  },
+  {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    125,
+    526
+   ],
+   "login": "zhangdeishuai1",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 7,
    "rounds": 1
   },
   {
@@ -933,20 +949,6 @@
    ],
    "login": "tang19-chao",
    "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 6,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    125
-   ],
-   "login": "zhangdeishuai1",
-   "project": "bench",
    "quality_E": null,
    "reputation_delta": 6,
    "rounds": 1

@@ -9314,6 +9314,64 @@
         "delta": 1
       },
       "id": "evt_e17921feac80"
+    },
+    {
+      "ts": "2026-10-15T13:42:46Z",
+      "issue": 592,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: hive-memory-bench judge.py axis_evidence: card and open_mode inconsistency. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        592
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_fbe01c18dd47"
+    },
+    {
+      "ts": "2026-10-15T13:42:46Z",
+      "issue": 593,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: hive-memory-bench judge_audit.py evaluate_anchors does not read verdict. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        593
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_9d05d1fa9449"
     }
   ]
 }

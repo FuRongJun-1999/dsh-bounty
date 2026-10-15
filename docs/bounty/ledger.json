@@ -10300,6 +10300,35 @@
         "delta": 3
       },
       "id": "evt_dae27ff3d21a"
+    },
+    {
+      "ts": "2026-10-15T14:37:23Z",
+      "issue": 602,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "expert",
+      "delta": 10,
+      "reason": "wei-hu-he-shi: dsh-memory ReachIndex.load corrupted derived snapshot validation + atomic loading. PR #390. Self-suggests expert. New guards + named mutation entries. 4855 chars comprehensive report. expert/B D10. retro round=1.",
+      "pr": "https://github.com/FuRongJun-1999/dsh-memory/pull/390",
+      "covers": [
+        602
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 10,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 10.0,
+        "delta": 10
+      },
+      "id": "evt_40fd244416d1"
     }
   ]
 }

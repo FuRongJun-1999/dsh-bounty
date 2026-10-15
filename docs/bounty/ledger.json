@@ -9053,6 +9053,267 @@
       "day": "2026-10-15",
       "formula": "wei-hu-zhe zhi-jie cai-ding (delta=40)",
       "id": "evt_d7035e8c1a65"
+    },
+    {
+      "ts": "2026-10-15T13:38:18Z",
+      "issue": 580,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "rinDBeans",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory #348 fixes: MERGE/CONVERGE cross-process lock + encrypted conditions plaintext exposure fix. Delivery PR #387. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        580
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a581c82e7499"
+    },
+    {
+      "ts": "2026-10-15T13:38:18Z",
+      "issue": 581,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: dsh-mobile-apk file_paths.xml path=. and bridge arbitrary path input: declared surface wider than design intent by two roots. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        581
+      ],
+      "project": "dsh_mobile_apk",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_ce09f7edf743"
+    },
+    {
+      "ts": "2026-10-15T13:38:18Z",
+      "issue": 582,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: dsh-mobile-apk snapshot unpack: zero validation of entry names and link targets. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        582
+      ],
+      "project": "dsh_mobile_apk",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_7326e2c7b402"
+    },
+    {
+      "ts": "2026-10-15T13:38:18Z",
+      "issue": 583,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: dsh-mobile-apk render freeze watchdog self-heal flag never resets - second freeze onwards only warns no action. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        583
+      ],
+      "project": "dsh_mobile_apk",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_e26dd275e5f5"
+    },
+    {
+      "ts": "2026-10-15T13:38:18Z",
+      "issue": 587,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: dsh-mobile-apk upgrade safety gate snapshotFresh() only installed on Activity path. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        587
+      ],
+      "project": "dsh_mobile_apk",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_31665bfdfe61"
+    },
+    {
+      "ts": "2026-10-15T13:38:18Z",
+      "issue": 588,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: dsh-bench FROZEN_THRESHOLDS zero AST read points (two places inline rebuild). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        588
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_45141111f138"
+    },
+    {
+      "ts": "2026-10-15T13:38:18Z",
+      "issue": 589,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: hive-memory-bench judge.py phase 0 gate two divisions, one guarded one not. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        589
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_03d2ecdc7eaf"
+    },
+    {
+      "ts": "2026-10-15T13:38:18Z",
+      "issue": 590,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: hive-memory-bench judge_arm receives doc_norms but never reads it. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        590
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_1f9746f9091f"
+    },
+    {
+      "ts": "2026-10-15T13:38:18Z",
+      "issue": 591,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: hive-memory-bench chain/tools/synth.py build_keys random source rng discarded. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        591
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_e17921feac80"
     }
   ]
 }

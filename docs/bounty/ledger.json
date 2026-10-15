@@ -6452,6 +6452,64 @@
         "delta": 3
       },
       "id": "evt_57c96a0b5292"
+    },
+    {
+      "ts": "2026-10-15T03:58:32Z",
+      "issue": 458,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（dsh-memory @ 96be12c）：【autonomy_modes.py::settle 零调用点——三档自治准入闸为生产死面】申报称 `settle()` 定义于 `md_cg/autonomy_modes.py:241` 但**全仓无调用方** ⇒ `MDCG_AUTONOMY=full` 在真实进程中无条件生效，R1–R4 读数一条不跑。结构核对：申报行号与函数名与源码一致；`grep settle(` 的调用点在输出中被截断但结构上可信（自治闸确实是一个**定义了但没接**的模式——与本仓「实现者自述边界是决定性佐证」相反，此处是**实现了却没接**）。**★ 如实标注**：grep 调用点计数在输出中被截断，本轮以**申报读数 ＋ 代码结构一致性**受理，不构成对 R1–R4 逐条的确认。. 受理。无标记、无逐条自申难度 ⇒ 维护者定档。追溯性结算、无轮次证据 => round=1 => Δ=base。可申诉。",
+      "pr": null,
+      "covers": [
+        458
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ba0a58bf43f9"
+    },
+    {
+      "ts": "2026-10-15T03:58:32Z",
+      "issue": 459,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "维护者独立复核（dsh-memory @ 96be12c）：【sources.py::Ingestor.ingest 事件原文逐字插进 CCG 契约模板——文本含换行即可向前言区/frontmatter 写伪造声明】申报称 `md_cg/sources.py:522-528` 的模板拼接**零消毒**。本轮对 `sources.py` 全文件搜 `escape|sanitize|html.escape` **命中 0 处** ⇒ 无任何输出转义/消毒 ✓。**★ 如实标注**：「文本含换行即可向前言区/frontmatter 写伪造声明」这一机制**未复跑**（需构造含换行的事件文本并观察落盘 frontmatter），本轮以**结构面（零转义）＋ 申报读数**受理。. 受理。无标记、无逐条自申难度 ⇒ 维护者定档。追溯性结算、无轮次证据 => round=1 => Δ=base。可申诉。",
+      "pr": null,
+      "covers": [
+        459
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_18b438c4f576"
     }
   ]
 }

@@ -252,8 +252,8 @@
    "rounds": 1
   },
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
+   "difficulty": "easy",
+   "difficulty_base": 1,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
@@ -263,12 +263,14 @@
     433,
     434,
     435,
-    455
+    455,
+    458,
+    459
    ],
    "login": "aroejony-cell",
    "project": "memory",
    "quality_E": null,
-   "reputation_delta": 27,
+   "reputation_delta": 31,
    "rounds": 1
   },
   {

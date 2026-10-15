@@ -6858,6 +6858,64 @@
         "delta": 3
       },
       "id": "evt_6db2acb3f524"
+    },
+    {
+      "ts": "2026-10-15T05:21:08Z",
+      "issue": 472,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: review_build.py --check directory-residue blind spot; --out bare stack on existing file; four fields missing type checks. Structural claims consistent with codebase patterns already verified in #471.. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        472
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_319839b24858"
+    },
+    {
+      "ts": "2026-10-15T05:21:08Z",
+      "issue": 473,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: verification_basis self-certification skips probation (MCP reachable); evidence_count fabrication survives index rebuild to activate longterm; access_count fake heat takes immediate effect. Related to #463 (same fm.update(extra) root) but the trust-algorithm consumption face is new: #463 covered injection into fm, #473 covers downstream algorithm consumption of those injected values.. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        473
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6d6bb73941d3"
     }
   ]
 }

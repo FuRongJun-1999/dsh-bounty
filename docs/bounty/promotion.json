@@ -304,19 +304,20 @@
     458,
     459,
     463,
-    465
+    465,
+    473
    ],
    "login": "aroejony-cell",
    "projects": [],
-   "reputation_delta": 64,
+   "reputation_delta": 67,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 17,
+   "round_known": 18,
    "round_seen": [
     1
    ],
-   "settled": 17,
+   "settled": 18,
    "timeout": 0
   },
   {
@@ -403,6 +404,38 @@
    ],
    "invalid": 0,
    "issues": [
+    65,
+    367,
+    374,
+    380,
+    387,
+    388,
+    466,
+    471,
+    472
+   ],
+   "login": "zijinmengxi",
+   "projects": [],
+   "reputation_delta": 49,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 9,
+   "round_seen": [
+    1
+   ],
+   "settled": 9,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     11,
     65,
     99,
@@ -426,37 +459,6 @@
     1
    ],
    "settled": 11,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    65,
-    367,
-    374,
-    380,
-    387,
-    388,
-    466,
-    471
-   ],
-   "login": "zijinmengxi",
-   "projects": [],
-   "reputation_delta": 46,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 8,
-   "round_seen": [
-    1
-   ],
-   "settled": 8,
    "timeout": 0
   },
   {

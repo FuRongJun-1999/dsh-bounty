@@ -7119,6 +7119,325 @@
         "delta": 1
       },
       "id": "evt_62449bd2569f"
+    },
+    {
+      "ts": "2026-10-15T06:57:50Z",
+      "issue": 481,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: hive serve main loop double-read status.json per task per tick. Self-declared medium. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        481
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a89073589f81"
+    },
+    {
+      "ts": "2026-10-15T06:57:50Z",
+      "issue": 482,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: write chain bare cg.get bypasses read cache. Self-declared medium. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        482
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_0affff40ee2d"
+    },
+    {
+      "ts": "2026-10-15T06:57:50Z",
+      "issue": 483,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: audit #save mkdir + timestamped tmp per call. Self-declared low. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        483
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_82f97fb6265a"
+    },
+    {
+      "ts": "2026-10-15T06:57:50Z",
+      "issue": 484,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: R5 phantom edges visible in build_viewer despite #359/#606 filter. Marker P1. b096cc8e. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        484
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_626803e6ddb2"
+    },
+    {
+      "ts": "2026-10-15T06:57:50Z",
+      "issue": 485,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: governance ledger fields verifiable via fm.update(extra) - same root as #463. New fields: verification/lifecycle audit trail. Same-root expansion. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        485
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_022862e43b24"
+    },
+    {
+      "ts": "2026-10-15T06:57:50Z",
+      "issue": 486,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: attribution/derivation/promotion fields via fm.update(extra) - same root as #463. New fields: writer/derived_from/promotion. Same-root expansion. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        486
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_68f708b710c3"
+    },
+    {
+      "ts": "2026-10-15T06:57:50Z",
+      "issue": 487,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: 12 fixes delivery PR #621-#638 all MERGED (verified). b096cc8e. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        487
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_07d34607b546"
+    },
+    {
+      "ts": "2026-10-15T06:57:50Z",
+      "issue": 488,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: session_chains meta.sessions 45 vs chains[:40] count discrepancy. Marker P2. b096cc8e. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        488
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_ef1db9aa9255"
+    },
+    {
+      "ts": "2026-10-15T06:57:50Z",
+      "issue": 489,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: check_plan reconcile mark-state conflict unreachable without ledger state. Self-declared medium. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        489
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_89053808a5bf"
+    },
+    {
+      "ts": "2026-10-15T06:57:50Z",
+      "issue": 490,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: check_plan label_state_of iteration order reversed vs state machine. Self-declared medium. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        490
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_3df1f3a68960"
+    },
+    {
+      "ts": "2026-10-15T06:57:50Z",
+      "issue": 491,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: 6 fixes delivery PR #641-#647 all MERGED (verified). Sister batch of #487. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        491
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_0b427d609359"
     }
   ]
 }

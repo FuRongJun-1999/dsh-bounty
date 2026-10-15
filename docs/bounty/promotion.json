@@ -412,19 +412,20 @@
     388,
     466,
     471,
-    472
+    472,
+    474
    ],
    "login": "zijinmengxi",
    "projects": [],
-   "reputation_delta": 49,
+   "reputation_delta": 52,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 9,
+   "round_known": 10,
    "round_seen": [
     1
    ],
-   "settled": 9,
+   "settled": 10,
    "timeout": 0
   },
   {

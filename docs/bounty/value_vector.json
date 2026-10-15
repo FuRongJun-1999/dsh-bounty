@@ -141,6 +141,28 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    65,
+    367,
+    374,
+    380,
+    387,
+    388,
+    471,
+    472,
+    474
+   ],
+   "login": "zijinmengxi",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 46,
+   "rounds": 1
+  },
+  {
    "difficulty": "expert",
    "difficulty_base": 10,
    "evidence_strength": true,
@@ -157,27 +179,6 @@
    "project": "lingshu",
    "quality_E": null,
    "reputation_delta": 45,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    65,
-    367,
-    374,
-    380,
-    387,
-    388,
-    471,
-    472
-   ],
-   "login": "zijinmengxi",
-   "project": "bounty_site",
-   "quality_E": null,
-   "reputation_delta": 43,
    "rounds": 1
   },
   {

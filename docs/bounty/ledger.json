@@ -6916,6 +6916,35 @@
         "delta": 3
       },
       "id": "evt_6d6bb73941d3"
+    },
+    {
+      "ts": "2026-10-15T05:25:55Z",
+      "issue": 474,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: review_build.py guard/mutation face - 5-point local-rerun enforcement zero criteria; 42/68 assertions no mutation can red; ~22 rejection branches zero coverage. Faces disjoint from #471 (output/cmd) and #472 (directory/type). medium/B D3. retro round=1.",
+      "pr": null,
+      "covers": [
+        474
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1af85dfd1b62"
     }
   ]
 }

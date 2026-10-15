@@ -262,8 +262,8 @@
    "rounds": 1
   },
   {
-   "difficulty": "hard",
-   "difficulty_base": 6,
+   "difficulty": "medium",
+   "difficulty_base": 3,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
@@ -274,12 +274,13 @@
     508,
     513,
     514,
-    518
+    518,
+    554
    ],
    "login": "Yinfeng818",
    "project": "memory",
    "quality_E": null,
-   "reputation_delta": 40,
+   "reputation_delta": 43,
    "rounds": 1
   },
   {

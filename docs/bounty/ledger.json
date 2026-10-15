@@ -8947,6 +8947,35 @@
         "delta": 1
       },
       "id": "evt_d0360714a98e"
+    },
+    {
+      "ts": "2026-10-15T12:01:21Z",
+      "issue": 554,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (dsh-memory @ 61380931): trust.py:88 _RANK puts rechecking and unverified both at rank 1; TRANSITIONS includes both directions (:99/:108); is_downgrade(:140) rank comparison makes exemption(:169) ineffective in both directions for this pair. Reporter self-corrected from docstring-promise-broken claim. medium/B D3. retro round=1.",
+      "pr": null,
+      "covers": [
+        554
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_93dbf97a2e67"
     }
   ]
 }

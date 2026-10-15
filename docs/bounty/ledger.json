@@ -5959,6 +5959,122 @@
         "delta": 3
       },
       "id": "evt_295c9cfc8966"
+    },
+    {
+      "ts": "2026-10-15T00:14:25Z",
+      "issue": 261,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆 `hive-memory-bench` @ 锚定提交 `f4509d7`，一律用 `git show` 取源码）：【hive-memory-bench #29（本件自申 medium 的那一面，拆条①）：`judge.py` 的否定豁免是「同子句词袋」，禁编造轴可被一个前缀整体绕过】**源码级三证**：① `judge.py:47-55 NEG_MARKERS` 词表**含光杆否定词**「没有 / 不存在 / 不含 / 未出现 / 未曾 / 无任何 / 并没有 / **不能 / 不可**」（L50-54 的注释还记录了两次既往修补：加光杆「没有」、加光杆「不能/不可」）；② `judge.py:198-222 def negated(text, hit)`：L211 `i = t.find(h)`，L219-221 取**句读边界到命中终点**的窗口 `window = t[start:i + len(h)]`，L222 `return any(norm(m) in window for m in NEG_MARKERS)` ⇒ **窗口内的否定词即豁免整条**；③ 申报的实测（「不可否认 / 没有人能否认 / 不能不承认」+ 断言全部 pass；82 条字面触发的 anti_pattern 里 81 条可被一个前缀翻转）**未复跑**，但其机制与 ①② 逐字对应 ⇒ **成立**。**影响档取 A**：默认配置即触发（无需伪造判官文件），而禁编造轴是主轮最硬的一条拦截。。受理。难度沿用**申报正文内逐条自申档**（本件无 `<!-- intake:v1 -->` 机器标记，但正文逐字写明「难度申请：…」）；按本仓细化「**申报件内逐条自申不同档 ⇒ 按档拆多条事件**」拆为两条，同一 `covers` 下各记一笔。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。影响等级由维护者按 IMPACT_CRITERIA 定档（依据见本行）。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        261
+      ],
+      "project": "hive_memory_bench",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c2b47467e071"
+    },
+    {
+      "ts": "2026-10-15T00:14:25Z",
+      "issue": 261,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "维护者独立复核（隔离克隆 `hive-memory-bench` @ 锚定提交 `f4509d7`，一律用 `git show` 取源码）：【hive-memory-bench #28/#30/#31/#32（自申 easy 的四面，拆条②）】**逐面源码级核对**：#30 —— `probe_runner.py:322-326 def build_closed_prompt` 的 **system 提示逐字给出已填好的答卷模板** `{\"qid\":\"...\", \"value\":null, \"state\":\"absent\", \"at_seq\":null, \"chain\":[], \"basis\":[], \"confidence\":\"unknown\"}`，而闭卷门 `probe_judge.py:522 c2 = bool(cb) and cb['present'] <= 0.2 and cb['history'] <= 0.2 …` **只看闭卷读数** ⇒ 照抄模板的臂 c2 恒过 ✓。**#31** —— `synth.py:160 suffix = '·同名者'`、`synth.py:702-705` 影子链说明句逐字为「{subject} 与 {primary} **同名但并非同一主体**」⇒ 影子主体携带**可正则可判**的区分标记 ✓。**#28** —— `probe_judge.py:365-372` 的 `stale`/`future` 分母确实带 `has_value(k)` 过滤（L367-370 注释记录了 2026-10-10 把该过滤**补到** `future`），而 `has_value` 的定义区在 L346-353 ⇒ 退役题被剔出分母 ✓（结构成立）。**#32** —— 申报的句级/章级分量对照表（阈值 0.5 下 24→92）**未复算**，按其自陈「句级同样是代理、92 也不是真值，本件只证明偏差方向」接受其方向性结论。**影响档取 B**：四面均为量具/口径层面、需特定路径（如照抄模板、正则读取器）才显现。。受理。难度沿用**申报正文内逐条自申档**（本件无 `<!-- intake:v1 -->` 机器标记，但正文逐字写明「难度申请：…」）；按本仓细化「**申报件内逐条自申不同档 ⇒ 按档拆多条事件**」拆为两条，同一 `covers` 下各记一笔。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。影响等级由维护者按 IMPACT_CRITERIA 定档（依据见本行）。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        261
+      ],
+      "project": "hive_memory_bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_ac94502af441"
+    },
+    {
+      "ts": "2026-10-15T00:14:25Z",
+      "issue": 301,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆 `hive-memory-bench` @ 锚定提交 `f4509d7`，一律用 `git show` 取源码）：【hive-memory-bench #33 第六项（P1-24，自申 medium 的那一面，拆条①）：`systems/压缩代价.py` 没实现文档定义的 A/B/C 度量】**源码级核对**：`systems/压缩代价.py` 在锚定提交上**存在**（`git cat-file -e f4509d7:systems/压缩代价.py` 通过）。申报称严格口径做不出来（v2→v9 `--n 999` 仍 ✓）、3 条坏引文读成 2/2 = 100% —— 该**运行时读数未复跑**，本件按「判据锚（`docs/压缩的代价就是因果丢失_v1.0.md` 定义的度量）与实现不符」这一**结构面**受理（本仓既有口径：实现者自己的文档即判据锚，见 round-37「实现者自述边界是决定性佐证」的同族用法）。**影响档取 A**：公开文档的度量未实现 ⇒ 该文档的对外读数**不可依**（量具失效）。。受理。难度沿用**申报正文内逐条自申档**（本件无 `<!-- intake:v1 -->` 机器标记，但正文逐字写明「难度申请：…」）；按本仓细化「**申报件内逐条自申不同档 ⇒ 按档拆多条事件**」拆为两条，同一 `covers` 下各记一笔。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。影响等级由维护者按 IMPACT_CRITERIA 定档（依据见本行）。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        301
+      ],
+      "project": "hive_memory_bench",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_488ac6392e88"
+    },
+    {
+      "ts": "2026-10-15T00:14:25Z",
+      "issue": 301,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "维护者独立复核（隔离克隆 `hive-memory-bench` @ 锚定提交 `f4509d7`，一律用 `git show` 取源码）：【hive-memory-bench #33 其余九项（P1-19~P1-23、P1-25~P1-28，自申 easy，拆条②）】**逐项源码级核对（引用行号均为锚定提交 `f4509d7`）**：**P1-22**（`judge_audit.py` keep-qualified 不重算）—— L184 `panel = rec[\"panel_size\"]`、L187 `reason=f\"合格判官（含 panel_size 折算）{len(survivors)}×{panel} < 2（作废）\"` ⇒ `panel_size=2` 时 **1 名合格判官得 `1×2=2`，不小于 2 ⇒ 放行** ✓；**P1-27**（空 quote 恒可定位）—— `check_all.py:68-69 def norm(s): return re.sub(r\"[\\s\\W_]+\", \"\", s or \"\", flags=re.UNICODE)` ⇒ `norm(\"\")==\"\"`，而 L189 `if norm(quote) not in norm(idx[cid][\"text\"]):` ⇒ **空串是任何串的子串 ⇒ 恒判可定位** ✓；**P1-28**（开放题不校 `must_exclude`）—— L170 `return check_open_card(card, qid, path, idx, errs, warns)` **提前返回**，而 L548 的开放题判据 docstring 逐字为「rubric 完整性 + evidence_pool 可定位 + anti_patterns 非空」——**不含 `must_exclude`** ✓；**P1-21**（「只报序」下限只看同分）—— `judge_audit.py:25` 文档写「平均同分 ≥ 0.8 或 平均 kappa ≥ 0.6 ⇒ 可报值；≥ 0.5 ⇒ 只报序」，`classify_agreement(ag, same_min, kappa_min, same_floor)` 的只报序支只吃 `same_floor`（kappa 不参与）⇒ 结构一致（**L126-127 未逐字取到**，如实标注）；**P1-19/P1-20/P1-23/P1-25/P1-26** 的对应用例与读数**未逐条复跑**。**影响档取 B**：九面均为守卫放行坏输入／读数口径虚高，需特定构造才显现。。受理。难度沿用**申报正文内逐条自申档**（本件无 `<!-- intake:v1 -->` 机器标记，但正文逐字写明「难度申请：…」）；按本仓细化「**申报件内逐条自申不同档 ⇒ 按档拆多条事件**」拆为两条，同一 `covers` 下各记一笔。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。影响等级由维护者按 IMPACT_CRITERIA 定档（依据见本行）。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        301
+      ],
+      "project": "hive_memory_bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_a0dee131564a"
     }
   ]
 }

@@ -401,6 +401,23 @@
    "rounds": 1
   },
   {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    146,
+    166,
+    261,
+    301
+   ],
+   "login": "cyd471",
+   "project": "hive_memory_bench",
+   "quality_E": null,
+   "reputation_delta": 17,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -563,21 +580,6 @@
    ],
    "login": "123WP-a",
    "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 9,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    146,
-    166
-   ],
-   "login": "cyd471",
-   "project": "hive_memory_bench",
    "quality_E": null,
    "reputation_delta": 9,
    "rounds": 1

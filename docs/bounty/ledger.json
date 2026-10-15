@@ -6336,6 +6336,35 @@
         "delta": 1
       },
       "id": "evt_a33df5f748e8"
+    },
+    {
+      "ts": "2026-10-15T03:19:15Z",
+      "issue": 454,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "【dsh-bench #22（N1–N5 治理与公开信息五处缺口）＋ #23（Q1–Q2 页面文字与数据对不上）—— 七条单点，两件同申 easy】维护者独立复核（隔离克隆本仓与 dsh-bench，一律取锚定提交 e730aab，不用 git grep 取行号）：**★ 本轮为全量端到端复跑（14/14 项通过），与 #445 那轮「结构面＋申报读数」的复现范围不同**：两份附录脚本（repro_p1_round9.py 11 项、repro_p1_round10.py 3 项）在隔离副本（dsh-bench main @ e730aab 快照，不改原仓）原样实跑，逐条 PASS 与申报读数一致：\n\n| 件 | 判据 | 关键读数 |\n|---|---|---|\n| #22 N1 | 只填 risk_level=「低」无理由无复核 ⇒ PASS；同页两行「风险等级：未评估（…不硬给等级）」与「风险等级：低」并存；「关键」「未评估」都「推荐：可推荐」进排名 | N1a/b/c 3/3 |\n| #22 N2 | report_version=3 且 corrections=[] PASS；corrections=[123, {\"x\": 1}] 原样上更正页；report_version 两脚本 0 引用 | N2a/b/c 3/3 |\n| #22 N3 | disclosure=\"\" PASS，报告页「利益关系：」后为空 | 1/1 |\n| #22 N4 | 区间行无白话说明（全仓 0 处）；「想看细节」有 protocol_hash 无 taskset_hash、不列更正 | 2/2 |\n| #22 N5 | month=2026-13、同月两份、failed 9 > tested 4 全 PASS 上账本页；blocked 必填却 0 页面出现 | 2/2 |\n| #23 Q1 | 插件页「装起来麻烦吗」渲染 uninstall_notes；schema 含 install 字段仅 uninstall_notes | 1/1 |\n| #23 Q2 | human_text.结论=「✅ 真有用」vs 复算「还说不准」同页并存 PASS；tested_at/expires_at/plugin_identity.ref 均不上页，手填「1.0.0 版，2026-09-01 测」是唯一版本日期 | 2/2 |\n\n**边界核对（申报第六节自查，维护者复核认可）**：N1（报告级 risk_level 不进判定）与 #10（插件页标签手填）、#6（三张单手填）、#13（推荐不看能力状态）三者机制面均不相交；Q2 与 #6 同族但面不同（#6 是三张单/安全专项/工具四件事，Q2 是「先讲人话」事实行与结构化字段）⇒ 7 条均不并入既有工作项。\n\n**N1 定档裁定（申报者自留「若维护者认为应单独定档，我无异议」）**：维持 easy。机制虽跨 schema/validate/build/verdict 四处，但修复面单点（decide() 调用传 risk_level ＋ schema 补判级依据字段）；且 risk_level 本身无判级依据（手填枚举），「不进判定」未构成量具失效（A 档判据：使评测结论不可信）——真正须修的是给 risk 判级依据，属 schema/判据补全。\n\n**另记（与 #18/#20 复跑对照）**：本件两份脚本无跨平台失配、零修正跑过；#445 轮复跑时 #18 脚本 K1 断言依赖正斜杠路径、#20 脚本 (b) 分支 write_text 在 Windows 落盘转 CRLF，均为申报脚本自检的跨平台假设（修正匹配方式/newline=\"\" 后与申报读数一致），已如实记入对应 issue 回执。。受理。难度沿用**申报正文内逐件自申档位**（#22 easy、#23 easy），按本仓细化「件内同档 ⇒ 合 1 条」两件合一条：easy 覆盖 N1–N5＋Q1–Q2 共 7 条。影响等级沿用申报建议（B：P1×7）。N1 定档裁定见上（维持 easy，可申诉）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。",
+      "pr": null,
+      "covers": [
+        454
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_363bc0ee8e2c"
     }
   ]
 }

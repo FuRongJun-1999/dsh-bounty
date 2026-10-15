@@ -336,6 +336,24 @@
    "rounds": 1
   },
   {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    288,
+    300,
+    442,
+    445,
+    454
+   ],
+   "login": "cyd471",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 21,
+   "rounds": 1
+  },
+  {
    "difficulty": "expert",
    "difficulty_base": 10,
    "evidence_strength": true,
@@ -346,23 +364,6 @@
    ],
    "login": "WASD258-jpg",
    "project": "lingshu",
-   "quality_E": null,
-   "reputation_delta": 20,
-   "rounds": 1
-  },
-  {
-   "difficulty": "easy",
-   "difficulty_base": 1,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    288,
-    300,
-    442,
-    445
-   ],
-   "login": "cyd471",
-   "project": "bench",
    "quality_E": null,
    "reputation_delta": 20,
    "rounds": 1

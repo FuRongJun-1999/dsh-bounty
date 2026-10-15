@@ -399,19 +399,20 @@
     435,
     436,
     437,
-    441
+    441,
+    453
    ],
    "login": "aroejony-cell",
    "projects": [],
-   "reputation_delta": 42,
+   "reputation_delta": 45,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 11,
+   "round_known": 12,
    "round_seen": [
     1
    ],
-   "settled": 11,
+   "settled": 12,
    "timeout": 0
   },
   {

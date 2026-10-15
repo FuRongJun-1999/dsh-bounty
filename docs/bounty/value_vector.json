@@ -907,6 +907,20 @@
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    453
+   ],
+   "login": "aroejony-cell",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 3,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
     98

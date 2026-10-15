@@ -6365,6 +6365,35 @@
         "delta": 1
       },
       "id": "evt_363bc0ee8e2c"
+    },
+    {
+      "ts": "2026-10-15T03:23:08Z",
+      "issue": 453,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（本仓 @ 4d05955，HEAD 祖先）：【dsh-bounty 悬赏板权威记录面伪造缺口：`bounty:v1` 状态标记从任意用户评论里重建，无作者校验】**结构核对（本仓 @ 4d05955，`git merge-base --is-ancestor` 确认为当前 HEAD 祖先）：三段逐字核对** ——\n\n① **`comments()`（:1608-1619）在取数时就丢作者**：`:1616 out += [c.get(\"body\") or \"\" for c in chunk]` —— 返回体是**纯字符串列表**，`c.get(\"author\")` / `user.login` / `author_association` **均未取** ✓。\n\n② **`latest_marker()`（:512-532）全程无作者过滤**：遍历纯正文 → `MARKER_RE.finditer(body)` → `json.loads` → 按 `_seq(rec) >= _seq(best)` 取最大 ⇒ 函数体内**没有任何一处引用作者/身份**；docstring（:511）自述输入就是「评论**正文**可迭代」⇒ 作者在数据模型里**结构性缺席** ✓。\n\n③ **`MARKER_RE`（:302）接受任何评论**：`re.compile(r\"<!--\\s*bounty:v1\\s+(\\{.*?\\})\\s*-->\", re.DOTALL)` —— 形态完整即可，**无发布方约束** ⇒ 「攻击者复制粘贴即可」✓。\n\n**两条攻击链（采纳申报的实跑读数，本轮未复跑）**：① 抹除他人认领 —— 在任一 `bounty:claimed` issue 下发 `<!-- bounty:v1 {\"state\":\"open\",\"seq\":999} -->` ⇒ 下次路由重建时持有者锁消失；② 借刀罚人 —— 伪造 `{\"state\":\"claimed\",\"holder\":\"<受害者>\",\"due_at\":\"<过去>\",\"seq\":999}` ⇒ 定时巡检读到「持有且超期」⇒ 回板并给从未认领的人记 timeout **−2×base**（expert 条 −20）。\n\n**申报的自查留痕（如实采纳）**：`issue_comment` 触发器对 PR 评论有拦截（与本件无关）；`MARKER_RE` 完整形态无门槛；workflow 令牌面已核**干净**，不并入本件。\n\n**修法方向（采纳申报建议，但**本轮不实现**）**：`comments()` 保留 `user.login`/`author_association`；`latest_marker` 只收来自工作流 bot 账号（或维护者名单）的标记，其余文本视为非权威。**该修法触及状态机核心**（`comments()` 的返回形状被命令解析等多处共用），须按本仓验收四闸单独交付——**报告面与修复面分属两笔**。。受理。本件无 `<!-- intake:v1 -->` 标记、无逐条自申难度 ⇒ 难度与影响由维护者定档：**影响 A**（权威记录面被写穿 ⇒ 态/持有者/到期/轮次全部可被攻击者重写，属核心链路失效）；**难度 medium**（单点缺口、修法明确，但触及状态机核心需配套守卫）。**★ 利益关系公示加重一档**：目标仓就是本站自身，且缺陷正在**本站状态机的权威面** ⇒ 「被告同时是裁判」在本件上最直接 —— 裁决与后续修复均按可申诉口径公开。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。",
+      "pr": null,
+      "covers": [
+        453
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a2aecad9133c"
     }
   ]
 }

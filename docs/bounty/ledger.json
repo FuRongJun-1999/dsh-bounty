@@ -10822,6 +10822,93 @@
         "delta": 6
       },
       "id": "evt_878029f2b8c8"
+    },
+    {
+      "ts": "2026-10-15T15:42:48Z",
+      "issue": 604,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: hive-memory-bench external horizontal evaluation: material effect +84.20pp / 3 Chinese damage mechanisms / zero-interference pool upper bound quantified. Substantial evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        604
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_06af476e3f0a"
+    },
+    {
+      "ts": "2026-10-15T15:42:48Z",
+      "issue": 605,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: dsh-memory brain-side read-only audit: 6 new issues (2 P0: private plaintext via retrieval / access control bypass). Security audit. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        605
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_481105307505"
+    },
+    {
+      "ts": "2026-10-15T15:42:48Z",
+      "issue": 606,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory brain-side read-only audit round 2: 4 new issues (foreign key silent overwrite data loss / heal related). Continuation of #605. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        606
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a04591241c45"
     }
   ]
 }

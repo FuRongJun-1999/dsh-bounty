@@ -18,6 +18,7 @@
   R7  方案报告 §2 含可原样执行的适配器命令（python/node/npx 开头且含 adapters/）
   R8  声称与证据一致：raw/<name>_summary.json 某档 determinism.identical=false 或该档
       errors 非空时，对应报告里必须有**同一行**同时出现方案名与不一致标记
+       （<name> 是**显示名**：路径按「大小写精确 → 唯一不敏感」解析出**真实文件名**，0 命中或多命中一律 fail-closed；#396）
   R9  方法论**正文**（围栏外）写出 data/worldbook.json 与 data/chat.jsonl 的 sha256，
       且与实测值一致（围栏内的样例行不算：那是 raw 日志的复述，可被 R5 覆盖；
       若两者都算，只改正文的定点变异会被围栏副本掩盖 ⇒ 判据空转）
@@ -106,6 +107,26 @@ def read_text(path):
     with open(path, "r", encoding="utf-8", errors="replace") as f:
         return f.read()
 
+
+def find_summary(raw_dir, stem):
+    """按「大小写精确 → 唯一不敏感」解析 raw/<stem>_summary.json，返回真实路径或 None（#396）。
+
+    为什么不能直接拼：raw/ 里的文件名一律小写（sillytavern_*、risuai_*、diceframe_*），而 SCHEME_REPORTS
+    的值是面向人的**显示名**（SillyTavern、RisuAI）⇒ 拼出来的路径在大小写敏感的文件系统上必然落空，
+    于是 R8 长期只报「缺文件」，从未真正核对过（CI 上永久红）。这里 0 命中或多命中都返回 None
+    （多命中＝歧义，不猜），由调用方按「无从核对」fail-closed。
+    """
+    try:
+        entries = os.listdir(raw_dir)
+    except OSError:
+        return None
+    want = "%s_summary.json" % stem
+    if want in entries:
+        return os.path.join(raw_dir, want)
+    hits = sorted(e for e in entries if e.lower() == want.lower())
+    if len(hits) == 1:
+        return os.path.join(raw_dir, hits[0])
+    return None
 
 def raw_txt_pool(raw_dir):
     """raw/*.txt 的逐字行池（R5 只认 .txt，json 不参与逐字比对）。"""
@@ -248,8 +269,8 @@ def checks(root):
                 mark("R10", "%s §6 缺「未测」或正文不足 40 字符" % fn)
             # R8：summary 里的档位证据 vs 报告里的披露
             name = SCHEME_REPORTS[fn]
-            sp = os.path.join(raw, "%s_summary.json" % name)
-            if not os.path.isfile(sp):
+            sp = find_summary(raw, name)
+            if sp is None:
                 mark("R8", "缺 raw/%s_summary.json，无从核对" % name)
             else:
                 try:

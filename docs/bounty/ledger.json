@@ -6249,6 +6249,93 @@
         "delta": 3
       },
       "id": "evt_31e8a138d506"
+    },
+    {
+      "ts": "2026-10-15T01:41:44Z",
+      "issue": 445,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆，一律 `git show <锚定提交>:<path>`，不用 `git grep` 取行号）：【dsh-bench #18（P0）＋ #21（M1–M5，跨生成器/校验器/公开面检查三脚本）—— 两件自申 medium】维护者独立复核（隔离克隆，一律 `git show <锚定提交>:<path>`，不用 `git grep` 取行号）：**机制已定位（结构级）**：同一目录存在**两套互不相干的筛法** —— `scripts/build_site.py:191` 的 `load_json_dir()` 对 `data/reports` 用 `d.glob(\"*.json\")`（**收全部 json**），而 :239 `reports = [check_report(r) for r in load_json_dir(data_dir / \"reports\")]`；相对地 :242 对 examples 才用 `glob(\"report-*.json\")`。⇒ 报告专属检查的**触发条件依赖文件名前缀**，把不合格报告命名为 `ledger-k.json` 即落入「被载入、被渲染、被排名，但不走报告专属发布检查」的空档 ✓。全仓按文件名筛报告的只有 :242 一处（`git grep glob(` 实测：build_site.py:191/:242/:369、public_check.py:97、validate_data.py:380），未见第二处对 `data/reports` 施加 `report-*` 约束 ⇒ 「改名即绕过」在结构上成立。\n\n**★ 如实标注复现范围**：本件的 `--release exit 0「共 2 件，通过 2」`、报告页「半宽 99」「独立：否」、排名表 `✅ 真有用 [6, 10]` 等**端到端读数本轮未复跑**（需构造同时满足账本 schema 与报告渲染的输入）。本件按**结构面（两套筛法）＋ 申报读数**受理，不构成对 13 条 P1 逐条的确认。\n\n**另记一件好事**：申报人在正文里明确引用了 [#442](https://github.com/FuRongJun-1999/dsh-bounty/issues/442) 回执中「件内逐条自申不同档 ⇒ 按档拆多条事件」的细化规则，并据此**逐件给出档位与理由**、把拆条方式交回维护者。回执意见被吸收进后续申报，是本仓想要的正循环。。受理。难度沿用**申报正文内逐件自申档位**（#18 medium、#19 easy、#20 easy、#21 medium），按本仓细化「件内逐条自申不同档 ⇒ 按档拆多条事件，件内同档 ⇒ 合 1 条」拆两条：medium 覆盖 #18＋#21，easy 覆盖 #19＋#20。影响等级沿用申报建议（A：P0×1；B：P1×13）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        445
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_cc59799afd8a"
+    },
+    {
+      "ts": "2026-10-15T01:41:44Z",
+      "issue": 445,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "维护者独立复核（隔离克隆，一律 `git show <锚定提交>:<path>`，不用 `git grep` 取行号）：【dsh-bench #19（J2–J4）＋ #20（L1–L3）—— 六条单点，自申 easy】维护者独立复核（隔离克隆，一律 `git show <锚定提交>:<path>`，不用 `git grep` 取行号）：**机制同上（#18 的两套筛法为本组提供背景）**：**★ 如实标注复现范围**：本件的 `--release exit 0「共 2 件，通过 2」`、报告页「半宽 99」「独立：否」、排名表 `✅ 真有用 [6, 10]` 等**端到端读数本轮未复跑**（需构造同时满足账本 schema 与报告渲染的输入）。本件按**结构面（两套筛法）＋ 申报读数**受理，不构成对 13 条 P1 逐条的确认。\n\n**另记一件好事**：申报人在正文里明确引用了 [#442](https://github.com/FuRongJun-1999/dsh-bounty/issues/442) 回执中「件内逐条自申不同档 ⇒ 按档拆多条事件」的细化规则，并据此**逐件给出档位与理由**、把拆条方式交回维护者。回执意见被吸收进后续申报，是本仓想要的正循环。。受理。难度沿用**申报正文内逐件自申档位**（#18 medium、#19 easy、#20 easy、#21 medium），按本仓细化「件内逐条自申不同档 ⇒ 按档拆多条事件，件内同档 ⇒ 合 1 条」拆两条：medium 覆盖 #18＋#21，easy 覆盖 #19＋#20。影响等级沿用申报建议（A：P0×1；B：P1×13）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        445
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_a0bd0623c166"
+    },
+    {
+      "ts": "2026-10-15T01:41:44Z",
+      "issue": 446,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "维护者独立复核（隔离克隆，一律 `git show <锚定提交>:<path>`，不用 `git grep` 取行号）：【lingshu #616 复报登记：session_chains 的 #531 防护只挡类型不挡范围（t 越界/NaN/inf 原样放行 ⇒ :153 time.localtime 抛异常、崩溃在 os.makedirs(:170) 之前、--write 无任何产出）；session 字段零类型防护（#300 修复建议点名的 str() 未落地）】维护者独立复核（隔离克隆，一律 `git show <锚定提交>:<path>`，不用 `git grep` 取行号）：**端到端实跑复现（隔离 worktree 副本，未改原仓）**：夹具须含 `\"add\"`、`op==add`、键为 `id/session/t`（首版夹具用错键名导致会话数为 0，A/B 双双 rc=0 —— 那是**我的探针无效**，不作结论；修正后如下）。\n\n| 场景 | rc | 产出 | 异常 |\n|---|---|---|---|\n| A 基线（同 session 4 条合法 t） | 0 | `session_chains.json` | — |\n| **B 加一条 `t=1e18`** | **1** | **`[]` 无任何产出** | **`OSError [Errno 22]`，traceback 定位 `:153 in main`** |\n| C session=数字 | 1 | `[]` | `TypeError: can only concatenate str (not \"int\")` |\n| D session=非空列表 | 1 | `[]` | `TypeError: unhashable type: 'list'` |\n| E session=非空字典 | 1 | `[]` | `TypeError: unhashable type: 'dict'` |\n\n**判据逐条对上**：① `ts_to_float`（:46-79）的类型闸只到 `isinstance(v,(int,float))` ⇒ **`1e18`/`-1e18`/`nan`/`inf` 原样返回**（单测逐个验证），随后 :152-153 直接 `time.localtime(...)` ⇒ 分别抛 `OSError`/`ValueError`/`OverflowError` ⇒ **#531 的防护只挡类型、不挡范围** ✓；② 崩溃点在 **`os.makedirs`(:170) 之前** ⇒ `--write` **零产出** ✓（实测 B 组 `产出=[]`）；③ `sid = d.get(\"session\")`（:106）**零类型防护**（L100-140 内 `isinstance(session)` 出现 **0 次**）⇒ 三种非法 session 形态**各抛一种 TypeError** ✓，与申报逐字一致。\n\n**★ 同时如实记录我自己的两次无效探针**：首两次端到端跑因缺 `--write`、以及夹具键名写错（用了 `node_id` 而非 `id`、缺 `op:\"add\"`），得到「A/B 都 rc=0」的假绿 —— 若照此下结论就会**误判申报不成立**。已修正后重跑，结论以上表为准。。受理。**标记口径三处处置（与同日 #443 同形，如实标注）**：① 标记 `target` 为 `FuRongJun-1999/lingshu` 而 `project` 写 `memory` ⇒ 按本仓口径「`project` 须由 `target` 派生」取 **`lingshu`**；② 标记 `difficulty` 为 **`small`**，不在词表 `easy|medium|hard|expert` 内 ⇒ 映射到最近档 **`easy`(1)** 并记入 reason；③ 标记 `impact` 为 **`C`**（词表内，保留），但正文自评 **P1** 且机制为「工具整轮崩溃、`--write` 零产出」，按 IMPACT_CRITERIA 更接近 A；依「标记内值优先 ＋ 公开标注 ＋ 可申诉」保留 C。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。",
+      "pr": null,
+      "covers": [
+        446
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_a33df5f748e8"
     }
   ]
 }

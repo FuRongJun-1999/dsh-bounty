@@ -56,19 +56,20 @@
     300,
     301,
     442,
-    444
+    444,
+    445
    ],
    "login": "cyd471",
    "projects": [],
-   "reputation_delta": 90,
+   "reputation_delta": 94,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 18,
+   "round_known": 20,
    "round_seen": [
     1
    ],
-   "settled": 18,
+   "settled": 20,
    "timeout": 0
   },
   {
@@ -109,19 +110,20 @@
     427,
     428,
     429,
-    443
+    443,
+    446
    ],
    "login": "Yinfeng818",
    "projects": [],
-   "reputation_delta": 89,
+   "reputation_delta": 90,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 30,
+   "round_known": 31,
    "round_seen": [
     1
    ],
-   "settled": 30,
+   "settled": 31,
    "timeout": 0
   },
   {

@@ -291,6 +291,26 @@
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    493,
+    501,
+    504,
+    506,
+    508,
+    513,
+    514
+   ],
+   "login": "Yinfeng818",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 34,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
     339,
@@ -306,25 +326,6 @@
    "project": "chinese_programming",
    "quality_E": null,
    "reputation_delta": 33,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    493,
-    501,
-    504,
-    506,
-    508,
-    513
-   ],
-   "login": "Yinfeng818",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 28,
    "rounds": 1
   },
   {
@@ -773,6 +774,21 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    265,
+    515
+   ],
+   "login": "acrot0",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -965,20 +981,6 @@
    ],
    "login": "DreamRift",
    "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 3,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    265
-   ],
-   "login": "acrot0",
-   "project": "lingshu",
    "quality_E": null,
    "reputation_delta": 3,
    "rounds": 1

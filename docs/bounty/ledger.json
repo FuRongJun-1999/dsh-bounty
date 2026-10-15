@@ -8048,6 +8048,64 @@
         "delta": 6
       },
       "id": "evt_53088d273aca"
+    },
+    {
+      "ts": "2026-10-15T09:51:21Z",
+      "issue": 514,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi (dsh-memory @ e39d2f8bd8dd): trust.py:193 stamp prot=bool(fm.get(protected) or fm.get(immutable)) misses layer protection (self/anchor) from protect.is_protected 3 truth sources. Same family as #504/#506. P1. hard/B D6. retro round=1.",
+      "pr": null,
+      "covers": [
+        514
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_401028513dcc"
+    },
+    {
+      "ts": "2026-10-15T09:51:21Z",
+      "issue": 515,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "acrot0",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (lingshu): Pillow CVE fix delivered via PR #664, MERGED at 2026-10-15T09:26:33 (verified). Fixes #650 (P1 from #497 audit). pyproject+README+gate.yml+test_guard coordinated. 2216 tests passed. medium/B D3. retro round=1.",
+      "pr": "https://github.com/FuRongJun-1999/lingshu/pull/664",
+      "covers": [
+        515
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_7cfcdb9c0052"
     }
   ]
 }

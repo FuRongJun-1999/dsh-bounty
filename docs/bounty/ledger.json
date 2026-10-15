@@ -5901,6 +5901,64 @@
         "delta": 6
       },
       "id": "evt_716e23cc588f"
+    },
+    {
+      "ts": "2026-10-15T00:02:01Z",
+      "issue": 399,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（非采信申报读数；一律用 `git show <锚定提交>:<path>` 取源码，不用 `git grep`——本轮起强制执行）：`dsh-memory` 锚 `10bc96a`、`lingshu` 锚 `55a137fc3e31`。【dsh-memory 五件缺陷申报（本批只独立复核了 F1；F2–F5 未逐条复跑）】**F1 独立复核成立**：`md_cg/writelimit.py:132-140` @`10bc96a` —— `st = json.load(f)` 之后 **L136 `if isinstance(st.get(\"sigs\"), dict) and isinstance(st.get(\"rate\"), dict):`**，而 L138 只捕 **`except (OSError, ValueError)`** ⇒ 当状态文件顶层是合法 JSON 但**非 dict**（`[]`/`\"x\"`/`5`）时，`st.get` 抛的 **`AttributeError` 不在捕获类型内、直接穿透** ✓ 与申报的复现读数（`AttributeError 'list' object has no attribute 'get'`）一致。**如实边界**：正常路径不产该形态（`_save` 走 `FileLock`＋`atomic_write`），触发源为备份恢复/旧版文件/手工编辑/磁盘损坏 ⇒ 影响档取 **B**（需特定路径）不取 A。**★ 该件其余四面（F2 聚合计数虚记 / F3 裸写面漏闸 / F4 时区依赖 / F5 limit 边界）本轮未逐条复跑**，本回执只就 F1 给出独立证据；申报文本对其余四面自标为「静态锚点+影响推演」，请申报人知悉本件的定档**不构成对 F2–F5 的确认**。。受理。**本件无 `<!-- intake:v1 -->` 机器标记、亦无逐条自申难度**，故难度与影响由维护者按本仓判据定档（依据见本行），件内多条面**按「一条申报件 = 一个工作项」合 1 条**（不按面拆）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        399
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_61fa97dfbdf9"
+    },
+    {
+      "ts": "2026-10-15T00:02:01Z",
+      "issue": 400,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（非采信申报读数；一律用 `git show <锚定提交>:<path>` 取源码，不用 `git grep`——本轮起强制执行）：`dsh-memory` 锚 `10bc96a`、`lingshu` 锚 `55a137fc3e31`。【lingshu 三件缺陷申报（本批只独立复核了 F1；F2/F3 未逐条复跑）】**F1 独立复核成立（同仓对照，逐行可读）**：`lingshu/core/core.py` @`55a137fc3e31` —— **`def apply_shared_sync` 在 L7555，体内 `verify_designer` 出现 0 次**（82 行），而同一文件里 `verify_designer` 另有 **11 处实际调用**（L2880 / L3071 / L3354 / L3924 / L4010 / L4075 / L5171 / L5294 / L5379 / L7190 / L7881；另 L66 是定义、L2873/L5264/L7830 是注释引述）⇒ **同为共享层写原语，它裸奔、同族其余全部带设计者密钥闸** ✓。该方法经 `self.store.add_node` 落库（体内 `add_node` 1 次），`SHARED_LAYERS` 条目（anchor/structure）落库后按本仓口径属**不可变声明层**。**申报的复现读数**（无 `AEIS_DESIGNER_KEY`、`role=PRIMARY` ⇒ `applied=['evil_anchor_1']`、`layer=ANCHOR` 落库）**未复跑**，故本件的**默认可达性**沿用申报读数。**影响档取 A 而非 S 的依据**：S 要求「不可逆损失或安全破坏**且默认配置即可触发**」两条同时成立——「安全破坏」与「默认可达」有申报读数支撑，但**「不可逆」这一支未独立验证**（未测注入后的锚点能否被移除/回滚）⇒ 保守取 A 并在此记明。**★ 申报同件的 F2（`time_window` 畸形校验缺位）/ F3（`import_all` 白名单首行取样＋layer 无枚举校验）本轮未逐条复跑**，本回执只就 F1 给出独立证据。。受理。**本件无 `<!-- intake:v1 -->` 机器标记、亦无逐条自申难度**，故难度与影响由维护者按本仓判据定档（依据见本行），件内多条面**按「一条申报件 = 一个工作项」合 1 条**（不按面拆）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        400
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_295c9cfc8966"
     }
   ]
 }

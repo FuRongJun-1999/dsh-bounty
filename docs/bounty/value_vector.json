@@ -48,12 +48,13 @@
     484,
     488,
     498,
-    499
+    499,
+    500
    ],
    "login": "Yinfeng818",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 107,
+   "reputation_delta": 110,
    "rounds": 1
   },
   {
@@ -934,6 +935,21 @@
    "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
+    493,
+    501
+   ],
+   "login": "Yinfeng818",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 4,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
     182
    ],
    "login": "DreamRift",
@@ -1080,20 +1096,6 @@
    "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 3,
-   "rounds": 1
-  },
-  {
-   "difficulty": "easy",
-   "difficulty_base": 1,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    493
-   ],
-   "login": "Yinfeng818",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 1,
    "rounds": 1
   },
   {

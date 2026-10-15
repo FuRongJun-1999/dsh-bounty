@@ -7642,6 +7642,64 @@
         "delta": 6
       },
       "id": "evt_e5dc9f665c7c"
+    },
+    {
+      "ts": "2026-10-15T08:22:41Z",
+      "issue": 500,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (lingshu @ 9dd0beb): _load_context_max int(float(...)) misses OverflowError. marker medium/B. project=lingshu per target. lingshu #655. retro round=1.",
+      "pr": null,
+      "covers": [
+        500
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a7e75e7bcaaf"
+    },
+    {
+      "ts": "2026-10-15T08:22:41Z",
+      "issue": 501,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (dsh-memory @ 0e175131): canonical.py:107 drops low_confidence marker from en_normalizer. P1 severity per marker. medium/A D3. retro round=1.",
+      "pr": null,
+      "covers": [
+        501
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_56fe2c1c8b2f"
     }
   ]
 }

@@ -7438,6 +7438,65 @@
         "delta": 1
       },
       "id": "evt_0b427d609359"
+    },
+    {
+      "ts": "2026-10-15T07:13:37Z",
+      "issue": 492,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (dsh-memory @ a0274500cc46): evolution.py:413-440 rollback guard_overwrite=0 guard_forget=0 cg.add=0 - bypasses all protection guards. STATE_FIELDS write-back confirmed structurally. medium/B D3. retro round=1.",
+      "pr": null,
+      "covers": [
+        492
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6820f0ba8df8"
+    },
+    {
+      "ts": "2026-10-15T07:13:37Z",
+      "issue": 493,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi (TanPowasd/LingShu-prime): is_zh CJK ratio >=0.5 threshold misclassifies Latin+Chinese questions. #493 and #494 same root cause, merged into one event per anti-inflation guard. easy/B D1. retro round=1.",
+      "pr": null,
+      "covers": [
+        493,
+        494
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_f6e93d33f29d"
     }
   ]
 }

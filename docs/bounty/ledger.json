@@ -10242,6 +10242,35 @@
         "delta": 6
       },
       "id": "evt_f9b7adcb189c"
+    },
+    {
+      "ts": "2026-10-15T14:31:19Z",
+      "issue": 600,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu 3rd round security audit from 123WP-a. 1 new P2 (#688 voxel_grid res no validation). Continuation of #497 (1st round) and #597 (2nd round). easy/B D1. retro round=1.",
+      "pr": null,
+      "covers": [
+        600
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_24a3cf3d7765"
     }
   ]
 }

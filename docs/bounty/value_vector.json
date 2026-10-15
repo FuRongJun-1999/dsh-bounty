@@ -556,6 +556,22 @@
    "rounds": 1
   },
   {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    520,
+    551,
+    555
+   ],
+   "login": "ganzhe12138",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 15,
+   "rounds": 1
+  },
+  {
    "difficulty": "easy",
    "difficulty_base": 1,
    "evidence_strength": true,
@@ -706,21 +722,6 @@
    ],
    "login": "123WP-a",
    "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 9,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    520,
-    551
-   ],
-   "login": "ganzhe12138",
-   "project": "bench",
    "quality_E": null,
    "reputation_delta": 9,
    "rounds": 1

@@ -8976,6 +8976,35 @@
         "delta": 3
       },
       "id": "evt_93dbf97a2e67"
+    },
+    {
+      "ts": "2026-10-15T12:10:04Z",
+      "issue": 555,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ganzhe12138",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: dsh-covenant 0.1.0 test report from ganzhe12138. 11199 chars. 7 red/137 passed/5 skipped built-in tests. 3 Windows defects + 4 test gating gaps identified. Data validated 16/16 via dsh-bench schema. Marker hard/B. retro round=1.",
+      "pr": null,
+      "covers": [
+        555
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_efdff3fe77f8"
     }
   ]
 }

@@ -6394,6 +6394,35 @@
         "delta": 3
       },
       "id": "evt_a2aecad9133c"
+    },
+    {
+      "ts": "2026-10-15T03:35:40Z",
+      "issue": 448,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "维护者独立复核（lingshu @ 55a137fc3e31）：【lingshu#618 复报登记：build_viewer 折叠后自环被 :317 continue 静默丢弃】**结构核对（lingshu @ 55a137fc3e31）**：`tools/coggraph/build_viewer.py:317` 逐字为 `if s == t:` + `:318 continue` —— 与申报所称行号**逐字一致** ✓。该处对折叠后的自环**静默跳过**（无告警、无计数器、无返回值标注），正是申报所称的「静默丢弃」。\n\n**★ 如实标注复现范围**：申报称「真源自带 a->a（export 两条路径均无 s==t 防护）」—— 我核了 :317 的丢弃点，**未核「export 两条路径」是否有防护**（需追上游数据源的生成链），故本件的「真源自带自环」这一前提**沿用申报读数**。申报的端到端读数（边数差额无任何字段可对账）**未复跑**。\n\n**标记口径三处处置（同日 #443/#446 第三次命中同一系统性缺陷）**：① 标记 `target` 为 `FuRongJun-1999/lingshu` 而 `project` 写 `memory` ⇒ 按本仓口径「`project` 须由 `target` 派生」（17 先例）取 **`lingshu`**；② 标记 `difficulty` 为 **`small`**，不在词表内 ⇒ 映射最近档 **`easy`(1)**；③ 标记 `impact` 为 **`C`**（词表内故保留），但正文自评 **P1**（默认链路可触发）⇒ 依「标记内值优先 ＋ 公开标注 ＋ 可申诉」保留 C。。受理。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。可申诉。",
+      "pr": null,
+      "covers": [
+        448
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_93b722830406"
     }
   ]
 }

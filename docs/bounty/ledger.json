@@ -6829,6 +6829,35 @@
         "delta": 1
       },
       "id": "evt_f38a5c57770f"
+    },
+    {
+      "ts": "2026-10-15T05:15:54Z",
+      "issue": 471,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (dsh-bounty @ HEAD): review_build.py:630 for k in (cmd,output,source) requires existence only; :654-657 quotes has non-empty string array validation but output has zero content criteria. :1077 cmd escaped with esc() but absolute paths / OS username printed verbatim. Both faces confirmed. medium/B D3. retro round=1.",
+      "pr": null,
+      "covers": [
+        471
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6db2acb3f524"
     }
   ]
 }

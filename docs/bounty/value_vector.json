@@ -186,6 +186,26 @@
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
+    65,
+    367,
+    374,
+    380,
+    387,
+    388,
+    471
+   ],
+   "login": "zijinmengxi",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 40,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
     12,
     24,
     45,
@@ -195,25 +215,6 @@
     405
    ],
    "login": "LarryE135",
-   "project": "bounty_site",
-   "quality_E": null,
-   "reputation_delta": 37,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    65,
-    367,
-    374,
-    380,
-    387,
-    388
-   ],
-   "login": "zijinmengxi",
    "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 37,

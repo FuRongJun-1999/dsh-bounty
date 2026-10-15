@@ -1,0 +1,20 @@
+扫描 1 个文件，提取链接 45 条（去重 16 条）
+  ✓ HTTP 200  https://api.github.com/repos/michaelwoolum50-cmyk/lingshu-ecosystem-intro
+  ✓ HTTP 200  https://github.com/FuRongJun-1999/dsh-bounty
+  ✓ HTTP 200  https://github.com/FuRongJun-1999/dsh-bounty/blob/main/README.md
+  ✓ HTTP 200  https://github.com/FuRongJun-1999/dsh-bounty/blob/main/docs/bounty/README.md
+  ✓ HTTP 200  https://github.com/FuRongJun-1999/dsh-bounty/blob/main/docs/bounty/ledger.json
+  ✓ HTTP 200  https://github.com/FuRongJun-1999/dsh-bounty/issues
+  ✓ HTTP 200  https://github.com/FuRongJun-1999/dsh-bounty/issues/71
+  ✓ HTTP 200  https://github.com/FuRongJun-1999/dsh-bounty/issues/71#issuecomment-6182010405
+  ✓ HTTP 200  https://github.com/FuRongJun-1999/dsh-memory
+  ✓ HTTP 200  https://github.com/FuRongJun-1999/hive-memory-bench
+  ✓ HTTP 200  https://github.com/FuRongJun-1999/lingshu
+  ✓ HTTP 200  https://github.com/michaelwoolum50-cmyk
+  ✓ HTTP 200  https://github.com/michaelwoolum50-cmyk/lingshu-ecosystem-intro
+  ✗ HTTP 404  https://github.com/michaelwoolum50-cmyk/lingshu-ecosystem-intro/discussions/999999
+  ✓ HTTP 200  https://sovereigndevelopers.org/lingshu.html
+  ✓ HTTP 200  https://telegra.ph/%E7%81%B5%E6%9E%A2%E7%94%9F%E6%80%81%E5%BD%93%E5%BC%80%E6%BA%90%E5%8D%8F%E4%BD%9C%E4%B8%8D%E5%86%8D%E6%94%B6%E6%95%88%E6%9E%9C%E5%A5%BD-10-15
+✗ FAIL [G4 可达守卫] 链接不可达（HTTP 404）：https://github.com/michaelwoolum50-cmyk/lingshu-ecosystem-intro/discussions/999999
+
+通过 0 / 失败 1（逐条点名如上）

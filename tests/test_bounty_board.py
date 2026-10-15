@@ -593,6 +593,21 @@ def group_lifecycle():
        and not _d35s.event.get("impact") and _d35s.holder == "bob",
        (bb.latest_marker([_d35s.comment]).get("impact"), _d35s.event.get("impact")))
 
+    # ---- #404：招标路径被 /verify fail 退回时，被退回的**那份交付**必须计 1 轮 ----
+    # #242 定标把 rounds 记 0（G32）；但投标物本身就是第一份交付、维护者可直接 /verify，
+    # 退回后轮次若仍为 0，返工交付仍按「一次过闸」记 2×base，与认领路径同形过程不同分。
+    _d404f = _bd(_mkb(state="delivered", holder="bob", rounds=0), "/verify",
+                 "fail 读数不全", actor="maint1", maint=True)
+    ok("R404 定标后第一份交付被 /verify fail ⇒ 该交付计 1 轮（#404）",
+       _d404f.ok and _d404f.to_state == "claimed" and _d404f.rounds == 1,
+       (_d404f.ok, _d404f.to_state, _d404f.rounds))
+    # 反向：定标后**直接 pass** 仍是一次过闸（#198 口径不许被本修复顺手改掉）
+    _d404b = _bd(_mkb(state="delivered", holder="bob", rounds=0), "/verify",
+                 "pass 读数齐全", actor="maint1", maint=True)
+    ok("R404b 定标后直接 pass 仍是一次过闸（rounds=0，不误伤 #198）",
+       _d404b.ok and _d404b.to_state == "verified" and _d404b.rounds == 0,
+       (_d404b.ok, _d404b.to_state, _d404b.rounds))
+
     # ---- 价值向量出口（本站只做声誉分与价值评价；金额不进站）----
     def _evv(**kw):
         _e = {"ts": "2026-10-12T01:00:00Z", "action": "settle", "actor": "m", "delta": 0}
@@ -1336,6 +1351,10 @@ _MUTATIONS = (
     ("M57 不打轮次来源标记（formula 无 mode）",
      '    formula = dict(formula or {}, mode=ROUND_MODE_LIVE)',
      '    formula = formula  # MUT', {"R40"}),
+    # ---- ★本笔新增（缺陷 #404：招标路径被退回时轮次爆 0）----
+    ("M59 fail 分支退回时不兜底计 1 轮（定标投标物的轮次爆 0）",
+     '        _rounds = max(st.rounds, 1)',
+     '        _rounds = st.rounds  # MUT', {"R404"}),
 )
 
 
@@ -1388,7 +1407,8 @@ _MUT_TARGETS = (("M0", "parse_command"), ("M1", "_check_bounty_label"),
                 ("M51", "handle_issue_comment"),
                 ("M52", "handle_issue_comment"), ("M53", "handle_issue_comment"),
                 ("M54", "handle_issue_comment"), ("M55", "promotion_report"),
-                ("M56", "role_revocations"), ("M57", "_do_settle"))
+                ("M56", "role_revocations"), ("M57", "_do_settle"),
+                ("M59", "_do_verify"))
 
 
 def _anchor_preflight():

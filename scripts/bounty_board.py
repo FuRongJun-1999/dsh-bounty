@@ -1071,8 +1071,12 @@ def _do_verify(st, payload, actor, now, cfg, is_maintainer, is_reviewer=False):
                    f"理由：{reason or '（未写理由）'}",
                    f"已退回 `bounty:claimed` 返工（轮次照计，上限 {cfg.max_rounds} "
                    "轮）；如属不可调和争议请 `/dispute`"]
+        # 生效条件：被验收过的那份交付**至少算 1 轮**（#404）。定标（#242）把投标物的
+        # rounds 记 0，而投标物本身就是第一份交付、维护者可直接 /verify；这里只兜底 1，
+        # 认领路径（fail 时 rounds≥1）零变化，#198「中标者主动再 /deliver 不减半」也保留。
+        _rounds = max(st.rounds, 1)
         return _accept(st, "/verify", now, actor, "claimed", st.holder, st.due_at,
-                       st.rounds, f"验收不通过：{reason or '（未写理由）'}", bullets,
+                       _rounds, f"验收不通过：{reason or '（未写理由）'}", bullets,
                        delta=0, criteria=())
     bullets = [f"裁决者：@{actor}", "判定：**通过**（四闸逐道可查）",
                f"理由：{reason or '（未写理由）'}",

@@ -1155,14 +1155,15 @@
    "difficulty": "easy",
    "difficulty_base": 1,
    "evidence_strength": true,
-   "impact_grade": "C",
+   "impact_grade": "B",
    "issues": [
-    133
+    133,
+    531
    ],
    "login": "zhangdeishuai1",
    "project": "awesome_dsh_plugin",
    "quality_E": null,
-   "reputation_delta": 1,
+   "reputation_delta": 2,
    "rounds": 1
   }
  ]

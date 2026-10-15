@@ -8483,6 +8483,35 @@
         "delta": 1
       },
       "id": "evt_cd6c8572f9d2"
+    },
+    {
+      "ts": "2026-10-15T11:38:26Z",
+      "issue": 531,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi (awesome-dsh-plugin @ 03215c4f): design_system.py:1388 passes design_system to _generate_intelligent_overrides(:1490-1593) which uses it 0 times (AST confirmed). Self-declared easy/B. Static facts only. retro round=1.",
+      "pr": null,
+      "covers": [
+        531
+      ],
+      "project": "awesome_dsh_plugin",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_d587e4ef7153"
     }
   ]
 }

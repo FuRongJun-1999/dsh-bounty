@@ -423,19 +423,20 @@
     348,
     526,
     528,
-    529
+    529,
+    531
    ],
    "login": "zhangdeishuai1",
    "projects": [],
-   "reputation_delta": 60,
+   "reputation_delta": 61,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 16,
+   "round_known": 17,
    "round_seen": [
     1
    ],
-   "settled": 16,
+   "settled": 17,
    "timeout": 0
   },
   {

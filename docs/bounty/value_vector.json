@@ -52,12 +52,13 @@
     500,
     502,
     503,
-    505
+    505,
+    511
    ],
    "login": "Yinfeng818",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 119,
+   "reputation_delta": 122,
    "rounds": 1
   },
   {
@@ -84,8 +85,8 @@
    "rounds": 1
   },
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
+   "difficulty": "hard",
+   "difficulty_base": 6,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
@@ -107,12 +108,13 @@
     486,
     492,
     495,
-    496
+    496,
+    512
    ],
    "login": "aroejony-cell",
    "project": "memory",
    "quality_E": null,
-   "reputation_delta": 66,
+   "reputation_delta": 72,
    "rounds": 1
   },
   {
@@ -531,6 +533,22 @@
    "rounds": 1
   },
   {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "C",
+   "issues": [
+    43,
+    377,
+    510
+   ],
+   "login": "ybyz2",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 13,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -542,21 +560,6 @@
    ],
    "login": "aroejony-cell",
    "project": "hive_memory_bench",
-   "quality_E": null,
-   "reputation_delta": 12,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    43,
-    377
-   ],
-   "login": "ybyz2",
-   "project": "memory",
    "quality_E": null,
    "reputation_delta": 12,
    "rounds": 1
@@ -1087,6 +1090,20 @@
    ],
    "login": "segujushi-lang",
    "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 3,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    509
+   ],
+   "login": "ybyz2",
+   "project": "lingshu",
    "quality_E": null,
    "reputation_delta": 3,
    "rounds": 1

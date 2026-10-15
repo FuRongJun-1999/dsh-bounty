@@ -7903,6 +7903,122 @@
         "delta": 6
       },
       "id": "evt_2f38da34a17e"
+    },
+    {
+      "ts": "2026-10-15T09:33:10Z",
+      "issue": 509,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ybyz2",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: lingshu 3 findings: add_node same-layer overwrite drops no_forget protection + close() conn reuse + perf. Self-declared medium/B. Evidence: 3/3 locally reproduced. lingshu #659/#660/#661. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        509
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_bc814e15a836"
+    },
+    {
+      "ts": "2026-10-15T09:33:10Z",
+      "issue": 510,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ybyz2",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: readcache only in MdCGOS, base MdCG direct users (backfill/migrate/build_postings CLI) go uncached. Self-declared easy-medium/C. dsh-memory #370. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        510
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_22df1d671705"
+    },
+    {
+      "ts": "2026-10-15T09:33:10Z",
+      "issue": 511,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: _tx no nesting awareness - inner commit prematurely commits outer transaction. marker medium/B. project=lingshu per target. lingshu #665. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        511
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4e80db1fcb9e"
+    },
+    {
+      "ts": "2026-10-15T09:33:10Z",
+      "issue": 512,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: time axis gap family: expired nodes served by default in search/recall/route (validity not default), hit count still increments, promote_memories does not check is_expired => expired instructions can be promoted to knowledge layer. P1. Different root from #463/#485/#486 (not field forgery but consumption gap). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        512
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_c5ee989dce06"
     }
   ]
 }

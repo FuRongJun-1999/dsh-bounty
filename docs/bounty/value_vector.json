@@ -593,6 +593,23 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    400,
+    431,
+    478,
+    507
+   ],
+   "login": "aroejony-cell",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 10,
+   "rounds": 1
+  },
+  {
    "difficulty": "expert",
    "difficulty_base": 10,
    "evidence_strength": true,
@@ -663,22 +680,6 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 9,
-   "rounds": 1
-  },
-  {
-   "difficulty": "easy",
-   "difficulty_base": 1,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    400,
-    431,
-    478
-   ],
-   "login": "aroejony-cell",
-   "project": "lingshu",
-   "quality_E": null,
-   "reputation_delta": 7,
    "rounds": 1
   },
   {

@@ -7845,6 +7845,35 @@
         "delta": 6
       },
       "id": "evt_84526d594c47"
+    },
+    {
+      "ts": "2026-10-15T09:14:40Z",
+      "issue": 507,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (lingshu): world_model.py:401-499 generate(horizon=h) bound is h-independent constant (PoC: h=1/2/3/5 all 1.579) => systematic false-miss for h>1 stochastic predictions. Dedup: different from #159 (predict ignores horizon) and #348 (verify snapshot). No marker => medium/B per mechanism complexity. retro round=1.",
+      "pr": null,
+      "covers": [
+        507
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_53a18e50249a"
     }
   ]
 }

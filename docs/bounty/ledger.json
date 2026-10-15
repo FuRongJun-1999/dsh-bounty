@@ -6626,6 +6626,93 @@
         "delta": 1
       },
       "id": "evt_a725034f7719"
+    },
+    {
+      "ts": "2026-10-15T04:35:35Z",
+      "issue": 463,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi (dsh-memory @ 742ea4d): fm.update(extra) at :2675 zero-whitelist confirmed. 4 new high-risk anchors: protected/immutable (immortal poison node), evidence_count/access_count (fake stats), edges (graph injection). All structurally confirmed.. shen-li. impact A (protected/immutable bypass). retro round=1.",
+      "pr": null,
+      "covers": [
+        463
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_a6237d1ef788"
+    },
+    {
+      "ts": "2026-10-15T04:35:35Z",
+      "issue": 465,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi (dsh-memory @ 742ea4d): propose **kw at :2591 -> review_decide accept at :3272 replays **extra into add() -> same fm.update(extra) landing point as #463. Trust chain inversion: low-priv proposer plants, high-priv reviewer detonates.. shen-li. impact A (review queue amplification). retro round=1.",
+      "pr": null,
+      "covers": [
+        465
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_3bb576418d85"
+    },
+    {
+      "ts": "2026-10-15T04:35:35Z",
+      "issue": 464,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi (lingshu @ b096cc8e): viewer filter ncls single-value comparison confirmed. P2 view-gap. retro round=1.",
+      "pr": null,
+      "covers": [
+        464
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_5f68ffbe5577"
     }
   ]
 }

@@ -63,12 +63,13 @@
     446,
     448,
     452,
-    462
+    462,
+    464
    ],
    "login": "Yinfeng818",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 93,
+   "reputation_delta": 94,
    "rounds": 1
   },
   {
@@ -109,6 +110,30 @@
    "project": "lingshu",
    "quality_E": null,
    "reputation_delta": 45,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    399,
+    430,
+    432,
+    433,
+    434,
+    435,
+    455,
+    458,
+    459,
+    463,
+    465
+   ],
+   "login": "aroejony-cell",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 43,
    "rounds": 1
   },
   {
@@ -252,28 +277,6 @@
    "project": "chinese_programming",
    "quality_E": null,
    "reputation_delta": 33,
-   "rounds": 1
-  },
-  {
-   "difficulty": "easy",
-   "difficulty_base": 1,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    399,
-    430,
-    432,
-    433,
-    434,
-    435,
-    455,
-    458,
-    459
-   ],
-   "login": "aroejony-cell",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 31,
    "rounds": 1
   },
   {

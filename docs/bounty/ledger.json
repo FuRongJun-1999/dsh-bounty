@@ -8135,6 +8135,238 @@
         "delta": 6
       },
       "id": "evt_455dbe1319c1"
+    },
+    {
+      "ts": "2026-10-15T11:13:31Z",
+      "issue": 517,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: silent_except_lint.py audit action detection uses substring matching - false positives possible. Lint tool quality. No marker. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        517
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_f69d69d62a52"
+    },
+    {
+      "ts": "2026-10-15T11:13:31Z",
+      "issue": 518,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: writelimit exemption only compares size not value range - NaN/inf/negative bypass. P1. Related to #495 (importance_hint bypass). marker P1. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        518
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_08f625890904"
+    },
+    {
+      "ts": "2026-10-15T11:13:31Z",
+      "issue": 519,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: #479 engine_meta key gate enumeration incomplete - verifier_config overridable without key. marker medium/B. project=lingshu per target. lingshu #671. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        519
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_cefb02bed617"
+    },
+    {
+      "ts": "2026-10-15T11:13:31Z",
+      "issue": 520,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ganzhe12138",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: Yuki 3.9.0 test report - 14 red / 25 errors attributed to platform, not upstream defects. marker hard/B. Test work itself is the contribution. dsh-bench. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        520
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_db8eb19263ec"
+    },
+    {
+      "ts": "2026-10-15T11:13:31Z",
+      "issue": 521,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #645 fix: build_viewer R5 phantom edge filter per #359/#606 + loss count visible. Delivery. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        521
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_a03fd158fd4d"
+    },
+    {
+      "ts": "2026-10-15T11:13:31Z",
+      "issue": 522,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #648 fix: session_chains full chains (remove [:40] cap), meta.sessions==len(chains). Delivery. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        522
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_8bfd549f7d02"
+    },
+    {
+      "ts": "2026-10-15T11:13:31Z",
+      "issue": 523,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #651 fix: channel_credibility write-side channel name gate (reset fail-closed / _update warn skip). Delivery. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        523
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_26c7abe86b36"
+    },
+    {
+      "ts": "2026-10-15T11:13:31Z",
+      "issue": 524,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #653 fix: STEdge.from_row row-level tolerance so decay_cycle not broken by single bad edge. Delivery. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        524
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_70649a872e8e"
     }
   ]
 }

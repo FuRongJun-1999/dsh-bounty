@@ -62,19 +62,74 @@
     508,
     511,
     513,
-    514
+    514,
+    518,
+    519
    ],
    "login": "Yinfeng818",
    "projects": [],
-   "reputation_delta": 156,
+   "reputation_delta": 165,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 54,
+   "round_known": 56,
    "round_seen": [
     1
    ],
-   "settled": 54,
+   "settled": 56,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    399,
+    400,
+    430,
+    431,
+    432,
+    433,
+    434,
+    435,
+    436,
+    437,
+    441,
+    453,
+    455,
+    458,
+    459,
+    463,
+    465,
+    473,
+    476,
+    477,
+    478,
+    485,
+    486,
+    492,
+    495,
+    496,
+    507,
+    512,
+    516,
+    517
+   ],
+   "login": "aroejony-cell",
+   "projects": [],
+   "reputation_delta": 104,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 30,
+   "round_seen": [
+    1
+   ],
+   "settled": 30,
    "timeout": 0
   },
   {
@@ -115,58 +170,6 @@
     1
    ],
    "settled": 23,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    399,
-    400,
-    430,
-    431,
-    432,
-    433,
-    434,
-    435,
-    436,
-    437,
-    441,
-    453,
-    455,
-    458,
-    459,
-    463,
-    465,
-    473,
-    476,
-    477,
-    478,
-    485,
-    486,
-    492,
-    495,
-    496,
-    507,
-    512,
-    516
-   ],
-   "login": "aroejony-cell",
-   "projects": [],
-   "reputation_delta": 103,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 29,
-   "round_seen": [
-    1
-   ],
-   "settled": 29,
    "timeout": 0
   },
   {
@@ -327,6 +330,40 @@
    ],
    "invalid": 0,
    "issues": [
+    59,
+    67,
+    175,
+    263,
+    264,
+    266,
+    286,
+    290,
+    361,
+    469,
+    520
+   ],
+   "login": "ganzhe12138",
+   "projects": [],
+   "reputation_delta": 74,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 11,
+   "round_seen": [
+    1
+   ],
+   "settled": 11,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     18,
     55,
     56,
@@ -359,39 +396,6 @@
     1
    ],
    "settled": 20,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    59,
-    67,
-    175,
-    263,
-    264,
-    266,
-    286,
-    290,
-    361,
-    469
-   ],
-   "login": "ganzhe12138",
-   "projects": [],
-   "reputation_delta": 68,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 10,
-   "round_seen": [
-    1
-   ],
-   "settled": 10,
    "timeout": 0
   },
   {
@@ -566,6 +570,41 @@
    ],
    "invalid": 0,
    "issues": [
+    152,
+    174,
+    176,
+    241,
+    254,
+    256,
+    487,
+    491,
+    521,
+    522,
+    523,
+    524
+   ],
+   "login": "myYangyunfan",
+   "projects": [],
+   "reputation_delta": 30,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 12,
+   "round_seen": [
+    1
+   ],
+   "settled": 12,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     83,
     102,
     105,
@@ -585,37 +624,6 @@
     1
    ],
    "settled": 7,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    152,
-    174,
-    176,
-    241,
-    254,
-    256,
-    487,
-    491
-   ],
-   "login": "myYangyunfan",
-   "projects": [],
-   "reputation_delta": 26,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 8,
-   "round_seen": [
-    1
-   ],
-   "settled": 8,
    "timeout": 0
   },
   {

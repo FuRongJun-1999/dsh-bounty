@@ -9807,6 +9807,441 @@
         "delta": 6
       },
       "id": "evt_24d3a0a62a2b"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 599,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: perf(bm25): hot retrieval borrows read-only candidate view, removes full pool copy. Delivery PR #393. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        599
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_c6765fc19582"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 567,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-task-dag 1.5.1 evaluation: DSH 0.1.7-rc.2 clean load/unload, 18 pass / 0 red. Plugin evaluation report. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        567
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_0c54b6a3a2c6"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 568,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-routines evaluation: current host dsh 0.2.0-rc.2 refuses install, force install scheduler fails. Plugin evaluation report. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        568
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4c3620019420"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 569,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: vlln/whale-girl evaluation: Linux installable, 7 endpoints respond per contract; 216/216 tests + 12/12 gates. Plugin evaluation report. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        569
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4d6d52af69e8"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 570,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory-context-lab 0.9.0-rc.2 evaluation: dsh 0.2.0-rc.2 clean profile install. Plugin evaluation report. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        570
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_219ee5481c0e"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 571,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-nexttavern 0.3.0-rc.1 evaluation: host installs, source activation fails (missing build artifacts), 48 pass. Plugin evaluation report. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        571
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_0a812dc9eae0"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 572,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: yuiju evaluation: Linux installable, type-check/lint all green; only 1 unit test, 4 packages missing test scripts. Plugin evaluation report. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        572
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6c1c19fb4e3a"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 573,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: archify 2.16.0-dev.0 evaluation: Linux sandbox load + render verification pipeline works, 717 pass / 0 red, injection errors 11/11. Plugin evaluation report. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        573
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_10d48ecfbcb9"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 410,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: STG interval time candidates: restore inclusion and overlap memories. Delivery PR #342. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        410
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_beb9f79a254f"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 414,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: invalidation propagation global cap + per-incoming-edge provenance. Delivery PR #344. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        414
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8912662c821e"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 415,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: derived retrieval view refreshes with metadata write and rebuild. Delivery PR #343. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        415
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_529260fe0d0b"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 338,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory 3 defect fixes (#315/#313/#279) PR #316. Delivery. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        338
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_812d03ac07ef"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 364,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #577 fix: 3 bare STNode.from_row calls with tolerance. Delivery. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        364
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_b41fb532b0f1"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 450,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: lingshu 4 fixes (#574/#575/#576/#581) PRs all merged. Delivery. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        450
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_9ef4652e9ab7"
+    },
+    {
+      "ts": "2026-10-15T14:24:19Z",
+      "issue": 173,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: hive-memory-bench #23-#27: state chain track subject confusion rate always 0, validity gate only scores lingshu, preregistered destruction direction gate not implemented (P0x3). Substantial contribution. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        173
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_f9b7adcb189c"
     }
   ]
 }

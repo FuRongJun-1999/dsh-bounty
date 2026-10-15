@@ -7874,6 +7874,35 @@
         "delta": 3
       },
       "id": "evt_53a18e50249a"
+    },
+    {
+      "ts": "2026-10-15T09:23:49Z",
+      "issue": 508,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi (dsh-memory @ 39e75c16): admission.py:435-457 R3 preimage_pair criterion only checks disk==preimage; rollback.py:228-246 _land writes zero trail => cannot distinguish true rollback from non-rollback revert (manual edit/sync/backup restore). ok=not missing => fail-open. P1. hard/B D6. retro round=1.",
+      "pr": null,
+      "covers": [
+        508
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_2f38da34a17e"
     }
   ]
 }

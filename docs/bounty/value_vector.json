@@ -359,6 +359,24 @@
    "rounds": 1
   },
   {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    493,
+    501,
+    504,
+    506,
+    508
+   ],
+   "login": "Yinfeng818",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 22,
+   "rounds": 1
+  },
+  {
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
@@ -490,23 +508,6 @@
     287
    ],
    "login": "WASD258-jpg",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 16,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    493,
-    501,
-    504,
-    506
-   ],
-   "login": "Yinfeng818",
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 16,

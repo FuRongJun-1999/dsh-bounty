@@ -6771,6 +6771,35 @@
         "delta": 1
       },
       "id": "evt_fb6b1c432d58"
+    },
+    {
+      "ts": "2026-10-15T05:03:32Z",
+      "issue": 469,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ganzhe12138",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi (dsh-memory @ cf0af6d): #353 mutation harness false red (two-arm force-kill) + #355 write hard-limit type-face/dead-segment (AST confirmed). Fix PRs #356/#357 pending review. hard/B per self-declaration. Report face settled; fix face pending PR review. retro round=1.",
+      "pr": "https://github.com/FuRongJun-1999/dsh-memory/pull/356",
+      "covers": [
+        469
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_57374c35389a"
     }
   ]
 }

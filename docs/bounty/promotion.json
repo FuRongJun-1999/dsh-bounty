@@ -254,6 +254,39 @@
    ],
    "invalid": 0,
    "issues": [
+    59,
+    67,
+    175,
+    263,
+    264,
+    266,
+    286,
+    290,
+    361,
+    469
+   ],
+   "login": "ganzhe12138",
+   "projects": [],
+   "reputation_delta": 68,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 10,
+   "round_seen": [
+    1
+   ],
+   "settled": 10,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     399,
     400,
     430,
@@ -283,38 +316,6 @@
     1
    ],
    "settled": 17,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    59,
-    67,
-    175,
-    263,
-    264,
-    266,
-    286,
-    290,
-    361
-   ],
-   "login": "ganzhe12138",
-   "projects": [],
-   "reputation_delta": 62,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 9,
-   "round_seen": [
-    1
-   ],
-   "settled": 9,
    "timeout": 0
   },
   {

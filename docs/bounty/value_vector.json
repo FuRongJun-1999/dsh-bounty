@@ -95,6 +95,26 @@
    "rounds": 1
   },
   {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    175,
+    263,
+    264,
+    266,
+    290,
+    361,
+    469
+   ],
+   "login": "ganzhe12138",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 46,
+   "rounds": 1
+  },
+  {
    "difficulty": "expert",
    "difficulty_base": 10,
    "evidence_strength": true,
@@ -155,25 +175,6 @@
    ],
    "login": "acrot0",
    "project": "bounty_site",
-   "quality_E": null,
-   "reputation_delta": 40,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    175,
-    263,
-    264,
-    266,
-    290,
-    361
-   ],
-   "login": "ganzhe12138",
-   "project": "memory",
    "quality_E": null,
    "reputation_delta": 40,
    "rounds": 1

@@ -255,6 +255,26 @@
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    399,
+    430,
+    432,
+    433,
+    434,
+    435,
+    455
+   ],
+   "login": "aroejony-cell",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 27,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
     183,
@@ -282,25 +302,6 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 25,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    399,
-    430,
-    432,
-    433,
-    434,
-    435
-   ],
-   "login": "aroejony-cell",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 24,
    "rounds": 1
   },
   {

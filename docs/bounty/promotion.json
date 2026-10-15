@@ -356,6 +356,42 @@
    ],
    "invalid": 0,
    "issues": [
+    399,
+    400,
+    430,
+    431,
+    432,
+    433,
+    434,
+    435,
+    436,
+    437,
+    441,
+    453,
+    455
+   ],
+   "login": "aroejony-cell",
+   "projects": [],
+   "reputation_delta": 48,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 13,
+   "round_seen": [
+    1
+   ],
+   "settled": 13,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     11,
     65,
     99,
@@ -379,41 +415,6 @@
     1
    ],
    "settled": 11,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    399,
-    400,
-    430,
-    431,
-    432,
-    433,
-    434,
-    435,
-    436,
-    437,
-    441,
-    453
-   ],
-   "login": "aroejony-cell",
-   "projects": [],
-   "reputation_delta": 45,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 12,
-   "round_seen": [
-    1
-   ],
-   "settled": 12,
    "timeout": 0
   },
   {

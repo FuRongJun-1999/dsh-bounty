@@ -6423,6 +6423,35 @@
         "delta": 1
       },
       "id": "evt_93b722830406"
+    },
+    {
+      "ts": "2026-10-15T03:48:34Z",
+      "issue": 455,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（dsh-memory @ a0274500cc46）：【dsh-memory 派生溯源完整性缺口：derived_from 血缘声明零校验直落权威面】**写入面逐字核对（dsh-memory @ a0274500cc46）**：`md_cg/mdcg.py:2890` 逐字自述「**只声明事实、不做校验式拒绝——关系名非法仅回退默认值，不阻断写入**」，随后 `:2891 parents = provenance.as_list(derived_from)` / `:2894 fm[\"derived_from\"] = parents` —— **对 parent 节点是否存在、是否为受保护节点，零校验** ✓。\n\n**与事后巡检的区别（本轮新发现）**：`md_cg/provenance.py:264` **存在** `check()` 函数（`:270-283` 用 `known` 集合比对检测悬空边）—— 但它**只能捕获「引用了不存在的节点」**；对于「引用了**真实存在的**受保护/锚点节点」的伪造血缘，`check()` 不会标红 ⇒ **伪造血缘对既有审计不可见** ✓。\n\n**★ 代码自述「不做校验式拒绝」是有意设计还是缺陷？**：`:2890` 的注释表明实现者**知情**。但「知情」不等于「合理」—— 申报的核心论点是：**伪造到受保护节点的血缘不会被既有审计捕获** ⇒ 这不是「已声明的 trade-off」而是「声明了 trade-off 但未声明其安全后果」。按本仓口径，**声明了 trade-off 但未声明安全后果**仍属缺陷（与本仓「实现者自述边界是决定性佐证」的正面用法相反——此处自述反而暴露了盲区）。。受理。影响 **B**（需持有写入令牌 ＋ 知道目标节点 id ⇒ 需特定前提才可触发，非默认可达）；难度 **medium**（跨 mdcg.py 与 provenance.py 两个文件；修法需区分「写入时校验」与「事后巡检补强」两个面）。本轮无标记（#455 无 `<!-- intake:v1 -->`）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。可申诉。",
+      "pr": null,
+      "covers": [
+        455
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_57c96a0b5292"
     }
   ]
 }

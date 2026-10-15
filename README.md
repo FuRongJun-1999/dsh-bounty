@@ -22,6 +22,8 @@
 | 账本／荣誉榜 | [`docs/bounty/ledger.json`](docs/bounty/ledger.json) ／ [`docs/bounty/board.md`](docs/bounty/board.md) | append-only 事件流 ／ 由账本机械生成 |
 | **每日贡献表生成器** | [`scripts/daily_table.py`](scripts/daily_table.py) | 从账本按**结算日**渲染贡献表（确定性；`--check` 自检） |
 | **每日贡献表守卫** | [`tests/test_daily_table.py`](tests/test_daily_table.py) | 18 条断言 ＋ 5 条定点变异（M1–M5） |
+| **账本不变量自审** | [`scripts/check_ledger_invariants.py`](scripts/check_ledger_invariants.py) | **15 项**结构不变量逐项计数（id 可复算／形态／唯一、难度与影响闭集、必填、`covers` 形态、`ts` 形态、**`day == date(ts+8h)`**、公式自洽、项目非空、产物合计对账），非零项**逐条点名**；**不 import `bounty_board`**，id 公式独立重实现（当独立见证者，避免同错同绿） |
+| **账本不变量守卫** | [`tests/test_check_ledger_invariants.py`](tests/test_check_ledger_invariants.py) | 13 条断言 ＋ **5 条定点变异**（ts 后移 8 小时／难度填词表外值／删必填／坏 id／产物合计不符——每一条**恰好命中**期望的那一项） |
 | 每日贡献表 | [`docs/bounty/贡献表.md`](docs/bounty/贡献表.md) | 由账本机械生成（按结算日分节 ＋ 按人合计 ＋ 累计） |
 | **悬赏清单生成器** | [`scripts/bounty_list.py`](scripts/bounty_list.py) | 真源 `docs/bounty/悬赏.json` → 清单 `docs/bounty/悬赏清单.md`（纯 stdlib、确定性；`--check` 自检漂移） |
 | **悬赏清单守卫** | [`tests/test_bounty_list.py`](tests/test_bounty_list.py) | 21 条断言 ＋ 17 条定点变异（M1–M17） |
@@ -87,6 +89,13 @@ python -X utf8 tests/test_evidence_check.py --mutate
 python -X utf8 scripts/check_plan.py --dry-run   # 对账表 ＋ 五类不一致逐行点名（退出码 0/1/2）
 python -X utf8 scripts/check_plan.py --check     # 漂移检测：0=无漂移 / 1=检出漂移或输入坏（读仓内夹具）
 python -X utf8 tests/test_check_plan.py
+
+# 3g. 账本不变量自审（15 项结构不变量；非零即 rc=1 并点名）＋ 守卫（断言 ＋ 定点变异自证）
+python -X utf8 scripts/check_ledger_invariants.py            # 全 0 则 0；任一项非零则 1
+python -X utf8 scripts/check_ledger_invariants.py --quiet    # 只打印汇总与非零项
+python -X utf8 tests/test_check_ledger_invariants.py
+python -X utf8 tests/test_check_ledger_invariants.py --mutate
+
 # 3d. 审核员机制：晋升评估 ＋ 授权面（账本 → JSON；只读、纯函数）
 python -X utf8 scripts/bounty_board.py --promotion-out docs/bounty/promotion.json
 python -X utf8 scripts/bounty_board.py --roles-out docs/bounty/roles.json

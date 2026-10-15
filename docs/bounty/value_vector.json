@@ -433,6 +433,22 @@
    "rounds": 1
   },
   {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    288,
+    300,
+    442
+   ],
+   "login": "cyd471",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 16,
+   "rounds": 1
+  },
+  {
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
@@ -461,21 +477,6 @@
    ],
    "login": "aroejony-cell",
    "project": "hive_memory_bench",
-   "quality_E": null,
-   "reputation_delta": 12,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    288,
-    300
-   ],
-   "login": "cyd471",
-   "project": "bench",
    "quality_E": null,
    "reputation_delta": 12,
    "rounds": 1

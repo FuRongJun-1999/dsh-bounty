@@ -142,19 +142,20 @@
     288,
     289,
     300,
-    301
+    301,
+    442
    ],
    "login": "cyd471",
    "projects": [],
-   "reputation_delta": 77,
+   "reputation_delta": 81,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 14,
+   "round_known": 16,
    "round_seen": [
     1
    ],
-   "settled": 14,
+   "settled": 16,
    "timeout": 0
   },
   {

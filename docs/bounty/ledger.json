@@ -8019,6 +8019,35 @@
         "delta": 6
       },
       "id": "evt_c5ee989dce06"
+    },
+    {
+      "ts": "2026-10-15T09:42:12Z",
+      "issue": 513,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi (dsh-memory @ e39d2f8bd8dd): sustain.py:492-542 heartbeat_ledger_stats filters kind==beat and only reads t => tick failure rows (ok=False+error) have zero read outlet; beat failures counted as normal cycles in consecutive-no-break; constant comment :283 promises opposite of implementation. P1 self-commitment broken. Guard 38/0 zero discriminative. hard/B D6. retro round=1.",
+      "pr": null,
+      "covers": [
+        513
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_53088d273aca"
     }
   ]
 }

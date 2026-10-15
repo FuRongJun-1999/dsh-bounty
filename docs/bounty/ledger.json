@@ -9459,6 +9459,325 @@
         "delta": 6
       },
       "id": "evt_140ba4ed81ae"
+    },
+    {
+      "ts": "2026-10-15T13:54:12Z",
+      "issue": 557,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: crosscheck/stgidx/hotcache 56-assertion batch 2: 4 substantive defects. Assertion batch verification. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        557
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_6f27329ea143"
+    },
+    {
+      "ts": "2026-10-15T13:54:12Z",
+      "issue": 558,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: mdcos.py 53-assertion batch 3: 12 non-conformances, most severe 3: condition string char-by-char split causing semantic coverage gap. Assertion batch verification. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        558
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_46ba0cdd9a7b"
+    },
+    {
+      "ts": "2026-10-15T13:54:12Z",
+      "issue": 559,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "WASD258-jpg",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory #359+#360: merge landing point level downgrade leak (audit merge / tidy excerpt). Security. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        559
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ea5d3c1289ef"
+    },
+    {
+      "ts": "2026-10-15T13:54:12Z",
+      "issue": 560,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "WASD258-jpg",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory #358: Chinese memory 3-face independent reproduction (narrative retrieval / dialogue correction timing / 5 negative conditions + write gate). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        560
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_09fec3545494"
+    },
+    {
+      "ts": "2026-10-15T13:54:12Z",
+      "issue": 561,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "WASD258-jpg",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: dsh-memory #319+#320: trust boundary 2 bypasses (cross-tenant read-write / record token self-verify). Security. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        561
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_7a874338f7f7"
+    },
+    {
+      "ts": "2026-10-15T13:54:12Z",
+      "issue": 562,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "WASD258-jpg",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: lingshu #586+#587: shared layer write path missing instance role gate / longterm_gate bare SQL bypasses importance clamp. Security. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        562
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_063ade5c8b6f"
+    },
+    {
+      "ts": "2026-10-15T13:54:12Z",
+      "issue": 563,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "WASD258-jpg",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: dsh-memory #321+#323: pre-auth single-line deep nested JSON crashes MCP / aggregation row substring judgment swallows corrections. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        563
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_ef2e78106b99"
+    },
+    {
+      "ts": "2026-10-15T13:54:12Z",
+      "issue": 564,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: dsh-memory src/ TS bridge 15 files 5865 lines full scan - previously zero audit surface. 2 critical: minor content hard-block bare includes zero normalization bypassable; spawn subprocess env leak. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        564
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_5aa56a8153d4"
+    },
+    {
+      "ts": "2026-10-15T13:54:12Z",
+      "issue": 565,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "rinDBeans",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: dsh-memory state_event write gate dual-empty rejection only recognizes None (PR #384). Delivery. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        565
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_d8acbb162953"
+    },
+    {
+      "ts": "2026-10-15T13:54:12Z",
+      "issue": 566,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "rinDBeans",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory host path resolution 2 defects: paths.json parsing failure explicit + env ~ expansion (PR #385). Delivery. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        566
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_db05c5f6ae92"
+    },
+    {
+      "ts": "2026-10-15T13:54:12Z",
+      "issue": 597,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: lingshu 2nd round read-only security audit: 7 incremental findings (1 P1 / 6 P2) + 2 existing P0 independent re-verification + 2149 test cases first run. Substantial audit. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        597
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_963f3933456f"
     }
   ]
 }

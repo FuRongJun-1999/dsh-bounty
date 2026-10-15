@@ -6945,6 +6945,180 @@
         "delta": 3
       },
       "id": "evt_1af85dfd1b62"
+    },
+    {
+      "ts": "2026-10-15T05:56:47Z",
+      "issue": 475,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: viewer_graph derived folding-count discrepancy with #618 dropped_selfloop. P2 display issue. b096cc8e4360. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        475
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_282883bf2d8d"
+    },
+    {
+      "ts": "2026-10-15T05:56:47Z",
+      "issue": 476,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: self_state=True exemption in is_immutable allows self-state card overwrite. protect.py:318 confirmed. 742ea4d. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        476
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_bf7ca459eef7"
+    },
+    {
+      "ts": "2026-10-15T05:56:47Z",
+      "issue": 477,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: verify() confirmed/weakened zero-gate verdict farming. evidence_count pump. 742ea4d. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        477
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_34c655efa45a"
+    },
+    {
+      "ts": "2026-10-15T05:56:47Z",
+      "issue": 478,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: search non-determinism fix delivery: 5 ORDER BY add id ASC tie-break. b096cc8e4360. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        478
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_560593009144"
+    },
+    {
+      "ts": "2026-10-15T05:56:47Z",
+      "issue": 479,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: _do_bid deadline check silently skipped on time parse failure (fail-open). bounty_board.py. HEAD. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        479
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b474ffe45402"
+    },
+    {
+      "ts": "2026-10-15T05:56:47Z",
+      "issue": 480,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: daily_table.covers_of(ev) crashes on non-object events. bounty_board.py. HEAD. shen-li. retro round=1. ke-shen-su.",
+      "pr": null,
+      "covers": [
+        480
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_62449bd2569f"
     }
   ]
 }

@@ -43,12 +43,13 @@
     462,
     464,
     467,
-    470
+    470,
+    475
    ],
    "login": "Yinfeng818",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 96,
+   "reputation_delta": 97,
    "rounds": 1
   },
   {
@@ -112,12 +113,14 @@
     459,
     463,
     465,
-    473
+    473,
+    476,
+    477
    ],
    "login": "aroejony-cell",
    "project": "memory",
    "quality_E": null,
-   "reputation_delta": 46,
+   "reputation_delta": 55,
    "rounds": 1
   },
   {
@@ -204,6 +207,32 @@
    "rounds": 1
   },
   {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    70,
+    141,
+    306,
+    308,
+    309,
+    312,
+    314,
+    316,
+    318,
+    320,
+    322,
+    479,
+    480
+   ],
+   "login": "m3159584479",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 38,
+   "rounds": 1
+  },
+  {
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
@@ -237,30 +266,6 @@
    ],
    "login": "LarryE135",
    "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 34,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    70,
-    141,
-    306,
-    308,
-    309,
-    312,
-    314,
-    316,
-    318,
-    320,
-    322
-   ],
-   "login": "m3159584479",
-   "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 34,
    "rounds": 1
@@ -624,6 +629,22 @@
    "rounds": 1
   },
   {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    400,
+    431,
+    478
+   ],
+   "login": "aroejony-cell",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 7,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -690,21 +711,6 @@
    ],
    "login": "TanPowasd",
    "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 6,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    400,
-    431
-   ],
-   "login": "aroejony-cell",
-   "project": "lingshu",
    "quality_E": null,
    "reputation_delta": 6,
    "rounds": 1

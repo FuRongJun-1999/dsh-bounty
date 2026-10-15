@@ -64,19 +64,22 @@
     513,
     514,
     518,
-    519
+    519,
+    546,
+    547,
+    552
    ],
    "login": "Yinfeng818",
    "projects": [],
-   "reputation_delta": 165,
+   "reputation_delta": 172,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 56,
+   "round_known": 59,
    "round_seen": [
     1
    ],
-   "settled": 56,
+   "settled": 59,
    "timeout": 0
   },
   {
@@ -238,19 +241,20 @@
     538,
     541,
     542,
-    543
+    543,
+    544
    ],
    "login": "zhangdeishuai1",
    "projects": [],
-   "reputation_delta": 84,
+   "reputation_delta": 87,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 24,
+   "round_known": 25,
    "round_seen": [
     1
    ],
-   "settled": 24,
+   "settled": 25,
    "timeout": 0
   },
   {
@@ -287,6 +291,40 @@
     1
    ],
    "settled": 13,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    34,
+    44,
+    67,
+    160,
+    185,
+    186,
+    187,
+    258,
+    378,
+    385,
+    550
+   ],
+   "login": "rinDBeans",
+   "projects": [],
+   "reputation_delta": 80,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 11,
+   "round_seen": [
+    1
+   ],
+   "settled": 11,
    "timeout": 0
   },
   {
@@ -344,39 +382,6 @@
    ],
    "invalid": 0,
    "issues": [
-    34,
-    44,
-    67,
-    160,
-    185,
-    186,
-    187,
-    258,
-    378,
-    385
-   ],
-   "login": "rinDBeans",
-   "projects": [],
-   "reputation_delta": 77,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 10,
-   "round_seen": [
-    1
-   ],
-   "settled": 10,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
     59,
     67,
     175,
@@ -387,19 +392,20 @@
     290,
     361,
     469,
-    520
+    520,
+    551
    ],
    "login": "ganzhe12138",
    "projects": [],
-   "reputation_delta": 74,
+   "reputation_delta": 77,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 11,
+   "round_known": 12,
    "round_seen": [
     1
    ],
-   "settled": 11,
+   "settled": 12,
    "timeout": 0
   },
   {
@@ -499,19 +505,20 @@
     383,
     384,
     386,
-    515
+    515,
+    553
    ],
    "login": "acrot0",
    "projects": [],
-   "reputation_delta": 49,
+   "reputation_delta": 50,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 12,
+   "round_known": 13,
    "round_seen": [
     1
    ],
-   "settled": 12,
+   "settled": 13,
    "timeout": 0
   },
   {
@@ -582,6 +589,35 @@
    ],
    "invalid": 0,
    "issues": [
+    43,
+    108,
+    377,
+    509,
+    510,
+    548
+   ],
+   "login": "ybyz2",
+   "projects": [],
+   "reputation_delta": 32,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 6,
+   "round_seen": [
+    1
+   ],
+   "settled": 6,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     152,
     174,
     176,
@@ -636,34 +672,6 @@
     1
    ],
    "settled": 7,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    43,
-    108,
-    377,
-    509,
-    510
-   ],
-   "login": "ybyz2",
-   "projects": [],
-   "reputation_delta": 26,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 5,
-   "round_seen": [
-    1
-   ],
-   "settled": 5,
    "timeout": 0
   },
   {

@@ -8715,6 +8715,238 @@
         "delta": 1
       },
       "id": "evt_dbac02f4a096"
+    },
+    {
+      "ts": "2026-10-15T11:51:48Z",
+      "issue": 544,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: ChineseProgramming anchor layer protection not effective at runtime. Continuation of #535-#543 family. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        544
+      ],
+      "project": "chinese_programming",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_43d1d39a2b9e"
+    },
+    {
+      "ts": "2026-10-15T11:51:48Z",
+      "issue": 546,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: lingshu #587 fix not closed-loop - write_snapshot existing branch max(node.importance...) issue remains. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        546
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6fd54fa41394"
+    },
+    {
+      "ts": "2026-10-15T11:51:48Z",
+      "issue": 547,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #673 fit_damped v0 sign error - inconsistent with predict_at(t_ref) speed precision. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        547
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_a837700fae00"
+    },
+    {
+      "ts": "2026-10-15T11:51:48Z",
+      "issue": 548,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ybyz2",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: periodic PR review (R5): 19 in-flight PRs across lingshu x dsh-memory, independent review with dual-round adversarial verification. Substantial meta-review work. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        548
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_ed654d2a353d"
+    },
+    {
+      "ts": "2026-10-15T11:51:48Z",
+      "issue": 550,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "rinDBeans",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory 5-item fix delivery (PR #379; #375-#378 + #362b). Delivery with PR. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        550
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_59f74eeb2f6f"
+    },
+    {
+      "ts": "2026-10-15T11:51:48Z",
+      "issue": 551,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ganzhe12138",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-vibe-island v1.3.0 test report (capability domain). dsh dev version loaded, 324 passed. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        551
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b91578dd1148"
+    },
+    {
+      "ts": "2026-10-15T11:51:48Z",
+      "issue": 552,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: lingshu #586 import role gate only covers nodes rows - edges rows still allow SUB keyless import of shared-layer endpoints. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        552
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e2ff42640f44"
+    },
+    {
+      "ts": "2026-10-15T11:51:48Z",
+      "issue": 553,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "acrot0",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #588+#594 fix delivered via PR #670, CI 4/4 green. PR verified merged. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        553
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_d0360714a98e"
     }
   ]
 }

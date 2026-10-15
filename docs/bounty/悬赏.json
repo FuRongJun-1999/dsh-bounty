@@ -137,7 +137,7 @@
       "difficulty": "expert",
       "score": 10,
       "form": "评论证据块（分析/复现类）",
-      "status": "claimed",
+      "status": "delivered",
       "owner": "WASD258-jpg",
       "issue": 67,
       "issue_note": "#67 **保留在 issue 通道**：@WASD258-jpg 于 2026-10-12T15:30:22Z 认领，租约到期 2026-10-15T15:30:32Z。**曾于 15:31 被误关，已恢复。**",
@@ -168,6 +168,10 @@
         {
           "date": "2026-10-14",
           "note": "第二份独立交付（智能体工作流方向，@ganzhe12138 的 PR #282，188 文件 +8749/−0）已合并（43e73b8）并计分 expert 10。与首轮交付（记忆系统方向，@WASD258-jpg：灵枢 / Mem0 / basic-memory）被测对象**完全不相交**，按「同一悬赏多份独立交付」先例（#65 的 #104/#161）各计一份。**首轮交付仍在验收中、尚未计分**；本条目 status 暂留 claimed（租约持有者 @WASD258-jpg，到期 2026-10-15T15:30:32Z）。集成提示：两件并入本仓后 docs/reviews/测评方法论_v0.1.md 同名，须改名或分目录归档。"
+        },
+        {
+          "date": "2026-10-15",
+          "note": "**状态更正 claimed -> delivered。** 判据锚是 `#67` 的**实际状态**（本仓口径「判据锚在原 issue 的实际状态，不由文本决定」）：该 issue 标签为 `bounty:delivered`，且已完成**两份独立交付**并各自合并计分——首份（记忆系统方向，@WASD258-jpg）与第二份（智能体工作流方向，@ganzhe12138 的 PR #282，合并提交 `43e73b8`，账本事件 `evt_97c17eaf74a8`，expert Δ10）。原 `claimed` 系维护者迁移该方向时留下的陈旧值。**不改动任何已结算的计分与历史账本行。**"
         }
       ]
     },
@@ -320,6 +324,10 @@
         {
           "date": "2026-10-12",
           "note": "有在办提案，不迁移；维护者曾误关，已恢复。"
+        },
+        {
+          "date": "2026-10-15",
+          "note": "**维护者裁决两份在办提案（均不构成交付，本悬赏维持 open）。** ① @michaelwoolum50-cmyk（2026-10-12，自陈为非认领的 Proposed fix）：提交的是 `docs/promo/example_v0.1.md` **占位示例稿** —— 三个渠道全是 `https://example.com/channelN`，读数（100 stars/500 views/200 shares/50 comments…）为**示例数值且日期为 2023** ⇒ **不受理（非交付）**；请先在本 issue 评论 `/claim` 取得租约，再按验收标准交付。② @valmir5522（2026-10-13，自陈 `scripts/check_links.py` Exit Code 0）：**返工**，四处不达标 —— (a) 「渠道」三条是 `https://github.com`、`https://github.com/issues/71`、`https://instagram.com`，**均为站点根或非法路径**（issue 的合法形态是 `https://github.com/<owner>/<repo>/issues/71`），不是「实际发布链接」；(b) 第三条渠道自陈「Meu Instagram」为个人渠道且无**帖文永久链接**；(c) 读数（128 stars/550 views/65 views）标注来源为「页面 GitHub 实时读数」，但**未给任何可查链接或 API 调用与输出**，不满足「读数须附来源」；(d) 验收标准要求「链接校验脚本须带**守卫（≥3 条断言 ＋ 定点变异自证）**」，而交付只给了一句 Exit Code 0，**无守卫、无变异证据**。⇒ 请补齐 (a)–(d) 后重交。"
         }
       ]
     }

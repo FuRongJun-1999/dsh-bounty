@@ -7613,6 +7613,35 @@
         "delta": 3
       },
       "id": "evt_d3e860c209ab"
+    },
+    {
+      "ts": "2026-10-15T08:13:23Z",
+      "issue": 497,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: security audit bundle from 123WP-a - 13 independent findings (1 P1 / 11 P2 / 1 P3) + 7 positive conclusions + explicit dedup (3 duplicates referenced to existing issues #478/#464/#292) + explicit untested items section. 5 new issues filed (#650/#651/#652). Baseline 6ced89b. Methodology: 5 sub-agents + red team + main auditor. hard/B D6. retro round=1.",
+      "pr": null,
+      "covers": [
+        497
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_e5dc9f665c7c"
     }
   ]
 }

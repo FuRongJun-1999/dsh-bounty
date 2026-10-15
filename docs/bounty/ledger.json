@@ -6568,6 +6568,64 @@
         "delta": 6
       },
       "id": "evt_cc2022807f56"
+    },
+    {
+      "ts": "2026-10-15T04:26:15Z",
+      "issue": 452,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-zhe-du-li-fu-he: build_viewer.py:235 expect=os.environ.get(LINGSHU_CYTO_SHA256) or CYTO_SHA256 - or duan-lu-que-ren. b096cc8e4360.",
+      "pr": null,
+      "covers": [
+        452
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_7ca7ed12d11e"
+    },
+    {
+      "ts": "2026-10-15T04:26:15Z",
+      "issue": 462,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-zhe-du-li-fu-he: synonym_merge.py:166 -imp zuo-wei pai-xu-jian. b096cc8e4360.",
+      "pr": null,
+      "covers": [
+        462
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_a725034f7719"
     }
   ]
 }

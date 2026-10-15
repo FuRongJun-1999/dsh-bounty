@@ -28,7 +28,7 @@
    "difficulty": "easy",
    "difficulty_base": 1,
    "evidence_strength": true,
-   "impact_grade": "C",
+   "impact_grade": "B",
    "issues": [
     295,
     296,
@@ -61,12 +61,14 @@
     429,
     443,
     446,
-    448
+    448,
+    452,
+    462
    ],
    "login": "Yinfeng818",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 91,
+   "reputation_delta": 93,
    "rounds": 1
   },
   {

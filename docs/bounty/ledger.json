@@ -9778,6 +9778,35 @@
         "delta": 6
       },
       "id": "evt_963f3933456f"
+    },
+    {
+      "ts": "2026-10-15T14:00:55Z",
+      "issue": 598,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ganzhe12138",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: dsh-ops 0.3.0 plugin test report from ganzhe12138. Windows x64 native shell/file toolset. Same pattern as #520/#551/#555 (hard/B per contributor consistent self-declaration). retro round=1.",
+      "pr": null,
+      "covers": [
+        598
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_24d3a0a62a2b"
     }
   ]
 }

@@ -6713,6 +6713,35 @@
         "delta": 1
       },
       "id": "evt_5f68ffbe5577"
+    },
+    {
+      "ts": "2026-10-15T04:46:25Z",
+      "issue": 466,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi (TanPowasd/LingShu-prime @ 15b90f74): F1 hive_official.py:147-153 outdir=arm-tag + exists-skip => 0 new calls / 92 skips / exit 0. _sys isolation not implemented. Report confirms #85 data integrity (section 0). project=memory (target=TanPowasd/LingShu-prime is #85 deliverable). hard/B per marker. retro round=1.",
+      "pr": null,
+      "covers": [
+        466
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_bfe5d25f6d86"
     }
   ]
 }

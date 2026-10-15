@@ -7729,6 +7729,35 @@
         "delta": 3
       },
       "id": "evt_565762aecb15"
+    },
+    {
+      "ts": "2026-10-15T08:41:30Z",
+      "issue": 503,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (lingshu @ 9dd0beb): core.py:7990 find_rejected_paths does p[description]+p[reason] direct concat - TypeError on NULL. callee char_bigram_jaccard(:2512) has null protection but caller concatenates before it. One-line fix. medium/B D3. retro round=1. lingshu #657.",
+      "pr": null,
+      "covers": [
+        503
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b826f63c0bd9"
     }
   ]
 }

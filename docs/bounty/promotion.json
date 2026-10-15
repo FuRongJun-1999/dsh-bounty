@@ -9,46 +9,6 @@
    ],
    "invalid": 0,
    "issues": [
-    19,
-    35,
-    86,
-    144,
-    146,
-    166,
-    260,
-    261,
-    288,
-    289,
-    300,
-    301,
-    442,
-    444,
-    445,
-    454,
-    457
-   ],
-   "login": "cyd471",
-   "projects": [],
-   "reputation_delta": 104,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 23,
-   "round_seen": [
-    1
-   ],
-   "settled": 23,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
     295,
     296,
     297,
@@ -89,19 +49,60 @@
     475,
     484,
     488,
-    493
+    493,
+    498
    ],
    "login": "Yinfeng818",
    "projects": [],
-   "reputation_delta": 102,
+   "reputation_delta": 105,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 41,
+   "round_known": 42,
    "round_seen": [
     1
    ],
-   "settled": 41,
+   "settled": 42,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    19,
+    35,
+    86,
+    144,
+    146,
+    166,
+    260,
+    261,
+    288,
+    289,
+    300,
+    301,
+    442,
+    444,
+    445,
+    454,
+    457
+   ],
+   "login": "cyd471",
+   "projects": [],
+   "reputation_delta": 104,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 23,
+   "round_seen": [
+    1
+   ],
+   "settled": 23,
    "timeout": 0
   },
   {
@@ -170,19 +171,21 @@
     478,
     485,
     486,
-    492
+    492,
+    495,
+    496
    ],
    "login": "aroejony-cell",
    "projects": [],
-   "reputation_delta": 82,
+   "reputation_delta": 88,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 24,
+   "round_known": 26,
    "round_seen": [
     1
    ],
-   "settled": 24,
+   "settled": 26,
    "timeout": 0
   },
   {

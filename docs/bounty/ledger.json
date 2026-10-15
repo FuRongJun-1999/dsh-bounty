@@ -7497,6 +7497,93 @@
         "delta": 1
       },
       "id": "evt_f6e93d33f29d"
+    },
+    {
+      "ts": "2026-10-15T07:52:32Z",
+      "issue": 495,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (dsh-memory @ a0274500cc46): writelimit.py:172-174 importance_hint>=0.7 bypass confirmed. Design intent per docstring. medium/B D3. retro round=1.",
+      "pr": null,
+      "covers": [
+        495
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_2d59de42cd06"
+    },
+    {
+      "ts": "2026-10-15T07:52:32Z",
+      "issue": 496,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (dsh-memory): session_note/session_compact persistence injection - external text becomes system-format nodes. medium/B D3. retro round=1.",
+      "pr": null,
+      "covers": [
+        496
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_89733abf44f4"
+    },
+    {
+      "ts": "2026-10-15T07:52:32Z",
+      "issue": 498,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (lingshu @ b096cc8e4360): STEdge.from_row bare calls at core.py:1653/2010/2016/2115/2416 confirmed by grep. medium/B D3 per marker. retro round=1.",
+      "pr": null,
+      "covers": [
+        498
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8c7690fbdbcc"
     }
   ]
 }

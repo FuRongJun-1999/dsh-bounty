@@ -2,10 +2,10 @@
  "note": "本站只做声誉分与价值评价；金额不进站。两轴（难度 / 影响等级）分别记录，合成权重与资金换算属使用者侧。",
  "vectors": [
   {
-   "difficulty": "easy",
-   "difficulty_base": 1,
+   "difficulty": "medium",
+   "difficulty_base": 3,
    "evidence_strength": true,
-   "impact_grade": "C",
+   "impact_grade": "B",
    "issues": [
     295,
     296,
@@ -46,12 +46,13 @@
     470,
     475,
     484,
-    488
+    488,
+    498
    ],
    "login": "Yinfeng818",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 101,
+   "reputation_delta": 104,
    "rounds": 1
   },
   {
@@ -78,27 +79,6 @@
    "rounds": 1
   },
   {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    19,
-    35,
-    86,
-    144,
-    260,
-    289,
-    444,
-    457
-   ],
-   "login": "cyd471",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 66,
-   "rounds": 1
-  },
-  {
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
@@ -120,12 +100,35 @@
     477,
     485,
     486,
-    492
+    492,
+    495,
+    496
    ],
    "login": "aroejony-cell",
    "project": "memory",
    "quality_E": null,
-   "reputation_delta": 60,
+   "reputation_delta": 66,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    19,
+    35,
+    86,
+    144,
+    260,
+    289,
+    444,
+    457
+   ],
+   "login": "cyd471",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 66,
    "rounds": 1
   },
   {

@@ -2,33 +2,10 @@
  "note": "本站只做声誉分与价值评价；金额不进站。两轴（难度 / 影响等级）分别记录，合成权重与资金换算属使用者侧。",
  "vectors": [
   {
-   "difficulty": "expert",
-   "difficulty_base": 10,
-   "evidence_strength": true,
-   "impact_grade": "C",
-   "issues": [
-    13,
-    22,
-    58,
-    68,
-    134,
-    251,
-    252,
-    253,
-    255,
-    257
-   ],
-   "login": "STARDUSTLC666",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 94,
-   "rounds": 1
-  },
-  {
    "difficulty": "easy",
    "difficulty_base": 1,
    "evidence_strength": true,
-   "impact_grade": "B",
+   "impact_grade": "C",
    "issues": [
     295,
     296,
@@ -64,10 +41,34 @@
     448,
     452,
     462,
-    464
+    464,
+    467
    ],
    "login": "Yinfeng818",
    "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 95,
+   "rounds": 1
+  },
+  {
+   "difficulty": "expert",
+   "difficulty_base": 10,
+   "evidence_strength": true,
+   "impact_grade": "C",
+   "issues": [
+    13,
+    22,
+    58,
+    68,
+    134,
+    251,
+    252,
+    253,
+    255,
+    257
+   ],
+   "login": "STARDUSTLC666",
+   "project": "memory",
    "quality_E": null,
    "reputation_delta": 94,
    "rounds": 1

@@ -6742,6 +6742,35 @@
         "delta": 6
       },
       "id": "evt_bfe5d25f6d86"
+    },
+    {
+      "ts": "2026-10-15T04:55:58Z",
+      "issue": 467,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi (lingshu @ b096cc8e4360): derive_edges.py:246 if len(owners)>400: continue - yu shen-bao xing-hao zhu-zi yi-zhi. bian-jie jing-que (400 chu 1197 bian / 401 gui-ling). san-chu ke-guan-ce-wei-zhi (stderr/meta.rules/chan-pin-zi-duan) jun wu hen-ji. shen-bao-ren zi-wo-geng-zheng 4 chu tan-zhen cuo-wu bing ru-shi biao-zhu. P2 silent-prune. easy/C D1. retro round=1.",
+      "pr": null,
+      "covers": [
+        467
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_fb6b1c432d58"
     }
   ]
 }

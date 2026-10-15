@@ -21,9 +21,20 @@ STATUS_CN = {"open": "开放", "claimed": "已认领", "delivered": "已交付",
              "done": "已完成", "paused": "已暂停"}
 
 
+# 生效条件：path 为真源 JSON 路径时返回解析结果；**读取/解析失败即点名抛错**（fail-closed）。
+# 为什么需要它（2026-10-15 补面）：本函数原先直接 `json.load` —— 真源写成 `{"` 这类**语法错**
+# （手工编辑真源时的一字之差，过不了 `json.load`）会抛裸 `json.JSONDecodeError`、退出码退化成 1，
+# 与「产物漂移」**撞码**（漂移=1 是给 CI 判「产物需重生成」用的，畸形输入应是 2）。同仓
+# `bounty_board.load_ledger` 与 `daily_table.load_ledger` 对同一输入都点名
+# （「…不是合法 JSON：<path>（<原因>）」）——真源是诚实的边界，畸形必须点名。
 def load(path):
-    with io.open(path, encoding="utf-8") as f:
-        return json.load(f)
+    try:
+        with io.open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except OSError as exc:
+        raise ValueError("真源读取失败：%s（%s）" % (path, exc))
+    except ValueError as exc:
+        raise ValueError("真源不是合法 JSON：%s（%s）" % (path, exc))
 
 
 def anchor_html(i):
@@ -168,7 +179,12 @@ def validate(doc):
 
 
 def main(argv):
-    doc = load(SRC)
+    # 真源畸形 ⇒ 点名 + 退 2（与漂移的 1、校验失败的 2 口径一致：畸形输入不是「产物需重生成」）。
+    try:
+        doc = load(SRC)
+    except (OSError, ValueError) as exc:
+        sys.stderr.write("真源读取失败（fail-closed，未写任何产物）：%s\n" % exc)
+        return 2
     errs = validate(doc)
     if errs:
         sys.stderr.write("真源校验失败（fail-closed，未写任何产物）：\n")

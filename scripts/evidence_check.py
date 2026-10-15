@@ -195,6 +195,15 @@ def audit(root=None, want_repro=True) -> tuple:
     recs = data.get("records") if isinstance(data, dict) else None
     if not isinstance(recs, list):
         raise ValueError("测评数据结构不符（须含 records 数组）：%s" % _plug)
+    # ★本笔：**records 元素形状判据**（根面是上一行，元素面此前漏了）。旧实现直接
+    # `rec.get("slug")` —— records 元素是字符串／数字／数组／null（**都是合法 JSON**）时抛裸
+    # `AttributeError: 'str' object has no attribute 'get'`，② 出处/引文整段对账在第一条
+    # 记录处断掉，退出码退化成 1（与「检出不一致」撞码）。结构面 ⇒ 与根面**同通道**
+    # （ValueError ⇒ main 收成 rc=2），**不静默跳过**：跳过会让「对账通过」变成假的安全感。
+    for _i, _rec in enumerate(recs):
+        if not isinstance(_rec, dict):
+            raise ValueError("测评数据结构不符（records[%d] 不是对象，实为 %s）：%s"
+                             % (_i, type(_rec).__name__, _plug))
 
     rows, bad = [], []
 

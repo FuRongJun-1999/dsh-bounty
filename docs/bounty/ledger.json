@@ -8512,6 +8512,209 @@
         "delta": 1
       },
       "id": "evt_d587e4ef7153"
+    },
+    {
+      "ts": "2026-10-15T11:43:16Z",
+      "issue": 535,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (ChineseProgramming @ e61b8d9d): trust value: module own __main__ example fails. Self-declared medium/A. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        535
+      ],
+      "project": "chinese_programming",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_057e68e88a26"
+    },
+    {
+      "ts": "2026-10-15T11:43:16Z",
+      "issue": 536,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi (ChineseProgramming @ e61b8d9d): VM jump/call/return: 4 types of out-of-bounds (RecursionError on negative jump etc). Self-declared hard/A. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        536
+      ],
+      "project": "chinese_programming",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_45c90c03ba88"
+    },
+    {
+      "ts": "2026-10-15T11:43:16Z",
+      "issue": 537,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (ChineseProgramming @ e61b8d9d): undefined function call: only records warning, silently continues. Self-declared medium/A. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        537
+      ],
+      "project": "chinese_programming",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e60f95f857aa"
+    },
+    {
+      "ts": "2026-10-15T11:43:16Z",
+      "issue": 538,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (ChineseProgramming @ e61b8d9d): call argument count vs formal parameter table not compared. Self-declared medium/A. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        538
+      ],
+      "project": "chinese_programming",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4a9cb64de3a5"
+    },
+    {
+      "ts": "2026-10-15T11:43:16Z",
+      "issue": 541,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi (ChineseProgramming @ e61b8d9d): max_steps only counts steps not total loop iterations. Self-declared hard/A. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        541
+      ],
+      "project": "chinese_programming",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_63aee173457e"
+    },
+    {
+      "ts": "2026-10-15T11:43:16Z",
+      "issue": 542,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi (ChineseProgramming @ e61b8d9d): trust initial value does not do type check. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        542
+      ],
+      "project": "chinese_programming",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_95547254e843"
+    },
+    {
+      "ts": "2026-10-15T11:43:16Z",
+      "issue": 543,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi (ChineseProgramming @ e61b8d9d): uncompilable statements silently discarded. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        543
+      ],
+      "project": "chinese_programming",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_dbac02f4a096"
     }
   ]
 }

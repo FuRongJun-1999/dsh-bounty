@@ -6510,6 +6510,64 @@
         "delta": 1
       },
       "id": "evt_18b438c4f576"
+    },
+    {
+      "ts": "2026-10-15T04:11:17Z",
+      "issue": 457,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（dsh-memory @ cf0af6d，`git cat-file -e` 确认存在）：**#350 结构核对（决定性）**：`md_cg/mdcg.py:2640` 逐字为 `path = os.path.join(d, f\"{node_id}.md\")` —— **node_id 直接做文件名，无 casefold**。`_NODE_ID_RE`（:1493）`^[A-Za-z0-9_.@一-鿿,-]{1,128}$` **允许大小写混合**。全仓 `casefold` 仅 4 处命中且**均不用于 node_id 归一化** ⇒ 「大小写不敏感语义是 Linux 上进程内模拟」**结构成立** ✓。**如实标注**：申报人自陈「未在 Windows/macOS 实跑」⇒ P0 为**候选**，本件按 P0 候选**沿用申报的影响 A**，真机确认后可升 P0/改档。_\n\n**#352 五条 P1 概要**：A(rollback 前像覆写清 immutable)、B(缺 verification_state 继承旧验证态)、C(imgskill audit.jsonl 符号链接逃逸)、D(paths.json BOM/反斜杠静默回落)、E(index_code/doc 节点 id 不含源根跨仓覆写)。本轮未逐条复跑，按申报读数受理。_\n\n。受理。难度沿用**申报正文内逐条自申档位**（#350 medium、#351 hard、#352 medium），按本仓细化「件内逐条自申不同档 ⇒ 按档拆多条事件，件内同档 ⇒ 合 1 条」拆两条：medium 覆盖 #350＋#352、hard 覆盖 #351。影响等级：medium 条取 A（#350 P0 候选＋#352 含 5 条 P1）、hard 条取 A（#351 有条件 P0）。追溯性结算、无轮次证据 => round=1 => Δ=base。可申诉。",
+      "pr": null,
+      "covers": [
+        457
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_3ab79225aaed"
+    },
+    {
+      "ts": "2026-10-15T04:11:17Z",
+      "issue": 457,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "维护者独立复核（dsh-memory @ cf0af6d，`git cat-file -e` 确认存在）：**#351 结构核对（决定性）**：`md_cg/sources.py:799` 逐字为 `p = kw.get(\"path\") or cg.root` —— **空 path 回落记忆库根** ✓；`md_cg/security.py:490` 逐字为 `if path is None or str(path).strip() == \"\": return` —— **空 path 直通安全校验** ✓。两处组合 ⇒ record 令牌调 `cg(op=ingest, action=dir)` 不传 path 即可把**整个记忆库根**当外部文档扫描 ⇒ restricted 正文被切成 internal `doc_ref` 节点。**如实标注**：端到端读数（「访客检索到 doc_xxx (internal)」等）**未复跑**，按结构面＋申报读数受理。_\n\n。受理。难度沿用**申报正文内逐条自申档位**（#350 medium、#351 hard、#352 medium），按本仓细化「件内逐条自申不同档 ⇒ 按档拆多条事件，件内同档 ⇒ 合 1 条」拆两条：medium 覆盖 #350＋#352、hard 覆盖 #351。影响等级：medium 条取 A（#350 P0 候选＋#352 含 5 条 P1）、hard 条取 A（#351 有条件 P0）。追溯性结算、无轮次证据 => round=1 => Δ=base。可申诉。",
+      "pr": null,
+      "covers": [
+        457
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_cc2022807f56"
     }
   ]
 }

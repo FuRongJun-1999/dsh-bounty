@@ -70,10 +70,10 @@
    "rounds": 1
   },
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
+   "difficulty": "hard",
+   "difficulty_base": 6,
    "evidence_strength": true,
-   "impact_grade": "B",
+   "impact_grade": "A",
    "issues": [
     19,
     35,
@@ -81,12 +81,13 @@
     144,
     260,
     289,
-    444
+    444,
+    457
    ],
    "login": "cyd471",
    "project": "memory",
    "quality_E": null,
-   "reputation_delta": 57,
+   "reputation_delta": 66,
    "rounds": 1
   },
   {

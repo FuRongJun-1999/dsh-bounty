@@ -24,19 +24,20 @@
     442,
     444,
     445,
-    454
+    454,
+    457
    ],
    "login": "cyd471",
    "projects": [],
-   "reputation_delta": 95,
+   "reputation_delta": 104,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 21,
+   "round_known": 23,
    "round_seen": [
     1
    ],
-   "settled": 21,
+   "settled": 23,
    "timeout": 0
   },
   {

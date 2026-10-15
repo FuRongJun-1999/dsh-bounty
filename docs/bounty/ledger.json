@@ -8425,6 +8425,64 @@
         "delta": 1
       },
       "id": "evt_f48b58027dc4"
+    },
+    {
+      "ts": "2026-10-15T11:30:39Z",
+      "issue": 528,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (dsh-mobile-apk @ 4f5cb74b63fa): pickToken documented as one-shot in 4 places (README/README.zh/design/AndroidBridge) but implementation reuses sharedPickToken. Self-declared medium/B. Source-level facts only (no runtime claims). retro round=1.",
+      "pr": null,
+      "covers": [
+        528
+      ],
+      "project": "dsh_mobile_apk",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e969cca5d6d7"
+    },
+    {
+      "ts": "2026-10-15T11:30:39Z",
+      "issue": 529,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi (dsh-mobile-apk @ 4f5cb74b63fa): isSessionExport uses url.contains(SESSION_EXPORT_PATH) while same-family isEngineSource uses precise Uri comparison. easy/B D1. retro round=1.",
+      "pr": null,
+      "covers": [
+        529
+      ],
+      "project": "dsh_mobile_apk",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_cd6c8572f9d2"
     }
   ]
 }

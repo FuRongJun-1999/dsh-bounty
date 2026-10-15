@@ -25,10 +25,10 @@
    "rounds": 1
   },
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
+   "difficulty": "easy",
+   "difficulty_base": 1,
    "evidence_strength": true,
-   "impact_grade": "B",
+   "impact_grade": "C",
    "issues": [
     295,
     296,
@@ -58,31 +58,33 @@
     426,
     427,
     428,
-    429
+    429,
+    443
    ],
    "login": "Yinfeng818",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 88,
+   "reputation_delta": 89,
    "rounds": 1
   },
   {
-   "difficulty": "hard",
-   "difficulty_base": 6,
+   "difficulty": "medium",
+   "difficulty_base": 3,
    "evidence_strength": true,
-   "impact_grade": "A",
+   "impact_grade": "B",
    "issues": [
     19,
     35,
     86,
     144,
     260,
-    289
+    289,
+    444
    ],
    "login": "cyd471",
    "project": "memory",
    "quality_E": null,
-   "reputation_delta": 48,
+   "reputation_delta": 57,
    "rounds": 1
   },
   {

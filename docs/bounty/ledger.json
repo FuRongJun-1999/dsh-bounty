@@ -6162,6 +6162,93 @@
         "delta": 1
       },
       "id": "evt_411324a32702"
+    },
+    {
+      "ts": "2026-10-15T00:58:25Z",
+      "issue": 443,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "维护者独立复核（隔离克隆，一律 `git show <锚定提交>:<path>`）：【lingshu #614 复报登记：`tools/coverage_map_lint` 的零覆盖白名单按「路径字符串」永久豁免 —— stale 算出却不入判定、登记行数从不参与比较、`--update-baseline` 可无声把白名单塞大】维护者独立复核（隔离克隆，一律 `git show <锚定提交>:<path>`）：**判据机械核对（三条决定性）**：① **`stale` 不入判定** —— `tools/coverage_map_lint.py:254` 的 `exit_code = 1 if new else 0` **只读 `new`**；而 `stale` 全文件仅出现在 `:252`（算出）、`:261`（写进 payload）、`:306-307`（打印成「基线中已失效条目 N 个（可清理）」）⇒ **算得出、印得出、判不进** ✓。② **守卫只有下界** —— `tests/test_coverage_map_lint.py:104` 的唯一规模断言是 `assert data[\"baseline_entries\"] >= 1`，而 issue **#23 §3.1** 要求「断言白名单规模**单调不增**」⇒ 规范断言完全缺失，白名单可被无声塞大 ✓。③ **`--update-baseline` 无拦截** —— `:272-283` 直接 `render_baseline(zero, …)` 整份重写并 `return 0`，只挡了与 `--json` 同用 ✓。第三条「登记的 `<行数>` 从不参与比较」**结构一致**（退出码路径只读 `new`），未逐字取到该值的全部读取点。**申报自陈的边界（如实采纳）**：本件**未做补丁与守卫代码**，贡献形态是「已验证的缺陷报告」；且申报人**主动自我更正**了一处初稿误判（「`--update-baseline` 后头部逐字未变」依赖原头部是否已是模板）。。受理。**判据锚与两处标记口径的处置（如实标注）**：① 本件带 `<!-- intake:v1 -->` 标记，其 `target` 为 `FuRongJun-1999/lingshu` 而 `project` 写 `memory` ⇒ 按本仓口径「`project` 须由 `target` 派生」（17 先例）取 **`lingshu`**，与标记内值冲突。② 标记 `difficulty` 为 **`small`**，**不在**词表 `easy|medium|hard|expert` 内 ⇒ 按本仓口径「词表外值映射到最近档并记入 reason」取 **`easy`(1)**。③ 标记 `impact` 为 **`C`**（在词表内，保留），但**如实标注**：正文自评「严重度 P1」且机制为「零覆盖门对后续写法失明」，按 IMPACT_CRITERIA 属「量具失效 ⇒ A」；依「标记内值优先 ＋ 公开标注 ＋ 可申诉」保留 C。三条**均可申诉**。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。",
+      "pr": null,
+      "covers": [
+        443
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_6447697ff7e1"
+    },
+    {
+      "ts": "2026-10-15T00:58:25Z",
+      "issue": 444,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "维护者独立复核（隔离克隆，一律 `git show <锚定提交>:<path>`）：【dsh-memory #346（P0）：orchestr 令牌经审核队列自批，把属主 private 节点整条覆写成 internal 明文】维护者独立复核（隔离克隆，一律 `git show <锚定提交>:<path>`）：**判据核对**：`md_cg/mcp_server.py:3480` 的 `_MDCG_OP_REQUIRE` 里 **`\"mdcg_review_decide\": \"write\"`** ⇒ 该入口**只要求 `write` op**，既无 review/appraise 档位、也无回避闸。⇒ 与申报所称「直写面同样的操作会 `AccessDenied`，而入队 `review_queue` ＋ accept 则 `ok=True`」共同构成**同根两出口口径分叉**（本仓既有判据）：一条路径校验密级/角色，另一条只过 `write` ⇒ orchestr 令牌可给自己的提案 `accept`，把属主 contextual 层的 private 节点整条覆写并降为 internal 明文。**申报的实跑读数（两个 private 节点读回 `sens=internal`、盘面未加密、原密文副本 0 处、访客读到）未复跑**，本件按结构面 ＋ 申报读数受理。**★ 本件为五条合报**（#346 P0 ＋ #347 有条件 P0 ＋ #348 三条 P1），本轮按申报的**逐条自申档位**拆两条；**#347/#348 的具体判据本轮未逐条复跑**（#347 的基线 `10bc96a` 上未定位到 `already_covered`/段界相关行），本回执**不构成对未核面的确认**。。受理。难度沿用**申报正文内逐条自申档位**（#346 hard；#347 medium、#348 medium），按本仓细化「申报件内逐条自申不同档 ⇒ 按档拆多条事件，件内同档 ⇒ 合 1 条」拆为两条。影响等级按申报自陈（#346 建议 A、#348 建议 B）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        444
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_410304991e31"
+    },
+    {
+      "ts": "2026-10-15T00:58:25Z",
+      "issue": 444,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "维护者独立复核（隔离克隆，一律 `git show <锚定提交>:<path>`）：【dsh-memory #347 ＋ #348（有条件 P0 ＋ 三条 P1 合报）：空白算段界使更正被吞并／insight verify 无裁决权／MERGE 读改写无跨进程锁／private 不适用条件进明文 frontmatter】维护者独立复核（隔离克隆，一律 `git show <锚定提交>:<path>`）：**判据核对**：`md_cg/mcp_server.py:3480` 的 `_MDCG_OP_REQUIRE` 里 **`\"mdcg_review_decide\": \"write\"`** ⇒ 该入口**只要求 `write` op**，既无 review/appraise 档位、也无回避闸。⇒ 与申报所称「直写面同样的操作会 `AccessDenied`，而入队 `review_queue` ＋ accept 则 `ok=True`」共同构成**同根两出口口径分叉**（本仓既有判据）：一条路径校验密级/角色，另一条只过 `write` ⇒ orchestr 令牌可给自己的提案 `accept`，把属主 contextual 层的 private 节点整条覆写并降为 internal 明文。**申报的实跑读数（两个 private 节点读回 `sens=internal`、盘面未加密、原密文副本 0 处、访客读到）未复跑**，本件按结构面 ＋ 申报读数受理。**★ 本件为五条合报**（#346 P0 ＋ #347 有条件 P0 ＋ #348 三条 P1），本轮按申报的**逐条自申档位**拆两条；**#347/#348 的具体判据本轮未逐条复跑**（#347 的基线 `10bc96a` 上未定位到 `already_covered`/段界相关行），本回执**不构成对未核面的确认**。。受理。难度沿用**申报正文内逐条自申档位**（#346 hard；#347 medium、#348 medium），按本仓细化「申报件内逐条自申不同档 ⇒ 按档拆多条事件，件内同档 ⇒ 合 1 条」拆为两条。影响等级按申报自陈（#346 建议 A、#348 建议 B）。追溯性结算、无轮次证据 => round=1（中性点）=> Δ=base。两档均可申诉。",
+      "pr": null,
+      "covers": [
+        444
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_31e8a138d506"
     }
   ]
 }

@@ -9430,6 +9430,35 @@
         "delta": 1
       },
       "id": "evt_eb3f4310d21f"
+    },
+    {
+      "ts": "2026-10-15T13:48:29Z",
+      "issue": 596,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "rinDBeans",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: dsh-memory #352 five fixes (A-E) delivered via PR #394. 20/0 guard pass + 8 mutations. A: rollback drift detection, B: verification state inheritance fix, C: imgskill symlink containment, D: paths.json BOM/explicit fail, E: refindex cross-root collision. hard/B D6. retro round=1.",
+      "pr": "https://github.com/FuRongJun-1999/dsh-memory/pull/394",
+      "covers": [
+        596
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_140ba4ed81ae"
     }
   ]
 }

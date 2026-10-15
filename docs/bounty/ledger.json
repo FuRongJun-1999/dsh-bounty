@@ -9034,6 +9034,25 @@
         "delta": 6
       },
       "id": "evt_a273347e0593"
+    },
+    {
+      "ts": "2026-10-15T13:07:28Z",
+      "issue": 293,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "expert",
+      "delta": 40,
+      "reason": "wei-hu-zhe-zhi-jie-cai-ding: lingshu_ng enterprise project delta=40",
+      "pr": null,
+      "covers": [
+        293
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-10-15",
+      "formula": "wei-hu-zhe zhi-jie cai-ding (delta=40)",
+      "id": "evt_d7035e8c1a65"
     }
   ]
 }

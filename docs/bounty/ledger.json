@@ -9005,6 +9005,35 @@
         "delta": 6
       },
       "id": "evt_efdff3fe77f8"
+    },
+    {
+      "ts": "2026-10-15T12:18:51Z",
+      "issue": 556,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: units.py 32 assertion full verification (25 OK / 6 warn / 1 fail). 3 substantive defects: D1 heartbeat non-dict causes serve_state exception (both repos), D2 autostart structurally unreachable, D3 empty-content gate bypass via non-dict. Plus 2 latent issues. PoC provided. hard/B D6. retro round=1.",
+      "pr": null,
+      "covers": [
+        556
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_a273347e0593"
     }
   ]
 }

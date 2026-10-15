@@ -153,19 +153,20 @@
     495,
     496,
     507,
-    512
+    512,
+    516
    ],
    "login": "aroejony-cell",
    "projects": [],
-   "reputation_delta": 97,
+   "reputation_delta": 103,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 28,
+   "round_known": 29,
    "round_seen": [
     1
    ],
-   "settled": 28,
+   "settled": 29,
    "timeout": 0
   },
   {

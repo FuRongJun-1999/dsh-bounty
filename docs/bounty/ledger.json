@@ -8106,6 +8106,35 @@
         "delta": 3
       },
       "id": "evt_7cfcdb9c0052"
+    },
+    {
+      "ts": "2026-10-15T10:00:03Z",
+      "issue": 516,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi (dsh-memory @ main): mcp_server.py:4383/:4417 MDCG_TENANT_REGISTRY from caller env; empty file => reverse lookup zero-hit => cross-tenant access restored (#98 original). verify_token clamp also fails on missing registry (tokens.py:565-586). :4433 except:pass silently swallows. P1. Different root from #98/#319 (reverse lookup exists but data source injectable). hard/B D6. retro round=1.",
+      "pr": null,
+      "covers": [
+        516
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-15",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_455dbe1319c1"
     }
   ]
 }

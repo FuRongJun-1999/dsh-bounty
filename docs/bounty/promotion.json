@@ -322,7 +322,7 @@
   },
   {
    "blockers": [
-    "一次过闸占比 0.06 < 0.33"
+    "一次过闸占比 0.05 < 0.33"
    ],
    "disputes": 0,
    "eligible": false,
@@ -346,20 +346,22 @@
     602,
     722,
     723,
-    724
+    724,
+    734,
+    735
    ],
    "login": "STARDUSTLC666",
    "projects": [],
-   "reputation_delta": 123,
+   "reputation_delta": 129,
    "round0": 1,
-   "round0_ratio": 0.05555555555555555,
+   "round0_ratio": 0.05,
    "round0_ratio_source": "retro",
-   "round_known": 18,
+   "round_known": 20,
    "round_seen": [
     0,
     1
    ],
-   "settled": 18,
+   "settled": 20,
    "timeout": 0
   },
   {
@@ -783,19 +785,20 @@
     597,
     600,
     604,
-    675
+    675,
+    733
    ],
    "login": "123WP-a",
    "projects": [],
-   "reputation_delta": 37,
+   "reputation_delta": 40,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 8,
+   "round_known": 9,
    "round_seen": [
     1
    ],
-   "settled": 8,
+   "settled": 9,
    "timeout": 0
   },
   {

@@ -14597,6 +14597,93 @@
         "delta": 3
       },
       "id": "evt_25e35c859580"
+    },
+    {
+      "ts": "2026-10-16T04:38:18Z",
+      "issue": 733,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory audit: one defect class 6 landing points - caller-controlled fields no length constraint cause audit ledger 1:1 write amplification (6 P2s merged, 5 ledgers no rotation). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        733
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6fb7bf21b74a"
+    },
+    {
+      "ts": "2026-10-16T04:38:18Z",
+      "issue": 734,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: fix(subgraph): shortest-level traversal with node budget constrained before enqueue. Delivery PR #440. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        734
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1ccfb0e1664e"
+    },
+    {
+      "ts": "2026-10-16T04:38:18Z",
+      "issue": 735,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: fix(subgraph): unified level edge validation and linear ancestor cycle analysis. Delivery PR #441. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        735
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_79590a4e86d2"
     }
   ]
 }

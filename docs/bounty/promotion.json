@@ -587,6 +587,44 @@
    ],
    "invalid": 0,
    "issues": [
+    65,
+    367,
+    374,
+    380,
+    387,
+    388,
+    466,
+    471,
+    472,
+    474,
+    605,
+    606,
+    608,
+    609,
+    736
+   ],
+   "login": "zijinmengxi",
+   "projects": [],
+   "reputation_delta": 79,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 15,
+   "round_seen": [
+    1
+   ],
+   "settled": 15,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     18,
     55,
     56,
@@ -621,43 +659,6 @@
     1
    ],
    "settled": 22,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    65,
-    367,
-    374,
-    380,
-    387,
-    388,
-    466,
-    471,
-    472,
-    474,
-    605,
-    606,
-    608,
-    609
-   ],
-   "login": "zijinmengxi",
-   "projects": [],
-   "reputation_delta": 73,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 14,
-   "round_seen": [
-    1
-   ],
-   "settled": 14,
    "timeout": 0
   },
   {

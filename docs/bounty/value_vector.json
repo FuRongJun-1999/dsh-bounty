@@ -581,6 +581,25 @@
    "rounds": 1
   },
   {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    466,
+    605,
+    606,
+    608,
+    609,
+    736
+   ],
+   "login": "zijinmengxi",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 33,
+   "rounds": 1
+  },
+  {
    "difficulty": "easy",
    "difficulty_base": 1,
    "evidence_strength": true,
@@ -623,24 +642,6 @@
    "project": "lingshu",
    "quality_E": null,
    "reputation_delta": 28,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    466,
-    605,
-    606,
-    608,
-    609
-   ],
-   "login": "zijinmengxi",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 27,
    "rounds": 1
   },
   {

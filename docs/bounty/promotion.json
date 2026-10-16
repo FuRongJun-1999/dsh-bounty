@@ -116,19 +116,29 @@
     720,
     721,
     727,
-    732
+    732,
+    737,
+    738,
+    739,
+    740,
+    741,
+    742,
+    743,
+    744,
+    746,
+    747
    ],
    "login": "Yinfeng818",
    "projects": [],
-   "reputation_delta": 298,
+   "reputation_delta": 341,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 108,
+   "round_known": 118,
    "round_seen": [
     1
    ],
-   "settled": 108,
+   "settled": 118,
    "timeout": 0
   },
   {
@@ -348,20 +358,22 @@
     723,
     724,
     734,
-    735
+    735,
+    749,
+    752
    ],
    "login": "STARDUSTLC666",
    "projects": [],
-   "reputation_delta": 129,
+   "reputation_delta": 135,
    "round0": 1,
-   "round0_ratio": 0.05,
+   "round0_ratio": 0.045454545454545456,
    "round0_ratio_source": "retro",
-   "round_known": 20,
+   "round_known": 22,
    "round_seen": [
     0,
     1
    ],
-   "settled": 20,
+   "settled": 22,
    "timeout": 0
   },
   {
@@ -396,6 +408,48 @@
    "login": "LarryE135",
    "projects": [],
    "reputation_delta": 106,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 19,
+   "round_seen": [
+    1
+   ],
+   "settled": 19,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    65,
+    367,
+    374,
+    380,
+    387,
+    388,
+    466,
+    471,
+    472,
+    474,
+    605,
+    606,
+    608,
+    609,
+    736,
+    745,
+    748,
+    750,
+    751
+   ],
+   "login": "zijinmengxi",
+   "projects": [],
+   "reputation_delta": 97,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
@@ -576,44 +630,6 @@
     1
    ],
    "settled": 24,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    65,
-    367,
-    374,
-    380,
-    387,
-    388,
-    466,
-    471,
-    472,
-    474,
-    605,
-    606,
-    608,
-    609,
-    736
-   ],
-   "login": "zijinmengxi",
-   "projects": [],
-   "reputation_delta": 79,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 15,
-   "round_seen": [
-    1
-   ],
-   "settled": 15,
    "timeout": 0
   },
   {

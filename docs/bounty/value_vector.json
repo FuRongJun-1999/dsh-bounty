@@ -90,12 +90,20 @@
     712,
     713,
     714,
-    727
+    727,
+    737,
+    738,
+    739,
+    740,
+    741,
+    742,
+    743,
+    746
    ],
    "login": "Yinfeng818",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 203,
+   "reputation_delta": 240,
    "rounds": 1
   },
   {
@@ -163,12 +171,14 @@
     599,
     602,
     734,
-    735
+    735,
+    749,
+    752
    ],
    "login": "STARDUSTLC666",
    "project": "memory",
    "quality_E": null,
-   "reputation_delta": 111,
+   "reputation_delta": 117,
    "rounds": 1
   },
   {
@@ -249,12 +259,14 @@
     719,
     720,
     721,
-    732
+    732,
+    744,
+    747
    ],
    "login": "Yinfeng818",
    "project": "memory",
    "quality_E": null,
-   "reputation_delta": 95,
+   "reputation_delta": 101,
    "rounds": 1
   },
   {
@@ -360,6 +372,29 @@
    "project": "chinese_programming",
    "quality_E": null,
    "reputation_delta": 62,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    466,
+    605,
+    606,
+    608,
+    609,
+    736,
+    745,
+    748,
+    750,
+    751
+   ],
+   "login": "zijinmengxi",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 51,
    "rounds": 1
   },
   {
@@ -578,25 +613,6 @@
    "project": "bench",
    "quality_E": null,
    "reputation_delta": 36,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    466,
-    605,
-    606,
-    608,
-    609,
-    736
-   ],
-   "login": "zijinmengxi",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 33,
    "rounds": 1
   },
   {

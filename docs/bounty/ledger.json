@@ -12422,6 +12422,93 @@
         "delta": 3
       },
       "id": "evt_e4e43a50a11d"
+    },
+    {
+      "ts": "2026-10-16T00:43:30Z",
+      "issue": 660,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-portable-tavern (XCNXNXNX) evaluation: 0.2.0-rc.2 load/unload no red, 40/40 self-tests; 18 routes no login cookie check. Security concern. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        660
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6844b461f14f"
+    },
+    {
+      "ts": "2026-10-16T00:43:30Z",
+      "issue": 661,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-proof (EvilIrving) evaluation: dsh 0.2.0-rc.2 refuses install (peer ^0.1.0-rc.6), force install default config verifier never starts. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        661
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_543d5f0d3b37"
+    },
+    {
+      "ts": "2026-10-16T00:43:30Z",
+      "issue": 662,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-roleplay-preset (oliblue-evan) evaluation: per README install to .agent-presets/ on current host 0.2 does not appear. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        662
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c270dce3d35b"
     }
   ]
 }

@@ -144,32 +144,6 @@
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
-    293,
-    567,
-    568,
-    569,
-    570,
-    571,
-    572,
-    573,
-    645,
-    646,
-    647,
-    648,
-    649
-   ],
-   "login": "Liyang1145",
-   "project": "lingshu",
-   "quality_E": null,
-   "reputation_delta": 76,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
     631,
     632,
     633,
@@ -192,12 +166,41 @@
     656,
     657,
     658,
-    659
+    659,
+    660,
+    661,
+    662
    ],
    "login": "Liyang1145",
    "project": "bench",
    "quality_E": null,
-   "reputation_delta": 70,
+   "reputation_delta": 79,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    293,
+    567,
+    568,
+    569,
+    570,
+    571,
+    572,
+    573,
+    645,
+    646,
+    647,
+    648,
+    649
+   ],
+   "login": "Liyang1145",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 76,
    "rounds": 1
   },
   {

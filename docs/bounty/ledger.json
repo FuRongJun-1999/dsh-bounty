@@ -10909,6 +10909,673 @@
         "delta": 3
       },
       "id": "evt_a04591241c45"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 607,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ganzhe12138",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: lingshu_ng main evaluation: pytest 2797 pass / 1 skip / 0 red consistent with author claim. Self-built eval framework. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        607
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_d63269ab8235"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 608,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: dsh-memory brain audit rounds 3-4: 5 new issues (1 P0) - index snapshot count criterion false positive causes irreversible node content loss. Security audit. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        608
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_75f17f4692e0"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 609,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: dsh-memory brain audit rounds 5-6: 6 new issues (all P1) - protected node preimage overwritten by second-level naming / preimage missing still allowed / gated write face gaps. Security audit. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        609
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_41104d17f469"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 611,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: mdcg.py 5543 lines full scan: 129 assertions checked, 24 non-conformances. Most severe: write path silent data loss via _required_fields missing. Assertion batch 4. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        611
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_175e906be5f3"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 612,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: mdcos.py seg 2001-4200: 38 assertions checked, 9 non-conformances. Most severe: archived node restore fails. Assertion batch 5. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        612
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_4ddee425dc4a"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 613,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: mdcos.py seg 4201-6423: 114 assertions checked, 23 non-conformances. Most severe family: write-face sensitivity inheritance fails when index stale. Assertion batch 6. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        613
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_3ff6148b9fc9"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 614,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: hive/src/job.rs Rust face: py/rs criteria overall aligned (56 case pairs rs 100% match) but table parsing token language asymmetric. Cross-language audit. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        614
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_cf2abc158b59"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 615,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: lingshu #676+#677+#680: 114 issues individually reproduced and verified (3 P0 fixes not closed, 1 fix regression, 7 other). Substantial review. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        615
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_7cbf16a950f2"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 616,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: backfill.py: #430 write gate family continuation scan - apply/cap batch overwrite entries not covered. Continuation audit. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        616
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b4a520daaca2"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 617,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: hive/exec.py _redact_pii prefix family gaps: 12 mainstream token types (glpat/AIza/JWT/gsk_/pk_) not covered. Security. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        617
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_cac9d94643d8"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 618,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory #397/#398 independent verification: 3-site + 4-site all reproduced (baseline 801da85). Verification. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        618
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_60b7efec564c"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 619,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: #345 rate limiter only checks declared sensitivity - same-id rewrite of existing private node without re-transmitting sensitivity means plaintext skeleton still lands in _write cache. Security. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        619
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_dba4eae0588d"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 620,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: dsh-memory #401 3rd party reproduction: net_units checksum + mini_python chained comparison both confirmed (baseline 5d99143). Verification. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        620
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_3b9d7204836d"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 621,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: evolution ledger injection-to-replay privilege escalation chain (3-piece): evolution_record no write gate, non-admin role injects forged state block (_fmt does not escape newlines), replay trusts it. Security. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        621
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_c962e63686dc"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 622,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: mcp_server.py distribution face gate coverage batch (64 conditions, 15 fail): 5 independent root causes - mdcg_whitebox marked read but contains write, etc. Gate coverage audit. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        622
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_4f499e7cf844"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 623,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: mcp_server.py boolean/truth parsing family: false-value whitelist incomplete causes shutdown intent judged as enabled bidirectionally. Security. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        623
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_3755c79f3b71"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 624,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: build_flatland trees unbounded direct passthrough: single voxel_world call can exhaust memory. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        624
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b793dd9aaa8a"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 625,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: semantic.py L2 criterion name (prepare count) inconsistent with own semantics (upstream #52). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        625
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_90cf2f85b123"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 626,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: sweep_aabb tangent/separated misreported as hit/toi=0 => anti-penetration layer freezes dynamic entities at contact point (upstream #703). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        626
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8a85a888a477"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 627,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: #398 two op-tier corrections not wired to any in-repo assertion (reverts to green); claimed table-level guard not found on main (upstream #421). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        627
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1db302c9d08c"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 628,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: Environment(gravity=0) zero-gravity mode unreachable (two-layer lower bound criteria inconsistent). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        628
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c34bb40e321c"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 629,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: sweep_aabb.depth_at_dt does not require 3-axis simultaneous overlap, reading criterion inconsistent with aabb_mtv. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        629
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_3cb278e531d8"
+    },
+    {
+      "ts": "2026-10-16T00:11:09Z",
+      "issue": 630,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: #400 guard bare int() full enumeration only recognizes inline literal syntax, exec.py 7 spec-sourced int(budget) escapes enumeration (guard gap). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        630
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b7f36cee86fc"
     }
   ]
 }

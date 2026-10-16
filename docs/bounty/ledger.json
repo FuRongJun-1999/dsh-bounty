@@ -15525,6 +15525,673 @@
         "delta": 3
       },
       "id": "evt_1c4676e834b2"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 765,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: #418 second entry residual patch delivery: identity observation face role type gate. PR #493. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        765
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6cdafc574912"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 766,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: #413 site-2 patch delivery: override fail-closed when preimage cannot be captured - no-preimage overwrite no longer silently destroys protected nodes (P0 family). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        766
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_f8781c85bcaa"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 767,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ybyz2",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: #490: /roleplay 3 GET read endpoints zero auth (imports/transcripts/translation tables; attacker-perspective, reproduced). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        767
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_3458cde7da06"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 768,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ybyz2",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: #491: verify_code same-process bare exec no sandbox no timeout (#91 fixed verifier.py, same-family another carrier unfixed; reproduced). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        768
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_7b3f80da5f66"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 769,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ybyz2",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: #492: write-chain tail executor unconditionally pays 97% observation overhead (redundancy 31.7ms/call; reproduced, distinguished from settled #482). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        769
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_768034ef7fb3"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 770,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: #498 new P1: merge trace reconciliation depends on index freshness - recovery misjudges committed gMERGE as interrupted. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        770
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_44ce48b84f05"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 771,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: fix(#467): identity write-side sensitivity pass-through - designer private writes no longer silently downgrade to internal. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        771
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5ebb2d474115"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 772,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: fix(#463): ghost removal adds protect.is_protected gate - protected nodes no longer unstaged without gate. PR #501. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        772
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_efed4c212635"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 773,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: fix(#465): hive ledger cross-process atomic append single point. PR #503. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        773
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_16254e61b7e0"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 774,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: fix(#490): roleplay_web 3 GET read endpoints add auth. PR #504. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        774
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_2ef13cd7c9df"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 775,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ybyz2",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: periodic PR review: dsh-memory 29 + lingshu 5 (lead review + independent adversarial 2 rounds, adversarial overturned 30/34 lead conclusions). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        775
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_be6ac8a81251"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 776,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: fix(#464 env half): exec_cmd subprocess env credential stripping - serve keys no longer leave with pool spec. PR #505. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        776
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4589b914b233"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 777,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: fix(#426-H): goal dispatch layer sensitivity pass-through - private goals no longer silently downgrade. PR #506. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        777
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1842d939d1c5"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 778,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: fix(#426-E): restore(force) does not overwrite same-id live nodes - requires explicit overwrite_live. PR #507. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        778
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_66b2a4d1b8e7"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 779,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: fix(#426-C): inbox/decisions write failure no longer silent - 3 cannot-lose write points fail-closed. PR #509. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        779
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b3d99fdd8c1f"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 780,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: fix(#447): recent_events missing sensitivity key fail-closed to most conservative tier. PR #510. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        780
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_0f1204f9ede7"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 781,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: scoreboard._obj silently normalizes non-mapping spec/result to {} - promised bad_files count does not exist in implementation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        781
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_08173062e975"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 782,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: fix(#426-B): root_clash unreadable nodes fail-closed treated as conflict. PR #512. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        782
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5cf48b521f3c"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 783,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: fix(#426-F): datapath.ts strict UTF-8 decode - GBK paths.json fails loudly. PR #513. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        783
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_2983f74b0ca7"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 784,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: fix(#426-A suggestion 3): gated enqueue receipt exposes dedup attribution. PR #514. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        784
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_972e1e4c0eeb"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 785,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: projectile_state returns below-ground_z coordinates on both bounce-exhausted and ground-initial paths, unbounded descent with t (upstream #777). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        785
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_350e45564add"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 786,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: fix(#450): write-face layer gate missing sensitivity key registration. PR #515. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        786
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_747c39405beb"
+    },
+    {
+      "ts": "2026-10-16T12:48:00Z",
+      "issue": 787,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ganzhe12138",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: 2026-10-16 memory system security test and fix iteration delivery: 13 defect issues (incl 1 P0 role truth source forgeable) + 2 fix PRs (#767/#768 refs). Mega delivery. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        787
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_77a47a4dc57c"
     }
   ]
 }

@@ -12828,6 +12828,35 @@
         "delta": 1
       },
       "id": "evt_4f87d2d04d8c"
+    },
+    {
+      "ts": "2026-10-16T01:10:36Z",
+      "issue": 674,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: dsh-memory 11 issues independent verification batch 2 (#409/#414/#406/#416/#410/#411/#413/#415/#408/#412/#418, baseline 801da85). All 11 reproduced. Read-only, no upstream modifications. Covers governance/data-loss/logic defect families. hard/A D6 per self-declaration. retro round=1.",
+      "pr": null,
+      "covers": [
+        674
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_f48dc1b555f7"
     }
   ]
 }

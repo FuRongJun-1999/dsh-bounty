@@ -15177,6 +15177,354 @@
         "delta": 3
       },
       "id": "evt_8cbf0634bc0d"
+    },
+    {
+      "ts": "2026-10-16T08:12:03Z",
+      "issue": 753,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: SEC dsh-memory #463: refindex/reconcile ghost removal without guard_forget - bypasses forgetting guard (attacker-perspective, reproduced). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        753
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5cdc0d9e3262"
+    },
+    {
+      "ts": "2026-10-16T08:12:03Z",
+      "issue": 754,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: SEC dsh-memory #464: hive/exec_cmd pool spec executes without approval + full env inheritance - command execution privilege (attacker-perspective, reproduced). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        754
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_13696bc39486"
+    },
+    {
+      "ts": "2026-10-16T08:12:03Z",
+      "issue": 755,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: SEC dsh-memory #465: hive ledger multi-worker concurrent append loses lines - data integrity (attacker-perspective, reproduced). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        755
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c6f1f892b6f7"
+    },
+    {
+      "ts": "2026-10-16T08:12:03Z",
+      "issue": 756,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: SEC dsh-memory #466: sources.ingest external content persistently injected into authoritative memory - authority injection (attacker-perspective, reproduced). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        756
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_de55699932f4"
+    },
+    {
+      "ts": "2026-10-16T08:12:03Z",
+      "issue": 757,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: SEC dsh-memory #467: identity write-side argument table missing sensitivity - sensitivity bypass (attacker-perspective, reproduced). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        757
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_880f6acfc673"
+    },
+    {
+      "ts": "2026-10-16T08:12:03Z",
+      "issue": 758,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: SEC dsh-memory #468: forgetting._tier_of protection truth source fork - protection bypass (attacker-perspective, reproduced). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        758
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_2fb9c529f494"
+    },
+    {
+      "ts": "2026-10-16T08:12:03Z",
+      "issue": 759,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: SEC dsh-memory #469: scrub.decontaminate(override) demote silent deadlock - availability (attacker-perspective, reproduced). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        759
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_766c567ecb79"
+    },
+    {
+      "ts": "2026-10-16T08:12:03Z",
+      "issue": 760,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: SEC dsh-memory #470: swarm WAL event row flush is no-op - durable discipline violation (attacker-perspective, reproduced). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        760
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_9c691ab8920f"
+    },
+    {
+      "ts": "2026-10-16T08:12:03Z",
+      "issue": 761,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: SEC dsh-memory #471: identity read-side full index enumeration zero _readable - read-face leak (attacker-perspective, reproduced). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        761
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_274bb593663c"
+    },
+    {
+      "ts": "2026-10-16T08:12:03Z",
+      "issue": 762,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: SEC dsh-memory #472: audit self-tampering - audit integrity (attacker-perspective, reproduced). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        762
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_88765e03eafe"
+    },
+    {
+      "ts": "2026-10-16T08:12:03Z",
+      "issue": 763,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: fix(#424): confirm tier B-class change order sensitivity takes source effective sensitivity. Delivery PR #473. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        763
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6dddd1dc554c"
+    },
+    {
+      "ts": "2026-10-16T08:12:03Z",
+      "issue": 764,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: fix(#425): ingest source path adds in-repo exclusion gate - explicit repo root/trash/env parent no longer copied as internal. Delivery PR #474. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        764
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1c4676e834b2"
     }
   ]
 }

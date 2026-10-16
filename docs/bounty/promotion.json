@@ -126,19 +126,29 @@
     743,
     744,
     746,
-    747
+    747,
+    753,
+    754,
+    755,
+    756,
+    757,
+    758,
+    759,
+    760,
+    761,
+    762
    ],
    "login": "Yinfeng818",
    "projects": [],
-   "reputation_delta": 341,
+   "reputation_delta": 383,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 118,
+   "round_known": 128,
    "round_seen": [
     1
    ],
-   "settled": 118,
+   "settled": 128,
    "timeout": 0
   },
   {
@@ -332,7 +342,7 @@
   },
   {
    "blockers": [
-    "一次过闸占比 0.05 < 0.33"
+    "一次过闸占比 0.04 < 0.33"
    ],
    "disputes": 0,
    "eligible": false,
@@ -360,20 +370,22 @@
     734,
     735,
     749,
-    752
+    752,
+    763,
+    764
    ],
    "login": "STARDUSTLC666",
    "projects": [],
-   "reputation_delta": 135,
+   "reputation_delta": 141,
    "round0": 1,
-   "round0_ratio": 0.045454545454545456,
+   "round0_ratio": 0.041666666666666664,
    "round0_ratio_source": "retro",
-   "round_known": 22,
+   "round_known": 24,
    "round_seen": [
     0,
     1
    ],
-   "settled": 22,
+   "settled": 24,
    "timeout": 0
   },
   {

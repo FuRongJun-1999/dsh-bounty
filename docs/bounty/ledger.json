@@ -9051,7 +9051,12 @@
       "project": "lingshu",
       "impact": "A",
       "day": "2026-10-15",
-      "formula": "wei-hu-zhe zhi-jie cai-ding (delta=40)",
+      "formula": {
+        "rule": "maintainer_direct_ruling",
+        "base": 40,
+        "rounds": 1,
+        "note": "enterprise project overall score"
+      },
       "id": "evt_d7035e8c1a65"
     },
     {
@@ -11895,6 +11900,93 @@
         "delta": 3
       },
       "id": "evt_7cbcd93bff8c"
+    },
+    {
+      "ts": "2026-10-16T00:24:38Z",
+      "issue": 642,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: corrections page prints Python dict literal instead of formatted text. Display bug. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        642
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_bb49eb672da0"
+    },
+    {
+      "ts": "2026-10-16T00:24:38Z",
+      "issue": 643,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: test_verdict.py mutation list ID duplicates: V41/V42/V43/V45 each map to 2 different mutations. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        643
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_7f5fe2836b46"
+    },
+    {
+      "ts": "2026-10-16T00:24:38Z",
+      "issue": 644,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: #293 settlement event formula written as string causing rescore to crash and --value-vector-out/--promotion-out to fail. Bug introduced by maintainer in round 143. Acknowledged and formula fixed in this commit. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        644
+      ],
+      "project": "bounty_site",
+      "impact": "A",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8723a7b95694"
     }
   ]
 }

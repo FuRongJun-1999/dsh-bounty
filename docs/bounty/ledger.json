@@ -11576,6 +11576,238 @@
         "delta": 3
       },
       "id": "evt_b7f36cee86fc"
+    },
+    {
+      "ts": "2026-10-16T00:17:56Z",
+      "issue": 631,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: evidence chain only checks evidence_id - report with another experiment qualifying evidence (experiment/analysis id, 3 hashes all mismatch) passes --release and formal build. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        631
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_a673346205bb"
+    },
+    {
+      "ts": "2026-10-16T00:17:56Z",
+      "issue": 632,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: ledger reconciliation (#12-4) does not split by month - October report makes September ledger judge mismatched and aborts build: from second month onwards only tampering with historical ledger can publish. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        632
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_d5208856cd30"
+    },
+    {
+      "ts": "2026-10-16T00:17:56Z",
+      "issue": 633,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: release gate (#3) does not scan data/examples/ but default build renders examples to site - validator-rejected examples (delta=-50, interval [6,10]) still generate pages. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        633
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_853ab8032dcb"
+    },
+    {
+      "ts": "2026-10-16T00:17:56Z",
+      "issue": 634,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: #20 L1 allows cost to be null (not measured) then unit price not recomputed - total_cost=null with manual unit_success_cost=0 silently publishes. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        634
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_062713dac065"
+    },
+    {
+      "ts": "2026-10-16T00:17:56Z",
+      "issue": 635,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: --as-of (#8-1) can rewind recalculation clock - formal reports past 90 days revive to rank-eligible: yes; recommend: can-recommend and enter worth-trying, gate does not block, page does not disclose. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        635
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_e39cbe7fb8ec"
+    },
+    {
+      "ts": "2026-10-16T00:17:56Z",
+      "issue": 636,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: public_check.py encounters even-byte GBK / Latin-1 text files directly Traceback - #19 J4 undecodable no-longer-silently-skipped branch. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        636
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_75355d2ad275"
+    },
+    {
+      "ts": "2026-10-16T00:17:56Z",
+      "issue": 637,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: #12-2 version key judges @v2.0.0, @2.0.0-rc1 as unparseable (0,) - new version report pushed out of ranking by old @1.0.0. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        637
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_82e78785ba3b"
+    },
+    {
+      "ts": "2026-10-16T00:17:56Z",
+      "issue": 638,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: plugin page slug collision silent overwrite (#12-3 only fixed report page); report page collision BuildError leaks main as Traceback, discloses stack. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        638
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b814425351a0"
     }
   ]
 }

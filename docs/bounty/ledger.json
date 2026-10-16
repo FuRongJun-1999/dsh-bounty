@@ -11987,6 +11987,151 @@
         "delta": 3
       },
       "id": "evt_8723a7b95694"
+    },
+    {
+      "ts": "2026-10-16T00:29:29Z",
+      "issue": 645,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-roleplay-plugin (ajuwm) evaluation: dsh 0.2.0-rc.2 three roleplay presets cannot create sessions, setup registrar throws error. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        645
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_84919e486032"
+    },
+    {
+      "ts": "2026-10-16T00:29:29Z",
+      "issue": 646,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-roleplay (chinosk6) evaluation: dsh 0.2.0-rc.2 load/isolate/persist no red items; /x-roleplay endpoint. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        646
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4f1e7d8df359"
+    },
+    {
+      "ts": "2026-10-16T00:29:29Z",
+      "issue": 647,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh_workflow (icetomoyo) evaluation: dsh 0.2.0-rc.2 refuses install, after exemption 179 pass. Includes upstream #5 reproduction. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        647
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ab779039a2d6"
+    },
+    {
+      "ts": "2026-10-16T00:29:29Z",
+      "issue": 648,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-advisor (btspoony) evaluation: immuneTurns 0/1 causes concern self-wakeup non-stop (87s main model calls). Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        648
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_eb0134e56cf0"
+    },
+    {
+      "ts": "2026-10-16T00:29:29Z",
+      "issue": 649,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-agent-teams (NanmiCoder) evaluation: dsh 0.2.0-rc.2 load/activate/Web route auth no red items, self-verification. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        649
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_98a7df834508"
     }
   ]
 }

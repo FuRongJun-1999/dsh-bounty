@@ -139,6 +139,32 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    293,
+    567,
+    568,
+    569,
+    570,
+    571,
+    572,
+    573,
+    645,
+    646,
+    647,
+    648,
+    649
+   ],
+   "login": "Liyang1145",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 76,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -187,27 +213,6 @@
    "project": "chinese_programming",
    "quality_E": null,
    "reputation_delta": 62,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    293,
-    567,
-    568,
-    569,
-    570,
-    571,
-    572,
-    573
-   ],
-   "login": "Liyang1145",
-   "project": "lingshu",
-   "quality_E": null,
-   "reputation_delta": 61,
    "rounds": 1
   },
   {

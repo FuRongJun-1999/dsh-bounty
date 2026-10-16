@@ -162,6 +162,56 @@
    ],
    "invalid": 0,
    "issues": [
+    293,
+    567,
+    568,
+    569,
+    570,
+    571,
+    572,
+    573,
+    631,
+    632,
+    633,
+    634,
+    635,
+    636,
+    637,
+    638,
+    639,
+    640,
+    641,
+    642,
+    643,
+    644,
+    645,
+    646,
+    647,
+    648,
+    649
+   ],
+   "login": "Liyang1145",
+   "projects": [],
+   "reputation_delta": 119,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 26,
+   "round_seen": [
+    1
+   ],
+   "settled": 27,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     19,
     35,
     86,
@@ -232,51 +282,6 @@
     1
    ],
    "settled": 15,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    293,
-    567,
-    568,
-    569,
-    570,
-    571,
-    572,
-    573,
-    631,
-    632,
-    633,
-    634,
-    635,
-    636,
-    637,
-    638,
-    639,
-    640,
-    641,
-    642,
-    643,
-    644
-   ],
-   "login": "Liyang1145",
-   "projects": [],
-   "reputation_delta": 104,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 21,
-   "round_seen": [
-    1
-   ],
-   "settled": 22,
    "timeout": 0
   },
   {

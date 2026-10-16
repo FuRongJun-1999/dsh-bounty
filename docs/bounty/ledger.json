@@ -12132,6 +12132,93 @@
         "delta": 3
       },
       "id": "evt_98a7df834508"
+    },
+    {
+      "ts": "2026-10-16T00:32:55Z",
+      "issue": 650,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-approval-llm (Letter2025) evaluation: 42/42 green, review endpoints fail-to-human on all faults. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        650
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_d9d5f80aa048"
+    },
+    {
+      "ts": "2026-10-16T00:32:55Z",
+      "issue": 651,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-automation (titanwings) evaluation: installs but activation fails (settings.register removed). Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        651
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_d5d4c72e0830"
+    },
+    {
+      "ts": "2026-10-16T00:32:55Z",
+      "issue": 652,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-deep-research (omdsh-dev) evaluation: dsh 0.2.0-rc.2 refuses install (peer ^0.0.1), force install service name mismatch. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        652
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b1444367b179"
     }
   ]
 }

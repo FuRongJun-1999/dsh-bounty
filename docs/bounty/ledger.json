@@ -11808,6 +11808,93 @@
         "delta": 3
       },
       "id": "evt_b814425351a0"
+    },
+    {
+      "ts": "2026-10-16T00:21:15Z",
+      "issue": 639,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (dsh-bench @ f8947419): non-formal/single-scenario/old-version only removes ranking not recommendation; recommendation stays can-recommend while rank_eligible is false. Inconsistent with invalidation/expired which sets pending-review. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        639
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_de6bf8b489a3"
+    },
+    {
+      "ts": "2026-10-16T00:21:15Z",
+      "issue": 640,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi (dsh-bench @ f8947419): Q2 conclusion consistency check takes first status word by vocabulary order not appearance order - legitimate mixed conclusions rejected, opposite conclusions pass. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        640
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_2897cc668a54"
+    },
+    {
+      "ts": "2026-10-16T00:21:15Z",
+      "issue": 641,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi (dsh-bench @ f8947419): risk level 3 criteria in 3 places: report page says not-assessed(self-filled not-trusted) but plugin page shows self-filled value directly; high/medium/low all dropped to not-assessed in aggregation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        641
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_7cbcd93bff8c"
     }
   ]
 }

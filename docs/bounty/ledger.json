@@ -12509,6 +12509,122 @@
         "delta": 3
       },
       "id": "evt_c270dce3d35b"
+    },
+    {
+      "ts": "2026-10-16T00:47:37Z",
+      "issue": 663,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-sentinel (fuhefei) evaluation: 76/76 green, 3 persistence/delivery defects found in live runs. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        663
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_3c6782a5bba2"
+    },
+    {
+      "ts": "2026-10-16T00:47:37Z",
+      "issue": 664,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-specflow (lonelymoon87) evaluation: 6 items all green, 3 defects found. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        664
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_63483baa0fdc"
+    },
+    {
+      "ts": "2026-10-16T00:47:37Z",
+      "issue": 665,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-task-planner (ztl34245881) evaluation: 4 call types all fail with ctx.shell.run error. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        665
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_76390672c1d6"
+    },
+    {
+      "ts": "2026-10-16T00:47:37Z",
+      "issue": 666,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-tavern-v2 (chen731215-dev) evaluation: 6 rounds no red but 37 /api/tavern/* routes all lack authentication. Security concern. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        666
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a05ae282d44f"
     }
   ]
 }

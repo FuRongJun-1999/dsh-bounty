@@ -142,7 +142,7 @@
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
-   "impact_grade": "B",
+   "impact_grade": "A",
    "issues": [
     631,
     632,
@@ -169,12 +169,16 @@
     659,
     660,
     661,
-    662
+    662,
+    663,
+    664,
+    665,
+    666
    ],
    "login": "Liyang1145",
    "project": "bench",
    "quality_E": null,
-   "reputation_delta": 79,
+   "reputation_delta": 91,
    "rounds": 1
   },
   {

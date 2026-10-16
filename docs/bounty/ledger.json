@@ -12625,6 +12625,93 @@
         "delta": 3
       },
       "id": "evt_a05ae282d44f"
+    },
+    {
+      "ts": "2026-10-16T00:50:45Z",
+      "issue": 667,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-track (fakechris) evaluation: 290/292 green (2 red + 1 suite load failure all missing deps). Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        667
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b0d8ff05c97a"
+    },
+    {
+      "ts": "2026-10-16T00:50:45Z",
+      "issue": 668,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-roleplay (lutrodev) evaluation: dsh 0.2.0-rc.2 refuses install, force install self-check refuses and disables 12 built-in plugins. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        668
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_3d40abe8abd9"
+    },
+    {
+      "ts": "2026-10-16T00:50:45Z",
+      "issue": 669,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: mstar-harness (btspoony) evaluation: 8 commands / 24 skills / 7 tools in place but first round silent hang, model 0 requests. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        669
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a912abfa6491"
     }
   ]
 }

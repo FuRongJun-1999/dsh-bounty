@@ -801,6 +801,21 @@
    "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
+    5,
+    85
+   ],
+   "login": "TanPowasd",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 12,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
     436,
     437,
     441
@@ -1129,20 +1144,6 @@
    ],
    "login": "NekoDD-wow",
    "project": "bounty_site",
-   "quality_E": null,
-   "reputation_delta": 6,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    5
-   ],
-   "login": "TanPowasd",
-   "project": "memory",
    "quality_E": null,
    "reputation_delta": 6,
    "rounds": 1

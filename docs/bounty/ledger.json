@@ -12886,6 +12886,35 @@
         "delta": 1
       },
       "id": "evt_9d2cc41871e8"
+    },
+    {
+      "ts": "2026-10-16T01:58:59Z",
+      "issue": 85,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "TanPowasd",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: QMD multi-fusion retrieval + unified system prompt delivered via dsh-memory PR #395. Isolated verification: 38/38 tests pass, 11 mutations all red (incl promised M1 judge-system isolation / M2 cache isolation / M3 hub suppression). hive 92-topic: QMD .572 vs TriCue v3 .472 (44/9 p=1.2e-06) vs BM25 .482 (43/17 p=.0011), direct-read upper .603. Port matches prototype 92/92 sort, 157/157 requests byte-identical. hard/A D6. retro round=1.",
+      "pr": "https://github.com/FuRongJun-1999/dsh-memory/pull/395",
+      "covers": [
+        85
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_2cfc42c83146"
     }
   ]
 }

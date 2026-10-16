@@ -12306,6 +12306,122 @@
         "delta": 3
       },
       "id": "evt_146eba96f927"
+    },
+    {
+      "ts": "2026-10-16T00:40:20Z",
+      "issue": 656,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-loop (vlln) evaluation: web load + /loop tool available; interval no bounds, /loop 0 and /loop 25d both degrade. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        656
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_2d3f9336eb73"
+    },
+    {
+      "ts": "2026-10-16T00:40:20Z",
+      "issue": 657,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-model-failover (Letter2025) evaluation: 19/19 green, counting/threshold/circuit-breaker/streaming-failure consistent with README. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        657
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_d03f5789c3de"
+    },
+    {
+      "ts": "2026-10-16T00:40:20Z",
+      "issue": 658,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-plannotator (titanwings) evaluation: web mode installs, bundle downloads, but Host face activation throws error. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        658
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_72c92cef2e56"
+    },
+    {
+      "ts": "2026-10-16T00:40:20Z",
+      "issue": 659,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-plugin-automations (Sev7een) evaluation: installable, API and persistence work, but scheduled tasks all fail with agent_create. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        659
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e4e43a50a11d"
     }
   ]
 }

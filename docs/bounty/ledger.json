@@ -12219,6 +12219,93 @@
         "delta": 3
       },
       "id": "evt_b1444367b179"
+    },
+    {
+      "ts": "2026-10-16T00:36:06Z",
+      "issue": 653,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-doublecheck (PerryLink) evaluation: 227/227 green, block mode intercepts first edit/write. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        653
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_3cedff007166"
+    },
+    {
+      "ts": "2026-10-16T00:36:06Z",
+      "issue": 654,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-inspect (omdsh-dev) evaluation: dsh 0.2.0-rc.2 refuses install, force install every call reports no worker. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        654
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_bd7a28d35701"
+    },
+    {
+      "ts": "2026-10-16T00:36:06Z",
+      "issue": 655,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-liketavern (Amakurai) evaluation: web load/activate no warnings, full chain character card to world book to memory to author notes to deep prompt. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        655
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_146eba96f927"
     }
   ]
 }

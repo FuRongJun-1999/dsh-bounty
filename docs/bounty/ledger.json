@@ -12857,6 +12857,35 @@
         "delta": 6
       },
       "id": "evt_f48dc1b555f7"
+    },
+    {
+      "ts": "2026-10-16T01:17:47Z",
+      "issue": 449,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #619 autoframe frame_mesh visibility criterion treats unit direction as eye position - 12/12 grid meshes bidirectional deviation. Self-assessed P3. Previously deferred because module did not exist; autoframe now merged (parent #584 closed). easy/B D1. retro round=1.",
+      "pr": null,
+      "covers": [
+        449
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_9d2cc41871e8"
     }
   ]
 }

@@ -12915,6 +12915,35 @@
         "delta": 6
       },
       "id": "evt_2cfc42c83146"
+    },
+    {
+      "ts": "2026-10-16T02:05:08Z",
+      "issue": 675,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: DSH workflow plugins x4 dual-platform live test (10.7KB evidence block). 4/4 installable (D zero-exemption), 0/4 end-to-end. Root cause located for D only (entry stuck pending waiting for services). A identified as presentation-only (empty apply(), 233 stars but browser-only). Honest boundaries: no ranking, 9 untested items explicitly listed, A/B/C root causes honestly marked undetermined. review/ citation tier. medium/B D3. retro round=1.",
+      "pr": null,
+      "covers": [
+        675
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_7e5a4c983abd"
     }
   ]
 }

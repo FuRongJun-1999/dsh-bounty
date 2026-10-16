@@ -12712,6 +12712,93 @@
         "delta": 3
       },
       "id": "evt_a912abfa6491"
+    },
+    {
+      "ts": "2026-10-16T00:54:59Z",
+      "issue": 670,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-suite/plugin-team-board (whyihaveyou) evaluation: default refuses install, web mode only after exemption. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        670
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a403b334f2b5"
+    },
+    {
+      "ts": "2026-10-16T00:54:59Z",
+      "issue": 671,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: ProjectKaren (2huy4n) evaluation: load no warnings, injection reaches model request, session isolation and cold restart OK; /project route issues. Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        671
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_3e6e4c25f56e"
+    },
+    {
+      "ts": "2026-10-16T00:54:59Z",
+      "issue": 672,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Liyang1145",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: DSH-RolePlay (RiemannRe3) evaluation: dsh 0.2.0-rc.2 refuses install, force install failed to import (dsh-settings). Plugin evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        672
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e45fd63d84ef"
     }
   ]
 }

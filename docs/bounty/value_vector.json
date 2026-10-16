@@ -114,31 +114,6 @@
    "rounds": 1
   },
   {
-   "difficulty": "expert",
-   "difficulty_base": 10,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    13,
-    22,
-    58,
-    68,
-    134,
-    251,
-    252,
-    253,
-    255,
-    257,
-    599,
-    602
-   ],
-   "login": "STARDUSTLC666",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 105,
-   "rounds": 1
-  },
-  {
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
@@ -176,12 +151,40 @@
     666,
     667,
     668,
-    669
+    669,
+    670,
+    671,
+    672
    ],
    "login": "Liyang1145",
    "project": "bench",
    "quality_E": null,
-   "reputation_delta": 100,
+   "reputation_delta": 109,
+   "rounds": 1
+  },
+  {
+   "difficulty": "expert",
+   "difficulty_base": 10,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    13,
+    22,
+    58,
+    68,
+    134,
+    251,
+    252,
+    253,
+    255,
+    257,
+    599,
+    602
+   ],
+   "login": "STARDUSTLC666",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 105,
    "rounds": 1
   },
   {

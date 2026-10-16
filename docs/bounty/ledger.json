@@ -12799,6 +12799,35 @@
         "delta": 3
       },
       "id": "evt_e45fd63d84ef"
+    },
+    {
+      "ts": "2026-10-16T01:07:02Z",
+      "issue": 673,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: dsh-bench build() --out unconditional rmtree data loss (issues #25 #27, baseline f8947419). Self-declared easy/B with strong evidence (5/5 + 8/8 reproduction). ★ Contributor proactively withdrew 5 items overlapping with #631-#641 after cross-checking - excellent anti-inflation guard compliance (per #300 protocol). easy/B D1. retro round=1.",
+      "pr": null,
+      "covers": [
+        673
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-16",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_4f87d2d04d8c"
     }
   ]
 }

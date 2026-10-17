@@ -17381,6 +17381,586 @@
         "delta": 6
       },
       "id": "evt_37b0bcbf8631"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 831,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: context-tax batch 6 (three directions) + baseline duplicate dsh-base self-correction: old +40~+44 invalidated, actual +1~+4. Self-correction is a positive signal per anti-inflation protocol. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        831
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_abd1569040b1"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 832,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "WASD258-jpg",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: dsh-auto-classifier 0.1.14 security quick test: auto-tier default-allow classifier bypassable via bash/redirect/code tool/approval, unattended. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        832
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_0d8b0388d9e8"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 833,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: context-tax batch 7 (automated pipeline): 4 tested. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        833
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_36575b484704"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 834,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: DSH plugin context cost evaluation METHODOLOGY comparison (4 criteria classes x 33 arms empirical, 2 methodological counterexamples + 4 pipeline guards). Meta-methodology contribution. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        834
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_472e98c4edb9"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 835,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: panel export missing Windows filename guard (P2: NUL/CON ghost files, x:stream writes ADS main file 0 bytes, trailing dot unreachable, all report export success). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        835
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_45384ced9ac8"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 836,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "rinDBeans",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-genui 0.12.0 deep evaluation: real browser action loop, dual recovery and abnormal inputs. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        836
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_34c7ffdb563a"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 837,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "rinDBeans",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-message-edit 0.2.3 deep evaluation: 3 independent blocks on current host and branch event evidence. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        837
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_bf8b4ae72b2d"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 838,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "rinDBeans",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-interconnect 0.11.24 deep evaluation: dual-instance bidirectional delivery, 6 failure causes and restart recovery. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        838
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a62b6622fa21"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 839,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qingfengyu153781-star",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory check_placeholder_leak add --selftest + fail-closed (bad root/empty criteria face false green + multi-hit same-line missed). PR #542. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        839
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c554dd6b8dfd"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 840,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory 0.8.1 C-8: cg(op=write) layer whitelist guard only effective in immediate-persist branch - default/non-text paths accept wrong layer values. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        840
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1f3ed87a7737"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 841,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory 0.8.1 C-6: cg(op=review) action dispatch unguarded for unknown values - illegal action behaves same as legal, ruling still recorded. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        841
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6e9dc7cf9d51"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 842,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory 0.8.1 D-10: tool-face completeness self-proof gate hardcodes mdcg_* and tool-to-scope mapping wider than library layer requires (2 tools require different op). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        842
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_dd66a74cc667"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 843,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory 0.8.1 B-15: mdcg_review_records(node_id=...) reviewing its own written ruling record always reports node_not_found, while same ... shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        843
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_47c8865e60ef"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 844,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory 0.8.1 B-14: review_cli accept defaults to writing random session id into persisted node (also into index/audit/ruling record), hint does not mention -s. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        844
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5b7ad7f2dc2e"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 845,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory 0.8.1 D-06: bad UTF-8 node existence split on tool face - list says exists, read body says not, hint directs caller to sensitivity/clear. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        845
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a8a56d25d257"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 846,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: context-tax batch 8 (automated pipeline): 3 tested. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        846
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b40a01625643"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 847,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: context-tax batch 9 (automated pipeline): 2 tested. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        847
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_0591afcc36eb"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 848,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: edit over 4KB skill silently writes truncated body back (P2) + skill name missing Windows reserved-name guard: CON/aux.json/report./COM1... shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        848
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_4c4b478899c2"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 849,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: WS resize negative/oversized dimensions pass through to pty.resize unclamped (P2) + settings mutate skips ops shape validation allowing malformed operations. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        849
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_c02cb86ceab0"
+    },
+    {
+      "ts": "2026-10-17T14:00:48Z",
+      "issue": 850,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: DSH memory plugins new batch 7: activation verification, mechanism dissection and ENOSPC false-negative correction. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        850
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_b432349957af"
     }
   ]
 }

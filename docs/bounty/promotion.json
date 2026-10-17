@@ -148,19 +148,25 @@
     814,
     815,
     816,
-    817
+    817,
+    840,
+    841,
+    842,
+    843,
+    844,
+    845
    ],
    "login": "Yinfeng818",
    "projects": [],
-   "reputation_delta": 414,
+   "reputation_delta": 432,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 140,
+   "round_known": 146,
    "round_seen": [
     1
    ],
-   "settled": 140,
+   "settled": 146,
    "timeout": 0
   },
   {
@@ -452,19 +458,22 @@
     823,
     825,
     827,
-    828
+    828,
+    836,
+    837,
+    838
    ],
    "login": "rinDBeans",
    "projects": [],
-   "reputation_delta": 112,
+   "reputation_delta": 121,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 26,
+   "round_known": 29,
    "round_seen": [
     1
    ],
-   "settled": 26,
+   "settled": 29,
    "timeout": 0
   },
   {
@@ -651,6 +660,86 @@
    ],
    "invalid": 0,
    "issues": [
+    154,
+    310,
+    382,
+    497,
+    597,
+    600,
+    604,
+    675,
+    733,
+    793,
+    795,
+    801,
+    805,
+    824,
+    831,
+    833,
+    834,
+    846,
+    847,
+    850
+   ],
+   "login": "123WP-a",
+   "projects": [],
+   "reputation_delta": 85,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 20,
+   "round_seen": [
+    1
+   ],
+   "settled": 20,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    93,
+    283,
+    284,
+    287,
+    559,
+    560,
+    561,
+    562,
+    563,
+    803,
+    804,
+    829,
+    830,
+    832
+   ],
+   "login": "WASD258-jpg",
+   "projects": [],
+   "reputation_delta": 82,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 14,
+   "round_seen": [
+    1
+   ],
+   "settled": 14,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     70,
     73,
     74,
@@ -687,42 +776,6 @@
     1
    ],
    "settled": 24,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    93,
-    283,
-    284,
-    287,
-    559,
-    560,
-    561,
-    562,
-    563,
-    803,
-    804,
-    829,
-    830
-   ],
-   "login": "WASD258-jpg",
-   "projects": [],
-   "reputation_delta": 76,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 13,
-   "round_seen": [
-    1
-   ],
-   "settled": 13,
    "timeout": 0
   },
   {
@@ -810,43 +863,6 @@
     1
    ],
    "settled": 19,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    154,
-    310,
-    382,
-    497,
-    597,
-    600,
-    604,
-    675,
-    733,
-    793,
-    795,
-    801,
-    805,
-    824
-   ],
-   "login": "123WP-a",
-   "projects": [],
-   "reputation_delta": 61,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 14,
-   "round_seen": [
-    1
-   ],
-   "settled": 14,
    "timeout": 0
   },
   {
@@ -1166,6 +1182,34 @@
   },
   {
    "blockers": [
+    "声誉分 9 < 24"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    789,
+    790,
+    839
+   ],
+   "login": "qingfengyu153781-star",
+   "projects": [],
+   "reputation_delta": 9,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 3,
+   "round_seen": [
+    1
+   ],
+   "settled": 3,
+   "timeout": 0
+  },
+  {
+   "blockers": [
     "声誉分 6 < 24",
     "已结算 1 项 < 2"
    ],
@@ -1220,33 +1264,6 @@
   },
   {
    "blockers": [
-    "声誉分 6 < 24"
-   ],
-   "disputes": 0,
-   "eligible": false,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    789,
-    790
-   ],
-   "login": "qingfengyu153781-star",
-   "projects": [],
-   "reputation_delta": 6,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 2,
-   "round_seen": [
-    1
-   ],
-   "settled": 2,
-   "timeout": 0
-  },
-  {
-   "blockers": [
     "声誉分 3 < 24",
     "已结算 1 项 < 2"
    ],
@@ -1270,6 +1287,34 @@
     1
    ],
    "settled": 1,
+   "timeout": 0
+  },
+  {
+   "blockers": [
+    "声誉分 3 < 24"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    835,
+    848,
+    849
+   ],
+   "login": "EQRS",
+   "projects": [],
+   "reputation_delta": 3,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 3,
+   "round_seen": [
+    1
+   ],
+   "settled": 3,
    "timeout": 0
   },
   {

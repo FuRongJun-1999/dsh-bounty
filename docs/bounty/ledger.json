@@ -16192,6 +16192,122 @@
         "delta": 6
       },
       "id": "evt_77a47a4dc57c"
+    },
+    {
+      "ts": "2026-10-17T07:37:57Z",
+      "issue": 789,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qingfengyu153781-star",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: B6 real-name directory 8.3 short-name class missing capture (reproducible, guard + targeted mutation self-proof). Fix PR #519. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        789
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_084f2df1b339"
+    },
+    {
+      "ts": "2026-10-17T07:37:57Z",
+      "issue": 790,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qingfengyu153781-star",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: R1 TOKEN_SK missing left boundary - normal identifiers judged FAIL false positive (reproducible, guard + mutation self-proof). Fix PR #520. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        790
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_97d9deedd688"
+    },
+    {
+      "ts": "2026-10-17T07:37:57Z",
+      "issue": 791,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: native task results and experience dual-layer memory (feature delivery). PR #516. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        791
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_1ffa3f76c7d0"
+    },
+    {
+      "ts": "2026-10-17T07:37:57Z",
+      "issue": 793,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: workflow plugin context-tax horizontal comparison: 5 plugins tested + 1 failed install (same task/model/host, each arm independent cold profile; doublecheck +840 split into 611 tool calls + 2...). Methodologically rigorous evaluation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        793
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_fa8a604fdfd8"
     }
   ]
 }

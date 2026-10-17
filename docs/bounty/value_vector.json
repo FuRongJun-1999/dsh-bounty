@@ -107,8 +107,8 @@
    "rounds": 1
   },
   {
-   "difficulty": "easy",
-   "difficulty_base": 1,
+   "difficulty": "hard",
+   "difficulty_base": 6,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
@@ -142,12 +142,13 @@
     782,
     783,
     784,
-    786
+    786,
+    791
    ],
    "login": "STARDUSTLC666",
    "project": "memory",
    "quality_E": null,
-   "reputation_delta": 156,
+   "reputation_delta": 162,
    "rounds": 1
   },
   {
@@ -936,6 +937,22 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    604,
+    675,
+    793
+   ],
+   "login": "123WP-a",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 12,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -1087,21 +1104,6 @@
    "project": "dsh_mobile_apk",
    "quality_E": null,
    "reputation_delta": 10,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    604,
-    675
-   ],
-   "login": "123WP-a",
-   "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 9,
    "rounds": 1
   },
   {
@@ -1324,6 +1326,21 @@
     155
    ],
    "login": "momeiji",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    789,
+    790
+   ],
+   "login": "qingfengyu153781-star",
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 6,

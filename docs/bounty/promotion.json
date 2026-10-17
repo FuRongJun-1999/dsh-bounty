@@ -269,20 +269,21 @@
     782,
     783,
     784,
-    786
+    786,
+    791
    ],
    "login": "STARDUSTLC666",
    "projects": [],
-   "reputation_delta": 174,
+   "reputation_delta": 180,
    "round0": 1,
-   "round0_ratio": 0.02702702702702703,
+   "round0_ratio": 0.02631578947368421,
    "round0_ratio_source": "retro",
-   "round_known": 37,
+   "round_known": 38,
    "round_seen": [
     0,
     1
    ],
-   "settled": 37,
+   "settled": 38,
    "timeout": 0
   },
   {
@@ -867,19 +868,20 @@
     600,
     604,
     675,
-    733
+    733,
+    793
    ],
    "login": "123WP-a",
    "projects": [],
-   "reputation_delta": 40,
+   "reputation_delta": 43,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 9,
+   "round_known": 10,
    "round_seen": [
     1
    ],
-   "settled": 9,
+   "settled": 10,
    "timeout": 0
   },
   {
@@ -1178,6 +1180,33 @@
     1
    ],
    "settled": 1,
+   "timeout": 0
+  },
+  {
+   "blockers": [
+    "声誉分 6 < 24"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    789,
+    790
+   ],
+   "login": "qingfengyu153781-star",
+   "projects": [],
+   "reputation_delta": 6,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 2,
+   "round_seen": [
+    1
+   ],
+   "settled": 2,
    "timeout": 0
   },
   {

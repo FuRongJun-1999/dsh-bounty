@@ -449,8 +449,8 @@
    "rounds": 1
   },
   {
-   "difficulty": "hard",
-   "difficulty_base": 6,
+   "difficulty": "easy",
+   "difficulty_base": 1,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
@@ -466,12 +466,14 @@
     834,
     846,
     847,
-    850
+    850,
+    875,
+    879
    ],
    "login": "123WP-a",
    "project": "bench",
    "quality_E": null,
-   "reputation_delta": 54,
+   "reputation_delta": 58,
    "rounds": 1
   },
   {
@@ -493,6 +495,53 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 52,
+   "rounds": 1
+  },
+  {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    174,
+    176,
+    241,
+    254,
+    256,
+    364,
+    450,
+    487,
+    491,
+    521,
+    522,
+    523,
+    524,
+    852,
+    853,
+    854,
+    855,
+    856,
+    857,
+    858,
+    859,
+    860,
+    861,
+    862,
+    863,
+    864,
+    865,
+    866,
+    867,
+    868,
+    869,
+    870,
+    871,
+    872
+   ],
+   "login": "myYangyunfan",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 49,
    "rounds": 1
   },
   {
@@ -752,32 +801,6 @@
    "rounds": 1
   },
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    174,
-    176,
-    241,
-    254,
-    256,
-    364,
-    450,
-    487,
-    491,
-    521,
-    522,
-    523,
-    524
-   ],
-   "login": "myYangyunfan",
-   "project": "lingshu",
-   "quality_E": null,
-   "reputation_delta": 28,
-   "rounds": 1
-  },
-  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -867,6 +890,27 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 22,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    835,
+    848,
+    849,
+    851,
+    874,
+    876,
+    877,
+    878
+   ],
+   "login": "EQRS",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 21,
    "rounds": 1
   },
   {
@@ -1170,6 +1214,22 @@
    "rounds": 1
   },
   {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    152,
+    338,
+    873
+   ],
+   "login": "myYangyunfan",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 10,
+   "rounds": 1
+  },
+  {
    "difficulty": "expert",
    "difficulty_base": 10,
    "evidence_strength": true,
@@ -1197,21 +1257,6 @@
    "project": "dsh_mobile_apk",
    "quality_E": null,
    "reputation_delta": 10,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    152,
-    338
-   ],
-   "login": "myYangyunfan",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 9,
    "rounds": 1
   },
   {
@@ -1509,22 +1554,6 @@
    ],
    "login": "DreamRift",
    "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 3,
-   "rounds": 1
-  },
-  {
-   "difficulty": "easy",
-   "difficulty_base": 1,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    835,
-    848,
-    849
-   ],
-   "login": "EQRS",
-   "project": "bench",
    "quality_E": null,
    "reputation_delta": 3,
    "rounds": 1

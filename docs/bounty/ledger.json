@@ -17961,6 +17961,847 @@
         "delta": 6
       },
       "id": "evt_b432349957af"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 852,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #673 fit_damped v0 remove redundant minus sign - six-class v0==predict_at invariant restored. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        852
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_aa6ac50d3810"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 853,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #662 _check_samples time add isfinite - NaN no longer silently produces all-NaN model. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        853
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_1b3c0797364d"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 854,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #654 with_edge and n_edges unify declaration attribution criteria. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        854
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_f64a80fdf86a"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 855,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #456 update_meta d_task parameter explicitly declared no-op. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        855
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_a3d15a6ee949"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 856,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #645 build_viewer R5 phantom edge filter + loss counting. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        856
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_66ab80263e81"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 857,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #648 session_chains chains full persistence remove truncation. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        857
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_9902123f721b"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 858,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #651 channel_credibility write-side three gates. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        858
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_169880d5776e"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 859,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #653 STEdge.from_row per-row fault tolerance. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        859
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_bde489115b78"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 860,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #598 conv3d output dim truncation non-negative. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        860
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_edf72b6b28d7"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 861,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #618 build_viewer fold loss counting + warning. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        861
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_f48cb81d08f3"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 862,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #610 verify_manifest bytes participate in judgment. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        862
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_3473472a3970"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 863,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #609 silent_except_lint judgment AST-ified. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        863
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_dd05ecb255f9"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 864,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #606 naming_report r5_in same-name phantom filter. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        864
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_bffbf6f143cb"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 865,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #611 synonym_merge preserve bracket comments. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        865
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_8b9d118b731e"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 866,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #599 repro-bot CommonMark column width criteria. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        866
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_7851ae270178"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 867,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #614 coverage whitelist monotonically non-increasing. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        867
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_a93353a88029"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 868,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #605 export_coggraph id_seen writeback + edge counting timing. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        868
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_6ecfa22354f0"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 869,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #612 repro-bot nested container loop strip clean. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        869
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_68901241ca60"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 870,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #604 repro-bot HTML end condition alignment. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        870
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_1a8c8341c75f"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 871,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #608 import_direction_lint four forms closed. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        871
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_ff4281484121"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 872,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: lingshu #607 time_core_lint three gaps + baseline retest. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        872
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_00cbc883f73a"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 873,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: per-item contribution: dsh-memory #192 _move_layer relocation 7-key end-to-end guard completion. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        873
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_fba69b45a31c"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 851,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: /delete and /delete-many client-controllable path passed directly to unlinkSync can delete arbitrary files outside uploads directory (security). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        851
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_6960c147635d"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 874,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-prompt-enhancer security/data-integrity intake quick test. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        874
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8bf1111247fb"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 876,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-llm-codebuddy security/data-integrity intake quick test. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        876
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4ede3549d3c6"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 877,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-llm-fallbacks security/data-integrity intake quick test. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        877
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b524a42f5a01"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 878,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-gitbash-shell security/data-integrity intake quick test. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        878
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_43eacd38c42d"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 875,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: context-tax batch 12 (automated pipeline): 3 tested. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        875
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ad79cacfff3d"
+    },
+    {
+      "ts": "2026-10-17T15:07:29Z",
+      "issue": 879,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: context-tax batch 14 (automated pipeline): 1 tested. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        879
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_868ae3177dbd"
     }
   ]
 }

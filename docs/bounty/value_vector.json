@@ -683,6 +683,26 @@
    "rounds": 1
   },
   {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    604,
+    675,
+    793,
+    795,
+    801,
+    805,
+    824
+   ],
+   "login": "123WP-a",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 30,
+   "rounds": 1
+  },
+  {
    "difficulty": "easy",
    "difficulty_base": 1,
    "evidence_strength": true,
@@ -758,25 +778,6 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 25,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    604,
-    675,
-    793,
-    795,
-    801,
-    824
-   ],
-   "login": "123WP-a",
-   "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 24,
    "rounds": 1
   },
   {

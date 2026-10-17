@@ -17352,6 +17352,35 @@
         "delta": 6
       },
       "id": "evt_7e66d0477641"
+    },
+    {
+      "ts": "2026-10-17T11:53:46Z",
+      "issue": 805,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: context-tax batch 4: 10 tested - context-toolkit +1831 second highest; NEW discovery: system-layer injection channel (dsh-ops +1007 / ...). System-prompt-layer injection is a novel finding for the plugin ecosystem. hard/B D6. retro round=1. (missed in round-238 batch list, settled now)",
+      "pr": null,
+      "covers": [
+        805
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-17",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_37b0bcbf8631"
     }
   ]
 }

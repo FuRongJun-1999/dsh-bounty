@@ -19788,6 +19788,760 @@
         "delta": 3
       },
       "id": "evt_8bff47ee6ecd"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 913,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: DSH_USAGE_PORT/REFRESH/META_TTL module-level int() unguarded, illegal value crashes at startup (P3) + parse_file does not reject negative timestamps. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        913
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_32c383753df4"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 914,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: apply-patch.cjs/apply-staged-patch.cjs target path no container validation, ../ segments escape repo base directory write. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        914
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_bacf2466888d"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 915,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: ASR model download trusts mirror-returned rfilename and joins via path.join verbatim -> arbitrary path write + inbound media full_url. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        915
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_473b04c2f80b"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 916,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-plugin-wsl-env v0.9.0: GUI file tree list fence always judges subdirs outside-workspace under distro-root workspace + @ completion. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        916
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_faf731807338"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 917,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: cross-session routing: current session/project is bot-level global singleton, multi-chat hijacks each other prompt + followActiveSession changes global with zero subscriptions. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        917
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_2746a2530995"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 918,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: AI draft does not escape newlines/backticks in git paths causing prompt injection + remote URL credentials and sync errors not redacted. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        918
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_38188d037539"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 919,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: cmd /c start with target containing & has parameter injection, user-configured download links/fallback pages become command execution + size gate. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        919
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_cbcf62460655"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 920,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: /ocr/api/settings unauthenticated anonymous rewrite of recognition backend address and key + product image URL unvalidated fetch SSRF + arbitrary absolute path. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        920
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_aa7ec50bc392"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 921,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: P1: default zero-pairing 0.0.0.0 peer service accepts task dispatch unauthorized and reads task body + multicast card forgery injects fake peer, hijacks real records and steals pairing codes. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        921
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_4e6abfb15752"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 922,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: hardcoded global log path and unauthenticated source can inject newlines to forge logs (P3) + directory face lacks workspace constraint (P4) + WebSocket upgrade. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        922
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_319170a31eaa"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 923,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: owner userOpenid stored but unused: inbound senderId zero validation, single trust on Tencent platform rules + settings/credentials/start-stop routes all unauthenticated. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        923
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_a8186dfe863a"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 924,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: admin console device table UA/kind unescaped causing stored XSS, unauthenticated LAN attacker can steal master token + master token written plaintext with startup banner. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        924
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_48975bc84829"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 925,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: pwsh route hot path only checks existence, never validates major version >=7, PS6 or any same-named pwsh.exe silently routed as PS7 (P3) + PATH relative entries unfiltered. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        925
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_5ebfe4aef30b"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 926,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: GET status unauthenticated returns authKey/probeKey -> local any process can steal key to replace PAT causing session exfil via attacker account (P2) + PAT plaintext. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        926
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_45bacc03725b"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 927,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: source build path 40-char commit SHA silently discarded falling back to main + checkout dir no credential reuse TOFU + #path: subpath traversal link. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        927
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_814fe5b8f151"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 928,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: local dual channel (addon TCP 9876 / backend HTTP 9877) zero auth throughout and execute_code always available (P3) + addon TCP. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        928
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1cd69b89cf6c"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 929,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: henlii/dsh-plugins (dsh-web-auth 0.4.0) quick test: loopback exemption zero validation on Host/Origin, DNS rebinding. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        929
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_09f9cc2e943a"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 930,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: isPathUnder identity fallback degrades to same-volume-same-root on volumes without file index (FAT32/exFAT), workspace-write fence fails whole-volume (conditional). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        930
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_95938118352b"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 931,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: /bridge-chat same-origin check missing Host whitelist, rebinding shape passes + inbound session key uses peer self-reported origin injectable and entries unbounded. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        931
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_67a29911b862"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 932,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #456 update_meta d_task parameter explicitly declared no-op (PR #762 merged). Per-item contribution. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        932
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_33ee412d6826"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 933,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #454 unpack_out magic number check changed to explicit raise (PR #761 merged). Per-item contribution. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        933
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_c81af071d892"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 934,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #746 export_trajectory landing point adds root gate (PR #760 merged). Per-item contribution. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        934
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_18e262dd94cc"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 935,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: DSH memory plugin usage-effect benchmark (T12 memory retrieval domain, method experiment). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        935
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b693103afa26"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 936,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: context-tax batch 19 (automated pipeline): 3 tested. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        936
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_47123bd6b127"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 937,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: context-tax batch 19 (automated pipeline): 2 tested. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        937
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_f68595b3d27c"
+    },
+    {
+      "ts": "2026-10-18T05:38:06Z",
+      "issue": 938,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: mnemon memory system evaluation: recall graph expansion degrades to temporal neighbors (24-question recall 29.2% / search 70.8%). Maintainer self-submitted, scored for ledger completeness with conflict-of-interest noted. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        938
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_66cf0afb72f4"
     }
   ]
 }

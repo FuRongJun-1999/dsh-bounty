@@ -22659,6 +22659,151 @@
         "delta": 3
       },
       "id": "evt_ad666bd4a650"
+    },
+    {
+      "ts": "2026-10-18T23:57:05Z",
+      "issue": 1012,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: dsh-calendar 0.11.0 end-to-end quick test + security (CalDAV / local Radicale): reschedule writes illegal TZID (8-hour offset), single reschedule/delete affects entire series. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1012
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_99fe61552456"
+    },
+    {
+      "ts": "2026-10-18T23:57:05Z",
+      "issue": 1013,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: dsh-dingtalk 0.2.2 evaluation: body read timeout ineffective / access_token enters error / any host can receive messages / health false positive. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1013
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_b84bb53f75d6"
+    },
+    {
+      "ts": "2026-10-18T23:57:05Z",
+      "issue": 1014,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-ffmpeg 0.5.0 incremental evaluation: subtitle single-quote escaping, canvas unbounded, frames temp dir residue (#1002 already covers overwrite protection). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1014
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_9d85ea9107c6"
+    },
+    {
+      "ts": "2026-10-18T23:57:05Z",
+      "issue": 1015,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: @hyzyn/dsh-loglens 0.1.2 evaluation: Loki credential echo + Aliyun metadata fence gap. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1015
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_f7ebfcb481de"
+    },
+    {
+      "ts": "2026-10-18T23:57:05Z",
+      "issue": 1016,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: @hyzyn/dsh-rss 0.4.9 evaluation: RSS/Atom parsing ReDoS, oversized response body and blind SSRF. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1016
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_d281064f852a"
     }
   ]
 }

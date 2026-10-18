@@ -483,6 +483,34 @@
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
+    574,
+    575,
+    576,
+    577,
+    578,
+    579,
+    584,
+    585,
+    586,
+    907,
+    908,
+    909,
+    910,
+    911,
+    912
+   ],
+   "login": "FuRongJun-1999",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 60,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
     70,
     141,
     306,
@@ -620,6 +648,35 @@
    "rounds": 1
   },
   {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    835,
+    848,
+    849,
+    851,
+    874,
+    876,
+    877,
+    878,
+    881,
+    898,
+    901,
+    902,
+    903,
+    904,
+    905,
+    906
+   ],
+   "login": "EQRS",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 43,
+   "rounds": 1
+  },
+  {
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
@@ -732,28 +789,6 @@
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
-    574,
-    575,
-    576,
-    577,
-    578,
-    579,
-    584,
-    585,
-    586
-   ],
-   "login": "FuRongJun-1999",
-   "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 36,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
     43,
     377,
     510,
@@ -822,29 +857,6 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 29,
-   "rounds": 1
-  },
-  {
-   "difficulty": "easy",
-   "difficulty_base": 1,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    835,
-    848,
-    849,
-    851,
-    874,
-    876,
-    877,
-    878,
-    881,
-    898
-   ],
-   "login": "EQRS",
-   "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 25,
    "rounds": 1
   },
   {

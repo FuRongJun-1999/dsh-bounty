@@ -19440,6 +19440,354 @@
         "delta": 6
       },
       "id": "evt_d5e19bc42874"
+    },
+    {
+      "ts": "2026-10-18T01:17:14Z",
+      "issue": 901,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: tool card metadata truncated always false inconsistent with provider actual truncation (P4) + search output JSON hardcodes truncated:false masking. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        901
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_92222c741c8e"
+    },
+    {
+      "ts": "2026-10-18T01:17:14Z",
+      "issue": 902,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: media.js fetchBytes only validates scheme, does not block localhost/private ranges and redirect:follow has no per-hop validation (SSRF). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        902
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_240863f7903f"
+    },
+    {
+      "ts": "2026-10-18T01:17:14Z",
+      "issue": 903,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: timeoutMs only validates typeof === number, NaN/Infinity/negative all bypass server/watch/follow interception. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        903
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ff13036e671b"
+    },
+    {
+      "ts": "2026-10-18T01:17:14Z",
+      "issue": 904,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: secret.ts credential-assignment regex word-boundary defect: MY_API_KEY=... prefixed forms all bypass the secret-leak gate. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        904
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_9e1d9764b9a2"
+    },
+    {
+      "ts": "2026-10-18T01:17:14Z",
+      "issue": 905,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: upstream.ts classifyUpstreamError uses bare substring 12153 to judge session_dead: any error containing that digit string misclassified. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        905
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_6d5070578556"
+    },
+    {
+      "ts": "2026-10-18T01:17:14Z",
+      "issue": 906,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: menu portal and root node both mount onRootKeyDown without double-dispatch guard, arrow key jumps two rows, search Enter double-fires select RPC (P3) + Effort slider. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        906
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_d7cff435b478"
+    },
+    {
+      "ts": "2026-10-18T01:17:14Z",
+      "issue": 907,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: same deterministic 5-step pipeline 4-implementation comparison + one workflow plugin: 20 runs sha256 all equal golden, plugin installs and compiles, but 12 scenarios none ran. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        907
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_53128e38d16f"
+    },
+    {
+      "ts": "2026-10-18T01:17:14Z",
+      "issue": 908,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: two tavern world-book plugins run 6 rounds with bundled lib: trigger sets 3/6 rounds match baseline item-by-item, injection order fully reversed, recursion/grouping/probability/budget four capabilities unimplemented in v1. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        908
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_fc5d1789e3bc"
+    },
+    {
+      "ts": "2026-10-18T01:17:14Z",
+      "issue": 909,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: scheduler: leap-day expression silently returns null outside 366-day scan window (never triggers, no log) + parseCron(null) throws TypeError instead of contract error (P1/P2). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        909
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_8261134fc323"
+    },
+    {
+      "ts": "2026-10-18T01:17:14Z",
+      "issue": 910,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: hooks: pre-tool hook calls non-existent host shell.run - any matched hook permanently denies (tool permanently blocked), post-tool silently fails (P1). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        910
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_48a75d935e3d"
+    },
+    {
+      "ts": "2026-10-18T01:17:14Z",
+      "issue": 911,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: roleplay codec: character card roundtrip not lossless - alternate_greetings empty strings dropped by filter(Boolean) on import but preserved as-is on export (P2). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        911
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6173b932dbde"
+    },
+    {
+      "ts": "2026-10-18T01:17:14Z",
+      "issue": 912,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: host adaptation headless: inject hard-depends on webServer - entry permanently pending in headless/TUI hosts without that service (P2). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        912
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8bff47ee6ecd"
     }
   ]
 }

@@ -891,6 +891,44 @@
    ],
    "invalid": 0,
    "issues": [
+    574,
+    575,
+    576,
+    577,
+    578,
+    579,
+    584,
+    585,
+    586,
+    907,
+    908,
+    909,
+    910,
+    911,
+    912
+   ],
+   "login": "FuRongJun-1999",
+   "projects": [],
+   "reputation_delta": 60,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 15,
+   "round_seen": [
+    1
+   ],
+   "settled": 15,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     11,
     65,
     99,
@@ -1022,27 +1060,34 @@
    ],
    "invalid": 0,
    "issues": [
-    574,
-    575,
-    576,
-    577,
-    578,
-    579,
-    584,
-    585,
-    586
+    835,
+    848,
+    849,
+    851,
+    874,
+    876,
+    877,
+    878,
+    881,
+    898,
+    901,
+    902,
+    903,
+    904,
+    905,
+    906
    ],
-   "login": "FuRongJun-1999",
+   "login": "EQRS",
    "projects": [],
-   "reputation_delta": 36,
+   "reputation_delta": 43,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 9,
+   "round_known": 16,
    "round_seen": [
     1
    ],
-   "settled": 9,
+   "settled": 16,
    "timeout": 0
   },
   {
@@ -1073,39 +1118,6 @@
     1
    ],
    "settled": 7,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    835,
-    848,
-    849,
-    851,
-    874,
-    876,
-    877,
-    878,
-    881,
-    898
-   ],
-   "login": "EQRS",
-   "projects": [],
-   "reputation_delta": 25,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 10,
-   "round_seen": [
-    1
-   ],
-   "settled": 10,
    "timeout": 0
   },
   {

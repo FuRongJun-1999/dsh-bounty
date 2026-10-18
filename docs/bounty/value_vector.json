@@ -1038,6 +1038,22 @@
    "rounds": 1
   },
   {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    5,
+    85,
+    788
+   ],
+   "login": "TanPowasd",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 18,
+   "rounds": 1
+  },
+  {
    "difficulty": "easy",
    "difficulty_base": 1,
    "evidence_strength": true,
@@ -1141,21 +1157,6 @@
    "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 13,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    5,
-    85
-   ],
-   "login": "TanPowasd",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 12,
    "rounds": 1
   },
   {

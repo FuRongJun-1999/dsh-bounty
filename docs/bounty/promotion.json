@@ -1175,6 +1175,34 @@
   },
   {
    "blockers": [
+    "声誉分 18 < 24"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    5,
+    85,
+    788
+   ],
+   "login": "TanPowasd",
+   "projects": [],
+   "reputation_delta": 18,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 3,
+   "round_seen": [
+    1
+   ],
+   "settled": 3,
+   "timeout": 0
+  },
+  {
+   "blockers": [
     "声誉分 15 < 24"
    ],
    "disputes": 0,
@@ -1199,33 +1227,6 @@
     1
    ],
    "settled": 3,
-   "timeout": 0
-  },
-  {
-   "blockers": [
-    "声誉分 12 < 24"
-   ],
-   "disputes": 0,
-   "eligible": false,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    5,
-    85
-   ],
-   "login": "TanPowasd",
-   "projects": [],
-   "reputation_delta": 12,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 2,
-   "round_seen": [
-    1
-   ],
-   "settled": 2,
    "timeout": 0
   },
   {

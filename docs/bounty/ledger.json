@@ -19411,6 +19411,35 @@
         "delta": 1
       },
       "id": "evt_620616beaa43"
+    },
+    {
+      "ts": "2026-10-18T01:15:18Z",
+      "issue": 788,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "TanPowasd",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: UMB v0.1 unified zero-model retrieval benchmark (12 sets / frozen manifest / unified runner). Initial review failed 7/9 (G2 sha + G7 docids); contributor root-caused to Windows core.autocrlf LF->CRLF rewrite, fixed via .gitattributes. Re-verified at f7efc6f: 9/9 guards green, 4 mutations all red exactly, --frozen-only rc=0 ALL OK 12 sets. Adopted as the unified acceptance ruler for dsh memory/retrieval bounties. hard/A D6. retro round=2 (round 1 deferred).",
+      "pr": null,
+      "covers": [
+        788
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_d5e19bc42874"
     }
   ]
 }

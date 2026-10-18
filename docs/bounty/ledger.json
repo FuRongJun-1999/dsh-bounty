@@ -18802,6 +18802,615 @@
         "delta": 1
       },
       "id": "evt_868ae3177dbd"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 880,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: context-tax batch 16 (automated pipeline): 3 tested. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        880
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8780ecd1b256"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 881,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-plugin-subscriptions security quick test. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        881
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_dcd89cd74421"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 882,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: check_links.py G3 placeholder guard matches whole-string substring - legitimate links like notexample.com misjudged as placeholder (and it IS the promo bounty acceptance criterion). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        882
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_4b1558ae334a"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 883,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: check_marker_reverts.py false negative: deleted lines starting with -- treated as git file headers and skipped - silent revert invisible. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        883
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_f9d7d690286c"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 884,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: check_fix_has_guard.count_in_tests treats git call failure as zero occurrences - leads to wrong conclusion that same-class existing implementations also have zero guards. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        884
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_2188430e8c12"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 885,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: bounty_list.validate does not validate 4 top-level keys directly indexed by render - missing keys pass validation but crash with bare KeyError, exit code collides with product-drift. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        885
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_af8865513fb7"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 886,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: verify.py values/anti-injection gate passes on ANY LLM-side failure path - measured 4/4 allowing a prompt injection. Security. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        886
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_ae3e43da3fde"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 887,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: validate_data.py: three semantic validators share one verdict criterion but semantic_plugin/semantic_ledger never read it. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        887
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_fad8584ec824"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 888,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: /osi/* routes also accept GET but handle_osi_request receives method and never checks - GET /osi/store writes memory. Security. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        888
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_c8dc720f244c"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 889,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: instance.py _verify_premises returns empty premise list + all_verified True (hardcoded), and fact/condition_space... shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        889
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e0607b6c3af7"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 890,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: allowFileAccess=false set but same-family allowContentAccess never set (defaults true) - WebView still reads content. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        890
+      ],
+      "project": "dsh_mobile_apk",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c316db83915d"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 891,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: usesCleartextTraffic=true is app-level global switch while real need is only local engine 127.0.0.1:3080. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        891
+      ],
+      "project": "dsh_mobile_apk",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_4ea808a5db0d"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 892,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: privileged JS bridge no origin check, shouldOverrideUrlLoading only blocks navigation - subresources (script src/XHR) bypass gate. Security. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        892
+      ],
+      "project": "dsh_mobile_apk",
+      "impact": "A",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_0a74991432cc"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 893,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: stopEngine() only destroy() without waiting for process exit but clears cooldown immediately - subsequent start collides with unreleased port 3080. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        893
+      ],
+      "project": "dsh_mobile_apk",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_db05b60c9f65"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 894,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: contract_errors misses evidence[i].cid: shape passes but axis_evidence raises TypeError unhashable at judge.py:575. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        894
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_d8fac3c5395a"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 895,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: semantic.py hardcodes rule-layer-judged-PASS in L2 judge material while selection condition is rule-layer-degraded-to-review - param res never read. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        895
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_f846bef73016"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 896,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: judge_audit.evaluate_anchors verdict_key parameter appears 0 times in function body - signature promises verdict-key but never reads it. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        896
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_45529bae9853"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 897,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: verify_keys.py verifier has no shape criterion for answer keys: answer is list / chain elements are strings / missing answer key crash AttributeError. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        897
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_89b5b19cee31"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 898,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: --goal-rounds only validates >=1 not integer/upper bound allowing injected oversized maxGoalRounds (P3) + approved-plan fingerprint. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        898
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_140645c5f88d"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 899,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory #364 new guard M3 mutation anchor hits 0 times on main, --mutate self-check rc=1 (upstream #543). Regression of our own guard. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        899
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5db79626686e"
+    },
+    {
+      "ts": "2026-10-18T00:42:43Z",
+      "issue": 900,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: hive-memory-bench: synth.py rerun artifacts on Windows not byte-identical to release snapshot (upstream #58). shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        900
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_620616beaa43"
     }
   ]
 }

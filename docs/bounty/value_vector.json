@@ -112,73 +112,6 @@
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
-    493,
-    501,
-    504,
-    506,
-    508,
-    513,
-    514,
-    518,
-    554,
-    617,
-    618,
-    620,
-    674,
-    677,
-    678,
-    685,
-    715,
-    716,
-    717,
-    718,
-    719,
-    720,
-    721,
-    732,
-    744,
-    747,
-    753,
-    754,
-    755,
-    756,
-    757,
-    758,
-    759,
-    760,
-    761,
-    762,
-    806,
-    807,
-    808,
-    809,
-    810,
-    811,
-    812,
-    813,
-    814,
-    815,
-    816,
-    817,
-    840,
-    841,
-    842,
-    843,
-    844,
-    845
-   ],
-   "login": "Yinfeng818",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 192,
-   "rounds": 1
-  },
-  {
-   "difficulty": "easy",
-   "difficulty_base": 1,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
     835,
     848,
     849,
@@ -245,12 +178,141 @@
     989,
     990,
     991,
-    992
+    992,
+    1019,
+    1020,
+    1021,
+    1022,
+    1023,
+    1028,
+    1029,
+    1030,
+    1031,
+    1032,
+    1069,
+    1070
    ],
    "login": "EQRS",
    "project": "bench",
    "quality_E": null,
-   "reputation_delta": 184,
+   "reputation_delta": 220,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    493,
+    501,
+    504,
+    506,
+    508,
+    513,
+    514,
+    518,
+    554,
+    617,
+    618,
+    620,
+    674,
+    677,
+    678,
+    685,
+    715,
+    716,
+    717,
+    718,
+    719,
+    720,
+    721,
+    732,
+    744,
+    747,
+    753,
+    754,
+    755,
+    756,
+    757,
+    758,
+    759,
+    760,
+    761,
+    762,
+    806,
+    807,
+    808,
+    809,
+    810,
+    811,
+    812,
+    813,
+    814,
+    815,
+    816,
+    817,
+    840,
+    841,
+    842,
+    843,
+    844,
+    845
+   ],
+   "login": "Yinfeng818",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 192,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "C",
+   "issues": [
+    681,
+    1000,
+    1001,
+    1002,
+    1003,
+    1007,
+    1008,
+    1009,
+    1010,
+    1011,
+    1012,
+    1033,
+    1034,
+    1035,
+    1036,
+    1037,
+    1038,
+    1039,
+    1040,
+    1041,
+    1042,
+    1043,
+    1044,
+    1045,
+    1054,
+    1055,
+    1056,
+    1057,
+    1058,
+    1059,
+    1060,
+    1061,
+    1062,
+    1063,
+    1064,
+    1065,
+    1066
+   ],
+   "login": "LarryE135",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 186,
    "rounds": 1
   },
   {
@@ -428,12 +490,13 @@
     942,
     961,
     972,
-    979
+    979,
+    1067
    ],
    "login": "123WP-a",
    "project": "bench",
    "quality_E": null,
-   "reputation_delta": 89,
+   "reputation_delta": 92,
    "rounds": 1
   },
   {
@@ -532,12 +595,13 @@
     910,
     911,
     912,
-    938
+    938,
+    1018
    ],
    "login": "FuRongJun-1999",
    "project": "bench",
    "quality_E": null,
-   "reputation_delta": 63,
+   "reputation_delta": 66,
    "rounds": 1
   },
   {
@@ -677,6 +741,31 @@
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    1068,
+    1071,
+    1072,
+    1073,
+    1074,
+    1075,
+    1076,
+    1077,
+    1078,
+    1079,
+    1080,
+    1081
+   ],
+   "login": "zxp88688",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 54,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
     175,
@@ -761,30 +850,6 @@
    "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 46,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    681,
-    1000,
-    1001,
-    1002,
-    1003,
-    1007,
-    1008,
-    1009,
-    1010,
-    1011,
-    1012
-   ],
-   "login": "LarryE135",
-   "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 45,
    "rounds": 1
   },
   {
@@ -1037,6 +1102,25 @@
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    973,
+    976,
+    977,
+    1050,
+    1051,
+    1053
+   ],
+   "login": "STARDUSTLC666",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 24,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
     283,
@@ -1181,6 +1265,45 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "C",
+   "issues": [
+    625,
+    900,
+    966,
+    975,
+    1048,
+    1049,
+    1052
+   ],
+   "login": "hawkongz",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 18,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    968,
+    969,
+    971,
+    1025,
+    1026,
+    1027
+   ],
+   "login": "sufancy",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 18,
+   "rounds": 1
+  },
+  {
    "difficulty": "easy",
    "difficulty_base": 1,
    "evidence_strength": true,
@@ -1235,6 +1358,22 @@
    ],
    "login": "Beiwo992",
    "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 15,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    964,
+    965,
+    1017
+   ],
+   "login": "tang19-chao",
+   "project": "bench",
    "quality_E": null,
    "reputation_delta": 15,
    "rounds": 1
@@ -1352,23 +1491,6 @@
    "rounds": 1
   },
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    625,
-    900,
-    966,
-    975
-   ],
-   "login": "hawkongz",
-   "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 11,
-   "rounds": 1
-  },
-  {
    "difficulty": "easy",
    "difficulty_base": 1,
    "evidence_strength": true,
@@ -1450,22 +1572,6 @@
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
-    973,
-    976,
-    977
-   ],
-   "login": "STARDUSTLC666",
-   "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 9,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
     789,
     790,
     839
@@ -1487,37 +1593,6 @@
    ],
    "login": "qweqqxq11",
    "project": "lingshu",
-   "quality_E": null,
-   "reputation_delta": 9,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    968,
-    969,
-    971
-   ],
-   "login": "sufancy",
-   "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 9,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    964,
-    965
-   ],
-   "login": "tang19-chao",
-   "project": "bench",
    "quality_E": null,
    "reputation_delta": 9,
    "rounds": 1
@@ -1553,19 +1628,20 @@
    "rounds": 1
   },
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
+   "difficulty": "easy",
+   "difficulty_base": 1,
    "evidence_strength": true,
-   "impact_grade": "B",
+   "impact_grade": "C",
    "issues": [
     826,
     941,
-    978
+    978,
+    1046
    ],
    "login": "IKsiRainZero",
    "project": "bench",
    "quality_E": null,
-   "reputation_delta": 7,
+   "reputation_delta": 8,
    "rounds": 1
   },
   {
@@ -1713,6 +1789,23 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    932,
+    933,
+    934,
+    1024
+   ],
+   "login": "myYangyunfan",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -1848,6 +1941,20 @@
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
+    1047
+   ],
+   "login": "fladyck",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 3,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
     98
    ],
    "login": "m3159584479",
@@ -1885,22 +1992,6 @@
    "rounds": 1
   },
   {
-   "difficulty": "easy",
-   "difficulty_base": 1,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    932,
-    933,
-    934
-   ],
-   "login": "myYangyunfan",
-   "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 3,
-   "rounds": 1
-  },
-  {
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
@@ -1924,6 +2015,20 @@
    ],
    "login": "qweqqxq11",
    "project": "chinese_programming",
+   "quality_E": null,
+   "reputation_delta": 3,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    1082
+   ],
+   "login": "says693",
+   "project": "bench",
    "quality_E": null,
    "reputation_delta": 3,
    "rounds": 1

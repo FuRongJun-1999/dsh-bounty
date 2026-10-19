@@ -565,6 +565,34 @@
    "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
+    173,
+    288,
+    300,
+    442,
+    445,
+    454,
+    673,
+    679,
+    725,
+    726,
+    728,
+    729,
+    730,
+    731,
+    1138
+   ],
+   "login": "cyd471",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 73,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
     19,
     35,
     86,
@@ -579,33 +607,6 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 72,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    173,
-    288,
-    300,
-    442,
-    445,
-    454,
-    673,
-    679,
-    725,
-    726,
-    728,
-    729,
-    730,
-    731
-   ],
-   "login": "cyd471",
-   "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 67,
    "rounds": 1
   },
   {
@@ -1711,6 +1712,24 @@
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
+    932,
+    933,
+    934,
+    1024,
+    1139
+   ],
+   "login": "myYangyunfan",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 9,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
     789,
     790,
     839
@@ -1891,23 +1910,6 @@
    ],
    "login": "momeiji",
    "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 6,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    932,
-    933,
-    934,
-    1024
-   ],
-   "login": "myYangyunfan",
-   "project": "bench",
    "quality_E": null,
    "reputation_delta": 6,
    "rounds": 1

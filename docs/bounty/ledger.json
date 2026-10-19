@@ -26284,6 +26284,64 @@
         "delta": 6
       },
       "id": "evt_efe62165a53d"
+    },
+    {
+      "ts": "2026-10-19T15:34:16Z",
+      "issue": 1138,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "cyd471",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: 【贡献申报】dsh-bench #<N>（基线 f6c32ce）：P0 `is_example` 一个字段就能让报告整份跳过官方构建的发布闸，示例报告以正式成绩上榜、进「值得试」，CI 六步全绿（#31 W2 修复引入）；P1 同一插件的源码版与发布包版报告并存时正式构建 TypeError 崩溃（ shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1138
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_1c57a32a2816"
+    },
+    {
+      "ts": "2026-10-19T15:34:16Z",
+      "issue": 1139,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-cover-pipeline 1.1.2（InariNGT-Ofiicial·本地 AI 翻唱管线）：宿主集成/裸机降级/安全六威胁深度审计——mix_master 硬编码旧歌工程+直跑覆盖（P2）与 stem 逃逸/加载即写盘/Linux 发现缺口等 8 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1139
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ee1845b07743"
     }
   ]
 }

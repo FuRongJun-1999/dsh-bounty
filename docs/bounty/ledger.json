@@ -24718,6 +24718,209 @@
         "delta": 3
       },
       "id": "evt_396da720f95a"
+    },
+    {
+      "ts": "2026-10-19T12:59:55Z",
+      "issue": 1083,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zxp88688",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-web-search-pool 0.4.0→0.5.0 增量测评：凭据解析绕过请求超时 + 匿名回退 + 任意 env 引用 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1083
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a75e93a2f21a"
+    },
+    {
+      "ts": "2026-10-19T12:59:55Z",
+      "issue": 1084,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zxp88688",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-ppt 0.11.0 增量安全审计：模型侧 image.src 越界读盘 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1084
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_7822ddc1588a"
+    },
+    {
+      "ts": "2026-10-19T12:59:55Z",
+      "issue": 1085,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zxp88688",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-plugin-marketplace 1.7.1 安全参照系：17 项滥用检查全过，但不覆盖包名归属（#1040） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1085
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ed3c6da53905"
+    },
+    {
+      "ts": "2026-10-19T12:59:55Z",
+      "issue": 1086,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 标准测评结论 · @hyzyn/dsh-codegraph 0.6.10（能力五状态：不适用；CLI 已补验） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1086
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_43ca94e2cd6b"
+    },
+    {
+      "ts": "2026-10-19T12:59:55Z",
+      "issue": 1087,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 标准测评结论 · @hyzyn/dsh-kit-settings 0.2.6（能力五状态：不适用） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1087
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a3d41fa632be"
+    },
+    {
+      "ts": "2026-10-19T12:59:55Z",
+      "issue": 1088,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hawkongz",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】@stardustlc/dsh-suite 0.2.29（18 合 1 聚合包）：发布件与上游 HEAD 逐字段对账一致 + README「本版同步」段版本号滞后（自评 P3 · impact C） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1088
+      ],
+      "project": "bench",
+      "impact": "C",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_273ae0f7d349"
+    },
+    {
+      "ts": "2026-10-19T12:59:55Z",
+      "issue": 1089,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "says693",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】@hyzyn/dsh-prompt 0.2.9 Windows 真实 UI 增量测评：保存为新版本会持久覆盖旧正文，回滚失效（建议 P1） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1089
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_689fa8d463b4"
     }
   ]
 }

@@ -190,12 +190,14 @@
     1031,
     1032,
     1069,
-    1070
+    1070,
+    1086,
+    1087
    ],
    "login": "EQRS",
    "project": "bench",
    "quality_E": null,
-   "reputation_delta": 220,
+   "reputation_delta": 226,
    "rounds": 1
   },
   {
@@ -634,6 +636,34 @@
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    1068,
+    1071,
+    1072,
+    1073,
+    1074,
+    1075,
+    1076,
+    1077,
+    1078,
+    1079,
+    1080,
+    1081,
+    1083,
+    1084,
+    1085
+   ],
+   "login": "zxp88688",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 63,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
     339,
@@ -732,31 +762,6 @@
     993
    ],
    "login": "WASD258-jpg",
-   "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 54,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    1068,
-    1071,
-    1072,
-    1073,
-    1074,
-    1075,
-    1076,
-    1077,
-    1078,
-    1079,
-    1080,
-    1081
-   ],
-   "login": "zxp88688",
    "project": "bench",
    "quality_E": null,
    "reputation_delta": 54,
@@ -1213,6 +1218,27 @@
    "rounds": 1
   },
   {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "C",
+   "issues": [
+    625,
+    900,
+    966,
+    975,
+    1048,
+    1049,
+    1052,
+    1088
+   ],
+   "login": "hawkongz",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 19,
+   "rounds": 1
+  },
+  {
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
@@ -1260,26 +1286,6 @@
    ],
    "login": "TanPowasd",
    "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 18,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "C",
-   "issues": [
-    625,
-    900,
-    966,
-    975,
-    1048,
-    1049,
-    1052
-   ],
-   "login": "hawkongz",
-   "project": "bench",
    "quality_E": null,
    "reputation_delta": 18,
    "rounds": 1
@@ -1593,6 +1599,21 @@
    ],
    "login": "qweqqxq11",
    "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 9,
+   "rounds": 1
+  },
+  {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    1082,
+    1089
+   ],
+   "login": "says693",
+   "project": "bench",
    "quality_E": null,
    "reputation_delta": 9,
    "rounds": 1
@@ -2015,20 +2036,6 @@
    ],
    "login": "qweqqxq11",
    "project": "chinese_programming",
-   "quality_E": null,
-   "reputation_delta": 3,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    1082
-   ],
-   "login": "says693",
-   "project": "bench",
    "quality_E": null,
    "reputation_delta": 3,
    "rounds": 1

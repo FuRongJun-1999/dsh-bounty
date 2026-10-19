@@ -340,19 +340,24 @@
     1069,
     1070,
     1086,
-    1087
+    1087,
+    1090,
+    1091,
+    1092,
+    1093,
+    1094
    ],
    "login": "EQRS",
    "projects": [],
-   "reputation_delta": 226,
+   "reputation_delta": 241,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 81,
+   "round_known": 86,
    "round_seen": [
     1
    ],
-   "settled": 81,
+   "settled": 86,
    "timeout": 0
   },
   {
@@ -1460,6 +1465,36 @@
   },
   {
    "blockers": [
+    "声誉分 14 < 24"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    826,
+    941,
+    978,
+    1046,
+    1095
+   ],
+   "login": "IKsiRainZero",
+   "projects": [],
+   "reputation_delta": 14,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 5,
+   "round_seen": [
+    1
+   ],
+   "settled": 5,
+   "timeout": 0
+  },
+  {
+   "blockers": [
     "声誉分 12 < 24"
    ],
    "disputes": 0,
@@ -1539,35 +1574,6 @@
     1
    ],
    "settled": 2,
-   "timeout": 0
-  },
-  {
-   "blockers": [
-    "声誉分 8 < 24"
-   ],
-   "disputes": 0,
-   "eligible": false,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    826,
-    941,
-    978,
-    1046
-   ],
-   "login": "IKsiRainZero",
-   "projects": [],
-   "reputation_delta": 8,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 4,
-   "round_seen": [
-    1
-   ],
-   "settled": 4,
    "timeout": 0
   },
   {

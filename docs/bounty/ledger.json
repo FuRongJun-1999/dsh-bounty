@@ -24921,6 +24921,180 @@
         "delta": 6
       },
       "id": "evt_689fa8d463b4"
+    },
+    {
+      "ts": "2026-10-19T13:18:14Z",
+      "issue": 1090,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 标准测评报告 · dsh-code-security 0.5.0（能力五状态） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1090
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_10b7316a6423"
+    },
+    {
+      "ts": "2026-10-19T13:18:14Z",
+      "issue": 1091,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 标准测评报告 · dsh-cite 0.5.0（能力五状态） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1091
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_02af8f9b26fa"
+    },
+    {
+      "ts": "2026-10-19T13:18:14Z",
+      "issue": 1092,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 标准测评结论 · @stardustlc/dsh-review 0.3.0（能力五状态：不适用；当前未测） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1092
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6e6336b9478c"
+    },
+    {
+      "ts": "2026-10-19T13:18:14Z",
+      "issue": 1093,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 标准测评结论 · dsh-trae2api 0.5.0（能力五状态：不适用） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1093
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8de972fdb813"
+    },
+    {
+      "ts": "2026-10-19T13:18:14Z",
+      "issue": 1094,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 标准测评结论 · dsh-myskin 0.4.1（能力五状态：不适用） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1094
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ee42203ef97e"
+    },
+    {
+      "ts": "2026-10-19T13:18:14Z",
+      "issue": 1095,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "IKsiRainZero",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] [测评报告] dsh-domain-bridge 0.6.4：两进程并发认领同一域时冲突检测失效，双方都返回 created（P1） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1095
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-19",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_047dc832d156"
     }
   ]
 }

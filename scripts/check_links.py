@@ -34,7 +34,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-URL_RE = re.compile(r"https?://[^\s\)\]\>\"'`，。；：、]+")
+URL_RE = re.compile(r"https?://[^\s\)\]\>\"'`，。；：、]+", re.IGNORECASE)
 PLACEHOLDER_MARKERS = ("example.com", "example.org", "example.net",
                        "localhost", "127.0.0.1", "todo", "xxx")
 UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
@@ -84,7 +84,7 @@ def run_guards(urls, check_reachability=True):
         failures.append("[G1 数量守卫] 去重后链接仅 %d 条 < 3" % len(unique))
     for url in sorted(unique):
         # G2 协议守卫
-        if not url.startswith("https://"):
+        if not url.lower().startswith("https://"):
             failures.append("[G2 协议守卫] 非 https 链接：%s" % url)
         # G3 占位守卫
         low = url.lower()

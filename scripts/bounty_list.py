@@ -8,6 +8,7 @@
 """
 import io
 import json
+import math
 import os
 import sys
 
@@ -69,13 +70,13 @@ def render(doc):
     L.append("| 方向 | 悬赏 | 难度 | 结算分 | 状态 | 负责人 |")
     L.append("| --- | --- | --- | ---: | --- | --- |")
     for it in items:
-        L.append("| %s | [%s](#%s) | %s | %d | %s | %s |" % (
+        L.append("| %s | [%s](#%s) | %s | %r | %s | %s |" % (
             esc(it["direction"]), esc(it["title"]), it["id"],
             esc(it["difficulty"]), it["score"],
             STATUS_CN[it["status"]],
             esc(it["owner"]) if it["owner"] else "**待认领**"))
     L.append("")
-    L.append("合计 **%d** 条；总分池 **%d** 分。" % (
+    L.append("合计 **%d** 条；总分池 **%r** 分。" % (
         len(items), sum(it["score"] for it in items)))
     L.append("")
     # ---- 怎么用 ----
@@ -92,7 +93,7 @@ def render(doc):
         L.append("")
         L.append("### %s —— %s" % (it["title"], it["direction"]))
         L.append("")
-        L.append("- **难度**：%s（结算分 **%d**）" % (it["difficulty"], it["score"]))
+        L.append("- **难度**：%s（结算分 **%r**）" % (it["difficulty"], it["score"]))
         L.append("- **期望交付形态**：%s" % it["form"])
         L.append("- **状态**：%s%s" % (
             STATUS_CN.get(it["status"], it["status"]),
@@ -168,8 +169,23 @@ def validate(doc):
         d = it.get("difficulty")
         if d not in DIFFICULTY_SCORES:
             errs.append("%s 难度非法：%r" % (i, d))
+        elif not isinstance(it.get("score"), (int, float)):
+            # ★本笔：**score 类型判据**。旧实现只比值不等，然后 `%d` 格式化：
+            # 真源里 `"score": "3"`（合法 JSON 的非法类型）会抛
+            # `TypeError: %d format: a real number is required, not str` —— 裸栈冒到
+            # `main()`，退出码退化成 1，与「产物漂移」撞码；而本函数契约是
+            # fail-closed 点名、由 `main()` 统一退 2。bool/float 是数值等价，保留通过。
+            errs.append("%s score 类型非法：%r（%s），应为数值"
+                        % (i, it.get("score"), type(it.get("score")).__name__))
+        elif not math.isfinite(it.get("score")):
+            # ★本笔：**score 有限性判据**。NaN/Infinity/-Infinity 都是 float 实例，
+            # 能过上面的 isinstance；随后 `%d` 格式化分别抛 ValueError / OverflowError
+            # （`json.loads` 默认接受这三个非标准字面量，故真源里可出现）。
+            # 与类型判据同路：进 errs 聚合、由 main() 统一退 2，绝不裸栈。
+            errs.append("%s score 非有限值：%r，应为有限数值"
+                        % (i, it.get("score")))
         elif it.get("score") != DIFFICULTY_SCORES[d]:
-            errs.append("%s 分与难度不符：%s→%d 表值 %d"
+            errs.append("%s 分与难度不符：%s→%r 表值 %r"
                         % (i, d, it.get("score"), DIFFICULTY_SCORES[d]))
         if not it.get("acceptance"):
             errs.append("%s 验收标准为空" % i)
@@ -207,7 +223,7 @@ def main(argv):
         return 0
     with io.open(OUT, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
-    print("已生成 %s（%d 条悬赏，总分池 %d）"
+    print("已生成 %s（%d 条悬赏，总分池 %r）"
           % (OUT, len(doc["items"]), sum(i["score"] for i in doc["items"])))
     return 0
 

@@ -27799,7 +27799,7 @@
       "action": "settle",
       "actor": "FuRongJun-1999",
       "holder": "acrot0",
-      "difficulty": "low",
+      "difficulty": "easy",
       "delta": 1,
       "reason": "wei-hu-he-shi: [intake 输入] dsh-memory init 旁路片段文件用毫秒时间戳命名 ⇒ 无界堆积 shen-li. retro round=1.",
       "pr": null,
@@ -27820,7 +27820,7 @@
         "raw": 1.0,
         "delta": 1
       },
-      "id": "evt_6f7582e0b3db"
+      "id": "evt_6844131ad7fa"
     },
     {
       "ts": "2026-10-20T04:36:52Z",

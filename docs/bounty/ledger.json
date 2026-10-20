@@ -30895,6 +30895,383 @@
         "delta": 3
       },
       "id": "evt_3492d3303bbc"
+    },
+    {
+      "ts": "2026-10-20T15:24:34Z",
+      "issue": 1300,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 深度审计 · dsh-memory-vault 0.1.5（等级三） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1300
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_d16185bc9e7e"
+    },
+    {
+      "ts": "2026-10-20T15:24:34Z",
+      "issue": 1301,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qingfengyu153781-star",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 【intake 输入】lingshu #173：`_ZONES[\"bottom-right\"]` 含中排 r5、与 bottom-left 不镜像（镜像车 1.0 vs 0.667 · PR #839） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1301
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1a297609490b"
+    },
+    {
+      "ts": "2026-10-20T15:24:34Z",
+      "issue": 1302,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qingfengyu153781-star",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 【intake 输入】lingshu #254（站点②）：`train_infogap(max_steps=0)` 返回前索引空 history 崩溃（附加强守卫与四臂精确变异 · PR #837） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1302
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e07ff0c566f0"
+    },
+    {
+      "ts": "2026-10-20T15:24:34Z",
+      "issue": 1303,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qingfengyu153781-star",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: 【intake 输入】lingshu #294：`make_plan` 参数总数写死 375、`k1≠k2` 时越界（5 调用点接线 + 3 臂精确变异 · PR #838） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1303
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_936c3dca3af3"
+    },
+    {
+      "ts": "2026-10-20T15:24:34Z",
+      "issue": 1306,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qingfengyu153781-star",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 【intake 输入】dsh-bounty（bounty_site）：check_links 的 URL_RE 无 IGNORECASE，大写 HTTPS 整条漏报（28 守卫 + 2 臂变异 · PR #1304） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1306
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_73b428b3092c"
+    },
+    {
+      "ts": "2026-10-20T15:24:34Z",
+      "issue": 1307,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qingfengyu153781-star",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 【intake 输入】dsh-bounty（bounty_site）：bounty_list 的 score 缺类型闸，字符串/null/列表或渲染或抛异常（27 断言 + 4 臂变异 · PR #1305） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1307
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_0327b492f77c"
+    },
+    {
+      "ts": "2026-10-20T15:24:34Z",
+      "issue": 1309,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-browser-playwright-codex 0.7.3（miqian-nomad·登录态浏览器接管）：真机确认有用＋安全工程生态标杆（护栏声称逐条核验属实）；发现设置路由无 Host 校验——rebinding 可远程打开 browser_evalu shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1309
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_32146eafdcd4"
+    },
+    {
+      "ts": "2026-10-20T15:24:34Z",
+      "issue": 1310,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake] 贡献申报（逐件）：lingshu #788——conv3d/max_pool3d 入口 isfinite 闸（PR #792 已合并） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1310
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_599120176548"
+    },
+    {
+      "ts": "2026-10-20T15:24:34Z",
+      "issue": 1311,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake] 贡献申报（逐件）：lingshu #798——空帧补领域 ValueError（PR #809 已合并） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1311
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_354ae4b4618a"
+    },
+    {
+      "ts": "2026-10-20T15:24:34Z",
+      "issue": 1312,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake] 贡献申报（逐件）：lingshu #800——M5 去重 TOCTOU 竞态收进 RLock 临界区（PR #808 已合并） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1312
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_dc5af7a56892"
+    },
+    {
+      "ts": "2026-10-20T15:24:34Z",
+      "issue": 1313,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "ybyz2",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-ops 0.4.1 标准测评（WSL/Linux 腿）：配对 D=0，但每次调用固定开销 +15% tokens，ops 工具使用率 5.9%；附 S7 判据缺陷（修正后方向转负） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1313
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_0922c63c11ba"
+    },
+    {
+      "ts": "2026-10-20T15:24:34Z",
+      "issue": 1314,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #835：激活工作态事务归属及失败回滚修复交付 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1314
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_8b6c1932148a"
+    },
+    {
+      "ts": "2026-10-20T15:24:34Z",
+      "issue": 1315,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 深度审计 · dsh-review 0.3.0（等级三） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1315
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_66a242f9cbc3"
     }
   ]
 }

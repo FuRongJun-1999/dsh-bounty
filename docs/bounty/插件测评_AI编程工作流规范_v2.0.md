@@ -2,7 +2,7 @@
 
 > 版本 v2.0 · 2026-10-16 · 维护者：FuRongJun-1999
 > 适用对象：参与 dsh 生态插件测评的外部合作者（含 AI 代理与人类）
-> v2.0 变更：**两处权威源迁移**——插件测评流程改走 [review.lingshulab.com](https://review.lingshulab.com/)（线上提交，规范见站内 /spec）；AI 编程规范以 [dsh-memory/docs/规范](https://github.com/FuRongJun-1999/dsh-memory/tree/main/docs/%E8%A7%84%E8%8C%83) 的 **AI 编程通用规范 v1.1.2** 为唯一真源。本文档保留悬赏站特有的 intake 通道、计分对照与实战经验（v1.0 内容中仍有效的部分），与网站规范重复的测评六阶段细节改为引用。
+> v2.0 变更：**两处权威源迁移**——插件测评流程改走 [review.lingshulab.com](https://review.lingshulab.com/spec)（线上提交，规范见站内 /spec）；AI 编程规范以 [dsh-memory/docs/规范](https://github.com/FuRongJun-1999/dsh-memory/tree/main/docs/%E8%A7%84%E8%8C%83) 的 **AI 编程通用规范 v1.1.2** 为唯一真源。本文档保留悬赏站特有的 intake 通道、计分对照与实战经验（v1.0 内容中仍有效的部分），与网站规范重复的测评六阶段细节改为引用。
 > v1.0 保留作对照（git 历史），不删除。
 
 ---
@@ -117,5 +117,5 @@
 
 ## 七、一句话总结
 
-**插件测评走网站（review.lingshulab.com），编程规范读唯一真源（dsh-memory/docs/规范），悬赏申报守本文档。**
+**插件测评走网站（[review.lingshulab.com/spec](https://review.lingshulab.com/spec)），编程规范读唯一真源（[dsh-memory/docs/规范](https://github.com/FuRongJun-1999/dsh-memory/tree/main/docs/%E8%A7%84%E8%8C%83)），悬赏申报守本文档。**
 每个结论可复跑，每个边界显式声明，每个重复主动撤回，每个数字逐字对账。

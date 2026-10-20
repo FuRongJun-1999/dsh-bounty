@@ -30199,6 +30199,702 @@
         "delta": 6
       },
       "id": "evt_50c053132702"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1276,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "WASD258-jpg",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-netshell 0.6.1：`/netshell/rpc` 零鉴权，跨站 POST 一句 `local.connect` 即拉起本机 shell，内置 Guard 规则可被 shell 语法绕过（P0） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1276
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_02d47da3cf95"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1277,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `verify._fallback_verify` **伪造三项检查**：关键词命中 ≥2 就把 `zero_law`/`existence_priority` 写成 True，而 `structure_conflict` 在**两个分支里恒为 True**（通过分支因此自相矛盾） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1277
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_206ad98a81a6"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1278,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu/world/physics.py`：`_sim_model_from_state` 的 docstring 写「**必须显式 `dt`**」而函数**一次不读 `dt`**（实测 `None`/`0`/`-1`/`\"abc\"` 全被接受）；同文件 `circular_truth(c shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1278
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1e35d3c4d328"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1279,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu/gen/hexgen_self_source.py` 的 `_checker(cx, cy, size)` **忽略 cx/cy**（棋盘锚在图像原点）⇒ 小半径花纹的亮/暗比偏到 **61.5%/38.5%**，破坏 `:542` 声明的「±两侧等量 ⇒ 中位色≈原色」 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1279
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_2e01aa708dcf"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1280,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu/world/mesh_gen.py`：同族 10 个 `_recipe_*(cfg)` 里**只有 turret/arm 真读 cfg**（yaw/pitch/bend），另外 8 类（lamp/chair/table/tree/vase/mug/car/rocket）一次不读 ⇒ shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1280
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c9117a2d59b2"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1281,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `bpy_shade.render_matte(path, objs, ...)`：**`objs` 一次不读**，且函数里留着一段**空循环**（`for … : pass`）⇒ 「精确覆盖率」蒙版并没有隔离主体 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1281
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ca2a2fad87d2"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1282,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `verify_evidence.py`：`probe_f04`/`probe_f06`/`probe_f07` 都收下 `root` 却**一次不读**，而同文件 `:318-321` 明确校验「导入的 lingshu 必须在指定 root 内」⇒ 用 root=A 调用可 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1282
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_0273c6224d75"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1283,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `eval.joint_pivot(joint, link, where=\"joint\")` 收下 `where` 却**不用**，而同文件 `joint_value` 把它透传给 `_scalar_of` ⇒ 缺 `anchor` 时**静默回落 (0,0,0)** 且错误 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1283
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1049b03cf805"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1284,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "WASD258-jpg",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-web-remote 5.7.3：29 条 `/remote/*` 路由零来源校验，跨站一句 `action:start` 即可把 DSH 绑到 `0.0.0.0` 且局域网免 token 直控 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1284
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_59062eb4befd"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1285,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `LongTermMemoryGate.evaluate()`：决定内容进哪一层（long_term/knowledge/context）的**唯一入口**，却**完全不读 `source` 与 `tags`** —— 而同文件三处调用点都在传、别处也真的用了它们 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1285
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_7a410849f38a"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1286,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `material.py`：`_detail_nodes(base_color, role)` 与 `_npr_recipe(roughness)` 各收下用不上的输入 ⇒ 材质外观与「基础色/角色/粗糙度」无关 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1286
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_66156ffa3b58"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1287,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhangdeishuai1",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `anim/seq.py`：`timeline(..., fps, ...)` 收下**帧率**却不读 ⇒ 时间轴与 fps 无关（帧号↔秒数的唯一时基被丢掉） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1287
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_98b4b3e2ee35"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1288,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `core/activation.py`：`_write_workset(..., query, ...)` 收下**来源查询**却不读 ⇒ 工作集条目无法与「哪次查询激活」对应（而同仓 `longterm_gate` 的 source 被写进保护理由） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1288
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_dffac15f5ca0"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1289,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `bpy_shade.render_all(..., verbose=True)` 收下**日志开关**却不读 ⇒ `verbose=True/False` 输出完全相同，批量出图时无法压制噪声 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1289
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1871f0b05b45"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1290,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `vec/raster._fill_coverage(..., closed, ...)` 收下**闭合标志**却不读 ⇒ 开放折线与闭合多边形得到同一份覆盖掩膜，覆盖率与拓扑无关 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1290
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_896efc4de5f0"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1291,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `mesh3d.rectangle/ellipse/line`：签名**逐字照抄 PIL `ImageDraw`**（含 `width=1`）却**忽略 `width`** ⇒ 同一份 PIL 风格调用在这里全变 1 像素线，且无任何提示 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1291
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_0954b4448685"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1292,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "qweqqxq11",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `nn/hex_cnn.hex_conv(..., channels, ...)` 收下**输出通道数**却不读 ⇒ 层形状与调用方声明脱钩 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1292
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e7d30a56cb4b"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1293,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `brain_store.add_perception()`：`entities` 与 `skip_dedup` 两个**具名参数被静默吞掉** —— 而同一方法刚为「`**_kw` 静默吞参数」修过 issue #364 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1293
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ee82ac7267e1"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1294,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `vec/geom2d._spans(..., minx, maxx, ...)` 收下**每行裁剪边界**却不读 ⇒ 多边形越出画布时跨度不受裁剪，越界像素在写入端被静默丢弃 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1294
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_9b6472ba0f63"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1295,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "m3159584479",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `hexgen_subject_split.py`：`_seam_profile_ratio(bg_lab, band)` 与 `reference_masks(pal)` 都收下判据输入却不读 ⇒ 换背景色/调色板后这两步产物**逐字节相同** shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1295
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4e85f4d370f2"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1296,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `hexgen_subject_split.reference_masks(..., pal, ...)` 收下**调色板**却不读 ⇒ 参考掩膜与传入色板无关，分割判定与实际颜色脱钩 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1296
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b9e60f3c42a3"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1297,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "momeijii",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: `lingshu` 的 `geom.write_from_dump(..., out_dir=None, ...)` 收下**输出目录**却不读（与 docstring「只写显式路径」冲突）⇒ 只给目录时**静默返回全 None**、不报错 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1297
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a1d08af9f483"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1298,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "WASD258-jpg",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-wechat-bridge 0.9.1：15 条面板路由零来源校验，跨站 `POST /trust/add` 即可把任意微信号写入信任集，之后该号可驱动 agent shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1298
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_97639104e0e4"
+    },
+    {
+      "ts": "2026-10-20T12:02:04Z",
+      "issue": 1299,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "WASD258-jpg",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-lark-claw 0.1.5：`apiToken` 未配置时 `bearerAuthorized` 直接返回 true，`/api/cronjobs` 变成匿名可写的「让 agent 定时执行任意指令」入口 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1299
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-20",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_3492d3303bbc"
     }
   ]
 }

@@ -86,9 +86,22 @@ def main():
 
     mod = load_impl(os.path.abspath(args.impl))
     os.makedirs(args.rawdir, exist_ok=True)
-    summary = {"name": args.name, "impl": os.path.relpath(os.path.abspath(args.impl)),
+    #: ★本笔：**跨盘符安全**的「尽量相对、不行就绝对」。
+    #: `os.path.relpath` 在 Windows 上对**不同盘符**的两条路径会抛
+    #: `ValueError: path is on mount 'C:', start on mount 'E:'`（POSIX 只有一个根，
+    #: 所以 CI 永远测不到）。而「impl 在系统临时目录、仓在另一个盘」是常态
+    #: （本机 C:\Users\…\Temp vs E:\…），于是整份 runner 直接崩在打印这一行。
+    #: 语义不变：同一盘符下仍给相对路径（可读、可搬）；跨盘符退化为绝对路径。
+    def _display_path(p):
+        try:
+            return os.path.relpath(p)
+        except ValueError:
+            return p
+
+    _impl_disp = _display_path(os.path.abspath(args.impl))
+    summary = {"name": args.name, "impl": _impl_disp,
                "caps": getattr(mod, "CAPS", {}), "modes": {}}
-    print("IMPL %s NAME %s" % (os.path.relpath(os.path.abspath(args.impl)), args.name))
+    print("IMPL %s NAME %s" % (_impl_disp, args.name))
     print("CAPS %s" % json.dumps(getattr(mod, "CAPS", {}), ensure_ascii=False, sort_keys=True))
 
     for mode in [m for m in args.modes.split(",") if m]:

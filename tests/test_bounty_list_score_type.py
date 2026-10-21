@@ -58,12 +58,30 @@ def _load():
 
 
 def _real_doc():
+    """读真源悬赏清单（docs/bounty/悬赏.json）。
+
+    判据用**结构**（含 items + _schema.说明 指向悬赏清单）而不是文件字节数：
+    字节数随内容变动而变，写死它会让守卫在真源一改内容时**静默失明**
+    （2026-10-21 实测：真源从 29152 涨到 29437，本守卫当场 RuntimeError 崩掉，
+    而不是继续校验 score 类型）。结构判据只认「这是不是那份真源」。
+    """
     d = os.path.join(ROOT, "docs", "bounty")
-    for name in os.listdir(d):
+    for name in sorted(os.listdir(d)):
+        if not name.endswith(".json"):
+            continue
         p = os.path.join(d, name)
-        if name.endswith(".json") and os.path.getsize(p) == 29152:
-            return json.load(io.open(p, encoding="utf-8"))
-    raise RuntimeError("real bounty source json not found")
+        try:
+            doc = json.load(io.open(p, encoding="utf-8"))
+        except (ValueError, OSError):
+            continue
+        if not isinstance(doc, dict) or not isinstance(doc.get("items"), list):
+            continue
+        schema = doc.get("_schema")
+        desc = schema.get("说明") if isinstance(schema, dict) else ""
+        #: 真源的特征：_schema.说明 明确写「灵枢悬赏 · 任务清单真源」且禁手改产物
+        if isinstance(desc, str) and "任务清单真源" in desc:
+            return doc
+    raise RuntimeError("real bounty source json not found（判据=含 items 且 _schema.说明 标明任务清单真源）")
 
 
 def _doc(score, difficulty="easy"):

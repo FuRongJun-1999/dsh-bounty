@@ -392,19 +392,22 @@
     1398,
     1400,
     1401,
-    1403
+    1403,
+    1405,
+    1406,
+    1408
    ],
    "login": "EQRS",
    "projects": [],
-   "reputation_delta": 313,
+   "reputation_delta": 322,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 110,
+   "round_known": 113,
    "round_seen": [
     1
    ],
-   "settled": 110,
+   "settled": 113,
    "timeout": 0
   },
   {
@@ -1285,19 +1288,20 @@
     766,
     770,
     1396,
-    1402
+    1402,
+    1407
    ],
    "login": "zijinmengxi",
    "projects": [],
-   "reputation_delta": 113,
+   "reputation_delta": 119,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 24,
+   "round_known": 25,
    "round_seen": [
     1
    ],
-   "settled": 24,
+   "settled": 25,
    "timeout": 0
   },
   {

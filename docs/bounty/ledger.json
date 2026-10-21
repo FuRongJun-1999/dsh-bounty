@@ -33824,6 +33824,122 @@
         "delta": 3
       },
       "id": "evt_2d2ea0e464cf"
+    },
+    {
+      "ts": "2026-10-21T09:55:41Z",
+      "issue": 1405,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 深度审计 · dsh-pack 0.2.0（等级三） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1405
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_afaa5842d11f"
+    },
+    {
+      "ts": "2026-10-21T09:55:41Z",
+      "issue": 1406,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 深度审计 · dsh-mnemon 0.5.34（等级三） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1406
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_52799ff81f66"
+    },
+    {
+      "ts": "2026-10-21T09:55:41Z",
+      "issue": 1407,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-chat-import 0.26.2 实测：#822 增量续写 P1 仍复现（Codex / DSH 0.2.1-rc.2），活写租约使一行修复失效 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1407
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_3daadfd31a11"
+    },
+    {
+      "ts": "2026-10-21T09:55:41Z",
+      "issue": 1408,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 深度审计 · dsh-all 0.1.65（等级三） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1408
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6fd91611ee86"
     }
   ]
 }

@@ -210,7 +210,13 @@ def main():
         return mutate()
     extra, missing = change_scope()
     res = evaluate()
-    res["tree.change-scope"] = (not extra and not missing)
+    #: 只判**越界**（改了不该改的），不判 missing（该改的没改）。
+    #: 为什么：missing 判的是「这份交付把两个文件都改了」——那只在**提交该 PR 时**成立；
+    #: 一旦合并进 main，工作树干净 ⇒ changed 为空 ⇒ missing 恒等于允许集 ⇒ 本断言
+    #: 在 main 上**永远红**（实测自 dfae931 引入起一直红，从没在 main 上绿过）。
+    #: 一个只在提交时能过的断言放进常驻守卫，等于让「全量守卫套件」这条门禁永久带一个假红。
+    #: 越界判据（extra）在任何时候都有意义：改动集里出现允许集之外的文件就是越界。
+    res["tree.change-scope"] = (not extra)
     fail = 0
     for name in sorted(res):
         ok = res[name]

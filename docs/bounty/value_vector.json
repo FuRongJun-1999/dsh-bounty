@@ -115,12 +115,13 @@
     1354,
     1398,
     1400,
-    1401
+    1401,
+    1403
    ],
    "login": "EQRS",
    "project": "bench",
    "quality_E": null,
-   "reputation_delta": 310,
+   "reputation_delta": 313,
    "rounds": 1
   },
   {
@@ -1042,12 +1043,13 @@
     1310,
     1311,
     1312,
-    1366
+    1366,
+    1404
    ],
    "login": "myYangyunfan",
    "project": "bench",
    "quality_E": null,
-   "reputation_delta": 57,
+   "reputation_delta": 60,
    "rounds": 1
   },
   {

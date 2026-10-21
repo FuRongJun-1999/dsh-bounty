@@ -391,19 +391,20 @@
     1354,
     1398,
     1400,
-    1401
+    1401,
+    1403
    ],
    "login": "EQRS",
    "projects": [],
-   "reputation_delta": 310,
+   "reputation_delta": 313,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 109,
+   "round_known": 110,
    "round_seen": [
     1
    ],
-   "settled": 109,
+   "settled": 110,
    "timeout": 0
   },
   {
@@ -993,19 +994,20 @@
     1381,
     1382,
     1383,
-    1395
+    1395,
+    1404
    ],
    "login": "myYangyunfan",
    "projects": [],
-   "reputation_delta": 149,
+   "reputation_delta": 152,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 63,
+   "round_known": 64,
    "round_seen": [
     1
    ],
-   "settled": 63,
+   "settled": 64,
    "timeout": 0
   },
   {

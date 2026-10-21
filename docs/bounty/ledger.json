@@ -33766,6 +33766,64 @@
         "delta": 3
       },
       "id": "evt_3ebe1c3aba01"
+    },
+    {
+      "ts": "2026-10-21T09:51:07Z",
+      "issue": 1403,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 深度审计 · dsh-native-memory 0.2.0（等级三） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1403
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a43f124aa6b5"
+    },
+    {
+      "ts": "2026-10-21T09:51:07Z",
+      "issue": 1404,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "myYangyunfan",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-plugin-shop 0.9.0（LivXue·插件商店）：真机确认好用＋1813 项测试全绿＋无缺陷级发现——判定真有用；供应链准入产品级（typosquatting 门/按仓库身份豁免/denied 带原因/verified 绑定 repo+comm shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1404
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_2d2ea0e464cf"
     }
   ]
 }

@@ -2352,6 +2352,21 @@
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    1396,
+    1402
+   ],
+   "login": "zijinmengxi",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 4,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
    "impact_grade": "A",
    "issues": [
     182
@@ -2501,20 +2516,6 @@
    "project": "awesome_dsh_plugin",
    "quality_E": null,
    "reputation_delta": 2,
-   "rounds": 1
-  },
-  {
-   "difficulty": "easy",
-   "difficulty_base": 1,
-   "evidence_strength": true,
-   "impact_grade": "C",
-   "issues": [
-    1396
-   ],
-   "login": "zijinmengxi",
-   "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 1,
    "rounds": 1
   }
  ]

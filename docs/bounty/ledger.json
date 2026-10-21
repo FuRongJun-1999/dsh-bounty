@@ -33737,6 +33737,35 @@
         "delta": 3
       },
       "id": "evt_2598341b31d4"
+    },
+    {
+      "ts": "2026-10-21T09:21:49Z",
+      "issue": 1402,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-orb-cordis 0.1.9 release build Windows 11 real install/first-run pass + cross-profile floating session reuse (P2). Incremental evaluation filling #971 declared-unverified items with four-state boundary. medium/B D3. retro round=1.",
+      "pr": null,
+      "covers": [
+        1402
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_3ebe1c3aba01"
     }
   ]
 }

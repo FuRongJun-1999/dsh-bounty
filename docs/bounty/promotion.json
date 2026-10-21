@@ -1282,19 +1282,20 @@
     765,
     766,
     770,
-    1396
+    1396,
+    1402
    ],
    "login": "zijinmengxi",
    "projects": [],
-   "reputation_delta": 110,
+   "reputation_delta": 113,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 23,
+   "round_known": 24,
    "round_seen": [
     1
    ],
-   "settled": 23,
+   "settled": 24,
    "timeout": 0
   },
   {

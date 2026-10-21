@@ -31272,6 +31272,673 @@
         "delta": 3
       },
       "id": "evt_66a242f9cbc3"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1316,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "sufancy",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-context-archive v0.9.5 功能与安全测评（dsh 生态插件 · 方法试验） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1316
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_789063b579b0"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1317,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "aroejony-cell",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] pi2dsh v0.27.0 安全测评：`/pi2dsh` 前缀路由零来源校验——跨站 text/plain 可执行已挂载 Pi 包命令、改写 MCP 配置、应答进行中的 OAuth 登录 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1317
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_8749b1fe9050"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1318,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-dream 0.1.0（yihefeikong-rgb / CC-HAHA autoDream 复刻）Linux 安全与边界测评（首评）：做梦期间 dsh-memory 的并发修改被整条覆盖、不报冲突（P2）；会话原文无定界拼进做梦提示词且 delete  shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1318
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_110a024940f1"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1319,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-evolve-in-git 0.6.3 Linux 安全与边界测评（Git 记忆 · 首评）：标为只读的 evolve_branch_diff 把模型参数原样当 git 选项，--output= 可截断改写仓库外任意文件（P1）；插件每次加载都 rm -r shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1319
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_49abd6ac8546"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1320,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-flomo-report 0.1.1 安装与安全测评（会话日报 + flomo 同步 · 本地 mock flomo · 首评）：DSH 0.2.1-rc.2（npm latest）拒装（peer 只声明 ^0.1.0-rc.6）；豁免后审计：模型一次 f shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1320
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_831085aefde2"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1321,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】@yiyunet/dsh-learn-skills 2.2.9（@aa1ece6）写入边界与回滚测评（首评）：回滚完全信任变更日志，日志条目里的绝对路径不经 resolveInside、batchId 不校验，一份伪造日志即可让回滚删除并覆盖工作区外文件（P1）； shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1321
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_d1f513caf323"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1322,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】@zhangj1164/dsh-memo 0.1.1（dsh-mega-plugins @76ef8c9）数据外传与遥测脱敏测评（首评）：默认脱敏规则对 15 类敏感样本漏掉 13 类，漏网的工作区外路径与云厂商 key 经「日志分析」原样进入发给模型的提示和预填 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1322
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_f0b361d5935e"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1323,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】qmd-autosearch 0.1.2 自动补搜钩子测评（首评）：grep/glob 省略 path 或用相对路径时不触发、相对路径按宿主进程 cwd 解析会误触发（P2）；检索结果标题原样拼进 <system-reminder>，一行标题即可闭合并伪造新的 s shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1323
+      ],
+      "project": "bench",
+      "impact": "C",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_79c2f4b21714"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1324,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】powercontext-dsh 0.0.3 安全快测（PowerContext 项目记忆 · 本地模拟 Server · 方法试验）：发行配置把召回超时调到 300 s，Server 挂起时每条用户消息进入模型前被阻塞到 5 分钟，README「fail-ope shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1324
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_7ca77a890693"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1325,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "LarryE135",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-engramory 0.2.5 Linux 安全与边界测评（索引上限闸门 · 安全面首评）：闸门先比文件名、再按 dsh 进程目录解析路径，而宿主按会话目录解析并跟随符号链接 —— 经项目内软链写/改索引时 300 行照样落盘，钉了 indexPath 后 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1325
+      ],
+      "project": "bench",
+      "impact": "C",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5ff3861029f1"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1326,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "Yinfeng818",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 【测评报告】dsh-mirror 0.8.7（webkubor）测评与问题清单 · 11 条（1 高/4 中/6 低）：同主题判定过宽致 8 条规矩误合并成 1 条、半衰期说明与实现不符、空库每轮固定占 297 字 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1326
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_d51f201f0afe"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1327,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #840：训练桥接并发文件串扰修复交付 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1327
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_f7de72472e78"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1328,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #841：结构写入锁顺序冲突修复交付 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1328
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_76bf9459eed2"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1329,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 深度审计 · dsh-lan-access 0.1.3（等级三） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1329
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_7a680bd1588f"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1330,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 深度审计 · dsh-user-mirror 0.8.7（等级三） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1330
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c0344f76a492"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1331,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "yangyuq99",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【安全快测】@dsh-one/dsh-llm-provider 0.2.2（4dfdc7ada621）：`/provider/*` 整面零鉴权且读 body 不看 `Content-Type`——恶意网页两次请求即可把厂商 baseURL 改写成攻击者主机，随后插件把用户的密 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1331
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_d89907a1abcc"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1332,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 深度审计 · openviking-dsh-memory-plugin 0.5.27（等级三） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1332
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6ab1cac62c21"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1333,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "yangyuq99",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【安全快测】dsh-plugin-security-review 1.8.1（73ab864bbc76）：安全审批插件**自己的审批面零鉴权**——`GET /security-gate/approvals/pending` 无校验泄露待批代码指纹，`POST /decide shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1333
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_4e65321250b7"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1334,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "yangyuq99",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【安全快测】dsh-plugin-session-import 0.1.1（3d4c7342ec7b）：`/api-import` 三条路由零鉴权且读 body 不看 `Content-Type`，**要导入哪个文件完全由调用方在 body 里自报绝对路径**——解析器直接  shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1334
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_d219137ed7a0"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1335,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zxp996",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-approval-gate 0.5.2：审批规则接口零鉴权，未认证即可清空危险词与硬风险类别并落盘 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1335
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_fa46831e2ee4"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1336,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zxp996",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】jingyun-dsh 0.1.21：插件主动覆写宿主 BrowserAuth，把 Web 端身份验证整体关掉 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1336
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_18b17b7ef841"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1337,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zxp996",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-pipeline-kernel：七条流水线路由零鉴权，未认证即可创建/删除/归档/清空流水线 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1337
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_3121cdc581ab"
+    },
+    {
+      "ts": "2026-10-21T03:46:36Z",
+      "issue": 1338,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "EQRS",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 深度审计 · dsh-notify-me 1.10.2（等级三） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1338
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-21",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5e649541f9c6"
     }
   ]
 }

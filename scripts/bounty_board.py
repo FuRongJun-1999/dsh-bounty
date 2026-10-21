@@ -139,6 +139,16 @@ SCORE_TIMEOUT = -1
 #: 计分口径版本：分段生效——旧事件标 v0.1（固定分），新事件标 v1.0（质量化）。
 SCORE_RULE = "v1.0"
 
+#: 维护者直接裁决档。**它不是「另一个计分公式」，而是「不套公式」**：
+#: 维护者对单个 issue 直接定分（如企业级项目整体分、跨条目的总包分），
+#: 值由 `base` 原样给出、不经 `quality_delta` 重算。
+#: 为什么要显式列出：账本里已有这类事件（`#293`，2026-10-15，delta=40），
+#: 而 `rescore` 此前只认 `SCORE_RULE` ⇒ 把**合法的维护者裁决**判成
+#: `unknown rule`，整份复算 `ok=False`。判据缺一档 ≠ 数据有错。
+MAINTAINER_DIRECT_RULE = "maintainer_direct_ruling"
+#: `rescore` 认的全部 rule（含上述例外档）。新增口径必须同时进这里，否则复算会漏判。
+KNOWN_RULES = (SCORE_RULE, MAINTAINER_DIRECT_RULE)
+
 
 def _round_half_up(x: float) -> int:
     """显式四舍五入（half-up）。**禁用内置 round**：银行家舍入会静默改分。"""
@@ -249,8 +259,17 @@ def rescore(events):
             if _as_int(ev.get("delta")) != 0:
                 bad.append((ev.get("id"), "missing formula", ev.get("delta"), None))
             continue
-        if f.get("rule") != SCORE_RULE:
-            bad.append((ev.get("id"), "unknown rule " + str(f.get("rule")), ev.get("delta"), None))
+        _rule = f.get("rule")
+        if _rule not in KNOWN_RULES:
+            bad.append((ev.get("id"), "unknown rule " + str(_rule), ev.get("delta"), None))
+            continue
+        #: 维护者直接裁决档：值由 `base` 原样给出，**不套 quality_delta 重算**。
+        #: 复算只校验「delta 与 base 一致」——即该笔分数确实按裁决值入账，没被手改。
+        if _rule == MAINTAINER_DIRECT_RULE:
+            _want = _as_int(f.get("base"))
+            if _as_int(ev.get("delta")) != _want:
+                bad.append((ev.get("id"),
+                            "maintainer ruling delta mismatch", ev.get("delta"), _want))
             continue
         kind = f.get("kind")
         # ★本笔：畸形 `formula`（非数值的 base/round/e_pass/e_total、除零等）**不让

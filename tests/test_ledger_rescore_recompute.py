@@ -47,8 +47,13 @@ check('A0 账本存在', os.path.isfile(LEDGER), LEDGER)
 DOC = json.loads(io.open(LEDGER, encoding='utf-8').read())
 EV = DOC.get('events') or []
 check('A1 账本有事件', len(EV) > 0, '%d 条' % len(EV))
-_missing = [e.get('id') for e in EV if (e.get('formula') or {}).get('rule') != bb.SCORE_RULE]
-check('A2 每条事件的 formula.rule == SCORE_RULE', not _missing,
+#: 认**全部合法 rule**（含维护者直接裁决档），不是只认 SCORE_RULE——
+#: 账本里 #293（2026-10-15，delta=40）用的是 `maintainer_direct_ruling`，
+#: 那是维护者对单个 issue 的直接定分，**不是坏数据**。旧断言只认 SCORE_RULE
+#: ⇒ 把合法裁决判成缺项，本守卫自 2026-10-15 起一直红。
+_missing = [e.get('id') for e in EV
+            if (e.get('formula') or {}).get('rule') not in bb.KNOWN_RULES]
+check('A2 每条事件的 formula.rule 属于 KNOWN_RULES', not _missing,
       ('缺/不符 %d 条：%s' % (len(_missing), _missing[:4])) if _missing else '共 %d 条' % len(EV))
 check('A3 每条事件都有 id', all(e.get('id') for e in EV))
 

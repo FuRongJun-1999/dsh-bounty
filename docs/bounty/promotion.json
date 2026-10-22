@@ -942,19 +942,20 @@
     1299,
     1352,
     1353,
-    1355
+    1355,
+    1529
    ],
    "login": "WASD258-jpg",
    "projects": [],
-   "reputation_delta": 181,
+   "reputation_delta": 184,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 32,
+   "round_known": 33,
    "round_seen": [
     1
    ],
-   "settled": 32,
+   "settled": 33,
    "timeout": 0
   },
   {
@@ -1351,19 +1352,20 @@
     1468,
     1469,
     1518,
-    1520
+    1520,
+    1523
    ],
    "login": "zijinmengxi",
    "projects": [],
-   "reputation_delta": 132,
+   "reputation_delta": 138,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 29,
+   "round_known": 30,
    "round_seen": [
     1
    ],
-   "settled": 29,
+   "settled": 30,
    "timeout": 0
   },
   {
@@ -1418,6 +1420,46 @@
     1
    ],
    "settled": 31,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    1262,
+    1263,
+    1264,
+    1265,
+    1266,
+    1267,
+    1268,
+    1269,
+    1270,
+    1271,
+    1272,
+    1331,
+    1333,
+    1334,
+    1527,
+    1528,
+    1530
+   ],
+   "login": "yangyuq99",
+   "projects": [],
+   "reputation_delta": 102,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 17,
+   "round_seen": [
+    1
+   ],
+   "settled": 17,
    "timeout": 0
   },
   {
@@ -1575,43 +1617,6 @@
    ],
    "invalid": 0,
    "issues": [
-    1262,
-    1263,
-    1264,
-    1265,
-    1266,
-    1267,
-    1268,
-    1269,
-    1270,
-    1271,
-    1272,
-    1331,
-    1333,
-    1334
-   ],
-   "login": "yangyuq99",
-   "projects": [],
-   "reputation_delta": 84,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 14,
-   "round_seen": [
-    1
-   ],
-   "settled": 14,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
     581,
     582,
     583,
@@ -1744,6 +1749,45 @@
    ],
    "invalid": 0,
    "issues": [
+    968,
+    969,
+    971,
+    1025,
+    1026,
+    1027,
+    1104,
+    1222,
+    1223,
+    1224,
+    1316,
+    1358,
+    1457,
+    1514,
+    1522,
+    1524
+   ],
+   "login": "sufancy",
+   "projects": [],
+   "reputation_delta": 57,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 16,
+   "round_seen": [
+    1
+   ],
+   "settled": 16,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     1335,
     1336,
     1337,
@@ -1777,33 +1821,30 @@
    ],
    "invalid": 0,
    "issues": [
-    968,
-    969,
-    971,
-    1025,
-    1026,
-    1027,
-    1104,
-    1222,
-    1223,
-    1224,
-    1316,
-    1358,
-    1457,
-    1514,
-    1522
+    1480,
+    1484,
+    1531,
+    1532,
+    1533,
+    1534,
+    1535,
+    1536,
+    1537,
+    1538,
+    1539,
+    1540
    ],
-   "login": "sufancy",
+   "login": "MWHWX",
    "projects": [],
-   "reputation_delta": 51,
+   "reputation_delta": 42,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 15,
+   "round_known": 12,
    "round_seen": [
     1
    ],
-   "settled": 15,
+   "settled": 12,
    "timeout": 0
   },
   {
@@ -1835,6 +1876,36 @@
     1
    ],
    "settled": 8,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    1245,
+    1363,
+    1485,
+    1486,
+    1497,
+    1525,
+    1526
+   ],
+   "login": "hlfwdi",
+   "projects": [],
+   "reputation_delta": 30,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 7,
+   "round_seen": [
+    1
+   ],
+   "settled": 7,
    "timeout": 0
   },
   {
@@ -1949,34 +2020,6 @@
     1
    ],
    "settled": 4,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    1245,
-    1363,
-    1485,
-    1486,
-    1497
-   ],
-   "login": "hlfwdi",
-   "projects": [],
-   "reputation_delta": 24,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 5,
-   "round_seen": [
-    1
-   ],
-   "settled": 5,
    "timeout": 0
   },
   {
@@ -2148,33 +2191,6 @@
     1
    ],
    "settled": 1,
-   "timeout": 0
-  },
-  {
-   "blockers": [
-    "声誉分 6 < 24"
-   ],
-   "disputes": 0,
-   "eligible": false,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    1480,
-    1484
-   ],
-   "login": "MWHWX",
-   "projects": [],
-   "reputation_delta": 6,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 2,
-   "round_seen": [
-    1
-   ],
-   "settled": 2,
    "timeout": 0
   },
   {

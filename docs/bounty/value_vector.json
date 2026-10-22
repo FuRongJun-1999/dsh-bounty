@@ -1163,6 +1163,35 @@
    "rounds": 1
   },
   {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "A",
+   "issues": [
+    968,
+    969,
+    971,
+    1025,
+    1026,
+    1027,
+    1104,
+    1222,
+    1223,
+    1224,
+    1316,
+    1358,
+    1457,
+    1514,
+    1522,
+    1541
+   ],
+   "login": "sufancy",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 57,
+   "rounds": 1
+  },
+  {
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
@@ -1291,34 +1320,6 @@
    "project": "memory",
    "quality_E": null,
    "reputation_delta": 52,
-   "rounds": 1
-  },
-  {
-   "difficulty": "hard",
-   "difficulty_base": 6,
-   "evidence_strength": true,
-   "impact_grade": "A",
-   "issues": [
-    968,
-    969,
-    971,
-    1025,
-    1026,
-    1027,
-    1104,
-    1222,
-    1223,
-    1224,
-    1316,
-    1358,
-    1457,
-    1514,
-    1522
-   ],
-   "login": "sufancy",
-   "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 51,
    "rounds": 1
   },
   {

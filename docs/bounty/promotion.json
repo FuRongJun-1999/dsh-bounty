@@ -1764,19 +1764,20 @@
     1457,
     1514,
     1522,
-    1524
+    1524,
+    1541
    ],
    "login": "sufancy",
    "projects": [],
-   "reputation_delta": 57,
+   "reputation_delta": 63,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 16,
+   "round_known": 17,
    "round_seen": [
     1
    ],
-   "settled": 16,
+   "settled": 17,
    "timeout": 0
   },
   {

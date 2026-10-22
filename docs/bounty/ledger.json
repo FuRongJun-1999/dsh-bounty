@@ -37652,6 +37652,35 @@
         "delta": 3
       },
       "id": "evt_efde517aa8ae"
+    },
+    {
+      "ts": "2026-10-22T14:39:38Z",
+      "issue": 1541,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "sufancy",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【增量】dsh-bigseed（BigSeedSkill）v1.0.0 安全六威胁审计·第2版（运行时守卫）：脚本层已验证无网络/无子进程/越界读写各0、破坏性API 0调用；新增 P2 —— SKILL.md 的 `--content \"用户原话\"` 调用形态在 shell shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1541
+      ],
+      "project": "bench",
+      "impact": "A",
+      "day": "2026-10-22",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_4c2b01ada516"
     }
   ]
 }

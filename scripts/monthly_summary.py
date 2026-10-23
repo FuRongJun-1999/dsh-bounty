@@ -87,6 +87,16 @@ def _proj_brief(counter, top=3):
     return ' / '.join('%s %d' % (k, v) for k, v in items)
 
 def build(events):
+    # 空账本是一个合法状态（新克隆 / 初始化后 / 人为清空）：应产出空表并 rc=0，
+    # 与 check_ledger_invariants 的 A6「空账本 rc=0（不误报）」同口径。
+    # 修复前会在 all_days[0] / months[-1] 抛 IndexError（裸栈，看不出是空账本）。
+    if not events:
+        return ('# 灵枢悬赏板 · 贡献总表\n'
+                '\n'
+                '> 本页由 scripts/monthly_summary.py 从 docs/bounty/ledger.json（append-only 事件流）机械生成——勿手改。\n'
+                '> 账本事件数：0 ｜ Δ 合计：0 ｜ 贡献者：0 ｜ 项目：0 ｜ 结算日：0 ｜ 区间：— ~ —\n'
+                '\n'
+                '（账本为空：尚无结算事件；首条事件入账后重跑即自动填充。）\n', 0, 0)
     by_year, by_month, by_holder, hm, hy, hdiff, hproj = aggregate(events)
     total_n = sum(d['n'] for d in by_year.values())
     total_delta = sum(d['delta'] for d in by_year.values())

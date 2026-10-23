@@ -233,6 +233,14 @@ def main(argv=None) -> int:
             # ⇒ 源与产物漂移**无任何守卫拦得住**。这正是《运行手册》§四-1 自认的盲区
             # （原文点名了本函数的 --check 与那份测试）。
             # 向后兼容：不给 --out 时行为与旧版**逐位一致**（只做确定性自检）。
+            if args.out and not os.path.isfile(args.out):
+                # 显式给了 --out 却盘上没有产物 ⇒ **不是「一致」**：漏生成 / 被删 / 路径写错，
+                # 三种都该红。旧实现把这一支落到下面「确定性自检通过」并 rc=0，
+                # 即「没检查」被当成「检查通过」——本仓纪律 14 明令禁止的静默失败。
+                print("::error::产物不存在：%s（给了 --out 但盘上无此文件；"
+                      "请先跑一次不带 --check 的生成，或核对路径）" % args.out,
+                      file=sys.stderr)
+                return 1
             if args.out and os.path.isfile(args.out):
                 got = io.open(args.out, encoding="utf-8").read()
                 if got != text:

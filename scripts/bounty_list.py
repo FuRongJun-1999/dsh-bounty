@@ -195,6 +195,17 @@ def validate(doc):
 
 
 def main(argv):
+    # 未知参数必须**拒**，不能静默忽略：本脚本只有 --stdout / --check 两个开关，
+    # 但旧实现用 `in argv` 逐个探测，于是 `--ledger X`、`--out Y` 这类**拼错的参数**
+    # 会被当成「没给」→ 照常读默认真源、照常写默认产物，还打印「已生成 …」并 rc=0。
+    # 后果：调用者以为指定了路径，实际写到了 docs/bounty/悬赏清单.md（或被判「一致」）。
+    # 口径：未知参数属输入错误 ⇒ 点名 + 退 2（与畸形真源同码，都不是「产物需重生成」）。
+    known = {"--stdout", "--check"}
+    unknown = [a for a in argv if a not in known]
+    if unknown:
+        sys.stderr.write("::error::未知参数：%s（本脚本只认 %s）\n"
+                         % (" ".join(unknown), " / ".join(sorted(known))))
+        return 2
     # 真源畸形 ⇒ 点名 + 退 2（与漂移的 1、校验失败的 2 口径一致：畸形输入不是「产物需重生成」）。
     try:
         doc = load(SRC)

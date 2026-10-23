@@ -72,6 +72,33 @@ def main():
             bad.append(h)
     check('A2f 每个贡献者月/年/总计自洽', not bad, 'mismatch=%r' % bad[:5])
 
+    # ---- A4 当月明细表自洽（跨月才暴露：三列必须是「当月」口径，不是全生命周期） ----
+    two = [
+        {"issue": 1, "day": "2026-10-03", "delta": 3, "holder": "alice", "project": "mem",  "difficulty": "medium"},
+        {"issue": 2, "day": "2026-10-05", "delta": 3, "holder": "alice", "project": "mem",  "difficulty": "medium"},
+        {"issue": 3, "day": "2026-10-07", "delta": 1, "holder": "bob",   "project": "site", "difficulty": "easy"},
+        {"issue": 4, "day": "2026-11-02", "delta": 6, "holder": "alice", "project": "mem",  "difficulty": "hard"},
+    ]
+    t2s, _, _ = monthly_summary.build(two)
+    blk = t2s.split('## 当月结算明细')[1].split('## 月度趋势')[0]
+    rows = [l for l in blk.splitlines() if l.startswith('| ') and '@' in l]
+    tot = [l for l in blk.splitlines() if l.startswith('| ') and '合计' in l][0]
+
+    def cells(r):
+        return [c.strip().strip('*') for c in r.strip().strip('|').split('|')]
+
+    data = [cells(r) for r in rows]
+    total = cells(tot)
+    sum_n = sum(int(c[3]) for c in data)
+    sum_diff = [sum(int(c[i]) for c in data) for i in (4, 5, 6, 7)]
+    check('A4 当月明细：每人行「结算项」之和 == 合计行 == 当月事件数',
+          sum_n == int(total[3]) == 1, 'rows=%d total=%s' % (sum_n, total[3]))
+    check('A4b 当月明细：难度列每人之和 == 合计行（当月口径，不含他月）',
+          sum_diff == [int(total[i]) for i in (4, 5, 6, 7)] == [0, 0, 1, 0],
+          'rows=%r total=%r' % (sum_diff, [total[i] for i in (4, 5, 6, 7)]))
+    check('A4c 当月明细：项目分布 = 当月 Δ（不是全期 Δ）',
+          data[0][8] == 'mem 6', 'alice=%r' % data[0][8])
+
     # ---- A3 盘上不陈旧 ----
     if not os.path.isfile(COMMITTED):
         check('A3 盘上产物存在', False, '缺 %s' % COMMITTED)

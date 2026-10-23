@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""贡献总表（按年/按月）守卫：聚合自洽 ＋ 盘上产物不陈旧。
+"""贡献总表守卫：聚合自洽（含贡献者维度）＋ 盘上产物不陈旧。
 
 为什么需要（本仓已发生过的失效形态）：
   生成器改了口径、或账本追加了新事件，而 docs/bounty/贡献总表.md 没重新生成时，
-  盘上那份会**静默陈旧**——render 本身不红、账本不变量也不查它（I13 只查日表）。
+  盘上那份会**静默陈旧** —— render 本身不红、账本不变量也不查它（I13 只查日表）。
   本守卫把「盘上 == 现算」变成可执行断言。
 
-三条断言：
-  A1 确定性：同一账本两次渲染逐字节相同。
-  A2 聚合自洽：年合计 == 月合计 == 事件数；Δ 同。
-  A3 盘上不陈旧：committed 的贡献总表.md 与现算结果逐字节相同。
+断言：
+  A1  确定性：同一账本两次渲染逐字节相同。
+  A2  年 / 月 / 事件数 三路一致。
+  A2b Δ 三路一致。
+  A2c 贡献者合计 == 总计（新增维度，防「按人聚合漏项」）。
+  A2d 贡献者×月 合计 == 总计（月度结算主表的口径）。
+  A2e 贡献者×年 合计 == 总计。
+  A3  盘上不陈旧：committed 的贡献总表.md 与现算结果逐字节相同。
 """
 
 import io
@@ -25,13 +29,13 @@ import monthly_summary  # noqa: E402
 LEDGER = os.path.join(ROOT, 'docs', 'bounty', 'ledger.json')
 COMMITTED = os.path.join(ROOT, 'docs', 'bounty', '贡献总表.md')
 
-PASS = []
-FAIL = []
+PASSED = []
+FAILED = []
 
 
 def check(name, ok, detail=''):
-    (PASS if ok else FAIL).append((name, detail))
-    print('[%s] %s%s' % ('PASS' if ok else 'FAIL', name, ('  ← ' + detail) if detail else ''))
+    (PASSED if ok else FAILED).append((name, detail))
+    print('[%s] %s%s' % ('PASS' if ok else 'FAIL', name, ('  <- ' + detail) if detail else ''))
 
 
 def main():
@@ -44,15 +48,29 @@ def main():
           'first diff at %r' % next((i for i, (a, b) in enumerate(zip(t1, t2)) if a != b), -1))
 
     # ---- A2 聚合自洽 ----
-    by_year, by_month, by_ym = monthly_summary.aggregate(events)
+    by_year, by_month, by_holder, hm, hy, _hd, _hp = monthly_summary.aggregate(events)
     yn = sum(x['n'] for x in by_year.values())
     mn = sum(x['n'] for x in by_month.values())
     yd = sum(x['delta'] for x in by_year.values())
     md = sum(x['delta'] for x in by_month.values())
+    hd = sum(x['delta'] for x in by_holder.values())
+    hm_d = sum(sum(v.values()) for v in hm.values())
+    hy_d = sum(sum(v.values()) for v in hy.values())
+
     check('A2 年/月/事件数三路一致', yn == mn == len(events) == n1,
           'year=%d month=%d events=%d header=%d' % (yn, mn, len(events), n1))
     check('A2b 年/月 Δ 三路一致', yd == md == d1,
           'year=%d month=%d header=%d' % (yd, md, d1))
+    check('A2c 贡献者 Δ 合计 == 总计', hd == d1, 'holders=%d header=%d' % (hd, d1))
+    check('A2d 贡献者x月 Δ 合计 == 总计', hm_d == d1, 'hm=%d header=%d' % (hm_d, d1))
+    check('A2e 贡献者x年 Δ 合计 == 总计', hy_d == d1, 'hy=%d header=%d' % (hy_d, d1))
+
+    # 贡献者逐人：其各月之和 == 其年之和 == 其总计
+    bad = []
+    for h, d in by_holder.items():
+        if sum(hm[h].values()) != d['delta'] or sum(hy[h].values()) != d['delta']:
+            bad.append(h)
+    check('A2f 每个贡献者月/年/总计自洽', not bad, 'mismatch=%r' % bad[:5])
 
     # ---- A3 盘上不陈旧 ----
     if not os.path.isfile(COMMITTED):
@@ -64,8 +82,8 @@ def main():
               '重跑 scripts/monthly_summary.py --out docs/bounty/贡献总表.md')
 
     print()
-    print('通过 %d / 失败 %d' % (len(PASS), len(FAIL)))
-    return 0 if not FAIL else 1
+    print('通过 %d / 失败 %d' % (len(PASSED), len(FAILED)))
+    return 0 if not FAILED else 1
 
 
 if __name__ == '__main__':

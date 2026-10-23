@@ -84,7 +84,33 @@ def main():
     a = ap.parse_args()
     rows = []
     if a.offline_fixture:
-        for it in json.load(io.open(a.offline_fixture, encoding='utf-8')):
+        # 畸形 fixture 必须**点名 + 退 2**（与 evidence_probe 未知 id、evidence_check 互斥旗标同口径）：
+        # 旧实现对五类坏输入全部裸栈 —— 文件缺失 FileNotFoundError、非法 JSON JSONDecodeError、
+        # 顶层非数组 TypeError、元素非对象 TypeError、元素缺 issue 键 KeyError ——
+        # 调用者只看到 traceback，分不清是「fixture 坏了」还是「自审器自己坏了」。
+        # 注意：**有违例**仍是 rc=1（那是判据结论），**输入坏**才是 rc=2（那是判据不可用）。
+        try:
+            with io.open(a.offline_fixture, encoding='utf-8') as _fh:
+                _doc = json.load(_fh)
+        except OSError as exc:
+            print('::error::fixture 读不到：%s（%s）' % (a.offline_fixture, exc), file=sys.stderr)
+            sys.exit(2)
+        except ValueError as exc:
+            print('::error::fixture 不是合法 JSON：%s（%s）' % (a.offline_fixture, exc), file=sys.stderr)
+            sys.exit(2)
+        if not isinstance(_doc, list):
+            print('::error::fixture 顶层不是数组：%s（实际 %s）'
+                  % (a.offline_fixture, type(_doc).__name__), file=sys.stderr)
+            sys.exit(2)
+        for _i, it in enumerate(_doc):
+            if not isinstance(it, dict):
+                print('::error::fixture 第 %d 个元素不是对象：%s（实际 %s）'
+                      % (_i, a.offline_fixture, type(it).__name__), file=sys.stderr)
+                sys.exit(2)
+            if 'issue' not in it:
+                print('::error::fixture 第 %d 个元素缺 issue 键：%s' % (_i, a.offline_fixture),
+                      file=sys.stderr)
+                sys.exit(2)
             rows.append((it['issue'], it.get('body') or ''))
     elif a.live:
         rows = list(_live_issues())

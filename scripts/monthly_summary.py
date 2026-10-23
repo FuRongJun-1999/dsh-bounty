@@ -25,11 +25,19 @@ import sys
 
 
 def load(ledger_path):
-    with io.open(ledger_path, encoding='utf-8') as f:
-        led = json.load(f)
+    # 路径不存在 / 不是合法 JSON：兄弟闸（check_ledger_invariants、daily_table）都点名 + 非零退出；
+    # 这里原先直接裸栈（FileNotFoundError / JSONDecodeError），看不出是哪一种坏法。
+    if not os.path.isfile(ledger_path):
+        raise SystemExit('::error::账本不存在：%s（检查 --ledger 路径）' % ledger_path)
+    try:
+        with io.open(ledger_path, encoding='utf-8') as f:
+            led = json.load(f)
+    except ValueError as exc:
+        raise SystemExit('::error::账本不是合法 JSON：%s（%s）' % (ledger_path, exc))
     events = led.get('events') or []
     if not isinstance(events, list):
-        raise SystemExit('账本 events 不是数组')
+        raise SystemExit('::error::账本 events 不是数组：%s（实际 %s）'
+                         % (ledger_path, type(events).__name__))
     return events
 
 

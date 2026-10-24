@@ -42930,6 +42930,93 @@
         "delta": 3
       },
       "id": "evt_2ac6070fc8c9"
+    },
+    {
+      "ts": "2026-10-24T13:20:52Z",
+      "issue": 1767,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-zhe-zi-shen (conflict-of-interest noted): [intake 输入] 【深度审计报告】@dsh-remote/plugin 0.5.1 端到端加密实现核对与默认中继披露 shen-li.",
+      "pr": null,
+      "covers": [
+        1767
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-24",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1e8b6fe9cd2a"
+    },
+    {
+      "ts": "2026-10-24T13:20:52Z",
+      "issue": 1768,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-zhe-zi-shen (conflict-of-interest noted): 修复交付：lingshu PR #948——#393 残余（meta numpy 标量透明转换，守卫+变异+指纹重登记） shen-li.",
+      "pr": null,
+      "covers": [
+        1768
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-24",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_d39a28ec1a58"
+    },
+    {
+      "ts": "2026-10-24T13:20:52Z",
+      "issue": 1769,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "FuRongJun-1999",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-zhe-zi-shen (conflict-of-interest noted): [P2] F27-01 tests/test_check_links_c21.py:88-103 change_scope() 锚在 live worktree —— 本地任何未提交改动即假红 shen-li.",
+      "pr": null,
+      "covers": [
+        1769
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-10-24",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_cc958b869ac7"
     }
   ]
 }

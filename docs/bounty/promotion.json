@@ -1081,19 +1081,20 @@
     1759,
     1764,
     1765,
-    1766
+    1766,
+    1767
    ],
    "login": "123WP-a",
    "projects": [],
-   "reputation_delta": 213,
+   "reputation_delta": 216,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 51,
+   "round_known": 52,
    "round_seen": [
     1
    ],
-   "settled": 51,
+   "settled": 52,
    "timeout": 0
   },
   {
@@ -1371,19 +1372,20 @@
     1719,
     1720,
     1721,
-    1722
+    1722,
+    1768
    ],
    "login": "MWHWX",
    "projects": [],
-   "reputation_delta": 154,
+   "reputation_delta": 157,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 52,
+   "round_known": 53,
    "round_seen": [
     1
    ],
-   "settled": 52,
+   "settled": 53,
    "timeout": 0
   },
   {
@@ -1884,19 +1886,20 @@
     1737,
     1738,
     1739,
-    1740
+    1740,
+    1769
    ],
    "login": "FuRongJun-1999",
    "projects": [],
-   "reputation_delta": 91,
+   "reputation_delta": 94,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 32,
+   "round_known": 33,
    "round_seen": [
     1
    ],
-   "settled": 32,
+   "settled": 33,
    "timeout": 0
   },
   {

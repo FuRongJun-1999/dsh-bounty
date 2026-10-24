@@ -159,6 +159,18 @@ def build(events):
     add('| **合计** | ' + ' | '.join('**%d**' % by_month[ym]['delta'] for ym in months) + ' | **%d** | **%d** |' % (total_delta, total_n))
     add('')
     latest = months[-1]
+    # 当月口径的逐人数：结算项 / 难度分布 / 项目分布都必须是「该月」的，
+    # 不能借用 by_holder / hdiff / hproj（那是全生命周期口径）。
+    # 单月账本下两者恰好相等，跨月即错 —— 见 tests/test_monthly_summary.py A4。
+    month_detail = collections.defaultdict(
+        lambda: {'n': 0, 'diff': collections.Counter(), 'proj': collections.Counter()})
+    for e in events:
+        if (e.get('day') or '')[:7] != latest:
+            continue
+        md = month_detail[e.get('holder') or '(unknown)']
+        md['n'] += 1
+        md['diff'][e.get('difficulty') or '?'] += 1
+        md['proj'][e.get('project') or '(unknown)'] += int(e.get('delta') or 0)
     add('## 当月结算明细 · %s' % latest)
     add('')
     add('用于当月结付核对：每人一行，含难度分布与项目分布。')
@@ -168,17 +180,18 @@ def build(events):
     in_month = [h for h in holders if hm[h].get(latest)]
     in_month.sort(key=lambda h: (-hm[h][latest], h))
     for i, h in enumerate(in_month, 1):
-        d = hdiff[h]
+        d = month_detail[h]
         add('| %d | @%s | **%d** | %d | %d | %d | %d | %d | %s |' % (
-            i, h, hm[h][latest], by_holder[h]['n'],
-            d.get('easy', 0), d.get('medium', 0), d.get('hard', 0), d.get('expert', 0),
-            _proj_brief(hproj[h])))
+            i, h, hm[h][latest], d['n'],
+            d['diff'].get('easy', 0), d['diff'].get('medium', 0),
+            d['diff'].get('hard', 0), d['diff'].get('expert', 0),
+            _proj_brief(d['proj'])))
     add('| — | **合计** | **%d** | **%d** | %d | %d | %d | %d | — |' % (
         by_month[latest]['delta'], by_month[latest]['n'],
-        sum(hdiff[h].get('easy', 0) for h in in_month),
-        sum(hdiff[h].get('medium', 0) for h in in_month),
-        sum(hdiff[h].get('hard', 0) for h in in_month),
-        sum(hdiff[h].get('expert', 0) for h in in_month)))
+        sum(month_detail[h]['diff'].get('easy', 0) for h in in_month),
+        sum(month_detail[h]['diff'].get('medium', 0) for h in in_month),
+        sum(month_detail[h]['diff'].get('hard', 0) for h in in_month),
+        sum(month_detail[h]['diff'].get('expert', 0) for h in in_month)))
     add('')
 
     add('## 月度趋势')

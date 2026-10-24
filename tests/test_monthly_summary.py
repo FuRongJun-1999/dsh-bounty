@@ -108,6 +108,25 @@ def main():
         check('A3 盘上产物 == 现算（不陈旧）', disk == t1,
               '重跑 scripts/monthly_summary.py --out docs/bounty/贡献总表.md')
 
+    # ---- A8 畸形/缺失账本：点名 + 非零，不得裸栈 ----
+    import subprocess, tempfile
+    d8 = tempfile.mkdtemp(prefix='ms_bad_')
+    cases = (
+        ('缺失', os.path.join(d8, 'nope.json'), '账本不存在'),
+        ('非法 JSON', os.path.join(d8, 'bad.json'), '不是合法 JSON'),
+        ('events 非数组', os.path.join(d8, 'shape.json'), 'events 不是数组'),
+    )
+    io.open(cases[1][1], 'w', encoding='utf-8').write('{"events": [')
+    io.open(cases[2][1], 'w', encoding='utf-8').write('{"events": "x"}')
+    for _label, _path, _want in cases:
+        _p = subprocess.run([sys.executable, '-X', 'utf8', os.path.join(ROOT, 'scripts', 'monthly_summary.py'),
+                             '--check', '--ledger', _path],
+                            capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=120)
+        _out = (_p.stdout or '') + (_p.stderr or '')
+        check('A8 %s 账本：点名「%s」且不裸栈' % (_label, _want),
+              _p.returncode != 0 and _want in _out and 'Traceback' not in _out,
+              'rc=%d' % _p.returncode)
+
     print()
     print('通过 %d / 失败 %d' % (len(PASSED), len(FAILED)))
     return 0 if not FAILED else 1

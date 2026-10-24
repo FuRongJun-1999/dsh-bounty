@@ -115,6 +115,15 @@ def measure():
             f.write("漂移注入\n")
         rc4, _, _ = py(d, "scripts/bounty_list.py", "--check")
         m["check_ok"] = (rc3 == 0 and rc4 == 1)
+        # 未知参数不得被静默忽略（旧实现用 `in argv` 探测开关，`--ledger X`/`--out Y` 会被当「没给」
+        # ⇒ 照常读默认真源、写默认产物并 rc=0，调用者以为指定了路径）。
+        rc7, _, err7 = py(d, "scripts/bounty_list.py", "--ledger", "/nonexistent-x.json", "--check")
+        m["unknown_ledger_rejected"] = (rc7 == 2 and "未知参数" in err7)
+        stray = os.path.join(d, "docs", "bounty", "stray-out.md")
+        rc8, out8, err8 = py(d, "scripts/bounty_list.py", "--out", stray)
+        m["unknown_out_rejected"] = (rc8 == 2 and "未知参数" in err8 and not os.path.isfile(stray)
+                                      and "已生成" not in out8)
+        m["known_flags_still_ok"] = (rc2 == 0 and rc3 == 0)
         d2 = sandbox(mutate_json=lambda doc: doc["items"][0].__setitem__("score", 99))
         o2 = os.path.join(d2, "docs", "bounty", "悬赏清单.md")
         rc5, _, err5 = py(d2, "scripts/bounty_list.py")
@@ -174,6 +183,9 @@ def judge(m):
     ok("A19 na 不适用条件章存在且条目数 == 真源", m["na_hdr"] == 1 and m["na_items"] == m["na_n"])
     ok("A20 order 总览表顺序与明细章一致", m["tbl_ids"] == m["dids"])
     ok("A21 stat-tbl 总览表状态列为中文（无英文枚举泄漏）", m["tbl_stat_ok"])
+    ok("A22 unknown --ledger 被拒（rc=2 且点名「未知参数」）", m["unknown_ledger_rejected"])
+    ok("A23 unknown --out 被拒且不落盘、不报「已生成」", m["unknown_out_rejected"])
+    ok("A24 known flags 仍正常（--stdout/--check）", m["known_flags_still_ok"])
     return list(_red)
 
 

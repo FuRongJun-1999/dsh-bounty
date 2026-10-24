@@ -2252,7 +2252,7 @@
   },
   {
    "blockers": [
-    "声誉分 10 < 24"
+    "声誉分 11 < 24"
    ],
    "disputes": 0,
    "eligible": false,
@@ -2264,19 +2264,20 @@
     1047,
     1195,
     1359,
-    1483
+    1483,
+    1699
    ],
    "login": "fladyck",
    "projects": [],
-   "reputation_delta": 10,
+   "reputation_delta": 11,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 4,
+   "round_known": 5,
    "round_seen": [
     1
    ],
-   "settled": 4,
+   "settled": 5,
    "timeout": 0
   },
   {

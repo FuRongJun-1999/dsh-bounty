@@ -40958,6 +40958,35 @@
         "delta": 3
       },
       "id": "evt_050ae4f6e9b3"
+    },
+    {
+      "ts": "2026-10-24T01:08:37Z",
+      "issue": 1699,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][缺陷报告] dsh-memory recall(use_rrf=False) 遗漏角色参数，roles/include_work 显式筛选失效 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1699
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-10-24",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_adb803cfa099"
     }
   ]
 }

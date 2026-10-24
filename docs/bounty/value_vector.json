@@ -2999,6 +2999,20 @@
    "quality_E": null,
    "reputation_delta": 2,
    "rounds": 1
+  },
+  {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "C",
+   "issues": [
+    1699
+   ],
+   "login": "fladyck",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 1,
+   "rounds": 1
   }
  ]
 }

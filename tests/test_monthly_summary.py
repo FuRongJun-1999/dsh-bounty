@@ -98,6 +98,15 @@ def main():
           'rows=%r total=%r' % (sum_diff, [total[i] for i in (4, 5, 6, 7)]))
     check('A4c 当月明细：项目分布 = 当月 Δ（不是全期 Δ）',
           data[0][8] == 'mem 6', 'alice=%r' % data[0][8])
+    # ---- A7 空账本：合法状态，不崩、合计 0（与 check_ledger_invariants A6 同口径） ----
+    try:
+        t0, n0, d0 = monthly_summary.build([])
+        empty_ok = (n0 == 0 and d0 == 0 and '账本为空' in t0)
+        empty_detail = 'n=%r d=%r has_note=%r' % (n0, d0, '账本为空' in t0)
+    except Exception as ex:  # noqa: BLE001 —— 守卫要把它变成可点名的 FAIL，而不是让整条腿裸栈
+        empty_ok = False
+        empty_detail = '%s: %s' % (type(ex).__name__, ex)
+    check('A7 空账本：不崩、合计 0、明说「账本为空」', empty_ok, empty_detail)
 
     # ---- A3 盘上不陈旧 ----
     if not os.path.isfile(COMMITTED):

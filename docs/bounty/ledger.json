@@ -41277,6 +41277,35 @@
         "delta": 3
       },
       "id": "evt_2c7d64e4c257"
+    },
+    {
+      "ts": "2026-10-24T05:46:04Z",
+      "issue": 1710,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入] 第三方批量存续复核（第二十四批）：lingshu #22 率类兜底读数仍成立、#23 模块面+57%、#21 独立互证维护者结论——3 条轻口径复核 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1710
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-10-24",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_f9a6a13c4d1e"
     }
   ]
 }

@@ -934,8 +934,8 @@
    "rounds": 1
   },
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
+   "difficulty": "easy",
+   "difficulty_base": 1,
    "evidence_strength": true,
    "impact_grade": "C",
    "issues": [
@@ -967,12 +967,13 @@
     1706,
     1707,
     1708,
-    1709
+    1709,
+    1710
    ],
    "login": "MWHWX",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 91,
+   "reputation_delta": 92,
    "rounds": 1
   },
   {

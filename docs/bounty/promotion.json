@@ -1597,19 +1597,20 @@
     1706,
     1707,
     1708,
-    1709
+    1709,
+    1710
    ],
    "login": "MWHWX",
    "projects": [],
-   "reputation_delta": 118,
+   "reputation_delta": 119,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 40,
+   "round_known": 41,
    "round_seen": [
     1
    ],
-   "settled": 40,
+   "settled": 41,
    "timeout": 0
   },
   {

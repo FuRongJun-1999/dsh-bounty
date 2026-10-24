@@ -71,6 +71,13 @@ b = _chk(out)
 check('B rc=1', b.returncode == 1, f'rc={b.returncode}')
 check('B 点名「产物漂移」', "产物漂移" in b.stderr, (b.stderr or "").strip()[:64])
 
+print('— E 产物不存在 ⇒ 退出 1（不得把「没检查」当「通过」） —')
+missing = os.path.join(d, 'not-generated-贡献表.md')
+e = _chk(missing)
+check('E rc=1', e.returncode == 1, f'rc={e.returncode}')
+check('E 点名「产物不存在」', '产物不存在' in (e.stderr or ''), (e.stderr or '').strip()[:64])
+check('E 输出不含「确定性自检通过」', '确定性自检通过' not in e.stdout, e.stdout.strip()[:56])
+
 print('— C 向后兼容：不给 --out ⇒ 只做确定性自检 —')
 c = _chk(None)
 check('C rc=0（与旧版一致）', c.returncode == 0, f'rc={c.returncode}')

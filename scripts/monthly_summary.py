@@ -34,6 +34,11 @@ def load(ledger_path):
             led = json.load(f)
     except ValueError as exc:
         raise SystemExit('::error::账本不是合法 JSON：%s（%s）' % (ledger_path, exc))
+    # F26-01（dsh-bounty #1726）：根不是 dict 时 .get 会抛 AttributeError 裸栈，
+    # 与本函数上方「每种坏法都点名」的口径自相矛盾。
+    if not isinstance(led, dict):
+        raise SystemExit('::error::账本根不是对象：%s（实际 %s；期望 {"events": [...]}）'
+                         % (ledger_path, type(led).__name__))
     events = led.get('events') or []
     if not isinstance(events, list):
         raise SystemExit('::error::账本 events 不是数组：%s（实际 %s）'
@@ -58,7 +63,16 @@ def aggregate(events):
         if len(day) < 10:
             raise SystemExit('事件 day 非法：%r（issue=%r）' % (day, e.get('issue')))
         y, ym = day[:4], day[:7]
-        delta = int(e.get('delta') or 0)
+        # F26-05（dsh-bounty #1730）：非整数字符串会让 int() 抛 ValueError 裸栈；
+        # bool 是 int 子类但不该被当成分值。两者都点名，不静默取整（daily_table 同款守卫）。
+        raw_delta = e.get('delta')
+        if raw_delta is None:
+            delta = 0
+        elif isinstance(raw_delta, bool) or not isinstance(raw_delta, int):
+            raise SystemExit('::error::事件 delta 不是整数：%r（issue=%r）'
+                             % (raw_delta, e.get('issue')))
+        else:
+            delta = raw_delta
         holder = e.get('holder') or '(unknown)'
         project = e.get('project') or '(unknown)'
 

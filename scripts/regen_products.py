@@ -55,9 +55,21 @@ STEPS = (
 )
 
 
+class _TimedOut(object):
+    """subprocess.CompletedProcess 的替身：超时时用它，好让调用方按统一形状处理。"""
+    returncode = 124
+    stdout = ''
+    stderr = 'TimeoutExpired: 单步超过 timeout 秒'
+
+
 def _run(argv, cwd, timeout=600):
-    return subprocess.run([PY, '-X', 'utf8'] + argv, cwd=cwd, capture_output=True,
-                          text=True, encoding='utf-8', errors='replace', timeout=timeout)
+    # F26-04（dsh-bounty #1729）：原先不捕获 subprocess.TimeoutExpired，
+    # 任一步超时即裸栈退出，且**记不进 failed** —— 与本脚本「每步都点名」的口径矛盾。
+    try:
+        return subprocess.run([PY, '-X', 'utf8'] + argv, cwd=cwd, capture_output=True,
+                              text=True, encoding='utf-8', errors='replace', timeout=timeout)
+    except subprocess.TimeoutExpired:
+        return _TimedOut()
 
 
 def main(argv):

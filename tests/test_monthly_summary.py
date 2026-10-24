@@ -136,6 +136,35 @@ def main():
               _p.returncode != 0 and _want in _out and 'Traceback' not in _out,
               'rc=%d' % _p.returncode)
 
+    # ---- A9 非 dict 根：点名，不得 AttributeError 裸栈（dsh-bounty #1726 / F26-01） ----
+    for _label, _body in (('list 根', '[1, 2]'), ('str 根', '"x"'), ('null 根', 'null')):
+        _p = os.path.join(d8, 'root_%s.json' % _label.split()[0])
+        io.open(_p, 'w', encoding='utf-8').write(_body)
+        _r = subprocess.run([sys.executable, '-X', 'utf8',
+                             os.path.join(ROOT, 'scripts', 'monthly_summary.py'),
+                             '--check', '--ledger', _p],
+                            capture_output=True, text=True, encoding='utf-8',
+                            errors='replace', timeout=120)
+        _o = (_r.stdout or '') + (_r.stderr or '')
+        check('A9 %s：点名「账本根不是对象」且不裸栈' % _label,
+              _r.returncode != 0 and '账本根不是对象' in _o and 'Traceback' not in _o,
+              'rc=%d' % _r.returncode)
+
+    # ---- A10 delta 非整数：点名，不得 ValueError 裸栈（dsh-bounty #1730 / F26-05） ----
+    for _label, _val in (('字符串', '"abc"'), ('布尔', 'true'), ('浮点', '1.5')):
+        _p = os.path.join(d8, 'delta_%s.json' % _label)
+        io.open(_p, 'w', encoding='utf-8').write(
+            '{"events": [{"issue": 1, "day": "2026-10-01", "delta": %s, "holder": "x"}]}' % _val)
+        _r = subprocess.run([sys.executable, '-X', 'utf8',
+                             os.path.join(ROOT, 'scripts', 'monthly_summary.py'),
+                             '--check', '--ledger', _p],
+                            capture_output=True, text=True, encoding='utf-8',
+                            errors='replace', timeout=120)
+        _o = (_r.stdout or '') + (_r.stderr or '')
+        check('A10 delta %s：点名「delta 不是整数」且不裸栈' % _label,
+              _r.returncode != 0 and 'delta 不是整数' in _o and 'Traceback' not in _o,
+              'rc=%d' % _r.returncode)
+
     print()
     print('通过 %d / 失败 %d' % (len(PASSED), len(FAILED)))
     return 0 if not FAILED else 1

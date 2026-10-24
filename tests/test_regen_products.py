@@ -68,6 +68,11 @@ def main():
     check('A2 每步 argv 都是字符串列表（不过 shell）', not bad, 'bad=%r' % bad)
 
     # ---- A3 真跑：每步 rc==0 且产物存在 ----
+    #  先给「已跟踪脏文件」拍快照，跑完只比**新增**的脏项 —— 否则开发中带未提交改动时
+    #  会把既有改动误判成「重生成不幂等」。
+    g0 = sh(['git', 'status', '--porcelain'], to=120)
+    dirty_before = {l for l in (g0.stdout or '').splitlines()
+                    if l.strip() and not l.startswith('??')}
     p = sh([sys.executable, '-X', 'utf8', 'scripts/regen_products.py'], to=900)
     o = p.stdout or ''
     fails = re.findall(r'^\\[FAIL\\]\\s+(\\S+)', o, re.M)
@@ -81,12 +86,13 @@ def main():
             absent.append('%s:%s' % (name, product))
     check('A3b 每步声称的产物确实存在', not absent, 'absent=%r' % absent[:5])
 
-    # ---- A4 幂等：已跟踪文件零改动 ----
+    # ---- A4 幂等：跑完**不新增**已跟踪脏项（相对跑前快照） ----
     g = sh(['git', 'status', '--porcelain'], to=120)
-    tracked_dirty = [l for l in (g.stdout or '').splitlines()
-                     if l.strip() and not l.startswith('??')]
-    check('A4 跑完已跟踪文件零改动（幂等）', not tracked_dirty,
-          'dirty=%r' % tracked_dirty[:5])
+    dirty_after = {l for l in (g.stdout or '').splitlines()
+                   if l.strip() and not l.startswith('??')}
+    added = sorted(dirty_after - dirty_before)
+    check('A4 跑完未新增已跟踪脏项（幂等）', not added,
+          '新增=%r（跑前已有 %d 项，属未提交改动，不计）' % (added[:5], len(dirty_before)))
 
     # ---- A5 与新鲜度闸覆盖不脱节 ----
     tp = os.path.join(ROOT, 'tests', 'test_products_fresh.py')
@@ -99,6 +105,39 @@ def main():
     gap = [x for x in need if x not in products]
     check('A5 新鲜度闸关心的产物都在 STEPS 里', not gap,
           'need=%r gap=%r' % (sorted(set(need)), gap))
+
+    # ---- A6 单步超时：点名 rc=124 且记入 failed，不得 TimeoutExpired 裸栈 ----
+    #  dsh-bounty #1729 / F26-04：原先任一步超 600s 即裸栈退出，且**记不进 failed**
+    #  —— 与本脚本「每步都点名」的口径自相矛盾。
+    slow = os.path.join(ROOT, 'scripts', '_slow_probe_tmp.py')
+    io.open(slow, 'w', encoding='utf-8', newline='\n').write('import time\ntime.sleep(30)\n')
+    real_run = rp._run
+    old_steps = rp.STEPS
+
+    def _quick(argv, cwd, timeout=600):
+        return real_run(argv, cwd, timeout=0.2)   # 走真实 _run 的 try/except
+
+    try:
+        rp.STEPS = (('slow', ['scripts/_slow_probe_tmp.py'], 'none.md'),)
+        rp._run = _quick
+        import contextlib
+        buf = io.StringIO()
+        try:
+            with contextlib.redirect_stdout(buf):   # 屏蔽被调 main() 的打印，免得误导读者
+                rc = rp.main(['--root', ROOT])
+            crashed = False
+            rc_val = rc
+        except Exception as ex:  # noqa: BLE001 —— 裸栈就是失败，要能被点名
+            crashed = True
+            rc_val = '%s: %s' % (type(ex).__name__, ex)
+    finally:
+        rp.STEPS = old_steps
+        rp._run = real_run
+        if os.path.isfile(slow):
+            os.remove(slow)
+
+    check('A6 单步超时：记入 failed 并返回 1（不抛 TimeoutExpired）',
+          (not crashed) and rc_val == 1, 'crashed=%r rc=%r' % (crashed, rc_val))
 
     print()
     print('通过 %d / 失败 %d' % (len(PASSED), len(FAILED)))

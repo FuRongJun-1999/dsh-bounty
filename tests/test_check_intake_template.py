@@ -36,6 +36,44 @@ def test_no_marker_reports():
     rows = [{'issue': 6, 'body': 'no marker here'}]
     r = _run_fixture(rows)
     assert 'no intake:v1 marker' in r.stdout
+
+
+# —— 畸形 fixture 必须**点名 + 退 2**，不得裸栈（本笔新增）——
+# 为什么需要：旧实现对五类坏输入全部裸栈（FileNotFoundError / JSONDecodeError /
+# TypeError / KeyError），调用者只看到 traceback，分不清「fixture 坏了」还是
+# 「自审器自己坏了」。口径：**输入坏 = 2**（判据不可用），**有违例 = 1**（判据结论）。
+def _run_raw(text):
+    fd, path = tempfile.mkstemp(suffix='.json'); os.close(fd)
+    io.open(path, 'w', encoding='utf-8').write(text)
+    env = dict(os.environ); env['PYTHONUTF8'] = '1'
+    r = subprocess.run([sys.executable, '-X', 'utf8', SCRIPT, '--offline-fixture', path],
+                       capture_output=True, text=True, encoding='utf-8', errors='replace', env=env, timeout=60)
+    os.unlink(path)
+    return r
+
+
+def test_bad_fixture_fails_closed():
+    cases = (
+        ('{"issue":1}', '顶层不是数组'),
+        ('["x"]', '元素不是对象'),
+        ('[{"body":"x"}]', '缺 issue 键'),
+        ('[', '不是合法 JSON'),
+    )
+    for raw, want in cases:
+        r = _run_raw(raw)
+        both = (r.stdout or '') + (r.stderr or '')
+        assert r.returncode == 2, (raw, r.returncode, both[:200])
+        assert want in both, (raw, want, both[:200])
+        assert 'Traceback' not in both, (raw, both[:200])
+
+
+def test_missing_fixture_fails_closed():
+    env = dict(os.environ); env['PYTHONUTF8'] = '1'
+    r = subprocess.run([sys.executable, '-X', 'utf8', SCRIPT, '--offline-fixture',
+                        os.path.join(tempfile.gettempdir(), 'no-such-fixture-xyz.json')],
+                       capture_output=True, text=True, encoding='utf-8', errors='replace', env=env, timeout=60)
+    both = (r.stdout or '') + (r.stderr or '')
+    assert r.returncode == 2 and '读不到' in both and 'Traceback' not in both, (r.returncode, both[:200])
 # —— 可执行面（本仓纪律：守卫只有被**真的执行**才算存在）——
 # 为什么必须有这一段：CI 的两条腿都以 `python -X utf8 tests/<file>.py` 形态调用守卫——
 #   · 腿 1c（`.github/workflows/bounty-board-check.yml`）：`for f in tests/test_*.py; do python -X utf8 "$f"`
@@ -46,12 +84,19 @@ def test_no_marker_reports():
 # 本仓工作流头部点名过这个毛病（「有人写了、没人跑」），本段把它接线。
 _ASSERTIONS = (test_clean_fixture_passes, test_repo_drift_warns,
                test_project_mismatch_fails, test_bad_difficulty_fails,
-               test_p_severity_maps, test_no_marker_reports)
+               test_p_severity_maps, test_no_marker_reports,
+               test_bad_fixture_fails_closed, test_missing_fixture_fails_closed)
 
 # 变异臂：锚点 → (原串, 短路串)
 _ARMS = {
     'R1': ("errs.append('project=%s but target=%s implies %s'", "pass  # "),
     'R2': ("errs.append('difficulty=%r not in vocab", "pass  # "),
+    # R3：把「畸形 fixture ⇒ rc=2」的守卫短路掉 ⇒ 新断言必须转红（否则判据空转）。
+    # 锚点取整段 if，确保唯一命中。
+    'R3': ("        if not isinstance(_doc, list):\n"
+           "            print('::error::fixture 顶层不是数组：%s（实际 %s）'\n"
+           "                  % (a.offline_fixture, type(_doc).__name__), file=sys.stderr)\n"
+           "            sys.exit(2)\n", "        pass  #\n"),
 }
 
 

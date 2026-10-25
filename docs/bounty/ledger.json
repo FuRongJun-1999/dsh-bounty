@@ -43017,6 +43017,296 @@
         "delta": 3
       },
       "id": "evt_cc958b869ac7"
+    },
+    {
+      "ts": "2026-10-25T05:07:06Z",
+      "issue": 1770,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: 修复交付：ChineseProgramming PR #11——#1/#2/#3/#4 测试面四连修复（60 文件，pytest 从崩溃到存活，残余 4 文件深层形态如实留 follow-up） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1770
+      ],
+      "project": "chinese_programming",
+      "impact": "B",
+      "day": "2026-10-25",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_3dafe345d236"
+    },
+    {
+      "ts": "2026-10-25T05:07:06Z",
+      "issue": 1771,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 修复验证（Windows 腿）：#332/#304/#302/#20/#51/#349/#355/#389/#351 九件维护者修复逐件原判据确认——9/9 生效零回归（py3.12/Windows） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1771
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-25",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1881851b05be"
+    },
+    {
+      "ts": "2026-10-25T05:07:06Z",
+      "issue": 1772,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【深度审计报告】dsh-memory-local 0.1.0（RestRegular/dsh-memory · source/memory-local） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1772
+      ],
+      "project": "awesome_dsh_plugin",
+      "impact": "B",
+      "day": "2026-10-25",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ce9f946241b3"
+    },
+    {
+      "ts": "2026-10-25T05:07:06Z",
+      "issue": 1773,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-system-vitals 1.3.14 安全面首评：/system-vitals/api/snapshot 无 token、无 Host/Origin 校验，本地页可读主机/资源（P2+P3） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1773
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-25",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_81ff2165b7b3"
+    },
+    {
+      "ts": "2026-10-25T05:07:06Z",
+      "issue": 1774,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-file-memory 0.1.0 安全面首评：安装包漏发 cordis.patch.yml 装不上；.dsh-notes 未做 realpath/lstat（P2/P3） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1774
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-25",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_35c791717114"
+    },
+    {
+      "ts": "2026-10-25T05:07:06Z",
+      "issue": 1775,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-memory-file 1.2.2 安全面首评：.dsh 未 realpath/lstat，junction + hardlink 可把 MEMORY.md 写到 workspace 外（P1） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1775
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-25",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_f48aac2d7bdc"
+    },
+    {
+      "ts": "2026-10-25T05:07:06Z",
+      "issue": 1776,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-tool-user-memory 0.4.0 安全面首评：manager 页免鉴权内嵌 token；本地进程可读写用户记忆（P3） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1776
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-25",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_1582230fb26f"
+    },
+    {
+      "ts": "2026-10-25T05:07:06Z",
+      "issue": 1777,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zijinmengxi",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-instruction-memory 1.4.0 安全面首评：非回环绑定时 Host 闸关闭，DNS rebinding 可写系统提示词条目（P1） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1777
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-25",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_9392698c8b38"
+    },
+    {
+      "ts": "2026-10-25T05:07:06Z",
+      "issue": 1778,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #930：W3 隔离关系条件试演第一增量交付 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1778
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-25",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_85569bb66bbf"
+    },
+    {
+      "ts": "2026-10-25T05:07:06Z",
+      "issue": 1779,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【深度审计报告】@restregular/dsh-memory-panel 0.3.1（RestRegular/dsh-memory · packages/dsh-memory-panel） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1779
+      ],
+      "project": "awesome_dsh_plugin",
+      "impact": "B",
+      "day": "2026-10-25",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_53ed1762dd34"
     }
   ]
 }

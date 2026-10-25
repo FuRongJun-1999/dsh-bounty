@@ -316,7 +316,7 @@
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
-   "impact_grade": "B",
+   "impact_grade": "C",
    "issues": [
     1082,
     1089,
@@ -392,12 +392,13 @@
     1753,
     1754,
     1755,
-    1756
+    1756,
+    1780
    ],
    "login": "says693",
    "project": "bench",
    "quality_E": null,
-   "reputation_delta": 223,
+   "reputation_delta": 226,
    "rounds": 1
   },
   {
@@ -1016,6 +1017,47 @@
    "rounds": 1
   },
   {
+   "difficulty": "hard",
+   "difficulty_base": 6,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    1396,
+    1402,
+    1407,
+    1468,
+    1469,
+    1518,
+    1520,
+    1523,
+    1542,
+    1581,
+    1593,
+    1594,
+    1599,
+    1601,
+    1603,
+    1604,
+    1605,
+    1606,
+    1773,
+    1774,
+    1775,
+    1776,
+    1777,
+    1781,
+    1782,
+    1784,
+    1785,
+    1786
+   ],
+   "login": "zijinmengxi",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 98,
+   "rounds": 1
+  },
+  {
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
@@ -1219,39 +1261,31 @@
    "rounds": 1
   },
   {
-   "difficulty": "hard",
-   "difficulty_base": 6,
+   "difficulty": "medium",
+   "difficulty_base": 3,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
-    1396,
-    1402,
-    1407,
-    1468,
-    1469,
-    1518,
-    1520,
-    1523,
-    1542,
-    1581,
-    1593,
-    1594,
-    1599,
-    1601,
-    1603,
-    1604,
-    1605,
-    1606,
-    1773,
-    1774,
-    1775,
-    1776,
-    1777
+    1695,
+    1701,
+    1712,
+    1723,
+    1725,
+    1748,
+    1759,
+    1764,
+    1765,
+    1766,
+    1772,
+    1779,
+    1783,
+    1788,
+    1789
    ],
-   "login": "zijinmengxi",
-   "project": "bench",
+   "login": "123WP-a",
+   "project": "awesome_dsh_plugin",
    "quality_E": null,
-   "reputation_delta": 74,
+   "reputation_delta": 69,
    "rounds": 1
   },
   {
@@ -1365,31 +1399,6 @@
    "project": "chinese_programming",
    "quality_E": null,
    "reputation_delta": 62,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    1695,
-    1701,
-    1712,
-    1723,
-    1725,
-    1748,
-    1759,
-    1764,
-    1765,
-    1766,
-    1772,
-    1779
-   ],
-   "login": "123WP-a",
-   "project": "awesome_dsh_plugin",
-   "quality_E": null,
-   "reputation_delta": 60,
    "rounds": 1
   },
   {
@@ -1959,8 +1968,8 @@
    "rounds": 1
   },
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
+   "difficulty": "easy",
+   "difficulty_base": 1,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
@@ -1969,12 +1978,13 @@
     1485,
     1486,
     1497,
-    1692
+    1692,
+    1790
    ],
    "login": "hlfwdi",
    "project": "bench",
    "quality_E": null,
-   "reputation_delta": 27,
+   "reputation_delta": 28,
    "rounds": 1
   },
   {
@@ -2079,6 +2089,26 @@
    ],
    "login": "ganzhe12138",
    "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 21,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    1794,
+    1795,
+    1796,
+    1797,
+    1798,
+    1799,
+    1800
+   ],
+   "login": "zhtty67-rgb",
+   "project": "lingshu",
    "quality_E": null,
    "reputation_delta": 21,
    "rounds": 1
@@ -2602,6 +2632,22 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    1791,
+    1792,
+    1793
+   ],
+   "login": "zhtty67-rgb",
+   "project": "bench",
+   "quality_E": null,
+   "reputation_delta": 9,
+   "rounds": 1
+  },
+  {
    "difficulty": "easy",
    "difficulty_base": 1,
    "evidence_strength": true,
@@ -2859,6 +2905,21 @@
    ],
    "login": "zhangdeishuai1",
    "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    1801,
+    1802
+   ],
+   "login": "zhtty67-rgb",
+   "project": "memory",
    "quality_E": null,
    "reputation_delta": 6,
    "rounds": 1

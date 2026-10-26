@@ -975,8 +975,8 @@
    "rounds": 1
   },
   {
-   "difficulty": "hard",
-   "difficulty_base": 6,
+   "difficulty": "medium",
+   "difficulty_base": 3,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
@@ -1008,12 +1008,13 @@
     1686,
     1700,
     1724,
-    1778
+    1778,
+    1805
    ],
    "login": "STARDUSTLC666",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 102,
+   "reputation_delta": 105,
    "rounds": 1
   },
   {
@@ -1280,12 +1281,13 @@
     1779,
     1783,
     1788,
-    1789
+    1789,
+    1803
    ],
    "login": "123WP-a",
    "project": "awesome_dsh_plugin",
    "quality_E": null,
-   "reputation_delta": 69,
+   "reputation_delta": 72,
    "rounds": 1
   },
   {
@@ -3169,6 +3171,21 @@
    "difficulty": "easy",
    "difficulty_base": 1,
    "evidence_strength": true,
+   "impact_grade": "C",
+   "issues": [
+    1699,
+    1804
+   ],
+   "login": "fladyck",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 2,
+   "rounds": 1
+  },
+  {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
     133,
@@ -3178,20 +3195,6 @@
    "project": "awesome_dsh_plugin",
    "quality_E": null,
    "reputation_delta": 2,
-   "rounds": 1
-  },
-  {
-   "difficulty": "easy",
-   "difficulty_base": 1,
-   "evidence_strength": true,
-   "impact_grade": "C",
-   "issues": [
-    1699
-   ],
-   "login": "fladyck",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 1,
    "rounds": 1
   }
  ]

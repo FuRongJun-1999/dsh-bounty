@@ -43945,6 +43945,93 @@
         "delta": 3
       },
       "id": "evt_be21ff4e8e0e"
+    },
+    {
+      "ts": "2026-10-26T04:59:02Z",
+      "issue": 1803,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【深度审计报告】@stardustlc/dsh-suite 0.3.0（STARDUSTLC666/dsh-suite） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1803
+      ],
+      "project": "awesome_dsh_plugin",
+      "impact": "B",
+      "day": "2026-10-26",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8917d58241a7"
+    },
+    {
+      "ts": "2026-10-26T04:59:02Z",
+      "issue": 1804,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][缺陷报告] dsh-memory 0.9.14：命中 query 缓存后 validity_scope 丢失，冷/热查询返回信息不一致 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1804
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-10-26",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_8c06d1f01cbb"
+    },
+    {
+      "ts": "2026-10-26T04:59:02Z",
+      "issue": 1805,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #1005：整帧观测失败保全与同 tick 重试修复交付 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1805
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-26",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6c44a1edb244"
     }
   ]
 }

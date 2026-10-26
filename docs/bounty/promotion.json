@@ -515,20 +515,21 @@
     1686,
     1700,
     1724,
-    1778
+    1778,
+    1805
    ],
    "login": "STARDUSTLC666",
    "projects": [],
-   "reputation_delta": 345,
+   "reputation_delta": 348,
    "round0": 1,
-   "round0_ratio": 0.012658227848101266,
+   "round0_ratio": 0.0125,
    "round0_ratio_source": "retro",
-   "round_known": 79,
+   "round_known": 80,
    "round_seen": [
     0,
     1
    ],
-   "settled": 79,
+   "settled": 80,
    "timeout": 0
   },
   {
@@ -923,19 +924,20 @@
     1779,
     1783,
     1788,
-    1789
+    1789,
+    1803
    ],
    "login": "123WP-a",
    "projects": [],
-   "reputation_delta": 231,
+   "reputation_delta": 234,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 57,
+   "round_known": 58,
    "round_seen": [
     1
    ],
-   "settled": 57,
+   "settled": 58,
    "timeout": 0
   },
   {
@@ -2358,6 +2360,37 @@
    ],
    "invalid": 0,
    "issues": [
+    1047,
+    1195,
+    1359,
+    1483,
+    1699,
+    1804
+   ],
+   "login": "fladyck",
+   "projects": [],
+   "reputation_delta": 12,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 6,
+   "round_seen": [
+    1
+   ],
+   "settled": 6,
+   "timeout": 0
+  },
+  {
+   "blockers": [
+    "声誉分 12 < 24"
+   ],
+   "disputes": 0,
+   "eligible": false,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     140,
     155,
     157
@@ -2373,36 +2406,6 @@
     1
    ],
    "settled": 3,
-   "timeout": 0
-  },
-  {
-   "blockers": [
-    "声誉分 11 < 24"
-   ],
-   "disputes": 0,
-   "eligible": false,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    1047,
-    1195,
-    1359,
-    1483,
-    1699
-   ],
-   "login": "fladyck",
-   "projects": [],
-   "reputation_delta": 11,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 5,
-   "round_seen": [
-    1
-   ],
-   "settled": 5,
    "timeout": 0
   },
   {

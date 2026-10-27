@@ -44032,6 +44032,905 @@
         "delta": 3
       },
       "id": "evt_6c44a1edb244"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1806,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: 修复交付：lingshu PR #1006——#661 M5 去重候选改窄列（写入省 38~39%，语义逐位不变，守卫+双变异+指纹重登记） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1806
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_0b8fe70a2f1a"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1807,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 修复交付：ChineseProgramming PR #12——#8/#5 知足 非数值操作数裸崩改干净编译错误（守卫+定点变异；附带修正 #11 的缩进回归） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1807
+      ],
+      "project": "chinese_programming",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_97f987758d02"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1808,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 修复交付：ChineseProgramming PR #13——#7 protocol.toml 从零读取点改为两编译入口真消费（10 断言守卫，行为级依赖已如实声明） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1808
+      ],
+      "project": "chinese_programming",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ed42c84bfca2"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1809,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: 修复交付+新发现：CP PR #14——compile 生成物语法非法（箭头/注释串行/条件断行）致官方示例 17 行指令全不可执行（守卫+变异） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1809
+      ],
+      "project": "chinese_programming",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_1c292a5c18e2"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1810,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 修复交付：ChineseProgramming PR #15——#6 init 脚手架过不了自家流水线（模板改数值操作数，三后端全通，10 断言守卫） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1810
+      ],
+      "project": "chinese_programming",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a4c0526759f9"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1811,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #1007：旋转预测时间轴与周期相位修复交付 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1811
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1f600b79685c"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1812,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "sufancy",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】verify-claims v0.1.0 安装快测 · 安全六威胁审计（cordis.patch.yml 指向无入口的包导致 DSH 静默不激活；链接核验缺 URL 安全边界） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1812
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_3bf909024805"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1813,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "sufancy",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告·增量】dsh-routing-suite 分发件 super-injector 0.3.3（引用 #1363）：README 一键装后整条 entry 装配失败（打包漏 injector/package.json，P1）；/super-injector/api 四 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1813
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_3da5ad1b21a5"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1814,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【深度审计报告】dsh-unlag 1.9.137（regrevia/dsh-unlag） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1814
+      ],
+      "project": "awesome_dsh_plugin",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a215a6c2b9c6"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1815,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1005（world 观测原子性修复）——双腿复现+守卫16项+变异3/3+全量对照 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1815
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5e78b9c51dfa"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1816,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #681（#677 内容指纹幂等闸）——真实链端到端+跨进程重试命中+基线判别力自证 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1816
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_31bedd4b2437"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1817,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #684（r26 第三批）——门槛键换缓存实证+假名浊点双腿+自补 F26-24 判别探针 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1817
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_71527de45414"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1818,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 修复交付：ChineseProgramming PR #29——#10 update_failure 的 error 被丢弃（落 last_error/error_counts，守卫 7 判据+定点变异 3/3） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1818
+      ],
+      "project": "chinese_programming",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_748ee6be4ccf"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1819,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 修复交付：ChineseProgramming PR #30——#9 _should_proceed 的 method 零引用（方法白名单接入闸，守卫 10 判据+定点变异 3/3） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1819
+      ],
+      "project": "chinese_programming",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_f146a666c018"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1820,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu #45 维护者修复（R4 count 虚增+viewer 居中）——issue 原版复现 9→3+惰性边界+端到端质心 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1820
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e4d72c7652b4"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1821,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu #55 维护者修复（world 三处退化输入）——三条原复现逐字重放全优雅返回+守卫 23/23 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1821
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4ba19a0f97f7"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1822,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu #13 维护者修复（scene_model 左右关系反转）——原版复现重放+正确侧保持+重合/幂等/前后五组判据 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1822
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4103f997d3a1"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1823,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu #15 维护者收窄（hex_recon 保真度）——11 格重放与 issue 读数逐位一致+解析机制成立+残留一处 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1823
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_08938304d737"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1824,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu #24 维护者修复（hex_text 判据标定）——3×全绿+守卫4/4+二项地板独立复算吻合 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1824
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4e7d6aa9d845"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1825,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu #8 维护者修复（2.5D 口径收窄+先验表登记）——三视签名复现逐字一致+双守卫 21/21 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1825
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ac84c23284c1"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1826,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu #16 维护者修复（export_all 缺表降级）——守卫 26/26+灾备闭环+跳过表按名上报 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1826
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b17a5ce5d3a9"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1827,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 缺陷申报：lingshu #1009——import_all 对 tags/condition_space 为 null 的行静默丢弃且计数照报（单字段定位+最小复现） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1827
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c4d2c0cc955a"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1828,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 存续复核：dsh-memory #636/#637/#644 三件修复原判据重放——形态对称/空白拒收/零分条目默认即裁 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1828
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b8c629e16017"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1829,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory #682（#672 资产包可裁剪）——真裁剪实验 4/4（物理移资产+全新子进程降级验证） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1829
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_f5c8254178cf"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1830,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "xiu-fu-jiao-fu: zuo-zhe jiang zi-ji bao-gao de #1794-#1800 qi-chu que-xian quan-bu xiu-fu bing he-ru lingshu main, fu zheng-ju-lian. an xiu-fu-jiao-fu ji hard/B. shen-li.",
+      "pr": null,
+      "covers": [
+        1830
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_5c5b19a49d76"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1831,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][缺陷报告] dsh-memory 任务索引先筛后旧实例持续漏读他进程新增任务（真实双进程串行复现） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1831
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_b9a7768b0fed"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1832,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][缺陷报告] dsh-memory task action=session 吞掉显式零上限：要求不返回仍返回任务 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1832
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_7d855540e747"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1833,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][缺陷报告] 测评页面 inline_md 将行内代码中的 ** 当粗体，改写代码原文 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1833
+      ],
+      "project": "bounty_site",
+      "impact": "C",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_d29f956ba28a"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1834,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "sufancy",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-local-context v0.1.0 安装快测 · 安全六威胁审计（ctx_exec 长输出自动落入明文 SQLite，实测密钥可被 ctx_search 原样取回；无删除工具、无脱敏） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1834
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_91a9d33e17a9"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1835,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "sufancy",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-rofm 1.1.0（DSH 长期记忆·纯 Host）：宿主契约逐项对上、174 条作者测试全绿、引擎三场景全过；回忆块无转义，历史对话里伪造「### 回忆 N · β=+9.0」原样进 system prompt（P2） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1835
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a873122918c2"
+    },
+    {
+      "ts": "2026-10-27T05:48:12Z",
+      "issue": 1836,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "sufancy",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-puppet-memory v0.35.0 安装快测 · 安全六威胁审计（memory_core 绕过 writeGuard：核心卡围栏可被提前闭合，每步注入 role:user；插件不认 DSH_HOME） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1836
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-27",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5ae5a53b8b3c"
     }
   ]
 }

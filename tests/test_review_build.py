@@ -464,8 +464,16 @@ def read_src():
 def _md(text):
     """守卫侧的 inline_md 等价物（先转义、再把 **粗体** 与 `代码` 渲染成标签）。"""
     out = html.escape(str(text), quote=True)
-    out = re.sub(r"`([^`]+)`", lambda m: "<code>%s</code>" % m.group(1), out)
+    codes = []
+
+    def _stash_code(m):
+        codes.append("<code>%s</code>" % m.group(1))
+        return "\x00CODE%d\x00" % (len(codes) - 1)
+
+    out = re.sub(r"`([^`]+)`", _stash_code, out)
     out = re.sub(r"\*\*([^*]+)\*\*", lambda m: "<b>%s</b>" % m.group(1), out)
+    for i, c in enumerate(codes):
+        out = out.replace("\x00CODE%d\x00" % i, c)
     return out
 
 
@@ -1048,11 +1056,13 @@ def group_quality(root):
     ok("Q6 unm 每条详情页含「未测」节（未测项不许静默省略）",
        all("未测" in _read(root, "detail_%s.html" % d["slug"])
            for d in fixture_doc()["records"]))
-    # Q7：inline_md 的「先转义后替换」——这条安全声明原先零覆盖（改坏它没有任何断言会红）。
-    # 输入同时区分两种坏法：没转义 → `<b><b>x</b></b>`；顺序反了 → `&lt;b&gt;&lt;b&gt;x&lt;/b&gt;&lt;/b&gt;`。
+    # Q7：inline_md 的「先转义后替换」与代码保护（改坏任何一项断言必红）。
+    # 输入同时区分坏法：没转义 → `<b><b>x</b></b>`；顺序反了 → `&lt;b&gt;&lt;b&gt;x&lt;/b&gt;&lt;/b&gt;`；代码中 ** 被当粗体 → <code>2 <b> 3 </b> 2</code>。
     got = _call_probe("inline_md", "'<b>**x**</b>'")
-    ok("Q7 md inline_md 先转义后渲染（<b>**x**</b> ⇒ 转义标签 ＋ 真粗体）",
-       got == "&lt;b&gt;<b>x</b>&lt;/b&gt;", "实得 %r" % got)
+    got_code = _call_probe("inline_md", "'`2 ** 3 ** 2`'")
+    ok("Q7 md inline_md 先转义后渲染（<b>**x**</b> ⇒ 转义标签 ＋ 真粗体；代码中 ** 不被误当粗体）",
+       got == "&lt;b&gt;<b>x</b>&lt;/b&gt;" and got_code == "<code>2 ** 3 ** 2</code>",
+       "实得 got=%r got_code=%r" % (got, got_code))
     # Q8：确定性不能只看「两次生成相同」——同秒内的秒级时间戳也能相同。直接判产物里没有时刻。
     page_txt = _read(root, "board.html") + _read(root, "index.html")
     ok("Q8 clock 产物里不含生成时刻（HH:MM 形态）",

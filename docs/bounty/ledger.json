@@ -45134,6 +45134,35 @@
         "delta": 3
       },
       "id": "evt_744733deb450"
+    },
+    {
+      "ts": "2026-10-27T16:44:10Z",
+      "issue": 1845,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #1080：运动数值稳定与溢出诊断交付 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1845
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5e5094b7aa0a"
     }
   ]
 }

@@ -375,20 +375,21 @@
     1838,
     1840,
     1843,
-    1844
+    1844,
+    1845
    ],
    "login": "STARDUSTLC666",
    "projects": [],
-   "reputation_delta": 363,
+   "reputation_delta": 366,
    "round0": 1,
-   "round0_ratio": 0.011764705882352941,
+   "round0_ratio": 0.011627906976744186,
    "round0_ratio_source": "retro",
-   "round_known": 85,
+   "round_known": 86,
    "round_seen": [
     0,
     1
    ],
-   "settled": 85,
+   "settled": 86,
    "timeout": 0
   },
   {

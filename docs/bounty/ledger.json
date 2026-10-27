@@ -44931,6 +44931,209 @@
         "delta": 3
       },
       "id": "evt_5ae5a53b8b3c"
+    },
+    {
+      "ts": "2026-10-27T16:34:50Z",
+      "issue": 1838,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #1056：无效旋转隔离与四元数稳定归一化交付 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1838
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_311006b097b8"
+    },
+    {
+      "ts": "2026-10-27T16:34:50Z",
+      "issue": 1839,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "xiu-fu-jiao-fu: zuo-zhe xiu-fu #1010/#1011/#1012 san-chu que-xian, PR #1013/#1014/#1015 jun MERGED, fu zheng-ju-lian. an xiu-fu-jiao-fu ji hard/B. shen-li.",
+      "pr": null,
+      "covers": [
+        1839
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_4e4f936889d6"
+    },
+    {
+      "ts": "2026-10-27T16:34:50Z",
+      "issue": 1840,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #1068：非整数周期远期相位回绕修复交付 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1840
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e55eb86444ee"
+    },
+    {
+      "ts": "2026-10-27T16:34:50Z",
+      "issue": 1841,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1013（#1010 vprim 类别往返回归）——issue 原版六族逐字重放+扩展14族+守卫44/44 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1841
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c8fdf0eb56ad"
+    },
+    {
+      "ts": "2026-10-27T16:34:50Z",
+      "issue": 1842,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1014（#1011 大整数坐标恒等比较回归）——原版复现双腿+精度边界族5/5 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1842
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ec8975cdb9d8"
+    },
+    {
+      "ts": "2026-10-27T16:34:50Z",
+      "issue": 1843,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #1078：锚点冲突即时降级交付 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1843
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_b8eee5a192d0"
+    },
+    {
+      "ts": "2026-10-27T16:34:50Z",
+      "issue": 1844,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #1079：验证数值资格与评分隔离交付 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1844
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_744733deb450"
     }
   ]
 }

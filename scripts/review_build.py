@@ -229,9 +229,17 @@ def esc(text) -> str:
 def inline_md(text) -> str:
     """行内 Markdown 渲染（**粗体** → <b>，`代码` → <code>；先转义后替换，故不可注入）。"""
     out = esc(text)
-    # 先替代码片段，避免「粗体标记落在代码里」被误渲染。
-    out = re.sub(r"`([^`]+)`", lambda m: "<code>%s</code>" % m.group(1), out)
+    # 先把代码片段暂存进占位符，避免代码里的 ** 等标记被后续粗体正则误渲染。
+    codes = []
+
+    def _stash_code(m):
+        codes.append("<code>%s</code>" % m.group(1))
+        return "\x00CODE%d\x00" % (len(codes) - 1)
+
+    out = re.sub(r"`([^`]+)`", _stash_code, out)
     out = re.sub(r"\*\*([^*]+)\*\*", lambda m: "<b>%s</b>" % m.group(1), out)
+    for i, c in enumerate(codes):
+        out = out.replace("\x00CODE%d\x00" % i, c)
     return out
 
 

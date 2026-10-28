@@ -47019,6 +47019,267 @@
         "delta": 3
       },
       "id": "evt_3a2817d1d238"
+    },
+    {
+      "ts": "2026-10-28T08:47:45Z",
+      "issue": 1910,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][缺陷报告] dsh-memory --module 帮助中的斜杠写法选中零测试，真实失败被漏跑且 rc=0 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1910
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_f55c4983f150"
+    },
+    {
+      "ts": "2026-10-28T08:47:45Z",
+      "issue": 1911,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hywxno7",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [插件测评] @xiaoyuyu6420/dsh-backup@0.13.4 — 真有用 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1911
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e782d6b5ce15"
+    },
+    {
+      "ts": "2026-10-28T08:47:45Z",
+      "issue": 1912,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hywxno7",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [插件测评] @lemoncat7/dsh-knowledge@2.15.9 — 真有用 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1912
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_d63b6cef1132"
+    },
+    {
+      "ts": "2026-10-28T08:47:45Z",
+      "issue": 1913,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hywxno7",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [插件测评] @alpacachen/dsh-kanban@1.9.0 — 真有用 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1913
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_bee59f7f42e5"
+    },
+    {
+      "ts": "2026-10-28T08:47:45Z",
+      "issue": 1914,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hywxno7",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [插件测评] dsh-deepread@1.0.1 — 还说不准 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1914
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_343ca7c3777f"
+    },
+    {
+      "ts": "2026-10-28T08:47:45Z",
+      "issue": 1915,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hywxno7",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [插件测评] dsh-permission-rules@0.7.20 — 真有用 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1915
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e323fe44451a"
+    },
+    {
+      "ts": "2026-10-28T08:47:45Z",
+      "issue": 1916,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #1088：观测窗口运动统计复用性能交付 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1916
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c7c002da5ad2"
+    },
+    {
+      "ts": "2026-10-28T08:47:45Z",
+      "issue": 1917,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "sufancy",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-fish-radar 0.2.0（B站评论区鱼浓度体检·只读）：装配与安全面干净（无写盘/无 SSRF/cookie 不外泄），但匿名实测 923 条评论只抓到 3 条却报「样本不足」；传闻核查把闲聊判成技术断言、fish_rules 讲错自己的权重（P2 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1917
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_10093626e8d9"
+    },
+    {
+      "ts": "2026-10-28T08:47:45Z",
+      "issue": 1918,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "sufancy",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-everything v1.4.1 安装快测 · 安全六威胁审计（query 前导横杠未拦：-export-csv 等 es.exe 写文件开关可注入任意路径；默认开本机 HTTP 服务并解锁厂商锁） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        1918
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-10-28",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_723b583ed7f1"
     }
   ]
 }

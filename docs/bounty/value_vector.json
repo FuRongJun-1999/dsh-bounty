@@ -298,12 +298,18 @@
     2019,
     2020,
     2021,
-    2022
+    2022,
+    2024,
+    2025,
+    2026,
+    2027,
+    2028,
+    2029
    ],
    "login": "MWHWX",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 253,
+   "reputation_delta": 269,
    "rounds": 1
   },
   {
@@ -498,6 +504,90 @@
    "project": "bench",
    "quality_E": null,
    "reputation_delta": 226,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    1794,
+    1795,
+    1796,
+    1797,
+    1798,
+    1799,
+    1800,
+    1830,
+    1839,
+    1956,
+    1957,
+    1958,
+    1959,
+    1960,
+    1961,
+    1962,
+    1963,
+    2033,
+    2034,
+    2035,
+    2036,
+    2037,
+    2038,
+    2039,
+    2040,
+    2041,
+    2042,
+    2043,
+    2044,
+    2045,
+    2046,
+    2047,
+    2048,
+    2053,
+    2054,
+    2055,
+    2056,
+    2058,
+    2059,
+    2060,
+    2061,
+    2062,
+    2063,
+    2064,
+    2065,
+    2066,
+    2067,
+    2068,
+    2069,
+    2070,
+    2071,
+    2072,
+    2073,
+    2074,
+    2075,
+    2076,
+    2077,
+    2078,
+    2079,
+    2080,
+    2082,
+    2083,
+    2084,
+    2085,
+    2086,
+    2087,
+    2088,
+    2089,
+    2090,
+    2091,
+    2092
+   ],
+   "login": "zhtty67-rgb",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 219,
    "rounds": 1
   },
   {
@@ -1451,6 +1541,46 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    1532,
+    1535,
+    1540,
+    1620,
+    1816,
+    1817,
+    1828,
+    1829,
+    1903,
+    1904,
+    1905,
+    1906,
+    1907,
+    1908,
+    1909,
+    1932,
+    1933,
+    1934,
+    1935,
+    1936,
+    1938,
+    1942,
+    2008,
+    2009,
+    2030,
+    2031,
+    2032
+   ],
+   "login": "MWHWX",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 75,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -1504,43 +1634,6 @@
    ],
    "login": "FuRongJun-1999",
    "project": "bench",
-   "quality_E": null,
-   "reputation_delta": 66,
-   "rounds": 1
-  },
-  {
-   "difficulty": "easy",
-   "difficulty_base": 1,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    1532,
-    1535,
-    1540,
-    1620,
-    1816,
-    1817,
-    1828,
-    1829,
-    1903,
-    1904,
-    1905,
-    1906,
-    1907,
-    1908,
-    1909,
-    1932,
-    1933,
-    1934,
-    1935,
-    1936,
-    1938,
-    1942,
-    2008,
-    2009
-   ],
-   "login": "MWHWX",
-   "project": "memory",
    "quality_E": null,
    "reputation_delta": 66,
    "rounds": 1
@@ -1626,36 +1719,6 @@
    "project": "chinese_programming",
    "quality_E": null,
    "reputation_delta": 62,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    1794,
-    1795,
-    1796,
-    1797,
-    1798,
-    1799,
-    1800,
-    1830,
-    1839,
-    1956,
-    1957,
-    1958,
-    1959,
-    1960,
-    1961,
-    1962,
-    1963
-   ],
-   "login": "zhtty67-rgb",
-   "project": "lingshu",
-   "quality_E": null,
-   "reputation_delta": 57,
    "rounds": 1
   },
   {
@@ -2917,22 +2980,6 @@
    "difficulty": "easy",
    "difficulty_base": 1,
    "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    265,
-    515,
-    553
-   ],
-   "login": "acrot0",
-   "project": "lingshu",
-   "quality_E": null,
-   "reputation_delta": 7,
-   "rounds": 1
-  },
-  {
-   "difficulty": "easy",
-   "difficulty_base": 1,
-   "evidence_strength": true,
    "impact_grade": "C",
    "issues": [
     1699,
@@ -2941,10 +2988,27 @@
     1832,
     1910,
     1954,
-    2023
+    2023,
+    2051
    ],
    "login": "fladyck",
    "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 8,
+   "rounds": 1
+  },
+  {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    265,
+    515,
+    553
+   ],
+   "login": "acrot0",
+   "project": "lingshu",
    "quality_E": null,
    "reputation_delta": 7,
    "rounds": 1
@@ -3326,6 +3390,20 @@
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
+   "impact_grade": "C",
+   "issues": [
+    2050
+   ],
+   "login": "fladyck",
+   "project": "lingshu",
+   "quality_E": null,
+   "reputation_delta": 3,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
     1868
@@ -3452,6 +3530,20 @@
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    2052
+   ],
+   "login": "yunluo4444",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 3,
+   "rounds": 1
+  },
+  {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
    "impact_grade": "C",
    "issues": [
     238
@@ -3460,6 +3552,21 @@
    "project": "bounty_site",
    "quality_E": null,
    "reputation_delta": 3,
+   "rounds": 1
+  },
+  {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "C",
+   "issues": [
+    1833,
+    2049
+   ],
+   "login": "fladyck",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 2,
    "rounds": 1
   },
   {
@@ -3475,20 +3582,6 @@
    "project": "awesome_dsh_plugin",
    "quality_E": null,
    "reputation_delta": 2,
-   "rounds": 1
-  },
-  {
-   "difficulty": "easy",
-   "difficulty_base": 1,
-   "evidence_strength": true,
-   "impact_grade": "C",
-   "issues": [
-    1833
-   ],
-   "login": "fladyck",
-   "project": "bounty_site",
-   "quality_E": null,
-   "reputation_delta": 1,
    "rounds": 1
   }
  ]

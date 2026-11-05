@@ -59199,6 +59199,1282 @@
         "delta": 3
       },
       "id": "evt_779010aeed85"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2335,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-fnos 7.0.1 标准测评：没啥差别 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2335
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e09f618964ef"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2336,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-chat-import 0.26.3 标准测评：还说不准 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2336
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_21bf25c82ca5"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2337,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-music-request 3.0.1 标准测评：还说不准 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2337
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ace691990a3d"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2338,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-plugin-notch-balance 1.7.0 标准测评：还说不准 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2338
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_0379be21660b"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2339,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-plugin-whale-skin 0.1.1 标准测评：没啥差别 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2339
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_efdcf927ac0e"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2340,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-prompt-enhance 0.3.2 标准测评：还说不准 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2340
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4de190322b54"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2341,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-rp-tools 1.37.0 标准测评：还说不准 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2341
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_482d2b1b4498"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2342,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-system-vitals 1.3.14 标准测评：还说不准 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2342
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_71466319e836"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2343,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】@restregular/dsh-memory 0.30.1 标准测评：还说不准 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2343
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6037405e5fee"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2344,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】@academic/dsh-plugin 0.2.0：没法测（安装/运行前提缺失） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2344
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_3963035e7099"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2345,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-folder-sidebar 0.18.4：没法测（安装/运行前提缺失） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2345
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1e1ece9bd172"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2346,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】@local/ptc-model-check 2.30.2：没法测（安装/运行前提缺失） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2346
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_adafa7a3ea76"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2347,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】@operatingtag/dsh-unclesam 1.3.5：没法测（安装/运行前提缺失） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2347
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_222e1fd01287"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2348,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] 【测评报告】dsh-provider-probe 0.3.7：没法测（安装/运行前提缺失） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2348
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8ee468e43397"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2349,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #1230：相机容差内焦距损失显式报告 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2349
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e39ad6db760b"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2350,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #1232：运动组合预测尊重当前可见偏移冲突 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2350
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_0ef84ae0ba93"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2351,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #1236：事件回声去除重放导致的伪支持与评分重复 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2351
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c65ba0dd9f10"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2352,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu #1234：示教迁移目标角色绑定互斥校验 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2352
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_da4c963c6d71"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2353,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1238（三面收口）——三守卫双腿 基线14红→修复23绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2353
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_65996540fc74"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2354,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1237（camera 焦距损失）——守卫7条 基线4红→修复7绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2354
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_658a7fede8e7"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2355,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1228（camera 五键畸变+标定残差）——守卫8条 基线5红→修复8绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2355
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1936ced1de97"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2356,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1148（#1144 follow-up mv-judge）——守卫 7 条 基线6红→修复7绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2356
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_849cda144673"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2357,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #778（flush 批量 IO）——守卫6条 全PASS（B1-B5+残尾修补） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2357
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_08015ed58967"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2358,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #777（#677 hooks dedupe）——Python 守卫全过+TS 面源码确认 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2358
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_838bbdc3270c"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2359,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #776（#677 info 拆分+幂等）——info_fast+remember_dedupe+generation 三守卫全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2359
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_84d3f2350300"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2360,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #775（#699 503 四态诊断）——源码面确认（node_modules 不完整未跑 TS 测试） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2360
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_9126888b5d59"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2361,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #774（#747 scrub 矛盾判定）——双守卫全绿（slot_contradiction+scrub_evidence） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2361
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_d4efa3d19de9"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2362,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 新发现：lingshu #1133 现象三（斜向碰撞切向滑行丢失）——main 上仍可复现（纯法向回退 dx=0） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2362
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_341a941931fa"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2363,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1240（bridges 批三）——守卫20条 基线13红→修复20绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2363
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4a7090ac20ee"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2364,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1238（三面收口）——三守卫双腿 基线14红→修复23绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2364
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c9e319ba0990"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2365,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1237（camera 焦距损失）——守卫7条 基线4红→修复7绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2365
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1e8aa7e1a232"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2366,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1228（camera_loss_gates）——守卫8条 基线5红→修复8绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2366
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_d7928a051334"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2367,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1226（七处 fail-loud 闸收口）——守卫10条 基线6红→修复10绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2367
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5891c7870d4a"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2368,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1148（mv-judge follow-up）——守卫 7 条 基线6红→修复7绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2368
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_85b4fff12308"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2369,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #778（flush 批量 IO）——守卫6条 全PASS（残尾修补+superseded回填） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2369
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_fb58154cdaf2"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2370,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #777（#677 hooks dedupe）——Python 守卫全过+TS 源码确认 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2370
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_f9c15d59ae1d"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2371,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #776（#677 info 拆分+幂等）——三守卫全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2371
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_93e69c2d1d18"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2372,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: 结案读数复核：dsh-memory 0.9.22 发版面（#775 四态诊断+#774 scrub 矛盾）——源码面确认+slot_contradiction 全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2372
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_4847c8743213"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2373,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hywxno7",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [插件测评] dsh-plugin-codegraph@0.6.1 — 还说不准 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2373
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_48c79feadb72"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2374,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hywxno7",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [插件测评] dsh-m@0.12.4 — 还说不准 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2374
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8e2c2fa84cb1"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2375,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hywxno7",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [插件测评] dsh-plugin-health@2.2.1 — 没啥差别 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2375
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_f0f903ebdbfb"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2376,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hywxno7",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [插件测评] @huaqiu/dsh-tool-part-search@0.6.22 — 还说不准 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2376
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6a5f78926553"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2377,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "hywxno7",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [插件测评] dsh-ai4scholar@0.3.9 — 没法测 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2377
+      ],
+      "project": "bench",
+      "impact": "B",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ff84f792b53b"
+    },
+    {
+      "ts": "2026-11-05T14:38:09Z",
+      "issue": 2378,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入][缺陷复现] dsh-memory flush：失败回填把旧 superseded 标记恢复到并发新版本，重试跳过新日志并清空脏集 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2378
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-11-05",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_a8cdb0d699f7"
     }
   ]
 }

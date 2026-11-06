@@ -271,19 +271,33 @@
     2345,
     2346,
     2347,
-    2348
+    2348,
+    2379,
+    2380,
+    2381,
+    2382,
+    2383,
+    2399,
+    2400,
+    2402,
+    2403,
+    2404,
+    2405,
+    2407,
+    2412,
+    2413
    ],
    "login": "zhtty67-rgb",
    "projects": [],
-   "reputation_delta": 804,
+   "reputation_delta": 849,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 263,
+   "round_known": 277,
    "round_seen": [
     1
    ],
-   "settled": 263,
+   "settled": 277,
    "timeout": 0
   },
   {
@@ -468,19 +482,29 @@
     2369,
     2370,
     2371,
-    2372
+    2372,
+    2384,
+    2385,
+    2386,
+    2388,
+    2389,
+    2394,
+    2395,
+    2396,
+    2397,
+    2398
    ],
    "login": "MWHWX",
    "projects": [],
-   "reputation_delta": 493,
+   "reputation_delta": 523,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 174,
+   "round_known": 184,
    "round_seen": [
     1
    ],
-   "settled": 174,
+   "settled": 184,
    "timeout": 0
   },
   {
@@ -798,20 +822,28 @@
     2349,
     2350,
     2351,
-    2352
+    2352,
+    2390,
+    2391,
+    2392,
+    2393,
+    2408,
+    2409,
+    2410,
+    2411
    ],
    "login": "STARDUSTLC666",
    "projects": [],
-   "reputation_delta": 438,
+   "reputation_delta": 446,
    "round0": 1,
-   "round0_ratio": 0.007936507936507936,
+   "round0_ratio": 0.007462686567164179,
    "round0_ratio_source": "retro",
-   "round_known": 126,
+   "round_known": 134,
    "round_seen": [
     0,
     1
    ],
-   "settled": 126,
+   "settled": 134,
    "timeout": 0
   },
   {
@@ -2760,35 +2792,6 @@
    ],
    "invalid": 0,
    "issues": [
-    164,
-    337,
-    601,
-    964,
-    965,
-    1017
-   ],
-   "login": "tang19-chao",
-   "projects": [],
-   "reputation_delta": 30,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 6,
-   "round_seen": [
-    1
-   ],
-   "settled": 6,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
     1047,
     1195,
     1359,
@@ -2807,19 +2810,49 @@
     2220,
     2221,
     2295,
-    2378
+    2378,
+    2387
    ],
    "login": "fladyck",
    "projects": [],
-   "reputation_delta": 29,
+   "reputation_delta": 32,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 19,
+   "round_known": 20,
    "round_seen": [
     1
    ],
-   "settled": 19,
+   "settled": 20,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
+    164,
+    337,
+    601,
+    964,
+    965,
+    1017
+   ],
+   "login": "tang19-chao",
+   "projects": [],
+   "reputation_delta": 30,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 6,
+   "round_seen": [
+    1
+   ],
+   "settled": 6,
    "timeout": 0
   },
   {

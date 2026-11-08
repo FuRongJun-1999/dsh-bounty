@@ -62802,9 +62802,9 @@
       "action": "settle",
       "actor": "FuRongJun-1999",
       "holder": "zhtty67-rgb",
-      "difficulty": "hard",
-      "delta": 6,
-      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：lingshu PR #1318（批三十 #2424 四门面错误契约）——守卫 9 条 基线 6 红/3 过→修复 9 绿 shen-li. retro round=1.",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：lingshu PR #1318（批三十 #2424 四门面错误契约）——守卫 9 条 基线 6 红/3 过→修复 9 绿 shen-li. retro round=1. [CORRECTION 2026-10-25] yuan ding-dang hard 为子串匹配误命中（复验标题含「→修复 N 绿」）；按标题前缀 [修复交付] 判定后改回 medium/B。",
       "pr": null,
       "covers": [
         2462
@@ -62815,15 +62815,15 @@
       "formula": {
         "rule": "v1.0",
         "kind": "complete",
-        "base": 6,
+        "base": 3,
         "rounds": 2,
         "round": 1,
         "num": 2,
         "den": 2,
-        "raw": 6.0,
-        "delta": 6
+        "raw": 3.0,
+        "delta": 3
       },
-      "id": "evt_7cc2e97b1512"
+      "id": "evt_ae7c252f973c"
     },
     {
       "ts": "2026-11-08T13:50:34Z",
@@ -62831,9 +62831,9 @@
       "action": "settle",
       "actor": "FuRongJun-1999",
       "holder": "zhtty67-rgb",
-      "difficulty": "hard",
-      "delta": 6,
-      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：lingshu PR #1320（#1319 零边因果路径收口）——守卫 4 条 基线 2 红/2 过→修复 4 绿 shen-li. retro round=1.",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：lingshu PR #1320（#1319 零边因果路径收口）——守卫 4 条 基线 2 红/2 过→修复 4 绿 shen-li. retro round=1. [CORRECTION 2026-10-25] yuan ding-dang hard 为子串匹配误命中（复验标题含「→修复 N 绿」）；按标题前缀 [修复交付] 判定后改回 medium/B。",
       "pr": null,
       "covers": [
         2463
@@ -62844,15 +62844,15 @@
       "formula": {
         "rule": "v1.0",
         "kind": "complete",
-        "base": 6,
+        "base": 3,
         "rounds": 2,
         "round": 1,
         "num": 2,
         "den": 2,
-        "raw": 6.0,
-        "delta": 6
+        "raw": 3.0,
+        "delta": 3
       },
-      "id": "evt_b6f6012305cc"
+      "id": "evt_05aa20eb410a"
     },
     {
       "ts": "2026-11-08T13:50:34Z",
@@ -62860,9 +62860,9 @@
       "action": "settle",
       "actor": "FuRongJun-1999",
       "holder": "zhtty67-rgb",
-      "difficulty": "hard",
-      "delta": 6,
-      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：lingshu PR #1322（批三十一 #2446 generate horizon 闸）——守卫 8 条 基线 6 红/2 过→修复 8 绿 shen-li. retro round=1.",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：lingshu PR #1322（批三十一 #2446 generate horizon 闸）——守卫 8 条 基线 6 红/2 过→修复 8 绿 shen-li. retro round=1. [CORRECTION 2026-10-25] yuan ding-dang hard 为子串匹配误命中（复验标题含「→修复 N 绿」）；按标题前缀 [修复交付] 判定后改回 medium/B。",
       "pr": null,
       "covers": [
         2464
@@ -62873,15 +62873,15 @@
       "formula": {
         "rule": "v1.0",
         "kind": "complete",
-        "base": 6,
+        "base": 3,
         "rounds": 2,
         "round": 1,
         "num": 2,
         "den": 2,
-        "raw": 6.0,
-        "delta": 6
+        "raw": 3.0,
+        "delta": 3
       },
-      "id": "evt_6a0d4f5c5786"
+      "id": "evt_87bc277529cc"
     },
     {
       "ts": "2026-11-08T13:50:34Z",
@@ -62889,9 +62889,9 @@
       "action": "settle",
       "actor": "FuRongJun-1999",
       "holder": "zhtty67-rgb",
-      "difficulty": "hard",
-      "delta": 6,
-      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：lingshu PR #1324（批三十二 voxel spawn 有限闸＋门面扫尾）——守卫 18 条 基线 7 红/11 过→修复 18 绿 shen-li. retro round=1.",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：lingshu PR #1324（批三十二 voxel spawn 有限闸＋门面扫尾）——守卫 18 条 基线 7 红/11 过→修复 18 绿 shen-li. retro round=1. [CORRECTION 2026-10-25] yuan ding-dang hard 为子串匹配误命中（复验标题含「→修复 N 绿」）；按标题前缀 [修复交付] 判定后改回 medium/B。",
       "pr": null,
       "covers": [
         2465
@@ -62902,15 +62902,15 @@
       "formula": {
         "rule": "v1.0",
         "kind": "complete",
-        "base": 6,
+        "base": 3,
         "rounds": 2,
         "round": 1,
         "num": 2,
         "den": 2,
-        "raw": 6.0,
-        "delta": 6
+        "raw": 3.0,
+        "delta": 3
       },
-      "id": "evt_b8e3e4d729e7"
+      "id": "evt_9ce68eb9cdfc"
     },
     {
       "ts": "2026-11-08T13:50:34Z",
@@ -62918,9 +62918,9 @@
       "action": "settle",
       "actor": "FuRongJun-1999",
       "holder": "zhtty67-rgb",
-      "difficulty": "hard",
-      "delta": 6,
-      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：lingshu PR #1325（#114 B-10/11/12 裁决落地＋#206 值域闸）——守卫 6 条 基线 3 红/3 过→修复 6 绿 shen-li. retro round=1.",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：lingshu PR #1325（#114 B-10/11/12 裁决落地＋#206 值域闸）——守卫 6 条 基线 3 红/3 过→修复 6 绿 shen-li. retro round=1. [CORRECTION 2026-10-25] yuan ding-dang hard 为子串匹配误命中（复验标题含「→修复 N 绿」）；按标题前缀 [修复交付] 判定后改回 medium/B。",
       "pr": null,
       "covers": [
         2466
@@ -62931,15 +62931,15 @@
       "formula": {
         "rule": "v1.0",
         "kind": "complete",
-        "base": 6,
+        "base": 3,
         "rounds": 2,
         "round": 1,
         "num": 2,
         "den": 2,
-        "raw": 6.0,
-        "delta": 6
+        "raw": 3.0,
+        "delta": 3
       },
-      "id": "evt_f38fb5d6f282"
+      "id": "evt_719278de6b1b"
     },
     {
       "ts": "2026-11-08T13:50:34Z",
@@ -62947,9 +62947,9 @@
       "action": "settle",
       "actor": "FuRongJun-1999",
       "holder": "zhtty67-rgb",
-      "difficulty": "hard",
-      "delta": 6,
-      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：lingshu PR #1326（#770 守卫裁决联动，非功能修复）——两腿 10 绿，判别力判据不适用 shen-li. retro round=1.",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：lingshu PR #1326（#770 守卫裁决联动，非功能修复）——两腿 10 绿，判别力判据不适用 shen-li. retro round=1. [CORRECTION 2026-10-25] yuan ding-dang hard 为子串匹配误命中（复验标题含「→修复 N 绿」）；按标题前缀 [修复交付] 判定后改回 medium/B。",
       "pr": null,
       "covers": [
         2467
@@ -62960,15 +62960,15 @@
       "formula": {
         "rule": "v1.0",
         "kind": "complete",
-        "base": 6,
+        "base": 3,
         "rounds": 2,
         "round": 1,
         "num": 2,
         "den": 2,
-        "raw": 6.0,
-        "delta": 6
+        "raw": 3.0,
+        "delta": 3
       },
-      "id": "evt_2e0d1ab0a987"
+      "id": "evt_59f824099995"
     },
     {
       "ts": "2026-11-08T13:50:34Z",
@@ -62976,9 +62976,9 @@
       "action": "settle",
       "actor": "FuRongJun-1999",
       "holder": "zhtty67-rgb",
-      "difficulty": "hard",
-      "delta": 6,
-      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：lingshu PR #1328（批三十三 #2457 last4 门面收口）——守卫 5 条 基线 5 红→修复 5 绿 shen-li. retro round=1.",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：lingshu PR #1328（批三十三 #2457 last4 门面收口）——守卫 5 条 基线 5 红→修复 5 绿 shen-li. retro round=1. [CORRECTION 2026-10-25] yuan ding-dang hard 为子串匹配误命中（复验标题含「→修复 N 绿」）；按标题前缀 [修复交付] 判定后改回 medium/B。",
       "pr": null,
       "covers": [
         2468
@@ -62989,15 +62989,15 @@
       "formula": {
         "rule": "v1.0",
         "kind": "complete",
-        "base": 6,
+        "base": 3,
         "rounds": 2,
         "round": 1,
         "num": 2,
         "den": 2,
-        "raw": 6.0,
-        "delta": 6
+        "raw": 3.0,
+        "delta": 3
       },
-      "id": "evt_475d0e7cf86a"
+      "id": "evt_52e83e8d6629"
     },
     {
       "ts": "2026-11-08T13:50:34Z",
@@ -63005,9 +63005,9 @@
       "action": "settle",
       "actor": "FuRongJun-1999",
       "holder": "zhtty67-rgb",
-      "difficulty": "hard",
-      "delta": 6,
-      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：dsh-memory PR #813（#810 cg root 参数数据面显式拒绝）——脚本守卫 基线 rc=1→修复 rc=0 shen-li. retro round=1.",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：dsh-memory PR #813（#810 cg root 参数数据面显式拒绝）——脚本守卫 基线 rc=1→修复 rc=0 shen-li. retro round=1. [CORRECTION 2026-10-25] yuan ding-dang hard 为子串匹配误命中（复验标题含「→修复 N 绿」）；按标题前缀 [修复交付] 判定后改回 medium/B。",
       "pr": null,
       "covers": [
         2469
@@ -63018,15 +63018,15 @@
       "formula": {
         "rule": "v1.0",
         "kind": "complete",
-        "base": 6,
+        "base": 3,
         "rounds": 2,
         "round": 1,
         "num": 2,
         "den": 2,
-        "raw": 6.0,
-        "delta": 6
+        "raw": 3.0,
+        "delta": 3
       },
-      "id": "evt_e383c4a2b94e"
+      "id": "evt_839da2c6424c"
     },
     {
       "ts": "2026-11-08T13:50:34Z",
@@ -63063,9 +63063,9 @@
       "action": "settle",
       "actor": "FuRongJun-1999",
       "holder": "zhtty67-rgb",
-      "difficulty": "hard",
-      "delta": 6,
-      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：dsh-memory PR #815（search_rrf cutoff 邻近保障 recent_tail）——脚本守卫 基线 rc=1→修复 rc=0 shen-li. retro round=1.",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：dsh-memory PR #815（search_rrf cutoff 邻近保障 recent_tail）——脚本守卫 基线 rc=1→修复 rc=0 shen-li. retro round=1. [CORRECTION 2026-10-25] yuan ding-dang hard 为子串匹配误命中（复验标题含「→修复 N 绿」）；按标题前缀 [修复交付] 判定后改回 medium/B。",
       "pr": null,
       "covers": [
         2471
@@ -63076,15 +63076,15 @@
       "formula": {
         "rule": "v1.0",
         "kind": "complete",
-        "base": 6,
+        "base": 3,
         "rounds": 2,
         "round": 1,
         "num": 2,
         "den": 2,
-        "raw": 6.0,
-        "delta": 6
+        "raw": 3.0,
+        "delta": 3
       },
-      "id": "evt_422f2c4afa2a"
+      "id": "evt_8b4ed11abe88"
     },
     {
       "ts": "2026-11-08T13:50:34Z",
@@ -63121,9 +63121,9 @@
       "action": "settle",
       "actor": "FuRongJun-1999",
       "holder": "zhtty67-rgb",
-      "difficulty": "hard",
-      "delta": 6,
-      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：dsh-memory PR #817（跨轮状态聚合 topicagg）——脚本守卫 基线 rc=1→修复 rc=0 shen-li. retro round=1.",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：dsh-memory PR #817（跨轮状态聚合 topicagg）——脚本守卫 基线 rc=1→修复 rc=0 shen-li. retro round=1. [CORRECTION 2026-10-25] yuan ding-dang hard 为子串匹配误命中（复验标题含「→修复 N 绿」）；按标题前缀 [修复交付] 判定后改回 medium/B。",
       "pr": null,
       "covers": [
         2473
@@ -63134,15 +63134,15 @@
       "formula": {
         "rule": "v1.0",
         "kind": "complete",
-        "base": 6,
+        "base": 3,
         "rounds": 2,
         "round": 1,
         "num": 2,
         "den": 2,
-        "raw": 6.0,
-        "delta": 6
+        "raw": 3.0,
+        "delta": 3
       },
-      "id": "evt_04c56641ac3f"
+      "id": "evt_32d2b6827bbc"
     },
     {
       "ts": "2026-11-08T13:50:34Z",
@@ -63179,9 +63179,9 @@
       "action": "settle",
       "actor": "FuRongJun-1999",
       "holder": "zhtty67-rgb",
-      "difficulty": "hard",
-      "delta": 6,
-      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：dsh-memory PR #818（确定性四信号重排 detrerank）——脚本守卫 基线 rc=1→修复 rc=0 shen-li. retro round=1.",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake] 第三方独立复验：dsh-memory PR #818（确定性四信号重排 detrerank）——脚本守卫 基线 rc=1→修复 rc=0 shen-li. retro round=1. [CORRECTION 2026-10-25] yuan ding-dang hard 为子串匹配误命中（复验标题含「→修复 N 绿」）；按标题前缀 [修复交付] 判定后改回 medium/B。",
       "pr": null,
       "covers": [
         2475
@@ -63192,15 +63192,15 @@
       "formula": {
         "rule": "v1.0",
         "kind": "complete",
-        "base": 6,
+        "base": 3,
         "rounds": 2,
         "round": 1,
         "num": 2,
         "den": 2,
-        "raw": 6.0,
-        "delta": 6
+        "raw": 3.0,
+        "delta": 3
       },
-      "id": "evt_b6b1dbb255cd"
+      "id": "evt_32aee07a0eb5"
     },
     {
       "ts": "2026-11-08T13:50:34Z",
@@ -64455,9 +64455,9 @@
       "action": "settle",
       "actor": "FuRongJun-1999",
       "holder": "123WP-a",
-      "difficulty": "hard",
-      "delta": 6,
-      "reason": "wei-hu-he-shi: [intake 输入] dsh-chatsync 0.21.1 深度审计：49 场景 147 次配对，区间半宽 14.29 判还说不准 shen-li. retro round=1.",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-chatsync 0.21.1 深度审计：49 场景 147 次配对，区间半宽 14.29 判还说不准 shen-li. retro round=1. [CORRECTION 2026-10-25] yuan ding-dang hard 为子串匹配误命中（复验标题含「→修复 N 绿」）；按标题前缀 [修复交付] 判定后改回 medium/B。",
       "pr": null,
       "covers": [
         2519
@@ -64468,15 +64468,15 @@
       "formula": {
         "rule": "v1.0",
         "kind": "complete",
-        "base": 6,
+        "base": 3,
         "rounds": 2,
         "round": 1,
         "num": 2,
         "den": 2,
-        "raw": 6.0,
-        "delta": 6
+        "raw": 3.0,
+        "delta": 3
       },
-      "id": "evt_33ee1a226423"
+      "id": "evt_d49dde41e5ba"
     },
     {
       "ts": "2026-11-08T13:50:34Z",

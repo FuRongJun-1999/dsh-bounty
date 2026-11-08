@@ -2,8 +2,8 @@
  "note": "本站只做声誉分与价值评价；金额不进站。两轴（难度 / 影响等级）分别记录，合成权重与资金换算属使用者侧。",
  "vectors": [
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
+   "difficulty": "hard",
+   "difficulty_base": 6,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
@@ -352,12 +352,13 @@
     2541,
     2542,
     2543,
-    2544
+    2544,
+    2545
    ],
    "login": "zhtty67-rgb",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 1200,
+   "reputation_delta": 1206,
    "rounds": 1
   },
   {

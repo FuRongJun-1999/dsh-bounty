@@ -65202,6 +65202,35 @@
         "delta": 3
       },
       "id": "evt_9e0a353b11f5"
+    },
+    {
+      "ts": "2026-11-08T14:08:00Z",
+      "issue": 2545,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [修复交付] lingshu PR #1351——批一百 4 处门面/读取面信息丢失与口径分裂（#2544：flush memory_id / workset_state size / wal+growth limit / unverified_ticks 非负），守卫 8 条 + 5 变异全红 + shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2545
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-08",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_be9b35f586f4"
     }
   ]
 }

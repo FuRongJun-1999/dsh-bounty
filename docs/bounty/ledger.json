@@ -66304,6 +66304,557 @@
         "delta": 3
       },
       "id": "evt_8b6a70f8625d"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2583,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-recall 0.2.0 深度审计：判定真有用；8 个位置 24 次按键全中；主发现为未声明依赖 dsh-stash-kit 导致配套功能静默失效（控制台报错，主体照常运行） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2583
+      ],
+      "project": "bounty_site",
+      "impact": "B",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_296e3cb10673"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2584,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [bug 报告] lingshu world/world_model：外推类预测的 bound 不覆盖**实测转向幅度**——直线外推 err=|v1−v2|（100 种子 58+3 例假 miss）、smooth 覆写继承 inner bound（口径分裂，84+4 例，err 最高 1.87 v shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2584
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_466077e5a163"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2585,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [修复交付] lingshu PR #1381——批一百零六 2 处预测面收口（#507 已结算未修件：bound 不随 h 缩放 / #2582 exact 门拒移动目标），守卫 6 条 + 2 变异全红 + manifest 64/64 + lint 23 守恒 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2585
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_16bdfcf3203a"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2586,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [bug 报告] lingshu world/world_model：_motion_stats 的缺省速度先验 (0.0, 0.3) 被当**测量值**进 bound——速度未知的实体首预测确定性假 miss（实测 60/60 种子 tick=1：真实速度 1.0 的追逐体 err=1.0 > b shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2586
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_f66b4518ef23"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2587,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [bug 报告] lingshu world/world_learner：predict 是 world_model 预测契约的同族漏网——#507 bound 不随 h 累积 / 无 age 项 / #2580 关系分支无 min(speed,dl) 封顶 / #2584 无转向证据闸，四类防护全 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2587
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_77fca429d30f"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2588,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [修复交付] lingshu PR #1382——批一百零七外推类转向证据闸（#2584）+ #159 C3 锚随 #507 收窄 + 两处契约修复，守卫 6 条 + 2 变异全红 + 全仓 5410 passed 0 failed shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2588
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_1887c7160b53"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2589,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [修复交付] lingshu PR #1383——批一百零八 learner 侧预测契约同族补完（#2587：#507 累积 / #2580 封顶 / #2584 转向闸）+ #159 C2 锚收窄 + 两处契约修复，守卫 4 条 + 3 变异全红 + 全仓 5413 passed（唯一失败 C2  shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2589
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_db0037588f27"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2590,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [修复交付] lingshu PR #1384——批一百零九 #2281 bench_world horizon 绊线改内容对比 + learner 腿灌观测＋守卫 3 条 + 2 变异全红 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2590
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_0d8ba18bd000"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2591,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [bug 报告] lingshu core/LayeredStore：insight_record 条件快照零校验——NaN 落库成**非标准 JSON 字面量**（strict 解析必崩）+ 未知键静默丢失（调用方条件无痕丢失）+ NaN 拿 0.7 高置信度 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2591
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_833b963af102"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2592,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [修复交付] lingshu PR #1385——批一百一十 #2591 insight_record 条件快照零校验（NaN 非标准 JSON 落库 + 未知键静默丢失 + NaN 获 0.7 置信度）＋守卫 5 条 + 变异全红 + 全仓 5422 passed 0 failed shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2592
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_2b11892e492e"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2593,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [bug 报告] lingshu core/LayeredStore：insight_verify 的 REFUTED/X 分支**零证据即自报证伪**——#38 的 B-9/D-34 只修了 verified 侧，证伪侧漏网：任何调用方零成本打压有效洞见（refuted 标签 + importan shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2593
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_12d962250fee"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2594,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "zhtty67-rgb",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [修复交付] lingshu PR #1386——批一百一十一 #2593 insight_verify 零证据自报证伪（#38 同族补完：REFUTED/X 加证据门槛）＋守卫 5 条 + B5 锚收窄 + 变异全红 + 全仓 5427 passed 0 failed shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2594
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_6e97858d1efd"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2595,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][贡献补申报] dsh-memory #808：[hive/serve_start] --restart 先停止旧服务，再因新配置的模型密钥为空而拒绝启动 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2595
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_a2b8a58df2f5"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2596,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][贡献补申报] dsh-memory #842：[bucketscope] 默认桶召回先按 id 截取再按时间排序，9 条记录时最新一条被丢掉 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2596
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_7213ca979965"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2597,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][贡献补申报] dsh-memory #843：[mdcos/recall] validity=True 已排除的过期记忆，被默认桶补召回重新装回 pack shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2597
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_48d7a216e0c5"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2598,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][贡献补申报] dsh-memory #856：[bucketscope][#843 后续] 缺少 time 导入，validity=True 使桶补召回整体失效 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2598
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_0417a1290d65"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2599,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][贡献补申报] dsh-memory #857：[bucketscope] 跨日桶轮转仅执行一轮，9 条匹配记录在默认 cap=8 时只返回 6 条 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2599
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_0b7f23833779"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2600,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][贡献补申报] lingshu #1319：[world/scenario] 同端点查询把零条边当作因果路径，并漏报无路径缺口 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2600
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_8de70932bb37"
+    },
+    {
+      "ts": "2026-11-11T14:56:09Z",
+      "issue": 2601,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][缺陷复现] dsh-memory #875：120天前被截成20天前，content_dated 交付错误日期 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2601
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-11-11",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_f141fef1a1bf"
     }
   ]
 }

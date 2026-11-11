@@ -404,19 +404,30 @@
     2579,
     2580,
     2581,
-    2582
+    2582,
+    2584,
+    2585,
+    2586,
+    2587,
+    2588,
+    2589,
+    2590,
+    2591,
+    2592,
+    2593,
+    2594
    ],
    "login": "zhtty67-rgb",
    "projects": [],
-   "reputation_delta": 1386,
+   "reputation_delta": 1437,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 396,
+   "round_known": 407,
    "round_seen": [
     1
    ],
-   "settled": 396,
+   "settled": 407,
    "timeout": 0
   },
   {
@@ -1696,19 +1707,20 @@
     1937,
     1974,
     1992,
-    2519
+    2519,
+    2583
    ],
    "login": "123WP-a",
    "projects": [],
-   "reputation_delta": 258,
+   "reputation_delta": 261,
    "round0": 0,
    "round0_ratio": null,
    "round0_ratio_source": null,
-   "round_known": 63,
+   "round_known": 64,
    "round_seen": [
     1
    ],
-   "settled": 63,
+   "settled": 64,
    "timeout": 0
   },
   {
@@ -2894,6 +2906,57 @@
    ],
    "invalid": 0,
    "issues": [
+    1047,
+    1195,
+    1359,
+    1483,
+    1699,
+    1804,
+    1831,
+    1832,
+    1833,
+    1910,
+    1954,
+    2023,
+    2049,
+    2050,
+    2051,
+    2220,
+    2221,
+    2295,
+    2378,
+    2387,
+    2438,
+    2595,
+    2596,
+    2597,
+    2598,
+    2599,
+    2600,
+    2601
+   ],
+   "login": "fladyck",
+   "projects": [],
+   "reputation_delta": 40,
+   "round0": 0,
+   "round0_ratio": null,
+   "round0_ratio_source": null,
+   "round_known": 28,
+   "round_seen": [
+    1
+   ],
+   "settled": 28,
+   "timeout": 0
+  },
+  {
+   "blockers": [],
+   "disputes": 0,
+   "eligible": true,
+   "evidence_gaps": [
+    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
+   ],
+   "invalid": 0,
+   "issues": [
     1245,
     1363,
     1485,
@@ -2917,50 +2980,6 @@
     1
    ],
    "settled": 11,
-   "timeout": 0
-  },
-  {
-   "blockers": [],
-   "disputes": 0,
-   "eligible": true,
-   "evidence_gaps": [
-    "round 全为中性占位（追溯性结算无状态机轮次证据）——一次过闸占比无区分度，该条判据不适用"
-   ],
-   "invalid": 0,
-   "issues": [
-    1047,
-    1195,
-    1359,
-    1483,
-    1699,
-    1804,
-    1831,
-    1832,
-    1833,
-    1910,
-    1954,
-    2023,
-    2049,
-    2050,
-    2051,
-    2220,
-    2221,
-    2295,
-    2378,
-    2387,
-    2438
-   ],
-   "login": "fladyck",
-   "projects": [],
-   "reputation_delta": 33,
-   "round0": 0,
-   "round0_ratio": null,
-   "round0_ratio_source": null,
-   "round_known": 21,
-   "round_seen": [
-    1
-   ],
-   "settled": 21,
    "timeout": 0
   },
   {

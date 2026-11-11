@@ -2,8 +2,8 @@
  "note": "本站只做声誉分与价值评价；金额不进站。两轴（难度 / 影响等级）分别记录，合成权重与资金换算属使用者侧。",
  "vectors": [
   {
-   "difficulty": "medium",
-   "difficulty_base": 3,
+   "difficulty": "hard",
+   "difficulty_base": 6,
    "evidence_strength": true,
    "impact_grade": "B",
    "issues": [
@@ -371,12 +371,23 @@
     2579,
     2580,
     2581,
-    2582
+    2582,
+    2584,
+    2585,
+    2586,
+    2587,
+    2588,
+    2589,
+    2590,
+    2591,
+    2592,
+    2593,
+    2594
    ],
    "login": "zhtty67-rgb",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 1290,
+   "reputation_delta": 1341,
    "rounds": 1
   },
   {
@@ -2918,6 +2929,37 @@
    "rounds": 1
   },
   {
+   "difficulty": "easy",
+   "difficulty_base": 1,
+   "evidence_strength": true,
+   "impact_grade": "C",
+   "issues": [
+    1699,
+    1804,
+    1831,
+    1832,
+    1910,
+    1954,
+    2023,
+    2051,
+    2220,
+    2221,
+    2378,
+    2387,
+    2595,
+    2596,
+    2597,
+    2598,
+    2599,
+    2601
+   ],
+   "login": "fladyck",
+   "project": "memory",
+   "quality_E": null,
+   "reputation_delta": 22,
+   "rounds": 1
+  },
+  {
    "difficulty": "medium",
    "difficulty_base": 3,
    "evidence_strength": true,
@@ -3039,31 +3081,6 @@
    "project": "hive_memory_bench",
    "quality_E": null,
    "reputation_delta": 17,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "C",
-   "issues": [
-    1699,
-    1804,
-    1831,
-    1832,
-    1910,
-    1954,
-    2023,
-    2051,
-    2220,
-    2221,
-    2378,
-    2387
-   ],
-   "login": "fladyck",
-   "project": "memory",
-   "quality_E": null,
-   "reputation_delta": 16,
    "rounds": 1
   },
   {
@@ -3550,6 +3567,21 @@
    "rounds": 1
   },
   {
+   "difficulty": "medium",
+   "difficulty_base": 3,
+   "evidence_strength": true,
+   "impact_grade": "B",
+   "issues": [
+    1767,
+    2583
+   ],
+   "login": "123WP-a",
+   "project": "bounty_site",
+   "quality_E": null,
+   "reputation_delta": 6,
+   "rounds": 1
+  },
+  {
    "difficulty": "hard",
    "difficulty_base": 6,
    "evidence_strength": true,
@@ -3801,12 +3833,13 @@
    "impact_grade": "C",
    "issues": [
     2050,
-    2295
+    2295,
+    2600
    ],
    "login": "fladyck",
    "project": "lingshu",
    "quality_E": null,
-   "reputation_delta": 4,
+   "reputation_delta": 5,
    "rounds": 1
   },
   {
@@ -3824,20 +3857,6 @@
    "project": "dsh_mobile_apk",
    "quality_E": null,
    "reputation_delta": 4,
-   "rounds": 1
-  },
-  {
-   "difficulty": "medium",
-   "difficulty_base": 3,
-   "evidence_strength": true,
-   "impact_grade": "B",
-   "issues": [
-    1767
-   ],
-   "login": "123WP-a",
-   "project": "bounty_site",
-   "quality_E": null,
-   "reputation_delta": 3,
    "rounds": 1
   },
   {

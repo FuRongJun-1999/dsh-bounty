@@ -70335,6 +70335,151 @@
         "delta": 6
       },
       "id": "evt_a14245ac4895"
+    },
+    {
+      "ts": "2026-11-18T06:49:40Z",
+      "issue": 2730,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #196 第十二批：mesh_svg 非有限与防 bool 闸（PR #1443） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2730
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_8aae57a59280"
+    },
+    {
+      "ts": "2026-11-18T06:49:40Z",
+      "issue": 2731,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: lingshu R322：hexgen_subject_split 逐主体八域白箱求解器（PR #1446） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2731
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_d0a915327a16"
+    },
+    {
+      "ts": "2026-11-18T06:49:40Z",
+      "issue": 2732,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: lingshu M5：汉字模态内置 IDS 拆解与蜂窝部件条件组合卡闭环（PR #1447） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2732
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_c9afbe8911d8"
+    },
+    {
+      "ts": "2026-11-18T06:49:40Z",
+      "issue": 2733,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #196 第十一批：hex_ortho 正交去重 tol 参数闸与 NaN 核防串扰（PR #1448） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2733
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_2e8bd1818a16"
+    },
+    {
+      "ts": "2026-11-18T06:49:40Z",
+      "issue": 2734,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: lingshu §三：hex_train 训练前梯度健康度自检与分层轮换采样（PR #1450） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2734
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_4bf63ec21f24"
     }
   ]
 }

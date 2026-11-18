@@ -67812,6 +67812,2529 @@
         "delta": 1
       },
       "id": "evt_5edfdf5c3544"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2638,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][缺陷复现] dsh-memory #909：经历去重把 _raw 当成字段，资料卡重复列出同一经历 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2638
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_8cede9774a51"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2639,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1395（镜像落库：批一百零五~一百一十九 15 批净增量 26 文件）——守卫11件63项 基线41红/19过+1收集错误→修复63绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2639
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_9a46bad385bc"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2640,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1396（类型校验八件镜像：STARDUSTLC 八入口类型/值域闸）——脚本守卫8件33断言 基线25红/8过→修复33绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2640
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6880ef88c98a"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2641,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1400（批一百二十：increment_access_many 批量入口类型闸）——守卫5项 基线4红/1过→修复5绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2641
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_296f2febeb6b"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2642,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1404（批一百二十一/二十二：search_skills 闸+三入口类型闸）——守卫9项 基线7红/2过→修复9绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2642
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5baa7ec9d574"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2643,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #904（fix(hive/serve_start)：--restart 先校验配置后停服务 #808）——脚本守卫9项 基线5红/4过→修复9绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2643
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_29d85b6bb590"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2644,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #906（fix(sustain/scrub)：#804 崩溃轮 _scrub.jsonl 留痕+summary 口径分开）——脚本守卫12项 基线6红/6过→修复12绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2644
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_aeb8e731ab8c"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2645,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #907（feat：会话级私有——默认公开逐会话自选 #694）——脚本守卫11项 基线新面AttributeError→修复11绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2645
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8d8b490dd601"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2646,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #911（fix(dossier)：#909 经历/家庭去重键排除证据键）——脚本守卫6项 基线3红/3过→修复6绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2646
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_00b8be9f56bc"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2647,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #912（feat(hooks)：#739 注入面逐轮去重/增量 deltaBlock）——TS守卫 inject 4绿+context 14绿 基线新面SyntaxError shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2647
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_33d93d2337b5"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2648,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #913（feat(write)：知识层准入闸 layer_gate #749 默认情景层）——脚本守卫11项 基线新面ImportError→修复11绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2648
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_43c70398b286"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2649,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #914（feat(layer_gate)：知识层判据并入白箱口径——无英文/无数字/规则语法）——脚本守卫16项 基线新面AttributeError→修复16绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2649
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c57fe496970b"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2650,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #915（fix(layer_gate)：数字放宽改拦复杂数学符号——按使用者更正）——脚本守卫18项 基线3红/15过→修复18绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2650
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_abd0166b7d93"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2651,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #916（feat(hooks)：#749 跨会话 knowledge 浮现——注入面接查询式检索）——TS守卫4项 基线K1 knowledge零浮现→修复浮现 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2651
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_751b837b0121"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2652,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #917（feat(ref)：#770 存量嵌套根重复的检测与清退）——脚本守卫9项 基线N1空报告+prune_nested新面→修复9绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2652
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c6bd5ac80d30"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2653,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #918（feat(routing)：#607 繁简折叠表接真源——OpenCC 字典 vendored 四件齐备）——脚本守卫10项 基线1红→修复10绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2653
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_71d1dc0025d1"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2654,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #919（fix(ui)：界面体检第一批——flex/白名单/空按钮/版本号/默认关标注）——部署形态TS守卫5项 基线5红→修复5绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2654
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_80db7cad3415"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2655,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #920（perf(ui)：界面渐进加载——缓存/摘要/分页/可中止）——TS守卫5项 基线4红/1过→修复5绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2655
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_180b0c4e18bb"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2656,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #905（test：补 #789 撞车守卫——B6 端口字面量假红两侧钉住）——test-only单 守卫6项两腿同绿（判别力在断言构造三面） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2656
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1ea7192c9edc"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2657,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #910（test：#773 sessionPrivate 端到端验收——落盘+四条读路径隔离+定点变异E7可红）——脚本守卫11项 两腿同绿（test-only单） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2657
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_133c37235678"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2658,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu 自主发现：search_skills(123) / (None) 把非字符串 query 直接落到 .strip()，抛不可读 A（PR #1408） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2658
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_3776cc9a24c9"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2659,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1406（test(e2e)：#172 pixel→memory 最小端到端路径——SceneSimulator 渲染→hex_cnn 感知→World3D.add_view→store 写记忆 + 守卫 2 项）——pytest 2项 两腿同绿（test-o shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2659
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8ae5e1469075"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2660,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu 自主发现：get_recent_context(\"x\") 把 str 直接当 SQL LIMIT 参数，抛不可读 Integrit（PR #1409） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2660
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_230e4e63bbc9"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2661,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu 自主发现：update_skill_confidence(\"x\", \"y\") 两个参数都非法却**静默返回 None**（技能置信（PR #1410） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2661
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_91c22dc28477"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2662,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu 自主发现：append_skill_procedure(123, \"s\") 把非字符串 skill_id 静默接受（返回 None（PR #1411） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2662
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_09d12ea4ac2f"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2663,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu 自主发现：char_bigram_jaccard(\"abc\", None) 把 None 当空串**静默返回 0.0**（把调用错（PR #1412） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2663
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_e4f0ebf732b9"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2664,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu 自主发现：expand_query_terms(123) / (None) 直接走到 \"x in query\"，抛不可读 Type（PR #1413） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2664
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_dd611930bb9f"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2665,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu 自主发现：increment_access_many([None]) **静默成功**（近因计数静默漏写）；increment_a（PR #1414） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2665
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_89f6ece08f8d"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2666,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu 自主发现：get_nodes_by_tag(\"ops\", limit=\"x\") 把 str 直接当 SQL LIMIT，抛不可读 （PR #1415） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2666
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_b7e95f1b8d2b"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2671,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "fladyck",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入][缺陷复现] dsh-memory #925：记忆页取消未中止实际 fetch，旧结果仍渲染 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2671
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_5255c08d488a"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2672,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "123WP-a",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-reload-buttons 0.1.7 深度审计：判定真有用；8 个场景 24 次读数全中；三个缺陷含新建档静默起不来与 cookie 库路径写死 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2672
+      ],
+      "project": "awesome_dsh_plugin",
+      "impact": "C",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_845589f10789"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2674,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1407（fix(world)：#196 census 第七批——anchored_verification conf 闸＋semantic_anchor evidence 闸＋守卫 6 条）——pytest 基线4红/2过→修复6绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2674
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_d5a760a8fa55"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2675,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1416（fix(core)：批一百二十三至一百二十八——STARDUSTLC666 六件类型闸（#1408–#1413）镜像落库＋守卫 6 条）——脚本守卫6件26断言 基线5件红（15断言）/1件已钉→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2675
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_4f7f3205bcf7"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2676,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1417（fix(core)：#1414/#1415 净增量收口——get_nodes_by_tag limit 闸＋两守卫对齐落库）——脚本守卫2件9断言 基线1件红3断言/1件已钉→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2676
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_996be3373024"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2677,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #921（fix(bucketindex)：never-built index 的 age_h 报成 ~56.7 年——外部贡献者直修）——脚本守卫10判据 基线3红+A6崩→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2677
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_01eec4c5803e"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2678,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #933（fix(ui)：#925 记忆页取消真正生效——合并调用方 AbortSignal，不再覆盖）——TS 守卫5项 基线P5红（源码级）→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2678
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_94d217be61a2"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2679,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #930（feat(hot)：本地热层分库＋每晚同步日摘）——脚本守卫11判据 基线ImportError（新面）→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2679
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_2184bcfa0f7a"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2680,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #931（feat(read)：热层优先成默认——命中即答，够不着查主库）——脚本守卫5判据 基线2红/3过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2680
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c549ee909ee3"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2681,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #923（perf(ui)：记忆页先近后远——自我/待裁决/今日/最近100，历史手动加载）——TS 守卫10项（新5+升级2） 基线7红/3过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2681
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_aa6a57e2780e"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2682,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #934（fix(hooks)：#929 注入面跳过审计留痕/否证层）——TS 守卫6项（新增1） 基线1红/5过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2682
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_546efcdebd50"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2683,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #935（fix(hooks)：#929 审计留痕按标签拦——不止按层）——TS 守卫7项（新增1） 基线1红/6过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2683
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_fa95f35b8e8f"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2684,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #938（fix(hooks)：#937 判据顺序修正＋三条守卫——工作留痕不再被层拦吃掉）——TS 守卫4项 基线K2红→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2684
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e00adbefeec1"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2685,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #940（feat(identity)：用途维度——身份派生，不靠关键词）——净增量单 脚本守卫11判据 基线6过+用途面AttributeError→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2685
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_f96cc6ca984b"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2686,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #941（feat(identity)：端侧五元组镜像＋跨端对拍守卫）——TS 守卫4项 基线ERR_MODULE_NOT_FOUND（新面）→修复全绿（S1 跨端逐位一致） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2686
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_33577711788d"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2687,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #944（feat(bucket)：用途副键——纯增量）——脚本守卫4判据 基线2红/2过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2687
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ed412035b3d8"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2688,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #949（feat(bucket)：项目副键——主归属=项目）——脚本守卫6判据（升级+2） 基线1红/5过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2688
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_3fcd0af21b9d"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2689,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #952（fix(memory)：写入面也打用途标签）——脚本守卫6判据（新增T5） 基线1红/5过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2689
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c60ed780d3a2"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2690,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #955（fix(hot)：热层不再每次都全量重建）——脚本守卫8判据 基线2红/6过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2690
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_46f7445f8f94"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2691,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #957（perf(search)：标签预筛 tags_any——实测 90 倍（自述））——脚本守卫4判据 基线TypeError（新参数）→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2691
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_21a2d38eeb2f"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2692,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #962（fix(memory)：审计=工作记录，不占结构层——#929 断根）——Python 守卫5判据 基线4红/1过→修复全绿；TS 注入面守卫双腿同绿（先前已落地，钉住） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2692
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_df7553752a16"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2693,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #968（fix(retrieval)：aliases 全链路召回（#954））——脚本守卫有效判据5（A6工具面SKIP） 基线3红/2过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2693
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_8a5434d2a4bb"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2694,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #976（feat：人物树时间意图路由＋常驻理论入热层）——脚本守卫4判据 基线2红/2过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2694
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_9aa409cab28f"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2695,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #977（feat(affect)：情绪/情感最小闭环 v2——四尺度×两轴×潮汐）——脚本守卫两件24判据 基线双ImportError（新面）→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2695
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_906164a88a72"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2696,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #978（test(self)：同义入口守卫 S1–S4）——test-only 单 守卫4判据 两腿同绿（判据先前已落地，守卫钉住） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2696
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ac29e093a4c4"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2697,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #979（feat(trust)：信任度计算落地——智能论 3.4 §2.7/§2.9）——脚本守卫三件39判据 基线1KeyError+2ImportError→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2697
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_13d2035b6e46"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2698,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #981（feat(retrieval)：理论问法专用路＋常驻守卫）——脚本守卫两件8判据 基线2红/6过（含常驻面双腿同绿）→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2698
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_1ab705591af0"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2699,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #982（feat(predict)：控制论式预测闭环——预测→同轮检验→Brier→校准）——脚本守卫两件17判据 基线1ImportError+1守卫4红→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2699
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_9972a583d1c9"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2700,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #983（fix(hooks)：#749 跨会话 knowledge 浮现——按真实返回契约归一（主库 results 分支）——外部贡献者直修）——TS 守卫9项 基线3红/6过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2700
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_5258c150a073"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2701,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #984（fix(hot)：热层运行时懒建——补完 #983 的根因）——脚本守卫8判据 基线AttributeError（新面，B0通过后崩）→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2701
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_530f2592be32"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2702,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #985（fix(ui)：数据缓存真正接线＋记住上次页面）——独立探针4判据 基线4红→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2702
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_f83fb9051b0a"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2703,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #987（fix(#980)：问题 3 与问题 4——单点改分/报错可照做）——脚本守卫三件20判据 基线2件双腿同绿+写闸3红（warn→enforce）→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2703
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_83f6276c455b"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2704,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #988（fix(#980)：判定面以磁盘为真源——protect.check 读盘＋单节点判定默认 fresh）——脚本守卫三件14判据 基线2×AttributeError+1×TypeError→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2704
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_ada2f9c328bf"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2705,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #989（feat(#980)：A 包——写入语义（默认情景层 / content_kind 缺省 / 用途身份标签））——脚本守卫三件45有效判据 基线9红/36过（含携带语义红）→修复全绿；mode_parity 自检 fail-closed 排除 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2705
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_d17c275424e6"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2706,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #958（fix(search)：预筛安全阀——覆盖率闸/空结果回退）——脚本守卫5判据 基线3红/2过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2706
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_dbd12d9567d4"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2707,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #960（feat(search)：工具面标签检索走单路——实测 40 倍（自述））——脚本守卫3判据 基线1红/2过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2707
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_c3773b7d34fa"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2708,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #961（feat(hot)：增量复用＋正确性守卫）——正确性守卫4判据 两腿同绿（黑盒等价优化，性能面未测） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2708
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6ae9e4d108da"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2709,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #963（fix(memory)：否证原因进索引——#929 问题3）——脚本守卫4判据 基线2红/2过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2709
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_045bc6319f53"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2710,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #964（fix(forgetting)：重复度比对自适应上限——#929 问题4）——脚本守卫6判据 基线AttributeError（新面）→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2710
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_06e834d40b09"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2711,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #965（feat(search)：项目/用途接进检索路由——#929 问题5）——脚本守卫4判据 基线1红/3过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2711
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_18b754e6a598"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2712,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #966（fix(retrieval)：S1 域闸覆盖率前置判据——#929 问题2）——脚本守卫6判据（S1a–S1f） 基线2红/4过→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2712
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6d4bcba481eb"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2713,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: 第三方独立复验：dsh-memory PR #967（fix(929)：复核意见落地——回退开关＋硬断言）——脚本守卫三件21判据 基线2红/19过（两件同绿为对齐钉）→修复全绿 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2713
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_e618dfda31da"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2714,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #434 硬前置#3：hex_composite 双副本未分叉核查勘误与纯标准库防分叉守卫（PR #1425） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2714
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_78845b674611"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2715,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: lingshu #434 硬前置#1：切断 world/prediction 对 core 与 spacetime_memory_core 的反向导入（PR #1426） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2715
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_7af872b8a24a"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2716,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: lingshu #434 硬前置#1：切断 scenario/scenario_cli 对 core 反向导入并立 world→core 零边守卫（PR #1427） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2716
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_89c3af77f090"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2717,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: dsh-memory #434 硬前置#2：切断 stg ↔ mcp_server 双向惰性循环（PR #995） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2717
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_56b2d94da290"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2718,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: lingshu #661：M5 去重等价倒排索引与尾部窗口还原（稳态 O(1) · 4.17×–15.36× 加速 · PR #1428） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2718
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_3c3beef74506"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2719,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #196 第八批：hex_query.query_match 四态阈值有限性与防 bool 闸（PR #1429） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2719
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_be391dff1ac7"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2720,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #196 第九批：camera_calib 非有限与防 bool 闸（PR #1430） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2720
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_74c1172ff5dd"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2721,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: lingshu #172 后续①：端到端感知噪声退化曲线评测闭环（PR #1431） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2721
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_49ec6bda55fe"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2722,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: lingshu #110：竞争响应假设与主动探测四态证据白箱闭环（PR #1432） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2722
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_e24649d89322"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2723,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: lingshu #172 后续③：升级端到端蜂窝感知器（六角晶格形状与颜色识别 · PR #1433） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2723
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_6c24b5733086"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2724,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "medium",
+      "delta": 3,
+      "reason": "wei-hu-he-shi: lingshu #172 后续②：模块主链连通性 AST 台账与包内拓扑漂移守卫（PR #1434） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2724
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 3,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 3.0,
+        "delta": 3
+      },
+      "id": "evt_281ea4dc33aa"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2725,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #196：vision/lineart 非有限 thr_mult 静默退化与参数类型闸（PR #1437） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2725
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_5622a37b1d6c"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2726,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu #196 第十批：physics_predict 非有限与防 bool 闸（PR #1438） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2726
+      ],
+      "project": "lingshu",
+      "impact": "C",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_e076685f4635"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2727,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: lingshu M5.5：感知-知识桥（条件卡灌入、图文四态回写与白箱问答 · PR #1439） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2727
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_38adf8cc7bab"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2728,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: lingshu M7：stcnn 连续帧运动轨迹位置预测与 4D VoxelWorld 桥接闭环（PR #1440） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2728
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_4158b0f1c717"
+    },
+    {
+      "ts": "2026-11-18T06:37:34Z",
+      "issue": 2729,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: lingshu M4.3：hex_search 多物体与遮挡四态诚实检测（PR #1442） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2729
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-11-18",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_a14245ac4895"
     }
   ]
 }

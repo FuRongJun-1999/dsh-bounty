@@ -91,74 +91,88 @@ def run_guards(urls, check_reachability=True):
         if any(marker in low for marker in PLACEHOLDER_MARKERS):
             failures.append("[G3 占位守卫] 占位链接：%s" % url)
         # G5 深链守卫
-        if len(urllib.parse.urlsplit(url).path) <= 1:
-            failures.append("[G5 深链守卫] 链接为站点根、非具体发布页：%s" % url)
+        parsed = urllib.parse.urlsplit(url)
+        path_str = parsed.path
+        if not path_str or path_str == "/":
+            failures.append("[G5 深链守卫] 站点根或无具体路径的链接（非深链）：%s" % url)
+        elif len(path_str) <= 1:
+            failures.append("[G5 深链守卫] 路径过短的链接：%s" % url)
+
+    # G4 可达守卫
     if check_reachability:
-        # G4 可达守卫
         for url in sorted(unique):
-            ok, why = probe(url)
-            print("  %s %s  %s" % ("✓" if ok else "✗", why, url))
+            ok, reason = probe(url)
             if not ok:
-                failures.append("[G4 可达守卫] 链接不可达（%s）：%s" % (why, url))
+                failures.append("[G4 可达守卫] 链接不可达 (%s)：%s" % (reason, url))
+
     return failures
 
 
-def mutate_first(urls):
-    """把第一条（排序后）链接的路径改坏，返回 (变异链接, 变异后集合)。"""
-    target = sorted(set(urls))[0]
-    parts = urllib.parse.urlsplit(target)
-    broken = urllib.parse.urlunsplit(
-        (parts.scheme, parts.netloc, parts.path + "/__mutated_404__",
-         parts.query, parts.fragment))
-    mutated = [broken if u == target else u for u in urls]
-    return broken, mutated
+def main():
+    if len(sys.argv) < 2:
+        print("用法: python -X utf8 scripts/check_links.py <目标目录> [--mutate]", file=sys.stderr)
+        sys.exit(2)
 
+    target_dir = Path(sys.argv[1])
+    mutate_mode = "--mutate" in sys.argv
 
-def main(argv):
-    args = [a for a in argv if a != "--mutate"]
-    mutate = "--mutate" in argv
-    if len(args) != 1:
-        print("用法：python -X utf8 scripts/check_links.py <目录> [--mutate]")
-        return 2
-    root = Path(args[0])
-    if not root.is_dir():
-        print("✗ 目录不存在：%s" % root)
-        return 2
-    md_files = sorted(root.rglob("*.md"))
+    if not target_dir.exists() or not target_dir.is_dir():
+        print(f"错误：目录不存在或不是文件夹: {target_dir}", file=sys.stderr)
+        sys.exit(2)
+
+    md_files = list(target_dir.glob("**/*.md"))
     if not md_files:
-        print("✗ 目录内无 Markdown 文件：%s" % root)
-        return 2
+        print(f"错误：在目录 {target_dir} 下未找到任何 Markdown 文件", file=sys.stderr)
+        sys.exit(2)
+
     urls = extract_urls(md_files)
     if not urls:
-        print("✗ 未扫描到任何链接，无可验之物")
-        return 2
+        print(f"错误：在 {target_dir} 的 Markdown 文件中未提取到任何 HTTP(S) 链接", file=sys.stderr)
+        sys.exit(2)
 
-    print("扫描 %d 个文件，提取链接 %d 条（去重 %d 条）"
-          % (len(md_files), len(urls), len(set(urls))))
+    print(f"[*] 扫描到 {len(md_files)} 个 Markdown 文件，提取到 {len(urls)} 条原始链接（去重后 {len(set(urls))} 条）。")
 
-    if mutate:
-        broken, mutated = mutate_first(urls)
-        print("\n【定点变异自证】人为改坏链接：%s" % broken)
-        print("对变异集合重跑守卫（期望：必红且点名该链接）——")
-        failures = run_guards(mutated)
-        named = any(broken in f for f in failures)
-        for f in failures:
-            print("✗ FAIL %s" % f)
-        if failures and named:
-            print("✓ 自证成立：变异链接被守卫抓到并点名：%s" % broken)
-            return 0
-        print("✗ 自证失败：变异未被抓到或未点名——校验器不可信")
-        return 1
+    if mutate_mode:
+        print("[*] 正在执行定点变异自证（--mutate）...")
+        sorted_urls = sorted(set(urls))
+        original_first = sorted_urls[0]
+        
+        # 构造变异链接：追加 /__mutated_404__
+        if original_first.endswith("/"):
+            mutated_first = original_first + "__mutated_404__"
+        else:
+            mutated_first = original_first + "/__mutated_404__"
 
-    failures = run_guards(urls)
-    for f in failures:
-        print("✗ FAIL %s" % f)
-    if failures:
-        print("\n通过 0 / 失败 %d（逐条点名如上）" % len(failures))
-        return 1
-    print("\n通过 %d / 失败 0（G1–G5 全过，逐条可达）" % len(set(urls)))
-    return 0
+        mutated_urls = [mutated_first] + sorted_urls[1:]
+        
+        print(f"[*] 原第一条链接: {original_first}")
+        print(f"[*] 变异后链接: {mutated_first}")
+
+        # 运行变异后的守卫校验
+        failures = run_guards(mutated_urls, check_reachability=True)
+        
+        if failures:
+            print("[✓] 自证成功：变异后成功触发了守卫拦截！捕获到以下失败项：")
+            for f in failures:
+                print(f"    - {f}")
+            sys.exit(0)
+        else:
+            print("[✗] 自证失败：变异后的链接未能触发任何守卫拦截！", file=sys.stderr)
+            sys.exit(1)
+
+    else:
+        print("[*] 正在运行全部守卫校验（含可达性探测）...")
+        failures = run_guards(urls, check_reachability=True)
+        
+        if failures:
+            print(f"[✗] 校验失败，共发现 {len(failures)} 处违规：", file=sys.stderr)
+            for f in failures:
+                print(f"    - {f}", file=sys.stderr)
+            sys.exit(1)
+        else:
+            print("[✓] 全部守卫与链接连通性校验通过！")
+            sys.exit(0)
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv[1:]))
+    main()

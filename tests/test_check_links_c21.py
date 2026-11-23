@@ -86,12 +86,17 @@ EXPECT = {
 
 
 def change_scope():
-    """交付面只许两文件：以 git 工作树改动集为准（worktree 自带全仓，不按文件总数判）。"""
+    """**纯诊断**（不参与判据）：列出工作树里落在本交付两文件之外的改动。
+
+    为什么只做诊断：本函数读的是 **live worktree**，而「交付面只许两文件」是**某个 PR
+    的 diff** 的属性，不是任何检出的属性 —— 两者不可互相代替。拿它当判据必产生假红。
+    判据只认 `evaluate()` 里的内容断言（URL 提取与 G2–G5 的大小写口径）。
+    """
     import subprocess
     r = subprocess.run(["git", "-C", ROOT, "status", "--porcelain"],
                        capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
-        return ["<not-a-git-worktree>"], []
+        return ["<not-a-git-worktree>"]
     changed = set()
     for line in (r.stdout or "").splitlines():
         if not line.strip():
@@ -100,7 +105,7 @@ def change_scope():
         changed.add(path.replace("/", os.sep))
     allowed = {os.path.join("scripts", "check_links.py"),
                os.path.join("tests", "test_check_links_c21.py")}
-    return sorted(changed - allowed), sorted(allowed - changed)
+    return sorted(changed - allowed)
 
 
 def evaluate():
@@ -208,15 +213,18 @@ def mutate():
 def main():
     if MUTATE_ONLY:
         return mutate()
-    extra, missing = change_scope()
     res = evaluate()
-    #: 只判**越界**（改了不该改的），不判 missing（该改的没改）。
-    #: 为什么：missing 判的是「这份交付把两个文件都改了」——那只在**提交该 PR 时**成立；
-    #: 一旦合并进 main，工作树干净 ⇒ changed 为空 ⇒ missing 恒等于允许集 ⇒ 本断言
-    #: 在 main 上**永远红**（实测自 dfae931 引入起一直红，从没在 main 上绿过）。
-    #: 一个只在提交时能过的断言放进常驻守卫，等于让「全量守卫套件」这条门禁永久带一个假红。
-    #: 越界判据（extra）在任何时候都有意义：改动集里出现允许集之外的文件就是越界。
-    res["tree.change-scope"] = (not extra)
+    #: `tree.change-scope` 判据已**整条撤下**（只余诊断打印），承 #1416 对 missing 的同一口径。
+    #: 为什么：该判据锚在 **live worktree**（`git status --porcelain`），于是**任何**与本件
+    #: 无关的未提交改动都会把它判红 —— 别的 PR 改 `scripts/bounty_board.py`、本地一份草稿、
+    #: 甚至一个未跟踪的临时文件，都会让这件内容守卫报出一条与 check_links 无关的失败。
+    #: 实测（在干净检出上制造一处无关改动）：
+    #:   在干净检出上 echo 一行进 README.md ⇒ [FAIL] tree.change-scope ·
+    #:   extra=['README.md'] · 通过 27 / 失败 1（README.md 与 check_links 毫无关系）
+    #: 「交付面只许两文件」是**某个 PR 的 diff** 的属性，live worktree 测不出它；仓内已有
+    #: 正位的门禁管工作树洁净（各 workflow 末步「跑完不许把仓搞脏」）。
+    #: 另一笔代价（本次顺带修掉）：`mutate()` 的 `rc == 1` 子判据在脏工作树下恒真
+    #: —— 变异没被内容断言抓到也照样 rc=1 ⇒ 反面证明被环境污染成假绿。
     fail = 0
     for name in sorted(res):
         ok = res[name]
@@ -224,8 +232,9 @@ def main():
             fail += 1
         if not QUIET:
             print("  [%s] %s" % ("PASS" if ok else "FAIL", name))
-    if extra or missing:
-        print("  改动范围越界 extra=%s missing=%s" % (extra, missing))
+    extra = change_scope()
+    if extra:
+        print("  [DIAG] 交付面之外的工作树改动（仅诊断，不计入上面的通过/失败）：%s" % extra)
     print("通过 %d / 失败 %d" % (len(res) - fail, fail))
     return 1 if fail else 0
 

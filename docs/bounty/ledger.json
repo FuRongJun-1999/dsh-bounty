@@ -71843,6 +71843,1485 @@
         "delta": 3
       },
       "id": "evt_bc623298c241"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2783,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu 身体模块：消除运动组成员 ID 的分隔符碰撞（PR #1469） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2783
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_7e3a7937b9b9"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2784,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu 身体模块：修复透明底线稿被漏检（PR #1470） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2784
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_33045300b1ac"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2785,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: lingshu 身体模块：补齐非正交 OBB 的 SAT 面法线（PR #1471） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2785
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_3424da63b208"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2786,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: lingshu 身体模块：修复正文改写后追加导致新奇度缓存失步（PR #1472） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2786
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_22761897b373"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2787,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu 身体模块：修复 odd-r 蜂窝网最近格误判（PR #1473） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2787
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_e4d554507538"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2788,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu 身体模块：修复技能检索负数上限丢失命中（PR #1474） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2788
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_3d12cc0d72c3"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2789,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: lingshu 身体模块：修正释放单摆椭圆解与近180°精度（PR #1475） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2789
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_f91d2b59bd98"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2790,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: lingshu 身体模块：修复动画 spec 顶层 motions 被严格规格误拒（PR #1476） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2790
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_6d9165a4a079"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2791,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1477：螺旋拟合时间锚与完整三维残差修复（守卫/变异/基准） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2791
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_a0e8655c9be8"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2792,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1478：新生节点与边免受出生前全库停机时间衰减（守卫/变异/基准） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2792
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_58cf34e6b9ee"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2793,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1479：无接触碰撞箱不再把瞬时末速度替换成平均速度（守卫/变异/基准） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2793
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_e8ef0b5b20ca"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2794,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1480：空间检测补齐尾行尾列并使用真实面积能量基线（守卫/变异/基准） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2794
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_729502b5c384"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2795,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1462（feat(vision)：add bounded image pixel statistics——外部贡献者 STARDUSTLC666）——pytest 守卫 18 函数（参数化展开 40 用例）基线ModuleNotFoundError（新面）→ shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2795
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_6a20b55f2f90"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2796,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1465（fix(world3d)：keep explicit basis inverse consistent with roll——外部贡献者 STARDUSTLC666）——pytest 守卫 Camera3D 面 34 文件双腿对拍：基线唯一红=判别用 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2796
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_c9d987dfb822"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2797,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1467（feat(core)：expose local visual reference metadata query——外部贡献者 STARDUSTLC666）——pytest 守卫 16 函数（9 处参数化展开 53 用例）基线全红（新方法缺失 Attr shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2797
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_7a884be2558a"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2798,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1473（fix(nn)：choose nearest odd-r cell by center distance——外部贡献者 STARDUSTLC666）——pytest 守卫 2 函数（参数化 4 用例）基线全红（旧「先行后列」落到非最近格，距离² 7. shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2798
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_b8ccad8775d8"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2799,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "MWHWX",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: 第三方独立复验：lingshu PR #1474（fix(core)：normalize skill search limits——外部贡献者 STARDUSTLC666）——pytest 守卫单函数 6 断言：基线 limit=-1 丢命中（4==5 切片语义红）→修复全绿；作者交付票 #2788 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2799
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_fe7c5e053d47"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2802,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1481：修复 odd-r 六邻居几何（守卫、变异、基准） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2802
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_87e3fc0f12a0"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2803,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1482：命令后恢复动力学状态重锚（守卫、变异、基准） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2803
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_094182fa2cdd"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2804,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1484：修复运动分组的非有限坐标漏检 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2804
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_e954eed66208"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2805,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1485：替换统一模型时结束旧推演连接 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2805
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_06445b93d667"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2806,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1486：补齐真实历史、稀疏后端和独立安装门禁 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2806
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_3f723ab3df60"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2807,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1487：世界经验恢复丢失逐实例坐标口径 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2807
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_67ddc36431f1"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2808,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1488：Windows 符号链接量具将能力误报为失败 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2808
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_5c97e73e82bd"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2809,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1489：世界先验尺寸恢复与物理场景分叉 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2809
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_d9f45d62c7d1"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2810,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1490：autoframe 网格构图可见面分支漏加 center 偏移 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2810
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_6bd26cde652e"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2811,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1491：mesh3d 平滑法线忽略 face.vn 导致越界崩溃与错读法线 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2811
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_a6c58ccd4768"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2812,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1492：skeleton3d 骨骼绘制按世界 z 排序导致多视角画家序反绘 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2812
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_20b941d06bed"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2813,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1493：FTSIndex.candidates 负值/None/bool 限额语义不一致与静默截尾 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2813
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_b0af7f89ccd3"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2814,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1494：camera_calibrate 单应位姿分解缺少手性对齐与 SO(3) 正交归一化 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2814
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_412cc9c5575c"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2815,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1495：wm_bridge mat3_to_quat 未校验行列式 det=+1 放行反射矩阵与 bool shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2815
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_1231074a1c5e"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2816,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1496：稀疏激活路径对平行边求和导致 scipy 与 edge-list 分叉及环路发散 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2816
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_f272e2c70bcc"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2817,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1497：audio 压缩解复用器 MP3 同步掩码吞噬全部 ADTS AAC 导致解码失败 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2817
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_3d051aa1ee97"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2818,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1498：mesh_gen fit_recipe 剪影掩码跨包围盒坐标系比较失配 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2818
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_b131e824a3e7"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2819,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1499：physics fit_drag2 横向漂移误用绝对时间 ts 拟合导致预测偏移与误分类 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2819
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_f4b0d05e03c1"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2820,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1500：world3d 非网格物体接触阴影双重叠加 obj.center 导致阴影偏飞 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2820
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_77f2980f93d1"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2821,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1501：vec DepthBuffer 扫描线右端错写 floor(xb+0.5) 导致越界像素与 1/z 外推爆炸 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2821
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_f931bf4de5e9"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2822,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1502：vec raster SVG path 解包崩溃与逐子路径闭合契约修复 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2822
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_6d3b17c29079"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2823,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1505：修复 SciPy CSC 转置 _adj_inh_unv.T 导致低置信反向抑制漏算 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2823
+      ],
+      "project": "lingshu",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_322d116c6340"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2824,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-memory PR #1007：forgetting.redundancy() 精确稀有优先前缀过滤 bigram 索引（346×–1132× 加速并消除 1200 截断） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2824
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_ede7b98da71f"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2825,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-memory PR #1008：BM25 _rank_blocks 升级精确 Block-Max WAND 轴心跳块（1.51×–5.96× 加速） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2825
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_54c27b93072b"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2826,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1504：TMS propagate() 替换为单遍最大堆 GFP 求解器（5.5×–352.5× 加速） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2826
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_86b4a45abdc4"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2827,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] lingshu PR #1506（Draft，叠放于 #1505）：激活引擎可信图缓存与抑制安全稀疏活跃前沿（33×–42× 加速） shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2827
+      ],
+      "project": "lingshu",
+      "impact": "A",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_602d7ff0b1ca"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2828,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] Lingshu-Companion PR #3（附审计 Issues #1/#2/#4）：核心缺陷、内联 JS 语法、写队列竞态与 dsh-memory 集成修复 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2828
+      ],
+      "project": "lingshu_companion",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_9fd7eca44c76"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2829,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-memory PR #1012（Refs #1009/#1010/#1011）：MdCG 异步 flush 并发、writegate/crypto/AST 沙箱与 roleplay/console Web 安全加固 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2829
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_fab27652a4c4"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2830,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-memory PR #1013（Refs #1009/#1010/#1011）：热层明文/ACL 绕过、_tick_hook 注入、mdcg_search 缓存泄露、异步搜索竞态与 12+ 项 HEAD 回归修复 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2830
+      ],
+      "project": "memory",
+      "impact": "A",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_2b4683e40e3d"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2831,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-memory PR #1014（Refs #1009）：修复 SEC-07 双审与 Tier-3 写门控 decided_by / reviewed_by 调用方自证绕过 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2831
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_4c9b6d357636"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2832,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-memory PR #1016：消除 test_h4_sustain_snapshot 的 O(N^2) scope_aliases 与 _SCAN_CACHE 抖动超时 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2832
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_499c49427147"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2833,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-memory PR #1018（Refs #1011）：补齐 mdcg.py 剩余 10 处锁外 self._dirty 访问保护与变异对照守卫 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2833
+      ],
+      "project": "memory",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_cf19408cd2c6"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2834,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "easy",
+      "delta": 1,
+      "reason": "wei-hu-he-shi: [intake 输入] dsh-memory PR #1017：修复 test_h4_sustain_snapshot --mutate 中 H-4a-8 / H-4a-10 变异自证与锚点唯一性守卫 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2834
+      ],
+      "project": "memory",
+      "impact": "C",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 1,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 1.0,
+        "delta": 1
+      },
+      "id": "evt_6353f341dc3c"
+    },
+    {
+      "ts": "2026-11-23T10:55:21Z",
+      "issue": 2835,
+      "action": "settle",
+      "actor": "FuRongJun-1999",
+      "holder": "STARDUSTLC666",
+      "difficulty": "hard",
+      "delta": 6,
+      "reason": "wei-hu-he-shi: [intake 输入] Lingshu-Companion PR #5（Refs #4）：store MD 注入防护、model.js 帧率无关与表情保护及协议/热加载/ASR 加固 shen-li. retro round=1.",
+      "pr": null,
+      "covers": [
+        2835
+      ],
+      "project": "lingshu_companion",
+      "impact": "B",
+      "day": "2026-11-23",
+      "formula": {
+        "rule": "v1.0",
+        "kind": "complete",
+        "base": 6,
+        "rounds": 2,
+        "round": 1,
+        "num": 2,
+        "den": 2,
+        "raw": 6.0,
+        "delta": 6
+      },
+      "id": "evt_cb1f160dad3e"
     }
   ]
 }

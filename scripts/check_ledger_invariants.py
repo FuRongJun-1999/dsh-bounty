@@ -64,8 +64,14 @@ def audit(events, table_text=None):
     ts_prev = ''
     inversions = []
     total = 0
+    if not isinstance(events, list):
+        d['I7_required_fields'].append((0, None, 'events_not_list:%s' % type(events).__name__))
+        return d, {'rows': 0, 'delta': 0, 'inversions': 0}
     for i, e in enumerate(events):
         n = i + 1
+        if not isinstance(e, dict):
+            d['I7_required_fields'].append((n, None, 'event_not_object:%s' % type(e).__name__))
+            continue
         eid = e.get('id')
         if not isinstance(eid, str) or not ID_RE.match(eid):
             d['I1_id_shape'].append((n, eid))
@@ -95,14 +101,19 @@ def audit(events, table_text=None):
                 not isinstance(x, int) or isinstance(x, bool) for x in c):
             d['I8b_covers_shape'].append((n, e.get('issue'), repr(c)[:60]))
         ts = e.get('ts') or ''
-        if not TS_RE.match(ts):
+        if not isinstance(ts, str) or not TS_RE.match(ts):
             d['I9_ts_shape'].append((n, e.get('issue'), ts))
         else:
-            if e.get('day') != _day_of(ts):
-                d['I10_day_matches_ts'].append((n, e.get('issue'), ts, e.get('day'), _day_of(ts)))
-            if ts_prev and ts < ts_prev:
-                inversions.append((n, ts, ts_prev))
-            ts_prev = ts
+            try:
+                calc_day = _day_of(ts)
+            except ValueError:
+                d['I9_ts_shape'].append((n, e.get('issue'), ts))
+            else:
+                if e.get('day') != calc_day:
+                    d['I10_day_matches_ts'].append((n, e.get('issue'), ts, e.get('day'), calc_day))
+                if ts_prev and ts < ts_prev:
+                    inversions.append((n, ts, ts_prev))
+                ts_prev = ts
         if not isinstance(e.get('project'), str) or not e.get('project'):
             d['I12_project_present'].append((n, e.get('issue'), e.get('project')))
         f = e.get('formula')
@@ -134,8 +145,15 @@ def main(argv=None):
     if not os.path.isfile(args.ledger):
         print('::error::账本不存在：%s' % args.ledger)
         return 1
-    obj = json.load(io.open(args.ledger, encoding='utf-8'))
+    try:
+        obj = json.load(io.open(args.ledger, encoding='utf-8'))
+    except (OSError, ValueError) as exc:
+        print('::error::账本不可解析：%s（%s）' % (args.ledger, exc))
+        return 1
     events = obj['events'] if isinstance(obj, dict) and 'events' in obj else obj
+    if not isinstance(events, list):
+        print('::error::账本 events 不是数组：%s（实际 %s）' % (args.ledger, type(events).__name__))
+        return 1
     table = None
     if os.path.isfile(args.contribution_table):
         table = io.open(args.contribution_table, encoding='utf-8').read()

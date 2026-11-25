@@ -126,6 +126,33 @@ def date_ok(text) -> bool:
 
 
 # 生效条件：doc 为快照清单对象时返回「文件名 → 清单项」映射；结构不符抛 ValueError。
+def _is_safe_snapshot_name(name: str) -> bool:
+    """快照文件名安全判据：单层纯文件名，禁止绝对路径、盘符、分隔符与 .. 穿越。"""
+    if not isinstance(name, str) or not name or "\x00" in name:
+        return False
+    if os.path.isabs(name) or "/" in name or "\\" in name:
+        return False
+    if name in (".", "..") or os.path.splitdrive(name)[0]:
+        return False
+    return True
+
+
+def _resolve_inside(ev_dir: str, name: str):
+    """在 ev_dir 内解析快照路径；越界或非法名返回 None（fail-closed）。"""
+    if not _is_safe_snapshot_name(name):
+        return None
+    root_real = os.path.realpath(ev_dir)
+    cand = os.path.realpath(os.path.join(ev_dir, name))
+    try:
+        if os.path.commonpath([os.path.normcase(root_real), os.path.normcase(cand)]) != os.path.normcase(root_real):
+            return None
+    except ValueError:
+        return None
+    if os.path.normcase(cand) == os.path.normcase(root_real):
+        return None
+    return cand
+
+
 def manifest_index(manifest) -> dict:
     """快照清单 → {file: 清单项}。"""
     docs = manifest.get("documents") if isinstance(manifest, dict) else None
@@ -144,6 +171,8 @@ def manifest_index(manifest) -> dict:
         if not isinstance(d, dict) or not str(d.get("file") or ""):
             raise ValueError("快照清单有条目缺 file：%r" % (d,))
         name = str(d["file"])
+        if not _is_safe_snapshot_name(name):
+            raise ValueError("快照清单 file 路径非法（禁止路径穿越或绝对路径）：%r" % (name,))
         if name in out:
             dups.append(name)
         out[name] = d
@@ -209,9 +238,12 @@ def audit(root=None, want_repro=True) -> tuple:
 
     # ① 快照完整性（哈希 ＋ 字节 ＋ 清单字段）
     for name in sorted(index):
-        p = os.path.join(ev_dir, name)
+        p = _resolve_inside(ev_dir, name)
         item = index[name]
         want = str(item.get("sha256") or "")
+        if p is None:
+            bad.append("快照路径越界：%r（必须位于 review/evidence/ 目录内）" % (name,))
+            continue
         if not os.path.isfile(p):
             bad.append("快照缺失：%s" % name)
             continue
@@ -225,17 +257,18 @@ def audit(root=None, want_repro=True) -> tuple:
             bad.append("快照哈希不符：%s（清单 %s…／实得 %s…）"
                        % (name, want[:12], got[:12]))
         # 字节数：清单里写了就必须对得上——它是「这份快照没被换过」的第二道旁证。
-        try:
-            want_bytes = int(item.get("bytes"))
-        except (TypeError, ValueError):
-            bad.append("清单条目 %s 的 bytes 不是整数：%r" % (name, item.get("bytes")))
+        raw_bytes = item.get("bytes")
+        if isinstance(raw_bytes, bool) or not isinstance(raw_bytes, int) or raw_bytes < 0:
+            bad.append("清单条目 %s 的 bytes 不是整数：%r" % (name, raw_bytes))
         else:
+            want_bytes = raw_bytes
             if want_bytes != got_bytes:
                 bad.append("快照字节数不符：%s（清单 %d ／ 实得 %d）"
                            % (name, want_bytes, got_bytes))
         # 清单字段：缺一即点名（早先版本对 kind／source_url／fetched_at 零校验）。
         for k in MANIFEST_FIELDS:
-            if not str(item.get(k) or "").strip():
+            raw_v = item.get(k)
+            if raw_v is None or (isinstance(raw_v, str) and not raw_v.strip()):
                 bad.append("清单条目 %s 缺字段 %s" % (name, k))
         if str(item.get("kind") or "") not in SNAPSHOT_KINDS:
             bad.append("清单条目 %s 的 kind 非法：%r（须 %s 之一）"
@@ -293,8 +326,15 @@ def audit(root=None, want_repro=True) -> tuple:
             if text is None:
                 # **严格解码**：早先用 errors="replace"，会把「这份快照根本不是 UTF-8」
                 # 静默变形成替换字符，于是引文判据在一个已损坏的输入上给出「通过」。
+                doc_path = _resolve_inside(ev_dir, doc)
+                if doc_path is None:
+                    bad.append("快照路径越界：%r" % (doc,))
+                    rows.append({"kind": "cite", "id": eid, "ok": False,
+                                 "detail": "快照路径越界"})
+                    cache[doc] = ""
+                    continue
                 try:
-                    with io.open(os.path.join(ev_dir, doc), encoding="utf-8") as fh:
+                    with io.open(doc_path, encoding="utf-8") as fh:
                         text = fh.read()
                 except (OSError, UnicodeDecodeError) as exc:
                     bad.append("快照不可读或不是 UTF-8：%s（%s）" % (doc, exc))

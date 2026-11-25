@@ -255,21 +255,37 @@ def rescore(events):
                         None, None))
             continue
         f = ev.get("formula")
-        if not f:
-            if _as_int(ev.get("delta")) != 0:
-                bad.append((ev.get("id"), "missing formula", ev.get("delta"), None))
+        raw_delta = ev.get("delta")
+        if f is None or f == {}:
+            _zero_bad = (isinstance(raw_delta, bool)
+                         or (raw_delta not in (None, 0)
+                             and _as_int(raw_delta, None) != 0))
+            if _zero_bad:
+                bad.append((ev.get("id"), "missing formula", raw_delta, None))
+            continue
+        if not isinstance(f, dict):
+            bad.append((ev.get("id"),
+                        "malformed formula: 不是对象（实为 %s）" % type(f).__name__,
+                        raw_delta, None))
             continue
         _rule = f.get("rule")
         if _rule not in KNOWN_RULES:
-            bad.append((ev.get("id"), "unknown rule " + str(_rule), ev.get("delta"), None))
+            bad.append((ev.get("id"), "unknown rule " + str(_rule), raw_delta, None))
             continue
         #: 维护者直接裁决档：值由 `base` 原样给出，**不套 quality_delta 重算**。
         #: 复算只校验「delta 与 base 一致」——即该笔分数确实按裁决值入账，没被手改。
         if _rule == MAINTAINER_DIRECT_RULE:
-            _want = _as_int(f.get("base"))
-            if _as_int(ev.get("delta")) != _want:
+            _raw_base = f.get("base")
+            _want = None if isinstance(_raw_base, bool) else _as_int(_raw_base, None)
+            if _want is None:
                 bad.append((ev.get("id"),
-                            "maintainer ruling delta mismatch", ev.get("delta"), _want))
+                            "malformed formula: maintainer ruling base 非整数",
+                            raw_delta, None))
+                continue
+            _got_dr = None if isinstance(raw_delta, bool) else _as_int(raw_delta, None)
+            if _got_dr != _want:
+                bad.append((ev.get("id"),
+                            "maintainer ruling delta mismatch", raw_delta, _want))
             continue
         kind = f.get("kind")
         # ★本笔：畸形 `formula`（非数值的 base/round/e_pass/e_total、除零等）**不让
@@ -277,23 +293,37 @@ def rescore(events):
         # `missing formula` / `unknown rule` 同款（三元组形状与既有条目一致）。
         try:
             if kind == "timeout":
+                if isinstance(f.get("base"), bool):
+                    raise TypeError("bool base")
                 d = -2 * int(f.get("base") or 0)
             elif kind == "invalid":
+                if isinstance(f.get("base"), bool):
+                    raise TypeError("bool base")
                 d = -int(f.get("base") or 0)
             elif kind == "lost_bid":
                 d = LOSER_SCORES.get("difficulty:" + str(f.get("difficulty") or ""), 0)
-            else:
+            elif kind in ("complete", None, ""):
+                if isinstance(f.get("base"), bool) or isinstance(f.get("round"), bool):
+                    raise TypeError("bool base/round")
+                _rnd = int(f.get("round") or 0)
+                if _rnd < 0:
+                    raise ValueError("negative round %d" % _rnd)
                 # ★本笔：走 `e_ratio` 单点（与 `quality_delta` 共用）——旧实现此处
                 # 直接 `e_pass / e_total` **不钳制**，与生产侧分叉（见 `e_ratio` 注释）。
                 _e = e_ratio(f.get("e_pass"), f.get("e_total"))
-                d = max(1, _round_half_up(int(f.get("base") or 0) * 2.0 * _e / (int(f.get("round") or 0) + 1)))
+                d = max(1, _round_half_up(int(f.get("base") or 0) * 2.0 * _e / (_rnd + 1)))
+            else:
+                raise ValueError("unknown kind %r" % (kind,))
         except (TypeError, ValueError, ZeroDivisionError) as exc:
             bad.append((ev.get("id"),
                         "malformed formula: %s: %s" % (type(exc).__name__, exc),
-                        ev.get("delta"), None))
+                        raw_delta, None))
             continue
-        if d != _as_int(ev.get("delta")):
-            bad.append((ev.get("id"), "delta mismatch", ev.get("delta"), d))
+        _got = _as_int(raw_delta)
+        if (d != _got or isinstance(raw_delta, bool)
+                or (d == 0 and raw_delta not in (None, 0)
+                    and _as_int(raw_delta, None) is None)):
+            bad.append((ev.get("id"), "delta mismatch", raw_delta, d))
     return (not bad), bad
 
 
@@ -1177,9 +1207,16 @@ def event_id(ev: dict) -> str:
 
 # 生效条件：events 为既有事件列表、new 为待追加事件可迭代时返回「既有 + 未见过的新事件」——append-only，且按 id 幂等（重复投递不重复入账）；既有行永不改写。
 def append_events(events, new):
-    """append-only 追加（按 id 幂等）。"""
-    seen = {e.get("id") for e in events or []}
-    added = [e for e in (new or []) if e.get("id") and e.get("id") not in seen]
+    """append-only 追加（按 id 幂等，含批内去重）。"""
+    seen = {e.get("id") for e in (events or []) if isinstance(e, dict) and e.get("id")}
+    added = []
+    for e in (new or []):
+        if not isinstance(e, dict):
+            continue
+        eid = e.get("id")
+        if eid and eid not in seen:
+            seen.add(eid)
+            added.append(e)
     return list(events or []) + added
 
 
@@ -1692,13 +1729,18 @@ class GitHubClient:
     # 生效条件：actor 为非空登录名、exclude 为当前 issue 号（可为 None）时返回「actor 打开且态为 claimed/delivered 的 issue 数」（并发上限判据的唯一取数面）；抓取面受 limit 页约束。
     def count_active_claims(self, actor, exclude=None, limit=10):
         n = 0
+        seen_issues = set()
         for label in ("bounty:claimed", "bounty:delivered"):
             for it in self.issues_with_label(label, limit=limit):
-                if exclude is not None and int(it.get("number", -1)) == int(exclude):
+                num = int(it.get("number", -1))
+                if num in seen_issues:
+                    continue
+                seen_issues.add(num)
+                if exclude is not None and num == int(exclude):
                     continue
                 labels = [l.get("name") for l in it.get("labels") or []]
-                st = build_state(it.get("number"), labels,
-                                 self.comments(it.get("number")),
+                st = build_state(num, labels,
+                                 self.comments(num),
                                  author=(it.get("user") or {}).get("login"))
                 if st.holder == actor and st.state in ("claimed", "delivered"):
                     n += 1
@@ -1729,15 +1771,24 @@ def extract_pr_number(payload, repo):
     if not payload or not repo or "/" not in repo:
         return None
     owner, name = repo.split("/", 1)
+    want_owner, want_name = owner.lower(), name.lower()
     for m in re.finditer(r"https?://[^\s<>()\[\]`\"']+", payload):
-        seg = m.group(0).split("github.com/", 1)
-        if len(seg) != 2:
+        try:
+            parsed = urllib.parse.urlsplit(m.group(0))
+        except ValueError:
             continue
-        if not seg[1].lower().startswith(f"{owner.lower()}/{name.lower()}/"):
+        if (parsed.scheme.lower() not in ("http", "https")
+                or (parsed.hostname or "").lower() != "github.com"
+                or parsed.port is not None
+                or parsed.username or parsed.password):
             continue
-        pm = _PULL_RE.search(seg[1])
-        if pm:
-            return int(pm.group(1))
+        parts = [p for p in parsed.path.split("/") if p]
+        if (len(parts) >= 4
+                and parts[0].lower() == want_owner
+                and parts[1].lower() == want_name
+                and parts[2] == "pull"
+                and parts[3].isdigit()):
+            return int(parts[3])
     return None
 
 
@@ -2017,6 +2068,8 @@ def apply_live(client, states, decisions, apply=False, out=print):
     events = []
     for st, dec in zip(states, decisions):
         events.append(dec.event)
+        if dec.extra_events:
+            events.extend(dec.extra_events)
         out(f"{'APPLY ' if apply else 'PLAN  '}#{st.number} {dec.from_state} → "
             f"{dec.to_state} ｜ {dec.reason}")
         if apply:
@@ -2070,7 +2123,7 @@ def handle_issue_comment(payload, cfg: Config, client, apply=False, out=print):
     is_rev = actor in cfg.reviewers or actor in _roles['reviewer']
     is_rev = is_rev and actor not in _revoked['reviewer']
     pr_meta = None
-    if cmd == "/deliver":
+    if cmd in ("/deliver", "/bid"):
         prn = extract_pr_number(cmd_payload, client.repo)
         if prn:
             pr = client.pull(prn)

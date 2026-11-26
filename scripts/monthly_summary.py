@@ -61,8 +61,8 @@ def aggregate(events):
     for e in events:
         if not isinstance(e, dict):
             raise SystemExit('::error::账本事件不是对象（实际 %s）' % type(e).__name__)
-        day = e.get('day') or ''
-        if len(day) < 10:
+        day = e.get('day')
+        if not isinstance(day, str) or len(day) < 10:
             raise SystemExit('事件 day 非法：%r（issue=%r）' % (day, e.get('issue')))
         y, ym = day[:4], day[:7]
         # F26-05（dsh-bounty #1730）：非整数字符串会让 int() 抛 ValueError 裸栈；

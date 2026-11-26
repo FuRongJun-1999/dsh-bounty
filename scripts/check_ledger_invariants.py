@@ -106,7 +106,7 @@ def audit(events, table_text=None):
         else:
             try:
                 calc_day = _day_of(ts)
-            except ValueError:
+            except (ValueError, OverflowError):
                 d['I9_ts_shape'].append((n, e.get('issue'), ts))
             else:
                 if e.get('day') != calc_day:

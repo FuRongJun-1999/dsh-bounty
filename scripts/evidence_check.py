@@ -268,7 +268,10 @@ def audit(root=None, want_repro=True) -> tuple:
         # 清单字段：缺一即点名（早先版本对 kind／source_url／fetched_at 零校验）。
         for k in MANIFEST_FIELDS:
             raw_v = item.get(k)
-            if raw_v is None or (isinstance(raw_v, str) and not raw_v.strip()):
+            if k == "bytes":
+                if raw_v is None:
+                    bad.append("清单条目 %s 缺字段 %s" % (name, k))
+            elif not isinstance(raw_v, str) or not raw_v.strip():
                 bad.append("清单条目 %s 缺字段 %s" % (name, k))
         if str(item.get("kind") or "") not in SNAPSHOT_KINDS:
             bad.append("清单条目 %s 的 kind 非法：%r（须 %s 之一）"

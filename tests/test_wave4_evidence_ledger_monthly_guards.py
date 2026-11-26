@@ -96,19 +96,37 @@ def run_suite(ec, cli, ms, quiet: bool = False):
         _r, bads0 = ec.audit(root=td, want_repro=False)
         ok("E1c", "evidence_check 允许合法 0 字节快照（bytes=0 不误报缺字段）", bads0 == [], bads0)
 
+        # E1e: falsy non-string source_url / fetched_at (False, [], 0) must still be flagged as missing
+        falsy_ok = True
+        for bad_val in (False, [], 0, {}):
+            with io.open(os.path.join(ev_dir, "manifest.json"), "w", encoding="utf-8", newline="\n") as fh:
+                json.dump({"documents": [{"file": "zero.txt", "kind": "README", "source_url": bad_val,
+                                          "sha256": ec.sha256_file(zero), "bytes": 0, "fetched_at": bad_val}]}, fh)
+            _r, badsf = ec.audit(root=td, want_repro=False)
+            if not (any("缺字段 source_url" in b for b in badsf) and any("缺字段 fetched_at" in b for b in badsf)):
+                falsy_ok = False
+                break
+        ok("E1e", "evidence_check 拦截非字符串假值 source_url/fetched_at（False/[]/0/{} 不得绕过）", falsy_ok)
+
     # ---- L: check_ledger_invariants invalid calendar date + non-dict / non-list ----
     bad_cal_ev = [{
         "id": "evt_000000000000", "ts": "2026-02-30T25:99:99Z", "day": "2026-02-30",
         "action": "settle", "actor": "a", "holder": "b", "difficulty": "easy",
         "delta": 1, "impact": "B", "covers": [1], "project": "memory",
     }]
+    ovf_cal_ev = [{
+        "id": "evt_000000000001", "ts": "9999-12-31T20:00:00Z", "day": "9999-12-31",
+        "action": "settle", "actor": "a", "holder": "b", "difficulty": "easy",
+        "delta": 1, "impact": "B", "covers": [1], "project": "memory",
+    }]
     try:
         bd, _st = cli.audit(bad_cal_ev)
-        cal_ok = bool(bd.get("I9_ts_shape"))
+        bd_ovf, _st_ovf = cli.audit(ovf_cal_ev)
+        cal_ok = bool(bd.get("I9_ts_shape")) and bool(bd_ovf.get("I9_ts_shape"))
     except Exception as exc:
         cal_ok = False
         bd = f"CRASH:{type(exc).__name__}"
-    ok("L1a", "check_ledger_invariants 对非法日历 ts 归入 I9_ts_shape（不抛裸 ValueError）", cal_ok, bd)
+    ok("L1a", "check_ledger_invariants 对非法日历/溢出 ts 归入 I9_ts_shape（不抛裸 ValueError/OverflowError）", cal_ok, bd)
 
     try:
         bd2, _st2 = cli.audit(["not-a-dict", 123])
@@ -164,7 +182,14 @@ def run_suite(ec, cli, ms, quiet: bool = False):
         nd_ms_ok = "不是对象" in str(exc)
     except Exception:
         nd_ms_ok = False
-    ok("M1c", "monthly_summary 非对象事件 fail-closed SystemExit（不抛裸 AttributeError）", nd_ms_ok)
+    day_ms_ok = False
+    try:
+        ms.build([{"day": 20261101, "delta": 1, "holder": "a", "project": "memory"}])
+    except SystemExit as exc:
+        day_ms_ok = "day 非法" in str(exc)
+    except Exception:
+        day_ms_ok = False
+    ok("M1c", "monthly_summary 非对象事件与非字符串 day 均 fail-closed SystemExit", nd_ms_ok and day_ms_ok)
 
     return red, total[0]
 
@@ -183,11 +208,15 @@ MUTANTS = (
      "        if False:  # MUT",
      {"E1b"}),
     ("WM_EC3", EC_PATH, "ec", "evidence_check 恢复 bytes=0 假阳性缺字段",
-     "            if raw_v is None or (isinstance(raw_v, str) and not raw_v.strip()):",
-     '            if not str(raw_v or "").strip():  # MUT',
+     "            if k == \"bytes\":\n                if raw_v is None:",
+     "            if k == \"bytes\":\n                if not raw_v:  # MUT",
      {"E1c"}),
-    ("WM_CLI1", CLI_PATH, "cli", "check_ledger_invariants 关闭非法日历 ts 异常捕获",
-     "            try:\n                calc_day = _day_of(ts)\n            except ValueError:",
+    ("WM_EC4", EC_PATH, "ec", "evidence_check 放行非字符串假值 source_url/fetched_at",
+     "            elif not isinstance(raw_v, str) or not raw_v.strip():",
+     "            elif raw_v is None or (isinstance(raw_v, str) and not raw_v.strip()):  # MUT",
+     {"E1e"}),
+    ("WM_CLI1", CLI_PATH, "cli", "check_ledger_invariants 关闭非法日历/溢出 ts 异常捕获",
+     "            try:\n                calc_day = _day_of(ts)\n            except (ValueError, OverflowError):",
      "            try:\n                calc_day = _day_of(ts)\n            except KeyError:  # MUT",
      {"L1a"}),
     ("WM_CLI2", CLI_PATH, "cli", "check_ledger_invariants 关闭非对象元素守卫",

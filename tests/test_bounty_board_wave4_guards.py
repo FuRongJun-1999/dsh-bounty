@@ -70,9 +70,13 @@ def run_suite(bb, quiet: bool = False):
 
     # ---- W2: extract_pr_number host/path hardening ----
     repo = "FuRongJun-1999/dsh-bounty"
-    ok("W2a", "合法本仓 PR 链接（含大小写/子路径/查询串）照常提取",
+    ok("W2a", "合法本仓 PR 链接（含大小写/子路径/中英文尾标点/多链接回落）照常提取",
        bb.extract_pr_number("https://github.com/FuRongJun-1999/dsh-bounty/pull/77", repo) == 77
-       and bb.extract_pr_number("https://GITHUB.COM/furongjun-1999/DSH-BOUNTY/pull/88/files?w=1", repo) == 88)
+       and bb.extract_pr_number("https://GITHUB.COM/furongjun-1999/DSH-BOUNTY/pull/88/files?w=1", repo) == 88
+       and bb.extract_pr_number("/deliver 已完成：https://github.com/FuRongJun-1999/dsh-bounty/pull/77。", repo) == 77
+       and bb.extract_pr_number("/deliver See https://github.com/FuRongJun-1999/dsh-bounty/pull/77.", repo) == 77
+       and bb.extract_pr_number("（见 https://github.com/FuRongJun-1999/dsh-bounty/pull/77）", repo) == 77
+       and bb.extract_pr_number("https://evil.com/github.com/FuRongJun-1999/dsh-bounty/pull/99 and https://github.com/FuRongJun-1999/dsh-bounty/pull/42.", repo) == 42)
     spoofs = [
         "https://evil.com/github.com/FuRongJun-1999/dsh-bounty/pull/77",
         "https://notgithub.com/FuRongJun-1999/dsh-bounty/pull/77",
@@ -82,9 +86,11 @@ def run_suite(bb, quiet: bool = False):
         "https://github.com/FuRongJun-1999/dsh-bounty/issues/1?x=/pull/77",
         "https://github.com/FuRongJun-1999/dsh-bounty/blob/main/pull/77",
         "https://github.com/other/dsh-bounty/pull/77",
+        "https://github.com/FuRongJun-1999/dsh-bounty/pull/²",
+        "https://github.com/FuRongJun-1999/dsh-bounty/pull/0",
     ]
     got_spoofs = [bb.extract_pr_number(u, repo) for u in spoofs]
-    ok("W2b", "全部 8 类伪造/非本仓 PR 链接一律返回 None",
+    ok("W2b", "全部 10 类伪造/非本仓/非 ASCII 数字/0 号 PR 链接一律返回 None 且不崩",
        all(x is None for x in got_spoofs), got_spoofs)
 
     # ---- W3: handle_issue_comment extracts pr_meta on /bid ----
@@ -138,27 +144,33 @@ def run_suite(bb, quiet: bool = False):
 
     r_miss_str = bb.rescore([{"id": "evt_ms", "delta": "abc"}])
     r_miss_bool = bb.rescore([{"id": "evt_mb", "delta": False}])
+    r_miss_flt = bb.rescore([{"id": "evt_mf", "delta": 0.9}])
     r_miss_ok = bb.rescore([{"id": "evt_m0", "delta": 0, "formula": None}])
-    ok("W4b", "rescore 缺 formula 时拒绝非整数/bool delta，合法 delta=0 照常通过",
-       r_miss_str[0] is False and r_miss_bool[0] is False and r_miss_ok[0] is True,
-       (r_miss_str, r_miss_bool, r_miss_ok))
+    ok("W4b", "rescore 缺 formula 时拒绝非整数/bool/float delta，合法 delta=0 照常通过",
+       r_miss_str[0] is False and r_miss_bool[0] is False and r_miss_flt[0] is False and r_miss_ok[0] is True,
+       (r_miss_str, r_miss_bool, r_miss_flt, r_miss_ok))
 
     r_dr_bad = bb.rescore([{"id": "evt_dr", "delta": "xyz",
                             "formula": {"rule": "maintainer_direct_ruling", "base": "abc"}}])
     r_dr_bool = bb.rescore([{"id": "evt_drb", "delta": True,
                              "formula": {"rule": "maintainer_direct_ruling", "base": 1}}])
+    r_dr_flt = bb.rescore([{"id": "evt_drf", "delta": 4.9,
+                            "formula": {"rule": "maintainer_direct_ruling", "base": 4.1}}])
     r_dr_ok = bb.rescore([{"id": "evt_drok", "delta": 40,
                            "formula": {"rule": "maintainer_direct_ruling", "base": 40}}])
-    ok("W4c", "rescore 维护者直裁拒绝非整数/bool base 或 delta，合法直裁通过",
-       r_dr_bad[0] is False and r_dr_bool[0] is False and r_dr_ok[0] is True,
-       (r_dr_bad, r_dr_bool, r_dr_ok))
+    ok("W4c", "rescore 维护者直裁拒绝非整数/bool/float base 或 delta，合法直裁通过",
+       r_dr_bad[0] is False and r_dr_bool[0] is False and r_dr_flt[0] is False and r_dr_ok[0] is True,
+       (r_dr_bad, r_dr_bool, r_dr_flt, r_dr_ok))
 
     r_bool_d = bb.rescore([{"id": "evt_bd", "delta": True,
                             "formula": {"rule": "v1.0", "kind": "complete", "base": 1, "round": 1}}])
+    r_flt_d = bb.rescore([{"id": "evt_fd", "delta": 4.9,
+                           "formula": {"rule": "v1.0", "kind": "complete", "base": 4, "round": 1}}])
     r_zero_str = bb.rescore([{"id": "evt_z0", "delta": "abc",
                               "formula": {"rule": "v1.0", "kind": "lost_bid", "difficulty": "easy"}}])
-    ok("W4d", "rescore 拒绝 bool delta 与 d==0 下的非整数 delta",
-       r_bool_d[0] is False and r_zero_str[0] is False, (r_bool_d, r_zero_str))
+    ok("W4d", "rescore 拒绝 bool/float delta 与 d==0 下的非整数 delta",
+       r_bool_d[0] is False and r_flt_d[0] is False and r_zero_str[0] is False,
+       (r_bool_d, r_flt_d, r_zero_str))
 
     r_neg = bb.rescore([{"id": "evt_nr", "delta": 1,
                          "formula": {"rule": "v1.0", "kind": "complete", "base": 3, "round": -2}}])
@@ -233,8 +245,8 @@ MUTANTS = (
      "                if _rnd < 0:",
      "                if False:  # MUT",
      {"W4e"}),
-    ("WM6", "rescore 去掉 bool delta 守卫",
-     "        if (d != _got or isinstance(raw_delta, bool)",
+    ("WM6", "rescore 去掉 bool/float delta 守卫",
+     "        if (d != _got or isinstance(raw_delta, (bool, float))",
      "        if (d != _got or False  # MUT",
      {"W4d"}),
     ("WM7", "append_events 不更新 seen（批内重复入账）",

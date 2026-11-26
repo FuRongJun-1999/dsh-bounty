@@ -257,7 +257,7 @@ def rescore(events):
         f = ev.get("formula")
         raw_delta = ev.get("delta")
         if f is None or f == {}:
-            _zero_bad = (isinstance(raw_delta, bool)
+            _zero_bad = (isinstance(raw_delta, (bool, float))
                          or (raw_delta not in (None, 0)
                              and _as_int(raw_delta, None) != 0))
             if _zero_bad:
@@ -276,13 +276,13 @@ def rescore(events):
         #: 复算只校验「delta 与 base 一致」——即该笔分数确实按裁决值入账，没被手改。
         if _rule == MAINTAINER_DIRECT_RULE:
             _raw_base = f.get("base")
-            _want = None if isinstance(_raw_base, bool) else _as_int(_raw_base, None)
+            _want = None if isinstance(_raw_base, (bool, float)) else _as_int(_raw_base, None)
             if _want is None:
                 bad.append((ev.get("id"),
                             "malformed formula: maintainer ruling base 非整数",
                             raw_delta, None))
                 continue
-            _got_dr = None if isinstance(raw_delta, bool) else _as_int(raw_delta, None)
+            _got_dr = None if isinstance(raw_delta, (bool, float)) else _as_int(raw_delta, None)
             if _got_dr != _want:
                 bad.append((ev.get("id"),
                             "maintainer ruling delta mismatch", raw_delta, _want))
@@ -293,18 +293,18 @@ def rescore(events):
         # `missing formula` / `unknown rule` 同款（三元组形状与既有条目一致）。
         try:
             if kind == "timeout":
-                if isinstance(f.get("base"), bool):
-                    raise TypeError("bool base")
+                if isinstance(f.get("base"), (bool, float)):
+                    raise TypeError("non-int base")
                 d = -2 * int(f.get("base") or 0)
             elif kind == "invalid":
-                if isinstance(f.get("base"), bool):
-                    raise TypeError("bool base")
+                if isinstance(f.get("base"), (bool, float)):
+                    raise TypeError("non-int base")
                 d = -int(f.get("base") or 0)
             elif kind == "lost_bid":
                 d = LOSER_SCORES.get("difficulty:" + str(f.get("difficulty") or ""), 0)
             elif kind in ("complete", None, ""):
-                if isinstance(f.get("base"), bool) or isinstance(f.get("round"), bool):
-                    raise TypeError("bool base/round")
+                if isinstance(f.get("base"), (bool, float)) or isinstance(f.get("round"), (bool, float)):
+                    raise TypeError("non-int base/round")
                 _rnd = int(f.get("round") or 0)
                 if _rnd < 0:
                     raise ValueError("negative round %d" % _rnd)
@@ -320,7 +320,7 @@ def rescore(events):
                         raw_delta, None))
             continue
         _got = _as_int(raw_delta)
-        if (d != _got or isinstance(raw_delta, bool)
+        if (d != _got or isinstance(raw_delta, (bool, float))
                 or (d == 0 and raw_delta not in (None, 0)
                     and _as_int(raw_delta, None) is None)):
             bad.append((ev.get("id"), "delta mismatch", raw_delta, d))
@@ -1772,9 +1772,11 @@ def extract_pr_number(payload, repo):
         return None
     owner, name = repo.split("/", 1)
     want_owner, want_name = owner.lower(), name.lower()
-    for m in re.finditer(r"https?://[^\s<>()\[\]`\"']+", payload):
+    _trail = ".,;:!?。，；：！？、）》】」』”’"
+    for m in re.finditer(r"https?://[^\s<>()\[\]`\"'（）《》【】「」『』“”‘’]+", payload):
+        raw_url = m.group(0).rstrip(_trail)
         try:
-            parsed = urllib.parse.urlsplit(m.group(0))
+            parsed = urllib.parse.urlsplit(raw_url)
         except ValueError:
             continue
         if (parsed.scheme.lower() not in ("http", "https")
@@ -1786,9 +1788,11 @@ def extract_pr_number(payload, repo):
         if (len(parts) >= 4
                 and parts[0].lower() == want_owner
                 and parts[1].lower() == want_name
-                and parts[2] == "pull"
-                and parts[3].isdigit()):
-            return int(parts[3])
+                and parts[2].lower() == "pull"
+                and re.fullmatch(r"[0-9]+", parts[3])):
+            pr_num = int(parts[3])
+            if pr_num > 0:
+                return pr_num
     return None
 
 

@@ -59,8 +59,10 @@ def aggregate(events):
     hproj = collections.defaultdict(lambda: collections.Counter())
 
     for e in events:
-        day = e.get('day') or ''
-        if len(day) < 10:
+        if not isinstance(e, dict):
+            raise SystemExit('::error::账本事件不是对象（实际 %s）' % type(e).__name__)
+        day = e.get('day')
+        if not isinstance(day, str) or len(day) < 10:
             raise SystemExit('事件 day 非法：%r（issue=%r）' % (day, e.get('issue')))
         y, ym = day[:4], day[:7]
         # F26-05（dsh-bounty #1730）：非整数字符串会让 int() 抛 ValueError 裸栈；
@@ -174,7 +176,7 @@ def build(events):
     add('| 贡献者 | ' + ' | '.join(years) + ' | **合计** | 结算项 |')
     add('|---|' + '---|' * len(years) + '---|---|')
     for h in holders:
-        cells = ' | '.join(str(hy[h][y]) if hy[h].get(y) else '·' for y in years)
+        cells = ' | '.join(str(hy[h][y]) if y in hy[h] else '·' for y in years)
         add('| @%s | %s | **%d** | %d |' % (h, cells, by_holder[h]['delta'], by_holder[h]['n']))
     add('| **合计** | ' + ' | '.join('**%d**' % by_year[y]['delta'] for y in years) + ' | **%d** | **%d** |' % (total_delta, total_n))
     add('')
@@ -186,7 +188,7 @@ def build(events):
     add('| 贡献者 | ' + ' | '.join(months) + ' | **合计** | 结算项 |')
     add('|---|' + '---|' * len(months) + '---|---|')
     for h in holders:
-        cells = ' | '.join(str(hm[h][ym]) if hm[h].get(ym) else '·' for ym in months)
+        cells = ' | '.join(str(hm[h][ym]) if ym in hm[h] else '·' for ym in months)
         add('| @%s | %s | **%d** | %d |' % (h, cells, by_holder[h]['delta'], by_holder[h]['n']))
     add('| **合计** | ' + ' | '.join('**%d**' % by_month[ym]['delta'] for ym in months) + ' | **%d** | **%d** |' % (total_delta, total_n))
     add('')
@@ -209,7 +211,7 @@ def build(events):
     add('')
     add('| # | 贡献者 | Δ | 结算项 | easy | medium | hard | expert | 项目分布 |')
     add('|---|---|---|---|---|---|---|---|---|')
-    in_month = [h for h in holders if hm[h].get(latest)]
+    in_month = [h for h in holders if latest in hm[h]]
     in_month.sort(key=lambda h: (-hm[h][latest], h))
     for i, h in enumerate(in_month, 1):
         d = month_detail[h]
@@ -231,11 +233,12 @@ def build(events):
     add('条长按 Δ 相对最大值缩放，满格 = 最大月。')
     add('')
     add('```')
-    max_d = max((d['delta'] for d in by_month.values()), default=1) or 1
+    max_d = max((d['delta'] for d in by_month.values() if d['delta'] > 0), default=1)
     for ym in months:
         d = by_month[ym]
+        bar = '#' * max(1, round(d['delta'] / max_d * 20)) if d['delta'] > 0 else ''
         add('%s  %-20s %6d  (%d 项 / %d 人)' % (
-            ym, '#' * max(1, round(d['delta'] / max_d * 20)), d['delta'], d['n'], len(d['holders'])))
+            ym, bar, d['delta'], d['n'], len(d['holders'])))
     add('```')
     add('')
     add('---')
